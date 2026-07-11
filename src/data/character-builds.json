@@ -1632,5 +1632,30 @@
     },
     "recommended_sets": [],
     "er_threshold": 110
+  },
+  "10000133": {
+    "name": "Sandrone",
+    "substat_weights": {
+      "CRIT_RATE": 1.0,
+      "CRIT_DMG": 1.0,
+      "ATK_PERCENT": 1.0,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.2,
+      "ENERGY_RECHARGE": 0.35,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 1.0,
+      "FLAT_ATK": 0.2,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": ["ATK_PERCENT", "ENERGY_RECHARGE"],
+      "GOBLET": ["CRYO_DMG", "ATK_PERCENT"],
+      "CIRCLET": ["CRIT_DMG", "CRIT_RATE"]
+    },
+    "recommended_sets": ["14014", "14001", "14029"],
+    "er_threshold": 140
   }
 }

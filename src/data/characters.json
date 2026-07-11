@@ -617,6 +617,18 @@
     "weapon": "Polearm",
     "icon": "UI_AvatarIcon_Ineffa"
   },
+  "10000117": {
+    "name": "Manekin",
+    "element": "Dendro",
+    "weapon": "Bow",
+    "icon": "UI_AvatarIcon_Manekin"
+  },
+  "10000118": {
+    "name": "Manekina",
+    "element": "Dendro",
+    "weapon": "Catalyst",
+    "icon": "UI_AvatarIcon_Manekina"
+  },
   "10000119": {
     "name": "Lauma",
     "element": "Dendro",
@@ -702,15 +714,9 @@
     "icon": "UI_AvatarIcon_Varka"
   },
   "10000133": {
-    "name": "Manekin",
-    "element": "Dendro",
-    "weapon": "Bow",
-    "icon": "UI_AvatarIcon_Manekin"
-  },
-  "10000134": {
-    "name": "Manekina",
-    "element": "Dendro",
-    "weapon": "Catalyst",
-    "icon": "UI_AvatarIcon_Manekina"
+    "name": "Sandrone",
+    "element": "Cryo",
+    "weapon": "Claymore",
+    "icon": "UI_AvatarIcon_MarionetteNew"
   }
 }
