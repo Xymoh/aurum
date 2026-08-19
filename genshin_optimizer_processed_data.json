@@ -6165,12 +6165,12 @@
         "ELEMENTAL_MASTERY"
       ],
       "CIRCLET": [
-        "CRIT_RATE",
-        "CRIT_DMG"
+        "CRIT_DMG",
+        "CRIT_RATE"
       ]
     },
     "recommended_sets": [],
-    "er_threshold": 120,
+    "er_threshold": 110,
     "base_stats": {
       "hp_base": 972.3864,
       "atk_base": 27.3714,
@@ -6592,64 +6592,6 @@
     "source": "genshin-optimizer/frzyc",
     "data_version": "allStat_gen.json — master branch"
   },
-  "Lohen": {
-    "name": "Lohen",
-    "display_name": "Lohen",
-    "element": "Cryo",
-    "weapon_type": "Polearm",
-    "rarity": 5,
-    "avatar_id": "10000129",
-    "scaling_attribute": "Crit DMG%",
-    "scaling_stat": "CRIT_DMG",
-    "ascension_stat": "critDMG_",
-    "ascension_bonus_curve": [
-      0,
-      0,
-      0.096,
-      0.192,
-      0.192,
-      0.288,
-      0.384
-    ],
-    "substat_weights": {
-      "CRIT_RATE": 1,
-      "CRIT_DMG": 1,
-      "ATK_PERCENT": 0.7,
-      "HP_PERCENT": 0,
-      "DEF_PERCENT": 0,
-      "ELEMENTAL_MASTERY": 0,
-      "ENERGY_RECHARGE": 0.5,
-      "HEALING_BONUS": 0,
-      "PHYSICAL_DMG": 0,
-      "ELEMENTAL_DMG": 0,
-      "FLAT_ATK": 0.15,
-      "FLAT_HP": 0,
-      "FLAT_DEF": 0
-    },
-    "main_stats_ideal": {
-      "SANDS": [
-        "ATK_PERCENT"
-      ],
-      "GOBLET": [
-        "ICE_ADD_HURT",
-        "CRYO_DMG"
-      ],
-      "CIRCLET": [
-        "CRIT_RATE",
-        "CRIT_DMG"
-      ]
-    },
-    "recommended_sets": [],
-    "er_threshold": 130,
-    "base_stats": {
-      "hp_base": 981.9196,
-      "atk_base": 27.4645,
-      "def_base": 61.92405
-    },
-    "region": "mondstadt",
-    "source": "genshin-optimizer/frzyc",
-    "data_version": "allStat_gen.json — master branch"
-  },
   "Varka": {
     "name": "Varka",
     "display_name": "Varka",
@@ -6700,9 +6642,67 @@
     "recommended_sets": [],
     "er_threshold": 120,
     "base_stats": {
-      "hp_base": 1100,
-      "atk_base": 28,
-      "def_base": 65
+      "hp_base": 981.9196,
+      "atk_base": 27.4645,
+      "def_base": 61.92405
+    },
+    "region": "mondstadt",
+    "source": "genshin-optimizer/frzyc",
+    "data_version": "allStat_gen.json — master branch"
+  },
+  "Lohen": {
+    "name": "Lohen",
+    "display_name": "Lohen",
+    "element": "Cryo",
+    "weapon_type": "Polearm",
+    "rarity": 5,
+    "avatar_id": "10000129",
+    "scaling_attribute": "Crit DMG%",
+    "scaling_stat": "CRIT_DMG",
+    "ascension_stat": "critDMG_",
+    "ascension_bonus_curve": [
+      0,
+      0,
+      0.096,
+      0.192,
+      0.192,
+      0.288,
+      0.384
+    ],
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.5,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ICE_ADD_HURT",
+        "CRYO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 130,
+    "base_stats": {
+      "hp_base": 1000.986,
+      "atk_base": 26.8128,
+      "def_base": 61.0266
     },
     "region": "mondstadt",
     "source": "genshin-optimizer/frzyc",
@@ -6883,65 +6883,6 @@
     "source": "genshin-optimizer/frzyc",
     "data_version": "allStat_gen.json — master branch"
   },
-  "Somnia": {
-    "name": "Somnia",
-    "display_name": "Somnia",
-    "element": "Electro",
-    "weapon_type": "Catalyst",
-    "rarity": 5,
-    "avatar_id": null,
-    "scaling_attribute": "EM",
-    "scaling_stat": "ELEMENTAL_MASTERY",
-    "ascension_stat": "eleMas",
-    "ascension_bonus_curve": [
-      0,
-      0,
-      28.799999237060547,
-      57.599998474121094,
-      57.599998474121094,
-      86.4000015258789,
-      115.19999694824219
-    ],
-    "substat_weights": {
-      "CRIT_RATE": 0.5,
-      "CRIT_DMG": 0.5,
-      "ATK_PERCENT": 0,
-      "HP_PERCENT": 0,
-      "DEF_PERCENT": 0,
-      "ELEMENTAL_MASTERY": 1,
-      "ENERGY_RECHARGE": 0.7,
-      "HEALING_BONUS": 0,
-      "PHYSICAL_DMG": 0,
-      "ELEMENTAL_DMG": 0,
-      "FLAT_ATK": 0,
-      "FLAT_HP": 0,
-      "FLAT_DEF": 0
-    },
-    "main_stats_ideal": {
-      "SANDS": [
-        "ELEMENTAL_MASTERY",
-        "ENERGY_RECHARGE"
-      ],
-      "GOBLET": [
-        "ELEMENTAL_MASTERY"
-      ],
-      "CIRCLET": [
-        "ELEMENTAL_MASTERY",
-        "CRIT_RATE",
-        "CRIT_DMG"
-      ]
-    },
-    "recommended_sets": [],
-    "er_threshold": 160,
-    "base_stats": {
-      "hp_base": 806.5087280273438,
-      "atk_base": 23.274999618530273,
-      "def_base": 49.06060028076172
-    },
-    "region": null,
-    "source": "genshin-optimizer/frzyc",
-    "data_version": "allStat_gen.json — master branch"
-  },
   "Sandrone": {
     "name": "Sandrone",
     "display_name": "Sandrone",
@@ -6979,11 +6920,11 @@
     "main_stats_ideal": {
       "SANDS": [
         "ATK_PERCENT",
-        "ENERGY_RECHARGE"
+        "ELEMENTAL_MASTERY"
       ],
       "GOBLET": [
-        "CRYO_DMG",
-        "ATK_PERCENT"
+        "ATK_PERCENT",
+        "ELEMENTAL_MASTERY"
       ],
       "CIRCLET": [
         "CRIT_DMG",
@@ -6991,15 +6932,46 @@
       ]
     },
     "recommended_sets": [
-      "14014",
       "14001",
-      "14029"
+      "14017"
     ],
-    "er_threshold": 140,
+    "er_threshold": 130,
     "base_stats": {
       "hp_base": 1029.5856,
       "atk_base": 26.6266,
       "def_base": 58.57357
+    },
+    "region": null,
+    "source": "genshin-optimizer/frzyc",
+    "data_version": "allStat_gen.json — master branch"
+  },
+  "Somnia": {
+    "name": "Somnia",
+    "display_name": "Somnia",
+    "element": "Electro",
+    "weapon_type": "Catalyst",
+    "rarity": 5,
+    "avatar_id": null,
+    "scaling_attribute": "EM",
+    "scaling_stat": "ELEMENTAL_MASTERY",
+    "ascension_stat": "eleMas",
+    "ascension_bonus_curve": [
+      0,
+      0,
+      28.799999237060547,
+      57.599998474121094,
+      57.599998474121094,
+      86.4000015258789,
+      115.19999694824219
+    ],
+    "substat_weights": null,
+    "main_stats_ideal": null,
+    "recommended_sets": [],
+    "er_threshold": null,
+    "base_stats": {
+      "hp_base": 806.5087280273438,
+      "atk_base": 23.274999618530273,
+      "def_base": 49.06060028076172
     },
     "region": null,
     "source": "genshin-optimizer/frzyc",
