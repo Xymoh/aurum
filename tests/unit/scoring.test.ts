@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { computeRV, computeCV, computeWSE, getGrade } from "../../src/lib/scoring";
-import type { ArtifactSubstat } from "../../src/types/artifact";
+import { computeRV, computeCV, computeWSE, getGrade, computeRerollPotential } from "../../src/lib/scoring";
+import type { Artifact, ArtifactSubstat } from "../../src/types/artifact";
+import type { ScoringWeights } from "../../src/types/scoring";
 
 function makeSubstat(
   key: string,
@@ -104,6 +105,93 @@ describe("computeWSE", () => {
     const wse = computeWSE(substats, 99999999);
     expect(wse).toBeGreaterThan(0);
     expect(wse).toBeLessThan(100);
+  });
+});
+
+describe("computeRerollPotential", () => {
+  const DILUC_WEIGHTS: ScoringWeights = {
+    CRIT_RATE: 1.0,
+    CRIT_DMG: 1.0,
+    ATK_PERCENT: 0.7,
+    HP_PERCENT: 0,
+    DEF_PERCENT: 0,
+    ELEMENTAL_MASTERY: 0.5,
+    ENERGY_RECHARGE: 0,
+    HEALING_BONUS: 0,
+    PHYSICAL_DMG: 0,
+    ELEMENTAL_DMG: 0,
+    FLAT_ATK: 0.1,
+    FLAT_HP: 0,
+    FLAT_DEF: 0,
+  };
+
+  function makeArtifact(overrides: Partial<Artifact> = {}): Artifact {
+    return {
+      id: "test-artifact",
+      setId: "1",
+      setName: "Test Set",
+      slot: "SANDS",
+      slotIndex: 2,
+      level: 20,
+      rarity: 5,
+      icon: "",
+      mainStat: {
+        statKey: "FIGHT_PROP_ATTACK_PERCENT",
+        displayName: "ATK%",
+        value: 46.6,
+        isPercentage: true,
+        isCorrect: true,
+        isRecommended: true,
+      },
+      substats: [
+        makeSubstat("FIGHT_PROP_CRITICAL", 3.89, 3.89),
+        makeSubstat("FIGHT_PROP_CRITICAL_HURT", 7.77, 7.77),
+        makeSubstat("FIGHT_PROP_ELEMENT_MASTERY", 23.31, 23.31),
+        makeSubstat("FIGHT_PROP_CHARGE_EFFICIENCY", 6.48, 6.48),
+      ],
+      score: {
+        potentialPercent: 0,
+        weightedPotential: 0,
+        idealPotential: 0,
+        mainStatCorrect: true,
+        mainStatMultiplier: 1.0,
+        setBonusMultiplier: 1.0,
+        rv: 0,
+        cv: 0,
+        cvNormalized: 0,
+        wse: 0,
+        total: 0,
+        grade: "F",
+        reroll: { eligible: false, currentPercent: 0, ceilingPercent: 0, upsidePercent: 0, bestStatDisplayName: null },
+      },
+      ...overrides,
+    };
+  }
+
+  it("is not eligible below level 20", () => {
+    const result = computeRerollPotential(makeArtifact({ level: 16 }), DILUC_WEIGHTS, 31.86, 80);
+    expect(result.eligible).toBe(false);
+  });
+
+  it("is not eligible below 5-star rarity", () => {
+    const result = computeRerollPotential(makeArtifact({ rarity: 4 }), DILUC_WEIGHTS, 31.86, 80);
+    expect(result.eligible).toBe(false);
+  });
+
+  it("picks the artifact's highest-weighted substat as the reroll target and computes a ceiling above the current score", () => {
+    const idealPotential = 31.86; // a plausible ideal potential for the DILUC_WEIGHTS profile
+    const result = computeRerollPotential(makeArtifact(), DILUC_WEIGHTS, idealPotential, 80);
+    expect(result.eligible).toBe(true);
+    // CRIT_RATE and CRIT_DMG are tied for the highest weight (1.0) — CRIT_RATE appears first in the substat list.
+    expect(result.bestStatDisplayName).toBe("FIGHT_PROP_CRITICAL");
+    expect(result.ceilingPercent).toBeGreaterThan(result.currentPercent);
+    expect(result.upsidePercent).toBeCloseTo(result.ceilingPercent - 80, 5);
+  });
+
+  it("clamps upside at 0 when the current score already exceeds the estimated ceiling", () => {
+    const idealPotential = 31.86;
+    const result = computeRerollPotential(makeArtifact(), DILUC_WEIGHTS, idealPotential, 999);
+    expect(result.upsidePercent).toBe(0);
   });
 });
 

@@ -35,6 +35,7 @@ function makeArtifact(setId: string, setName: string): Artifact {
       wse: 0,
       total: 0,
       grade: "F",
+      reroll: { eligible: false, currentPercent: 0, ceilingPercent: 0, upsidePercent: 0, bestStatDisplayName: null },
     },
   };
 }

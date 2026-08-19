@@ -1,7 +1,7 @@
 import type { CharacterData } from "../../types/character";
 import { ELEMENT_COLORS } from "../../types/character";
 import { GRADE_COLORS } from "../../types/artifact";
-import { SetBonusGrid } from "../ui/SetBonusGrid";
+import { SetBonusRow } from "../ui/SetBonusRow";
 import { BuildScoreBar } from "../ui/BuildScoreBar";
 import { ArtifactCard } from "./ArtifactCard";
 import { useState } from "react";
@@ -23,6 +23,8 @@ import artifactEmptyIcon from "../../assets/svg/ico-artifact-empty.svg";
 interface CharacterCardProps {
   character: CharacterData;
   index: number;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
 }
 
 const ENKA_UI_BASE = "https://enka.network/ui";
@@ -71,8 +73,7 @@ function StatRow({ label, value, icon }: { label: string; value: number; icon?: 
   );
 }
 
-export function CharacterCard({ character, index }: CharacterCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+export function CharacterCard({ character, index, isExpanded, onToggleExpand }: CharacterCardProps) {
   const [imgError, setImgError] = useState(false);
   const elementColor = ELEMENT_COLORS[character.element] ?? "#6b7280";
   const gradeColor = GRADE_COLORS[character.buildScore.grade] ?? "#aaa";
@@ -105,13 +106,14 @@ export function CharacterCard({ character, index }: CharacterCardProps) {
 
   return (
     <div
-      className="rounded-xl border border-dark-border bg-dark-card overflow-hidden animate-fade-in-up flex flex-col"
+      id={`character-${character.id}`}
+      className="rounded-xl border border-dark-border bg-dark-card overflow-hidden animate-fade-in-up flex flex-col scroll-mt-4"
       style={{ animationDelay: `${index * 80}ms` }}
     >
       {/* ── BANNER HEADER ── */}
       <button
         type="button"
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={onToggleExpand}
         className="relative w-full min-h-[118px] sm:min-h-[135px] flex items-center text-left cursor-pointer overflow-hidden group border-b border-transparent hover:border-dark-border/30 transition-colors"
       >
         <div className="absolute inset-0 bg-dark-bg z-0" />
@@ -374,6 +376,11 @@ export function CharacterCard({ character, index }: CharacterCardProps) {
                 })}
               </div>
             </div>
+
+            {/* ── SET BONUSES ── */}
+            {character.artifacts.length > 0 && (
+              <SetBonusRow artifacts={character.artifacts} setBonus={character.buildScore.setBonus} />
+            )}
 
             {/* ── STATS OVERVIEW TABLE ── */}
             <div className="rounded-xl border border-dark-border bg-dark-card/40 overflow-hidden">

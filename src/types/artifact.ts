@@ -58,6 +58,22 @@ export interface ArtifactScore {
   // Output
   total: number;     // = potentialPercent (unified score)
   grade: ScoreGrade;
+
+  // Reroll potential via Dust of Enlightenment (5.7+)
+  reroll: RerollPotential;
+}
+
+/**
+ * Best-case score ceiling reachable by using Dust of Enlightenment to reshape
+ * a fully-leveled 5★ artifact's upgrade rolls. Only meaningful when `eligible`
+ * is true (level 20, 5★, 4 substats) — see computeRerollPotential in scoring.ts.
+ */
+export interface RerollPotential {
+  eligible: boolean;
+  currentPercent: number;
+  ceilingPercent: number;
+  upsidePercent: number;
+  bestStatDisplayName: string | null;
 }
 
 export type ScoreGrade =

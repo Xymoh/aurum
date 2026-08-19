@@ -34,6 +34,12 @@ export const MAX_CV = 50;
 /** Reference high roll: CRIT DMG max roll for 5-star Genshin artifacts */
 export const REFERENCE_HIGH_ROLL = 7.77;
 
+/** Average fraction of a stat's max roll that a single substat roll tends to land on (roll tiers cluster ~85% of max). */
+export const AVG_ROLL_FACTOR = 0.85;
+
+/** Number of upgrade rolls redistributed by Dust of Enlightenment (added in 5.7) when reshaping a maxed 5-star artifact. */
+export const REROLL_UPGRADE_COUNT = 5;
+
 /** Score grade thresholds following the Fribbels 18-grade scale (0–200% range).
  *  Since ideal is now half the theoretical max, scores are doubled compared to 0–100% scale.
  *  100% = solid artifact (~4.5 useful max rolls), 200% = theoretically perfect. */

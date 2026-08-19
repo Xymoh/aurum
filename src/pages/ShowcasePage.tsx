@@ -1,12 +1,15 @@
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { useShowcase } from "../hooks/useShowcase";
 import { PlayerHeader } from "../components/showcase/PlayerHeader";
-import { CharacterGrid } from "../components/showcase/CharacterGrid";
+import { CharacterGrid, type FocusSignal } from "../components/showcase/CharacterGrid";
+import { WeakestArtifacts } from "../components/showcase/WeakestArtifacts";
 import { LoadingSkeleton } from "../components/ui/LoadingSkeleton";
 
 export function ShowcasePage() {
   const { uid } = useParams<{ uid: string }>();
   const { data, isLoading, isError, error, refetch, forceRefresh, dataUpdatedAt } = useShowcase(uid ?? "");
+  const [focusSignal, setFocusSignal] = useState<FocusSignal | null>(null);
 
   const characters = data?.characters ?? [];
 
@@ -54,8 +57,13 @@ export function ShowcasePage() {
         lastUpdated={dataUpdatedAt}
       />
 
+      <WeakestArtifacts
+        characters={characters}
+        onSelectCharacter={(characterId) => setFocusSignal({ characterId, token: Date.now() })}
+      />
+
       {/* Character Grid — dak.gg-style card layout with Fribbels scoring */}
-      <CharacterGrid characters={characters} />
+      <CharacterGrid characters={characters} focusSignal={focusSignal} />
     </div>
   );
 }

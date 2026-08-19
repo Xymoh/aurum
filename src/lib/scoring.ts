@@ -1,4 +1,4 @@
-import type { Artifact, ScoreGrade, ArtifactSubstat } from "../types/artifact";
+import type { Artifact, ScoreGrade, ArtifactSubstat, RerollPotential } from "../types/artifact";
 import type { CharacterData, BuildScore, SetBonusResult } from "../types/character";
 import type { ScoringWeights, CharacterBuildConfig } from "../types/scoring";
 import type { FightProp } from "../types/enka";
@@ -10,6 +10,8 @@ import {
   ELEMENT_DMG_MAP,
   POTENTIAL_SCALES,
   REFERENCE_HIGH_ROLL,
+  AVG_ROLL_FACTOR,
+  REROLL_UPGRADE_COUNT,
 } from "./constants";
 import characterBuildsData from "../data/character-builds.json";
 import goProcessedData from "../../genshin_optimizer_processed_data.json";
@@ -81,33 +83,41 @@ export function computePotentialScale(statKey: string): number {
   return scale;
 }
 
+// ── Adjusted weights (shared helper) ──
+
+/**
+ * Derive per-substat scoring weights: apply flat-stat derivation FIRST
+ * (flat weight = percent weight × 0.4), then zero out the weight for
+ * whichever stat occupies the main stat slot, so a Flower/Plume's fixed
+ * flat main stat (which can never also roll as a substat) is correctly
+ * excluded and not re-introduced by the derivation step above.
+ */
+function getAdjustedWeights(weights: ScoringWeights, mainStatKey: string): ScoringWeights {
+  const adjustedWeights = { ...weights };
+  adjustedWeights.FLAT_ATK = adjustedWeights.ATK_PERCENT * 0.4;
+  adjustedWeights.FLAT_HP = adjustedWeights.HP_PERCENT * 0.4;
+  adjustedWeights.FLAT_DEF = adjustedWeights.DEF_PERCENT * 0.4;
+
+  const mainStatWeightKey = resolveWeightKey(mainStatKey);
+  if (mainStatWeightKey && adjustedWeights[mainStatWeightKey] !== undefined) {
+    adjustedWeights[mainStatWeightKey] = 0;
+  }
+
+  return adjustedWeights;
+}
+
 // ── Weighted Potential ──
 
 /**
  * Compute the Weighted Potential for an artifact's substats.
- *
  * For each substat: weight × statValue × potentialScale.
- * Main stat exclusion: zeroes the weight corresponding to the artifact's main stat.
- * Flat stat derivation: FLAT_ATK = ATK_PERCENT × 0.4, FLAT_HP = HP_PERCENT × 0.4, FLAT_DEF = DEF_PERCENT × 0.4.
  */
 export function computeWeightedPotential(
   substats: ArtifactSubstat[],
   weights: ScoringWeights,
   mainStatKey: string
 ): number {
-  // Clone weights and apply flat stat derivation FIRST: flat weight = percent weight × 0.4
-  const adjustedWeights = { ...weights };
-  adjustedWeights.FLAT_ATK = adjustedWeights.ATK_PERCENT * 0.4;
-  adjustedWeights.FLAT_HP = adjustedWeights.HP_PERCENT * 0.4;
-  adjustedWeights.FLAT_DEF = adjustedWeights.DEF_PERCENT * 0.4;
-
-  // Then apply main stat exclusion, so a Flower/Plume's fixed flat main stat
-  // (which can never also roll as a substat) is correctly zeroed out and not
-  // re-introduced by the derivation step above.
-  const mainStatWeightKey = resolveWeightKey(mainStatKey);
-  if (mainStatWeightKey && adjustedWeights[mainStatWeightKey] !== undefined) {
-    adjustedWeights[mainStatWeightKey] = 0;
-  }
+  const adjustedWeights = getAdjustedWeights(weights, mainStatKey);
 
   let totalPotential = 0;
   for (const sub of substats) {
@@ -302,19 +312,7 @@ export function computeIdealPotential(
   weights: ScoringWeights,
   mainStatKey: string
 ): number {
-  // Clone weights and apply flat stat derivation FIRST: flat weight = percent weight × 0.4
-  const adjustedWeights = { ...weights };
-  adjustedWeights.FLAT_ATK = adjustedWeights.ATK_PERCENT * 0.4;
-  adjustedWeights.FLAT_HP = adjustedWeights.HP_PERCENT * 0.4;
-  adjustedWeights.FLAT_DEF = adjustedWeights.DEF_PERCENT * 0.4;
-
-  // Then apply main stat exclusion, so a Flower/Plume's fixed flat main stat
-  // (which can never also roll as a substat) is correctly zeroed out and not
-  // re-introduced by the derivation step above.
-  const mainStatWeightKey = resolveWeightKey(mainStatKey);
-  if (mainStatWeightKey && adjustedWeights[mainStatWeightKey] !== undefined) {
-    adjustedWeights[mainStatWeightKey] = 0;
-  }
+  const adjustedWeights = getAdjustedWeights(weights, mainStatKey);
 
   // Get all non-zero weights, sorted descending
   const nonZeroWeights = Object.values(adjustedWeights)
@@ -453,6 +451,74 @@ export function computePotentialPercent(
   return Math.max(percent, 0);
 }
 
+// ── Reroll Potential (Dust of Enlightenment) ──
+
+const NO_REROLL: RerollPotential = {
+  eligible: false,
+  currentPercent: 0,
+  ceilingPercent: 0,
+  upsidePercent: 0,
+  bestStatDisplayName: null,
+};
+
+/**
+ * Estimate the score ceiling reachable via Dust of Enlightenment (added in
+ * game version 5.7): on a fully-leveled 5★ artifact it reshapes which of the
+ * 4 existing substats received the 5 upgrade rolls — it cannot change which
+ * stats are present or add new ones, only how the rolls are redistributed.
+ *
+ * We treat each substat's single starting ("+0") roll as fixed, since only
+ * the 5 upgrade rolls are subject to reshaping. The ceiling assumes those 5
+ * rolls all land on the artifact's single best-weighted substat at max
+ * value — the theoretical best case a player could land, not a guaranteed
+ * outcome (the in-game reshape only guarantees rolls toward 2 chosen stats,
+ * with real values drawn from a range around AVG_ROLL_FACTOR of max).
+ */
+export function computeRerollPotential(
+  artifact: Artifact,
+  weights: ScoringWeights,
+  idealPotential: number,
+  currentPercent: number,
+): RerollPotential {
+  if (artifact.rarity !== 5 || artifact.level !== 20 || artifact.substats.length !== 4 || idealPotential <= 0) {
+    return NO_REROLL;
+  }
+
+  const adjustedWeights = getAdjustedWeights(weights, artifact.mainStat.statKey);
+
+  let floorPotential = 0;
+  let bestValuePerRoll = 0;
+  let bestStat: ArtifactSubstat | null = null;
+
+  for (const sub of artifact.substats) {
+    const weightKey = resolveWeightKey(sub.statKey);
+    const weight = weightKey ? (adjustedWeights[weightKey] ?? 0) : 0;
+    const potentialScale = computePotentialScale(sub.statKey);
+
+    // The 1 base ("+0") roll every substat starts with can't be reshaped away.
+    floorPotential += weight * potentialScale * (sub.maxRoll * AVG_ROLL_FACTOR);
+
+    const maxValuePerRoll = weight * potentialScale * sub.maxRoll;
+    if (maxValuePerRoll > bestValuePerRoll) {
+      bestValuePerRoll = maxValuePerRoll;
+      bestStat = sub;
+    }
+  }
+
+  if (!bestStat || bestValuePerRoll <= 0) return NO_REROLL;
+
+  const ceilingPotential = floorPotential + REROLL_UPGRADE_COUNT * bestValuePerRoll;
+  const ceilingPercent = computePotentialPercent(ceilingPotential, idealPotential);
+
+  return {
+    eligible: true,
+    currentPercent,
+    ceilingPercent,
+    upsidePercent: Math.max(0, ceilingPercent - currentPercent),
+    bestStatDisplayName: bestStat.displayName,
+  };
+}
+
 // ── Grade mapping ──
 
 export function getGrade(score: number): ScoreGrade {
@@ -488,6 +554,8 @@ export function scoreArtifact(
   const cvNormalized = Math.min(cv / MAX_CV, 1.0);
   const wse = computeWSE(artifact.substats, avatarId);
 
+  const reroll = computeRerollPotential(artifact, weights, idealPotential, potentialPercent);
+
   return {
     ...artifact,
     mainStat: {
@@ -508,6 +576,7 @@ export function scoreArtifact(
       wse,
       total: potentialPercent,  // unified score
       grade,
+      reroll,
     },
   };
 }

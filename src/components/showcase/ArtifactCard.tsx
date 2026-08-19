@@ -9,6 +9,9 @@ interface ArtifactCardProps {
   artifact: Artifact;
 }
 
+/** Only surface the reroll badge when Dust of Enlightenment could meaningfully move the needle. */
+const REROLL_UPSIDE_THRESHOLD = 5;
+
 function formatStatValue(value: number, isPercentage: boolean): string {
   if (isPercentage) return `${value.toFixed(1)}%`;
   return Math.round(value).toLocaleString();
@@ -20,8 +23,8 @@ function getGradeColors(grade: string): { color: string; textColor: string } {
   return entry ? { color: entry.color, textColor: entry.textColor } : { color: "#4b5563", textColor: "#ffffff" };
 }
 
-// ── Chevron icon for roll indicators (Fribbels-style) ──
-function RollChevrons({ count, color }: { count: number; color: string }) {
+// ── Chevron icon for roll indicators (Fribbels-style) ── color comes from the wrapping span's currentColor.
+function RollChevrons({ count }: { count: number }) {
   if (count <= 0) return null;
   return (
     <svg width={Math.min(count * 5 + 4, 24)} height="8" viewBox={`0 0 ${Math.min(count * 5 + 4, 24)} 8`} style={{ opacity: 0.75 }}>
@@ -38,8 +41,9 @@ function RollChevrons({ count, color }: { count: number; color: string }) {
 
 export function ArtifactCard({ artifact }: ArtifactCardProps) {
   const [iconError, setIconError] = useState(false);
-  const { color: gradeColor, textColor: gradeTextColor } = getGradeColors(artifact.score.grade);
+  const { color: gradeColor } = getGradeColors(artifact.score.grade);
   const artIconUrl = artifact.icon ? `${ENKA_UI_BASE}/${artifact.icon}.png` : null;
+  const showRerollBadge = artifact.score.reroll.eligible && artifact.score.reroll.upsidePercent >= REROLL_UPSIDE_THRESHOLD;
 
   return (
     <div
@@ -102,7 +106,7 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
               <span className="text-[11px] text-dark-muted/80 truncate flex-1 min-w-0">{sub.displayName}</span>
               <div className="flex items-center gap-1 flex-shrink-0">
                 <span style={{ color: rollColor }}>
-                  <RollChevrons count={rolls} color={rollColor} />
+                  <RollChevrons count={rolls} />
                 </span>
                 <span className="text-[11px] font-mono text-dark-text/80 tabular-nums text-right w-[50px]">
                   {formatStatValue(sub.value, sub.isPercentage)}
@@ -132,6 +136,21 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
           </span>
         </div>
       </div>
+
+      {/* Reroll upside — Dust of Enlightenment can reshape upgrade rolls on a maxed 5★ piece */}
+      {showRerollBadge && (
+        <div
+          className="flex items-center justify-between rounded px-1.5 py-1 -mx-1.5 bg-accent/10"
+          title={`Reshaping this artifact's upgrade rolls toward ${artifact.score.reroll.bestStatDisplayName} with Dust of Enlightenment could reach up to ${artifact.score.reroll.ceilingPercent.toFixed(1)}% in the best case (current: ${artifact.score.reroll.currentPercent.toFixed(1)}%).`}
+        >
+          <span className="text-[10px] text-accent flex items-center gap-1">
+            <span aria-hidden="true">🎲</span> Reroll upside
+          </span>
+          <span className="text-[10px] font-mono font-bold text-accent">
+            +{artifact.score.reroll.upsidePercent.toFixed(1)}%
+          </span>
+        </div>
+      )}
     </div>
   );
 }
