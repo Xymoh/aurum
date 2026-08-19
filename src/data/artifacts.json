@@ -1,51 +1,262 @@
 {
-  "10001": { "name": "Resolution of Sojourner", "pieces": 4 },
-  "10002": { "name": "Brave Heart", "pieces": 4 },
-  "10003": { "name": "Guardian's Will", "pieces": 4 },
-  "10004": { "name": "Tiny Miracle", "pieces": 4 },
-  "10005": { "name": "Berserker", "pieces": 4 },
-  "10006": { "name": "Martial Artist", "pieces": 4 },
-  "10007": { "name": "Instructor", "pieces": 4 },
-  "10008": { "name": "Gambler", "pieces": 4 },
-  "10009": { "name": "The Exile", "pieces": 4 },
-  "10010": { "name": "Adventurer", "pieces": 4 },
-  "10011": { "name": "Lucky Dog", "pieces": 4 },
-  "10012": { "name": "Scholar", "pieces": 4 },
-  "10013": { "name": "Traveling Doctor", "pieces": 4 },
-  "14001": { "name": "Gladiator's Finale", "pieces": 5 },
-  "14002": { "name": "Wanderer's Troupe", "pieces": 5 },
-  "14003": { "name": "Thundering Fury", "pieces": 5 },
-  "14004": { "name": "Thundersoother", "pieces": 5 },
-  "14005": { "name": "Viridescent Venerer", "pieces": 5 },
-  "14006": { "name": "Maiden Beloved", "pieces": 5 },
-  "14007": { "name": "Archaic Petra", "pieces": 5 },
-  "14008": { "name": "Retracing Bolide", "pieces": 5 },
-  "14009": { "name": "Crimson Witch of Flames", "pieces": 5 },
-  "14010": { "name": "Lavawalker", "pieces": 5 },
-  "14011": { "name": "Noblesse Oblige", "pieces": 5 },
-  "14012": { "name": "Bloodstained Chivalry", "pieces": 5 },
-  "14013": { "name": "Heart of Depth", "pieces": 5 },
-  "14014": { "name": "Blizzard Strayer", "pieces": 5 },
-  "14015": { "name": "Tenacity of the Millelith", "pieces": 5 },
-  "14016": { "name": "Pale Flame", "pieces": 5 },
-  "14017": { "name": "Shimenawa's Reminiscence", "pieces": 5 },
-  "14018": { "name": "Emblem of Severed Fate", "pieces": 5 },
-  "14019": { "name": "Husk of Opulent Dreams", "pieces": 5 },
-  "14020": { "name": "Ocean-Hued Clam", "pieces": 5 },
-  "14021": { "name": "Vermillion Hereafter", "pieces": 5 },
-  "14022": { "name": "Echoes of an Offering", "pieces": 5 },
-  "14023": { "name": "Deepwood Memories", "pieces": 5 },
-  "14024": { "name": "Gilded Dreams", "pieces": 5 },
-  "14025": { "name": "Desert Pavilion Chronicle", "pieces": 5 },
-  "14026": { "name": "Flower of Paradise Lost", "pieces": 5 },
-  "14027": { "name": "Nymph's Dream", "pieces": 5 },
-  "14028": { "name": "Vourukasha's Glow", "pieces": 5 },
-  "14029": { "name": "Marechaussee Hunter", "pieces": 5 },
-  "14030": { "name": "Golden Troupe", "pieces": 5 },
-  "14031": { "name": "Song of Days Past", "pieces": 5 },
-  "14032": { "name": "Nighttime Whispers in the Echoing Woods", "pieces": 5 },
-  "14033": { "name": "Fragment of Harmonic Whimsy", "pieces": 5 },
-  "14034": { "name": "Unfinished Reverie", "pieces": 5 },
-  "14035": { "name": "Scroll of the Hero of Cinder City", "pieces": 5 },
-  "14036": { "name": "Obsidian Codex", "pieces": 5 }
+  "10001": {
+    "name": "Resolution of Sojourner",
+    "pieces": 4
+  },
+  "10002": {
+    "name": "Brave Heart",
+    "pieces": 4
+  },
+  "10003": {
+    "name": "Defender's Will",
+    "pieces": 4
+  },
+  "10004": {
+    "name": "Tiny Miracle",
+    "pieces": 4
+  },
+  "10005": {
+    "name": "Berserker",
+    "pieces": 4
+  },
+  "10006": {
+    "name": "Martial Artist",
+    "pieces": 4
+  },
+  "10007": {
+    "name": "Instructor",
+    "pieces": 4
+  },
+  "10008": {
+    "name": "Gambler",
+    "pieces": 4
+  },
+  "10009": {
+    "name": "The Exile",
+    "pieces": 4
+  },
+  "10010": {
+    "name": "Adventurer",
+    "pieces": 4
+  },
+  "10011": {
+    "name": "Lucky Dog",
+    "pieces": 4
+  },
+  "10012": {
+    "name": "Scholar",
+    "pieces": 4
+  },
+  "10013": {
+    "name": "Traveling Doctor",
+    "pieces": 4
+  },
+  "14001": {
+    "name": "Blizzard Strayer",
+    "pieces": 5
+  },
+  "14002": {
+    "name": "Thundersoother",
+    "pieces": 5
+  },
+  "14003": {
+    "name": "Lavawalker",
+    "pieces": 5
+  },
+  "14004": {
+    "name": "Maiden Beloved",
+    "pieces": 5
+  },
+  "15001": {
+    "name": "Gladiator's Finale",
+    "pieces": 5
+  },
+  "15002": {
+    "name": "Viridescent Venerer",
+    "pieces": 5
+  },
+  "15003": {
+    "name": "Wanderer's Troupe",
+    "pieces": 5
+  },
+  "15004": {
+    "name": "Glacier and Snowfield",
+    "pieces": 5
+  },
+  "15005": {
+    "name": "Thundering Fury",
+    "pieces": 5
+  },
+  "15006": {
+    "name": "Crimson Witch of Flames",
+    "pieces": 5
+  },
+  "15007": {
+    "name": "Noblesse Oblige",
+    "pieces": 5
+  },
+  "15008": {
+    "name": "Bloodstained Chivalry",
+    "pieces": 5
+  },
+  "15009": {
+    "name": "Prayers for Illumination",
+    "pieces": 5
+  },
+  "15010": {
+    "name": "Prayers for Destiny",
+    "pieces": 5
+  },
+  "15011": {
+    "name": "Prayers for Wisdom",
+    "pieces": 5
+  },
+  "15012": {
+    "name": "Prayers to the Firmament",
+    "pieces": 5
+  },
+  "15013": {
+    "name": "Prayers to Springtime",
+    "pieces": 5
+  },
+  "15014": {
+    "name": "Archaic Petra",
+    "pieces": 5
+  },
+  "15015": {
+    "name": "Retracing Bolide",
+    "pieces": 5
+  },
+  "15016": {
+    "name": "Heart of Depth",
+    "pieces": 5
+  },
+  "15017": {
+    "name": "Tenacity of the Millelith",
+    "pieces": 5
+  },
+  "15018": {
+    "name": "Pale Flame",
+    "pieces": 5
+  },
+  "15019": {
+    "name": "Shimenawa's Reminiscence",
+    "pieces": 5
+  },
+  "15020": {
+    "name": "Emblem of Severed Fate",
+    "pieces": 5
+  },
+  "15021": {
+    "name": "Husk of Opulent Dreams",
+    "pieces": 5
+  },
+  "15022": {
+    "name": "Ocean-Hued Clam",
+    "pieces": 5
+  },
+  "15023": {
+    "name": "Vermillion Hereafter",
+    "pieces": 5
+  },
+  "15024": {
+    "name": "Echoes of an Offering",
+    "pieces": 5
+  },
+  "15025": {
+    "name": "Deepwood Memories",
+    "pieces": 5
+  },
+  "15026": {
+    "name": "Gilded Dreams",
+    "pieces": 5
+  },
+  "15027": {
+    "name": "Desert Pavilion Chronicle",
+    "pieces": 5
+  },
+  "15028": {
+    "name": "Flower of Paradise Lost",
+    "pieces": 5
+  },
+  "15029": {
+    "name": "Nymph's Dream",
+    "pieces": 5
+  },
+  "15030": {
+    "name": "Vourukasha's Glow",
+    "pieces": 5
+  },
+  "15031": {
+    "name": "Marechaussee Hunter",
+    "pieces": 5
+  },
+  "15032": {
+    "name": "Golden Troupe",
+    "pieces": 5
+  },
+  "15033": {
+    "name": "Song of Days Past",
+    "pieces": 5
+  },
+  "15034": {
+    "name": "Nighttime Whispers in the Echoing Woods",
+    "pieces": 5
+  },
+  "15035": {
+    "name": "Fragment of Harmonic Whimsy",
+    "pieces": 5
+  },
+  "15036": {
+    "name": "Unfinished Reverie",
+    "pieces": 5
+  },
+  "15037": {
+    "name": "Scroll of the Hero of Cinder City",
+    "pieces": 5
+  },
+  "15038": {
+    "name": "Obsidian Codex",
+    "pieces": 5
+  },
+  "15039": {
+    "name": "Long Night's Oath",
+    "pieces": 5
+  },
+  "15040": {
+    "name": "Finale of the Deep Galleries",
+    "pieces": 5
+  },
+  "15041": {
+    "name": "Night of the Sky's Unveiling",
+    "pieces": 5
+  },
+  "15042": {
+    "name": "Silken Moon's Serenade",
+    "pieces": 5
+  },
+  "15043": {
+    "name": "Aubade of Morningstar and Moon",
+    "pieces": 5
+  },
+  "15044": {
+    "name": "A Day Carved From Rising Winds",
+    "pieces": 5
+  },
+  "15045": {
+    "name": "Celestial Gift",
+    "pieces": 5
+  },
+  "15046": {
+    "name": "Disenchantment in Deep Shadow",
+    "pieces": 5
+  },
+  "15047": {
+    "name": "Scarlet Proof",
+    "pieces": 5
+  },
+  "15048": {
+    "name": "Heart of the Furnace",
+    "pieces": 5
+  }
 }

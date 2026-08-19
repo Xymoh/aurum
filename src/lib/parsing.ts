@@ -308,42 +308,15 @@ function buildMainStat(flat: EnkaEquip["flat"]): ArtifactMainStat | null {
   };
 }
 
-// ── Enka icon number → internal game set ID mapping ──
-// The Enka API may return flat.setId OR the icon URL with a "UI_RelicIcon_XXXXX_Y" pattern.
-// Both sources may use icon numbers (150XX) instead of internal game IDs (14XXX).
-// This map converts icon numbers to the internal IDs used in artifacts.json.
-const ICON_TO_SET_ID: Record<string, string> = {
-  "15001": "14001", "15002": "14002", "15003": "14003", "15004": "14004",
-  "15005": "14005", "15006": "14006", "15007": "14007", "15008": "14008",
-  "15009": "14009", "15010": "14010", "15011": "14011", "15012": "14012",
-  "15013": "14013", "15014": "14014", "15015": "14015", "15016": "14016",
-  "15017": "14017",
-  // 4-star filler sets (icon numbers 15018–15031)
-  "15018": "15018", "15019": "15019", "15020": "15020", "15021": "15021",
-  "15022": "15022", "15023": "15023", "15024": "15024", "15025": "15025",
-  "15026": "15026", "15027": "15027", "15028": "15028", "15029": "15029",
-  "15030": "15030", "15031": "15031",
-  // 5-star Inazuma + newer sets
-  "15032": "14018", "15033": "14019", "15034": "14020",
-  "15035": "14021", "15036": "14022", "15037": "14023", "15038": "14024",
-  "15039": "14025", "15040": "14026", "15041": "14027", "15042": "14028",
-  "15043": "14029", "15044": "14030", "15045": "14031", "15046": "14032",
-  "15047": "14033", "15048": "14034", "15049": "14035", "15050": "14036",
-};
-
 // ── Set ID extraction ──
+// The Enka API returns flat.setId directly, or the icon URL follows a
+// "UI_RelicIcon_XXXXX_Y" pattern where XXXXX is the real game SetId
+// (this is also the ID used as the key in src/data/artifacts.json).
 
 function extractSetId(flat: EnkaEquip["flat"]): string {
-  // Get raw ID: prefer flat.setId, fallback to icon regex
-  let rawId: string;
-  if (flat.setId) {
-    rawId = flat.setId;
-  } else {
-    const match = flat.icon.match(/UI_RelicIcon_(\d+)_/);
-    rawId = match ? match[1] : "0";
-  }
-  // Always try to map through ICON_TO_SET_ID, then return as-is if not found
-  return ICON_TO_SET_ID[rawId] ?? rawId;
+  if (flat.setId) return flat.setId;
+  const match = flat.icon.match(/UI_RelicIcon_(\d+)_/);
+  return match ? match[1] : "0";
 }
 
 // ── Artifact check ──

@@ -712,5 +712,17 @@
     "element": "Dendro",
     "weapon": "Catalyst",
     "icon": "UI_AvatarIcon_Manekina"
+  },
+  "10000148": {
+    "name": "Alyosha",
+    "element": "Electro",
+    "weapon": "Polearm",
+    "icon": "UI_AvatarIcon_Alyosha"
+  },
+  "10000150": {
+    "name": "Odette",
+    "element": "Cryo",
+    "weapon": "Sword",
+    "icon": "UI_AvatarIcon_Odette"
   }
 }

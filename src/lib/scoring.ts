@@ -95,17 +95,19 @@ export function computeWeightedPotential(
   weights: ScoringWeights,
   mainStatKey: string
 ): number {
-  // Clone weights and apply main stat exclusion
+  // Clone weights and apply flat stat derivation FIRST: flat weight = percent weight × 0.4
   const adjustedWeights = { ...weights };
+  adjustedWeights.FLAT_ATK = adjustedWeights.ATK_PERCENT * 0.4;
+  adjustedWeights.FLAT_HP = adjustedWeights.HP_PERCENT * 0.4;
+  adjustedWeights.FLAT_DEF = adjustedWeights.DEF_PERCENT * 0.4;
+
+  // Then apply main stat exclusion, so a Flower/Plume's fixed flat main stat
+  // (which can never also roll as a substat) is correctly zeroed out and not
+  // re-introduced by the derivation step above.
   const mainStatWeightKey = resolveWeightKey(mainStatKey);
   if (mainStatWeightKey && adjustedWeights[mainStatWeightKey] !== undefined) {
     adjustedWeights[mainStatWeightKey] = 0;
   }
-
-  // Apply flat stat derivation: flat weight = percent weight × 0.4
-  adjustedWeights.FLAT_ATK = adjustedWeights.ATK_PERCENT * 0.4;
-  adjustedWeights.FLAT_HP = adjustedWeights.HP_PERCENT * 0.4;
-  adjustedWeights.FLAT_DEF = adjustedWeights.DEF_PERCENT * 0.4;
 
   let totalPotential = 0;
   for (const sub of substats) {
@@ -300,17 +302,19 @@ export function computeIdealPotential(
   weights: ScoringWeights,
   mainStatKey: string
 ): number {
-  // Clone weights and apply main stat exclusion
+  // Clone weights and apply flat stat derivation FIRST: flat weight = percent weight × 0.4
   const adjustedWeights = { ...weights };
+  adjustedWeights.FLAT_ATK = adjustedWeights.ATK_PERCENT * 0.4;
+  adjustedWeights.FLAT_HP = adjustedWeights.HP_PERCENT * 0.4;
+  adjustedWeights.FLAT_DEF = adjustedWeights.DEF_PERCENT * 0.4;
+
+  // Then apply main stat exclusion, so a Flower/Plume's fixed flat main stat
+  // (which can never also roll as a substat) is correctly zeroed out and not
+  // re-introduced by the derivation step above.
   const mainStatWeightKey = resolveWeightKey(mainStatKey);
   if (mainStatWeightKey && adjustedWeights[mainStatWeightKey] !== undefined) {
     adjustedWeights[mainStatWeightKey] = 0;
   }
-
-  // Apply flat stat derivation: flat weight = percent weight × 0.4
-  adjustedWeights.FLAT_ATK = adjustedWeights.ATK_PERCENT * 0.4;
-  adjustedWeights.FLAT_HP = adjustedWeights.HP_PERCENT * 0.4;
-  adjustedWeights.FLAT_DEF = adjustedWeights.DEF_PERCENT * 0.4;
 
   // Get all non-zero weights, sorted descending
   const nonZeroWeights = Object.values(adjustedWeights)

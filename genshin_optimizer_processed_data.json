@@ -47,7 +47,7 @@
       ]
     },
     "recommended_sets": [
-      "14014"
+      "14001"
     ],
     "er_threshold": 130,
     "base_stats": {
@@ -109,7 +109,7 @@
       ]
     },
     "recommended_sets": [
-      "14005"
+      "15002"
     ],
     "er_threshold": 160,
     "base_stats": {
@@ -405,7 +405,7 @@
       ]
     },
     "recommended_sets": [
-      "14009"
+      "15006"
     ],
     "er_threshold": 100,
     "base_stats": {
@@ -464,8 +464,8 @@
       ]
     },
     "recommended_sets": [
-      "14003",
-      "14001"
+      "15005",
+      "15001"
     ],
     "er_threshold": 100,
     "base_stats": {
@@ -586,7 +586,7 @@
       ]
     },
     "recommended_sets": [
-      "14005"
+      "15002"
     ],
     "er_threshold": 160,
     "base_stats": {
@@ -648,7 +648,7 @@
       ]
     },
     "recommended_sets": [
-      "14018"
+      "15020"
     ],
     "er_threshold": 180,
     "base_stats": {
@@ -709,8 +709,8 @@
       ]
     },
     "recommended_sets": [
-      "14018",
-      "14003"
+      "15020",
+      "15005"
     ],
     "er_threshold": 160,
     "base_stats": {
@@ -771,7 +771,7 @@
       ]
     },
     "recommended_sets": [
-      "14018"
+      "15020"
     ],
     "er_threshold": 180,
     "base_stats": {
@@ -831,8 +831,8 @@
       ]
     },
     "recommended_sets": [
-      "14017",
-      "14021"
+      "15019",
+      "15023"
     ],
     "er_threshold": 120,
     "base_stats": {
@@ -1009,8 +1009,8 @@
       ]
     },
     "recommended_sets": [
-      "14015",
-      "14007"
+      "15017",
+      "15014"
     ],
     "er_threshold": 120,
     "base_stats": {
@@ -1071,7 +1071,7 @@
       ]
     },
     "recommended_sets": [
-      "14030"
+      "15032"
     ],
     "er_threshold": 120,
     "base_stats": {
@@ -1133,7 +1133,7 @@
       ]
     },
     "recommended_sets": [
-      "14011"
+      "15007"
     ],
     "er_threshold": 220,
     "base_stats": {
@@ -1193,8 +1193,8 @@
       ]
     },
     "recommended_sets": [
-      "14013",
-      "14002"
+      "15016",
+      "15003"
     ],
     "er_threshold": 100,
     "base_stats": {
@@ -1312,8 +1312,8 @@
       ]
     },
     "recommended_sets": [
-      "14006",
-      "14020"
+      "14004",
+      "15022"
     ],
     "er_threshold": 160,
     "base_stats": {
@@ -1431,8 +1431,8 @@
       ]
     },
     "recommended_sets": [
-      "14014",
-      "14002"
+      "14001",
+      "15003"
     ],
     "er_threshold": 100,
     "base_stats": {
@@ -1493,7 +1493,7 @@
       ]
     },
     "recommended_sets": [
-      "14019"
+      "15021"
     ],
     "er_threshold": 100,
     "base_stats": {
@@ -1612,7 +1612,7 @@
       ]
     },
     "recommended_sets": [
-      "14018"
+      "15020"
     ],
     "er_threshold": 180,
     "base_stats": {
@@ -1672,8 +1672,8 @@
       ]
     },
     "recommended_sets": [
-      "14003",
-      "14017"
+      "15005",
+      "15019"
     ],
     "er_threshold": 100,
     "base_stats": {
@@ -1732,7 +1732,7 @@
       ]
     },
     "recommended_sets": [
-      "14005"
+      "15002"
     ],
     "er_threshold": 160,
     "base_stats": {
@@ -1908,8 +1908,8 @@
       ]
     },
     "recommended_sets": [
-      "14009",
-      "14017"
+      "15006",
+      "15019"
     ],
     "er_threshold": 100,
     "base_stats": {
@@ -1968,7 +1968,7 @@
       ]
     },
     "recommended_sets": [
-      "14005"
+      "15002"
     ],
     "er_threshold": 160,
     "base_stats": {
@@ -2087,8 +2087,8 @@
       ]
     },
     "recommended_sets": [
-      "14017",
-      "14009"
+      "15019",
+      "15006"
     ],
     "er_threshold": 100,
     "base_stats": {
@@ -2204,8 +2204,8 @@
       ]
     },
     "recommended_sets": [
-      "14016",
-      "14012"
+      "15018",
+      "15008"
     ],
     "er_threshold": 130,
     "base_stats": {
@@ -2267,7 +2267,7 @@
       ]
     },
     "recommended_sets": [
-      "14018"
+      "15020"
     ],
     "er_threshold": 220,
     "base_stats": {
@@ -2387,8 +2387,8 @@
       ]
     },
     "recommended_sets": [
-      "14020",
-      "14015"
+      "15022",
+      "15017"
     ],
     "er_threshold": 150,
     "base_stats": {
@@ -2565,7 +2565,7 @@
       ]
     },
     "recommended_sets": [
-      "14019"
+      "15021"
     ],
     "er_threshold": 120,
     "base_stats": {
@@ -2626,8 +2626,8 @@
       ]
     },
     "recommended_sets": [
-      "14024",
-      "14030"
+      "15026",
+      "15032"
     ],
     "er_threshold": 140,
     "base_stats": {
@@ -2747,7 +2747,7 @@
       ]
     },
     "recommended_sets": [
-      "14018"
+      "15020"
     ],
     "er_threshold": 180,
     "base_stats": {
@@ -3093,8 +3093,8 @@
       ]
     },
     "recommended_sets": [
-      "14013",
-      "14017"
+      "15016",
+      "15019"
     ],
     "er_threshold": 120,
     "base_stats": {
@@ -3739,8 +3739,8 @@
       ]
     },
     "recommended_sets": [
-      "14023",
-      "14015"
+      "15025",
+      "15017"
     ],
     "er_threshold": 150,
     "base_stats": {
@@ -3801,8 +3801,8 @@
       ]
     },
     "recommended_sets": [
-      "14024",
-      "14023"
+      "15026",
+      "15025"
     ],
     "er_threshold": 130,
     "base_stats": {
@@ -4040,8 +4040,8 @@
       ]
     },
     "recommended_sets": [
-      "14023",
-      "14020"
+      "15025",
+      "15022"
     ],
     "er_threshold": 160,
     "base_stats": {
@@ -4102,7 +4102,7 @@
       ]
     },
     "recommended_sets": [
-      "14005"
+      "15002"
     ],
     "er_threshold": 160,
     "base_stats": {
@@ -4162,7 +4162,7 @@
       ]
     },
     "recommended_sets": [
-      "14029"
+      "15031"
     ],
     "er_threshold": 120,
     "base_stats": {
@@ -4280,7 +4280,7 @@
       ]
     },
     "recommended_sets": [
-      "14029"
+      "15031"
     ],
     "er_threshold": 120,
     "base_stats": {
@@ -4342,7 +4342,7 @@
       ]
     },
     "recommended_sets": [
-      "14029"
+      "15031"
     ],
     "er_threshold": 120,
     "base_stats": {
@@ -4463,7 +4463,7 @@
       ]
     },
     "recommended_sets": [
-      "14030"
+      "15032"
     ],
     "er_threshold": 160,
     "base_stats": {
@@ -4523,8 +4523,8 @@
       ]
     },
     "recommended_sets": [
-      "14011",
-      "14006"
+      "15007",
+      "14004"
     ],
     "er_threshold": 150,
     "base_stats": {
@@ -4584,7 +4584,7 @@
       ]
     },
     "recommended_sets": [
-      "14032"
+      "15034"
     ],
     "er_threshold": 120,
     "base_stats": {
@@ -4876,8 +4876,8 @@
       ]
     },
     "recommended_sets": [
-      "14033",
-      "14001"
+      "15035",
+      "15001"
     ],
     "er_threshold": 100,
     "base_stats": {
@@ -4996,7 +4996,7 @@
       ]
     },
     "recommended_sets": [
-      "14033"
+      "15035"
     ],
     "er_threshold": 100,
     "base_stats": {
@@ -5173,7 +5173,7 @@
       ]
     },
     "recommended_sets": [
-      "14036"
+      "15038"
     ],
     "er_threshold": 100,
     "base_stats": {
@@ -5234,7 +5234,7 @@
       ]
     },
     "recommended_sets": [
-      "14036"
+      "15038"
     ],
     "er_threshold": 100,
     "base_stats": {
@@ -5294,7 +5294,7 @@
       ]
     },
     "recommended_sets": [
-      "14035"
+      "15037"
     ],
     "er_threshold": 160,
     "base_stats": {
@@ -6165,12 +6165,12 @@
         "ELEMENTAL_MASTERY"
       ],
       "CIRCLET": [
-        "CRIT_RATE",
-        "CRIT_DMG"
+        "CRIT_DMG",
+        "CRIT_RATE"
       ]
     },
     "recommended_sets": [],
-    "er_threshold": 120,
+    "er_threshold": 110,
     "base_stats": {
       "hp_base": 972.3864,
       "atk_base": 27.3714,
@@ -6519,9 +6519,9 @@
       ]
     },
     "recommended_sets": [
-      "14036",
-      "14027",
-      "14024"
+      "15038",
+      "15029",
+      "15026"
     ],
     "er_threshold": 120,
     "base_stats": {
@@ -6592,64 +6592,6 @@
     "source": "genshin-optimizer/frzyc",
     "data_version": "allStat_gen.json — master branch"
   },
-  "Lohen": {
-    "name": "Lohen",
-    "display_name": "Lohen",
-    "element": "Cryo",
-    "weapon_type": "Polearm",
-    "rarity": 5,
-    "avatar_id": "10000129",
-    "scaling_attribute": "Crit DMG%",
-    "scaling_stat": "CRIT_DMG",
-    "ascension_stat": "critDMG_",
-    "ascension_bonus_curve": [
-      0,
-      0,
-      0.096,
-      0.192,
-      0.192,
-      0.288,
-      0.384
-    ],
-    "substat_weights": {
-      "CRIT_RATE": 1,
-      "CRIT_DMG": 1,
-      "ATK_PERCENT": 0.7,
-      "HP_PERCENT": 0,
-      "DEF_PERCENT": 0,
-      "ELEMENTAL_MASTERY": 0,
-      "ENERGY_RECHARGE": 0.5,
-      "HEALING_BONUS": 0,
-      "PHYSICAL_DMG": 0,
-      "ELEMENTAL_DMG": 0,
-      "FLAT_ATK": 0.15,
-      "FLAT_HP": 0,
-      "FLAT_DEF": 0
-    },
-    "main_stats_ideal": {
-      "SANDS": [
-        "ATK_PERCENT"
-      ],
-      "GOBLET": [
-        "ICE_ADD_HURT",
-        "CRYO_DMG"
-      ],
-      "CIRCLET": [
-        "CRIT_RATE",
-        "CRIT_DMG"
-      ]
-    },
-    "recommended_sets": [],
-    "er_threshold": 130,
-    "base_stats": {
-      "hp_base": 981.9196,
-      "atk_base": 27.4645,
-      "def_base": 61.92405
-    },
-    "region": "mondstadt",
-    "source": "genshin-optimizer/frzyc",
-    "data_version": "allStat_gen.json — master branch"
-  },
   "Varka": {
     "name": "Varka",
     "display_name": "Varka",
@@ -6700,9 +6642,67 @@
     "recommended_sets": [],
     "er_threshold": 120,
     "base_stats": {
-      "hp_base": 1100,
-      "atk_base": 28,
-      "def_base": 65
+      "hp_base": 981.9196,
+      "atk_base": 27.4645,
+      "def_base": 61.92405
+    },
+    "region": "mondstadt",
+    "source": "genshin-optimizer/frzyc",
+    "data_version": "allStat_gen.json — master branch"
+  },
+  "Lohen": {
+    "name": "Lohen",
+    "display_name": "Lohen",
+    "element": "Cryo",
+    "weapon_type": "Polearm",
+    "rarity": 5,
+    "avatar_id": "10000129",
+    "scaling_attribute": "Crit DMG%",
+    "scaling_stat": "CRIT_DMG",
+    "ascension_stat": "critDMG_",
+    "ascension_bonus_curve": [
+      0,
+      0,
+      0.096,
+      0.192,
+      0.192,
+      0.288,
+      0.384
+    ],
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.5,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ICE_ADD_HURT",
+        "CRYO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 130,
+    "base_stats": {
+      "hp_base": 1000.986,
+      "atk_base": 26.8128,
+      "def_base": 61.0266
     },
     "region": "mondstadt",
     "source": "genshin-optimizer/frzyc",
@@ -6883,6 +6883,38 @@
     "source": "genshin-optimizer/frzyc",
     "data_version": "allStat_gen.json — master branch"
   },
+  "Sandrone": {
+    "name": "Sandrone",
+    "display_name": "Sandrone",
+    "element": "Cryo",
+    "weapon_type": "Claymore",
+    "rarity": 5,
+    "avatar_id": null,
+    "scaling_attribute": "Crit Rate%",
+    "scaling_stat": "CRIT_RATE",
+    "ascension_stat": "critRate_",
+    "ascension_bonus_curve": [
+      0,
+      0,
+      0.048,
+      0.096,
+      0.096,
+      0.144,
+      0.192
+    ],
+    "substat_weights": null,
+    "main_stats_ideal": null,
+    "recommended_sets": [],
+    "er_threshold": null,
+    "base_stats": {
+      "hp_base": 1029.5856,
+      "atk_base": 26.6266,
+      "def_base": 58.57357
+    },
+    "region": null,
+    "source": "genshin-optimizer/frzyc",
+    "data_version": "allStat_gen.json — master branch"
+  },
   "Somnia": {
     "name": "Somnia",
     "display_name": "Somnia",
@@ -6902,37 +6934,10 @@
       86.4000015258789,
       115.19999694824219
     ],
-    "substat_weights": {
-      "CRIT_RATE": 0.5,
-      "CRIT_DMG": 0.5,
-      "ATK_PERCENT": 0,
-      "HP_PERCENT": 0,
-      "DEF_PERCENT": 0,
-      "ELEMENTAL_MASTERY": 1,
-      "ENERGY_RECHARGE": 0.7,
-      "HEALING_BONUS": 0,
-      "PHYSICAL_DMG": 0,
-      "ELEMENTAL_DMG": 0,
-      "FLAT_ATK": 0,
-      "FLAT_HP": 0,
-      "FLAT_DEF": 0
-    },
-    "main_stats_ideal": {
-      "SANDS": [
-        "ELEMENTAL_MASTERY",
-        "ENERGY_RECHARGE"
-      ],
-      "GOBLET": [
-        "ELEMENTAL_MASTERY"
-      ],
-      "CIRCLET": [
-        "ELEMENTAL_MASTERY",
-        "CRIT_RATE",
-        "CRIT_DMG"
-      ]
-    },
+    "substat_weights": null,
+    "main_stats_ideal": null,
     "recommended_sets": [],
-    "er_threshold": 160,
+    "er_threshold": null,
     "base_stats": {
       "hp_base": 806.5087280273438,
       "atk_base": 23.274999618530273,
@@ -6941,5 +6946,126 @@
     "region": null,
     "source": "genshin-optimizer/frzyc",
     "data_version": "allStat_gen.json — master branch"
+  },
+  "Alyosha": {
+    "name": "Alyosha",
+    "display_name": "Alyosha",
+    "element": "Electro",
+    "weapon_type": "Polearm",
+    "rarity": 4,
+    "avatar_id": "10000148",
+    "scaling_attribute": "ER%",
+    "scaling_stat": "ENERGY_RECHARGE",
+    "ascension_stat": "enerRech_",
+    "ascension_bonus_curve": [
+      0,
+      0,
+      0.0667,
+      0.1333,
+      0.1333,
+      0.2,
+      0.2667
+    ],
+    "substat_weights": {
+      "CRIT_RATE": 0.3,
+      "CRIT_DMG": 0.3,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 1,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.28,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ENERGY_RECHARGE",
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ATK_PERCENT"
+      ],
+      "CIRCLET": [
+        "ATK_PERCENT",
+        "CRIT_RATE"
+      ]
+    },
+    "recommended_sets": [
+      "15007",
+      "15048"
+    ],
+    "er_threshold": 200,
+    "base_stats": {
+      "hp_base": 11962.41,
+      "atk_base": 265.5,
+      "def_base": 703
+    },
+    "region": "nodKrai",
+    "source": "manual — Genshin Impact Fandom Wiki (stats/kit) + Game8 build guide (2026-08-19); not yet in genshin-optimizer/frzyc repo",
+    "data_version": "manual entry — 7.0 release"
+  },
+  "Odette": {
+    "name": "Odette",
+    "display_name": "Odette",
+    "element": "Cryo",
+    "weapon_type": "Sword",
+    "rarity": 5,
+    "avatar_id": "10000150",
+    "scaling_attribute": "Crit DMG%",
+    "scaling_stat": "CRIT_DMG",
+    "ascension_stat": "critDMG_",
+    "ascension_bonus_curve": [
+      0,
+      0,
+      0.096,
+      0.192,
+      0.192,
+      0.288,
+      0.384
+    ],
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.3,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.32,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ATK_PERCENT"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [
+      "15048",
+      "15046"
+    ],
+    "er_threshold": 135,
+    "base_stats": {
+      "hp_base": 12980.67,
+      "atk_base": 334.85,
+      "def_base": 787
+    },
+    "region": "nodKrai",
+    "source": "manual — Genshin Impact Fandom Wiki (stats/kit) + Game8 build guide (2026-08-19); not yet in genshin-optimizer/frzyc repo",
+    "data_version": "manual entry — 7.0 release"
   }
 }

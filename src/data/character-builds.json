@@ -30,7 +30,7 @@
       ]
     },
     "recommended_sets": [
-      "14014"
+      "14001"
     ],
     "er_threshold": 130
   },
@@ -67,8 +67,143 @@
       ]
     },
     "recommended_sets": [
-      "14005"
+      "15002"
     ],
+    "er_threshold": 160
+  },
+  "10000005": {
+    "name": "Traveler",
+    "substat_weights": {
+      "CRIT_RATE": 0.8,
+      "CRIT_DMG": 0.8,
+      "ATK_PERCENT": 0.6,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.4,
+      "ENERGY_RECHARGE": 0.6,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.1,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "ELEMENTAL_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 150
+  },
+  "10000006": {
+    "name": "Lisa",
+    "substat_weights": {
+      "CRIT_RATE": 0.5,
+      "CRIT_DMG": 0.5,
+      "ATK_PERCENT": 0.3,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 1,
+      "ENERGY_RECHARGE": 0.7,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "ELEMENTAL_MASTERY",
+        "ELEC_ADD_HURT"
+      ],
+      "CIRCLET": [
+        "ELEMENTAL_MASTERY",
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 160
+  },
+  "10000014": {
+    "name": "Barbara",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 1,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.8,
+      "HEALING_BONUS": 0.6,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.3,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "HP_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "HP_PERCENT"
+      ],
+      "CIRCLET": [
+        "HEALING_BONUS",
+        "HP_PERCENT"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 180
+  },
+  "10000015": {
+    "name": "Kaeya",
+    "substat_weights": {
+      "CRIT_RATE": 0.8,
+      "CRIT_DMG": 0.8,
+      "ATK_PERCENT": 0.6,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.3,
+      "ENERGY_RECHARGE": 0.7,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.1,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "ICE_ADD_HURT",
+        "CRYO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
     "er_threshold": 160
   },
   "10000016": {
@@ -103,7 +238,7 @@
       ]
     },
     "recommended_sets": [
-      "14009"
+      "15006"
     ],
     "er_threshold": 100
   },
@@ -137,10 +272,43 @@
       ]
     },
     "recommended_sets": [
-      "14003",
-      "14001"
+      "15005",
+      "15001"
     ],
     "er_threshold": 100
+  },
+  "10000021": {
+    "name": "Amber",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.3,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "FIRE_ADD_HURT",
+        "PYRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
   },
   "10000022": {
     "name": "Venti",
@@ -176,7 +344,7 @@
       ]
     },
     "recommended_sets": [
-      "14005"
+      "15002"
     ],
     "er_threshold": 160
   },
@@ -213,7 +381,7 @@
       ]
     },
     "recommended_sets": [
-      "14018"
+      "15020"
     ],
     "er_threshold": 180
   },
@@ -249,8 +417,8 @@
       ]
     },
     "recommended_sets": [
-      "14018",
-      "14003"
+      "15020",
+      "15005"
     ],
     "er_threshold": 160
   },
@@ -286,7 +454,7 @@
       ]
     },
     "recommended_sets": [
-      "14018"
+      "15020"
     ],
     "er_threshold": 180
   },
@@ -321,9 +489,76 @@
       ]
     },
     "recommended_sets": [
-      "14017",
-      "14021"
+      "15019",
+      "15023"
     ],
+    "er_threshold": 120
+  },
+  "10000027": {
+    "name": "Ningguang",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ROCK_ADD_HURT",
+        "GEO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000029": {
+    "name": "Klee",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.5,
+      "ENERGY_RECHARGE": 0.2,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT",
+        "ELEMENTAL_MASTERY"
+      ],
+      "GOBLET": [
+        "FIRE_ADD_HURT",
+        "PYRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
     "er_threshold": 120
   },
   "10000030": {
@@ -357,8 +592,8 @@
       ]
     },
     "recommended_sets": [
-      "14015",
-      "14007"
+      "15017",
+      "15014"
     ],
     "er_threshold": 120
   },
@@ -394,7 +629,7 @@
       ]
     },
     "recommended_sets": [
-      "14030"
+      "15032"
     ],
     "er_threshold": 120
   },
@@ -431,7 +666,7 @@
       ]
     },
     "recommended_sets": [
-      "14011"
+      "15007"
     ],
     "er_threshold": 220
   },
@@ -466,10 +701,43 @@
       ]
     },
     "recommended_sets": [
-      "14013",
-      "14002"
+      "15016",
+      "15003"
     ],
     "er_threshold": 100
+  },
+  "10000034": {
+    "name": "Noelle",
+    "substat_weights": {
+      "CRIT_RATE": 0.9,
+      "CRIT_DMG": 0.9,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 1,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.5,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0.2
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "DEF_PERCENT"
+      ],
+      "GOBLET": [
+        "ROCK_ADD_HURT",
+        "GEO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 130
   },
   "10000035": {
     "name": "Qiqi",
@@ -502,10 +770,43 @@
       ]
     },
     "recommended_sets": [
-      "14006",
-      "14020"
+      "14004",
+      "15022"
     ],
     "er_threshold": 160
+  },
+  "10000036": {
+    "name": "Chongyun",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.3,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ICE_ADD_HURT",
+        "CRYO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
   },
   "10000037": {
     "name": "Ganyu",
@@ -538,8 +839,8 @@
       ]
     },
     "recommended_sets": [
-      "14014",
-      "14002"
+      "14001",
+      "15003"
     ],
     "er_threshold": 100
   },
@@ -575,9 +876,42 @@
       ]
     },
     "recommended_sets": [
-      "14019"
+      "15021"
     ],
     "er_threshold": 100
+  },
+  "10000039": {
+    "name": "Diona",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 1,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.8,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.3,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "HP_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "HP_PERCENT"
+      ],
+      "CIRCLET": [
+        "HP_PERCENT",
+        "HEALING_BONUS"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 180
   },
   "10000041": {
     "name": "Mona",
@@ -611,7 +945,7 @@
       ]
     },
     "recommended_sets": [
-      "14018"
+      "15020"
     ],
     "er_threshold": 180
   },
@@ -646,8 +980,8 @@
       ]
     },
     "recommended_sets": [
-      "14003",
-      "14017"
+      "15005",
+      "15019"
     ],
     "er_threshold": 100
   },
@@ -681,9 +1015,74 @@
       ]
     },
     "recommended_sets": [
-      "14005"
+      "15002"
     ],
     "er_threshold": 160
+  },
+  "10000044": {
+    "name": "Xinyan",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "PHYSICAL_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000045": {
+    "name": "Rosaria",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.5,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ICE_ADD_HURT",
+        "CRYO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 130
   },
   "10000046": {
     "name": "Hu Tao",
@@ -717,8 +1116,8 @@
       ]
     },
     "recommended_sets": [
-      "14009",
-      "14017"
+      "15006",
+      "15019"
     ],
     "er_threshold": 100
   },
@@ -752,9 +1151,43 @@
       ]
     },
     "recommended_sets": [
-      "14005"
+      "15002"
     ],
     "er_threshold": 160
+  },
+  "10000048": {
+    "name": "Yanfei",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.5,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT",
+        "ELEMENTAL_MASTERY"
+      ],
+      "GOBLET": [
+        "FIRE_ADD_HURT",
+        "PYRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
   },
   "10000049": {
     "name": "Yoimiya",
@@ -787,10 +1220,42 @@
       ]
     },
     "recommended_sets": [
-      "14017",
-      "14009"
+      "15019",
+      "15006"
     ],
     "er_threshold": 100
+  },
+  "10000050": {
+    "name": "Thoma",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0.8,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 1,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.2,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ENERGY_RECHARGE",
+        "HP_PERCENT"
+      ],
+      "GOBLET": [
+        "HP_PERCENT"
+      ],
+      "CIRCLET": [
+        "HP_PERCENT"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 200
   },
   "10000051": {
     "name": "Eula",
@@ -822,8 +1287,8 @@
       ]
     },
     "recommended_sets": [
-      "14016",
-      "14012"
+      "15018",
+      "15008"
     ],
     "er_threshold": 130
   },
@@ -860,9 +1325,42 @@
       ]
     },
     "recommended_sets": [
-      "14018"
+      "15020"
     ],
     "er_threshold": 220
+  },
+  "10000053": {
+    "name": "Sayu",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0.4,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 1,
+      "ENERGY_RECHARGE": 0.8,
+      "HEALING_BONUS": 0.3,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "ELEMENTAL_MASTERY"
+      ],
+      "CIRCLET": [
+        "ELEMENTAL_MASTERY",
+        "HEALING_BONUS"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 180
   },
   "10000054": {
     "name": "Sangonomiya Kokomi",
@@ -897,10 +1395,77 @@
       ]
     },
     "recommended_sets": [
-      "14020",
-      "14015"
+      "15022",
+      "15017"
     ],
     "er_threshold": 150
+  },
+  "10000055": {
+    "name": "Gorou",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 1,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.9,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0.3
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "DEF_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "DEF_PERCENT"
+      ],
+      "CIRCLET": [
+        "DEF_PERCENT",
+        "HEALING_BONUS"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 220
+  },
+  "10000056": {
+    "name": "Kujou Sara",
+    "substat_weights": {
+      "CRIT_RATE": 0.5,
+      "CRIT_DMG": 0.5,
+      "ATK_PERCENT": 0.6,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 1,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.1,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ENERGY_RECHARGE",
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ELEC_ADD_HURT",
+        "ELECTRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 200
   },
   "10000057": {
     "name": "Arataki Itto",
@@ -933,7 +1498,7 @@
       ]
     },
     "recommended_sets": [
-      "14019"
+      "15021"
     ],
     "er_threshold": 120
   },
@@ -969,10 +1534,44 @@
       ]
     },
     "recommended_sets": [
-      "14024",
-      "14030"
+      "15026",
+      "15032"
     ],
     "er_threshold": 140
+  },
+  "10000059": {
+    "name": "Shikanoin Heizou",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.5,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT",
+        "ELEMENTAL_MASTERY"
+      ],
+      "GOBLET": [
+        "WIND_ADD_HURT",
+        "ANEMO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
   },
   "10000060": {
     "name": "Yelan",
@@ -1006,9 +1605,170 @@
       ]
     },
     "recommended_sets": [
-      "14018"
+      "15020"
     ],
     "er_threshold": 180
+  },
+  "10000061": {
+    "name": "Kirara",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 1,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.6,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.3,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "HP_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "HP_PERCENT"
+      ],
+      "CIRCLET": [
+        "HP_PERCENT"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 160
+  },
+  "10000062": {
+    "name": "Aloy",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ICE_ADD_HURT",
+        "CRYO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000063": {
+    "name": "Shenhe",
+    "substat_weights": {
+      "CRIT_RATE": 0.4,
+      "CRIT_DMG": 0.4,
+      "ATK_PERCENT": 1,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.8,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.3,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "ATK_PERCENT"
+      ],
+      "CIRCLET": [
+        "ATK_PERCENT"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 180
+  },
+  "10000064": {
+    "name": "Yun Jin",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 1,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.9,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0.3
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "DEF_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "DEF_PERCENT"
+      ],
+      "CIRCLET": [
+        "DEF_PERCENT"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 200
+  },
+  "10000065": {
+    "name": "Kuki Shinobu",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0.7,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 1,
+      "ENERGY_RECHARGE": 0.5,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.15,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY",
+        "HP_PERCENT"
+      ],
+      "GOBLET": [
+        "ELEMENTAL_MASTERY"
+      ],
+      "CIRCLET": [
+        "ELEMENTAL_MASTERY"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 140
   },
   "10000066": {
     "name": "Kamisato Ayato",
@@ -1041,10 +1801,345 @@
       ]
     },
     "recommended_sets": [
-      "14013",
-      "14017"
+      "15016",
+      "15019"
     ],
     "er_threshold": 120
+  },
+  "10000067": {
+    "name": "Collei",
+    "substat_weights": {
+      "CRIT_RATE": 0.5,
+      "CRIT_DMG": 0.5,
+      "ATK_PERCENT": 0.4,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.6,
+      "ENERGY_RECHARGE": 0.9,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ENERGY_RECHARGE",
+        "ELEMENTAL_MASTERY"
+      ],
+      "GOBLET": [
+        "GRASS_ADD_HURT",
+        "DENDRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 200
+  },
+  "10000068": {
+    "name": "Dori",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0.8,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.9,
+      "HEALING_BONUS": 0.5,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.2,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ENERGY_RECHARGE",
+        "HP_PERCENT"
+      ],
+      "GOBLET": [
+        "HP_PERCENT"
+      ],
+      "CIRCLET": [
+        "HEALING_BONUS",
+        "HP_PERCENT"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 200
+  },
+  "10000069": {
+    "name": "Tighnari",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.5,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.9,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.1,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY",
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "GRASS_ADD_HURT",
+        "DENDRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 110
+  },
+  "10000070": {
+    "name": "Nilou",
+    "substat_weights": {
+      "CRIT_RATE": 0.6,
+      "CRIT_DMG": 0.6,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 1,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.8,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.2,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "HP_PERCENT"
+      ],
+      "GOBLET": [
+        "HP_PERCENT"
+      ],
+      "CIRCLET": [
+        "HP_PERCENT",
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 130
+  },
+  "10000071": {
+    "name": "Cyno",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.6,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.8,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.1,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY",
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ELEC_ADD_HURT",
+        "ELECTRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000072": {
+    "name": "Candace",
+    "substat_weights": {
+      "CRIT_RATE": 0.5,
+      "CRIT_DMG": 0.5,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0.8,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.7,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.2,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "HP_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "WATER_ADD_HURT",
+        "HYDRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 180
+  },
+  "10000073": {
+    "name": "Nahida",
+    "substat_weights": {
+      "CRIT_RATE": 0.9,
+      "CRIT_DMG": 0.9,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 1,
+      "ENERGY_RECHARGE": 0.4,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY"
+      ],
+      "GOBLET": [
+        "ELEMENTAL_MASTERY",
+        "GRASS_ADD_HURT",
+        "DENDRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 130
+  },
+  "10000074": {
+    "name": "Layla",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 1,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.7,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.3,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "HP_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "HP_PERCENT"
+      ],
+      "CIRCLET": [
+        "HP_PERCENT"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 180
+  },
+  "10000075": {
+    "name": "Wanderer",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.2,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "WIND_ADD_HURT",
+        "ANEMO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 110
+  },
+  "10000076": {
+    "name": "Faruzan",
+    "substat_weights": {
+      "CRIT_RATE": 0.6,
+      "CRIT_DMG": 0.6,
+      "ATK_PERCENT": 0.4,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 1,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.1,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ENERGY_RECHARGE",
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "WIND_ADD_HURT",
+        "ANEMO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 220
   },
   "10000077": {
     "name": "Yaoyao",
@@ -1077,8 +2172,8 @@
       ]
     },
     "recommended_sets": [
-      "14023",
-      "14015"
+      "15025",
+      "15017"
     ],
     "er_threshold": 150
   },
@@ -1114,10 +2209,113 @@
       ]
     },
     "recommended_sets": [
-      "14024",
-      "14023"
+      "15026",
+      "15025"
     ],
     "er_threshold": 130
+  },
+  "10000079": {
+    "name": "Dehya",
+    "substat_weights": {
+      "CRIT_RATE": 0.7,
+      "CRIT_DMG": 0.7,
+      "ATK_PERCENT": 0.4,
+      "HP_PERCENT": 0.8,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.5,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.15,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "HP_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "FIRE_ADD_HURT",
+        "PYRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG",
+        "HP_PERCENT"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 150
+  },
+  "10000080": {
+    "name": "Mika",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0.8,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 1,
+      "HEALING_BONUS": 0.5,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.2,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ENERGY_RECHARGE",
+        "HP_PERCENT"
+      ],
+      "GOBLET": [
+        "HP_PERCENT"
+      ],
+      "CIRCLET": [
+        "HEALING_BONUS",
+        "HP_PERCENT"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 200
+  },
+  "10000081": {
+    "name": "Kaveh",
+    "substat_weights": {
+      "CRIT_RATE": 0.5,
+      "CRIT_DMG": 0.5,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 1,
+      "ENERGY_RECHARGE": 0.7,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "ELEMENTAL_MASTERY",
+        "DENDRO_DMG"
+      ],
+      "CIRCLET": [
+        "ELEMENTAL_MASTERY",
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 160
   },
   "10000082": {
     "name": "Baizhu",
@@ -1125,7 +2323,7 @@
       "CRIT_RATE": 0,
       "CRIT_DMG": 0,
       "ATK_PERCENT": 0,
-      "HP_PERCENT": 1.0,
+      "HP_PERCENT": 1,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 0.1,
       "ENERGY_RECHARGE": 1.1,
@@ -1150,8 +2348,8 @@
       ]
     },
     "recommended_sets": [
-      "14023",
-      "14020"
+      "15025",
+      "15022"
     ],
     "er_threshold": 160
   },
@@ -1187,7 +2385,7 @@
       ]
     },
     "recommended_sets": [
-      "14005"
+      "15002"
     ],
     "er_threshold": 160
   },
@@ -1222,8 +2420,41 @@
       ]
     },
     "recommended_sets": [
-      "14029"
+      "15031"
     ],
+    "er_threshold": 120
+  },
+  "10000085": {
+    "name": "Freminet",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "PHYSICAL_DMG",
+        "ICE_ADD_HURT"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
     "er_threshold": 120
   },
   "10000086": {
@@ -1257,7 +2488,7 @@
       ]
     },
     "recommended_sets": [
-      "14029"
+      "15031"
     ],
     "er_threshold": 120
   },
@@ -1294,9 +2525,43 @@
       ]
     },
     "recommended_sets": [
-      "14029"
+      "15031"
     ],
     "er_threshold": 120
+  },
+  "10000088": {
+    "name": "Charlotte",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0.6,
+      "HP_PERCENT": 0.3,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 1,
+      "HEALING_BONUS": 0.6,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ENERGY_RECHARGE",
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ATK_PERCENT",
+        "ICE_ADD_HURT"
+      ],
+      "CIRCLET": [
+        "HEALING_BONUS",
+        "ATK_PERCENT"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 200
   },
   "10000089": {
     "name": "Furina",
@@ -1331,7 +2596,7 @@
       ]
     },
     "recommended_sets": [
-      "14030"
+      "15032"
     ],
     "er_threshold": 160
   },
@@ -1366,8 +2631,8 @@
       ]
     },
     "recommended_sets": [
-      "14011",
-      "14006"
+      "15007",
+      "14004"
     ],
     "er_threshold": 150
   },
@@ -1402,9 +2667,141 @@
       ]
     },
     "recommended_sets": [
-      "14032"
+      "15034"
     ],
     "er_threshold": 120
+  },
+  "10000092": {
+    "name": "Gaming",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.3,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "FIRE_ADD_HURT",
+        "PYRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000093": {
+    "name": "Xianyun",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 1,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.8,
+      "HEALING_BONUS": 0.4,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.3,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "ATK_PERCENT"
+      ],
+      "CIRCLET": [
+        "ATK_PERCENT",
+        "HEALING_BONUS"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 180
+  },
+  "10000094": {
+    "name": "Chiori",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0.8,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0.15
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "DEF_PERCENT"
+      ],
+      "GOBLET": [
+        "ROCK_ADD_HURT",
+        "GEO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000095": {
+    "name": "Sigewinne",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 1,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.7,
+      "HEALING_BONUS": 0.5,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.3,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "HP_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "HP_PERCENT"
+      ],
+      "CIRCLET": [
+        "HP_PERCENT",
+        "HEALING_BONUS"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 160
   },
   "10000096": {
     "name": "Arlecchino",
@@ -1437,10 +2834,44 @@
       ]
     },
     "recommended_sets": [
-      "14033",
-      "14001"
+      "15035",
+      "15001"
     ],
     "er_threshold": 100
+  },
+  "10000097": {
+    "name": "Sethos",
+    "substat_weights": {
+      "CRIT_RATE": 0.8,
+      "CRIT_DMG": 0.8,
+      "ATK_PERCENT": 0.4,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 1,
+      "ENERGY_RECHARGE": 0.4,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY",
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ELEC_ADD_HURT",
+        "ELECTRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 130
   },
   "10000098": {
     "name": "Clorinde",
@@ -1473,9 +2904,76 @@
       ]
     },
     "recommended_sets": [
-      "14033"
+      "15035"
     ],
     "er_threshold": 100
+  },
+  "10000099": {
+    "name": "Emilie",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "GRASS_ADD_HURT",
+        "DENDRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000100": {
+    "name": "Kachina",
+    "substat_weights": {
+      "CRIT_RATE": 0.5,
+      "CRIT_DMG": 0.5,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0.8,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.7,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0.15
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "DEF_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "ROCK_ADD_HURT",
+        "GEO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 160
   },
   "10000101": {
     "name": "Kinich",
@@ -1508,7 +3006,7 @@
       ]
     },
     "recommended_sets": [
-      "14036"
+      "15038"
     ],
     "er_threshold": 100
   },
@@ -1544,7 +3042,7 @@
       ]
     },
     "recommended_sets": [
-      "14036"
+      "15038"
     ],
     "er_threshold": 100
   },
@@ -1579,40 +3077,480 @@
       ]
     },
     "recommended_sets": [
-      "14035"
+      "15037"
     ],
     "er_threshold": 160
   },
-  "10000126": {
-    "name": "Zibai",
+  "10000104": {
+    "name": "Chasca",
     "substat_weights": {
-      "CRIT_RATE": 1.0,
-      "CRIT_DMG": 1.0,
-      "ATK_PERCENT": 0,
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
       "HP_PERCENT": 0,
-      "DEF_PERCENT": 0.75,
-      "ELEMENTAL_MASTERY": 0,
-      "ENERGY_RECHARGE": 0.4,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.3,
+      "ENERGY_RECHARGE": 0.2,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "WIND_ADD_HURT",
+        "ANEMO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 110
+  },
+  "10000105": {
+    "name": "Ororon",
+    "substat_weights": {
+      "CRIT_RATE": 0.6,
+      "CRIT_DMG": 0.6,
+      "ATK_PERCENT": 0.5,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.7,
+      "ENERGY_RECHARGE": 0.9,
       "HEALING_BONUS": 0,
       "PHYSICAL_DMG": 0,
       "ELEMENTAL_DMG": 0,
       "FLAT_ATK": 0,
       "FLAT_HP": 0,
-      "FLAT_DEF": 0.15
+      "FLAT_DEF": 0
     },
     "main_stats_ideal": {
-      "SANDS": ["DEF_PERCENT"],
-      "GOBLET": ["DEF_PERCENT", "GEO_DMG"],
-      "CIRCLET": ["CRIT_DMG", "CRIT_RATE"]
+      "SANDS": [
+        "ENERGY_RECHARGE",
+        "ELEMENTAL_MASTERY"
+      ],
+      "GOBLET": [
+        "ELEC_ADD_HURT",
+        "ELECTRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
     },
-    "recommended_sets": ["14036", "14027", "14024"],
+    "recommended_sets": [],
+    "er_threshold": 180
+  },
+  "10000106": {
+    "name": "Mavuika",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "FIRE_ADD_HURT",
+        "PYRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
     "er_threshold": 120
+  },
+  "10000107": {
+    "name": "Citlali",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0.4,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 1,
+      "ENERGY_RECHARGE": 0.8,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.1,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "ELEMENTAL_MASTERY"
+      ],
+      "CIRCLET": [
+        "ELEMENTAL_MASTERY"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 160
+  },
+  "10000108": {
+    "name": "Lan Yan",
+    "substat_weights": {
+      "CRIT_RATE": 0.4,
+      "CRIT_DMG": 0.4,
+      "ATK_PERCENT": 0.5,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.4,
+      "ENERGY_RECHARGE": 0.9,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ENERGY_RECHARGE",
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "WIND_ADD_HURT",
+        "ANEMO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 180
+  },
+  "10000109": {
+    "name": "Yumemizuki Mizuki",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0.4,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 1,
+      "ENERGY_RECHARGE": 0.8,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.1,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "ELEMENTAL_MASTERY"
+      ],
+      "CIRCLET": [
+        "ELEMENTAL_MASTERY"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 160
+  },
+  "10000110": {
+    "name": "Iansan",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.5,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ATK_PERCENT"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 140
+  },
+  "10000111": {
+    "name": "Varesa",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.4,
+      "ENERGY_RECHARGE": 0.2,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ELEC_ADD_HURT",
+        "ELECTRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 110
+  },
+  "10000112": {
+    "name": "Escoffier",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.4,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ICE_ADD_HURT",
+        "CRYO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000113": {
+    "name": "Ifa",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 1,
+      "ENERGY_RECHARGE": 0.8,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "ELEMENTAL_MASTERY"
+      ],
+      "CIRCLET": [
+        "ELEMENTAL_MASTERY"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 180
+  },
+  "10000114": {
+    "name": "Skirk",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ICE_ADD_HURT",
+        "CRYO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000115": {
+    "name": "Dahlia",
+    "substat_weights": {
+      "CRIT_RATE": 0.5,
+      "CRIT_DMG": 0.5,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 1,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.8,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.2,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "HP_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "HP_PERCENT"
+      ],
+      "CIRCLET": [
+        "HP_PERCENT",
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 160
+  },
+  "10000116": {
+    "name": "Ineffa",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.5,
+      "ENERGY_RECHARGE": 0.4,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT",
+        "ELEMENTAL_MASTERY"
+      ],
+      "GOBLET": [
+        "ATK_PERCENT",
+        "ELEMENTAL_MASTERY"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000119": {
+    "name": "Lauma",
+    "substat_weights": {
+      "CRIT_RATE": 0.5,
+      "CRIT_DMG": 0.5,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 1,
+      "ENERGY_RECHARGE": 0.8,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "GRASS_ADD_HURT",
+        "DENDRO_DMG",
+        "ELEMENTAL_MASTERY"
+      ],
+      "CIRCLET": [
+        "ELEMENTAL_MASTERY",
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 160
   },
   "10000120": {
     "name": "Flins",
     "substat_weights": {
-      "CRIT_RATE": 1.0,
-      "CRIT_DMG": 1.0,
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
       "ATK_PERCENT": 0.8,
       "HP_PERCENT": 0,
       "DEF_PERCENT": 0,
@@ -1626,11 +3564,494 @@
       "FLAT_DEF": 0
     },
     "main_stats_ideal": {
-      "SANDS": ["ATK_PERCENT", "ELEMENTAL_MASTERY"],
-      "GOBLET": ["ATK_PERCENT", "ELEMENTAL_MASTERY"],
-      "CIRCLET": ["CRIT_DMG", "CRIT_RATE"]
+      "SANDS": [
+        "ATK_PERCENT",
+        "ELEMENTAL_MASTERY"
+      ],
+      "GOBLET": [
+        "ATK_PERCENT",
+        "ELEMENTAL_MASTERY"
+      ],
+      "CIRCLET": [
+        "CRIT_DMG",
+        "CRIT_RATE"
+      ]
     },
     "recommended_sets": [],
     "er_threshold": 110
+  },
+  "10000121": {
+    "name": "Aino",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0.4,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 1,
+      "ENERGY_RECHARGE": 0.7,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.1,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "ELEMENTAL_MASTERY"
+      ],
+      "CIRCLET": [
+        "ELEMENTAL_MASTERY"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 160
+  },
+  "10000122": {
+    "name": "Nefer",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.4,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT",
+        "ELEMENTAL_MASTERY"
+      ],
+      "GOBLET": [
+        "GRASS_ADD_HURT",
+        "DENDRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000123": {
+    "name": "Durin",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.3,
+      "ENERGY_RECHARGE": 0.2,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "FIRE_ADD_HURT",
+        "PYRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 110
+  },
+  "10000124": {
+    "name": "Jahoda",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0.8,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.9,
+      "HEALING_BONUS": 0.6,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.2,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "HP_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "HP_PERCENT"
+      ],
+      "CIRCLET": [
+        "HEALING_BONUS",
+        "HP_PERCENT"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 180
+  },
+  "10000125": {
+    "name": "Columbina",
+    "substat_weights": {
+      "CRIT_RATE": 0.8,
+      "CRIT_DMG": 0.8,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 1,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.2,
+      "ENERGY_RECHARGE": 1,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0.3,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "HP_PERCENT",
+        "ENERGY_RECHARGE"
+      ],
+      "GOBLET": [
+        "HP_PERCENT"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG",
+        "HP_PERCENT"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 200
+  },
+  "10000126": {
+    "name": "Zibai",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0.75,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.4,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0.15
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "DEF_PERCENT"
+      ],
+      "GOBLET": [
+        "DEF_PERCENT",
+        "GEO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_DMG",
+        "CRIT_RATE"
+      ]
+    },
+    "recommended_sets": [
+      "15038",
+      "15029",
+      "15026"
+    ],
+    "er_threshold": 120
+  },
+  "10000127": {
+    "name": "Prune",
+    "substat_weights": {
+      "CRIT_RATE": 0.4,
+      "CRIT_DMG": 0.4,
+      "ATK_PERCENT": 0.5,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.5,
+      "ENERGY_RECHARGE": 0.9,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ENERGY_RECHARGE",
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "WIND_ADD_HURT",
+        "ANEMO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 180
+  },
+  "10000128": {
+    "name": "Linnea",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0.8,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.4,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0.15
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "DEF_PERCENT"
+      ],
+      "GOBLET": [
+        "ROCK_ADD_HURT",
+        "GEO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000129": {
+    "name": "Lohen",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.5,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ICE_ADD_HURT",
+        "CRYO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 130
+  },
+  "10000130": {
+    "name": "Illuga",
+    "substat_weights": {
+      "CRIT_RATE": 0,
+      "CRIT_DMG": 0,
+      "ATK_PERCENT": 0,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0.4,
+      "ELEMENTAL_MASTERY": 1,
+      "ENERGY_RECHARGE": 0.7,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0.1
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ELEMENTAL_MASTERY",
+        "ENERGY_RECHARGE",
+        "DEF_PERCENT"
+      ],
+      "GOBLET": [
+        "ELEMENTAL_MASTERY",
+        "ROCK_ADD_HURT"
+      ],
+      "CIRCLET": [
+        "ELEMENTAL_MASTERY"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 160
+  },
+  "10000131": {
+    "name": "Nicole",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "FIRE_ADD_HURT",
+        "PYRO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000132": {
+    "name": "Varka",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.3,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.15,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "WIND_ADD_HURT",
+        "ANEMO_DMG"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [],
+    "er_threshold": 120
+  },
+  "10000148": {
+    "name": "Alyosha",
+    "substat_weights": {
+      "CRIT_RATE": 0.3,
+      "CRIT_DMG": 0.3,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 1,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.28,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ENERGY_RECHARGE",
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ATK_PERCENT"
+      ],
+      "CIRCLET": [
+        "ATK_PERCENT",
+        "CRIT_RATE"
+      ]
+    },
+    "recommended_sets": [
+      "15007",
+      "15048"
+    ],
+    "er_threshold": 200
+  },
+  "10000150": {
+    "name": "Odette",
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.3,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.32,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ATK_PERCENT"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [
+      "15048",
+      "15046"
+    ],
+    "er_threshold": 135
   }
 }
