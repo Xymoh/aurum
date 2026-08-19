@@ -6889,7 +6889,7 @@
     "element": "Cryo",
     "weapon_type": "Claymore",
     "rarity": 5,
-    "avatar_id": null,
+    "avatar_id": "10000133",
     "scaling_attribute": "Crit Rate%",
     "scaling_stat": "CRIT_RATE",
     "ascension_stat": "critRate_",
@@ -6902,10 +6902,40 @@
       0.144,
       0.192
     ],
-    "substat_weights": null,
-    "main_stats_ideal": null,
-    "recommended_sets": [],
-    "er_threshold": null,
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 1,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.2,
+      "ENERGY_RECHARGE": 0.35,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 1,
+      "FLAT_ATK": 0.2,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT",
+        "ELEMENTAL_MASTERY"
+      ],
+      "GOBLET": [
+        "ATK_PERCENT",
+        "ELEMENTAL_MASTERY"
+      ],
+      "CIRCLET": [
+        "CRIT_DMG",
+        "CRIT_RATE"
+      ]
+    },
+    "recommended_sets": [
+      "15001",
+      "15019"
+    ],
+    "er_threshold": 130,
     "base_stats": {
       "hp_base": 1029.5856,
       "atk_base": 26.6266,
@@ -6946,126 +6976,5 @@
     "region": null,
     "source": "genshin-optimizer/frzyc",
     "data_version": "allStat_gen.json — master branch"
-  },
-  "Alyosha": {
-    "name": "Alyosha",
-    "display_name": "Alyosha",
-    "element": "Electro",
-    "weapon_type": "Polearm",
-    "rarity": 4,
-    "avatar_id": "10000148",
-    "scaling_attribute": "ER%",
-    "scaling_stat": "ENERGY_RECHARGE",
-    "ascension_stat": "enerRech_",
-    "ascension_bonus_curve": [
-      0,
-      0,
-      0.0667,
-      0.1333,
-      0.1333,
-      0.2,
-      0.2667
-    ],
-    "substat_weights": {
-      "CRIT_RATE": 0.3,
-      "CRIT_DMG": 0.3,
-      "ATK_PERCENT": 0.7,
-      "HP_PERCENT": 0,
-      "DEF_PERCENT": 0,
-      "ELEMENTAL_MASTERY": 0,
-      "ENERGY_RECHARGE": 1,
-      "HEALING_BONUS": 0,
-      "PHYSICAL_DMG": 0,
-      "ELEMENTAL_DMG": 0,
-      "FLAT_ATK": 0.28,
-      "FLAT_HP": 0,
-      "FLAT_DEF": 0
-    },
-    "main_stats_ideal": {
-      "SANDS": [
-        "ENERGY_RECHARGE",
-        "ATK_PERCENT"
-      ],
-      "GOBLET": [
-        "ATK_PERCENT"
-      ],
-      "CIRCLET": [
-        "ATK_PERCENT",
-        "CRIT_RATE"
-      ]
-    },
-    "recommended_sets": [
-      "15007",
-      "15048"
-    ],
-    "er_threshold": 200,
-    "base_stats": {
-      "hp_base": 11962.41,
-      "atk_base": 265.5,
-      "def_base": 703
-    },
-    "region": "nodKrai",
-    "source": "manual — Genshin Impact Fandom Wiki (stats/kit) + Game8 build guide (2026-08-19); not yet in genshin-optimizer/frzyc repo",
-    "data_version": "manual entry — 7.0 release"
-  },
-  "Odette": {
-    "name": "Odette",
-    "display_name": "Odette",
-    "element": "Cryo",
-    "weapon_type": "Sword",
-    "rarity": 5,
-    "avatar_id": "10000150",
-    "scaling_attribute": "Crit DMG%",
-    "scaling_stat": "CRIT_DMG",
-    "ascension_stat": "critDMG_",
-    "ascension_bonus_curve": [
-      0,
-      0,
-      0.096,
-      0.192,
-      0.192,
-      0.288,
-      0.384
-    ],
-    "substat_weights": {
-      "CRIT_RATE": 1,
-      "CRIT_DMG": 1,
-      "ATK_PERCENT": 0.8,
-      "HP_PERCENT": 0,
-      "DEF_PERCENT": 0,
-      "ELEMENTAL_MASTERY": 0.3,
-      "ENERGY_RECHARGE": 0.3,
-      "HEALING_BONUS": 0,
-      "PHYSICAL_DMG": 0,
-      "ELEMENTAL_DMG": 0,
-      "FLAT_ATK": 0.32,
-      "FLAT_HP": 0,
-      "FLAT_DEF": 0
-    },
-    "main_stats_ideal": {
-      "SANDS": [
-        "ATK_PERCENT"
-      ],
-      "GOBLET": [
-        "ATK_PERCENT"
-      ],
-      "CIRCLET": [
-        "CRIT_RATE",
-        "CRIT_DMG"
-      ]
-    },
-    "recommended_sets": [
-      "15048",
-      "15046"
-    ],
-    "er_threshold": 135,
-    "base_stats": {
-      "hp_base": 12980.67,
-      "atk_base": 334.85,
-      "def_base": 787
-    },
-    "region": "nodKrai",
-    "source": "manual — Genshin Impact Fandom Wiki (stats/kit) + Game8 build guide (2026-08-19); not yet in genshin-optimizer/frzyc repo",
-    "data_version": "manual entry — 7.0 release"
   }
 }
