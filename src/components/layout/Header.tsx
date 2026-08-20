@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ScoreMethodologyModal } from "../ui/ScoreMethodologyModal";
+import { HelpIcon, ThemeIcon } from "../ui/icons";
 
 export function Header() {
   const [showInfo, setShowInfo] = useState(false);
@@ -15,24 +16,25 @@ export function Header() {
         <nav className="flex items-center gap-2">
           <button
             type="button"
-            className="rounded-lg px-3 py-1.5 text-sm text-dark-muted hover:text-dark-text transition-colors"
+            className="rounded-lg p-2 text-dark-muted hover:text-dark-text hover:bg-dark-border/40 transition-colors"
             onClick={() => setShowInfo(true)}
             aria-label="How scoring works"
             title="How scoring works"
           >
-            ❓
+            <HelpIcon className="w-4 h-4" />
           </button>
           <button
             type="button"
-            className="rounded-lg px-3 py-1.5 text-sm text-dark-muted hover:text-dark-text transition-colors"
+            className="rounded-lg p-2 text-dark-muted hover:text-dark-text hover:bg-dark-border/40 transition-colors"
             onClick={() => {
               const root = document.documentElement;
               const current = root.getAttribute("data-theme");
               root.setAttribute("data-theme", current === "light" ? "dark" : "light");
             }}
             aria-label="Toggle theme"
+            title="Toggle theme"
           >
-            🌓
+            <ThemeIcon className="w-4 h-4" />
           </button>
         </nav>
       </div>

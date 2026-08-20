@@ -1,5 +1,4 @@
 import type { ScoreGrade } from "../../types/artifact";
-import type { SetBonusResult } from "../../types/character";
 import { GRADE_COLORS } from "../../types/artifact";
 
 interface BuildScoreBarProps {
@@ -8,23 +7,6 @@ interface BuildScoreBarProps {
   artifactCount: number;
   correctMainStats: number;
   totalSelectableSlots: number;
-  setBonus: SetBonusResult;
-}
-
-function getSetBonusLabel(matchStatus: SetBonusResult["matchStatus"]): {
-  text: string;
-  color: string;
-} {
-  switch (matchStatus) {
-    case "full_match":
-      return { text: "Set ✓", color: "#22c55e" };
-    case "partial_match":
-      return { text: "Set ~", color: "#f59e0b" };
-    case "no_match":
-      return { text: "Set ✗", color: "#ef4444" };
-    case "no_recommendation":
-      return { text: "", color: "" };
-  }
 }
 
 export function BuildScoreBar({
@@ -33,10 +15,8 @@ export function BuildScoreBar({
   artifactCount,
   correctMainStats,
   totalSelectableSlots,
-  setBonus,
 }: BuildScoreBarProps) {
   const barColor = GRADE_COLORS[grade] ?? "#6b7280";
-  const setBonusLabel = getSetBonusLabel(setBonus.matchStatus);
 
   return (
     <div className="rounded-xl border border-dark-border bg-dark-card/30 p-5 sm:p-6">
@@ -87,19 +67,9 @@ export function BuildScoreBar({
             <span>WTF</span>
           </div>
 
-          {/* Main stat count and set bonus status */}
-          <div className="mt-2 flex items-center gap-3 text-[10px] sm:text-xs">
-            <span className="text-dark-muted">
-              {correctMainStats}/{totalSelectableSlots} main stats
-            </span>
-            {setBonusLabel.text && (
-              <span
-                className="font-medium"
-                style={{ color: setBonusLabel.color }}
-              >
-                {setBonusLabel.text}
-              </span>
-            )}
+          {/* Main stat count - set bonus status is shown in the Set Bonuses panel above */}
+          <div className="mt-2 text-[10px] sm:text-xs text-dark-muted">
+            {correctMainStats}/{totalSelectableSlots} main stats
           </div>
         </div>
       </div>

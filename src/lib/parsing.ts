@@ -6,6 +6,7 @@ import type {
   EquipType,
   EnkaSubstat,
   EnkaShowAvatarInfo,
+  EnkaPlayerInfo,
 } from "../types/enka";
 import type { Artifact, ArtifactSlot, ArtifactMainStat, ArtifactSubstat } from "../types/artifact";
 import type { CharacterData, CharacterWeapon, CharacterStats, ShowcaseData, GenshinElement } from "../types/character";
@@ -16,6 +17,7 @@ import artifactsData from "../data/artifacts.json";
 import weaponsData from "../data/weapons.json";
 import weaponIdsData from "../data/weapon-ids.json";
 import enkaLocaleData from "../data/enka-locale.json";
+import profilePicturesData from "../data/profile-pictures.json";
 import { computeRollQuality, getMaxRoll } from "./scoring";
 
 // ── Lookup tables ──
@@ -26,6 +28,7 @@ const ARTIFACTS = artifactsData as Record<string, { name: string; pieces: number
 const WEAPONS = weaponsData as Record<string, string>;
 const WEAPON_IDS = weaponIdsData as Record<string, string>;
 const ENKA_LOCALE = enkaLocaleData as Record<string, string>;
+const PROFILE_PICTURES = profilePicturesData as Record<string, string>;
 
 // ── Weapon name lookup (itemId-based with hash and icon fallbacks) ──
 // Weapon name resolution strategy:
@@ -139,13 +142,23 @@ const DMG_BONUS_PROP_IDS: Record<string, GenshinElement> = {
   "44": "Dendro",
 };
 
-function detectElement(fightPropMap: Record<string, number> | undefined): GenshinElement {
-  if (!fightPropMap) return "Pyro";
+function detectElement(fightPropMap: Record<string, number> | undefined, fallback: GenshinElement = "Pyro"): GenshinElement {
+  if (!fightPropMap) return fallback;
   for (const [propId, element] of Object.entries(DMG_BONUS_PROP_IDS)) {
     if ((fightPropMap[propId] ?? 0) > 0) return element;
   }
-  return "Pyro";
+  return fallback;
 }
+
+// The Traveler's avatarId never changes when the player switches Vision - Enka
+// doesn't expose the active element as a clean enum on this API version, so
+// characters.json can only store one static "Anemo" guess. Unlike every other
+// character, that static value is wrong 6 times out of 7. Detect the live
+// element from the character's own elemental DMG% stat instead (reliable
+// whenever any equipped piece grants an elemental DMG bonus - the common case
+// for an on-field Traveler build; falls back to Anemo, the base/default
+// Vision, when no elemental DMG% is present at all, e.g. a pure ATK%/EM build).
+const TRAVELER_AVATAR_IDS = new Set([10000005, 10000007]);
 
 /** Map a numeric/string prop ID to its FIGHT_PROP name, or return as-is */
 function resolvePropId(rawId: string): string {
@@ -335,15 +348,55 @@ function isArtifact(flat: EnkaEquip["flat"]): boolean {
 function getCharacterName(avatarId: number): string {
   const entry = CHARACTERS[String(avatarId)];
   if (entry) return entry.name;
-  console.warn(`[ArtScore] Unknown avatarId: ${avatarId} — name not found in characters.json`);
+  console.warn(`[ArtScore] Unknown avatarId: ${avatarId} - name not found in characters.json`);
   return `Character #${avatarId}`;
 }
 
 function getCharacterElement(avatarId: number, fightPropMap?: Record<string, number>): GenshinElement {
+  if (TRAVELER_AVATAR_IDS.has(avatarId)) {
+    return detectElement(fightPropMap, "Anemo");
+  }
   const char = CHARACTERS[String(avatarId)];
   if (char) return char.element as GenshinElement;
-  console.warn(`[ArtScore] Unknown avatarId: ${avatarId} — detecting element from fightPropMap`);
+  console.warn(`[ArtScore] Unknown avatarId: ${avatarId} - detecting element from fightPropMap`);
   return detectElement(fightPropMap);
+}
+
+function isTraveler(avatarId: number): boolean {
+  return TRAVELER_AVATAR_IDS.has(avatarId);
+}
+
+/**
+ * Resolve the player's chosen profile picture to an Enka icon name.
+ *
+ * `profilePicture.id` is a ProfilePicture id, not a character id - costume and
+ * event-only pictures have no character behind them, so it can only be resolved
+ * through the game's ProfilePicture table (see profile-pictures.json, refreshed
+ * by scripts/fetch-profile-pictures.js). Older Enka responses instead sent
+ * `avatarId`, which we can map straight through characters.json.
+ */
+function resolveProfileIcon(profilePicture: EnkaPlayerInfo["profilePicture"]): string {
+  if (!profilePicture) return "";
+
+  if (profilePicture.id != null) {
+    const icon = PROFILE_PICTURES[String(profilePicture.id)];
+    if (icon) return icon;
+    // A picture added in a patch newer than our bundled table. The id encodes a
+    // release-order index that can't be mapped to a character or icon name by
+    // any formula, so this is genuinely unresolvable until the upstream game
+    // data catches up - re-run `npm run fetch-pfps` once it does.
+    console.warn(
+      `[ArtScore] Unknown profile picture id: ${profilePicture.id} - ` +
+        `run \`npm run fetch-pfps\` to refresh src/data/profile-pictures.json`,
+    );
+  }
+
+  if (profilePicture.avatarId != null) {
+    const icon = getCharacterIcon(profilePicture.avatarId);
+    if (icon) return icon;
+  }
+
+  return "";
 }
 
 function getCharacterWeaponType(avatarId: number): string {
@@ -478,7 +531,7 @@ function extractWeapon(equips: EnkaEquip[]): CharacterWeapon | null {
     const { flat, weapon } = equip;
     const icon = flat.icon || "";
 
-    // Main stat (base ATK) — flat value, no multiplication needed
+    // Main stat (base ATK) - flat value, no multiplication needed
     const mainStatValue = flat.weaponStats?.find(
       (s) => s.appendPropId === "FIGHT_PROP_BASE_ATTACK",
     );
@@ -490,12 +543,12 @@ function extractWeapon(equips: EnkaEquip[]): CharacterWeapon | null {
     const substats = flat.weaponStats ?? [];
     const substat = substats.find((s) => s.appendPropId !== "FIGHT_PROP_BASE_ATTACK");
     const substatMeta = substat ? STAT_KEYS[substat.appendPropId] : null;
-    const substatName = substatMeta?.displayName ?? (substat?.appendPropId ?? "—");
+    const substatName = substatMeta?.displayName ?? (substat?.appendPropId ?? "-");
     const substatDisplay = substat
       ? substatMeta?.isPercentage
         ? `${substat.statValue.toFixed(1)}%`
         : String(Math.round(substat.statValue))
-      : "—";
+      : "-";
 
     // affixMap values are 0-indexed (0 = R1, 4 = R5)
     const refinement = weapon?.affixMap
@@ -543,9 +596,7 @@ export function parseShowcaseData(raw: EnkaResponse): ShowcaseData {
       nickname: raw.playerInfo?.nickname ?? "Unknown",
       level: raw.playerInfo?.level ?? 0,
       worldLevel: raw.playerInfo?.worldLevel ?? 0,
-      avatarIcon: raw.playerInfo?.profilePicture
-        ? String(raw.playerInfo.profilePicture.avatarId)
-        : "",
+      avatarIcon: resolveProfileIcon(raw.playerInfo?.profilePicture),
       signature: raw.playerInfo?.signature ?? "",
     },
     characters,
@@ -651,6 +702,7 @@ function parseCharacter(
     stats: computeStats(avatar.fightPropMap, artifacts),
     buildScore: { total: 0, grade: "F", artifactCount: artifacts.length, correctMainStats: 0, totalSelectableSlots: 0, setBonus: { activeSets: [], matchStatus: "no_recommendation" } },
     activeSetBonuses,
+    usesGenericWeights: isTraveler(avatarId),
   };
 }
 
@@ -696,7 +748,20 @@ function parseArtifact(equip: EnkaEquip): Artifact | null {
       setBonusMultiplier: 1.0,
       total: 0,
       grade: "F",
-      reroll: { eligible: false, currentPercent: 0, ceilingPercent: 0, upsidePercent: 0, bestStatDisplayName: null },
+      reroll: {
+        eligible: false,
+        action: "none",
+        priority: null,
+        improveChance: 0,
+        expectedReshapes: Infinity,
+        expectedDust: Infinity,
+        dustCost: 0,
+        currentPercent: 0,
+        medianGain: 0,
+        realisticCeiling: 0,
+        targetStats: [],
+        reason: "",
+      },
     },
   };
 }

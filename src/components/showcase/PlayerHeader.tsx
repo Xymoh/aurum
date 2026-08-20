@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { UserIcon, ClipboardIcon } from "../ui/icons";
 
 interface PlayerHeaderProps {
   uid: string;
@@ -25,6 +26,48 @@ function formatTimeAgo(timestamp: number): string {
   return `${days}d ago`;
 }
 
+const ENKA_UI_BASE = "https://enka.network/ui";
+
+/**
+ * The player's chosen profile picture, with a fallback for every way it can be
+ * unavailable: a picture from a patch newer than our bundled id→icon table, an
+ * account with none set, or the image itself failing to load. Rather than a
+ * generic silhouette - which reads as "broken" - we show the player's initial,
+ * the way most apps render a missing avatar. We deliberately don't substitute a
+ * showcased character's portrait: that would display someone the player didn't
+ * choose, which is worse than admitting we don't know.
+ */
+function PlayerAvatar({ iconName, nickname }: { iconName: string; nickname: string }) {
+  const [failed, setFailed] = useState(false);
+
+  const url = iconName ? `${ENKA_UI_BASE}/${iconName}.png` : null;
+  // Split by code point so emoji and CJK nicknames don't get cut mid-character.
+  const initial = Array.from(nickname.trim())[0] ?? "";
+
+  return (
+    <div className="flex h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-dark-border text-dark-muted icon-dark-bg">
+      {url && !failed ? (
+        <img
+          src={url}
+          alt=""
+          className="h-full w-full object-cover"
+          /* Above the fold and tiny - deferring it only delays the header. */
+          onError={() => setFailed(true)}
+        />
+      ) : initial ? (
+        <span
+          className="select-none text-base sm:text-lg font-semibold text-dark-text/80"
+          aria-hidden="true"
+        >
+          {initial}
+        </span>
+      ) : (
+        <UserIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+      )}
+    </div>
+  );
+}
+
 export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastUpdated }: PlayerHeaderProps) {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -46,9 +89,10 @@ export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastU
     <div className="rounded-xl border border-dark-border bg-dark-card px-4 py-3 sm:px-5 sm:py-4">
       {/* Top row: avatar + name + UID */}
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center rounded-full bg-dark-border text-base sm:text-lg">
-          👤
-        </div>
+        <PlayerAvatar
+          iconName={playerInfo.avatarIcon}
+          nickname={playerInfo.nickname}
+        />
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">
             <h2 className="truncate text-base font-semibold text-dark-text">{playerInfo.nickname}</h2>
@@ -81,10 +125,10 @@ export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastU
         <button
           type="button"
           onClick={handleCopyUrl}
-          className="rounded-lg px-3 py-1.5 text-[11px] font-medium text-dark-muted hover:bg-dark-border/40 hover:text-dark-text transition-colors"
+          className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11px] font-medium text-dark-muted hover:bg-dark-border/40 hover:text-dark-text transition-colors"
           title="Copy shareable URL"
         >
-          📋 Share
+          <ClipboardIcon className="w-3 h-3" /> Share
         </button>
         <div className="flex-1" />
         <button

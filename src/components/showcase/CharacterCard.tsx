@@ -4,6 +4,7 @@ import { GRADE_COLORS } from "../../types/artifact";
 import { SetBonusRow } from "../ui/SetBonusRow";
 import { BuildScoreBar } from "../ui/BuildScoreBar";
 import { ArtifactCard } from "./ArtifactCard";
+import { WarningIcon } from "../ui/icons";
 import { useState } from "react";
 
 // ── Local SVG icon imports ──
@@ -227,6 +228,15 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
         <div className="border-t border-dark-border/60 bg-dark-bg/30">
           <div className="p-3 sm:p-4 lg:p-5 flex flex-col gap-3 sm:gap-4">
 
+            {/* Traveler notice - same avatarId across all 7 elements, so scoring can't be element-tuned */}
+            {character.usesGenericWeights && (
+              <div className="rounded-lg bg-sky-500/10 border border-sky-500/20 py-2.5 px-4 text-sky-300/90 text-xs flex items-center gap-2 font-medium">
+                <WarningIcon className="w-4 h-4 flex-shrink-0" />
+                Traveler's element isn't identifiable from the showcase data, so this score uses one
+                generic all-purpose weighting instead of one tuned to your current Vision.
+              </div>
+            )}
+
             {/* ── AVATAR PROFILE + WEAPON ROW ── */}
             <div className="flex flex-col sm:flex-row gap-3">
               {/* Avatar profile card */}
@@ -293,7 +303,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                     </div>
                     <div className="flex gap-x-3 gap-y-0.5 mt-0.5 text-[11px] flex-wrap">
                       <span className="text-dark-muted">{character.weapon.mainStat.name} <span className="text-dark-text/90 font-mono">{character.weapon.mainStat.value}</span></span>
-                      {character.weapon.substat.name !== "—" && (
+                      {character.weapon.substat.name !== "-" && (
                         <span className="text-dark-muted">{character.weapon.substat.name} <span className="text-dark-text/90 font-mono">{character.weapon.substat.value}</span></span>
                       )}
                     </div>
@@ -404,8 +414,8 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
 
             {/* Incomplete notice */}
             {!hasAllArtifacts && character.artifacts.length > 0 && (
-              <div className="rounded-lg bg-orange-500/10 border border-orange-500/20 py-2.5 px-4 text-orange-400/90 text-xs flex items-center font-medium">
-                <span className="mr-2 text-base leading-none">⚠</span> Score is incomplete, based on {character.artifacts.length}/5 artifact slots.
+              <div className="rounded-lg bg-orange-500/10 border border-orange-500/20 py-2.5 px-4 text-orange-400/90 text-xs flex items-center gap-2 font-medium">
+                <WarningIcon className="w-4 h-4 flex-shrink-0" /> Score is incomplete, based on {character.artifacts.length}/5 artifact slots.
               </div>
             )}
 
@@ -418,7 +428,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
             )}
 
             {/* Build Score Bar */}
-            <BuildScoreBar score={character.buildScore.total} grade={character.buildScore.grade} artifactCount={character.buildScore.artifactCount} correctMainStats={character.buildScore.correctMainStats} totalSelectableSlots={character.buildScore.totalSelectableSlots} setBonus={character.buildScore.setBonus} />
+            <BuildScoreBar score={character.buildScore.total} grade={character.buildScore.grade} artifactCount={character.buildScore.artifactCount} correctMainStats={character.buildScore.correctMainStats} totalSelectableSlots={character.buildScore.totalSelectableSlots} />
           </div>
         </div>
       )}

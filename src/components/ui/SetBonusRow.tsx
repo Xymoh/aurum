@@ -14,14 +14,6 @@ const SET_COLORS = [
   "#f97316",
 ];
 
-const SLOT_SHORT: Record<string, string> = {
-  FLOWER: "F",
-  PLUME: "P",
-  SANDS: "S",
-  GOBLET: "G",
-  CIRCLET: "C",
-};
-
 function MatchStatusIndicator({ matchStatus }: { matchStatus: SetBonusResult["matchStatus"] }) {
   switch (matchStatus) {
     case "full_match":
@@ -52,7 +44,7 @@ function MatchStatusIndicator({ matchStatus }: { matchStatus: SetBonusResult["ma
 export function SetBonusRow({ artifacts, setBonus }: SetBonusRowProps) {
   if (artifacts.length === 0) return null;
 
-  // Assign colors
+  // Assign colors - kept for the pill borders/backgrounds below.
   const setColors = new Map<string, string>();
   for (const art of artifacts) {
     if (!setColors.has(art.setId)) {
@@ -60,32 +52,12 @@ export function SetBonusRow({ artifacts, setBonus }: SetBonusRowProps) {
     }
   }
 
-  const activeSetIds = setBonus.activeSets.map((s) => s.setId);
-
   return (
-    <div className="rounded-xl border border-dark-border overflow-hidden">
-      {/* Slot grid: show optional compact slot indicators */}
-      <div className="flex items-center gap-2 px-5 pt-4 pb-3">
-        {artifacts.map((art) => {
-          const color = setColors.get(art.setId) ?? "#6b7280";
-          const isActive = activeSetIds.includes(art.setId);
-          return (
-            <div
-              key={art.slot}
-              className={`flex h-8 w-8 items-center justify-center rounded-md border text-xs font-mono font-bold transition-all ${
-                isActive ? "opacity-100" : "opacity-25"
-              }`}
-              style={{ borderColor: color, color }}
-              title={`${art.setName} — ${art.slot}`}
-            >
-              {SLOT_SHORT[art.slot] ?? art.slot.slice(0, 1)}
-            </div>
-          );
-        })}
+    <div className="rounded-xl border border-dark-border px-5 py-4">
+      <div className="text-[11px] uppercase font-semibold tracking-wider text-dark-muted mb-2.5">
+        Set Bonuses
       </div>
-
-      {/* Active bonus labels */}
-      <div className="flex flex-wrap items-center gap-2 px-5 pb-4">
+      <div className="flex flex-wrap items-center gap-2">
         {setBonus.activeSets.length === 0 ? (
           <span className="text-xs text-dark-muted/50">No set bonuses active</span>
         ) : (

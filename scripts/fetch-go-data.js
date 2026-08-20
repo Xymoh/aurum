@@ -182,7 +182,7 @@ function scalingLabel(mappedKey) {
 
 async function main() {
   console.log("╔══════════════════════════════════════════════════════╗");
-  console.log("║  Genshin Artifact Scoring — GO Data Pipeline        ║");
+  console.log("║  Genshin Artifact Scoring - GO Data Pipeline        ║");
   console.log("╚══════════════════════════════════════════════════════╝\n");
 
   // ── 1. Fetch the master stats JSON from the GO repo ────────────
@@ -206,7 +206,7 @@ async function main() {
   if (localBuilds) {
     console.log(`  ✔ character-builds.json loaded (${Object.keys(localBuilds).length} entries)`);
   } else {
-    console.warn("  ⚠ No local builds found — substat weights will be default.");
+    console.warn("  ⚠ No local builds found - substat weights will be default.");
   }
   if (localChars) {
     console.log(`  ✔ characters.json loaded (${Object.keys(localChars).length} entries)\n`);
@@ -233,7 +233,7 @@ async function main() {
   let skippedCount = 0;
 
   for (const [charKey, sheetsData] of Object.entries(charData)) {
-    // Skip travel variants — those are handled per‑element
+    // Skip travel variants - those are handled per‑element
     if (
       charKey.startsWith("Traveler") &&
       charKey !== "Traveler" &&
@@ -323,7 +323,7 @@ async function main() {
 
       // Metadata
       source: "genshin-optimizer/frzyc",
-      data_version: "allStat_gen.json — master branch",
+      data_version: "allStat_gen.json - master branch",
     };
 
     output[charKey] = entry;
@@ -358,7 +358,7 @@ async function main() {
         `Integrity mismatch: wrote ${processedCount} characters but re-read ${reReadKeys.length}`
       );
     }
-    console.log(`  ✔ Validation passed — ${reReadKeys.length} entries verified\n`);
+    console.log(`  ✔ Validation passed - ${reReadKeys.length} entries verified\n`);
   } catch (e) {
     console.error(`  ✖ Validation failed: ${e.message}`);
     console.error("    The output file may be corrupted.");
@@ -395,7 +395,7 @@ async function main() {
 
   if (newCharKeys.length > 0) {
     console.log("┌─────────────────────────────────────────────────────────────────┐");
-    console.log("│  NEW characters (not in previous output — require manual review)│");
+    console.log("│  NEW characters (not in previous output - require manual review)│");
     console.log("├─────────────────────────────────────────────────────────────────┤");
     for (const key of newCharKeys) {
       const entry = output[key];

@@ -61,6 +61,12 @@ export interface CharacterData {
   stats: CharacterStats;
   buildScore: BuildScore;
   activeSetBonuses: string[];
+  /**
+   * True for the Traveler: their avatarId doesn't encode which of the 7
+   * elements is currently active, so scoring falls back to one generic
+   * all-purpose weight profile rather than an element-tuned one.
+   */
+  usesGenericWeights?: boolean;
 }
 
 export interface SetBonusResult {

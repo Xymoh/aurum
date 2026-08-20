@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { computeRV, computeCV, computeWSE, getGrade, computeRerollPotential } from "../../src/lib/scoring";
+import { computeRV, computeCV, computeWSE, getGrade, computeIdealPotential } from "../../src/lib/scoring";
+import { computeRerollAdvice, chanceWithin, formatChance } from "../../src/lib/reroll";
+import { POTENTIAL_SCALES } from "../../src/lib/constants";
 import type { Artifact, ArtifactSubstat } from "../../src/types/artifact";
 import type { ScoringWeights } from "../../src/types/scoring";
 
@@ -7,6 +9,7 @@ function makeSubstat(
   key: string,
   value: number,
   maxRoll: number,
+  rollCount?: number,
 ): ArtifactSubstat {
   return {
     statKey: key as ArtifactSubstat["statKey"],
@@ -15,7 +18,8 @@ function makeSubstat(
     value,
     isPercentage: true,
     maxRoll,
-    rollCount: maxRoll > 0 ? Math.max(0, Math.round(value / (maxRoll * 0.85)) - 1) : 0,
+    rollCount:
+      rollCount ?? (maxRoll > 0 ? Math.max(0, Math.round(value / (maxRoll * 0.85)) - 1) : 0),
     rollQuality: "high",
   };
 }
@@ -108,8 +112,8 @@ describe("computeWSE", () => {
   });
 });
 
-describe("computeRerollPotential", () => {
-  const DILUC_WEIGHTS: ScoringWeights = {
+describe("computeRerollAdvice", () => {
+  const CRIT_WEIGHTS: ScoringWeights = {
     CRIT_RATE: 1.0,
     CRIT_DMG: 1.0,
     ATK_PERCENT: 0.7,
@@ -125,7 +129,60 @@ describe("computeRerollPotential", () => {
     FLAT_DEF: 0,
   };
 
-  function makeArtifact(overrides: Partial<Artifact> = {}): Artifact {
+  const KEY_MAP: Record<string, keyof ScoringWeights> = {
+    FIGHT_PROP_CRITICAL: "CRIT_RATE",
+    FIGHT_PROP_CRITICAL_HURT: "CRIT_DMG",
+    FIGHT_PROP_ELEMENT_MASTERY: "ELEMENTAL_MASTERY",
+    FIGHT_PROP_CHARGE_EFFICIENCY: "ENERGY_RECHARGE",
+    FIGHT_PROP_HP_PERCENT: "HP_PERCENT",
+    FIGHT_PROP_DEFENSE_PERCENT: "DEF_PERCENT",
+    FIGHT_PROP_HP: "FLAT_HP",
+    FIGHT_PROP_DEFENSE: "FLAT_DEF",
+  };
+
+  const resolveWeight = (statKey: string, w: ScoringWeights): number => {
+    const key = KEY_MAP[statKey];
+    return key ? (w[key] ?? 0) : 0;
+  };
+  const scaleOf = (statKey: string): number => POTENTIAL_SCALES[statKey] ?? 0;
+
+  /** Mirror of the production weighted-potential sum, for building test inputs. */
+  function weightedOf(subs: ArtifactSubstat[]): number {
+    return subs.reduce(
+      (sum, s) => sum + resolveWeight(s.statKey, CRIT_WEIGHTS) * scaleOf(s.statKey) * s.value,
+      0,
+    );
+  }
+
+  /** A roll's average value, matching the model's AVG_ROLL_TIER. */
+  const roll = (max: number, n: number) => max * 0.85 * n;
+
+  // Four substats that all matter to a crit DPS - but every upgrade landed on
+  // the one stat the character doesn't want (ER), leaving real headroom.
+  const wastedRolls = [
+    makeSubstat("FIGHT_PROP_CRITICAL", roll(3.89, 1), 3.89, 0),
+    makeSubstat("FIGHT_PROP_CRITICAL_HURT", roll(7.77, 1), 7.77, 0),
+    makeSubstat("FIGHT_PROP_ELEMENT_MASTERY", roll(23.31, 1), 23.31, 0),
+    makeSubstat("FIGHT_PROP_CHARGE_EFFICIENCY", roll(6.48, 6), 6.48, 5),
+  ];
+
+  // Same stats, but the upgrades already piled into CRIT DMG.
+  const alreadyGood = [
+    makeSubstat("FIGHT_PROP_CRITICAL", roll(3.89, 1), 3.89, 0),
+    makeSubstat("FIGHT_PROP_CRITICAL_HURT", roll(7.77, 6), 7.77, 5),
+    makeSubstat("FIGHT_PROP_ELEMENT_MASTERY", roll(23.31, 1), 23.31, 0),
+    makeSubstat("FIGHT_PROP_CHARGE_EFFICIENCY", roll(6.48, 1), 6.48, 0),
+  ];
+
+  // Nothing here helps a crit DPS at all.
+  const junk = [
+    makeSubstat("FIGHT_PROP_HP_PERCENT", roll(5.83, 3), 5.83, 2),
+    makeSubstat("FIGHT_PROP_DEFENSE_PERCENT", roll(7.29, 3), 7.29, 2),
+    makeSubstat("FIGHT_PROP_HP", roll(298.75, 2), 298.75, 1),
+    makeSubstat("FIGHT_PROP_DEFENSE", roll(23.15, 1), 23.15, 0),
+  ];
+
+  function makeArtifact(substats: ArtifactSubstat[], overrides: Partial<Artifact> = {}): Artifact {
     return {
       id: "test-artifact",
       setId: "1",
@@ -143,12 +200,7 @@ describe("computeRerollPotential", () => {
         isCorrect: true,
         isRecommended: true,
       },
-      substats: [
-        makeSubstat("FIGHT_PROP_CRITICAL", 3.89, 3.89),
-        makeSubstat("FIGHT_PROP_CRITICAL_HURT", 7.77, 7.77),
-        makeSubstat("FIGHT_PROP_ELEMENT_MASTERY", 23.31, 23.31),
-        makeSubstat("FIGHT_PROP_CHARGE_EFFICIENCY", 6.48, 6.48),
-      ],
+      substats,
       score: {
         potentialPercent: 0,
         weightedPotential: 0,
@@ -162,36 +214,135 @@ describe("computeRerollPotential", () => {
         wse: 0,
         total: 0,
         grade: "F",
-        reroll: { eligible: false, currentPercent: 0, ceilingPercent: 0, upsidePercent: 0, bestStatDisplayName: null },
+        reroll: {
+          eligible: false,
+          action: "none",
+          priority: null,
+          improveChance: 0,
+          expectedReshapes: Infinity,
+          expectedDust: Infinity,
+          dustCost: 0,
+          currentPercent: 0,
+          medianGain: 0,
+          realisticCeiling: 0,
+          targetStats: [],
+          reason: "",
+        },
       },
       ...overrides,
     };
   }
 
-  it("is not eligible below level 20", () => {
-    const result = computeRerollPotential(makeArtifact({ level: 16 }), DILUC_WEIGHTS, 31.86, 80);
+  const IDEAL = computeIdealPotential(CRIT_WEIGHTS, "FIGHT_PROP_ATTACK_PERCENT");
+
+  function advise(substats: ArtifactSubstat[], overrides: Partial<Artifact> = {}) {
+    const artifact = makeArtifact(substats, overrides);
+    return computeRerollAdvice(
+      artifact,
+      CRIT_WEIGHTS,
+      resolveWeight,
+      scaleOf,
+      weightedOf(substats),
+      IDEAL,
+    );
+  }
+
+  it("tells you to level a sub-+20 artifact before it can be reshaped", () => {
+    const result = advise(wastedRolls, { level: 16 });
     expect(result.eligible).toBe(false);
+    expect(result.action).toBe("level_up");
   });
 
   it("is not eligible below 5-star rarity", () => {
-    const result = computeRerollPotential(makeArtifact({ rarity: 4 }), DILUC_WEIGHTS, 31.86, 80);
+    const result = advise(wastedRolls, { rarity: 4 });
     expect(result.eligible).toBe(false);
+    expect(result.action).toBe("none");
   });
 
-  it("picks the artifact's highest-weighted substat as the reroll target and computes a ceiling above the current score", () => {
-    const idealPotential = 31.86; // a plausible ideal potential for the DILUC_WEIGHTS profile
-    const result = computeRerollPotential(makeArtifact(), DILUC_WEIGHTS, idealPotential, 80);
-    expect(result.eligible).toBe(true);
-    // CRIT_RATE and CRIT_DMG are tied for the highest weight (1.0) — CRIT_RATE appears first in the substat list.
-    expect(result.bestStatDisplayName).toBe("FIGHT_PROP_CRITICAL");
-    expect(result.ceilingPercent).toBeGreaterThan(result.currentPercent);
-    expect(result.upsidePercent).toBeCloseTo(result.ceilingPercent - 80, 5);
+  it("recommends replacing a piece whose substats are worthless to the character", () => {
+    const result = advise(junk);
+    expect(result.action).toBe("replace");
+    // The old ceiling model rated this as huge "upside"; it must not suggest dust.
+    expect(result.priority).toBeNull();
   });
 
-  it("clamps upside at 0 when the current score already exceeds the estimated ceiling", () => {
-    const idealPotential = 31.86;
-    const result = computeRerollPotential(makeArtifact(), DILUC_WEIGHTS, idealPotential, 999);
-    expect(result.upsidePercent).toBe(0);
+  it("prioritises a piece with good substats whose upgrades were wasted", () => {
+    const result = advise(wastedRolls);
+    expect(result.action).toBe("reroll");
+    expect(result.improveChance).toBeGreaterThan(0.5);
+    // Both crit stats carry equal value per roll once normalised, so either
+    // ordering is correct - what matters is that ER is not nominated.
+    expect([...result.targetStats].sort()).toEqual([
+      "FIGHT_PROP_CRITICAL",
+      "FIGHT_PROP_CRITICAL_HURT",
+    ]);
+  });
+
+  it("does not push a reroll when the upgrades already landed on the best stat", () => {
+    const wasted = advise(wastedRolls);
+    const good = advise(alreadyGood);
+    expect(good.improveChance).toBeLessThan(wasted.improveChance);
+  });
+
+  it("charges half as much dust for a Flower as for a Sands", () => {
+    const sands = advise(wastedRolls, { slot: "SANDS" });
+    const flower = advise(wastedRolls, { slot: "FLOWER" });
+    expect(sands.dustCost).toBe(2);
+    expect(flower.dustCost).toBe(1);
+    expect(flower.expectedDust).toBeLessThan(sands.expectedDust);
+  });
+
+  it("is deterministic across repeated calls", () => {
+    expect(advise(wastedRolls).improveChance).toBe(advise(wastedRolls).improveChance);
+  });
+
+  it("reports the gain from successful reshapes, not a median dragged to zero by failures", () => {
+    // Whenever any reshape can improve the piece, the advice must say how much
+    // it gains when it does - that is exactly when the number matters, and a
+    // median taken over all outcomes would read 0 for the low-odds cases.
+    for (const subs of [wastedRolls, alreadyGood, junk]) {
+      const result = advise(subs);
+      if (result.improveChance > 0) {
+        expect(result.medianGain).toBeGreaterThan(0);
+      }
+    }
+  });
+});
+
+describe("chanceWithin", () => {
+  it("matches the per-reshape odds for a single try", () => {
+    expect(chanceWithin(0.4, 1)).toBeCloseTo(0.4, 10);
+  });
+
+  it("compounds across independent tries", () => {
+    // Two tries at 50% each miss only 25% of the time.
+    expect(chanceWithin(0.5, 2)).toBeCloseTo(0.75, 10);
+  });
+
+  it("stays at zero when no reshape can improve the piece", () => {
+    expect(chanceWithin(0, 5)).toBe(0);
+  });
+
+  it("approaches but never exceeds certainty", () => {
+    const result = chanceWithin(0.3, 50);
+    expect(result).toBeLessThan(1);
+    expect(result).toBeGreaterThan(0.99);
+  });
+});
+
+describe("formatChance", () => {
+  it("never claims a sampled estimate is a certainty", () => {
+    expect(formatChance(1)).toBe("99%+");
+    expect(formatChance(0.999)).toBe("99%+");
+  });
+
+  it("keeps a vanishing chance visible rather than rounding it to zero", () => {
+    expect(formatChance(0.001)).toBe("<1%");
+    expect(formatChance(0)).toBe("0%");
+  });
+
+  it("rounds ordinary odds to whole percent", () => {
+    expect(formatChance(0.375)).toBe("38%");
   });
 });
 

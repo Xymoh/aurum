@@ -36,15 +36,15 @@ const LOCALE_FILE = path.join(ROOT, "src", "data", "enka-locale.json");
 // These are weapons whose hashes don't appear in loc.json even with the +512 offset.
 const MANUAL_OVERRIDES = {
   11411: "One Side",                    // Sword_Blunt (4-star, placeholder icon, quest reward)
-  11508: "Haran Geppaku Futsu",         // Sword_Blunt (5-star, placeholder icon — internal duplicate)
+  11508: "Haran Geppaku Futsu",         // Sword_Blunt (5-star, placeholder icon - internal duplicate)
   11519: "Lightbearing Moonshard",      // Sword_SilverwareSaw
-  12508: "The Unforged",                // Claymore_Aniki (placeholder icon — internal duplicate)
-  12509: "Song of Broken Pines",        // Claymore_Aniki (placeholder icon — internal duplicate)
+  12508: "The Unforged",                // Claymore_Aniki (placeholder icon - internal duplicate)
+  12509: "Song of Broken Pines",        // Claymore_Aniki (placeholder icon - internal duplicate)
   12515: "Gest of the Mighty Wolf",     // Claymore_EnsisAquilonis
   13503: "Beginner's Protector",        // Pole_Gewalt (starter polearm)
   13517: "Disaster and Remorse",        // Pole_Carbine
   14411: "Dodoco Tales",                // Catalyst_Apprentice (event, placeholder icon)
-  14508: "Everlasting Moonglow",        // Catalyst_Apprentice (placeholder icon — internal duplicate)
+  14508: "Everlasting Moonglow",        // Catalyst_Apprentice (placeholder icon - internal duplicate)
   14522: "Nocturne's Curtain Call",     // Catalyst_Brisingamen (Columbina's signature)
   14523: "Angelos' Heptades",           // Catalyst_FairyGarden (Nicole's signature)
   15516: "Golden Frostbound Oath",      // Bow_Alkonost

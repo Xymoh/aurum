@@ -59,21 +59,48 @@ export interface ArtifactScore {
   total: number;     // = potentialPercent (unified score)
   grade: ScoreGrade;
 
-  // Reroll potential via Dust of Enlightenment (5.7+)
-  reroll: RerollPotential;
+  // Reroll advice via Dust of Enlightenment (5.7+)
+  reroll: RerollAdvice;
 }
 
+/** What, if anything, the player should do with this artifact. */
+export type RerollAction =
+  /** Spend dust reshaping it - see `priority` for how urgent. */
+  | "reroll"
+  /** Its substats can't be salvaged by redistributing rolls; farm a new one. */
+  | "replace"
+  /** Not +20 yet, so it can't be reshaped at all. */
+  | "level_up"
+  /** Nothing to do - already well rolled, or not applicable. */
+  | "none";
+
 /**
- * Best-case score ceiling reachable by using Dust of Enlightenment to reshape
- * a fully-leveled 5★ artifact's upgrade rolls. Only meaningful when `eligible`
- * is true (level 20, 5★, 4 substats) — see computeRerollPotential in scoring.ts.
+ * Dust-of-Enlightenment advice for one artifact, derived by simulating the
+ * reshape - see computeRerollAdvice in lib/reroll.ts for the model and the
+ * reasoning behind it.
  */
-export interface RerollPotential {
+export interface RerollAdvice {
+  /** True once the piece is a +20 5★ with 4 substats (the in-game requirement). */
   eligible: boolean;
+  action: RerollAction;
+  priority: "high" | "medium" | "low" | null;
+  /** Probability a single reshape yields a meaningfully better result. */
+  improveChance: number;
+  /** Expected reshapes before a meaningful gain (1 / improveChance). */
+  expectedReshapes: number;
+  /** Expected dust spent before a meaningful gain, accounting for slot cost. */
+  expectedDust: number;
+  /** Dust per reshape for this slot: 1 for Flower/Plume, 2 otherwise. */
+  dustCost: number;
   currentPercent: number;
-  ceilingPercent: number;
-  upsidePercent: number;
-  bestStatDisplayName: string | null;
+  /** Typical Potential % gained when a reshape does improve the piece. */
+  medianGain: number;
+  /** 90th-percentile outcome - a realistic good result, not a fantasy ceiling. */
+  realisticCeiling: number;
+  /** The two substats to nominate in-game, highest value-per-roll first. */
+  targetStats: string[];
+  /** Short human-readable justification for the recommendation. */
+  reason: string;
 }
 
 export type ScoreGrade =

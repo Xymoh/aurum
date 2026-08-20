@@ -1,6 +1,8 @@
 import type { Artifact } from "../../types/artifact";
 import { GRADE_THRESHOLDS } from "../../lib/constants";
+import { getRerollTier, chanceWithin, formatChance } from "../../lib/reroll";
 import scoreIconImg from "../../assets/svg/ico-score.svg";
+import { DiceIcon, WarningIcon, RecycleIcon, CheckIcon } from "../ui/icons";
 import { useState } from "react";
 
 const ENKA_UI_BASE = "https://enka.network/ui";
@@ -8,9 +10,6 @@ const ENKA_UI_BASE = "https://enka.network/ui";
 interface ArtifactCardProps {
   artifact: Artifact;
 }
-
-/** Only surface the reroll badge when Dust of Enlightenment could meaningfully move the needle. */
-const REROLL_UPSIDE_THRESHOLD = 5;
 
 function formatStatValue(value: number, isPercentage: boolean): string {
   if (isPercentage) return `${value.toFixed(1)}%`;
@@ -43,7 +42,8 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
   const [iconError, setIconError] = useState(false);
   const { color: gradeColor } = getGradeColors(artifact.score.grade);
   const artIconUrl = artifact.icon ? `${ENKA_UI_BASE}/${artifact.icon}.png` : null;
-  const showRerollBadge = artifact.score.reroll.eligible && artifact.score.reroll.upsidePercent >= REROLL_UPSIDE_THRESHOLD;
+  const reroll = artifact.score.reroll;
+  const rerollTier = reroll.action === "reroll" ? getRerollTier(reroll.expectedDust) : null;
 
   return (
     <div
@@ -79,11 +79,7 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
         <span className="text-[11px] text-dark-muted truncate flex items-center gap-1">
           {artifact.mainStat.isCorrect === false && (
             <span title="Main stat doesn't match recommended. Consider farming for the ideal main stat.">
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 cursor-help">
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-                <line x1="12" y1="9" x2="12" y2="13" />
-                <line x1="12" y1="17" x2="12.01" y2="17" />
-              </svg>
+              <WarningIcon className="w-3 h-3 flex-shrink-0 cursor-help text-amber-500" />
             </span>
           )}
           {artifact.mainStat.displayName}
@@ -137,18 +133,65 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
         </div>
       </div>
 
-      {/* Reroll upside — Dust of Enlightenment can reshape upgrade rolls on a maxed 5★ piece */}
-      {showRerollBadge && (
+      {/* Dust of Enlightenment advice - see lib/reroll.ts for the model */}
+      {rerollTier && (
         <div
-          className="flex items-center justify-between rounded px-1.5 py-1 -mx-1.5 bg-accent/10"
-          title={`Reshaping this artifact's upgrade rolls toward ${artifact.score.reroll.bestStatDisplayName} with Dust of Enlightenment could reach up to ${artifact.score.reroll.ceilingPercent.toFixed(1)}% in the best case (current: ${artifact.score.reroll.currentPercent.toFixed(1)}%).`}
+          className="flex items-center justify-between rounded px-1.5 py-1 -mx-1.5"
+          style={{ backgroundColor: `${rerollTier.color}1c` }}
+          title={
+            `${rerollTier.blurb}\n\n` +
+            `Each reshape costs ${reroll.dustCost} dust and has a ` +
+            `${formatChance(reroll.improveChance)} chance of gaining 5%+ score.\n` +
+            `2 tries (${reroll.dustCost * 2} dust): ${formatChance(chanceWithin(reroll.improveChance, 2))} likely\n` +
+            `4 tries (${reroll.dustCost * 4} dust): ${formatChance(chanceWithin(reroll.improveChance, 4))} likely\n\n` +
+            `Nominate: ${reroll.targetStats.join(" + ")}\n` +
+            `Typical gain when it hits: +${reroll.medianGain.toFixed(0)}%\n` +
+            `Realistic good outcome: ${reroll.realisticCeiling.toFixed(0)}%`
+          }
         >
-          <span className="text-[10px] text-accent flex items-center gap-1">
-            <span aria-hidden="true">🎲</span> Reroll upside
+          <span className="text-[10px] font-semibold flex items-center gap-1" style={{ color: rerollTier.color }}>
+            <DiceIcon className="w-3 h-3" />
+            {rerollTier.label}
           </span>
-          <span className="text-[10px] font-mono font-bold text-accent">
-            +{artifact.score.reroll.upsidePercent.toFixed(1)}%
+          <span className="text-[10px] font-mono font-bold whitespace-nowrap" style={{ color: rerollTier.color }}>
+            {formatChance(reroll.improveChance)}
+            <span className="opacity-70"> / try</span>
           </span>
+        </div>
+      )}
+
+      {reroll.action === "replace" && (
+        <div
+          className="flex items-center gap-1 rounded px-1.5 py-1 -mx-1.5 bg-dark-border/30"
+          title={reroll.reason}
+        >
+          <RecycleIcon className="w-3 h-3 text-dark-muted flex-shrink-0" />
+          <span className="text-[10px] font-semibold text-dark-muted">Farm a replacement</span>
+        </div>
+      )}
+
+      {reroll.action === "level_up" && (
+        <div
+          className="flex items-center gap-1 rounded px-1.5 py-1 -mx-1.5 bg-dark-border/30"
+          title={reroll.reason}
+        >
+          <span className="text-[10px] font-semibold text-dark-muted">Level to +20 to reshape</span>
+        </div>
+      )}
+
+      {/* An explicit "nothing to do" verdict - an empty slot here would be
+          ambiguous, reading as "not calculated" rather than "already fine". */}
+      {reroll.action === "none" && reroll.eligible && (
+        <div
+          className="flex items-center gap-1 rounded px-1.5 py-1 -mx-1.5"
+          title={
+            `${reroll.reason}\n\n` +
+            `Only a ${formatChance(reroll.improveChance)} chance a reshape would gain 5%+ score, ` +
+            `so dust is better spent elsewhere.`
+          }
+        >
+          <CheckIcon className="w-3 h-3 text-dark-muted flex-shrink-0" />
+          <span className="text-[10px] font-semibold text-dark-muted">Well rolled</span>
         </div>
       )}
     </div>

@@ -8,7 +8,7 @@
 - ID `10000131` → name: "Nicole", element: "Pyro", weapon: "Catalyst", icon: "UI_AvatarIcon_Nicole"
 - ID `10000132` → name: "Lohen", element: "Cryo", weapon: "Sword", icon: "UI_AvatarIcon_Lohen"
 
-## Issue 2: CSS Overhaul — Fribbels-Style Sizing & Layout
+## Issue 2: CSS Overhaul - Fribbels-Style Sizing & Layout
 
 The user reports the UI is "too small" and doesn't match Fribbels' showcase. The following components need specific size/scale adjustments to replicate Fribbels' pixel-perfect layout.
 
@@ -55,13 +55,13 @@ Add Fribbels-inspired classes:
 
 1. Fix `characters.json` mapping (10000131=Nicole, 10000132=Lohen)
 2. Update `index.css` with Fribbels-scale classes and larger base sizing
-3. Resize `CharacterDetail.tsx` — largest portrait, bigger everything
-4. Resize `ArtifactRow.tsx` — bigger icons, grid, score
-5. Resize `CharacterStrip.tsx` — bigger thumbnails, labels
-6. Resize `BuildScoreBar.tsx` — massive grade letter
-7. Resize `SetBonusRow.tsx` — bigger tags/icons
-8. Resize `ScoreBadge.tsx` + `SubstatDots.tsx` — bigger display
-9. Resize `PlayerHeader.tsx` — more padding, bigger elements
-10. Update `ShowcasePage.tsx` — wider layout, more spacing
-11. Update `LoadingSkeleton.tsx` — match new sizes
+3. Resize `CharacterDetail.tsx` - largest portrait, bigger everything
+4. Resize `ArtifactRow.tsx` - bigger icons, grid, score
+5. Resize `CharacterStrip.tsx` - bigger thumbnails, labels
+6. Resize `BuildScoreBar.tsx` - massive grade letter
+7. Resize `SetBonusRow.tsx` - bigger tags/icons
+8. Resize `ScoreBadge.tsx` + `SubstatDots.tsx` - bigger display
+9. Resize `PlayerHeader.tsx` - more padding, bigger elements
+10. Update `ShowcasePage.tsx` - wider layout, more spacing
+11. Update `LoadingSkeleton.tsx` - match new sizes
 12. Build & verify zero TypeScript errors

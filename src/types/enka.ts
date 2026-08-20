@@ -19,8 +19,15 @@ export interface EnkaPlayerInfo {
   level: number;
   worldLevel: number;
   signature?: string;
-  profilePicture: {
-    avatarId: number;
+  /**
+   * Current responses carry `id` (a ProfilePicture id, resolved via
+   * profile-pictures.json). Older ones carried `avatarId` instead, which is a
+   * character id - both are handled when resolving the avatar icon.
+   */
+  profilePicture?: {
+    id?: number;
+    avatarId?: number;
+    costumeId?: number;
   };
   nameCardId: number;
   finishAchievementNum?: number;

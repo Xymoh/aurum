@@ -5,6 +5,7 @@ import { PlayerHeader } from "../components/showcase/PlayerHeader";
 import { CharacterGrid, type FocusSignal } from "../components/showcase/CharacterGrid";
 import { WeakestArtifacts } from "../components/showcase/WeakestArtifacts";
 import { LoadingSkeleton } from "../components/ui/LoadingSkeleton";
+import { WarningIcon } from "../components/ui/icons";
 
 export function ShowcasePage() {
   const { uid } = useParams<{ uid: string }>();
@@ -32,7 +33,7 @@ export function ShowcasePage() {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-20">
         <div className="rounded-full bg-red-500/10 p-4">
-          <span className="text-3xl">⚠️</span>
+          <WarningIcon className="w-8 h-8 text-red-400" />
         </div>
         <h2 className="text-dark-text text-xl font-semibold">Error Loading Showcase</h2>
         <p className="text-dark-muted text-center max-w-md">{errorMessage}</p>
@@ -62,7 +63,7 @@ export function ShowcasePage() {
         onSelectCharacter={(characterId) => setFocusSignal({ characterId, token: Date.now() })}
       />
 
-      {/* Character Grid — dak.gg-style card layout with Fribbels scoring */}
+      {/* Character Grid - dak.gg-style card layout with Fribbels scoring */}
       <CharacterGrid characters={characters} focusSignal={focusSignal} />
     </div>
   );

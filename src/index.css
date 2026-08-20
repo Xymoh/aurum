@@ -126,7 +126,7 @@
     border-bottom-color: #e0dcd5 !important;
   }
 
-  /* Keep icon containers dark in light mode — Enka icons have white outlines */
+  /* Keep icon containers dark in light mode - Enka icons have white outlines */
   :root[data-theme="light"] .icon-dark-bg {
     background-color: #1a1d2e !important;
   }

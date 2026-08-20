@@ -1,5 +1,5 @@
 /**
- * Vercel Edge Function — proxies requests to Enka.Network to avoid CORS restrictions.
+ * Vercel Edge Function - proxies requests to Enka.Network to avoid CORS restrictions.
  *
  * GET /api/proxy?uid=700600838
  *

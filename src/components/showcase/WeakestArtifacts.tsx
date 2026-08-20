@@ -1,7 +1,10 @@
 import { useMemo } from "react";
+import type { Artifact } from "../../types/artifact";
 import type { CharacterData } from "../../types/character";
 import { GRADE_COLORS } from "../../types/artifact";
 import { getWeakestArtifacts } from "../../lib/insights";
+import { getRerollTier, chanceWithin, formatChance } from "../../lib/reroll";
+import { TargetIcon, DiceIcon, RecycleIcon } from "../ui/icons";
 
 const ENKA_UI_BASE = "https://enka.network/ui";
 const LIMIT = 6;
@@ -19,6 +22,57 @@ interface WeakestArtifactsProps {
   onSelectCharacter: (characterId: string) => void;
 }
 
+/** Turn the reroll advice into a compact action chip for the card footer. */
+function ActionChip({ artifact }: { artifact: Artifact }) {
+  const reroll = artifact.score.reroll;
+
+  if (reroll.action === "reroll") {
+    const tier = getRerollTier(reroll.expectedDust);
+    if (tier) {
+      return (
+        <span
+          className="inline-flex w-fit items-center gap-1 whitespace-nowrap rounded px-1.5 py-0.5 text-[10px] font-semibold"
+          style={{ backgroundColor: `${tier.color}1f`, color: tier.color }}
+          title={
+            `${tier.blurb}\n\n` +
+            `${formatChance(reroll.improveChance)} chance per reshape, ` +
+            `${reroll.dustCost} dust a try.\n` +
+            `2 tries (${reroll.dustCost * 2} dust): ${formatChance(chanceWithin(reroll.improveChance, 2))} likely\n\n` +
+            `Nominate ${reroll.targetStats.join(" + ")}.`
+          }
+        >
+          <DiceIcon className="w-2.5 h-2.5 flex-shrink-0" />
+          {tier.label} · {formatChance(reroll.improveChance)} · {reroll.dustCost} dust
+        </span>
+      );
+    }
+  }
+
+  if (reroll.action === "replace") {
+    return (
+      <span
+        className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-semibold bg-dark-border/40 text-dark-muted"
+        title={reroll.reason}
+      >
+        <RecycleIcon className="w-2.5 h-2.5" /> Farm a replacement
+      </span>
+    );
+  }
+
+  if (reroll.action === "level_up") {
+    return (
+      <span
+        className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-semibold bg-dark-border/40 text-dark-muted"
+        title={reroll.reason}
+      >
+        Level to +20
+      </span>
+    );
+  }
+
+  return null;
+}
+
 export function WeakestArtifacts({ characters, onSelectCharacter }: WeakestArtifactsProps) {
   const items = useMemo(() => getWeakestArtifacts(characters, LIMIT), [characters]);
 
@@ -28,58 +82,57 @@ export function WeakestArtifacts({ characters, onSelectCharacter }: WeakestArtif
     <div className="rounded-xl border border-dark-border bg-dark-card/40 p-4 sm:p-5">
       <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
         <h3 className="text-sm font-semibold text-dark-text flex items-center gap-2">
-          <span aria-hidden="true">🎯</span> Room to Improve
+          <TargetIcon className="w-4 h-4 text-accent" /> Room to Improve
         </h3>
-        <span className="text-xs text-dark-muted">Lowest-scoring pieces across your account</span>
+        <span className="text-xs text-dark-muted">Best next moves, cheapest first</span>
       </div>
 
-      <div className="flex gap-2.5 overflow-x-auto pb-1 scrollbar-thin -mx-1 px-1">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
         {items.map(({ artifact, characterId, characterName, characterIcon }) => {
           const gradeColor = GRADE_COLORS[artifact.score.grade] ?? "#6b7280";
           const avatarUrl = characterIcon ? `${ENKA_UI_BASE}/${characterIcon}.png` : null;
-          const reroll = artifact.score.reroll;
 
           return (
             <button
               key={artifact.id}
               type="button"
               onClick={() => onSelectCharacter(characterId)}
-              className="flex flex-col gap-1.5 min-w-[150px] flex-shrink-0 rounded-lg border border-dark-border bg-dark-card px-3 py-2.5 text-left hover:border-accent/50 hover:bg-dark-card-hover transition-colors"
+              className="flex flex-col gap-2 rounded-lg border border-dark-border bg-dark-card px-3 py-2.5 text-left hover:border-accent/50 hover:bg-dark-card-hover transition-colors"
               title={`Jump to ${characterName}`}
             >
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full overflow-hidden bg-dark-bg icon-dark-bg border border-dark-border/60 flex-shrink-0">
+                <div className="w-8 h-8 rounded-full overflow-hidden bg-dark-bg icon-dark-bg border border-dark-border/60 flex-shrink-0">
                   {avatarUrl ? (
                     <img src={avatarUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-[9px] text-dark-muted">
+                    <div className="w-full h-full flex items-center justify-center text-[10px] text-dark-muted">
                       {characterName.charAt(0)}
                     </div>
                   )}
                 </div>
-                <div className="min-w-0">
+
+                <div className="min-w-0 flex-1">
                   <div className="text-xs font-semibold text-dark-text truncate">{characterName}</div>
-                  <div className="text-[10px] text-dark-muted">{SLOT_SHORT[artifact.slot] ?? artifact.slot}</div>
+                  <div className="text-[10px] text-dark-muted">
+                    {SLOT_SHORT[artifact.slot] ?? artifact.slot} · +{artifact.level}
+                  </div>
+                </div>
+
+                {/* Score reads as the headline number, not a dim afterthought */}
+                <div className="flex items-center gap-1.5 flex-shrink-0">
+                  <span className="text-sm font-mono font-bold tabular-nums" style={{ color: gradeColor }}>
+                    {artifact.score.potentialPercent.toFixed(0)}%
+                  </span>
+                  <span
+                    className="text-[10px] font-extrabold px-1.5 py-0.5 rounded"
+                    style={{ backgroundColor: `${gradeColor}26`, color: gradeColor }}
+                  >
+                    {artifact.score.grade}
+                  </span>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold" style={{ color: gradeColor }}>
-                  {artifact.score.potentialPercent.toFixed(1)}%
-                </span>
-                <span
-                  className="text-[10px] font-extrabold px-1 py-0.5 rounded"
-                  style={{ backgroundColor: `${gradeColor}22`, color: gradeColor }}
-                >
-                  {artifact.score.grade}
-                </span>
-              </div>
-
-              {reroll.eligible && reroll.upsidePercent >= 5 && (
-                <div className="text-[10px] text-accent flex items-center gap-1">
-                  <span aria-hidden="true">🎲</span> +{reroll.upsidePercent.toFixed(1)}% via reroll
-                </div>
-              )}
+              <ActionChip artifact={artifact} />
             </button>
           );
         })}

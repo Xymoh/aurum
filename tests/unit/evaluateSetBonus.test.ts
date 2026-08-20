@@ -35,7 +35,20 @@ function makeArtifact(setId: string, setName: string): Artifact {
       wse: 0,
       total: 0,
       grade: "F",
-      reroll: { eligible: false, currentPercent: 0, ceilingPercent: 0, upsidePercent: 0, bestStatDisplayName: null },
+      reroll: {
+        eligible: false,
+        action: "none",
+        priority: null,
+        improveChance: 0,
+        expectedReshapes: Infinity,
+        expectedDust: Infinity,
+        dustCost: 0,
+        currentPercent: 0,
+        medianGain: 0,
+        realisticCeiling: 0,
+        targetStats: [],
+        reason: "",
+      },
     },
   };
 }
@@ -181,7 +194,7 @@ describe("evaluateSetBonus", () => {
       expect(result.matchStatus).toBe("no_recommendation");
     });
 
-    it("supports multiple recommended sets — partial match with second set", () => {
+    it("supports multiple recommended sets - partial match with second set", () => {
       const artifacts = [
         makeArtifact("set_b", "Noblesse"),
         makeArtifact("set_b", "Noblesse"),
@@ -226,7 +239,7 @@ describe("evaluateSetBonus", () => {
       ];
 
       const result = evaluateSetBonus(artifacts, ["set_a"]);
-      // The result should only have activeSets and matchStatus — no multiplier field
+      // The result should only have activeSets and matchStatus - no multiplier field
       expect(Object.keys(result)).toEqual(expect.arrayContaining(["activeSets", "matchStatus"]));
       expect(result).not.toHaveProperty("multiplier");
       expect(result).not.toHaveProperty("scoreModifier");

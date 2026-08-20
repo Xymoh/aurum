@@ -1,4 +1,4 @@
-# Genshin ArtScore — Development Plan
+# Genshin ArtScore - Development Plan
 
 > **Codename:** genshin-artscore
 > **Stack:** React 19 + TypeScript + Vite, TailwindCSS, Vercel Edge Functions (serverless proxy)
@@ -23,7 +23,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Genshin ArtScore — Home Page                  │
+│                    Genshin ArtScore - Home Page                  │
 │                                                                  │
 │   ┌──────────────────────────────────────────────────────────┐  │
 │   │  🔎  Enter Genshin UID ........................................│  │
@@ -82,7 +82,7 @@
 | 3 | Client calls the Vercel Edge Function proxy | Proxy forwards request to [`Enka.Network`](https://api.enka.network/) and returns parsed JSON |
 | 4 | Data processing | Artifacts extracted, mapped to character slots, scores computed per artifact and per build |
 | 5 | Showcase renders | Character cards populate in a responsive 2‑ or 3‑column grid, each with artifact cards, substat breakdowns, and score bar |
-| 6 | User shares URL | URL is already at `/showcase/:uid` — copy-paste ready. Visiting the URL directly loads the same showcase immediately. |
+| 6 | User shares URL | URL is already at `/showcase/:uid` - copy-paste ready. Visiting the URL directly loads the same showcase immediately. |
 | 7 | User refreshes to get updated data | "Refresh" button re-fetches from Enka (with a `t` cache-buster param). Enka data is cached upstream for ~5 min. |
 
 ---
@@ -98,7 +98,7 @@ Enka is the de-facto standard for retrieving Genshin Impact character showcase d
 | **Endpoint** | `https://api.enka.network/v2/uid/:uid` |
 | **Auth** | No auth required (public); a `User-Agent` header is recommended |
 | **Rate Limit** | ~100 requests/min per IP (with burst tolerance) |
-| **Response Format** | JSON — includes `playerInfo`, `avatarInfoList` with equipped artifacts, weapons, constellations, talent levels, and character stats |
+| **Response Format** | JSON - includes `playerInfo`, `avatarInfoList` with equipped artifacts, weapons, constellations, talent levels, and character stats |
 | **CORS** | Enka's API does **not** include `Access-Control-Allow-Origin: *` for browser requests, hence the need for a proxy |
 
 #### Sample relevant fields from Enka response:
@@ -166,7 +166,7 @@ These are JSON mapping files sourced from the community-maintained [Dimbreath/Ge
 | `artifacts.json` | Set ID → set name, icons, 2‑pc / 4‑pc descriptions | `ReliquarySetExcelConfigData.json` |
 | `artifact-pieces.json` | Piece ID → slot type, set ID, icon path | `ReliquaryExcelConfigData.json` |
 | `stat-keys.json` | `FIGHT_PROP_*` → display name (e.g. "CRIT Rate"), icon, formatting | Mapped manually |
-| `character-builds.json` | **Custom file** — character ID → recommended artifact sets, main stats per slot, substat priority weights, ER thresholds | Curation required (see §3.4) |
+| `character-builds.json` | **Custom file** - character ID → recommended artifact sets, main stats per slot, substat priority weights, ER thresholds | Curation required (see §3.4) |
 
 ### 2.3 Proxy Architecture
 
@@ -260,7 +260,7 @@ CV = (CRIT Rate * 2) + CRIT DMG
 | 40–50 | Great |
 | 50+ | God Piece |
 
-**CV only applies to Flower, Plume, Sands, Goblet, Circlet** — it is computed per artifact and summed for the build.
+**CV only applies to Flower, Plume, Sands, Goblet, Circlet** - it is computed per artifact and summed for the build.
 
 ### 3.4 Weighted Substats Efficiency (WSE)
 
@@ -324,7 +324,7 @@ Artifact Score = (RV * 0.30 + CV_Normalized * 0.15 + WSE * 0.40) * MainStatMulti
 ```
 
 Where:
-- `CV_Normalized` = min(CV / 50, 1.0) — caps at 50 CV
+- `CV_Normalized` = min(CV / 50, 1.0) - caps at 50 CV
 - `SetBonusMultiplier` = 1.0 if the artifact contributes to an active 2‑pc or 4‑pc set bonus, 0.85 if off-set (only for Goblet, which is commonly off-set in Genshin)
 - Final score ranges from 0–100, displayed as a letter grade + color:
 
@@ -358,7 +358,7 @@ Display which artifact sets are active on each character:
 | Goblet | Gilded Dreams | ✅ |
 | Circlet | Deepwood Memories | ✅ |
 
-→ **Set Bonuses:** Deepwood Memories (2‑pc), Gilded Dreams (2‑pc) — no 4‑pc active.
+→ **Set Bonuses:** Deepwood Memories (2‑pc), Gilded Dreams (2‑pc) - no 4‑pc active.
 
 Visual: a 5-circle grid (like the Fribbels relic grid) where matching set pieces share a background color.
 
@@ -509,7 +509,7 @@ Visual: a 5-circle grid (like the Fribbels relic grid) where matching set pieces
 | **Data Fetching** | TanStack Query (React Query) v5 | Caching, refetching, loading/error states out of the box. Stale time: 5 min. |
 | **HTTP Client** | Native `fetch` (no Axios needed) | Edge function is a simple GET; no interceptors or complex config required. |
 | **Backend/Proxy** | Vercel Edge Function (TypeScript) | One file: [`api/proxy.ts`](api/proxy.ts). Handles CORS, validation, error forwarding. |
-| **Hosting** | Vercel (Hobby/Pro tier) | Free tier includes 100k edge function invocations/day — more than enough for an MVP. Custom domain supported. |
+| **Hosting** | Vercel (Hobby/Pro tier) | Free tier includes 100k edge function invocations/day - more than enough for an MVP. Custom domain supported. |
 | **CI/CD** | GitHub Actions → Vercel (automatic deploy on push to `main`) | Standard. Preview deploys on PR branches. |
 | **Testing** | Vitest (unit), React Testing Library (component), Playwright (E2E for UID flow) | Industry-standard, fast, works natively with Vite. |
 | **Linting/Formatting** | ESLint (flat config) + Prettier | Enforce consistent code style. |
@@ -617,7 +617,7 @@ genshin-artscore/
 | Stage | Visual |
 |-------|--------|
 | **UID submitted** | Skeleton shimmer: character cards as gray rectangles with animated shine. |
-| **Data fetched, scoring in progress** | (Scoring is synchronous and <50ms for 8 characters — no intermediate loading needed) |
+| **Data fetched, scoring in progress** | (Scoring is synchronous and <50ms for 8 characters - no intermediate loading needed) |
 | **Image loading** | Blurred low-res placeholder → fade-in to full image. |
 
 ### 6.3 Empty States
@@ -650,12 +650,12 @@ genshin-artscore/
 | 0.5 | Create the base [`Layout`](src/components/layout/Layout.tsx) component (header, main, footer shell) | [`src/components/layout/Layout.tsx`](src/components/layout/Layout.tsx) | 0.4 |
 | 0.6 | Set up Vitest + React Testing Library + Playwright | [`vitest.config.ts`](vitest.config.ts), test setup files | 0.1 |
 | 0.7 | Configure Vercel deployment (`vercel.json`) and GitHub Actions for CI/CD | [`vercel.json`](vercel.json), [`.github/workflows/ci.yml`](.github/workflows/ci.yml) | 0.1 |
-| 0.8 | Set up the CSS custom property system (dark/light theme tokens) | [`src/index.css`](src/index.css) — `:root` variables | 0.2 |
+| 0.8 | Set up the CSS custom property system (dark/light theme tokens) | [`src/index.css`](src/index.css) - `:root` variables | 0.2 |
 | 0.9 | Create placeholder pages: [`HomePage`](src/pages/HomePage.tsx), [`ShowcasePage`](src/pages/ShowcasePage.tsx), [`NotFoundPage`](src/pages/NotFoundPage.tsx) | Page shell components | 0.4 |
 
 ---
 
-### Phase 1: Data Layer — Types, Static Data & API Proxy
+### Phase 1: Data Layer - Types, Static Data & API Proxy
 
 **Goal:** All data definitions, static mapping files, and the serverless proxy are operational.
 
@@ -664,7 +664,7 @@ genshin-artscore/
 | 1.1 | Define TypeScript types for the full Enka API response | [`src/types/enka.ts`](src/types/enka.ts) | 0.1 |
 | 1.2 | Define TypeScript types for processed/domain models (Character, Artifact, BuildScore, etc.) | [`src/types/artifact.ts`](src/types/artifact.ts), [`src/types/character.ts`](src/types/character.ts), [`src/types/scoring.ts`](src/types/scoring.ts) | 1.1 |
 | 1.3 | Create static data files from Dimbreath/GenshinData exports | [`src/data/characters.json`](src/data/characters.json), [`src/data/artifacts.json`](src/data/artifacts.json), [`src/data/stat-keys.json`](src/data/stat-keys.json) | 1.1 |
-| 1.4 | Create the initial [`character-builds.json`](src/data/character-builds.json) — curate substat weights and ideal main stats for 20+ popular characters | [`src/data/character-builds.json`](src/data/character-builds.json) | 1.3 |
+| 1.4 | Create the initial [`character-builds.json`](src/data/character-builds.json) - curate substat weights and ideal main stats for 20+ popular characters | [`src/data/character-builds.json`](src/data/character-builds.json) | 1.3 |
 | 1.5 | Implement the Vercel Edge Function proxy (`api/proxy.ts`) | [`api/proxy.ts`](api/proxy.ts) | 0.7 |
 | 1.6 | Write UID validation and region-parsing utilities | [`src/lib/uid.ts`](src/lib/uid.ts) | 0.1 |
 | 1.7 | Write the Enka response → domain model parser | [`src/lib/parsing.ts`](src/lib/parsing.ts) | 1.2, 1.3 |
@@ -714,7 +714,7 @@ genshin-artscore/
 
 ### Phase 4: Page Assembly & Data Flow
 
-**Goal:** Pages are fully wired up with real data flow — UID input → fetch → parse → score → render.
+**Goal:** Pages are fully wired up with real data flow - UID input → fetch → parse → score → render.
 
 | # | Task | Deliverable | Dependencies |
 |---|------|-------------|--------------|
@@ -775,7 +775,7 @@ genshin-artscore/
 | 7.4 | Write a comprehensive [`README.md`](README.md): project overview, setup instructions, architecture diagram, contributing guide | [`README.md`](README.md) | All phases |
 | 7.5 | Deploy to production and smoke-test with several real UIDs | Live URL | 7.1, 7.3 |
 | 7.6 | Set up Vercel Analytics (optional) for anonymous usage tracking | Vercel dashboard | 7.1 |
-| 7.7 | Share with Genshin community for initial feedback (Reddit, Discord) | — | 7.5 |
+| 7.7 | Share with Genshin community for initial feedback (Reddit, Discord) | - | 7.5 |
 
 ---
 
@@ -786,7 +786,7 @@ genshin-artscore/
 | **Serverless proxy over full backend** | No persistent data storage needed at MVP stage. Enka handles all game data. A Vercel Edge Function is 1 file, free-tier friendly, and globally fast. |
 | **TanStack Query over manual fetch + useState** | Built-in caching, background refetch, stale-while-revalidate, loading/error states, and devtools. Eliminates ~200 lines of boilerplate state management. |
 | **character-builds.json as a curated file (not crowdsourced yet)** | Crowdsourcing build configs is a Phase 2+ feature. For MVP, manually curated configs for popular characters provide enough value. Can later add a GitHub-based contribution workflow or a build-config editor. |
-| **No SSR/SSG** | The app has one dynamic route (`/showcase/:uid`) that depends on live API data. SSR would add complexity with no benefit — client-side rendering with loading skeletons provides the same UX. |
+| **No SSR/SSG** | The app has one dynamic route (`/showcase/:uid`) that depends on live API data. SSR would add complexity with no benefit - client-side rendering with loading skeletons provides the same UX. |
 | **5-slot artifact grid (not 6 like HSR)** | Genshin has exactly 5 artifact slots: Flower, Plume, Sands, Goblet, Circlet. HSR has 6 relic slots. This is one of the key visual distinctions from the Fribbels interface. |
 | **Dark-first design** | Matches the Fribbels aesthetic and gamer expectations. Light theme is a toggle, not the default. |
 

@@ -16,11 +16,11 @@ export function LoadingSkeleton() {
         </div>
       </div>
 
-      {/* Card stack skeleton — single-column dak.gg style */}
+      {/* Card stack skeleton - single-column dak.gg style */}
       <div className="space-y-3">
         {Array.from({ length: 3 }, (_, i) => (
           <div key={i} className="rounded-xl border border-dark-border bg-dark-card overflow-hidden">
-            {/* Header skeleton — collapsed bar */}
+            {/* Header skeleton - collapsed bar */}
             <div className="flex items-center gap-3 px-4 py-3">
               <div className="w-1 h-10 rounded-full skeleton flex-shrink-0" />
               <div className="w-10 h-10 rounded-full skeleton flex-shrink-0" />

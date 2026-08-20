@@ -92,7 +92,7 @@ function fetchJSON(url, retries = 3) {
 
 async function main() {
   console.log("╔══════════════════════════════════════════════════════╗");
-  console.log("║  Genshin Artifact Scoring — Enka Locale Fetcher     ║");
+  console.log("║  Genshin Artifact Scoring - Enka Locale Fetcher     ║");
   console.log("╚══════════════════════════════════════════════════════╝\n");
 
   // ── 1. Fetch loc.json from Enka Network ────────────────────────
@@ -146,7 +146,7 @@ async function main() {
         `Integrity mismatch: expected ${entryCount} entries but re-read ${reReadKeys}`
       );
     }
-    console.log(`  ✔ Validation passed — ${reReadKeys.toLocaleString()} entries verified\n`);
+    console.log(`  ✔ Validation passed - ${reReadKeys.toLocaleString()} entries verified\n`);
   } catch (e) {
     console.error(`  ✖ Validation failed: ${e.message}`);
     console.error("    The output file may be corrupted.");
