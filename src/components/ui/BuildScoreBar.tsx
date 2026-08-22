@@ -1,5 +1,6 @@
 import type { ScoreGrade } from "../../types/artifact";
 import { GRADE_COLORS } from "../../types/artifact";
+import { useI18n } from "../../i18n";
 
 interface BuildScoreBarProps {
   score: number;
@@ -16,6 +17,7 @@ export function BuildScoreBar({
   correctMainStats,
   totalSelectableSlots,
 }: BuildScoreBarProps) {
+  const { t } = useI18n();
   const barColor = GRADE_COLORS[grade] ?? "#6b7280";
 
   return (
@@ -33,7 +35,7 @@ export function BuildScoreBar({
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between">
             <span className="text-xs sm:text-sm font-medium text-dark-muted">
-              Build Score
+              {t("showcase", "buildScore")}
               {artifactCount < 5 && (
                 <span className="ml-1 opacity-60">({artifactCount}/5)</span>
               )}
@@ -69,7 +71,7 @@ export function BuildScoreBar({
 
           {/* Main stat count - set bonus status is shown in the Set Bonuses panel above */}
           <div className="mt-2 text-[10px] sm:text-xs text-dark-muted">
-            {correctMainStats}/{totalSelectableSlots} main stats
+            {t("showcase", "mainStats", { correct: correctMainStats, total: totalSelectableSlots })}
           </div>
         </div>
       </div>

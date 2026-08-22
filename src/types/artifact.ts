@@ -99,7 +99,22 @@ export interface RerollAdvice {
   realisticCeiling: number;
   /** The two substats to nominate in-game, highest value-per-roll first. */
   targetStats: string[];
-  /** Short human-readable justification for the recommendation. */
+  /**
+   * True when this piece's Energy Recharge is load-bearing enough to warn about.
+   *
+   * Reported alongside the odds rather than folded into them: ER requirements
+   * are one curated number per character and vary with the team, so this is a
+   * caution for the player to weigh, never a veto on the recommendation.
+   */
+  erRisk: boolean;
+  /** Share of simulated reshapes that would drop the character under their ER requirement. */
+  erBreachChance: number;
+  /** The character's ER requirement, so the UI can name the number at stake. */
+  erThreshold: number;
+  /**
+   * Untranslated diagnostic note. User-facing copy is rendered from `action`
+   * in the UI so it can be localized — this is for logging and tests.
+   */
   reason: string;
 }
 

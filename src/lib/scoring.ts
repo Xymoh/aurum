@@ -466,6 +466,12 @@ export function getGrade(score: number): ScoreGrade {
 export function scoreArtifact(
   artifact: Artifact,
   avatarId: number,
+  /**
+   * The character's current total Energy Recharge %. Supplying it lets reroll
+   * advice respect the character's rotation requirement; without it, ER is
+   * treated as an ordinary substat.
+   */
+  currentTotalER?: number,
 ): Artifact {
   const config = getBuildConfig(avatarId);
   const weights = config?.substat_weights ?? DEFAULT_WEIGHTS;
@@ -498,6 +504,9 @@ export function scoreArtifact(
     computePotentialScale,
     weightedPotential,
     idealPotential,
+    currentTotalER != null && config?.er_threshold != null
+      ? { currentTotalER, threshold: config.er_threshold }
+      : undefined,
   );
 
   return {

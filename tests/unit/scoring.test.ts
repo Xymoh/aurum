@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { computeRV, computeCV, computeWSE, getGrade, computeIdealPotential } from "../../src/lib/scoring";
 import { computeRerollAdvice, chanceWithin, formatChance } from "../../src/lib/reroll";
+import type { ErContext } from "../../src/lib/reroll";
 import { POTENTIAL_SCALES } from "../../src/lib/constants";
 import type { Artifact, ArtifactSubstat } from "../../src/types/artifact";
 import type { ScoringWeights } from "../../src/types/scoring";
@@ -226,6 +227,9 @@ describe("computeRerollAdvice", () => {
           medianGain: 0,
           realisticCeiling: 0,
           targetStats: [],
+          erRisk: false,
+          erBreachChance: 0,
+          erThreshold: 0,
           reason: "",
         },
       },
@@ -235,7 +239,11 @@ describe("computeRerollAdvice", () => {
 
   const IDEAL = computeIdealPotential(CRIT_WEIGHTS, "FIGHT_PROP_ATTACK_PERCENT");
 
-  function advise(substats: ArtifactSubstat[], overrides: Partial<Artifact> = {}) {
+  function advise(
+    substats: ArtifactSubstat[],
+    overrides: Partial<Artifact> = {},
+    erContext?: ErContext,
+  ) {
     const artifact = makeArtifact(substats, overrides);
     return computeRerollAdvice(
       artifact,
@@ -244,6 +252,7 @@ describe("computeRerollAdvice", () => {
       scaleOf,
       weightedOf(substats),
       IDEAL,
+      erContext,
     );
   }
 
@@ -294,6 +303,71 @@ describe("computeRerollAdvice", () => {
 
   it("is deterministic across repeated calls", () => {
     expect(advise(wastedRolls).improveChance).toBe(advise(wastedRolls).improveChance);
+  });
+
+  it("gives the same verdict regardless of the artifact's generated id", () => {
+    // Parsing stamps ids with Date.now() and Math.random(), so seeding the
+    // simulation from one would make advice flicker between page loads.
+    const a = advise(wastedRolls, { id: "44523-1700000000000-abc12" });
+    const b = advise(wastedRolls, { id: "44523-1900000000000-zz999" });
+    expect(a.improveChance).toBe(b.improveChance);
+    expect(a.action).toBe(b.action);
+    expect(a.priority).toBe(b.priority);
+  });
+
+  describe("Energy Recharge threshold", () => {
+    // `wastedRolls` carries 6 ER rolls (~33% ER) and is, on raw score alone,
+    // a textbook reroll: every upgrade sits on the one stat a crit DPS ignores.
+    const erOnPiece = roll(6.48, 6);
+
+    it("raises no caution when ER is spare", () => {
+      // Miles above the requirement - losing this piece's ER costs nothing.
+      const result = advise(wastedRolls, {}, { currentTotalER: 300, threshold: 130 });
+      expect(result.action).toBe("reroll");
+      expect(result.erRisk).toBe(false);
+      expect(result.erBreachChance).toBe(0);
+    });
+
+    it("flags the risk when ER is load-bearing", () => {
+      const tight = advise(
+        wastedRolls,
+        {},
+        { currentTotalER: 130 + erOnPiece * 0.1, threshold: 130 },
+      );
+      expect(tight.erRisk).toBe(true);
+      expect(tight.erBreachChance).toBeGreaterThan(0.15);
+      expect(tight.erThreshold).toBe(130);
+    });
+
+    it("flags a character already short of their requirement", () => {
+      // Below the threshold already, so the floor becomes their current ER:
+      // any further ER loss digs the hole deeper.
+      const result = advise(wastedRolls, {}, { currentTotalER: 120, threshold: 130 });
+      expect(result.erRisk).toBe(true);
+      expect(result.erBreachChance).toBeGreaterThan(0.15);
+    });
+
+    it("reports the risk without suppressing the recommendation", () => {
+      // The caution is advisory. ER requirements are a rough, team-dependent
+      // guide, so they must never silently rewrite the odds or the verdict -
+      // the player weighs the two numbers themselves.
+      const spare = advise(wastedRolls, {}, { currentTotalER: 300, threshold: 130 });
+      const tight = advise(wastedRolls, {}, { currentTotalER: 120, threshold: 130 });
+      expect(tight.improveChance).toBe(spare.improveChance);
+      expect(tight.action).toBe(spare.action);
+      expect(tight.priority).toBe(spare.priority);
+    });
+
+    it("ignores the threshold for a piece with no ER substat", () => {
+      const withCtx = advise(alreadyGood, {}, { currentTotalER: 100, threshold: 200 });
+      expect(withCtx.erRisk).toBe(false);
+    });
+
+    it("leaves the odds untouched when no ER context is supplied", () => {
+      expect(advise(wastedRolls).improveChance).toBe(
+        advise(wastedRolls, {}, { currentTotalER: 120, threshold: 130 }).improveChance,
+      );
+    });
   });
 
   it("reports the gain from successful reshapes, not a median dragged to zero by failures", () => {

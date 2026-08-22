@@ -69,6 +69,29 @@ const DUST_COST: Record<string, number> = {
   CIRCLET: 2,
 };
 
+/** Enka's stat key for Energy Recharge, the one substat with a hard breakpoint. */
+const ER_STAT_KEY = "FIGHT_PROP_CHARGE_EFFICIENCY";
+
+/** Share of reshapes that must breach the ER floor before we warn about it. */
+const ER_RISK_SHARE = 0.15;
+
+/**
+ * What the character needs from Energy Recharge, so a reshape can't quietly
+ * break their rotation.
+ *
+ * ER is the one substat that isn't worth "more is better": it buys nothing past
+ * the point where the burst comes up on time, but falling under that point
+ * costs a whole burst per rotation — far more damage than the crit rolls a
+ * reshape would trade it for. The weighted score can't express that, because a
+ * single linear weight is monotonic by construction.
+ */
+export interface ErContext {
+  /** The character's current total ER%, including this artifact's contribution. */
+  currentTotalER: number;
+  /** Rotation requirement for this character, from the curated build config. */
+  threshold: number;
+}
+
 export interface RerollTierDef {
   id: "high" | "medium" | "low";
   label: string;
@@ -143,6 +166,9 @@ const NO_ADVICE: RerollAdvice = {
   medianGain: 0,
   realisticCeiling: 0,
   targetStats: [],
+  erRisk: false,
+  erBreachChance: 0,
+  erThreshold: 0,
   reason: "",
 };
 
@@ -155,6 +181,18 @@ function mulberry32(seed: number): () => number {
     t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
+}
+
+/**
+ * A stable identity for an artifact, built only from the properties that define
+ * it. Two identical pieces hash alike and the same piece hashes the same way on
+ * every load, which is what keeps the simulated advice from drifting.
+ */
+function artifactFingerprint(artifact: Artifact): string {
+  const subs = artifact.substats
+    .map((s) => `${s.statKey}:${s.value}:${s.rollCount}`)
+    .join("|");
+  return `${artifact.setId}/${artifact.slot}/${artifact.level}/${artifact.mainStat.statKey}/${subs}`;
 }
 
 function hashString(str: string): number {
@@ -181,6 +219,7 @@ export function computeRerollAdvice(
   potentialScale: (statKey: string) => number,
   currentWeighted: number,
   idealPotential: number,
+  erContext?: ErContext,
 ): RerollAdvice {
   const subs = artifact.substats;
   const currentPercent = idealPotential > 0 ? Math.max(0, (currentWeighted / idealPotential) * 100) : 0;
@@ -232,9 +271,27 @@ export function computeRerollAdvice(
     baseWeighted += resolveWeight(s.statKey, weights) * potentialScale(s.statKey) * baseValue;
   }
 
-  const rand = mulberry32(hashString(artifact.id) ^ Math.round(currentWeighted * 1000));
+  // ── Energy Recharge floor ────────────────────────────────────────────────
+  // Rolls sitting on ER may be load-bearing. Establish the total ER a reshape
+  // must not drop below, and how much of it this artifact is responsible for.
+  const erIndex = subs.findIndex((s) => s.statKey === ER_STAT_KEY);
+  const erSub = erIndex >= 0 ? subs[erIndex] : null;
+  const erFloor = erContext
+    // Already short of the requirement? Then the floor is where they are now:
+    // don't hand back advice that digs the hole deeper.
+    ? Math.min(erContext.currentTotalER, erContext.threshold)
+    : -Infinity;
+  const erFromOthers = erContext && erSub ? erContext.currentTotalER - erSub.value : 0;
+  const erBase = erSub ? Math.max(0, erSub.value - erSub.rollCount * AVG_ROLL_TIER * erSub.maxRoll) : 0;
+
+  // Seed from the artifact's *content*, never its `id` — ids embed Date.now()
+  // and Math.random() at parse time, so seeding from one would re-roll the
+  // simulation on every page load and let borderline pieces flip verdicts
+  // between refreshes.
+  const rand = mulberry32(hashString(artifactFingerprint(artifact)));
   const outcomes: number[] = [];
   const improvedOutcomes: number[] = [];
+  let erBreaches = 0;
   const gainThreshold = currentPercent + MEANINGFUL_GAIN;
 
   for (let t = 0; t < TRIALS; t++) {
@@ -253,15 +310,25 @@ export function computeRerollAdvice(
     }
 
     let upgradeWeighted = 0;
+    let erRolled = erBase;
     for (let i = 0; i < 4; i++) {
       for (let r = 0; r < counts[i]; r++) {
-        upgradeWeighted += valuePerRoll[i] * ROLL_TIERS[Math.floor(rand() * ROLL_TIERS.length)];
+        const tier = ROLL_TIERS[Math.floor(rand() * ROLL_TIERS.length)];
+        upgradeWeighted += valuePerRoll[i] * tier;
+        if (i === erIndex) erRolled += subs[i].maxRoll * tier;
       }
     }
 
     const percent = ((baseWeighted + upgradeWeighted) / idealPotential) * 100;
     outcomes.push(percent);
     if (percent >= gainThreshold) improvedOutcomes.push(percent);
+
+    // Tracked and reported, deliberately NOT folded into the odds above. ER
+    // requirements are a single curated number per character and depend on the
+    // team, so silently suppressing advice on that basis would turn an
+    // approximation into a hard rule — and make the headline odds mean
+    // something different for ER-bearing pieces than for everything else.
+    if (erSub != null && erFromOthers + erRolled < erFloor) erBreaches++;
   }
 
   const median = (sorted: number[]) =>
@@ -282,6 +349,12 @@ export function computeRerollAdvice(
   const expectedReshapes = improveChance > 0 ? 1 / improveChance : Infinity;
   const expectedDust = expectedReshapes * dustCost;
   const targetStats = targets.map((i) => subs[i].displayName);
+
+  // Surfaced alongside the odds so the player can weigh it themselves: this is
+  // the one substat with a hard breakpoint, and only they know their team.
+  const erBreachChance = erSub != null && erContext != null ? erBreaches / TRIALS : 0;
+  const erRisk = erBreachChance >= ER_RISK_SHARE;
+  const erThreshold = erContext?.threshold ?? 0;
 
   // Only tell someone to bin a piece if it is *both* weak now and incapable of
   // becoming good. A well-rolled artifact often has a reshape ceiling below its
@@ -311,8 +384,13 @@ export function computeRerollAdvice(
       expectedDust,
       medianGain,
       targetStats,
+      erRisk,
+      erBreachChance,
+      erThreshold,
       action: "none",
-      reason: "Its rolls already landed well - there's little left to gain.",
+      reason: erRisk
+        ? "Rerolling risks the Energy Recharge this character needs."
+        : "Its rolls already landed well - there's little left to gain.",
     };
   }
 
@@ -328,6 +406,9 @@ export function computeRerollAdvice(
     medianGain,
     realisticCeiling,
     targetStats,
+    erRisk,
+    erBreachChance,
+    erThreshold,
     reason: tier.blurb,
   };
 }

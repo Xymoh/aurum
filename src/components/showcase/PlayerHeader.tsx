@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { UserIcon, ClipboardIcon } from "../ui/icons";
+import { useI18n } from "../../i18n";
 
 interface PlayerHeaderProps {
   uid: string;
@@ -15,15 +16,17 @@ interface PlayerHeaderProps {
   lastUpdated?: number;
 }
 
-function formatTimeAgo(timestamp: number): string {
+type Translate = ReturnType<typeof useI18n>["t"];
+
+function formatTimeAgo(timestamp: number, t: Translate): string {
   const seconds = Math.floor((Date.now() - timestamp) / 1000);
-  if (seconds < 60) return "just now";
+  if (seconds < 60) return t("player", "justNow");
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
+  if (minutes < 60) return t("player", "minutesAgo", { n: minutes });
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
+  if (hours < 24) return t("player", "hoursAgo", { n: hours });
   const days = Math.floor(hours / 24);
-  return `${days}d ago`;
+  return t("player", "daysAgo", { n: days });
 }
 
 const ENKA_UI_BASE = "https://enka.network/ui";
@@ -70,6 +73,7 @@ function PlayerAvatar({ iconName, nickname }: { iconName: string; nickname: stri
 
 export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastUpdated }: PlayerHeaderProps) {
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const { t } = useI18n();
 
   const handleRefresh = useCallback(() => {
     setIsRefreshing(true);
@@ -101,19 +105,19 @@ export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastU
             </span>
           </div>
           <div className="mt-0.5 flex items-center gap-1.5 text-[11px] text-dark-muted flex-wrap">
-            <span>AR {playerInfo.level}</span>
+            <span>{t("player", "ar", { level: playerInfo.level })}</span>
             {playerInfo.worldLevel > 0 && (
               <>
                 <span>·</span>
-                <span>WL {playerInfo.worldLevel}</span>
+                <span>{t("player", "wl", { level: playerInfo.worldLevel })}</span>
               </>
             )}
             <span>·</span>
-            <span>{characterCount} chars</span>
+            <span>{t("player", "chars", { count: characterCount })}</span>
             {lastUpdated && lastUpdated > 0 && (
               <>
                 <span>·</span>
-                <span>{formatTimeAgo(lastUpdated)}</span>
+                <span>{formatTimeAgo(lastUpdated, t)}</span>
               </>
             )}
           </div>
@@ -126,9 +130,9 @@ export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastU
           type="button"
           onClick={handleCopyUrl}
           className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11px] font-medium text-dark-muted hover:bg-dark-border/40 hover:text-dark-text transition-colors"
-          title="Copy shareable URL"
+          title={t("player", "share")}
         >
-          <ClipboardIcon className="w-3 h-3" /> Share
+          <ClipboardIcon className="w-3 h-3" /> {t("player", "share")}
         </button>
         <div className="flex-1" />
         <button
@@ -150,7 +154,7 @@ export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastU
           >
             <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
           </svg>
-          Refresh
+          {t("player", "refresh")}
         </button>
       </div>
     </div>

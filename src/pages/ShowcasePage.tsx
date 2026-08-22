@@ -6,18 +6,20 @@ import { CharacterGrid, type FocusSignal } from "../components/showcase/Characte
 import { WeakestArtifacts } from "../components/showcase/WeakestArtifacts";
 import { LoadingSkeleton } from "../components/ui/LoadingSkeleton";
 import { WarningIcon } from "../components/ui/icons";
+import { useI18n } from "../i18n";
 
 export function ShowcasePage() {
   const { uid } = useParams<{ uid: string }>();
   const { data, isLoading, isError, error, refetch, forceRefresh, dataUpdatedAt } = useShowcase(uid ?? "");
   const [focusSignal, setFocusSignal] = useState<FocusSignal | null>(null);
+  const { t } = useI18n();
 
   const characters = data?.characters ?? [];
 
   if (!uid) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-20">
-        <p className="text-dark-muted text-lg">No UID provided.</p>
+        <p className="text-dark-muted text-lg">{t("errors", "noUid")}</p>
       </div>
     );
   }
@@ -28,21 +30,21 @@ export function ShowcasePage() {
 
   if (isError || !data) {
     const errorMessage =
-      error instanceof Error ? error.message : "Failed to load showcase data.";
+      error instanceof Error ? error.message : t("errors", "generic");
 
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-20">
         <div className="rounded-full bg-red-500/10 p-4">
           <WarningIcon className="w-8 h-8 text-red-400" />
         </div>
-        <h2 className="text-dark-text text-xl font-semibold">Error Loading Showcase</h2>
+        <h2 className="text-dark-text text-xl font-semibold">{t("errors", "title")}</h2>
         <p className="text-dark-muted text-center max-w-md">{errorMessage}</p>
         <button
           type="button"
           onClick={() => refetch()}
           className="rounded-lg bg-accent px-6 py-2 text-dark-bg font-medium hover:opacity-90 transition-opacity"
         >
-          Try Again
+          {t("errors", "tryAgain")}
         </button>
       </div>
     );

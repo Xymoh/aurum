@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { CloseIcon } from "./icons";
 import { ScoringExplainer } from "./ScoringExplainer";
+import { useI18n } from "../../i18n";
 
 interface ScoreMethodologyModalProps {
   onClose: () => void;
 }
 
 export function ScoreMethodologyModal({ onClose }: ScoreMethodologyModalProps) {
+  const { t } = useI18n();
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -28,7 +30,7 @@ export function ScoreMethodologyModal({ onClose }: ScoreMethodologyModalProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-dark-text">How Scoring Works</h2>
+          <h2 className="text-lg font-bold text-dark-text">{t("nav", "howScoringWorks")}</h2>
           <button
             type="button"
             onClick={onClose}

@@ -1,22 +1,24 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { sanitizeUidInput, isValidUid } from "../../lib/uid";
+import { useI18n } from "../../i18n";
 
 export function UidInput() {
   const [rawInput, setRawInput] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { t } = useI18n();
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const sanitized = sanitizeUidInput(e.target.value);
     setRawInput(sanitized);
     if (sanitized.length > 0 && !isValidUid(sanitized) && sanitized.length === 9) {
-      setError("UID must be exactly 9 digits starting with 1-9.");
+      setError(t("uid", "invalid"));
     } else {
       setError("");
     }
-  }, []);
+  }, [t]);
 
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
@@ -53,7 +55,7 @@ export function UidInput() {
             type="text"
             inputMode="numeric"
             autoComplete="off"
-            placeholder="Enter Genshin UID"
+            placeholder={t("uid", "placeholder")}
             value={rawInput}
             onChange={handleChange}
             maxLength={9}
@@ -94,7 +96,7 @@ export function UidInput() {
                   <circle cx="11" cy="11" r="8" />
                   <path d="m21 21-4.35-4.35" />
                 </svg>
-                <span className="hidden sm:inline">Look Up</span>
+                <span className="hidden sm:inline">{t("uid", "lookUp")}</span>
               </>
             )}
           </button>

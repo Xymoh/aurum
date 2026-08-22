@@ -3,6 +3,7 @@ import type { CharacterData } from "../../types/character";
 import type { GenshinElement } from "../../types/character";
 import { CharacterCard } from "./CharacterCard";
 import charactersEmptyIcon from "../../assets/svg/ico-characters-empty.svg";
+import { useI18n } from "../../i18n";
 
 export interface FocusSignal {
   characterId: string;
@@ -16,12 +17,12 @@ interface CharacterGridProps {
 
 type SortKey = "score-desc" | "score-asc" | "level-desc" | "name-asc";
 
-const SORT_OPTIONS: Array<{ value: SortKey; label: string }> = [
-  { value: "score-desc", label: "Score (high → low)" },
-  { value: "score-asc", label: "Score (low → high)" },
-  { value: "level-desc", label: "Level (high → low)" },
-  { value: "name-asc", label: "Name (A → Z)" },
-];
+const SORT_OPTIONS = [
+  { value: "score-desc", key: "sortScoreDesc" },
+  { value: "score-asc", key: "sortScoreAsc" },
+  { value: "level-desc", key: "sortLevelDesc" },
+  { value: "name-asc", key: "sortNameAsc" },
+] as const;
 
 function sortCharacters(characters: CharacterData[], sortKey: SortKey): CharacterData[] {
   const sorted = [...characters];
@@ -42,6 +43,7 @@ export function CharacterGrid({ characters, focusSignal }: CharacterGridProps) {
   const [search, setSearch] = useState("");
   const [elementFilter, setElementFilter] = useState<GenshinElement | "ALL">("ALL");
   const [sortKey, setSortKey] = useState<SortKey>("score-desc");
+  const { t } = useI18n();
 
   const elements = useMemo(() => {
     const seen = new Set<GenshinElement>();
@@ -81,9 +83,9 @@ export function CharacterGrid({ characters, focusSignal }: CharacterGridProps) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-dark-muted">
         <img src={charactersEmptyIcon} alt="" className="w-12 h-12 mb-3 opacity-40" />
-        <p className="text-sm">No characters found on this showcase.</p>
+        <p className="text-sm">{t("showcase", "noCharacters")}</p>
         <p className="text-xs mt-1 opacity-60">
-          The player may need to set up their character showcase in-game.
+          {t("showcase", "noCharactersHint")}
         </p>
       </div>
     );
@@ -97,7 +99,7 @@ export function CharacterGrid({ characters, focusSignal }: CharacterGridProps) {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search characters…"
+          placeholder={t("showcase", "searchPlaceholder")}
           className="flex-1 min-w-[140px] rounded-lg bg-dark-bg border border-dark-border px-3 py-1.5 text-sm text-dark-text placeholder:text-dark-muted/60 focus:outline-none focus:border-accent/60"
         />
 
@@ -106,9 +108,9 @@ export function CharacterGrid({ characters, focusSignal }: CharacterGridProps) {
           onChange={(e) => setElementFilter(e.target.value as GenshinElement | "ALL")}
           className="rounded-lg bg-dark-bg border border-dark-border px-2.5 py-1.5 text-sm text-dark-text focus:outline-none focus:border-accent/60"
         >
-          <option value="ALL">All elements</option>
+          <option value="ALL">{t("showcase", "allElements")}</option>
           {elements.map((el) => (
-            <option key={el} value={el}>{el}</option>
+            <option key={el} value={el}>{t("elements", el)}</option>
           ))}
         </select>
 
@@ -118,20 +120,20 @@ export function CharacterGrid({ characters, focusSignal }: CharacterGridProps) {
           className="rounded-lg bg-dark-bg border border-dark-border px-2.5 py-1.5 text-sm text-dark-text focus:outline-none focus:border-accent/60"
         >
           {SORT_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
+            <option key={opt.value} value={opt.value}>{t("showcase", opt.key)}</option>
           ))}
         </select>
 
         {(search || elementFilter !== "ALL") && (
           <span className="text-xs text-dark-muted whitespace-nowrap">
-            {visibleCharacters.length}/{characters.length} shown
+            {t("showcase", "shown", { visible: visibleCharacters.length, total: characters.length })}
           </span>
         )}
       </div>
 
       {visibleCharacters.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 text-dark-muted">
-          <p className="text-sm">No characters match your filters.</p>
+          <p className="text-sm">{t("showcase", "noMatch")}</p>
         </div>
       ) : (
         visibleCharacters.map((character, index) => (

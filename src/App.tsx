@@ -4,6 +4,7 @@ import { Layout } from "./components/layout/Layout";
 import { HomePage } from "./pages/HomePage";
 import { ShowcasePage } from "./pages/ShowcasePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { I18nProvider } from "./i18n/I18nProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,16 +19,18 @@ const queryClient = new QueryClient({
 export function App() {
   const basename = import.meta.env.BASE_URL;
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename={basename}>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path="showcase/:uid" element={<ShowcasePage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <I18nProvider>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter basename={basename}>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route index element={<HomePage />} />
+              <Route path="showcase/:uid" element={<ShowcasePage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </I18nProvider>
   );
 }

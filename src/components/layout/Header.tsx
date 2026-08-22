@@ -2,9 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ScoreMethodologyModal } from "../ui/ScoreMethodologyModal";
 import { HelpIcon, ThemeIcon } from "../ui/icons";
+import { LanguageSwitcher } from "../ui/LanguageSwitcher";
+import { useI18n } from "../../i18n";
 
 export function Header() {
   const [showInfo, setShowInfo] = useState(false);
+  const { t } = useI18n();
 
   return (
     <header className="border-b border-dark-border bg-dark-card/80 backdrop-blur-sm">
@@ -14,12 +17,13 @@ export function Header() {
           <span className="bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent">Artifact Aurum</span>
         </Link>
         <nav className="flex items-center gap-2">
+          <LanguageSwitcher />
           <button
             type="button"
             className="rounded-lg p-2 text-dark-muted hover:text-dark-text hover:bg-dark-border/40 transition-colors"
             onClick={() => setShowInfo(true)}
-            aria-label="How scoring works"
-            title="How scoring works"
+            aria-label={t("nav", "howScoringWorks")}
+            title={t("nav", "howScoringWorks")}
           >
             <HelpIcon className="w-4 h-4" />
           </button>

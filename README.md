@@ -13,6 +13,7 @@ Score your Genshin Impact artifacts like the pros. Enter a UID to instantly eval
 - **Character-Specific Weights** - Scoring tailored per character (e.g., DEF% valued for Albedo, HP% for Hu Tao)
 - **Main Stat & Set Evaluation** - Tracks correct main stats and recommended set bonuses (informational, no score penalty)
 - **Automated Data Pipeline** - Character stats auto-fetched from Genshin Optimizer repo with manual weight curation
+- **English + 简体中文** - Auto-detected from the browser and switchable in the header; character, weapon and artifact-set names use the game's own official translations. More languages can be added later — see `src/i18n/`
 - **Dark/Light Theme** - Toggle between themes
 - **Responsive** - Mobile-friendly expandable character cards
 
@@ -63,14 +64,14 @@ Opens at `http://localhost:3000`. Enter a Genshin UID (e.g., `707019355`) to vie
 | `npm run dev` | Start dev server |
 | `npm run build` | Production build |
 | `npm test` | Run tests |
-| `npm run fetch-locale` | Refresh Enka locale data (weapon/artifact names) |
+| `npm run fetch-locale` | Refresh localized game text for all 8 languages |
 | `npm run fetch-pfps` | Refresh player profile-picture icons (run after a new patch) |
 
 ## Data Pipeline
 
 ```bash
 node scripts/fetch-go-data.js           # Fetch character stats from Genshin Optimizer
-node scripts/fetch-enka-locale.js       # Fetch Enka locale data for name resolution
+node scripts/fetch-enka-locale.js       # Fetch localized weapon/set names (Enka) + character names (Project Amber), all languages
 node scripts/fetch-profile-pictures.js  # Fetch profile-picture id → icon mapping
 ```
 

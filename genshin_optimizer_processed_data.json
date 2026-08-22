@@ -6170,7 +6170,7 @@
       ]
     },
     "recommended_sets": [],
-    "er_threshold": 110,
+    "er_threshold": 130,
     "base_stats": {
       "hp_base": 972.3864,
       "atk_base": 27.3714,

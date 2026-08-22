@@ -3,6 +3,10 @@ import { GRADE_THRESHOLDS } from "../../lib/constants";
 import { getRerollTier, chanceWithin, formatChance } from "../../lib/reroll";
 import scoreIconImg from "../../assets/svg/ico-score.svg";
 import { DiceIcon, WarningIcon, RecycleIcon, CheckIcon } from "../ui/icons";
+import { useI18n } from "../../i18n";
+
+const TIER_LABEL = { high: "rerollNow", medium: "worthRerolling", low: "lowPriority" } as const;
+const TIER_BLURB = { high: "blurbHigh", medium: "blurbMedium", low: "blurbLow" } as const;
 import { useState } from "react";
 
 const ENKA_UI_BASE = "https://enka.network/ui";
@@ -38,11 +42,26 @@ function RollChevrons({ count }: { count: number }) {
   );
 }
 
+
+/** Localized justification for a non-reroll verdict, keyed off the action. */
+function useReasonText(reroll: Artifact["score"]["reroll"]): string {
+  const { t } = useI18n();
+  if (reroll.action === "level_up") return t("verdict", "reasonLevelUp");
+  if (reroll.action === "replace") {
+    return reroll.realisticCeiling > 0
+      ? t("verdict", "reasonReplaceWeak", { ceiling: reroll.realisticCeiling.toFixed(0) })
+      : t("verdict", "reasonReplaceNoValue");
+  }
+  return t("verdict", "reasonNone");
+}
+
 export function ArtifactCard({ artifact }: ArtifactCardProps) {
+  const { t } = useI18n();
   const [iconError, setIconError] = useState(false);
   const { color: gradeColor } = getGradeColors(artifact.score.grade);
   const artIconUrl = artifact.icon ? `${ENKA_UI_BASE}/${artifact.icon}.png` : null;
   const reroll = artifact.score.reroll;
+  const reasonText = useReasonText(reroll);
   const rerollTier = reroll.action === "reroll" ? getRerollTier(reroll.expectedDust) : null;
 
   return (
@@ -78,7 +97,7 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
       <div className="flex items-center justify-between">
         <span className="text-[11px] text-dark-muted truncate flex items-center gap-1">
           {artifact.mainStat.isCorrect === false && (
-            <span title="Main stat doesn't match recommended. Consider farming for the ideal main stat.">
+            <span title={t("verdict", "mainStatWarning")}>
               <WarningIcon className="w-3 h-3 flex-shrink-0 cursor-help text-amber-500" />
             </span>
           )}
@@ -123,7 +142,7 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1">
           <img src={scoreIconImg} alt="" className="w-3 h-3 opacity-60" />
-          <span className="text-[10px] text-dark-muted">Score</span>
+          <span className="text-[10px] text-dark-muted">{t("showcase", "score")}</span>
         </div>
         <div className="flex items-center gap-1.5">
           <span className="text-xs font-mono font-bold text-dark-text">{artifact.score.potentialPercent.toFixed(1)}</span>
@@ -139,23 +158,45 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
           className="flex items-center justify-between rounded px-1.5 py-1 -mx-1.5"
           style={{ backgroundColor: `${rerollTier.color}1c` }}
           title={
-            `${rerollTier.blurb}\n\n` +
-            `Each reshape costs ${reroll.dustCost} dust and has a ` +
-            `${formatChance(reroll.improveChance)} chance of gaining 5%+ score.\n` +
-            `2 tries (${reroll.dustCost * 2} dust): ${formatChance(chanceWithin(reroll.improveChance, 2))} likely\n` +
-            `4 tries (${reroll.dustCost * 4} dust): ${formatChance(chanceWithin(reroll.improveChance, 4))} likely\n\n` +
-            `Nominate: ${reroll.targetStats.join(" + ")}\n` +
-            `Typical gain when it hits: +${reroll.medianGain.toFixed(0)}%\n` +
-            `Realistic good outcome: ${reroll.realisticCeiling.toFixed(0)}%`
+            `${t("verdict", TIER_BLURB[rerollTier.id])}\n\n` +
+            `${t("verdict", "tipCost", { dust: reroll.dustCost, chance: formatChance(reroll.improveChance) })}\n` +
+            `${t("verdict", "tipTries", { tries: 2, dust: reroll.dustCost * 2, chance: formatChance(chanceWithin(reroll.improveChance, 2)) })}\n` +
+            `${t("verdict", "tipTries", { tries: 4, dust: reroll.dustCost * 4, chance: formatChance(chanceWithin(reroll.improveChance, 4)) })}\n\n` +
+            `${t("verdict", "tipNominate", { stats: reroll.targetStats.join(" + ") })}\n` +
+            `${t("verdict", "tipMedianGain", { gain: reroll.medianGain.toFixed(0) })}\n` +
+            `${t("verdict", "tipCeiling", { ceiling: reroll.realisticCeiling.toFixed(0) })}`
           }
         >
           <span className="text-[10px] font-semibold flex items-center gap-1" style={{ color: rerollTier.color }}>
             <DiceIcon className="w-3 h-3" />
-            {rerollTier.label}
+            {t("verdict", TIER_LABEL[rerollTier.id])}
           </span>
           <span className="text-[10px] font-mono font-bold whitespace-nowrap" style={{ color: rerollTier.color }}>
             {formatChance(reroll.improveChance)}
-            <span className="opacity-70"> / try</span>
+            <span className="opacity-70">{t("verdict", "perTry")}</span>
+          </span>
+        </div>
+      )}
+
+      {/* Energy Recharge is a breakpoint stat — losing it can cost a whole
+          burst per rotation. Shown as its own probability next to the reroll
+          odds so the two can be weighed against each other, rather than one
+          quietly cancelling the other. */}
+      {reroll.erRisk && (
+        <div
+          className="flex items-center justify-between rounded px-1.5 py-1 -mx-1.5 bg-amber-500/10"
+          title={t("verdict", "erNote", {
+            chance: formatChance(reroll.erBreachChance),
+            threshold: reroll.erThreshold,
+          })}
+        >
+          <span className="text-[10px] font-semibold text-amber-500 flex items-center gap-1">
+            <WarningIcon className="w-3 h-3 flex-shrink-0" />
+            ER at risk
+          </span>
+          <span className="text-[10px] font-mono font-bold text-amber-500 whitespace-nowrap">
+            {formatChance(reroll.erBreachChance)}
+            <span className="opacity-70">{t("verdict", "perTry")}</span>
           </span>
         </div>
       )}
@@ -163,19 +204,19 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
       {reroll.action === "replace" && (
         <div
           className="flex items-center gap-1 rounded px-1.5 py-1 -mx-1.5 bg-dark-border/30"
-          title={reroll.reason}
+          title={reasonText}
         >
           <RecycleIcon className="w-3 h-3 text-dark-muted flex-shrink-0" />
-          <span className="text-[10px] font-semibold text-dark-muted">Farm a replacement</span>
+          <span className="text-[10px] font-semibold text-dark-muted">{t("verdict", "farmReplacement")}</span>
         </div>
       )}
 
       {reroll.action === "level_up" && (
         <div
           className="flex items-center gap-1 rounded px-1.5 py-1 -mx-1.5 bg-dark-border/30"
-          title={reroll.reason}
+          title={reasonText}
         >
-          <span className="text-[10px] font-semibold text-dark-muted">Level to +20 to reshape</span>
+          <span className="text-[10px] font-semibold text-dark-muted">{t("verdict", "levelTo20")}</span>
         </div>
       )}
 
@@ -184,14 +225,10 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
       {reroll.action === "none" && reroll.eligible && (
         <div
           className="flex items-center gap-1 rounded px-1.5 py-1 -mx-1.5"
-          title={
-            `${reroll.reason}\n\n` +
-            `Only a ${formatChance(reroll.improveChance)} chance a reshape would gain 5%+ score, ` +
-            `so dust is better spent elsewhere.`
-          }
+          title={t("verdict", "tipWellRolled", { chance: formatChance(reroll.improveChance) })}
         >
           <CheckIcon className="w-3 h-3 text-dark-muted flex-shrink-0" />
-          <span className="text-[10px] font-semibold text-dark-muted">Well rolled</span>
+          <span className="text-[10px] font-semibold text-dark-muted">{t("verdict", "wellRolled")}</span>
         </div>
       )}
     </div>

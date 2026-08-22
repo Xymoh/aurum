@@ -1,5 +1,6 @@
 import type { Artifact } from "../../types/artifact";
 import type { SetBonusResult } from "../../types/character";
+import { useI18n } from "../../i18n";
 
 interface SetBonusRowProps {
   artifacts: Artifact[];
@@ -15,6 +16,7 @@ const SET_COLORS = [
 ];
 
 function MatchStatusIndicator({ matchStatus }: { matchStatus: SetBonusResult["matchStatus"] }) {
+  const { t } = useI18n();
   switch (matchStatus) {
     case "full_match":
       return (
@@ -22,7 +24,7 @@ function MatchStatusIndicator({ matchStatus }: { matchStatus: SetBonusResult["ma
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <path d="M20 6 9 17l-5-5" />
           </svg>
-          Full Match
+          {t("showcase", "fullMatch")}
         </span>
       );
     case "partial_match":
@@ -32,7 +34,7 @@ function MatchStatusIndicator({ matchStatus }: { matchStatus: SetBonusResult["ma
             <circle cx="12" cy="12" r="8" />
             <path d="M12 8v4" />
           </svg>
-          Partial Match
+          {t("showcase", "partialMatch")}
         </span>
       );
     case "no_match":
@@ -42,6 +44,7 @@ function MatchStatusIndicator({ matchStatus }: { matchStatus: SetBonusResult["ma
 }
 
 export function SetBonusRow({ artifacts, setBonus }: SetBonusRowProps) {
+  const { t } = useI18n();
   if (artifacts.length === 0) return null;
 
   // Assign colors - kept for the pill borders/backgrounds below.
@@ -55,11 +58,11 @@ export function SetBonusRow({ artifacts, setBonus }: SetBonusRowProps) {
   return (
     <div className="rounded-xl border border-dark-border px-5 py-4">
       <div className="text-[11px] uppercase font-semibold tracking-wider text-dark-muted mb-2.5">
-        Set Bonuses
+        {t("showcase", "setBonuses")}
       </div>
       <div className="flex flex-wrap items-center gap-2">
         {setBonus.activeSets.length === 0 ? (
-          <span className="text-xs text-dark-muted/50">No set bonuses active</span>
+          <span className="text-xs text-dark-muted/50">{t("showcase", "noSetBonus")}</span>
         ) : (
           <>
             {setBonus.activeSets.map((activeSet) => {
@@ -75,7 +78,7 @@ export function SetBonusRow({ artifacts, setBonus }: SetBonusRowProps) {
                     className="rounded-full px-1.5 py-[1px] text-[10px] font-bold"
                     style={{ backgroundColor: color, color: "#0f1117" }}
                   >
-                    {activeSet.pieces}pc
+                    {t("showcase", "pieces", { count: activeSet.pieces })}
                   </span>
                 </span>
               );

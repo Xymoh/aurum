@@ -16,7 +16,7 @@ import charactersData from "../data/characters.json";
 import artifactsData from "../data/artifacts.json";
 import weaponsData from "../data/weapons.json";
 import weaponIdsData from "../data/weapon-ids.json";
-import enkaLocaleData from "../data/enka-locale.json";
+import { resolveGameText, resolveCharacterName } from "./gameLocale";
 import profilePicturesData from "../data/profile-pictures.json";
 import { computeRollQuality, getMaxRoll } from "./scoring";
 
@@ -27,7 +27,6 @@ const CHARACTERS = charactersData as Record<string, { name: string; element: str
 const ARTIFACTS = artifactsData as Record<string, { name: string; pieces: number }>;
 const WEAPONS = weaponsData as Record<string, string>;
 const WEAPON_IDS = weaponIdsData as Record<string, string>;
-const ENKA_LOCALE = enkaLocaleData as Record<string, string>;
 const PROFILE_PICTURES = profilePicturesData as Record<string, string>;
 
 // ── Weapon name lookup (itemId-based with hash and icon fallbacks) ──
@@ -45,12 +44,12 @@ function resolveWeaponName(flat: EnkaEquip["flat"], itemId?: number): string {
 
   // Secondary: hash-based lookup from Enka locale data
   if (flat.nameTextMapHash) {
-    const hashName = ENKA_LOCALE[flat.nameTextMapHash];
+    const hashName = resolveGameText(flat.nameTextMapHash);
     if (hashName && hashName !== "TBD") return hashName;
 
     // Try +512 offset (Enka API often returns hash that is 512 less than loc.json hash)
     const offsetHash = String(Number(flat.nameTextMapHash) + 512);
-    const offsetName = ENKA_LOCALE[offsetHash];
+    const offsetName = resolveGameText(offsetHash);
     if (offsetName && offsetName !== "TBD") return offsetName;
   }
 
@@ -72,7 +71,7 @@ function resolveWeaponName(flat: EnkaEquip["flat"], itemId?: number): string {
 function resolveSetName(flat: EnkaEquip["flat"]): string {
   // Primary: hash-based lookup from Enka locale data
   if (flat.setNameTextMapHash) {
-    const hashName = ENKA_LOCALE[flat.setNameTextMapHash];
+    const hashName = resolveGameText(flat.setNameTextMapHash);
     if (hashName) return hashName;
   }
   // Fallback: use artifacts.json via set ID
@@ -346,6 +345,12 @@ function isArtifact(flat: EnkaEquip["flat"]): boolean {
 // that characters.json has the correct avatar_id → name mappings.
 
 function getCharacterName(avatarId: number): string {
+  // Prefer the game's own localized name so the showcase reads natively;
+  // characters.json remains the English fallback for anyone Enka hasn't
+  // published a name hash for yet.
+  const localized = resolveCharacterName(avatarId);
+  if (localized) return localized;
+
   const entry = CHARACTERS[String(avatarId)];
   if (entry) return entry.name;
   console.warn(`[ArtScore] Unknown avatarId: ${avatarId} - name not found in characters.json`);
@@ -760,6 +765,9 @@ function parseArtifact(equip: EnkaEquip): Artifact | null {
         medianGain: 0,
         realisticCeiling: 0,
         targetStats: [],
+        erRisk: false,
+        erBreachChance: 0,
+        erThreshold: 0,
         reason: "",
       },
     },
