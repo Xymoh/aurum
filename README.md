@@ -90,7 +90,21 @@ Hosted on GitHub Pages via GitHub Actions. On push to `main`, the workflow:
 2. Builds with Vite
 3. Deploys to GitHub Pages
 
-In production, the app calls Enka.Network directly (CORS allowed). No serverless functions needed.
+Enka.Network does not send CORS headers, so the browser cannot call it directly.
+In development the Vite dev server proxies `/api/proxy`; in production the app
+walks a list of public CORS proxies until one answers.
+
+Those free proxies are unreliable (corsproxy.io now rejects anonymous requests
+with `403 keyless_legacy_url`). For a stable deployment, host your own proxy:
+
+```bash
+npx wrangler deploy workers/enka-proxy.js --name enka-proxy --compatibility-date 2024-01-01
+```
+
+Then set the repository variable `VITE_ENKA_PROXY` (Settings -> Secrets and
+variables -> Actions -> Variables) to the worker URL, e.g.
+`https://enka-proxy.<subdomain>.workers.dev/`. The build picks it up and tries it
+first, keeping the public proxies as a fallback.
 
 ## Acknowledgments
 

@@ -1,0 +1,58 @@
+/**
+ * Cloudflare Worker that proxies Enka.Network with permissive CORS headers.
+ *
+ * The public CORS proxies this app falls back to are unreliable, so deploying
+ * this (free tier is plenty) is the durable fix:
+ *
+ *   1. npx wrangler deploy workers/enka-proxy.js --name enka-proxy --compatibility-date 2024-01-01
+ *   2. Build the site with VITE_ENKA_PROXY=https://enka-proxy.<subdomain>.workers.dev/
+ *      (the app appends ?uid=<uid>; a `{uid}` or `{url}` placeholder also works)
+ *
+ * GET /?uid=707023973  ->  the raw Enka JSON payload
+ */
+
+const ENKA_API_BASE = "https://enka.network/api/uid";
+
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Accept",
+};
+
+function json(body, status) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+  });
+}
+
+export default {
+  async fetch(request) {
+    if (request.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: CORS_HEADERS });
+    }
+    if (request.method !== "GET") {
+      return json({ error: "Method not allowed" }, 405);
+    }
+
+    const uid = new URL(request.url).searchParams.get("uid");
+    if (!uid || !/^[1-9]\d{8}$/.test(uid)) {
+      return json({ error: "Invalid UID. Must be exactly 9 digits starting with 1-9." }, 400);
+    }
+
+    const upstream = await fetch(`${ENKA_API_BASE}/${uid}`, {
+      headers: { "User-Agent": "GenshinArtScore/1.0", Accept: "application/json" },
+      // Enka asks for a few minutes of caching; this also softens rate limits.
+      cf: { cacheTtl: 300, cacheEverything: true },
+    });
+
+    if (!upstream.ok) {
+      return json({ error: `Enka.Network returned status ${upstream.status}.` }, upstream.status);
+    }
+
+    return new Response(upstream.body, {
+      status: 200,
+      headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+    });
+  },
+};
