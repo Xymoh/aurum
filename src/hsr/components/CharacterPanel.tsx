@@ -4,7 +4,7 @@ import { getWeights, PATH_LABELS } from "../weights";
 import { DiagnosticsPanel } from "./DiagnosticsPanel";
 import { RelicCard } from "./RelicCard";
 import { gradeColor } from "../labels";
-import { characterIcon, characterPreview, elementIcon, lightConeIcon, pathIcon } from "../images";
+import { characterPreview, elementIcon, lightConeIcon, pathIcon } from "../images";
 
 const ELEMENT_TINT: Record<string, string> = {
   Physical: "#d4d4d8",
@@ -16,47 +16,118 @@ const ELEMENT_TINT: Record<string, string> = {
   Imaginary: "#fde047",
 };
 
+/** Trace levels, labelled the way the game labels them. */
+function Traces({ t }: { t: NonNullable<HsrCharacter["traces"]> }) {
+  const parts = [
+    { label: "Basic", value: t.basic },
+    { label: "Skill", value: t.skill },
+    { label: "Ult", value: t.ultimate },
+    { label: "Talent", value: t.talent },
+  ];
+  return (
+    <div className="flex flex-wrap items-center gap-1.5">
+      {parts.map((p) => (
+        <span
+          key={p.label}
+          className="rounded border border-white/10 bg-black/40 px-1.5 py-0.5 text-xs text-hsr-muted"
+        >
+          {p.label} <span className="font-mono text-hsr-text">{p.value}</span>
+        </span>
+      ))}
+      {t.bonusTotal > 0 && (
+        <span
+          className="rounded border border-white/10 bg-black/40 px-1.5 py-0.5 text-xs text-hsr-muted"
+          title="Bonus trace nodes taken"
+        >
+          Traces{" "}
+          <span className="font-mono text-hsr-text">
+            {t.bonusTaken}/{t.bonusTotal}
+          </span>
+        </span>
+      )}
+    </div>
+  );
+}
+
 /**
  * One character.
  *
- * Collapsed, it is a row you can scan: portrait, name, one score. Everything
- * numeric beyond that score is behind the expand, because the earlier version
- * put six relics and a stat table on screen at once for every character and
- * the page became unreadable.
+ * The art sits in the header as a banner masked into the card, the way the
+ * Genshin cards do it. The previous version stretched the same image across
+ * the whole expanded panel as a faint wash, which magnified it far past its
+ * native size and read as a pixelated smudge behind the numbers.
  */
 export function CharacterPanel({ character, index }: { character: HsrCharacter; index: number }) {
   const [open, setOpen] = useState(false);
+  // Mounted on first expand and then kept, so collapsing has something to
+  // animate. Mounting six relic cards for every character up front, purely to
+  // enable a fold, is a lot of DOM for a twelve-character showcase.
+  const [everOpened, setEverOpened] = useState(false);
   const weights = getWeights(character.avatarId);
   const d = character.diagnostics;
   const tint = ELEMENT_TINT[character.element] ?? "#7d86a3";
   const path = pathIcon(character.path);
+
+  const toggle = () => {
+    setEverOpened(true);
+    setOpen((v) => !v);
+  };
 
   return (
     <section
       className="animate-fade-in-up overflow-hidden rounded-xl border bg-hsr-panel/50 transition-colors"
       style={{
         borderColor: open ? `${tint}44` : undefined,
-        // Capped so a full showcase does not keep the last row waiting.
         animationDelay: `${Math.min(index, 8) * 45}ms`,
       }}
     >
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center gap-3 p-3 text-left transition-colors hover:bg-white/[0.03] sm:gap-4 sm:p-4"
+        onClick={toggle}
+        className="group relative flex w-full items-stretch gap-3 overflow-hidden p-3 text-left sm:gap-4 sm:p-4"
         aria-expanded={open}
       >
-        <img
-          src={characterIcon(character.avatarId)}
-          alt=""
-          loading="lazy"
-          width={80}
-          height={80}
-          className="h-14 w-14 shrink-0 rounded-full bg-hsr-card object-cover sm:h-20 sm:w-20"
-          style={{ boxShadow: `0 0 0 2px ${tint}55` }}
+        {/* Splash art, masked into the card so it reads as part of the surface
+            rather than a picture pasted behind it. */}
+        <div className="pointer-events-none absolute inset-0 flex justify-end" aria-hidden="true">
+          <div
+            className="relative h-full w-2/3 sm:w-1/2"
+            style={{
+              maskImage: "linear-gradient(to right, transparent, black 78%)",
+              WebkitMaskImage: "linear-gradient(to right, transparent, black 78%)",
+            }}
+          >
+            <img
+              src={characterPreview(character.avatarId)}
+              alt=""
+              loading="lazy"
+              className="h-full w-full object-cover object-[center_18%] opacity-45 transition-opacity duration-300 group-hover:opacity-65"
+            />
+            <div
+              className="absolute inset-0 opacity-30 mix-blend-overlay"
+              style={{ backgroundColor: tint }}
+            />
+          </div>
+        </div>
+        {/* Left wash, so the text always has a solid ground beneath it. */}
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-hsr-panel via-hsr-panel/95 to-transparent"
+          aria-hidden="true"
+        />
+        {/* And a right wash: the score and the chevron sit over the brightest
+            part of the art, where muted text disappears entirely. */}
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-hsr-panel via-hsr-panel/80 to-transparent"
+          aria-hidden="true"
         />
 
-        <div className="min-w-0 flex-1">
+        <div
+          className="relative w-1 shrink-0 rounded-full"
+          style={{ backgroundColor: tint }}
+          aria-hidden="true"
+        />
+
+        <div className="relative min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
             {path && <img src={path} alt="" width={20} height={20} className="h-5 w-5 opacity-80" />}
             <img
@@ -70,13 +141,25 @@ export function CharacterPanel({ character, index }: { character: HsrCharacter; 
               {character.name}
             </h2>
           </div>
-          <p className="mt-0.5 truncate font-mono text-sm text-hsr-muted">
-            Lv{character.level} · E{character.eidolon}
-            <span className="hidden sm:inline">
-              {" "}
-              · {PATH_LABELS[character.path] ?? character.path}
+
+          <div className="mt-1 flex flex-wrap items-center gap-1.5">
+            <span className="rounded border border-white/10 bg-black/40 px-1.5 py-0.5 font-mono text-xs text-hsr-text">
+              Lv{character.level}
             </span>
-          </p>
+            <span className="rounded border border-white/10 bg-black/40 px-1.5 py-0.5 font-mono text-xs text-hsr-text">
+              E{character.eidolon}
+            </span>
+            <span className="hidden rounded border border-white/10 bg-black/40 px-1.5 py-0.5 text-xs text-hsr-muted sm:inline">
+              {PATH_LABELS[character.path] ?? character.path}
+            </span>
+          </div>
+
+          {character.traces && (
+            <div className="mt-1.5 hidden sm:block">
+              <Traces t={character.traces} />
+            </div>
+          )}
+
           {character.lightCone && (
             <div className="mt-1.5 flex items-center gap-2">
               <img
@@ -95,18 +178,23 @@ export function CharacterPanel({ character, index }: { character: HsrCharacter; 
           )}
         </div>
 
-        <div className="shrink-0 text-right">
-          <p className={`font-mono text-xl font-bold leading-none sm:text-2xl ${gradeColor(d.grade)}`}>
+        <div className="relative shrink-0 self-center text-right">
+          <p
+            className={`font-mono text-xl font-bold leading-none sm:text-2xl ${gradeColor(d.grade)}`}
+          >
             {d.score.toFixed(0)}
             <span className="text-sm">%</span>
           </p>
           <p className={`mt-0.5 font-mono text-sm font-semibold ${gradeColor(d.grade)}`}>
             {d.grade}
           </p>
+          <p className="mt-1 font-mono text-xs text-hsr-muted">
+            {d.effectiveRolls}/{d.totalRolls} rolls
+          </p>
         </div>
 
         <svg
-          className={`h-4 w-4 shrink-0 text-hsr-muted transition-transform ${open ? "rotate-180" : ""}`}
+          className={`relative h-4 w-4 shrink-0 self-center text-hsr-muted transition-transform duration-300 ${open ? "rotate-180" : ""}`}
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -117,21 +205,21 @@ export function CharacterPanel({ character, index }: { character: HsrCharacter; 
         </svg>
       </button>
 
-      {open && (
-        <div className="relative border-t" style={{ borderColor: `${tint}22` }}>
-          {/* Splash art, held far back so it reads as atmosphere and never
-              competes with the numbers sitting on top of it. */}
-          <div
-            className="pointer-events-none absolute inset-0 bg-cover bg-right-top opacity-[0.16]"
-            style={{ backgroundImage: `url(${characterPreview(character.avatarId)})` }}
-            aria-hidden="true"
-          />
-          <div className="animate-fade-in-up relative space-y-4 p-3 sm:p-4">
-            <DiagnosticsPanel d={d} tint={tint} />
-            <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-              {character.relics.map((relic) => (
-                <RelicCard key={relic.id} relic={relic} weights={weights} />
-              ))}
+      {/* Expand and collapse both animate. The grid row runs 0fr to 1fr, which
+          transitions cleanly without needing the content height up front. */}
+      {everOpened && (
+        <div
+          className="grid transition-[grid-template-rows] duration-300 ease-out"
+          style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+        >
+          <div className="overflow-hidden">
+            <div className="space-y-4 border-t p-3 sm:p-4" style={{ borderColor: `${tint}22` }}>
+              <DiagnosticsPanel d={d} tint={tint} />
+              <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+                {character.relics.map((relic) => (
+                  <RelicCard key={relic.id} relic={relic} weights={weights} />
+                ))}
+              </div>
             </div>
           </div>
         </div>

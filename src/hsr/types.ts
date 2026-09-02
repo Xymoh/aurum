@@ -77,6 +77,22 @@ export interface HsrRelicScore {
   wastedRolls: number;
 }
 
+/**
+ * Trace levels. Enka states these as a flat list of point ids, where the last
+ * three digits identify the node: 001 basic attack, 002 skill, 003 ultimate,
+ * 004 talent, 007 technique, and anything above 100 is a bonus node that is
+ * either taken or not.
+ */
+export interface HsrTraces {
+  basic: number;
+  skill: number;
+  ultimate: number;
+  talent: number;
+  /** Bonus nodes taken, out of the ones this character has. */
+  bonusTaken: number;
+  bonusTotal: number;
+}
+
 export interface HsrLightCone {
   id: number;
   name: string;
@@ -96,6 +112,7 @@ export interface HsrCharacter {
   /** Eidolon, 0-6. */
   eidolon: number;
   lightCone: HsrLightCone | null;
+  traces: HsrTraces | null;
   relics: HsrRelic[];
   diagnostics: BuildDiagnostics;
 }

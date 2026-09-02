@@ -10,6 +10,7 @@
 
 import type {
   HsrCharacter,
+  HsrTraces,
   HsrLightCone,
   HsrRelic,
   HsrShowcase,
@@ -57,12 +58,17 @@ interface RawEquipment {
   level?: number;
   rank?: number;
 }
+interface RawSkillNode {
+  pointId: number;
+  level: number;
+}
 interface RawAvatar {
   avatarId: number;
   level: number;
   rank?: number;
   equipment?: RawEquipment;
   relicList?: RawRelic[];
+  skillTreeList?: RawSkillNode[];
 }
 export interface RawHsrResponse {
   detailInfo?: {
@@ -169,6 +175,38 @@ function parseRelic(raw: RawRelic): Omit<HsrRelic, "score"> | null {
   };
 }
 
+/** Node ids end in a three-digit code identifying which trace they are. */
+const TRACE_CODES: Record<number, keyof Omit<HsrTraces, "bonusTaken" | "bonusTotal">> = {
+  1: "basic",
+  2: "skill",
+  3: "ultimate",
+  4: "talent",
+};
+
+function parseTraces(nodes: RawSkillNode[] | undefined): HsrTraces | null {
+  if (!nodes || nodes.length === 0) return null;
+  const traces: HsrTraces = {
+    basic: 0,
+    skill: 0,
+    ultimate: 0,
+    talent: 0,
+    bonusTaken: 0,
+    bonusTotal: 0,
+  };
+  for (const node of nodes) {
+    const code = node.pointId % 1000;
+    const named = TRACE_CODES[code];
+    if (named) {
+      traces[named] = node.level;
+    } else if (code >= 100) {
+      // Bonus nodes are binary: present in the list means taken.
+      traces.bonusTotal += 1;
+      if (node.level > 0) traces.bonusTaken += 1;
+    }
+  }
+  return traces;
+}
+
 function parseLightCone(eq: RawEquipment | undefined): HsrLightCone | null {
   if (!eq?.tid) return null;
   const meta = CONES[String(eq.tid)];
@@ -210,6 +248,7 @@ export function parseHsrShowcase(raw: RawHsrResponse): ParsedShowcase {
       level: a.level,
       eidolon: a.rank ?? 0,
       lightCone: parseLightCone(a.equipment),
+      traces: parseTraces(a.skillTreeList),
       relics: (a.relicList ?? []).map(parseRelic).filter((r): r is ParsedRelic => r !== null),
     };
   });
