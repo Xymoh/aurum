@@ -4,7 +4,7 @@ import path from "path";
 import https from "node:https";
 
 const ENKA_API_HOST = "enka.network";
-const ENKA_API_PATH = "/api/uid";
+const ENKA_API_PATH = { gi: "/api/uid", hsr: "/api/hsr/uid" };
 
 /**
  * Vite dev-server plugin that replicates the Vercel Edge Function at /api/proxy
@@ -21,6 +21,7 @@ function enkaProxyPlugin(): Plugin {
 
         const url = new URL(req.url, "http://localhost");
         const uid = url.searchParams.get("uid");
+        const game = url.searchParams.get("game") === "hsr" ? "hsr" : "gi";
 
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
@@ -50,7 +51,7 @@ function enkaProxyPlugin(): Plugin {
           return;
         }
 
-        const enkaUrl = `${ENKA_API_PATH}/${uid}`;
+        const enkaUrl = `${ENKA_API_PATH[game]}/${uid}`;
 
         const enkaReq = https.get(
           {

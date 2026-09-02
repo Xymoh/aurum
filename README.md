@@ -83,6 +83,39 @@ ids fall back to the player's initial and log a console warning naming the id.
 
 Character substat weights and ideal main stats are manually curated in `genshin_optimizer_processed_data.json`. The pipeline auto-generates default weights for new characters based on their ascension stat.
 
+## Honkai: Star Rail
+
+A second scorer lives at `/hsr`, with its own layout, palette and data
+pipeline. It shares only the router, the query client and the Enka transport
+in `src/lib/enkaProxy.ts`.
+
+It deliberately does **not** simulate damage. Fribbels' optimizer already does
+that well, and matching it would mean per-character damage formulas rewritten
+every patch. This answers the question a DPS score leaves open: *why* is the
+build short.
+
+Star Rail states how many upgrades landed on each substat (`cnt`) and how good
+each one was (`step`), so nothing is inferred from a displayed value the way
+the Genshin parser has to. That makes the aggregate view exact:
+
+- **Roll efficiency** - effective rolls against a 48-roll benchmark, out of the
+  54 a build can hold. A build can carry more upgrades than the benchmark and
+  still fall short, because a quarter of them sit on stats the character never
+  uses. That gap is invisible to any per-piece grade.
+- **Waste attribution** - which slot and which stat the dead rolls are on.
+- Crit ratio, substat totals, set bonuses and main stat fit.
+
+Weights are keyed by **Path**, not per character, so a character released
+tomorrow still scores sensibly instead of falling off a hand-written table.
+`CHARACTER_OVERRIDES` in `src/hsr/weights.ts` handles the few kits that
+contradict their Path (break carries, mainly).
+
+Refresh the bundled game tables after a patch:
+
+```bash
+npm run fetch-hsr
+```
+
 ## Deployment
 
 Hosted on GitHub Pages via GitHub Actions. On push to `main`, the workflow:

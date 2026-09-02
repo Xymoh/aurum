@@ -8,10 +8,14 @@
  *   2. Build the site with VITE_ENKA_PROXY=https://enka-proxy.<subdomain>.workers.dev/
  *      (the app appends ?uid=<uid>; a `{uid}` or `{url}` placeholder also works)
  *
- * GET /?uid=707023973  ->  the raw Enka JSON payload
+ * GET /?uid=707023973          ->  Genshin showcase JSON
+ * GET /?uid=700600838&game=hsr ->  Honkai: Star Rail showcase JSON
  */
 
-const ENKA_API_BASE = "https://enka.network/api/uid";
+const ENKA_BASE = {
+  gi: "https://enka.network/api/uid",
+  hsr: "https://enka.network/api/hsr/uid",
+};
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -35,12 +39,14 @@ export default {
       return json({ error: "Method not allowed" }, 405);
     }
 
-    const uid = new URL(request.url).searchParams.get("uid");
+    const params = new URL(request.url).searchParams;
+    const uid = params.get("uid");
+    const game = params.get("game") === "hsr" ? "hsr" : "gi";
     if (!uid || !/^[1-9]\d{8}$/.test(uid)) {
       return json({ error: "Invalid UID. Must be exactly 9 digits starting with 1-9." }, 400);
     }
 
-    const upstream = await fetch(`${ENKA_API_BASE}/${uid}`, {
+    const upstream = await fetch(`${ENKA_BASE[game]}/${uid}`, {
       headers: { "User-Agent": "GenshinArtScore/1.0", Accept: "application/json" },
       // Enka asks for a few minutes of caching; this also softens rate limits.
       cf: { cacheTtl: 300, cacheEverything: true },

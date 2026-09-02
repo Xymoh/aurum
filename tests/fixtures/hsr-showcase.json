@@ -1,0 +1,360 @@
+{
+ "detailInfo": {
+  "uid": 700600838,
+  "nickname": "Saeki",
+  "level": 70,
+  "signature": "Locked in",
+  "avatarDetailList": [
+   {
+    "avatarId": 1014,
+    "level": 80,
+    "rank": 0,
+    "equipment": {
+     "tid": 23045,
+     "level": 80,
+     "rank": 1
+    },
+    "relicList": [
+     {
+      "tid": 61261,
+      "type": 1,
+      "level": 15,
+      "mainAffixId": 1,
+      "subAffixList": [
+       {
+        "affixId": 3,
+        "cnt": 1,
+        "step": 1
+       },
+       {
+        "affixId": 5,
+        "cnt": 2
+       },
+       {
+        "affixId": 7,
+        "cnt": 3,
+        "step": 1
+       },
+       {
+        "affixId": 8,
+        "cnt": 2,
+        "step": 3
+       }
+      ]
+     },
+     {
+      "tid": 61262,
+      "type": 2,
+      "level": 15,
+      "mainAffixId": 1,
+      "subAffixList": [
+       {
+        "affixId": 4,
+        "cnt": 2,
+        "step": 2
+       },
+       {
+        "affixId": 5,
+        "cnt": 3,
+        "step": 2
+       },
+       {
+        "affixId": 8,
+        "cnt": 2,
+        "step": 3
+       },
+       {
+        "affixId": 9,
+        "cnt": 2,
+        "step": 1
+       }
+      ]
+     },
+     {
+      "tid": 61263,
+      "type": 3,
+      "level": 15,
+      "mainAffixId": 5,
+      "subAffixList": [
+       {
+        "affixId": 7,
+        "cnt": 3
+       },
+       {
+        "affixId": 8,
+        "cnt": 3
+       },
+       {
+        "affixId": 11,
+        "cnt": 2,
+        "step": 2
+       },
+       {
+        "affixId": 12,
+        "cnt": 1
+       }
+      ]
+     },
+     {
+      "tid": 61264,
+      "type": 4,
+      "level": 15,
+      "mainAffixId": 4,
+      "subAffixList": [
+       {
+        "affixId": 2,
+        "cnt": 2,
+        "step": 2
+       },
+       {
+        "affixId": 5,
+        "cnt": 2,
+        "step": 2
+       },
+       {
+        "affixId": 8,
+        "cnt": 1,
+        "step": 1
+       },
+       {
+        "affixId": 9,
+        "cnt": 4,
+        "step": 5
+       }
+      ]
+     },
+     {
+      "tid": 63285,
+      "type": 5,
+      "level": 15,
+      "mainAffixId": 8,
+      "subAffixList": [
+       {
+        "affixId": 3,
+        "cnt": 1
+       },
+       {
+        "affixId": 5,
+        "cnt": 3,
+        "step": 4
+       },
+       {
+        "affixId": 6,
+        "cnt": 2,
+        "step": 2
+       },
+       {
+        "affixId": 8,
+        "cnt": 3,
+        "step": 3
+       }
+      ]
+     },
+     {
+      "tid": 63286,
+      "type": 6,
+      "level": 15,
+      "mainAffixId": 4,
+      "subAffixList": [
+       {
+        "affixId": 3,
+        "cnt": 2,
+        "step": 4
+       },
+       {
+        "affixId": 4,
+        "cnt": 2,
+        "step": 1
+       },
+       {
+        "affixId": 7,
+        "cnt": 2
+       },
+       {
+        "affixId": 8,
+        "cnt": 3,
+        "step": 3
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "avatarId": 1306,
+    "level": 80,
+    "rank": 1,
+    "equipment": {
+     "tid": 21018,
+     "level": 80,
+     "rank": 5
+    },
+    "relicList": [
+     {
+      "tid": 61211,
+      "type": 1,
+      "level": 15,
+      "mainAffixId": 1,
+      "subAffixList": [
+       {
+        "affixId": 6,
+        "cnt": 2,
+        "step": 1
+       },
+       {
+        "affixId": 7,
+        "cnt": 2,
+        "step": 2
+       },
+       {
+        "affixId": 9,
+        "cnt": 2,
+        "step": 2
+       },
+       {
+        "affixId": 10,
+        "cnt": 2
+       }
+      ]
+     },
+     {
+      "tid": 61212,
+      "type": 2,
+      "level": 15,
+      "mainAffixId": 1,
+      "subAffixList": [
+       {
+        "affixId": 1,
+        "cnt": 3,
+        "step": 3
+       },
+       {
+        "affixId": 7,
+        "cnt": 2,
+        "step": 1
+       },
+       {
+        "affixId": 9,
+        "cnt": 1,
+        "step": 2
+       },
+       {
+        "affixId": 11,
+        "cnt": 2,
+        "step": 1
+       }
+      ]
+     },
+     {
+      "tid": 61213,
+      "type": 3,
+      "level": 15,
+      "mainAffixId": 5,
+      "subAffixList": [
+       {
+        "affixId": 1,
+        "cnt": 2,
+        "step": 2
+       },
+       {
+        "affixId": 2,
+        "cnt": 3,
+        "step": 1
+       },
+       {
+        "affixId": 6,
+        "cnt": 1
+       },
+       {
+        "affixId": 7,
+        "cnt": 2,
+        "step": 1
+       }
+      ]
+     },
+     {
+      "tid": 61214,
+      "type": 4,
+      "level": 15,
+      "mainAffixId": 4,
+      "subAffixList": [
+       {
+        "affixId": 1,
+        "cnt": 3,
+        "step": 2
+       },
+       {
+        "affixId": 2,
+        "cnt": 1,
+        "step": 1
+       },
+       {
+        "affixId": 6,
+        "cnt": 2,
+        "step": 3
+       },
+       {
+        "affixId": 9,
+        "cnt": 3,
+        "step": 1
+       }
+      ]
+     },
+     {
+      "tid": 63105,
+      "type": 5,
+      "level": 15,
+      "mainAffixId": 1,
+      "subAffixList": [
+       {
+        "affixId": 6,
+        "cnt": 1
+       },
+       {
+        "affixId": 7,
+        "cnt": 4,
+        "step": 2
+       },
+       {
+        "affixId": 9,
+        "cnt": 2,
+        "step": 2
+       },
+       {
+        "affixId": 12,
+        "cnt": 1
+       }
+      ]
+     },
+     {
+      "tid": 63106,
+      "type": 6,
+      "level": 15,
+      "mainAffixId": 2,
+      "subAffixList": [
+       {
+        "affixId": 2,
+        "cnt": 2,
+        "step": 4
+       },
+       {
+        "affixId": 4,
+        "cnt": 2,
+        "step": 4
+       },
+       {
+        "affixId": 5,
+        "cnt": 1,
+        "step": 1
+       },
+       {
+        "affixId": 11,
+        "cnt": 3,
+        "step": 5
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

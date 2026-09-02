@@ -42,6 +42,15 @@ export function HomePage() {
         <UidInput />
       </div>
 
+      {/* The Star Rail scorer is a separate tool with its own look, so it gets
+          a plain signpost here rather than shared navigation chrome. */}
+      <Link
+        to="/hsr"
+        className="-mt-6 rounded-full border border-dark-border bg-dark-card/60 px-4 py-1.5 text-xs text-dark-muted no-underline transition-colors hover:border-teal-400/40 hover:text-teal-300"
+      >
+        Play Honkai: Star Rail? Score your relics too
+      </Link>
+
       {/* Recent lookups - kept close to the input, since it's a shortcut into the same action */}
       {recentUids.length > 0 && (
         <div className="w-full max-w-md space-y-3">

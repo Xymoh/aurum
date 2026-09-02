@@ -9,6 +9,37 @@
   --color-dark-muted: #8b8fa3;
   --color-accent: #d4a853;
 
+  /* Honkai: Star Rail palette. Deliberately cold and high-contrast against
+     the Genshin side's warm gold, so the two tabs never read as the same
+     page with different data in it. */
+  --color-hsr-bg: #080a12;
+  --color-hsr-panel: #10131f;
+  --color-hsr-card: #151929;
+  --color-hsr-border: #242a40;
+  --color-hsr-text: #e8ecf8;
+  --color-hsr-muted: #7d86a3;
+  --color-hsr-accent: #5eead4;
+  --color-hsr-glow: #38bdf8;
+  --color-hsr-gold: #f5d580;
+
+  --color-path-warrior: #f87171;
+  --color-path-rogue: #fbbf24;
+  --color-path-mage: #60a5fa;
+  --color-path-knight: #facc15;
+  --color-path-priest: #4ade80;
+  --color-path-shaman: #f472b6;
+  --color-path-warlock: #a78bfa;
+  --color-path-memory: #67e8f9;
+  --color-path-elation: #fb923c;
+
+  --color-hsrel-physical: #d4d4d8;
+  --color-hsrel-fire: #fb7185;
+  --color-hsrel-ice: #7dd3fc;
+  --color-hsrel-thunder: #c084fc;
+  --color-hsrel-wind: #5eead4;
+  --color-hsrel-quantum: #818cf8;
+  --color-hsrel-imaginary: #fde047;
+
   --color-grade-s-plus: #ffd700;
   --color-grade-s: #ff8c00;
   --color-grade-a: #a855f7;

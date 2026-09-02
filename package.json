@@ -14,7 +14,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "fetch-locale": "node scripts/fetch-enka-locale.js",
     "fetch-weapons": "node scripts/build-weapon-ids.js",
-    "fetch-pfps": "node scripts/fetch-profile-pictures.js"
+    "fetch-pfps": "node scripts/fetch-profile-pictures.js",
+    "fetch-hsr": "node scripts/fetch-hsr-data.js"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.3.0",
