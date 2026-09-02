@@ -42,7 +42,7 @@ export function UidInput() {
         // Storage unavailable, ignore
       }
 
-      navigate(`/showcase/${rawInput}`);
+      navigate(`/genshin/showcase/${rawInput}`);
     },
     [rawInput, navigate],
   );

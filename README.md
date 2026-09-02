@@ -83,6 +83,23 @@ ids fall back to the player's initial and log a console warning naming the id.
 
 Character substat weights and ideal main stats are manually curated in `genshin_optimizer_processed_data.json`. The pipeline auto-generates default weights for new characters based on their ascension stat.
 
+## Adding a game
+
+Navigation is driven entirely by `src/games/registry.ts`. The picker at `/`,
+the fixed side rail and the compact header switcher all iterate `GAMES`, so a
+new game means:
+
+1. Add an entry to `GAMES` (id, name, route prefix, icon, accent, `status`).
+2. Drop its icon in `src/assets/games/`.
+3. Mount its routes under that prefix in `src/App.tsx`.
+
+No navigation component needs touching. A game can be listed with
+`status: "planned"` to appear greyed out in the picker before its routes exist.
+
+Routes are namespaced per game (`/genshin/...`, `/hsr/...`). The pre-split
+`/showcase/:uid` links are redirected to `/genshin/showcase/:uid` rather than
+broken, since those URLs are already shared.
+
 ## Honkai: Star Rail
 
 A second scorer lives at `/hsr`, with its own layout, palette and data

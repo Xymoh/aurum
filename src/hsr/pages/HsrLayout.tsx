@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { GameRail, GameSwitcherCompact } from "../../games/GameRail";
 
 /**
  * Layout for the Star Rail side.
@@ -20,7 +21,8 @@ export function HsrLayout() {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col bg-hsr-bg text-hsr-text">
+    <div className="flex min-h-screen flex-col bg-hsr-bg text-hsr-text lg:pl-14">
+      <GameRail current="hsr" />
       <header className="border-b border-hsr-border bg-hsr-panel/60 backdrop-blur">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <Link to="/hsr" className="group flex items-center gap-2">
@@ -31,12 +33,7 @@ export function HsrLayout() {
               Relic Aurum
             </span>
           </Link>
-          <Link
-            to="/"
-            className="rounded border border-hsr-border px-2.5 py-1 text-[11px] text-hsr-muted transition-colors hover:border-hsr-accent/40 hover:text-hsr-accent"
-          >
-            Genshin version
-          </Link>
+          <GameSwitcherCompact current="hsr" />
         </div>
       </header>
 
