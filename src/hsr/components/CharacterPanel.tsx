@@ -88,23 +88,29 @@ export function CharacterPanel({ character, index }: { character: HsrCharacter; 
         aria-expanded={open}
       >
         {/* Splash art, masked into the card so it reads as part of the surface
-            rather than a picture pasted behind it. */}
+            rather than a picture pasted behind it.
+
+            Contained, not cropped. The source images are 376x512 portraits and
+            the face sits at a different height in each one, so any fixed crop
+            beheads somebody: at 18% from the top Sparxie showed only her hat.
+            Fitting the whole portrait cannot cut a face off no matter what the
+            composition is. */}
         <div className="pointer-events-none absolute inset-0 flex justify-end" aria-hidden="true">
           <div
             className="relative h-full w-2/3 sm:w-1/2"
             style={{
-              maskImage: "linear-gradient(to right, transparent, black 78%)",
-              WebkitMaskImage: "linear-gradient(to right, transparent, black 78%)",
+              maskImage: "linear-gradient(to right, transparent, black 55%)",
+              WebkitMaskImage: "linear-gradient(to right, transparent, black 55%)",
             }}
           >
             <img
               src={characterPreview(character.avatarId)}
               alt=""
               loading="lazy"
-              className="h-full w-full object-cover object-[center_18%] opacity-45 transition-opacity duration-300 group-hover:opacity-65"
+              className="h-full w-full object-cover object-[center_30%] opacity-50 transition-opacity duration-300 group-hover:opacity-70"
             />
             <div
-              className="absolute inset-0 opacity-30 mix-blend-overlay"
+              className="absolute inset-0 opacity-25 mix-blend-overlay"
               style={{ backgroundColor: tint }}
             />
           </div>

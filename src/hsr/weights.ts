@@ -121,19 +121,25 @@ export const CHARACTER_OVERRIDES: Record<string, HsrWeights> = {
     CriticalChanceBase: 0.1,
     CriticalDamageBase: 0.1,
   },
-  // Silver Wolf LV.999 sits on the Elation path beside genuine damage
-  // dealers, but her value is debuffs and survivability. Guides are explicit:
-  // HP%/DEF% spheres and ropes, and do not stack ATK. Without this she was
-  // scored as a carry, and her (correct) defensive rolls counted as waste.
+  // Silver Wolf LV.999 sits on the Elation path beside genuine damage dealers,
+  // but her value is debuffs, not damage, so the generic profile scored her
+  // wrong. Guides name SPD, CRIT Rate and CRIT DMG as the substats and say
+  // outright not to stack ATK.
+  //
+  // Note the distinction that tripped this up once already: HP% and DEF% are
+  // recommended as her sphere and rope MAIN stats, for bulk in one large
+  // chunk. That says nothing about substat rolls, which the same guides do not
+  // list. Weighting substat HP% highly on the strength of a main-stat
+  // recommendation made three wasted rolls read as useful.
   "1506": { // Silver Wolf LV.999
     SpeedDelta: 1.0,
-    CriticalDamageBase: 0.8,
-    CriticalChanceBase: 0.8,
-    HPAddedRatio: 0.6,
-    DefenceAddedRatio: 0.6,
-    StatusResistanceBase: 0.4,
-    BreakDamageAddedRatioBase: 0.3,
-    AttackAddedRatio: 0.2,
+    CriticalDamageBase: 0.85,
+    CriticalChanceBase: 0.85,
+    StatusResistanceBase: 0.3,
+    BreakDamageAddedRatioBase: 0.25,
+    HPAddedRatio: 0.15,
+    DefenceAddedRatio: 0.15,
+    AttackAddedRatio: 0.1,
   },
   "1310": { // Firefly
     BreakDamageAddedRatioBase: 1.0,
