@@ -10,7 +10,7 @@
  *     name; Amber tracks new characters within a day.
  *
  * Parsing is synchronous, so the active tables are held at module scope and
- * must be loaded *before* a showcase is parsed — see `useShowcase`, which
+ * must be loaded *before* a showcase is parsed - see `useShowcase`, which
  * awaits `loadGameLocale` and keys its query by language so switching
  * languages re-derives the names.
  */
@@ -24,7 +24,7 @@ const NAMES_EN = namesEn as TextMap;
 
 /**
  * English ships in the main bundle; other languages are fetched on demand.
- * English + Chinese only for now — see src/i18n/index.ts for why.
+ * English + Chinese only for now - see src/i18n/index.ts for why.
  */
 const GAME_LOADERS: Record<string, () => Promise<{ default: TextMap }>> = {
   zh: () => import("../data/locales/game-zh.json"),
@@ -56,7 +56,7 @@ async function loadInto(
     cache.set(lang, table);
     return table;
   } catch {
-    // A failed chunk shouldn't break the showcase — English always works.
+    // A failed chunk shouldn't break the showcase - English always works.
     return english;
   }
 }

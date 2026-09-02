@@ -113,7 +113,7 @@ export interface RerollAdvice {
   erThreshold: number;
   /**
    * Untranslated diagnostic note. User-facing copy is rendered from `action`
-   * in the UI so it can be localized — this is for logging and tests.
+   * in the UI so it can be localized - this is for logging and tests.
    */
   reason: string;
 }

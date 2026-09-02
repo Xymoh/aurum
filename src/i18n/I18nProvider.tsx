@@ -24,7 +24,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
         if (!cancelled) setDict(mod.default);
       })
       .catch(() => {
-        // A failed chunk shouldn't blank the UI — English is always correct.
+        // A failed chunk shouldn't blank the UI - English is always correct.
         if (!cancelled) setDict(en);
       })
       .finally(() => {

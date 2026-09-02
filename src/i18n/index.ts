@@ -4,7 +4,7 @@ import { en, type Dictionary } from "./locales/en";
 /**
  * English + Chinese for now. The Dictionary type check makes adding a
  * language back mechanical (every missing key is a compile error), so this
- * list expands whenever demand justifies the ongoing translation upkeep —
+ * list expands whenever demand justifies the ongoing translation upkeep -
  * see the other locale files' git history if resurrecting one.
  */
 export const LANGUAGES = [
@@ -38,7 +38,7 @@ export function detectLanguage(): LanguageCode {
     const saved = window.localStorage.getItem(STORAGE_KEY);
     if (saved && isLanguageCode(saved)) return saved;
   } catch {
-    // localStorage can throw in private mode — fall through to detection.
+    // localStorage can throw in private mode - fall through to detection.
   }
 
   for (const tag of navigator.languages ?? [navigator.language]) {

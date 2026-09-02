@@ -81,7 +81,7 @@ const ER_RISK_SHARE = 0.15;
  *
  * ER is the one substat that isn't worth "more is better": it buys nothing past
  * the point where the burst comes up on time, but falling under that point
- * costs a whole burst per rotation — far more damage than the crit rolls a
+ * costs a whole burst per rotation - far more damage than the crit rolls a
  * reshape would trade it for. The weighted score can't express that, because a
  * single linear weight is monotonic by construction.
  */
@@ -284,7 +284,7 @@ export function computeRerollAdvice(
   const erFromOthers = erContext && erSub ? erContext.currentTotalER - erSub.value : 0;
   const erBase = erSub ? Math.max(0, erSub.value - erSub.rollCount * AVG_ROLL_TIER * erSub.maxRoll) : 0;
 
-  // Seed from the artifact's *content*, never its `id` — ids embed Date.now()
+  // Seed from the artifact's *content*, never its `id` - ids embed Date.now()
   // and Math.random() at parse time, so seeding from one would re-roll the
   // simulation on every page load and let borderline pieces flip verdicts
   // between refreshes.
@@ -326,7 +326,7 @@ export function computeRerollAdvice(
     // Tracked and reported, deliberately NOT folded into the odds above. ER
     // requirements are a single curated number per character and depend on the
     // team, so silently suppressing advice on that basis would turn an
-    // approximation into a hard rule — and make the headline odds mean
+    // approximation into a hard rule - and make the headline odds mean
     // something different for ER-bearing pieces than for everything else.
     if (erSub != null && erFromOthers + erRolled < erFloor) erBreaches++;
   }

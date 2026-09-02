@@ -94,7 +94,7 @@ export function HomePage() {
         <h2 className="text-dark-text text-base font-bold">{t("home", "dataTitle")}</h2>
         <ul className="space-y-2 text-sm text-dark-muted leading-relaxed">
           <li>
-            <span className="text-dark-text font-medium">{t("home", "dataShowcase")}</span> —{" "}
+            <span className="text-dark-text font-medium">{t("home", "dataShowcase")}</span> -{" "}
             <a href="https://enka.network/" target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
               Enka.Network
             </a>

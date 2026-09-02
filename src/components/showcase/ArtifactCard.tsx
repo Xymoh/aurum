@@ -178,7 +178,7 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
         </div>
       )}
 
-      {/* Energy Recharge is a breakpoint stat — losing it can cost a whole
+      {/* Energy Recharge is a breakpoint stat - losing it can cost a whole
           burst per rotation. Shown as its own probability next to the reroll
           odds so the two can be weighed against each other, rather than one
           quietly cancelling the other. */}

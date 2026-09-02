@@ -89,7 +89,7 @@ export interface ProxyResponse {
   error?: string;
 }
 
-/** Thrown when the upstream answer is final — retrying another proxy is pointless. */
+/** Thrown when the upstream answer is final - retrying another proxy is pointless. */
 class TerminalError extends Error {}
 
 const PER_ATTEMPT_TIMEOUT = 10_000;
