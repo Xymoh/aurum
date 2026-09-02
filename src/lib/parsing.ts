@@ -97,34 +97,6 @@ function resolveStatName(propId: string): { displayName: string; shortName: stri
   return STAT_KEYS[propId] ?? { displayName: propId, shortName: propId, isPercentage: false };
 }
 
-// ── FightProp numeric ID mapping (Enka API uses numeric string keys) ──
-
-const FIGHT_PROP_IDS: Record<string, string> = {
-  "1": "FIGHT_PROP_BASE_HP",
-  "2": "FIGHT_PROP_HP",
-  "3": "FIGHT_PROP_HP_PERCENT",
-  "4": "FIGHT_PROP_BASE_ATTACK",
-  "5": "FIGHT_PROP_ATTACK",
-  "6": "FIGHT_PROP_ATTACK_PERCENT",
-  "7": "FIGHT_PROP_BASE_DEFENSE",
-  "8": "FIGHT_PROP_DEFENSE",
-  "9": "FIGHT_PROP_DEFENSE_PERCENT",
-  "20": "FIGHT_PROP_CRITICAL",
-  "22": "FIGHT_PROP_CRITICAL_HURT",
-  "23": "FIGHT_PROP_ELEMENT_MASTERY",
-  "26": "FIGHT_PROP_CHARGE_EFFICIENCY",
-  "28": "FIGHT_PROP_HEAL_ADD",
-  "29": "FIGHT_PROP_HEALED_ADD",
-  "31": "FIGHT_PROP_PHYSICAL_ADD_HURT",
-  "41": "FIGHT_PROP_FIRE_ADD_HURT",
-  "42": "FIGHT_PROP_ELEC_ADD_HURT",
-  "43": "FIGHT_PROP_WATER_ADD_HURT",
-  "44": "FIGHT_PROP_GRASS_ADD_HURT",
-  "45": "FIGHT_PROP_WIND_ADD_HURT",
-  "46": "FIGHT_PROP_ROCK_ADD_HURT",
-  "47": "FIGHT_PROP_ICE_ADD_HURT",
-};
-
 /** Try both numeric and FIGHT_PROP_ string keys from the fightPropMap */
 function fpVal(fp: Record<string, number>, numKey: string, strKey: string): number {
   return fp[numKey] ?? fp[strKey] ?? 0;
@@ -158,11 +130,6 @@ function detectElement(fightPropMap: Record<string, number> | undefined, fallbac
 // for an on-field Traveler build; falls back to Anemo, the base/default
 // Vision, when no elemental DMG% is present at all, e.g. a pure ATK%/EM build).
 const TRAVELER_AVATAR_IDS = new Set([10000005, 10000007]);
-
-/** Map a numeric/string prop ID to its FIGHT_PROP name, or return as-is */
-function resolvePropId(rawId: string): string {
-  return FIGHT_PROP_IDS[rawId] ?? rawId;
-}
 
 // ── Substat building ──
 
@@ -417,12 +384,6 @@ function getTalentIconSuffix(avatarId: number): string {
   const icon = getCharacterIcon(avatarId);
   const match = icon.match(/UI_AvatarIcon_(.+)/);
   return match ? match[1] : String(avatarId);
-}
-
-// ── Character catalog check ──
-
-function isCharacterKnown(avatarId: number): boolean {
-  return CHARACTERS[String(avatarId)] !== undefined;
 }
 
 // ── Fight prop stat extraction ──

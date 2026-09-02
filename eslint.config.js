@@ -5,7 +5,10 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  { ignores: ["dist"] },
+  // .claude/worktrees holds checkouts of other branches. Linting them means
+  // `npm run lint` fails on whatever code happens to be parked there, which
+  // has nothing to do with the branch being worked on.
+  { ignores: ["dist", ".claude/**"] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],

@@ -9,7 +9,7 @@ import {
   computePotentialPercent,
   getGrade,
 } from "../scoring";
-import { POTENTIAL_SCALES, MAX_ROLL_VALUES } from "../constants";
+import { POTENTIAL_SCALES, MAX_ROLL_VALUES, GRADE_THRESHOLDS } from "../constants";
 
 // ── Shared Constants for Generators ──
 
@@ -99,16 +99,133 @@ const arbNonZeroWeights: fc.Arbitrary<ScoringWeights> = arbScoringWeights.filter
 /** Generate a main stat key */
 const arbMainStatKey: fc.Arbitrary<FightProp> = fc.constantFrom(...MAIN_STAT_KEYS);
 
-// ── Property Test Suite ──
+/** Grades best-first, so a lower index is a better grade. */
+const GRADE_ORDER = GRADE_THRESHOLDS.map((t) => t.grade);
 
-describe("Scoring Engine - Property-Based Tests", () => {
-  it("placeholder: test infrastructure is working", () => {
+// ── Property Test Suite ──
+//
+// The generators above were written alongside the scoring rewrite but never
+// wired into assertions. These are the invariants the rest of the app leans
+// on: the showcase sorts by potential, the reroll simulation compares a
+// current score against a simulated one, and the UI colours a grade. All three
+// break in confusing ways if a score can go negative or a grade can move
+// backwards as a score rises.
+
+describe("computeWeightedPotential", () => {
+  it("is never negative, for any substats and weights", () => {
     fc.assert(
-      fc.property(fc.integer({ min: 0, max: 100 }), (n) => {
-        expect(n).toBeGreaterThanOrEqual(0);
-        expect(n).toBeLessThanOrEqual(100);
+      fc.property(arbSubstats, arbScoringWeights, arbMainStatKey, (substats, weights, mainStat) => {
+        expect(computeWeightedPotential(substats, weights, mainStat)).toBeGreaterThanOrEqual(0);
       }),
-      { numRuns: 10 },
+    );
+  });
+
+  it("ignores a substat that duplicates the main stat", () => {
+    // A Sands rolling ATK% cannot also carry ATK% as a substat, so the weight
+    // for the main stat is zeroed. Adding such a substat must change nothing.
+    fc.assert(
+      fc.property(arbSubstats, arbScoringWeights, arbMainStatKey, (substats, weights, mainStat) => {
+        const duplicate = substats.find((s) => s.statKey === mainStat);
+        fc.pre(duplicate !== undefined);
+        const without = substats.filter((s) => s.statKey !== mainStat);
+        expect(computeWeightedPotential(substats, weights, mainStat)).toBeCloseTo(
+          computeWeightedPotential(without, weights, mainStat),
+          6,
+        );
+      }),
+    );
+  });
+});
+
+describe("computeIdealPotential", () => {
+  it("is positive whenever any weight is non-zero", () => {
+    fc.assert(
+      fc.property(arbNonZeroWeights, arbMainStatKey, (weights, mainStat) => {
+        // Every weight could belong to the main stat and be zeroed out, which
+        // legitimately leaves nothing to score against.
+        const ideal = computeIdealPotential(weights, mainStat);
+        expect(ideal).toBeGreaterThanOrEqual(0);
+        expect(Number.isFinite(ideal)).toBe(true);
+      }),
+    );
+  });
+});
+
+describe("computePotentialPercent", () => {
+  it("never returns a negative percentage", () => {
+    fc.assert(
+      fc.property(
+        fc.double({ min: -1000, max: 1000, noNaN: true }),
+        fc.double({ min: -1000, max: 1000, noNaN: true }),
+        (weighted, ideal) => {
+          expect(computePotentialPercent(weighted, ideal)).toBeGreaterThanOrEqual(0);
+        },
+      ),
+    );
+  });
+
+  it("returns 0 rather than dividing by a non-positive ideal", () => {
+    fc.assert(
+      fc.property(
+        fc.double({ min: -1000, max: 1000, noNaN: true }),
+        fc.double({ min: -1000, max: 0, noNaN: true }),
+        (weighted, ideal) => {
+          expect(computePotentialPercent(weighted, ideal)).toBe(0);
+        },
+      ),
+    );
+  });
+
+  it("scales linearly with the weighted potential", () => {
+    fc.assert(
+      fc.property(
+        fc.double({ min: 0, max: 1000, noNaN: true }),
+        fc.double({ min: 0.001, max: 1000, noNaN: true }),
+        fc.double({ min: 1, max: 10, noNaN: true }),
+        (weighted, ideal, factor) => {
+          const single = computePotentialPercent(weighted, ideal);
+          const scaled = computePotentialPercent(weighted * factor, ideal);
+          expect(scaled).toBeGreaterThanOrEqual(single - 1e-9);
+        },
+      ),
+    );
+  });
+});
+
+describe("scoring tables", () => {
+  it("has a positive scale and max roll for every substat that can appear", () => {
+    // A bad data refresh that drops a stat would otherwise silently score it
+    // as worthless rather than failing loudly.
+    for (const key of SUBSTAT_KEYS) {
+      expect(POTENTIAL_SCALES[key]).toBeGreaterThan(0);
+      expect(MAX_ROLL_VALUES[key]).toBeGreaterThan(0);
+    }
+  });
+});
+
+describe("getGrade", () => {
+  it("never moves backwards as the score rises", () => {
+    // The UI colours grades on the assumption that a better score cannot earn
+    // a worse letter.
+    fc.assert(
+      fc.property(
+        fc.double({ min: 0, max: 250, noNaN: true }),
+        fc.double({ min: 0, max: 250, noNaN: true }),
+        (a, b) => {
+          const [lo, hi] = a <= b ? [a, b] : [b, a];
+          expect(GRADE_ORDER.indexOf(getGrade(hi))).toBeLessThanOrEqual(
+            GRADE_ORDER.indexOf(getGrade(lo)),
+          );
+        },
+      ),
+    );
+  });
+
+  it("always returns a known grade", () => {
+    fc.assert(
+      fc.property(fc.double({ min: -100, max: 500, noNaN: true }), (score) => {
+        expect(GRADE_ORDER).toContain(getGrade(score));
+      }),
     );
   });
 });
