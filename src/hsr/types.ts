@@ -75,6 +75,8 @@ export interface HsrRelicScore {
   grade: string;
   /** Raw weighted roll value, aggregated into the build score. */
   weighted: number;
+  /** The reachable ceiling for a piece this size on this character. */
+  ideal: number;
   /** Rolls landing on stats this character actually uses. */
   effectiveRolls: number;
   /** Rolls on stats with no meaningful weight for this character. */

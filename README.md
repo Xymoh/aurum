@@ -134,7 +134,10 @@ both games have the same two mechanics behind them:
 
 - **Build score, 0-200** - the same scale as the per-piece grades and as the
   Genshin side, so every percentage on the page means the same kind of thing.
-  100 is a solid build, 200 is every upgrade on the best stat at max quality.
+  200 is the reachable ceiling: the four best-weighted stats filling the four
+  substat slots, with every remaining upgrade on the best of them. Not "every
+  roll on one stat", which no relic can be, and which quietly punished any
+  character whose weights fall away after their top stat.
 - **Useful rolls** - effective rolls against a 48-roll benchmark, out of the 54
   a build can hold. A build can carry more upgrades than the benchmark and
   still fall short, because a quarter of them sit on stats the character never

@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 import fixture from "../fixtures/hsr-showcase.json";
-import { parseHsrShowcase, isPercentStat, type RawHsrResponse } from "../../src/hsr/parsing";
+import {
+  parseHsrShowcase,
+  isPercentStat,
+  type RawHsrResponse,
+  type ParsedCharacter,
+} from "../../src/hsr/parsing";
+import type { HsrStatKey } from "../../src/hsr/types";
 import {
   BENCHMARK_ROLLS,
   MAX_ROLLS,
@@ -239,6 +245,70 @@ describe("reroll advice", () => {
       if (a.action === "replace") {
         expect(a.realisticCeiling).toBeLessThan(90);
       }
+    }
+  });
+});
+
+describe("score ceiling is reachable and profile-independent", () => {
+  /** A relic that is the best this character could possibly be handed. */
+  function perfectRelicFor(avatarId: number, totalRolls: number): ParsedCharacter {
+    const weights = getWeights(avatarId);
+    const ranked = (Object.entries(weights) as [HsrStatKey, number][])
+      .filter(([, w]) => w > 0)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 4);
+    // Top stat soaks every upgrade; the other three fill the remaining slots.
+    const substats = ranked.map(([key], i) => ({
+      key,
+      value: 10,
+      rolls: i === 0 ? totalRolls - 3 : 1,
+      quality: 1,
+    }));
+    return {
+      avatarId,
+      name: "test",
+      path: "",
+      element: "",
+      rarity: 5,
+      level: 80,
+      eidolon: 0,
+      lightCone: null,
+      traces: null,
+      relics: [
+        {
+          id: `perfect-${avatarId}`,
+          tid: 61191,
+          slot: "HEAD",
+          setId: 119,
+          setName: "test",
+          rarity: 5,
+          level: 15,
+          mainStat: { key: "HPDelta", value: 705 },
+          substats,
+          totalRolls,
+        },
+      ],
+    };
+  }
+
+  it("scores a theoretically perfect relic at 200 for a damage dealer", () => {
+    const scored = scoreCharacter(perfectRelicFor(1014, 9));
+    expect(scored.relics[0].score.potentialPercent).toBeCloseTo(200, 1);
+  });
+
+  it("scores it at 200 for a support too, whose weights fall away after the top stat", () => {
+    // The point of the fix. Silver Wolf LV.999 runs 1.0 / 0.85 / 0.85 / 0.3,
+    // so against an "every roll on the best stat" ideal her ceiling sat far
+    // below a crit carry's and she scored ~20 points low for the same quality
+    // of build.
+    const scored = scoreCharacter(perfectRelicFor(1506, 9));
+    expect(scored.relics[0].score.potentialPercent).toBeCloseTo(200, 1);
+  });
+
+  it("holds for 8-roll relics as well as 9-roll ones", () => {
+    for (const id of [1014, 1506]) {
+      const scored = scoreCharacter(perfectRelicFor(id, 8));
+      expect(scored.relics[0].score.potentialPercent).toBeCloseTo(200, 1);
     }
   });
 });

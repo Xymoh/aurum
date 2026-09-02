@@ -74,12 +74,39 @@ export function gradeFor(percent: number): string {
 export const GRADE_LADDER = GRADES.map(([min, grade]) => ({ min, grade }));
 
 /**
+ * The best a relic of this size could realistically be for this character.
+ *
+ * A relic carries four DISTINCT substats, so the ceiling is not "every roll on
+ * the single best stat" - that piece cannot exist. It is the four best-weighted
+ * stats occupying the four slots, with every remaining upgrade landing on the
+ * best of them.
+ *
+ * Using rolls x maxWeight instead, as this did originally, punishes characters
+ * whose weights fall away after their top stat. A damage dealer with CRIT Rate
+ * and CRIT DMG both at 1.0 sits near the ceiling on two stats; a support whose
+ * profile runs 1.0 then 0.85 then 0.85 then 0.3 cannot approach it at all, and
+ * scored 20 points lower for a build of the same quality.
+ */
+function idealFor(weights: HsrWeights, totalRolls: number): number {
+  const sorted = Object.values(weights)
+    .filter((w) => w > 0)
+    .sort((a, b) => b - a);
+  if (sorted.length === 0) return 0;
+
+  // Four slots, padded when a character has fewer than four stats worth having.
+  const topFour = [0, 1, 2, 3].map((i) => sorted[i] ?? 0);
+  const sumTopFour = topFour.reduce((a, b) => a + b, 0);
+  const maxWeight = topFour[0];
+  return sumTopFour + Math.max(0, totalRolls - 4) * maxWeight;
+}
+
+/**
  * Per-piece potential.
  *
- * Unlike Genshin, roll counts are stated rather than inferred, so the score is
- * built directly from (rolls x weight x quality). A piece scores 100 when its
- * upgrades all landed on fully-weighted stats at average quality, and 200 when
- * they all landed on max-weight stats at max quality.
+ * Roll counts are stated rather than inferred, so the score is built directly
+ * from (rolls x weight x quality) against the reachable ideal above. 200 is
+ * that ideal exactly; 100 is half of it, which is the Fribbels convention the
+ * Genshin side also uses.
  */
 function scoreRelic(relic: ParsedRelic, weights: HsrWeights): HsrRelicScore {
   // Weighted value of this piece's rolls, kept on the score so the build
@@ -96,15 +123,14 @@ function scoreRelic(relic: ParsedRelic, weights: HsrWeights): HsrRelicScore {
     else wastedRolls += sub.rolls;
   }
 
-  // Ideal: every upgrade on the best-weighted stat, at max quality.
-  const maxWeight = Math.max(...Object.values(weights), 0.0001);
-  const ideal = relic.totalRolls * maxWeight;
+  const ideal = idealFor(weights, relic.totalRolls);
   const potentialPercent = ideal > 0 ? (weighted / ideal) * 200 : 0;
 
   return {
     potentialPercent: Math.round(potentialPercent * 10) / 10,
     grade: gradeFor(potentialPercent),
     weighted,
+    ideal,
     effectiveRolls,
     wastedRolls,
   };
@@ -151,12 +177,12 @@ function buildDiagnostics(relics: HsrRelic[], weights: HsrWeights): BuildDiagnos
 
   waste.sort((a, b) => b.rolls - a.rolls);
 
-  // Same construction as the per-piece score, applied to every roll on the
-  // build: 100 is a solid build, 200 is every upgrade on the best stat at max
-  // quality. Keeping one scale across the page means a 147% relic and a 131%
-  // build mean the same kind of thing.
-  const maxWeight = Math.max(...Object.values(weights), 0.0001);
-  const score = totalRolls > 0 ? (weighted / (totalRolls * maxWeight)) * 200 : 0;
+  // Same construction as the per-piece score, summed: the build's ceiling is
+  // the sum of what each of its six relics could reachably have been. Keeping
+  // one scale across the page means a 147% relic and a 131% build mean the
+  // same kind of thing.
+  const idealTotal = relics.reduce((acc, r) => acc + r.score.ideal, 0);
+  const score = idealTotal > 0 ? (weighted / idealTotal) * 200 : 0;
 
   return {
     score: Math.round(score * 10) / 10,

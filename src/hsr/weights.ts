@@ -121,25 +121,17 @@ export const CHARACTER_OVERRIDES: Record<string, HsrWeights> = {
     CriticalChanceBase: 0.1,
     CriticalDamageBase: 0.1,
   },
-  // Silver Wolf LV.999 sits on the Elation path beside genuine damage dealers,
-  // but her value is debuffs, not damage, so the generic profile scored her
-  // wrong. Guides name SPD, CRIT Rate and CRIT DMG as the substats and say
-  // outright not to stack ATK.
-  //
-  // Note the distinction that tripped this up once already: HP% and DEF% are
-  // recommended as her sphere and rope MAIN stats, for bulk in one large
-  // chunk. That says nothing about substat rolls, which the same guides do not
-  // list. Weighting substat HP% highly on the strength of a main-stat
-  // recommendation made three wasted rolls read as useful.
+  // Silver Wolf LV.999 shares a name with the original debuffer but not a
+  // kit: this is the self-buffing Elation crit-stacker whose "Hidden MMR"
+  // converts into CRIT Rate then CRIT DMG, not a Effect Hit Rate debuffer.
+  // Prydwen's substat priority for her is exactly "SPD > CRIT Rate = CRIT
+  // DMG" and nothing else — no Effect RES, no Break Effect, no flat stats.
+  // An earlier version of this override assumed the debuffer identity and
+  // credited Effect RES and Break Effect rolls that guides never list.
   "1506": { // Silver Wolf LV.999
     SpeedDelta: 1.0,
     CriticalDamageBase: 0.85,
     CriticalChanceBase: 0.85,
-    StatusResistanceBase: 0.3,
-    BreakDamageAddedRatioBase: 0.25,
-    HPAddedRatio: 0.15,
-    DefenceAddedRatio: 0.15,
-    AttackAddedRatio: 0.1,
   },
   "1310": { // Firefly
     BreakDamageAddedRatioBase: 1.0,
