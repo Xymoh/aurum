@@ -1,7 +1,14 @@
 import { describe, expect, it } from "vitest";
 import fixture from "../fixtures/hsr-showcase.json";
 import { parseHsrShowcase, isPercentStat, type RawHsrResponse } from "../../src/hsr/parsing";
-import { BENCHMARK_ROLLS, MAX_ROLLS, scoreCharacter, gradeFor } from "../../src/hsr/scoring";
+import {
+  BENCHMARK_ROLLS,
+  MAX_ROLLS,
+  scoreCharacter,
+  gradeFor,
+  GRADE_LADDER,
+} from "../../src/hsr/scoring";
+import { gradeColor } from "../../src/hsr/labels";
 import { getWeights, WASTE_THRESHOLD, weightOf } from "../../src/hsr/weights";
 
 const parsed = parseHsrShowcase(fixture as RawHsrResponse);
@@ -103,15 +110,53 @@ describe("build diagnostics", () => {
 });
 
 describe("grading", () => {
-  it("orders bands correctly", () => {
-    expect(gradeFor(200)).toBe("SS");
-    expect(gradeFor(145)).toBe("S");
-    expect(gradeFor(0)).toBe("D");
-  });
-
   it("falls back to Path weights for an unknown character", () => {
     // A character released after the data was bundled must still score.
     const weights = getWeights(999999);
     expect(Object.keys(weights).length).toBeGreaterThan(0);
+  });
+});
+
+describe("grade ladder", () => {
+  it("matches the ladder Fribbels uses for Star Rail", () => {
+    // The band a score lands in is the whole point of the number, so the
+    // boundaries are pinned rather than left to drift.
+    expect(gradeFor(200)).toBe("AEON");
+    expect(gradeFor(150)).toBe("WTF+");
+    expect(gradeFor(142)).toBe("WTF");
+    expect(gradeFor(130)).toBe("SSS+");
+    expect(gradeFor(121)).toBe("SSS");
+    expect(gradeFor(113)).toBe("SS+");
+    expect(gradeFor(106)).toBe("SS");
+    expect(gradeFor(100)).toBe("S+");
+    expect(gradeFor(95)).toBe("S");
+    expect(gradeFor(90)).toBe("A+");
+    expect(gradeFor(85)).toBe("A");
+    expect(gradeFor(80)).toBe("B+");
+    expect(gradeFor(75)).toBe("B");
+    expect(gradeFor(70)).toBe("C+");
+    expect(gradeFor(65)).toBe("C");
+    expect(gradeFor(60)).toBe("D+");
+    expect(gradeFor(55)).toBe("D");
+    expect(gradeFor(50)).toBe("F+");
+    expect(gradeFor(0)).toBe("F");
+  });
+
+  it("never moves backwards as the score rises", () => {
+    const labels = GRADE_LADDER.map((b) => b.grade);
+    let previous = labels.length - 1;
+    for (let score = 0; score <= 210; score += 0.5) {
+      const index = labels.indexOf(gradeFor(score));
+      expect(index).toBeLessThanOrEqual(previous);
+      previous = index;
+    }
+  });
+
+  it("gives every band its own colour", () => {
+    const colors = GRADE_LADDER.map((b) => gradeColor(b.grade));
+    // Prefix matching used to collapse SSS into SS and AEON into A.
+    expect(gradeColor("SSS")).not.toBe(gradeColor("SS"));
+    expect(gradeColor("AEON")).not.toBe(gradeColor("A"));
+    expect(colors.every((c) => c.startsWith("text-"))).toBe(true);
   });
 });

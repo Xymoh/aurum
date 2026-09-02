@@ -44,12 +44,35 @@ export function formatStat(key: HsrStatKey, value: number): string {
   return isPercentStat(key) ? `${value.toFixed(1)}%` : value.toFixed(0);
 }
 
-/** Tailwind text colour for a grade band. */
+/**
+ * Colour per grade band.
+ *
+ * Keyed exactly rather than by prefix: "SSS" and "SS" both start with "SS",
+ * and "AEON" starts with "A", so prefix matching silently collapsed bands the
+ * ladder deliberately separates.
+ */
+const GRADE_COLORS: Record<string, string> = {
+  AEON: "text-fuchsia-300",
+  "WTF+": "text-emerald-300",
+  WTF: "text-emerald-400",
+  "SSS+": "text-rose-400",
+  SSS: "text-orange-400",
+  "SS+": "text-orange-300",
+  SS: "text-amber-300",
+  "S+": "text-hsr-gold",
+  S: "text-yellow-300",
+  "A+": "text-violet-300",
+  A: "text-violet-400",
+  "B+": "text-sky-300",
+  B: "text-sky-400",
+  "C+": "text-emerald-400",
+  C: "text-emerald-500",
+  "D+": "text-hsr-muted",
+  D: "text-hsr-muted",
+  "F+": "text-rose-500/80",
+  F: "text-rose-500/80",
+};
+
 export function gradeColor(grade: string): string {
-  if (grade.startsWith("SS")) return "text-hsr-accent";
-  if (grade.startsWith("S")) return "text-hsr-gold";
-  if (grade.startsWith("A")) return "text-violet-400";
-  if (grade.startsWith("B")) return "text-sky-400";
-  if (grade.startsWith("C")) return "text-emerald-400";
-  return "text-hsr-muted";
+  return GRADE_COLORS[grade] ?? "text-hsr-muted";
 }

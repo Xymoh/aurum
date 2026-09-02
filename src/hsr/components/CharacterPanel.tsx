@@ -46,29 +46,32 @@ export function CharacterPanel({ character }: { character: HsrCharacter }) {
           src={characterIcon(character.avatarId)}
           alt=""
           loading="lazy"
-          width={56}
-          height={56}
-          className="h-12 w-12 shrink-0 rounded-full bg-hsr-card object-cover sm:h-14 sm:w-14"
+          width={80}
+          height={80}
+          className="h-14 w-14 shrink-0 rounded-full bg-hsr-card object-cover sm:h-20 sm:w-20"
           style={{ boxShadow: `0 0 0 2px ${tint}55` }}
         />
 
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
-            {path && <img src={path} alt="" width={16} height={16} className="h-4 w-4 opacity-70" />}
+            {path && <img src={path} alt="" width={20} height={20} className="h-5 w-5 opacity-80" />}
             <img
               src={elementIcon(character.element)}
               alt=""
-              width={16}
-              height={16}
-              className="h-4 w-4"
+              width={20}
+              height={20}
+              className="h-5 w-5"
             />
             <h2 className="truncate text-base font-semibold text-hsr-text sm:text-lg">
               {character.name}
             </h2>
           </div>
           <p className="mt-0.5 truncate font-mono text-sm text-hsr-muted">
-            Lv{character.level} · E{character.eidolon} ·{" "}
-            {PATH_LABELS[character.path] ?? character.path}
+            Lv{character.level} · E{character.eidolon}
+            <span className="hidden sm:inline">
+              {" "}
+              · {PATH_LABELS[character.path] ?? character.path}
+            </span>
           </p>
           {character.lightCone && (
             <div className="mt-1 flex items-center gap-1.5">
@@ -76,9 +79,9 @@ export function CharacterPanel({ character }: { character: HsrCharacter }) {
                 src={lightConeIcon(character.lightCone.id)}
                 alt=""
                 loading="lazy"
-                width={18}
-                height={18}
-                className="h-4 w-4 shrink-0 rounded-sm object-cover"
+                width={32}
+                height={32}
+                className="h-7 w-7 shrink-0 rounded object-cover"
               />
               <p className="truncate text-sm text-hsr-muted">
                 {character.lightCone.name}

@@ -34,23 +34,44 @@ export const BENCHMARK_ROLLS = 48;
 /** Six relics at 9 upgrades each: the most a build can physically hold. */
 export const MAX_ROLLS = 54;
 
-/** Grade bands over the 0-200 potential scale, mirroring the Genshin ladder. */
+/**
+ * Grade bands, matching the ladder Fribbels' optimizer uses for Star Rail.
+ *
+ * Deliberately not the Genshin ladder in ../lib/constants.ts: that one is
+ * evenly spaced in tens, while this is dense between 45 and 130 and then opens
+ * up, because that is where real builds actually land. Sharing our own numbers
+ * would mean the same relic reads two grades apart depending on which tab you
+ * opened, and Star Rail players already read builds on this scale.
+ */
 const GRADES: [number, string][] = [
-  [180, "SS"],
-  [160, "S+"],
-  [140, "S"],
-  [120, "A+"],
-  [100, "A"],
+  [200, "AEON"],
+  [150, "WTF+"],
+  [140, "WTF"],
+  [130, "SSS+"],
+  [121, "SSS"],
+  [113, "SS+"],
+  [106, "SS"],
+  [100, "S+"],
+  [95, "S"],
+  [90, "A+"],
+  [85, "A"],
   [80, "B+"],
-  [60, "B"],
-  [40, "C"],
-  [0, "D"],
+  [75, "B"],
+  [70, "C+"],
+  [65, "C"],
+  [60, "D+"],
+  [55, "D"],
+  [50, "F+"],
+  [0, "F"],
 ];
 
 export function gradeFor(percent: number): string {
   for (const [floor, label] of GRADES) if (percent >= floor) return label;
-  return "D";
+  return "F";
 }
+
+/** Every band, best first, for legends and colour maps. */
+export const GRADE_LADDER = GRADES.map(([min, grade]) => ({ min, grade }));
 
 /**
  * Per-piece potential.

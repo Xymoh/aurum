@@ -23,9 +23,9 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
             src={icon}
             alt=""
             loading="lazy"
-            width={34}
-            height={34}
-            className="h-8 w-8 shrink-0 rounded bg-black/30 object-contain"
+            width={44}
+            height={44}
+            className="h-11 w-11 shrink-0 rounded bg-black/30 object-contain"
           />
         )}
         <div className="min-w-0 flex-1">
