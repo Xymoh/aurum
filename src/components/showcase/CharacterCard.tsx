@@ -118,7 +118,10 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
     <div
       id={`character-${character.id}`}
       className="rounded-xl border border-dark-border bg-dark-card overflow-hidden animate-fade-in-up flex flex-col scroll-mt-4"
-      style={{ animationDelay: `${index * 80}ms` }}
+      // Staggered so the list assembles top-down rather than flashing in as a
+      // block, capped because a 12-character showcase spent nearly a second
+      // waiting on the last card at the previous 80ms per index.
+      style={{ animationDelay: `${Math.min(index, 8) * 45}ms` }}
     >
       {/* ── BANNER HEADER ── */}
       <button

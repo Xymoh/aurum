@@ -36,7 +36,7 @@ export function DiagnosticsPanel({ d, tint }: { d: BuildDiagnostics; tint: strin
 
         <div className="relative h-2.5 w-full overflow-hidden rounded-full bg-white/5">
           <div
-            className="absolute inset-y-0 left-0 rounded-full"
+            className="animate-bar-grow absolute inset-y-0 left-0 rounded-full"
             style={{ width: `${effectivePct}%`, backgroundColor: tint }}
           />
           <div

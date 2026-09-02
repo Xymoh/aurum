@@ -24,7 +24,7 @@ const ELEMENT_TINT: Record<string, string> = {
  * put six relics and a stat table on screen at once for every character and
  * the page became unreadable.
  */
-export function CharacterPanel({ character }: { character: HsrCharacter }) {
+export function CharacterPanel({ character, index }: { character: HsrCharacter; index: number }) {
   const [open, setOpen] = useState(false);
   const weights = getWeights(character.avatarId);
   const d = character.diagnostics;
@@ -33,8 +33,12 @@ export function CharacterPanel({ character }: { character: HsrCharacter }) {
 
   return (
     <section
-      className="overflow-hidden rounded-xl border bg-hsr-panel/50 transition-colors"
-      style={{ borderColor: open ? `${tint}44` : undefined }}
+      className="animate-fade-in-up overflow-hidden rounded-xl border bg-hsr-panel/50 transition-colors"
+      style={{
+        borderColor: open ? `${tint}44` : undefined,
+        // Capped so a full showcase does not keep the last row waiting.
+        animationDelay: `${Math.min(index, 8) * 45}ms`,
+      }}
     >
       <button
         type="button"
@@ -74,14 +78,14 @@ export function CharacterPanel({ character }: { character: HsrCharacter }) {
             </span>
           </p>
           {character.lightCone && (
-            <div className="mt-1 flex items-center gap-1.5">
+            <div className="mt-1.5 flex items-center gap-2">
               <img
                 src={lightConeIcon(character.lightCone.id)}
                 alt=""
                 loading="lazy"
-                width={32}
-                height={32}
-                className="h-7 w-7 shrink-0 rounded object-cover"
+                width={56}
+                height={56}
+                className="h-8 w-8 shrink-0 rounded object-cover ring-1 ring-white/10 sm:h-11 sm:w-11"
               />
               <p className="truncate text-sm text-hsr-muted">
                 {character.lightCone.name}
@@ -118,11 +122,11 @@ export function CharacterPanel({ character }: { character: HsrCharacter }) {
           {/* Splash art, held far back so it reads as atmosphere and never
               competes with the numbers sitting on top of it. */}
           <div
-            className="pointer-events-none absolute inset-0 bg-cover bg-right-top opacity-[0.07]"
+            className="pointer-events-none absolute inset-0 bg-cover bg-right-top opacity-[0.16]"
             style={{ backgroundImage: `url(${characterPreview(character.avatarId)})` }}
             aria-hidden="true"
           />
-          <div className="relative space-y-4 p-3 sm:p-4">
+          <div className="animate-fade-in-up relative space-y-4 p-3 sm:p-4">
             <DiagnosticsPanel d={d} tint={tint} />
             <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
               {character.relics.map((relic) => (

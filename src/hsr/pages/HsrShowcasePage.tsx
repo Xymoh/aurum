@@ -83,8 +83,8 @@ export function HsrShowcasePage() {
         </p>
       ) : (
         <div className="space-y-2">
-          {data.characters.map((c) => (
-            <CharacterPanel key={c.avatarId} character={c} />
+          {data.characters.map((c, i) => (
+            <CharacterPanel key={c.avatarId} character={c} index={i} />
           ))}
         </div>
       )}
