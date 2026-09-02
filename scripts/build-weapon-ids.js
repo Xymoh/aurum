@@ -57,7 +57,7 @@ function fetchJSON(url, retries = 3) {
   return new Promise((resolve, reject) => {
     const attempt = (attemptNumber) => {
       https
-        .get(url, { headers: { "User-Agent": "genshin-artscore-fetcher/1.0" } }, (res) => {
+        .get(url, { headers: { "User-Agent": "aurum-fetcher/1.0" } }, (res) => {
           if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
             return fetchJSON(res.headers.location, retries - attemptNumber + 1)
               .then(resolve)

@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "genshin-artscore-dev",
+      "name": "aurum-dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": [
         "run",
@@ -11,7 +11,7 @@
       "port": 3000
     },
     {
-      "name": "genshin-artscore-preview",
+      "name": "aurum-preview",
       "runtimeExecutable": "npm",
       "runtimeArgs": [
         "run",

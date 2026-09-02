@@ -1,8 +1,17 @@
-# Artifact Aurum
+# Aurum
 
-Score your Genshin Impact artifacts like the pros. Enter a UID to instantly evaluate artifact quality across your entire showcase - per character, per piece.
+Gear scoring for gacha games. Enter a UID and find out which pieces are worth
+investing in, which are dead weight, and what a reroll is actually likely to buy
+you.
 
-**Live:** https://xymoh.github.io/genshin-artscore/
+Two scorers live under one roof, each with its own layout and palette:
+
+| | | |
+|---|---|---|
+| **Artifact Aurum** | Genshin Impact | `/genshin` |
+| **Relic Aurum** | Honkai: Star Rail | `/hsr` |
+
+**Live:** https://xymoh.github.io/aurum/
 
 ## Features
 
@@ -49,8 +58,8 @@ Based on the Fribbels HSR Optimizer, adapted for Genshin:
 ## Getting Started
 
 ```bash
-git clone https://github.com/Xymoh/genshin-artscore.git
-cd genshin-artscore
+git clone https://github.com/Xymoh/aurum.git
+cd aurum
 npm install
 npm run dev
 ```

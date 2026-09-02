@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { GameRail, GameSwitcherCompact } from "../../games/GameRail";
 
 /**
@@ -10,15 +10,7 @@ import { GameRail, GameSwitcherCompact } from "../../games/GameRail";
  * is that it should feel like its own tool.
  */
 export function HsrLayout() {
-  // The shell ships one static <title>; without this the Star Rail tab keeps
-  // announcing itself as the Genshin scorer.
-  useEffect(() => {
-    const previous = document.title;
-    document.title = "Relic Aurum - Honkai: Star Rail Relic Scorer";
-    return () => {
-      document.title = previous;
-    };
-  }, []);
+  useDocumentTitle("Relic Aurum - Honkai: Star Rail relic scorer");
 
   return (
     <div className="flex min-h-screen flex-col bg-hsr-bg text-hsr-text lg:pl-14">

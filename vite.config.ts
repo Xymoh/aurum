@@ -161,7 +161,7 @@ function enkaProxyPlugin(): Plugin {
 }
 
 export default defineConfig({
-  base: "/genshin-artscore/",
+  base: "/aurum/",
   plugins: [react(), enkaProxyPlugin()],
   resolve: {
     alias: {
