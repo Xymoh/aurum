@@ -16,7 +16,7 @@ export function LanguageSwitcher() {
       }}
       aria-label={t("nav", "language")}
       title={t("nav", "language")}
-      className="rounded-lg bg-dark-card border border-dark-border px-2 py-1.5 text-xs text-dark-muted hover:text-dark-text focus:outline-none focus:border-accent/60 transition-colors cursor-pointer"
+      className="rounded-lg bg-dark-card border border-dark-border px-2 py-1.5 text-sm text-dark-muted hover:text-dark-text focus:outline-none focus:border-accent/60 transition-colors cursor-pointer"
     >
       {LANGUAGES.map((l) => (
         <option key={l.code} value={l.code}>

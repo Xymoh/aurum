@@ -68,12 +68,14 @@ function RarityStars({ count }: { count: number }) {
 function StatRow({ statKey, value, icon }: { statKey: StatKey; value: number; icon?: string }) {
   const { t } = useI18n();
   return (
-    <div className="flex items-center gap-2 text-sm">
-      <div className="flex items-center gap-1.5 min-w-0 flex-1">
-        {icon && <img src={icon} alt="" className="w-4 h-4 flex-shrink-0 opacity-70" />}
-        <span className="text-dark-muted truncate text-xs sm:text-sm">{t("stats", statKey)}</span>
+    <div className="flex items-baseline gap-2 text-sm">
+      {/* The label wraps rather than truncates: at this size "CRIT DMG" lost
+          its last word to an ellipsis, which is worse than a second line. */}
+      <div className="flex items-baseline gap-1.5 min-w-0 flex-1">
+        {icon && <img src={icon} alt="" className="w-4 h-4 flex-shrink-0 opacity-70 self-center" />}
+        <span className="text-dark-muted text-sm leading-snug">{t("stats", statKey)}</span>
       </div>
-      <span className="text-dark-text font-mono font-semibold text-xs sm:text-sm tabular-nums flex-shrink-0">
+      <span className="text-dark-text font-mono font-semibold text-sm sm:text-sm tabular-nums flex-shrink-0">
         {formatStatValue(statKey, value)}
       </span>
     </div>
@@ -165,7 +167,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
             <div className="flex flex-col drop-shadow-lg">
               <div className="flex items-center gap-2 mb-1">
                 <div
-                  className="flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold shadow-sm"
+                  className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold shadow-sm"
                   style={{ backgroundColor: `${elementColor}EE`, color: "#000" }}
                 >
                   {character.element.substring(0, 2).toUpperCase()}
@@ -175,13 +177,13 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                 </h3>
                 {/* Grade badge inline */}
                 <span
-                  className="text-xs font-extrabold px-1.5 py-0.5 rounded bg-dark-bg border border-dark-border/80 shadow-sm hidden sm:inline"
+                  className="text-sm font-extrabold px-1.5 py-0.5 rounded bg-dark-bg border border-dark-border/80 shadow-sm hidden sm:inline"
                   style={{ color: gradeColor }}
                 >
                   {character.buildScore.grade}
                 </span>
               </div>
-              <div className="flex flex-wrap items-center gap-1.5 text-xs font-medium text-dark-muted">
+              <div className="flex flex-wrap items-center gap-1.5 text-sm font-medium text-dark-muted">
                 <span className="px-1.5 py-0.5 rounded bg-dark-card border border-dark-border/60 text-dark-text/90">
                   {t("weapons", "level", { n: character.level })}
                 </span>
@@ -203,7 +205,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
           {/* Right side: score on desktop + expand arrow */}
           <div className="flex items-center gap-3 drop-shadow-md">
             <div className="text-right hidden sm:flex flex-col items-end">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-dark-muted mb-0.5">{t("showcase", "buildScore")}</span>
+              <span className="text-xs uppercase font-bold tracking-wider text-dark-muted mb-0.5">{t("showcase", "buildScore")}</span>
               <div className="flex items-center gap-2">
                 <span className="font-mono text-lg font-bold text-dark-text">{character.buildScore.total.toFixed(1)}</span>
               </div>
@@ -237,7 +239,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
 
             {/* Traveler notice - same avatarId across all 7 elements, so scoring can't be element-tuned */}
             {character.usesGenericWeights && (
-              <div className="rounded-lg bg-sky-500/10 border border-sky-500/20 py-2.5 px-4 text-sky-300/90 text-xs flex items-center gap-2 font-medium">
+              <div className="rounded-lg bg-sky-500/10 border border-sky-500/20 py-2.5 px-4 text-sky-300/90 text-sm flex items-center gap-2 font-medium">
                 <WarningIcon className="w-4 h-4 flex-shrink-0" />
                 Traveler's element isn't identifiable from the showcase data, so this score uses one
                 generic all-purpose weighting instead of one tuned to your current Vision.
@@ -270,17 +272,17 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                 <div>
                   <div className="text-base sm:text-lg font-bold text-dark-text flex items-center gap-2">
                     {character.name}
-                    <span className="text-xs font-extrabold px-1.5 py-0.5 rounded bg-dark-bg border border-dark-border/80" style={{ color: gradeColor }}>
+                    <span className="text-sm font-extrabold px-1.5 py-0.5 rounded bg-dark-bg border border-dark-border/80" style={{ color: gradeColor }}>
                       {character.buildScore.grade}
                     </span>
                   </div>
                   <div className="flex flex-wrap gap-1.5 mt-1">
-                    <span className="text-xs px-1.5 py-0.5 rounded bg-dark-card border border-dark-border/60 text-dark-text/80">{t("weapons", "level", { n: character.level })}</span>
-                    <span className={`text-xs px-1.5 py-0.5 rounded border ${character.constellation > 0 ? "bg-accent/20 border-accent/30 text-accent" : "bg-dark-bg/80 border-dark-border/60 text-dark-muted"}`}>
+                    <span className="text-sm px-1.5 py-0.5 rounded bg-dark-card border border-dark-border/60 text-dark-text/80">{t("weapons", "level", { n: character.level })}</span>
+                    <span className={`text-sm px-1.5 py-0.5 rounded border ${character.constellation > 0 ? "bg-accent/20 border-accent/30 text-accent" : "bg-dark-bg/80 border-dark-border/60 text-dark-muted"}`}>
                       C{character.constellation}
                     </span>
                     {character.friendshipLevel !== undefined && character.friendshipLevel > 0 && (
-                      <span className="text-xs px-1.5 py-0.5 rounded bg-dark-card border border-dark-border/60 text-dark-text/80 flex items-center gap-1">
+                      <span className="text-sm px-1.5 py-0.5 rounded bg-dark-card border border-dark-border/60 text-dark-text/80 flex items-center gap-1">
                         <img src={friendshipIcon} alt="" className="w-3 h-3 opacity-70" />
                         {character.friendshipLevel}
                       </span>
@@ -296,7 +298,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                     {weaponIconUrl ? (
                       <img src={weaponIconUrl} alt={character.weapon.name} className="w-full h-full object-cover" loading="lazy" />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-[10px] text-dark-muted">W</div>
+                      <div className="w-full h-full flex items-center justify-center text-xs text-dark-muted">W</div>
                     )}
                     <div className="absolute bottom-0.5 left-0 right-0 flex justify-center">
                       <RarityStars count={character.weapon.rarity} />
@@ -304,11 +306,11 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-1">
-                      <span className="text-xs font-semibold text-dark-text truncate">{character.weapon.name}</span>
-                      <span className="text-[10px] px-1 py-0.5 rounded bg-dark-bg/80 border border-dark-border/60 text-dark-muted">R{character.weapon.refinement}</span>
-                      <span className="text-[10px] px-1 py-0.5 rounded bg-dark-bg/80 border border-dark-border/60 text-dark-muted">Lv.{character.weapon.level}</span>
+                      <span className="text-sm font-semibold text-dark-text truncate">{character.weapon.name}</span>
+                      <span className="text-xs px-1 py-0.5 rounded bg-dark-bg/80 border border-dark-border/60 text-dark-muted">R{character.weapon.refinement}</span>
+                      <span className="text-xs px-1 py-0.5 rounded bg-dark-bg/80 border border-dark-border/60 text-dark-muted">Lv.{character.weapon.level}</span>
                     </div>
-                    <div className="flex gap-x-3 gap-y-0.5 mt-0.5 text-[11px] flex-wrap">
+                    <div className="flex gap-x-3 gap-y-0.5 mt-0.5 text-sm flex-wrap">
                       <span className="text-dark-muted">{character.weapon.mainStat.name} <span className="text-dark-text/90 font-mono">{character.weapon.mainStat.value}</span></span>
                       {character.weapon.substat.name !== "-" && (
                         <span className="text-dark-muted">{character.weapon.substat.name} <span className="text-dark-text/90 font-mono">{character.weapon.substat.value}</span></span>
@@ -323,7 +325,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
             <div className="flex flex-col sm:flex-row gap-3">
               {/* Constellations */}
               <div className="flex-1 rounded-xl border border-dark-border bg-dark-card p-3">
-                <div className="text-[11px] uppercase font-semibold tracking-wider text-dark-muted mb-2">{t("showcase", "constellation")}</div>
+                <div className="text-sm uppercase font-semibold tracking-wider text-dark-muted mb-2">{t("showcase", "constellation")}</div>
                 <div className="flex gap-1 sm:gap-1.5 flex-wrap">
                   {Array.from({ length: 6 }, (_, i) => {
                     const unlocked = i < character.constellation;
@@ -351,7 +353,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
 
               {/* Talents */}
               <div className="flex-1 rounded-xl border border-dark-border bg-dark-card p-3">
-                <div className="text-[11px] uppercase font-semibold tracking-wider text-dark-muted mb-2">{t("showcase", "talents")}</div>
+                <div className="text-sm uppercase font-semibold tracking-wider text-dark-muted mb-2">{t("showcase", "talents")}</div>
                 <div className="flex gap-2.5">
                   {[
                     { label: "NA", icon: "Skill_A_01.png" },
@@ -362,7 +364,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                       <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-dark-border/40 bg-dark-bg icon-dark-bg">
                         <img src={`${ENKA_UI_BASE}/${t.icon}`} alt={t.label} className="w-full h-full object-cover" loading="lazy" />
                       </div>
-                      <span className="text-xs font-mono font-semibold text-dark-text">
+                      <span className="text-sm font-mono font-semibold text-dark-text">
                         {character.talents[idx] && character.talents[idx] > 0
                           ? `${character.talents[idx]}/${TALENT_MAX}`
                           : "?"}
@@ -375,7 +377,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
 
             {/* ── ARTIFACTS SECTION (Fribbels-style cards) ── */}
             <div className="rounded-xl border border-dark-border bg-dark-card/40 p-3 sm:p-4">
-              <div className="text-[11px] uppercase font-semibold tracking-wider text-dark-muted mb-3">{t("showcase", "artifacts")}</div>
+              <div className="text-sm uppercase font-semibold tracking-wider text-dark-muted mb-3">{t("showcase", "artifacts")}</div>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 justify-items-center">
                 {["FLOWER", "PLUME", "SANDS", "GOBLET", "CIRCLET"].map((slotStr) => {
                   const art = character.artifacts.find((a) => a.slot === slotStr);
@@ -385,7 +387,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                         <div className="w-10 h-10 rounded-lg bg-dark-bg/50 border border-dark-border flex items-center justify-center text-dark-muted">
                           <span className="text-sm font-semibold uppercase">{slotStr.slice(0, 2)}</span>
                         </div>
-                        <span className="text-[10px] text-dark-muted">{t("showcase", "empty")}</span>
+                        <span className="text-xs text-dark-muted">{t("showcase", "empty")}</span>
                       </div>
                     );
                   }
@@ -401,7 +403,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
 
             {/* ── STATS OVERVIEW TABLE ── */}
             <div className="rounded-xl border border-dark-border bg-dark-card/40 overflow-hidden">
-              <div className="text-[11px] uppercase font-semibold tracking-wider text-dark-muted px-4 py-2.5 border-b border-dark-border">
+              <div className="text-sm uppercase font-semibold tracking-wider text-dark-muted px-4 py-2.5 border-b border-dark-border">
                 {t("showcase", "statsOverview")}
               </div>
               <div className="divide-y divide-dark-border/40">
@@ -421,7 +423,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
 
             {/* Incomplete notice */}
             {!hasAllArtifacts && character.artifacts.length > 0 && (
-              <div className="rounded-lg bg-orange-500/10 border border-orange-500/20 py-2.5 px-4 text-orange-400/90 text-xs flex items-center gap-2 font-medium">
+              <div className="rounded-lg bg-orange-500/10 border border-orange-500/20 py-2.5 px-4 text-orange-400/90 text-sm flex items-center gap-2 font-medium">
                 <WarningIcon className="w-4 h-4 flex-shrink-0" /> {t("showcase", "incompleteScore", { count: character.artifacts.length })}
               </div>
             )}

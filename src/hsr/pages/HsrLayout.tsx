@@ -42,7 +42,7 @@ export function HsrLayout() {
       </main>
 
       <footer className="border-t border-hsr-border bg-hsr-panel/40">
-        <div className="mx-auto w-full max-w-7xl px-4 py-5 text-center text-[11px] text-hsr-muted sm:px-6">
+        <div className="mx-auto w-full max-w-7xl px-4 py-5 text-center text-sm text-hsr-muted sm:px-6">
           <p>Relic Aurum is a fan-made tool and is not affiliated with HoYoverse.</p>
           <p className="mt-1">
             Character data from{" "}

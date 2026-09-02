@@ -26,7 +26,7 @@ export function HsrShowcasePage() {
         <p className="text-sm text-rose-200">{error.message}</p>
         <Link
           to="/hsr"
-          className="mt-3 inline-block text-[11px] text-hsr-accent underline underline-offset-2"
+          className="mt-3 inline-block text-sm text-hsr-accent underline underline-offset-2"
         >
           Try another UID
         </Link>
@@ -53,8 +53,8 @@ export function HsrShowcasePage() {
     <div className="space-y-4">
       <header className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-hsr-border bg-hsr-panel/50 px-4 py-3">
         <div>
-          <h1 className="text-lg font-semibold text-hsr-text">{data.nickname}</h1>
-          <p className="font-mono text-[11px] text-hsr-muted">
+          <h1 className="text-xl font-semibold text-hsr-text">{data.nickname}</h1>
+          <p className="font-mono text-sm text-hsr-muted">
             {data.uid} · TL {data.level} · {data.characters.length} characters
           </p>
         </div>
@@ -63,14 +63,14 @@ export function HsrShowcasePage() {
             <p className={`font-mono text-xl font-bold ${gradeColor(gradeFor(accountScore))}`}>
               {accountScore.toFixed(0)}%
             </p>
-            <p className="font-mono text-[10px] text-hsr-muted">
+            <p className="font-mono text-xs text-hsr-muted">
               {totals.effective}/{totals.total} rolls useful
             </p>
           </div>
           <button
             type="button"
             onClick={forceRefresh}
-            className="rounded border border-hsr-border px-2.5 py-1 text-[11px] text-hsr-muted transition-colors hover:border-hsr-accent/40 hover:text-hsr-accent"
+            className="rounded border border-hsr-border px-2.5 py-1 text-sm text-hsr-muted transition-colors hover:border-hsr-accent/40 hover:text-hsr-accent"
           >
             Refresh
           </button>

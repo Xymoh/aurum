@@ -62,11 +62,11 @@ export function CharacterPanel({ character }: { character: HsrCharacter }) {
               height={16}
               className="h-4 w-4"
             />
-            <h2 className="truncate text-sm font-semibold text-hsr-text sm:text-base">
+            <h2 className="truncate text-base font-semibold text-hsr-text sm:text-lg">
               {character.name}
             </h2>
           </div>
-          <p className="mt-0.5 truncate font-mono text-[11px] text-hsr-muted">
+          <p className="mt-0.5 truncate font-mono text-sm text-hsr-muted">
             Lv{character.level} · E{character.eidolon} ·{" "}
             {PATH_LABELS[character.path] ?? character.path}
           </p>
@@ -80,7 +80,7 @@ export function CharacterPanel({ character }: { character: HsrCharacter }) {
                 height={18}
                 className="h-4 w-4 shrink-0 rounded-sm object-cover"
               />
-              <p className="truncate text-[11px] text-hsr-muted">
+              <p className="truncate text-sm text-hsr-muted">
                 {character.lightCone.name}
                 <span className="ml-1 text-hsr-glow/70">S{character.lightCone.superimposition}</span>
               </p>
@@ -93,7 +93,7 @@ export function CharacterPanel({ character }: { character: HsrCharacter }) {
             {d.score.toFixed(0)}
             <span className="text-sm">%</span>
           </p>
-          <p className={`mt-0.5 font-mono text-[11px] font-semibold ${gradeColor(d.grade)}`}>
+          <p className={`mt-0.5 font-mono text-sm font-semibold ${gradeColor(d.grade)}`}>
             {d.grade}
           </p>
         </div>

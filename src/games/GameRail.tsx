@@ -48,7 +48,7 @@ function GameLink({
       {/* Tooltip. Rendered on hover rather than as a title attribute so it
           matches the rest of the chrome instead of the OS default. */}
       {tooltip && (
-        <span className="pointer-events-none absolute left-full top-1/2 z-50 ml-2 -translate-y-1/2 whitespace-nowrap rounded border border-white/10 bg-black/90 px-2 py-1 text-[11px] text-white opacity-0 transition-opacity group-hover:opacity-100">
+        <span className="pointer-events-none absolute left-full top-1/2 z-50 ml-2 -translate-y-1/2 whitespace-nowrap rounded border border-white/10 bg-black/90 px-2 py-1 text-sm text-white opacity-0 transition-opacity group-hover:opacity-100">
           {game.short}
           {planned && " (soon)"}
         </span>
@@ -92,7 +92,7 @@ export function GameRail({ current }: { current: GameId }) {
           <rect x="3" y="14" width="7" height="7" rx="1" />
           <rect x="14" y="14" width="7" height="7" rx="1" />
         </svg>
-        <span className="pointer-events-none absolute left-full top-1/2 z-50 ml-2 -translate-y-1/2 whitespace-nowrap rounded border border-white/10 bg-black/90 px-2 py-1 text-[11px] text-white opacity-0 transition-opacity group-hover:opacity-100">
+        <span className="pointer-events-none absolute left-full top-1/2 z-50 ml-2 -translate-y-1/2 whitespace-nowrap rounded border border-white/10 bg-black/90 px-2 py-1 text-sm text-white opacity-0 transition-opacity group-hover:opacity-100">
           All games
         </span>
       </Link>

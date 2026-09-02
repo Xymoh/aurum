@@ -15,7 +15,7 @@ export function GamePickerPage() {
             Aurum
           </span>
         </h1>
-        <p className="mt-2 text-xs uppercase tracking-[0.28em] text-zinc-500">
+        <p className="mt-2 text-sm uppercase tracking-[0.28em] text-zinc-500">
           Gear scoring for gacha games
         </p>
         <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-zinc-400">
@@ -40,9 +40,9 @@ export function GamePickerPage() {
                 />
                 <div className="mt-3 text-center">
                   <h2 className="text-base font-semibold text-zinc-100">{game.name}</h2>
-                  <p className="mt-1 text-xs leading-relaxed text-zinc-400">{game.tagline}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-zinc-400">{game.tagline}</p>
                   {planned && (
-                    <span className="mt-2 inline-block rounded-full border border-zinc-700 px-2 py-0.5 text-[10px] uppercase tracking-wider text-zinc-500">
+                    <span className="mt-2 inline-block rounded-full border border-zinc-700 px-2 py-0.5 text-xs uppercase tracking-wider text-zinc-500">
                       Coming soon
                     </span>
                   )}
@@ -74,7 +74,7 @@ export function GamePickerPage() {
           })}
         </div>
 
-        <p className="mt-10 text-[11px] text-zinc-600">
+        <p className="mt-10 text-sm text-zinc-600">
           Fan-made and not affiliated with HoYoverse. Showcase data from Enka.Network.
         </p>
       </div>

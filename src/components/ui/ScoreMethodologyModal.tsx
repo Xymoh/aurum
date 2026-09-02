@@ -43,7 +43,7 @@ export function ScoreMethodologyModal({ onClose }: ScoreMethodologyModalProps) {
 
         <ScoringExplainer />
 
-        <p className="mt-5 pt-3 border-t border-dark-border/60 text-xs text-dark-muted/70 leading-relaxed">
+        <p className="mt-5 pt-3 border-t border-dark-border/60 text-sm text-dark-muted/70 leading-relaxed">
           This is a quick evaluation tool, not a definitive build guide - scores reflect general
           substat priorities and may not fit every team comp or playstyle.
         </p>

@@ -25,7 +25,7 @@ export function DiagnosticsPanel({ d, tint }: { d: BuildDiagnostics; tint: strin
       {/* Headline: how many upgrades are working, and against what bar. */}
       <div className="rounded-lg border border-hsr-border/70 bg-black/25 p-3">
         <div className="mb-2 flex items-baseline justify-between gap-3">
-          <h3 className="text-[10px] font-semibold uppercase tracking-[0.18em] text-hsr-muted">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-hsr-muted">
             Useful rolls
           </h3>
           <p className="font-mono text-sm">
@@ -50,7 +50,7 @@ export function DiagnosticsPanel({ d, tint }: { d: BuildDiagnostics; tint: strin
           />
         </div>
 
-        <p className="mt-2 text-[11px] leading-relaxed text-hsr-muted">
+        <p className="mt-2 text-sm leading-relaxed text-hsr-muted">
           {d.effectiveRolls >= BENCHMARK_ROLLS ? (
             <>
               At or above the {BENCHMARK_ROLLS}-roll benchmark for a strong build.
@@ -74,16 +74,16 @@ export function DiagnosticsPanel({ d, tint }: { d: BuildDiagnostics; tint: strin
       <div className="grid gap-3 lg:grid-cols-2">
         {/* Left: what the build actually adds up to. */}
         <div className="rounded-lg border border-hsr-border/70 bg-black/20 p-3">
-          <h3 className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-hsr-muted">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-hsr-muted">
             Substat totals
           </h3>
           <ul className="space-y-1">
             {d.totals.slice(0, 6).map((t) => (
               <li key={t.key} className="flex items-baseline justify-between gap-2">
-                <span className="truncate text-[11px] text-hsr-text/85">
+                <span className="truncate text-sm text-hsr-text/85">
                   <span className="font-mono text-hsr-muted">{t.rolls}x</span> {statLabel(t.key)}
                 </span>
-                <span className="shrink-0 font-mono text-[11px] text-hsr-text">
+                <span className="shrink-0 font-mono text-sm text-hsr-text">
                   +{formatStat(t.key, t.value)}
                 </span>
               </li>
@@ -92,8 +92,8 @@ export function DiagnosticsPanel({ d, tint }: { d: BuildDiagnostics; tint: strin
 
           {d.critRatio !== null && (
             <div className="mt-2 flex items-baseline justify-between border-t border-white/5 pt-2">
-              <span className="text-[11px] text-hsr-muted">Crit ratio</span>
-              <span className="font-mono text-[11px]">
+              <span className="text-sm text-hsr-muted">Crit ratio</span>
+              <span className="font-mono text-sm">
                 <span className={critOk ? "text-hsr-accent" : "text-amber-400"}>
                   1 : {d.critRatio.toFixed(2)}
                 </span>
@@ -105,11 +105,11 @@ export function DiagnosticsPanel({ d, tint }: { d: BuildDiagnostics; tint: strin
 
         {/* Right: what to actually do about it. */}
         <div className="rounded-lg border border-hsr-border/70 bg-black/20 p-3">
-          <h3 className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-hsr-muted">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-hsr-muted">
             Where the dead rolls sit
           </h3>
           {d.waste.length === 0 ? (
-            <p className="text-[11px] text-hsr-accent">
+            <p className="text-sm text-hsr-accent">
               Nothing wasted. Every upgrade is on a stat this character uses.
             </p>
           ) : (
@@ -117,7 +117,7 @@ export function DiagnosticsPanel({ d, tint }: { d: BuildDiagnostics; tint: strin
               {d.waste.slice(0, 5).map((w, i) => (
                 <li
                   key={`${w.slot}-${w.key}-${i}`}
-                  className="flex items-baseline justify-between gap-2 text-[11px]"
+                  className="flex items-baseline justify-between gap-2 text-sm"
                 >
                   <span className="truncate text-hsr-muted">
                     <span className="text-hsr-text/80">{SLOT_LABELS[w.slot]}</span>{" "}
@@ -131,12 +131,12 @@ export function DiagnosticsPanel({ d, tint }: { d: BuildDiagnostics; tint: strin
 
           <div className="mt-2 space-y-1 border-t border-white/5 pt-2">
             {d.sets.map((s) => (
-              <p key={s.setId} className="truncate text-[11px] text-hsr-text/80">
+              <p key={s.setId} className="truncate text-sm text-hsr-text/80">
                 <span className="font-mono text-hsr-glow">{s.pieces}pc</span> {s.name}
               </p>
             ))}
             {d.mainStatMisses.length > 0 && (
-              <p className="text-[11px] text-amber-400/90">
+              <p className="text-sm text-amber-400/90">
                 Main stat mismatch: {d.mainStatMisses.map((s) => SLOT_LABELS[s]).join(", ")}
               </p>
             )}

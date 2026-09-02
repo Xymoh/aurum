@@ -34,7 +34,7 @@ export function BuildScoreBar({
         {/* Score details */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between">
-            <span className="text-xs sm:text-sm font-medium text-dark-muted">
+            <span className="text-sm sm:text-sm font-medium text-dark-muted">
               {t("showcase", "buildScore")}
               {artifactCount < 5 && (
                 <span className="ml-1 opacity-60">({artifactCount}/5)</span>
@@ -57,7 +57,7 @@ export function BuildScoreBar({
           </div>
 
           {/* Grade labels from 18-grade scale */}
-          <div className="mt-1 flex justify-between text-[10px] sm:text-xs text-dark-muted/50">
+          <div className="mt-1 flex justify-between text-xs sm:text-sm text-dark-muted/50">
             <span>F</span>
             <span>D</span>
             <span>C</span>
@@ -70,7 +70,7 @@ export function BuildScoreBar({
           </div>
 
           {/* Main stat count - set bonus status is shown in the Set Bonuses panel above */}
-          <div className="mt-2 text-[10px] sm:text-xs text-dark-muted">
+          <div className="mt-2 text-xs sm:text-sm text-dark-muted">
             {t("showcase", "mainStats", { correct: correctMainStats, total: totalSelectableSlots })}
           </div>
         </div>

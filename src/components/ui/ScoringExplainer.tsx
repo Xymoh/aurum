@@ -35,7 +35,7 @@ export function ScoringExplainer() {
           {gradeRows.map((g) => (
             <div
               key={g.grade}
-              className="flex items-center justify-between rounded-md px-2 py-1 text-xs font-mono font-semibold"
+              className="flex items-center justify-between rounded-md px-2 py-1 text-sm font-mono font-semibold"
               style={{ backgroundColor: `${g.color}18`, color: g.color }}
             >
               <span>{g.grade}</span>
@@ -64,7 +64,7 @@ export function ScoringExplainer() {
           {REROLL_TIERS.map((tier) => (
             <div
               key={tier.id}
-              className="flex items-center justify-between rounded-md px-2 py-1 text-xs font-semibold gap-2"
+              className="flex items-center justify-between rounded-md px-2 py-1 text-sm font-semibold gap-2"
               style={{ backgroundColor: `${tier.color}18`, color: tier.color }}
             >
               <span className="flex items-center gap-1.5">
@@ -75,21 +75,21 @@ export function ScoringExplainer() {
               </span>
             </div>
           ))}
-          <div className="flex items-center justify-between rounded-md px-2 py-1 text-xs font-semibold bg-dark-border/40 text-dark-muted gap-2">
+          <div className="flex items-center justify-between rounded-md px-2 py-1 text-sm font-semibold bg-dark-border/40 text-dark-muted gap-2">
             <span className="flex items-center gap-1.5">
               <RecycleIcon className="w-3 h-3 flex-shrink-0" /> {t("verdict", "farmReplacement")}
             </span>
             <span className="opacity-80">{t("explainer", "tierReplaceNote")}</span>
           </div>
-          <div className="flex items-center justify-between rounded-md px-2 py-1 text-xs font-semibold bg-dark-border/40 text-dark-muted gap-2">
+          <div className="flex items-center justify-between rounded-md px-2 py-1 text-sm font-semibold bg-dark-border/40 text-dark-muted gap-2">
             <span className="flex items-center gap-1.5">
               <CheckIcon className="w-3 h-3 flex-shrink-0" /> {t("verdict", "wellRolled")}
             </span>
             <span className="opacity-80">{t("explainer", "tierWellRolledNote")}</span>
           </div>
         </div>
-        <p className="mt-2.5 text-xs">{t("explainer", "rerollP4")}</p>
-        <p className="mt-2.5 text-xs">{t("explainer", "rerollP5")}</p>
+        <p className="mt-2.5 text-sm">{t("explainer", "rerollP4")}</p>
+        <p className="mt-2.5 text-sm">{t("explainer", "rerollP5")}</p>
       </section>
 
       <section>
@@ -98,7 +98,7 @@ export function ScoringExplainer() {
         </h3>
         <p>{t("explainer", "erP1")}</p>
         <p className="mt-2.5">{t("explainer", "erP2")}</p>
-        <p className="mt-2.5 text-xs">{t("explainer", "erP3")}</p>
+        <p className="mt-2.5 text-sm">{t("explainer", "erP3")}</p>
       </section>
     </div>
   );

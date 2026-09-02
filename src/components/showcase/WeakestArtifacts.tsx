@@ -44,7 +44,7 @@ function ActionChip({ artifact }: { artifact: Artifact }) {
     if (tier) {
       return (
         <span
-          className="inline-flex w-fit items-center gap-1 whitespace-nowrap rounded px-1.5 py-0.5 text-[10px] font-semibold"
+          className="inline-flex w-fit items-center gap-1 whitespace-nowrap rounded px-1.5 py-0.5 text-xs font-semibold"
           style={{ backgroundColor: `${tier.color}1f`, color: tier.color }}
           title={
             `${t("verdict", TIER_BLURB[tier.id])}\n\n` +
@@ -71,7 +71,7 @@ function ActionChip({ artifact }: { artifact: Artifact }) {
   if (reroll.action === "replace") {
     return (
       <span
-        className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-semibold bg-dark-border/40 text-dark-muted"
+        className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs font-semibold bg-dark-border/40 text-dark-muted"
         title={reasonText}
       >
         <RecycleIcon className="w-2.5 h-2.5" /> {t("verdict", "farmReplacement")}
@@ -82,7 +82,7 @@ function ActionChip({ artifact }: { artifact: Artifact }) {
   if (reroll.action === "level_up") {
     return (
       <span
-        className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-semibold bg-dark-border/40 text-dark-muted"
+        className="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-semibold bg-dark-border/40 text-dark-muted"
         title={reasonText}
       >
         {t("verdict", "levelTo20")}
@@ -105,7 +105,7 @@ export function WeakestArtifacts({ characters, onSelectCharacter }: WeakestArtif
         <h3 className="text-sm font-semibold text-dark-text flex items-center gap-2">
           <TargetIcon className="w-4 h-4 text-accent" /> {t("showcase", "roomToImprove")}
         </h3>
-        <span className="text-xs text-dark-muted">{t("showcase", "roomToImproveSub")}</span>
+        <span className="text-sm text-dark-muted">{t("showcase", "roomToImproveSub")}</span>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
@@ -126,15 +126,15 @@ export function WeakestArtifacts({ characters, onSelectCharacter }: WeakestArtif
                   {avatarUrl ? (
                     <img src={avatarUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-[10px] text-dark-muted">
+                    <div className="w-full h-full flex items-center justify-center text-xs text-dark-muted">
                       {characterName.charAt(0)}
                     </div>
                   )}
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <div className="text-xs font-semibold text-dark-text truncate">{characterName}</div>
-                  <div className="text-[10px] text-dark-muted">
+                  <div className="text-sm font-semibold text-dark-text truncate">{characterName}</div>
+                  <div className="text-xs text-dark-muted">
                     {t("slots", artifact.slot)} · +{artifact.level}
                   </div>
                 </div>
@@ -145,7 +145,7 @@ export function WeakestArtifacts({ characters, onSelectCharacter }: WeakestArtif
                     {artifact.score.potentialPercent.toFixed(0)}%
                   </span>
                   <span
-                    className="text-[10px] font-extrabold px-1.5 py-0.5 rounded"
+                    className="text-xs font-extrabold px-1.5 py-0.5 rounded"
                     style={{ backgroundColor: `${gradeColor}26`, color: gradeColor }}
                   >
                     {artifact.score.grade}

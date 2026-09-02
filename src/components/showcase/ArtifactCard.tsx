@@ -77,7 +77,7 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
           {artIconUrl && !iconError ? (
             <img src={artIconUrl} alt={artifact.setName} className="w-full h-full object-cover" loading="lazy" onError={() => setIconError(true)} />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-[10px] text-dark-muted font-mono">
+            <div className="w-full h-full flex items-center justify-center text-xs text-dark-muted font-mono">
               {artifact.slot.slice(0, 2)}
             </div>
           )}
@@ -95,7 +95,7 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
 
       {/* Main stat */}
       <div className="flex items-center justify-between">
-        <span className="text-[11px] text-dark-muted truncate flex items-center gap-1">
+        <span className="text-sm text-dark-muted truncate flex items-center gap-1">
           {artifact.mainStat.isCorrect === false && (
             <span title={t("verdict", "mainStatWarning")}>
               <WarningIcon className="w-3 h-3 flex-shrink-0 cursor-help text-amber-500" />
@@ -118,12 +118,12 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
           const rollColor = rolls >= 4 ? "#4ade80" : rolls >= 3 ? "#facc15" : rolls >= 2 ? "#fb923c" : "#6b7280";
           return (
             <div key={sub.statKey} className="flex items-center justify-between">
-              <span className="text-[11px] text-dark-muted/80 truncate flex-1 min-w-0">{sub.displayName}</span>
+              <span className="text-sm text-dark-muted/80 truncate flex-1 min-w-0">{sub.displayName}</span>
               <div className="flex items-center gap-1 flex-shrink-0">
                 <span style={{ color: rollColor }}>
                   <RollChevrons count={rolls} />
                 </span>
-                <span className="text-[11px] font-mono text-dark-text/80 tabular-nums text-right w-[50px]">
+                <span className="text-sm font-mono text-dark-text/80 tabular-nums text-right w-[50px]">
                   {formatStatValue(sub.value, sub.isPercentage)}
                 </span>
               </div>
@@ -142,11 +142,11 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1">
           <img src={scoreIconImg} alt="" className="w-3 h-3 opacity-60" />
-          <span className="text-[10px] text-dark-muted">{t("showcase", "score")}</span>
+          <span className="text-xs text-dark-muted">{t("showcase", "score")}</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="text-xs font-mono font-bold text-dark-text">{artifact.score.potentialPercent.toFixed(1)}</span>
-          <span className="text-[10px] font-extrabold px-1 py-0.5 rounded" style={{ backgroundColor: `${gradeColor}22`, color: gradeColor }}>
+          <span className="text-sm font-mono font-bold text-dark-text">{artifact.score.potentialPercent.toFixed(1)}</span>
+          <span className="text-xs font-extrabold px-1 py-0.5 rounded" style={{ backgroundColor: `${gradeColor}22`, color: gradeColor }}>
             {artifact.score.grade}
           </span>
         </div>
@@ -167,11 +167,11 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
             `${t("verdict", "tipCeiling", { ceiling: reroll.realisticCeiling.toFixed(0) })}`
           }
         >
-          <span className="text-[10px] font-semibold flex items-center gap-1" style={{ color: rerollTier.color }}>
+          <span className="text-xs font-semibold flex items-center gap-1" style={{ color: rerollTier.color }}>
             <DiceIcon className="w-3 h-3" />
             {t("verdict", TIER_LABEL[rerollTier.id])}
           </span>
-          <span className="text-[10px] font-mono font-bold whitespace-nowrap" style={{ color: rerollTier.color }}>
+          <span className="text-xs font-mono font-bold whitespace-nowrap" style={{ color: rerollTier.color }}>
             {formatChance(reroll.improveChance)}
             <span className="opacity-70">{t("verdict", "perTry")}</span>
           </span>
@@ -190,11 +190,11 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
             threshold: reroll.erThreshold,
           })}
         >
-          <span className="text-[10px] font-semibold text-amber-500 flex items-center gap-1">
+          <span className="text-xs font-semibold text-amber-500 flex items-center gap-1">
             <WarningIcon className="w-3 h-3 flex-shrink-0" />
             ER at risk
           </span>
-          <span className="text-[10px] font-mono font-bold text-amber-500 whitespace-nowrap">
+          <span className="text-xs font-mono font-bold text-amber-500 whitespace-nowrap">
             {formatChance(reroll.erBreachChance)}
             <span className="opacity-70">{t("verdict", "perTry")}</span>
           </span>
@@ -207,7 +207,7 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
           title={reasonText}
         >
           <RecycleIcon className="w-3 h-3 text-dark-muted flex-shrink-0" />
-          <span className="text-[10px] font-semibold text-dark-muted">{t("verdict", "farmReplacement")}</span>
+          <span className="text-xs font-semibold text-dark-muted">{t("verdict", "farmReplacement")}</span>
         </div>
       )}
 
@@ -216,7 +216,7 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
           className="flex items-center gap-1 rounded px-1.5 py-1 -mx-1.5 bg-dark-border/30"
           title={reasonText}
         >
-          <span className="text-[10px] font-semibold text-dark-muted">{t("verdict", "levelTo20")}</span>
+          <span className="text-xs font-semibold text-dark-muted">{t("verdict", "levelTo20")}</span>
         </div>
       )}
 
@@ -228,7 +228,7 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
           title={t("verdict", "tipWellRolled", { chance: formatChance(reroll.improveChance) })}
         >
           <CheckIcon className="w-3 h-3 text-dark-muted flex-shrink-0" />
-          <span className="text-[10px] font-semibold text-dark-muted">{t("verdict", "wellRolled")}</span>
+          <span className="text-xs font-semibold text-dark-muted">{t("verdict", "wellRolled")}</span>
         </div>
       )}
     </div>

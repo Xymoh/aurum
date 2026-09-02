@@ -29,10 +29,10 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
           />
         )}
         <div className="min-w-0 flex-1">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-hsr-glow">
+          <p className="text-sm font-semibold uppercase tracking-wider text-hsr-glow">
             {SLOT_LABELS[relic.slot]}
           </p>
-          <p className="truncate text-[10px] text-hsr-muted" title={relic.setName}>
+          <p className="truncate text-xs text-hsr-muted" title={relic.setName}>
             {relic.setName}
           </p>
         </div>
@@ -42,15 +42,15 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
       </div>
 
       <div className="mb-2 flex items-baseline justify-between rounded bg-black/25 px-2 py-1">
-        <span className="text-[11px] font-medium text-hsr-text">
+        <span className="text-sm font-medium text-hsr-text">
           {statLabel(relic.mainStat.key)}
         </span>
-        <span className="font-mono text-[11px] text-hsr-text">
+        <span className="font-mono text-sm text-hsr-text">
           {formatStat(relic.mainStat.key, relic.mainStat.value)}
         </span>
       </div>
       {!score.mainStatFits && (
-        <p className="mb-2 text-[10px] text-amber-400/90">Main stat does not suit this character</p>
+        <p className="mb-2 text-xs text-amber-400/90">Main stat does not suit this character</p>
       )}
 
       <ul className="space-y-1">
@@ -58,7 +58,7 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
           const dead = weightOf(weights, sub.key) < WASTE_THRESHOLD;
           return (
             <li key={sub.key} className="flex items-center justify-between gap-2">
-              <span className={`text-[11px] ${dead ? "text-hsr-muted/50" : "text-hsr-text/85"}`}>
+              <span className={`text-sm ${dead ? "text-hsr-muted/50" : "text-hsr-text/85"}`}>
                 {statLabel(sub.key)}
               </span>
               <span className="flex items-center gap-2">
@@ -73,7 +73,7 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
                   ))}
                 </span>
                 <span
-                  className={`w-14 text-right font-mono text-[11px] ${
+                  className={`w-14 text-right font-mono text-sm ${
                     dead ? "text-hsr-muted/50" : "text-hsr-text"
                   }`}
                 >
@@ -85,7 +85,7 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
         })}
       </ul>
 
-      <div className="mt-2 flex items-center justify-between border-t border-white/5 pt-1.5 font-mono text-[10px]">
+      <div className="mt-2 flex items-center justify-between border-t border-white/5 pt-1.5 font-mono text-xs">
         <span className="text-hsr-muted">
           <span className={score.wastedRolls > 0 ? "text-hsr-text" : "text-hsr-accent"}>
             {score.effectiveRolls}

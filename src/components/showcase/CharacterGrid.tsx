@@ -84,7 +84,7 @@ export function CharacterGrid({ characters, focusSignal }: CharacterGridProps) {
       <div className="flex flex-col items-center justify-center py-16 text-dark-muted">
         <img src={charactersEmptyIcon} alt="" className="w-12 h-12 mb-3 opacity-40" />
         <p className="text-sm">{t("showcase", "noCharacters")}</p>
-        <p className="text-xs mt-1 opacity-60">
+        <p className="text-sm mt-1 opacity-60">
           {t("showcase", "noCharactersHint")}
         </p>
       </div>
@@ -125,7 +125,7 @@ export function CharacterGrid({ characters, focusSignal }: CharacterGridProps) {
         </select>
 
         {(search || elementFilter !== "ALL") && (
-          <span className="text-xs text-dark-muted whitespace-nowrap">
+          <span className="text-sm text-dark-muted whitespace-nowrap">
             {t("showcase", "shown", { visible: visibleCharacters.length, total: characters.length })}
           </span>
         )}

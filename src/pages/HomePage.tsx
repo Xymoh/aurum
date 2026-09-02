@@ -1,19 +1,14 @@
 import { UidInput } from "../components/ui/UidInput";
 import { ScoringExplainer } from "../components/ui/ScoringExplainer";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { GENSHIN_RECENT_UIDS_KEY, useRecentUids } from "../hooks/useRecentUids";
 import { Link } from "react-router-dom";
 import { useI18n } from "../i18n";
-
-interface RecentUid {
-  uid: string;
-  timestamp: number;
-}
 
 const LINK_CLASS =
   "text-amber-400/80 hover:text-amber-300 underline underline-offset-2";
 
 export function HomePage() {
-  const [recentUids] = useLocalStorage<RecentUid[]>("recent-uids", []);
+  const { recent: recentUids } = useRecentUids(GENSHIN_RECENT_UIDS_KEY);
   const { t } = useI18n();
 
   const steps = [
@@ -73,11 +68,11 @@ export function HomePage() {
               key={step.title}
               className="rounded-xl border border-dark-border bg-dark-card/40 p-4 space-y-2"
             >
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/15 text-xs font-bold text-accent">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/15 text-sm font-bold text-accent">
                 {i + 1}
               </span>
               <h3 className="text-dark-text text-sm font-semibold">{step.title}</h3>
-              <p className="text-xs text-dark-muted leading-relaxed">{step.body}</p>
+              <p className="text-sm text-dark-muted leading-relaxed">{step.body}</p>
             </li>
           ))}
         </ol>
@@ -140,11 +135,11 @@ export function HomePage() {
             <line x1="12" y1="8" x2="12.01" y2="8" />
           </svg>
           <div className="space-y-1.5">
-            <p className="text-xs text-dark-muted/90 leading-relaxed">
+            <p className="text-sm text-dark-muted/90 leading-relaxed">
               <span className="font-medium text-dark-text/80">{t("home", "limitTitle")}</span>{" "}
               {t("home", "limitBody")}
             </p>
-            <p className="text-xs text-dark-muted/70 leading-relaxed">
+            <p className="text-sm text-dark-muted/70 leading-relaxed">
               {t("home", "limitFooter")}
               <a
                 href="https://frzyc.github.io/genshin-optimizer/"

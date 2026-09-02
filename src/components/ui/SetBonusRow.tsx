@@ -20,7 +20,7 @@ function MatchStatusIndicator({ matchStatus }: { matchStatus: SetBonusResult["ma
   switch (matchStatus) {
     case "full_match":
       return (
-        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-green-400" title="Full set match">
+        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-green-400" title="Full set match">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <path d="M20 6 9 17l-5-5" />
           </svg>
@@ -29,7 +29,7 @@ function MatchStatusIndicator({ matchStatus }: { matchStatus: SetBonusResult["ma
       );
     case "partial_match":
       return (
-        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-amber-400" title="Partial set match">
+        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-amber-400" title="Partial set match">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="8" />
             <path d="M12 8v4" />
@@ -57,12 +57,12 @@ export function SetBonusRow({ artifacts, setBonus }: SetBonusRowProps) {
 
   return (
     <div className="rounded-xl border border-dark-border px-5 py-4">
-      <div className="text-[11px] uppercase font-semibold tracking-wider text-dark-muted mb-2.5">
+      <div className="text-sm uppercase font-semibold tracking-wider text-dark-muted mb-2.5">
         {t("showcase", "setBonuses")}
       </div>
       <div className="flex flex-wrap items-center gap-2">
         {setBonus.activeSets.length === 0 ? (
-          <span className="text-xs text-dark-muted/50">{t("showcase", "noSetBonus")}</span>
+          <span className="text-sm text-dark-muted/50">{t("showcase", "noSetBonus")}</span>
         ) : (
           <>
             {setBonus.activeSets.map((activeSet) => {
@@ -70,12 +70,12 @@ export function SetBonusRow({ artifacts, setBonus }: SetBonusRowProps) {
               return (
                 <span
                   key={activeSet.setId}
-                  className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium"
+                  className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium"
                   style={{ borderColor: color, color, backgroundColor: `${color}12` }}
                 >
                   {activeSet.setName}
                   <span
-                    className="rounded-full px-1.5 py-[1px] text-[10px] font-bold"
+                    className="rounded-full px-1.5 py-[1px] text-xs font-bold"
                     style={{ backgroundColor: color, color: "#0f1117" }}
                   >
                     {t("showcase", "pieces", { count: activeSet.pieces })}

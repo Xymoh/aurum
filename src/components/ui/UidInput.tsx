@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { sanitizeUidInput, isValidUid } from "../../lib/uid";
 import { useI18n } from "../../i18n";
+import { GENSHIN_RECENT_UIDS_KEY, rememberUid } from "../../hooks/useRecentUids";
 
 export function UidInput() {
   const [rawInput, setRawInput] = useState("");
@@ -29,19 +30,7 @@ export function UidInput() {
       }
 
       setIsSubmitting(true);
-      // Store in recent UIDs
-      try {
-        const stored = localStorage.getItem("recent-uids");
-        const recent: Array<{ uid: string; timestamp: number }> = stored
-          ? JSON.parse(stored)
-          : [];
-        const filtered = recent.filter((entry) => entry.uid !== rawInput);
-        filtered.unshift({ uid: rawInput, timestamp: Date.now() });
-        localStorage.setItem("recent-uids", JSON.stringify(filtered.slice(0, 10)));
-      } catch {
-        // Storage unavailable, ignore
-      }
-
+      rememberUid(GENSHIN_RECENT_UIDS_KEY, rawInput);
       navigate(`/genshin/showcase/${rawInput}`);
     },
     [rawInput, navigate],
@@ -104,7 +93,7 @@ export function UidInput() {
       </div>
 
       {error && (
-        <p id="uid-error" className="text-xs text-red-400 pl-1" role="alert">
+        <p id="uid-error" className="text-sm text-red-400 pl-1" role="alert">
           {error}
         </p>
       )}

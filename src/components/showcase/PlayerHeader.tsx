@@ -100,11 +100,11 @@ export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastU
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">
             <h2 className="truncate text-base font-semibold text-dark-text">{playerInfo.nickname}</h2>
-            <span className="rounded-md bg-dark-border/50 px-2 py-0.5 text-[11px] font-mono text-dark-muted">
+            <span className="rounded-md bg-dark-border/50 px-2 py-0.5 text-sm font-mono text-dark-muted">
               {uid}
             </span>
           </div>
-          <div className="mt-0.5 flex items-center gap-1.5 text-[11px] text-dark-muted flex-wrap">
+          <div className="mt-0.5 flex items-center gap-1.5 text-sm text-dark-muted flex-wrap">
             <span>{t("player", "ar", { level: playerInfo.level })}</span>
             {playerInfo.worldLevel > 0 && (
               <>
@@ -129,7 +129,7 @@ export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastU
         <button
           type="button"
           onClick={handleCopyUrl}
-          className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11px] font-medium text-dark-muted hover:bg-dark-border/40 hover:text-dark-text transition-colors"
+          className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-dark-muted hover:bg-dark-border/40 hover:text-dark-text transition-colors"
           title={t("player", "share")}
         >
           <ClipboardIcon className="w-3 h-3" /> {t("player", "share")}
@@ -139,7 +139,7 @@ export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastU
           type="button"
           onClick={handleRefresh}
           disabled={isRefreshing}
-          className="flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-[11px] font-medium text-dark-bg hover:opacity-90 disabled:opacity-50 transition-all"
+          className="flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-dark-bg hover:opacity-90 disabled:opacity-50 transition-all"
         >
           <svg
             width="12"
