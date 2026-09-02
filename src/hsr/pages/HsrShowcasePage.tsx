@@ -1,8 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 import { useHsrShowcase } from "../useHsrShowcase";
 import { CharacterPanel } from "../components/CharacterPanel";
-import { BENCHMARK_ROLLS } from "../scoring";
-import { efficiencyColor } from "../labels";
+import { gradeColor } from "../labels";
+import { gradeFor } from "../scoring";
 
 function Skeleton() {
   return (
@@ -36,18 +36,18 @@ export function HsrShowcasePage() {
 
   if (!data) return null;
 
-  // Account-level view: the same effective-vs-total split, summed. A player
-  // with one immaculate carry and five neglected supports should be able to
-  // see that without opening every panel.
+  // Account-level view: the mean build score, on the same 0-200 scale as every
+  // other number on the page. A player with one immaculate carry and five
+  // neglected supports should see that without opening every panel.
   const totals = data.characters.reduce(
     (acc, c) => ({
       effective: acc.effective + c.diagnostics.effectiveRolls,
       total: acc.total + c.diagnostics.totalRolls,
+      score: acc.score + c.diagnostics.score,
     }),
-    { effective: 0, total: 0 },
+    { effective: 0, total: 0, score: 0 },
   );
-  const accountEfficiency =
-    totals.total > 0 ? (totals.effective / (data.characters.length * BENCHMARK_ROLLS)) * 100 : 0;
+  const accountScore = data.characters.length > 0 ? totals.score / data.characters.length : 0;
 
   return (
     <div className="space-y-4">
@@ -60,8 +60,8 @@ export function HsrShowcasePage() {
         </div>
         <div className="flex items-center gap-4">
           <div className="text-right">
-            <p className={`font-mono text-xl font-bold ${efficiencyColor(accountEfficiency)}`}>
-              {accountEfficiency.toFixed(1)}%
+            <p className={`font-mono text-xl font-bold ${gradeColor(gradeFor(accountScore))}`}>
+              {accountScore.toFixed(0)}%
             </p>
             <p className="font-mono text-[10px] text-hsr-muted">
               {totals.effective}/{totals.total} rolls useful

@@ -94,11 +94,15 @@ const main = async () => {
       main: Number(r.main_affix_id),
       sub: Number(r.sub_affix_id),
       rarity: r.rarity,
+      // Relative to the StarRailRes CDN root. Stored rather than derived: the
+      // slot-to-index mapping differs between 4-piece and Planar sets.
+      icon: r.icon,
     };
   }
   let fromEnka = 0;
   for (const [id, r] of Object.entries(enkaRelics)) {
     relics[id] = {
+      ...relics[id],
       type: r.Type === "HAND" ? "HAND" : r.Type,
       set: r.SetID,
       main: r.MainAffixGroup,

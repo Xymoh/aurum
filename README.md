@@ -115,12 +115,20 @@ Star Rail states how many upgrades landed on each substat (`cnt`) and how good
 each one was (`step`), so nothing is inferred from a displayed value the way
 the Genshin parser has to. That makes the aggregate view exact:
 
-- **Roll efficiency** - effective rolls against a 48-roll benchmark, out of the
-  54 a build can hold. A build can carry more upgrades than the benchmark and
+- **Build score, 0-200** - the same scale as the per-piece grades and as the
+  Genshin side, so every percentage on the page means the same kind of thing.
+  100 is a solid build, 200 is every upgrade on the best stat at max quality.
+- **Useful rolls** - effective rolls against a 48-roll benchmark, out of the 54
+  a build can hold. A build can carry more upgrades than the benchmark and
   still fall short, because a quarter of them sit on stats the character never
   uses. That gap is invisible to any per-piece grade.
 - **Waste attribution** - which slot and which stat the dead rolls are on.
 - Crit ratio, substat totals, set bonuses and main stat fit.
+
+Character, light cone, relic, element and Path art is served from StarRailRes
+via jsDelivr rather than bundled: ~200 MB of images stays out of the repo, and
+every image is decorative, so the scorer reads correctly with all of them
+missing.
 
 Weights are keyed by **Path**, not per character, so a character released
 tomorrow still scores sensibly instead of falling off a hand-written table.

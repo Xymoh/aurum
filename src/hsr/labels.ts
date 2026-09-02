@@ -53,11 +53,3 @@ export function gradeColor(grade: string): string {
   if (grade.startsWith("C")) return "text-emerald-400";
   return "text-hsr-muted";
 }
-
-/** Colour for the efficiency figure, which is the headline number. */
-export function efficiencyColor(pct: number): string {
-  if (pct >= 95) return "text-hsr-accent";
-  if (pct >= 80) return "text-hsr-gold";
-  if (pct >= 60) return "text-amber-500";
-  return "text-rose-400";
-}

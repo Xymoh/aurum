@@ -2,7 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { fetchHsrShowcase } from "./api";
 import { parseHsrShowcase } from "./parsing";
-import { buildScore, scoreCharacter } from "./scoring";
+import { scoreCharacter } from "./scoring";
 import type { HsrShowcase } from "./types";
 
 export function isValidHsrUid(uid: string): boolean {
@@ -18,7 +18,7 @@ export function useHsrShowcase(uid: string) {
     const characters = parsed.characters.map(scoreCharacter);
     // Strongest builds first, so the showcase leads with what the player is
     // proudest of rather than with whatever order Enka returned.
-    characters.sort((a, b) => buildScore(b) - buildScore(a));
+    characters.sort((a, b) => b.diagnostics.score - a.diagnostics.score);
     return { ...parsed, characters };
   }, [uid]);
 

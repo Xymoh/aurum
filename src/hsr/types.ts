@@ -72,6 +72,8 @@ export interface HsrRelicScore {
   /** Weighted potential as a share of this character's ideal, 0-200 scale. */
   potentialPercent: number;
   grade: string;
+  /** Raw weighted roll value, aggregated into the build score. */
+  weighted: number;
   /** Rolls landing on stats this character actually uses. */
   effectiveRolls: number;
   /** Rolls on stats with no meaningful weight for this character. */
@@ -108,6 +110,12 @@ export interface HsrCharacter {
  * is a quarter dead weight, and no per-piece score can see that.
  */
 export interface BuildDiagnostics {
+  /**
+   * Build quality on the same 0-200 scale as the per-piece grades: 100 is
+   * solid, 200 is every upgrade on the best stat at max quality.
+   */
+  score: number;
+  grade: string;
   /** Upgrades across all six relics. The realistic ceiling is 54. */
   totalRolls: number;
   /** Of those, the ones on stats this character uses. */

@@ -61,6 +61,9 @@ export function gradeFor(percent: number): string {
  * they all landed on max-weight stats at max quality.
  */
 function scoreRelic(relic: ParsedRelic, weights: HsrWeights, avatarId: number): HsrRelicScore {
+  // Weighted value of this piece's rolls, kept on the score so the build
+  // total is the same arithmetic aggregated rather than an average of
+  // averages (which would weight an 8-roll piece like a 9-roll one).
   let weighted = 0;
   let effectiveRolls = 0;
   let wastedRolls = 0;
@@ -84,6 +87,7 @@ function scoreRelic(relic: ParsedRelic, weights: HsrWeights, avatarId: number): 
   return {
     potentialPercent: Math.round(potentialPercent * 10) / 10,
     grade: gradeFor(potentialPercent),
+    weighted,
     effectiveRolls,
     wastedRolls,
     mainStatFits,
@@ -106,12 +110,14 @@ function buildDiagnostics(relics: HsrRelic[], weights: HsrWeights): BuildDiagnos
   let totalRolls = 0;
   let effectiveRolls = 0;
   let wastedRolls = 0;
+  let weighted = 0;
   const mainStatMisses: HsrSlot[] = [];
 
   for (const relic of relics) {
     totalRolls += relic.totalRolls;
     effectiveRolls += relic.score.effectiveRolls;
     wastedRolls += relic.score.wastedRolls;
+    weighted += relic.score.weighted;
     if (!relic.score.mainStatFits) mainStatMisses.push(relic.slot);
 
     const set = setCounts.get(relic.setId) ?? { name: relic.setName, pieces: 0 };
@@ -131,7 +137,16 @@ function buildDiagnostics(relics: HsrRelic[], weights: HsrWeights): BuildDiagnos
 
   waste.sort((a, b) => b.rolls - a.rolls);
 
+  // Same construction as the per-piece score, applied to every roll on the
+  // build: 100 is a solid build, 200 is every upgrade on the best stat at max
+  // quality. Keeping one scale across the page means a 147% relic and a 131%
+  // build mean the same kind of thing.
+  const maxWeight = Math.max(...Object.values(weights), 0.0001);
+  const score = totalRolls > 0 ? (weighted / (totalRolls * maxWeight)) * 200 : 0;
+
   return {
+    score: Math.round(score * 10) / 10,
+    grade: gradeFor(score),
     totalRolls,
     effectiveRolls,
     wastedRolls,
@@ -162,11 +177,4 @@ export function scoreCharacter(parsed: ParsedCharacter): HsrCharacter {
     relics,
     diagnostics: buildDiagnostics(relics, weights),
   };
-}
-
-/** Average per-piece potential, used only to order the character list. */
-export function buildScore(character: HsrCharacter): number {
-  if (character.relics.length === 0) return 0;
-  const sum = character.relics.reduce((acc, r) => acc + r.score.potentialPercent, 0);
-  return Math.round((sum / character.relics.length) * 10) / 10;
 }
