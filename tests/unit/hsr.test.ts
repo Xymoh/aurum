@@ -9,7 +9,13 @@ import {
   GRADE_LADDER,
 } from "../../src/hsr/scoring";
 import { gradeColor } from "../../src/hsr/labels";
-import { getWeights, WASTE_THRESHOLD, weightOf } from "../../src/hsr/weights";
+import {
+  getWeights,
+  WASTE_THRESHOLD,
+  weightOf,
+  CHARACTER_OVERRIDES,
+  getCharacterInfo,
+} from "../../src/hsr/weights";
 
 const parsed = parseHsrShowcase(fixture as RawHsrResponse);
 const saber = scoreCharacter(parsed.characters.find((c) => c.avatarId === 1014)!);
@@ -158,5 +164,29 @@ describe("grade ladder", () => {
     expect(gradeColor("SSS")).not.toBe(gradeColor("SS"));
     expect(gradeColor("AEON")).not.toBe(gradeColor("A"));
     expect(colors.every((c) => c.startsWith("text-"))).toBe(true);
+  });
+});
+
+describe("character overrides", () => {
+  it("targets characters that actually exist, by the name in the comment", () => {
+    // An override keyed to the wrong avatarId silently rescores a different
+    // character, which is exactly what happened when Silver Wolf LV.999's
+    // support profile was pinned to Archer's id.
+    const expected: Record<string, string> = {
+      "1225": "Fugue",
+      "1310": "Firefly",
+      "1506": "Silver Wolf LV.999",
+    };
+    expect(Object.keys(CHARACTER_OVERRIDES).sort()).toEqual(Object.keys(expected).sort());
+    for (const [id, name] of Object.entries(expected)) {
+      expect(getCharacterInfo(Number(id))?.name).toBe(name);
+    }
+  });
+
+  it("leaves every other character on its Path profile", () => {
+    // Archer is a Hunt damage dealer and must not inherit a support profile.
+    const archer = getWeights(1015);
+    expect(weightOf(archer, "CriticalDamageBase")).toBeGreaterThan(0.9);
+    expect(weightOf(archer, "HPAddedRatio")).toBeLessThan(WASTE_THRESHOLD);
   });
 });

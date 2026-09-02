@@ -36,9 +36,6 @@ export type HsrSlot = "HEAD" | "HAND" | "BODY" | "FOOT" | "NECK" | "OBJECT";
 
 export const HSR_SLOTS: HsrSlot[] = ["HEAD", "HAND", "BODY", "FOOT", "NECK", "OBJECT"];
 
-/** Slots whose main stat is fixed by the game, so it carries no information. */
-export const FIXED_MAIN_SLOTS: HsrSlot[] = ["HEAD", "HAND"];
-
 export interface HsrSubstat {
   key: HsrStatKey;
   /** Displayed value: percentages as percents (12.5), flats as flats (38.1). */
@@ -78,7 +75,6 @@ export interface HsrRelicScore {
   effectiveRolls: number;
   /** Rolls on stats with no meaningful weight for this character. */
   wastedRolls: number;
-  mainStatFits: boolean;
 }
 
 export interface HsrLightCone {
@@ -132,8 +128,6 @@ export interface BuildDiagnostics {
   totals: { key: HsrStatKey; rolls: number; value: number }[];
   /** Crit ratio check: CRIT DMG per point of CRIT Rate, ideal is 2.0. */
   critRatio: number | null;
-  /** Slots whose main stat does not suit this character. */
-  mainStatMisses: HsrSlot[];
   /** Sets contributing a bonus, by piece count. */
   sets: { setId: number; name: string; pieces: number }[];
 }

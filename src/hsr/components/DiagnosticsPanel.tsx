@@ -135,11 +135,6 @@ export function DiagnosticsPanel({ d, tint }: { d: BuildDiagnostics; tint: strin
                 <span className="font-mono text-hsr-glow">{s.pieces}pc</span> {s.name}
               </p>
             ))}
-            {d.mainStatMisses.length > 0 && (
-              <p className="text-sm text-amber-400/90">
-                Main stat mismatch: {d.mainStatMisses.map((s) => SLOT_LABELS[s]).join(", ")}
-              </p>
-            )}
           </div>
         </div>
       </div>

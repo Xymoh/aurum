@@ -12,7 +12,7 @@
  * degrades: the Path weights apply and the build still scores.
  */
 
-import type { HsrStatKey, HsrSlot } from "./types";
+import type { HsrStatKey } from "./types";
 import characters from "./data/characters.json";
 
 export type HsrWeights = Partial<Record<HsrStatKey, number>>;
@@ -111,7 +111,7 @@ export const PATH_LABELS: Record<string, string> = {
  * short: an entry here is a maintenance liability, so it should earn its
  * place by being clearly wrong otherwise.
  */
-const CHARACTER_OVERRIDES: Record<string, HsrWeights> = {
+export const CHARACTER_OVERRIDES: Record<string, HsrWeights> = {
   // Break-damage carries: crit does almost nothing for them.
   "1225": { // Fugue
     BreakDamageAddedRatioBase: 1.0,
@@ -121,6 +121,20 @@ const CHARACTER_OVERRIDES: Record<string, HsrWeights> = {
     CriticalChanceBase: 0.1,
     CriticalDamageBase: 0.1,
   },
+  // Silver Wolf LV.999 sits on the Elation path beside genuine damage
+  // dealers, but her value is debuffs and survivability. Guides are explicit:
+  // HP%/DEF% spheres and ropes, and do not stack ATK. Without this she was
+  // scored as a carry, and her (correct) defensive rolls counted as waste.
+  "1506": { // Silver Wolf LV.999
+    SpeedDelta: 1.0,
+    CriticalDamageBase: 0.8,
+    CriticalChanceBase: 0.8,
+    HPAddedRatio: 0.6,
+    DefenceAddedRatio: 0.6,
+    StatusResistanceBase: 0.4,
+    BreakDamageAddedRatioBase: 0.3,
+    AttackAddedRatio: 0.2,
+  },
   "1310": { // Firefly
     BreakDamageAddedRatioBase: 1.0,
     SpeedDelta: 0.85,
@@ -129,61 +143,6 @@ const CHARACTER_OVERRIDES: Record<string, HsrWeights> = {
     CriticalChanceBase: 0.05,
     CriticalDamageBase: 0.05,
   },
-};
-
-/** Which main stats suit a Path, for the four slots the player controls. */
-const MAIN_STAT_IDEALS: Record<string, Partial<Record<HsrSlot, HsrStatKey[]>>> = {
-  DPS: {
-    BODY: ["CriticalChanceBase", "CriticalDamageBase"],
-    FOOT: ["AttackAddedRatio", "SpeedDelta"],
-    NECK: [
-      "PhysicalAddedRatio",
-      "FireAddedRatio",
-      "IceAddedRatio",
-      "ThunderAddedRatio",
-      "WindAddedRatio",
-      "QuantumAddedRatio",
-      "ImaginaryAddedRatio",
-      "AttackAddedRatio",
-    ],
-    OBJECT: ["AttackAddedRatio", "BreakDamageAddedRatioBase"],
-  },
-  HARMONY: {
-    BODY: ["AttackAddedRatio", "CriticalDamageBase", "CriticalChanceBase"],
-    FOOT: ["SpeedDelta"],
-    NECK: ["AttackAddedRatio", "HPAddedRatio"],
-    OBJECT: ["AttackAddedRatio", "SPRatioBase", "BreakDamageAddedRatioBase"],
-  },
-  NIHILITY: {
-    BODY: ["CriticalChanceBase", "CriticalDamageBase", "StatusProbabilityBase"],
-    FOOT: ["AttackAddedRatio", "SpeedDelta"],
-    NECK: ["AttackAddedRatio"],
-    OBJECT: ["AttackAddedRatio", "BreakDamageAddedRatioBase"],
-  },
-  PRESERVATION: {
-    BODY: ["DefenceAddedRatio", "CriticalChanceBase", "HPAddedRatio"],
-    FOOT: ["SpeedDelta", "DefenceAddedRatio"],
-    NECK: ["DefenceAddedRatio", "HPAddedRatio"],
-    OBJECT: ["DefenceAddedRatio", "SPRatioBase"],
-  },
-  ABUNDANCE: {
-    BODY: ["HealRatioBase", "HPAddedRatio"],
-    FOOT: ["SpeedDelta", "HPAddedRatio"],
-    NECK: ["HPAddedRatio", "DefenceAddedRatio"],
-    OBJECT: ["HPAddedRatio", "SPRatioBase"],
-  },
-};
-
-const PATH_TO_IDEAL_GROUP: Record<string, string> = {
-  Warrior: "DPS",
-  Rogue: "DPS",
-  Mage: "DPS",
-  Memory: "DPS",
-  Elation: "DPS",
-  Shaman: "HARMONY",
-  Warlock: "NIHILITY",
-  Knight: "PRESERVATION",
-  Priest: "ABUNDANCE",
 };
 
 export function getCharacterInfo(avatarId: number) {
@@ -199,13 +158,6 @@ export function getWeights(avatarId: number): HsrWeights {
   if (override) return override;
   const info = getCharacterInfo(avatarId);
   return (info && PATH_WEIGHTS[info.path]) || DPS;
-}
-
-export function getMainStatIdeals(avatarId: number, slot: HsrSlot): HsrStatKey[] | null {
-  const info = getCharacterInfo(avatarId);
-  const group = info ? PATH_TO_IDEAL_GROUP[info.path] : "DPS";
-  const ideals = MAIN_STAT_IDEALS[group ?? "DPS"];
-  return ideals?.[slot] ?? null;
 }
 
 export function weightOf(weights: HsrWeights, key: HsrStatKey): number {

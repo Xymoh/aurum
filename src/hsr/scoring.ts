@@ -20,9 +20,8 @@ import type {
   HsrSlot,
   HsrStatKey,
 } from "./types";
-import { FIXED_MAIN_SLOTS } from "./types";
 import type { ParsedCharacter, ParsedRelic } from "./parsing";
-import { getMainStatIdeals, getWeights, WASTE_THRESHOLD, weightOf, type HsrWeights } from "./weights";
+import { getWeights, WASTE_THRESHOLD, weightOf, type HsrWeights } from "./weights";
 
 /**
  * Upgrades in a realistic strong build: 6 relics that mostly started with 4
@@ -81,7 +80,7 @@ export const GRADE_LADDER = GRADES.map(([min, grade]) => ({ min, grade }));
  * upgrades all landed on fully-weighted stats at average quality, and 200 when
  * they all landed on max-weight stats at max quality.
  */
-function scoreRelic(relic: ParsedRelic, weights: HsrWeights, avatarId: number): HsrRelicScore {
+function scoreRelic(relic: ParsedRelic, weights: HsrWeights): HsrRelicScore {
   // Weighted value of this piece's rolls, kept on the score so the build
   // total is the same arithmetic aggregated rather than an average of
   // averages (which would weight an 8-roll piece like a 9-roll one).
@@ -101,17 +100,12 @@ function scoreRelic(relic: ParsedRelic, weights: HsrWeights, avatarId: number): 
   const ideal = relic.totalRolls * maxWeight;
   const potentialPercent = ideal > 0 ? (weighted / ideal) * 200 : 0;
 
-  const ideals = getMainStatIdeals(avatarId, relic.slot);
-  const mainStatFits =
-    FIXED_MAIN_SLOTS.includes(relic.slot) || !ideals || ideals.includes(relic.mainStat.key);
-
   return {
     potentialPercent: Math.round(potentialPercent * 10) / 10,
     grade: gradeFor(potentialPercent),
     weighted,
     effectiveRolls,
     wastedRolls,
-    mainStatFits,
   };
 }
 
@@ -132,14 +126,12 @@ function buildDiagnostics(relics: HsrRelic[], weights: HsrWeights): BuildDiagnos
   let effectiveRolls = 0;
   let wastedRolls = 0;
   let weighted = 0;
-  const mainStatMisses: HsrSlot[] = [];
 
   for (const relic of relics) {
     totalRolls += relic.totalRolls;
     effectiveRolls += relic.score.effectiveRolls;
     wastedRolls += relic.score.wastedRolls;
     weighted += relic.score.weighted;
-    if (!relic.score.mainStatFits) mainStatMisses.push(relic.slot);
 
     const set = setCounts.get(relic.setId) ?? { name: relic.setName, pieces: 0 };
     set.pieces += 1;
@@ -177,7 +169,6 @@ function buildDiagnostics(relics: HsrRelic[], weights: HsrWeights): BuildDiagnos
       .map(([key, v]) => ({ key, rolls: v.rolls, value: Math.round(v.value * 10) / 10 }))
       .sort((a, b) => b.rolls - a.rolls),
     critRatio: critRatio(totals),
-    mainStatMisses,
     sets: [...setCounts.entries()]
       .map(([setId, v]) => ({ setId, name: v.name, pieces: v.pieces }))
       .filter((s) => s.pieces >= 2)
@@ -190,7 +181,7 @@ export function scoreCharacter(parsed: ParsedCharacter): HsrCharacter {
   const weights = getWeights(parsed.avatarId);
   const relics: HsrRelic[] = parsed.relics.map((r) => ({
     ...r,
-    score: scoreRelic(r, weights, parsed.avatarId),
+    score: scoreRelic(r, weights),
   }));
 
   return {

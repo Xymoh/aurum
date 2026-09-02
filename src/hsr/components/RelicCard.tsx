@@ -49,10 +49,6 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
           {formatStat(relic.mainStat.key, relic.mainStat.value)}
         </span>
       </div>
-      {!score.mainStatFits && (
-        <p className="mb-2 text-xs text-amber-400/90">Main stat does not suit this character</p>
-      )}
-
       <ul className="space-y-1">
         {relic.substats.map((sub) => {
           const dead = weightOf(weights, sub.key) < WASTE_THRESHOLD;
