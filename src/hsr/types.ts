@@ -7,6 +7,8 @@
  * has to be re-litigated every time either game ships something new.
  */
 
+import type { RerollAdvice } from "./reroll";
+
 /** Enka's internal stat keys, used verbatim so no mapping table can drift. */
 export type HsrStatKey =
   | "HPDelta"
@@ -63,6 +65,8 @@ export interface HsrRelic {
   /** Total upgrades on the piece: 8 or 9, depending on its starting substats. */
   totalRolls: number;
   score: HsrRelicScore;
+  /** Whether a Variable Die is worth spending here. Filled in after scoring. */
+  reroll: RerollAdvice;
 }
 
 export interface HsrRelicScore {

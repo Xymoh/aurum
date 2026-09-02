@@ -129,7 +129,7 @@ function relicInfo(raw: RawRelic) {
   };
 }
 
-function parseRelic(raw: RawRelic): Omit<HsrRelic, "score"> | null {
+function parseRelic(raw: RawRelic): ParsedRelic | null {
   const info = relicInfo(raw);
   const mainTable = MAIN[info.mainGroup];
   const subTable = SUB[info.subGroup];
@@ -220,7 +220,7 @@ function parseLightCone(eq: RawEquipment | undefined): HsrLightCone | null {
 }
 
 /** A relic before scoring: shape only, no judgement applied yet. */
-export type ParsedRelic = Omit<HsrRelic, "score">;
+export type ParsedRelic = Omit<HsrRelic, "score" | "reroll">;
 /** A character before scoring and diagnostics. */
 export type ParsedCharacter = Omit<HsrCharacter, "relics" | "diagnostics"> & {
   relics: ParsedRelic[];

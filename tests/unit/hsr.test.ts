@@ -190,3 +190,55 @@ describe("character overrides", () => {
     expect(weightOf(archer, "HPAddedRatio")).toBeLessThan(WASTE_THRESHOLD);
   });
 });
+
+describe("reroll advice", () => {
+  const weights = getWeights(1014);
+  const advised = saber.relics.map((r) => ({ slot: r.slot, a: r.reroll }));
+
+  it("offers a verdict on every eligible +15 relic", () => {
+    for (const { a } of advised) {
+      expect(a.eligible).toBe(true);
+      expect(["reroll", "replace", "none"]).toContain(a.action);
+      expect(a.label).not.toBe("");
+    }
+  });
+
+  it("keeps odds and expected dice consistent with each other", () => {
+    for (const { a } of advised) {
+      expect(a.improveChance).toBeGreaterThanOrEqual(0);
+      expect(a.improveChance).toBeLessThanOrEqual(1);
+      if (a.improveChance > 0) {
+        expect(a.expectedDice).toBeCloseTo(1 / a.improveChance, 5);
+      } else {
+        expect(a.expectedDice).toBe(Infinity);
+      }
+    }
+  });
+
+  it("is deterministic, so a verdict cannot flip between page loads", () => {
+    const again = scoreCharacter(parsed.characters.find((c) => c.avatarId === 1014)!);
+    for (let i = 0; i < saber.relics.length; i++) {
+      expect(again.relics[i].reroll.improveChance).toBe(saber.relics[i].reroll.improveChance);
+      expect(again.relics[i].reroll.action).toBe(saber.relics[i].reroll.action);
+    }
+  });
+
+  it("only nominates stats this character actually uses", () => {
+    for (const { a } of advised) {
+      for (const key of a.targetStats) {
+        expect(weightOf(weights, key)).toBeGreaterThanOrEqual(WASTE_THRESHOLD);
+      }
+      expect(a.targetStats.length).toBeLessThanOrEqual(2);
+    }
+  });
+
+  it("never tells you to bin a piece that could still become good", () => {
+    // "Replace" has to mean weak now AND incapable of improving, otherwise it
+    // would throw away well-rolled pieces whose ceiling sits below their score.
+    for (const { a } of advised) {
+      if (a.action === "replace") {
+        expect(a.realisticCeiling).toBeLessThan(90);
+      }
+    }
+  });
+});

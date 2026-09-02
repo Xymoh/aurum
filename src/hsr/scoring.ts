@@ -22,6 +22,7 @@ import type {
 } from "./types";
 import type { ParsedCharacter, ParsedRelic } from "./parsing";
 import { getWeights, WASTE_THRESHOLD, weightOf, type HsrWeights } from "./weights";
+import { adviseReroll } from "./reroll";
 
 /**
  * Upgrades in a realistic strong build: 6 relics that mostly started with 4
@@ -179,10 +180,11 @@ function buildDiagnostics(relics: HsrRelic[], weights: HsrWeights): BuildDiagnos
 /** Scores every relic on a character, then derives the aggregate view. */
 export function scoreCharacter(parsed: ParsedCharacter): HsrCharacter {
   const weights = getWeights(parsed.avatarId);
-  const relics: HsrRelic[] = parsed.relics.map((r) => ({
-    ...r,
-    score: scoreRelic(r, weights),
-  }));
+  const relics: HsrRelic[] = parsed.relics.map((r) => {
+    const scored = { ...r, score: scoreRelic(r, weights) } as HsrRelic;
+    scored.reroll = adviseReroll(scored, weights);
+    return scored;
+  });
 
   return {
     ...parsed,

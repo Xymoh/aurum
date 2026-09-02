@@ -1,4 +1,4 @@
-import type { BuildDiagnostics } from "../types";
+import type { BuildDiagnostics, HsrRelic } from "../types";
 import { BENCHMARK_ROLLS, MAX_ROLLS } from "../scoring";
 import { SLOT_LABELS, formatStat, statLabel } from "../labels";
 
@@ -15,7 +15,23 @@ import { SLOT_LABELS, formatStat, statLabel } from "../labels";
  * previous version showed everything at once and buried the one number that
  * matters.
  */
-export function DiagnosticsPanel({ d, tint }: { d: BuildDiagnostics; tint: string }) {
+export function DiagnosticsPanel({
+  d,
+  tint,
+  relics,
+}: {
+  d: BuildDiagnostics;
+  tint: string;
+  relics: HsrRelic[];
+}) {
+  // Cheapest wins first, the same ordering the Genshin side uses for "Room to
+  // Improve": best odds at the top, since every die costs the same.
+  const nextMoves = relics
+    .filter((r) => r.reroll.action === "reroll")
+    .sort((a, b) => b.reroll.improveChance - a.reroll.improveChance)
+    .slice(0, 3);
+  const toReplace = relics.filter((r) => r.reroll.action === "replace");
+
   const effectivePct = (d.effectiveRolls / MAX_ROLLS) * 100;
   const wastedPct = (d.wastedRolls / MAX_ROLLS) * 100;
   const critOk = d.critRatio !== null && d.critRatio >= 1.6 && d.critRatio <= 2.6;
@@ -70,6 +86,41 @@ export function DiagnosticsPanel({ d, tint }: { d: BuildDiagnostics; tint: strin
           )}
         </p>
       </div>
+
+      {(nextMoves.length > 0 || toReplace.length > 0) && (
+        <div className="rounded-lg border border-hsr-border/70 bg-black/25 p-3">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-hsr-muted">
+            Best next moves
+          </h3>
+          <ul className="space-y-1">
+            {nextMoves.map((r) => (
+              <li key={r.id} className="flex items-baseline justify-between gap-2 text-sm">
+                <span className="truncate">
+                  <span className="text-hsr-text">{SLOT_LABELS[r.slot]}</span>{" "}
+                  <span className="text-hsr-muted">{r.reroll.label.toLowerCase()}</span>
+                </span>
+                <span className="shrink-0 font-mono text-xs text-hsr-muted">
+                  {Math.round(r.reroll.improveChance * 100)}% / die
+                </span>
+              </li>
+            ))}
+            {toReplace.map((r) => (
+              <li key={r.id} className="flex items-baseline justify-between gap-2 text-sm">
+                <span className="truncate">
+                  <span className="text-hsr-text">{SLOT_LABELS[r.slot]}</span>{" "}
+                  <span className="text-rose-300/80">farm a replacement</span>
+                </span>
+                <span className="shrink-0 font-mono text-xs text-hsr-muted">
+                  tops out {r.reroll.realisticCeiling.toFixed(0)}%
+                </span>
+              </li>
+            ))}
+          </ul>
+          {nextMoves.length === 0 && toReplace.length === 0 && (
+            <p className="text-sm text-hsr-accent">Nothing worth spending dice on.</p>
+          )}
+        </div>
+      )}
 
       <div className="grid gap-3 lg:grid-cols-2">
         {/* Left: what the build actually adds up to. */}

@@ -214,7 +214,7 @@ export function CharacterPanel({ character, index }: { character: HsrCharacter; 
         >
           <div className="overflow-hidden">
             <div className="space-y-4 border-t p-3 sm:p-4" style={{ borderColor: `${tint}22` }}>
-              <DiagnosticsPanel d={d} tint={tint} />
+              <DiagnosticsPanel d={d} tint={tint} relics={character.relics} />
               <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
                 {character.relics.map((relic) => (
                   <RelicCard key={relic.id} relic={relic} weights={weights} />

@@ -124,6 +124,14 @@ Star Rail states how many upgrades landed on each substat (`cnt`) and how good
 each one was (`step`), so nothing is inferred from a displayed value the way
 the Genshin parser has to. That makes the aggregate view exact:
 
+Both scorers now answer the same two questions in the same order, because
+both games have the same two mechanics behind them:
+
+1. **How much of this build is working?** Effective rolls against a benchmark.
+2. **What should I spend on next?** Per-piece reroll advice, priced in the
+   game's own currency: Dust of Enlightenment in Genshin, Variable Dice in
+   Star Rail (added in 3.0, and functionally the same redistribution).
+
 - **Build score, 0-200** - the same scale as the per-piece grades and as the
   Genshin side, so every percentage on the page means the same kind of thing.
   100 is a solid build, 200 is every upgrade on the best stat at max quality.

@@ -3,6 +3,18 @@ import { WASTE_THRESHOLD, weightOf, type HsrWeights } from "../weights";
 import { SLOT_LABELS, formatStat, gradeColor, statLabel } from "../labels";
 import { relicIcon } from "../images";
 
+const VERDICT_STYLE: Record<string, string> = {
+  high: "border-emerald-500/30 bg-emerald-500/10 text-emerald-300",
+  medium: "border-amber-500/30 bg-amber-500/10 text-amber-300",
+  low: "border-white/10 bg-white/5 text-hsr-muted",
+};
+
+function formatChance(p: number): string {
+  if (p <= 0) return "0%";
+  if (p < 0.01) return "<1%";
+  return `${Math.round(p * 100)}%`;
+}
+
 /**
  * One relic.
  *
@@ -12,7 +24,7 @@ import { relicIcon } from "../images";
  * screen, colouring every wasted roll turned the page into an alarm.
  */
 export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWeights }) {
-  const { score } = relic;
+  const { score, reroll } = relic;
   const icon = relicIcon(relic.tid);
 
   return (
@@ -90,6 +102,36 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
         </span>
         <span className={gradeColor(score.grade)}>{score.potentialPercent.toFixed(0)}%</span>
       </div>
+
+      {/* What to actually do with the piece. A die costs the same whatever the
+          slot, so the verdict is driven by the odds alone. */}
+      {reroll.eligible && (
+        <div
+          className={`mt-2 rounded border px-2 py-1.5 ${
+            reroll.action === "replace"
+              ? "border-rose-500/25 bg-rose-500/10 text-rose-300"
+              : reroll.action === "none"
+                ? "border-white/10 bg-white/5 text-hsr-muted"
+                : VERDICT_STYLE[reroll.priority ?? "low"]
+          }`}
+          title={reroll.reason}
+        >
+          <div className="flex items-baseline justify-between gap-2">
+            <span className="text-xs font-semibold">{reroll.label}</span>
+            {reroll.action === "reroll" && (
+              <span className="shrink-0 font-mono text-xs">
+                {formatChance(reroll.improveChance)}
+                <span className="opacity-70"> / die</span>
+              </span>
+            )}
+          </div>
+          {reroll.action === "reroll" && reroll.targetStats.length > 0 && (
+            <p className="mt-0.5 truncate text-xs opacity-80">
+              Hope for {reroll.targetStats.map(statLabel).join(" or ")}
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 }

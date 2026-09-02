@@ -5,7 +5,7 @@ import { SetBonusRow } from "../ui/SetBonusRow";
 import { BuildScoreBar } from "../ui/BuildScoreBar";
 import { ArtifactCard } from "./ArtifactCard";
 import { WarningIcon } from "../ui/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useI18n } from "../../i18n";
 
 // ── Local SVG icon imports ──
@@ -83,6 +83,12 @@ function StatRow({ statKey, value, icon }: { statKey: StatKey; value: number; ic
 }
 
 export function CharacterCard({ character, index, isExpanded, onToggleExpand }: CharacterCardProps) {
+  // Sticky: once opened, the body stays mounted so collapsing can animate.
+  const [everExpanded, setEverExpanded] = useState(isExpanded);
+  useEffect(() => {
+    if (isExpanded) setEverExpanded(true);
+  }, [isExpanded]);
+
   const { t } = useI18n();
   const [imgError, setImgError] = useState(false);
   const elementColor = ELEMENT_COLORS[character.element] ?? "#6b7280";
@@ -235,8 +241,18 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
         </div>
       </div>
 
-      {/* ── EXPANDED BODY ── */}
-      {isExpanded && (
+      {/* ── EXPANDED BODY ──
+          Expand and collapse both animate, via a grid row running 0fr to 1fr,
+          which transitions without needing the content height up front. The
+          body mounts on first expand and then stays, so there is something to
+          fold; mounting every character's artifacts up front would be a lot of
+          DOM for a twelve-character showcase. */}
+      {everExpanded && (
+        <div
+          className="grid transition-[grid-template-rows] duration-300 ease-out"
+          style={{ gridTemplateRows: isExpanded ? "1fr" : "0fr" }}
+        >
+          <div className="overflow-hidden">
         <div className="border-t border-dark-border/60 bg-dark-bg/30">
           <div className="p-3 sm:p-4 lg:p-5 flex flex-col gap-3 sm:gap-4">
 
@@ -441,6 +457,8 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
 
             {/* Build Score Bar */}
             <BuildScoreBar score={character.buildScore.total} grade={character.buildScore.grade} artifactCount={character.buildScore.artifactCount} correctMainStats={character.buildScore.correctMainStats} totalSelectableSlots={character.buildScore.totalSelectableSlots} />
+          </div>
+        </div>
           </div>
         </div>
       )}
