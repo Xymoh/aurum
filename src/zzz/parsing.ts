@@ -42,11 +42,12 @@ interface RawEquipment {
 interface RawAvatar {
   Id: number;
   Level: number;
+  PromotionLevel?: number;
   TalentLevel?: number;
   CoreSkillEnhancement?: number;
   SkillLevelList?: { Level: number; Index: number }[];
   EquippedList?: { Slot: number; Equipment: RawEquipment }[];
-  Weapon?: { Id: number; Level?: number; UpgradeLevel?: number } | null;
+  Weapon?: { Id: number; Level?: number; UpgradeLevel?: number; BreakLevel?: number } | null;
 }
 export interface RawZzzResponse {
   uid?: number | string;
@@ -106,6 +107,7 @@ function parseEngine(raw: RawAvatar["Weapon"]): ZzzEngine | null {
     name: meta?.name ?? `W-Engine ${raw.Id}`,
     level: raw.Level ?? 1,
     rank: raw.UpgradeLevel ?? 1,
+    breakLevel: raw.BreakLevel ?? 0,
     rarity: meta?.rarity ?? 3,
     image: engineImage(raw.Id) ?? "",
   };
@@ -124,7 +126,7 @@ function parseSkills(list: RawAvatar["SkillLevelList"]) {
 /** A disc before scoring. */
 export type ParsedDiscInput = Omit<ZzzDisc, "score">;
 /** An agent before scoring: shape only, no judgement applied yet. */
-export type ParsedAgent = Omit<ZzzAgent, "discs" | "diagnostics"> & {
+export type ParsedAgent = Omit<ZzzAgent, "discs" | "diagnostics" | "stats"> & {
   discs: ParsedDiscInput[];
 };
 export type ParsedZzzShowcase = Omit<ZzzShowcase, "agents"> & { agents: ParsedAgent[] };
@@ -143,6 +145,7 @@ export function parseZzzShowcase(raw: RawZzzResponse): ParsedZzzShowcase {
       profession: meta?.profession ?? "",
       element: meta?.element ?? "",
       level: a.Level,
+      promotion: a.PromotionLevel ?? 0,
       mindscape: a.TalentLevel ?? 0,
       coreSkill: a.CoreSkillEnhancement ?? 0,
       skills: parseSkills(a.SkillLevelList),

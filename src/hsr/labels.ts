@@ -41,6 +41,26 @@ export function statLabel(key: HsrStatKey): string {
   return STAT_LABELS[key] ?? key;
 }
 
+/** Chip-sized labels, for the summary row on a collapsed panel. */
+export const STAT_SHORT: Partial<Record<HsrStatKey, string>> = {
+  HPDelta: "HP",
+  AttackDelta: "ATK",
+  DefenceDelta: "DEF",
+  HPAddedRatio: "HP%",
+  AttackAddedRatio: "ATK%",
+  DefenceAddedRatio: "DEF%",
+  SpeedDelta: "SPD",
+  CriticalChanceBase: "CR",
+  CriticalDamageBase: "CD",
+  StatusProbabilityBase: "EHR",
+  StatusResistanceBase: "RES",
+  BreakDamageAddedRatioBase: "BE",
+};
+
+export function statShort(key: HsrStatKey): string {
+  return STAT_SHORT[key] ?? statLabel(key);
+}
+
 export function formatStat(key: HsrStatKey, value: number): string {
   return isPercentStat(key) ? `${value.toFixed(1)}%` : value.toFixed(0);
 }

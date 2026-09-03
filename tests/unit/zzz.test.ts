@@ -14,6 +14,7 @@ import {
   substatScale,
 } from "../../src/zzz/scoring";
 import { getScoringMeta, WASTE_THRESHOLD, weightOf } from "../../src/zzz/weights";
+import { engineStats } from "../../src/zzz/stats";
 import { isValidZzzUid } from "../../src/zzz/useZzzShowcase";
 import { displayValue, isPercentStat, statLabel } from "../../src/zzz/labels";
 
@@ -68,6 +69,43 @@ describe("ZZZ parsing", () => {
 
   it("labels every substat", () => {
     for (const id of SUBSTATS) expect(statLabel(id)).not.toMatch(/^\d+$/);
+  });
+});
+
+describe("agent stats", () => {
+  const burnice = scoreAgent(parsed.agents.find((a) => a.id === 1171)!);
+
+  // Enka prints these for the same UID: HP 10,680, ATK 3,414, DEF 956,
+  // Impact 83, CRIT Rate 14.6%, CRIT DMG 59.6%, AP 395, AM 118, Energy 2.8,
+  // PEN 9. The integers can sit a point out from where the game floors, so
+  // they are checked to the nearest unit and the percentages exactly.
+  it("matches Enka's figures for the fixture's Burnice", () => {
+    const s = burnice.stats;
+    expect(s.hp).toBeCloseTo(10680, -1);
+    expect(s.atk).toBeCloseTo(3414, -1);
+    expect(s.def).toBeCloseTo(956, -1);
+    expect(s.impact).toBeCloseTo(83, 0);
+    expect(s.critRate).toBeCloseTo(14.6, 1);
+    expect(s.critDmg).toBeCloseTo(59.6, 1);
+    expect(s.anomalyProficiency).toBeCloseTo(395, 0);
+    expect(s.anomalyMastery).toBeCloseTo(118, 0);
+    expect(s.energyRegen).toBeCloseTo(2.8, 1);
+    expect(s.pen).toBeCloseTo(9, 0);
+  });
+
+  it("scales the W-Engine by its level and breakthrough", () => {
+    // Enka shows Burnice's Flamemaker Shaker at 713 ATK and 30% ATK%.
+    const e = engineStats(burnice.engine!.id, burnice.engine!.level, burnice.engine!.breakLevel);
+    expect(e.main?.value).toBe(713);
+    expect(e.secondary?.value).toBeCloseTo(3000, 0);
+  });
+
+  it("clamps a fully ascended agent onto the last promotion row", () => {
+    // Enka reports promotion 6 while the published table has six rows, so
+    // without the clamp the whole promotion bonus disappears and HP lands
+    // around 8,400 instead of 10,680.
+    expect(burnice.promotion).toBe(6);
+    expect(burnice.stats.hp).toBeGreaterThan(10000);
   });
 });
 

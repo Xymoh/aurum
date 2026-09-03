@@ -81,7 +81,7 @@ export function WeakestArtifacts({ characters, onSelectCharacter }: WeakestArtif
   if (items.length === 0) return null;
 
   return (
-    <section className="rounded-xl border border-dark-border bg-dark-card/40 p-4 sm:p-5" aria-labelledby="room-to-improve">
+    <section className="game-panel border border-dark-border bg-dark-card/40 p-4 sm:p-5" aria-labelledby="room-to-improve">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <h2 id="room-to-improve" className="flex items-center gap-2 text-sm font-semibold text-dark-text">
           <TargetIcon className="h-4 w-4 text-accent" /> {t("showcase", "roomToImprove")}

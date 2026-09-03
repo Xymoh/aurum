@@ -126,6 +126,40 @@ describe("Fribbels parity", () => {
   });
 });
 
+describe("character stats", () => {
+  // Enka prints these for the same UID, and they are what the game's own
+  // character screen shows: HP 3451, ATK 2535, DEF 1377, SPD 142.33,
+  // CRIT Rate 57.4%, CRIT DMG 201.7%, Break 5.1%, Energy 100%, RES 7.7%,
+  // Wind DMG 61.2%. Anything that drifts from these is a bug in the curves,
+  // the trace lookup, the set bonuses or the light cone passive.
+  it("matches Enka's figures for the fixture's Saber", () => {
+    const s = saber.stats;
+    expect(s.hp).toBeCloseTo(3451, 0);
+    expect(s.atk).toBeCloseTo(2536, 0);
+    expect(s.def).toBeCloseTo(1377.5, 1);
+    expect(s.spd).toBeCloseTo(142.33, 1);
+    expect(s.critRate).toBeCloseTo(57.5, 1);
+    expect(s.critDmg).toBeCloseTo(201.8, 1);
+    expect(s.breakEffect).toBeCloseTo(5.18, 1);
+    expect(s.energyRegen).toBeCloseTo(100, 1);
+    expect(s.effectRes).toBeCloseTo(7.78, 1);
+    expect(s.elementalDmg).toBeCloseTo(61.28, 1);
+  });
+
+  it("counts the light cone's own passive, which the game applies unconditionally", () => {
+    // Saber's cone grants 36% CRIT DMG at S1. Without it the total lands at
+    // 165.8% instead of 201.8%, which is how the omission was caught.
+    expect(saber.lightCone?.id).toBe(23045);
+    expect(saber.lightCone?.superimposition).toBe(1);
+    expect(saber.stats.critDmg).toBeGreaterThan(200);
+  });
+
+  it("reads the ascension for the right row of the curve", () => {
+    expect(saber.promotion).toBe(6);
+    expect(saber.traceNodes.length).toBeGreaterThan(10);
+  });
+});
+
 describe("main stats", () => {
   const meta = getScoringMeta(1014);
 
@@ -351,9 +385,11 @@ describe("score ceiling", () => {
       element: "",
       rarity: 5,
       level: 80,
+      promotion: 6,
       eidolon: 0,
       lightCone: null,
       traces: null,
+      traceNodes: [],
       relics: [
         {
           id: `perfect-${avatarId}`,

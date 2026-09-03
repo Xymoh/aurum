@@ -96,7 +96,7 @@ export function CharacterGrid({ characters, focusSignal }: CharacterGridProps) {
       {/* Search / filter / sort controls */}
       {/* Sticky from sm up only: stacked, the three controls would cover a
           third of a phone screen. */}
-      <div className="z-20 flex flex-col gap-2 rounded-xl border border-dark-border bg-dark-card/90 p-3 backdrop-blur-md sm:sticky sm:top-16 sm:flex-row sm:items-center">
+      <div className="z-20 flex flex-col gap-2 rounded-lg border border-dark-border bg-dark-card/90 p-3 backdrop-blur-md sm:sticky sm:top-16 sm:flex-row sm:items-center">
         <input
           type="text"
           value={search}

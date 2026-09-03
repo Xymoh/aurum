@@ -4,6 +4,7 @@ import { getAgentInfo, getScoringMeta } from "../weights";
 import { BuildPanel } from "./BuildPanel";
 import { DiscCard } from "./DiscCard";
 import { ELEMENT_LABELS, PROFESSION_LABELS } from "../labels";
+import { zzzStatRow } from "../stats";
 import { agentImage } from "../images";
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { formatScore } from "../../lib/format";
@@ -35,8 +36,15 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
   return (
     <section
       id={agentPanelId(agent.id)}
-      className="animate-fade-in-up scroll-mt-20 overflow-hidden rounded-xl border border-zzz-border bg-zzz-panel/60 transition-colors"
-      style={{ borderColor: open ? `${tint}66` : undefined, animationDelay: `${Math.min(index, 8) * 45}ms` }}
+      className="animate-fade-in-up scroll-mt-20 overflow-hidden game-panel border border-zzz-border bg-zzz-panel/60 transition-colors"
+      style={{
+        borderColor: open ? `${tint}66` : undefined,
+        // Keeps the notch's own border line in step with the highlight
+        // tint above; without it the corner stays the game's default
+        // border colour, which reads as missing against a dark panel.
+        ["--panel-corner" as string]: open ? `${tint}66` : undefined,
+        animationDelay: `${Math.min(index, 8) * 45}ms`,
+      }}
     >
       <button
         type="button"
@@ -45,7 +53,14 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
         aria-controls={bodyId}
         className="group relative flex w-full items-stretch gap-3 overflow-hidden p-3 text-left sm:gap-4 sm:p-4"
       >
-        {/* Full-body art, contained on the right and faded into the card. */}
+        {/* Full-body art, faded into the card from the right.
+
+            The crop is anchored near the top because these are full-body
+            renders: the head sits in the upper fifth, so the old 15% landed
+            on the chest. A single offset cannot suit every agent, since the
+            art is not framed consistently (Vivian's umbrella occupies the
+            space above her head, pushing her face lower than anyone
+            else's), so this is the value that frames the most agents well. */}
         <div className="pointer-events-none absolute inset-0 flex justify-end" aria-hidden="true">
           <div
             className="relative h-full w-2/3 sm:w-1/2"
@@ -56,7 +71,7 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
                 src={art}
                 alt=""
                 loading="lazy"
-                className="h-full w-full object-cover object-[center_15%] opacity-60 transition-opacity duration-300 group-hover:opacity-80"
+                className="h-full w-full object-cover object-[center_6%] opacity-60 transition-opacity duration-300 group-hover:opacity-80"
               />
             )}
             <div className="absolute inset-0 opacity-20 mix-blend-overlay" style={{ backgroundColor: tint }} />
@@ -133,9 +148,29 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
         </div>
       </button>
 
-      {everOpened && (
-        <div id={bodyId} className="grid transition-[grid-template-rows] duration-300 ease-out" style={{ gridTemplateRows: open ? "1fr" : "0fr" }}>
-          <div className="overflow-hidden">
+      {/* ── COLLAPSED SUMMARY (always visible) ──
+          The agent's final stats, the same figures the game's own agent
+          screen shows, so a showcase can be read without opening every
+          panel. The other two games carry the same row. */}
+      <div className="border-t border-zzz-border/40 bg-zzz-inset/60 px-3 py-2 sm:px-4">
+        <div className="flex flex-wrap gap-x-4 gap-y-1">
+          {zzzStatRow(agent.stats).map((s) => (
+            <span key={s.label} className="flex items-baseline gap-1.5 text-sm">
+              <span className="text-zzz-muted">{s.label}</span>
+              <span className="font-mono font-semibold tabular-nums text-zzz-text">{s.value}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* The row wrapper stays mounted even while collapsed, so 0fr is a value
+          the browser has actually rendered. Mounting it only on first expand
+          meant it appeared already at 1fr, leaving the transition nothing to
+          start from, and that first expand snapped open. The discs inside
+          still wait for that first expand. */}
+      <div id={bodyId} className="grid transition-[grid-template-rows] duration-300 ease-out" style={{ gridTemplateRows: open ? "1fr" : "0fr" }}>
+        <div className="overflow-hidden">
+          {everOpened && (
             <div className="space-y-4 border-t p-3 sm:p-4" style={{ borderColor: `${tint}33` }}>
               <BuildPanel d={d} meta={meta} tint={tint} />
               <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
@@ -144,9 +179,9 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
                 ))}
               </div>
             </div>
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </section>
   );
 }

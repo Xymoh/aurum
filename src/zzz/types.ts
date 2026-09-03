@@ -54,12 +54,31 @@ export interface ZzzDiscScore {
   wastedRolls: number;
 }
 
+/** Final stats, as the game's agent screen shows them. */
+export interface ZzzStats {
+  hp: number;
+  atk: number;
+  def: number;
+  impact: number;
+  /** Percentages as percents: 14.6 rather than 0.146. */
+  critRate: number;
+  critDmg: number;
+  anomalyMastery: number;
+  anomalyProficiency: number;
+  energyRegen: number;
+  penRatio: number;
+  pen: number;
+  elementalDmg: number;
+}
+
 export interface ZzzEngine {
   id: number;
   name: string;
   level: number;
   /** Modification rank, 1-5. */
   rank: number;
+  /** Breakthrough, 0-5. Drives the engine's stat curve, unlike the rank. */
+  breakLevel: number;
   rarity: number;
   image: string;
 }
@@ -72,6 +91,8 @@ export interface ZzzAgent {
   profession: string;
   element: string;
   level: number;
+  /** Promotion rank, indexing the agent's stat curve. */
+  promotion: number;
   /** Mindscape Cinema level, 0-6. */
   mindscape: number;
   /** Core skill enhancement, A to F in game, 0-6 here. */
@@ -79,6 +100,7 @@ export interface ZzzAgent {
   skills: { basic: number; dodge: number; assist: number; special: number; chain: number };
   engine: ZzzEngine | null;
   discs: ZzzDisc[];
+  stats: ZzzStats;
   diagnostics: ZzzBuildDiagnostics;
 }
 

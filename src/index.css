@@ -302,10 +302,204 @@
 }
 
 @layer components {
+  /* ── Per-game corner language ──────────────────────────────────────
+     Each game's layout stamps data-game on its root and every panel inside
+     picks up that game's geometry, the way each game's own UI has a shape:
+     Genshin rounds generously, Star Rail notches two opposite corners,
+     Zenless cuts a hard bevel.
+
+     Applied to the outer panels only. The small cards inside them host
+     popovers, and a clip-path would cut those off, so they keep a plain
+     radius; that also stops the page turning into a field of angles. */
+  .game-panel {
+    border-radius: 12px;
+  }
+
+  [data-game="genshin"] .game-panel {
+    border-radius: 16px;
+  }
+
+  [data-game="hsr"] .game-panel {
+    position: relative;
+    border-radius: 0;
+    clip-path: polygon(
+      14px 0,
+      100% 0,
+      100% calc(100% - 14px),
+      calc(100% - 14px) 100%,
+      0 100%,
+      0 14px
+    );
+  }
+
+  [data-game="zzz"] .game-panel {
+    position: relative;
+    border-radius: 0;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 18px) 0,
+      100% 18px,
+      100% 100%,
+      18px 100%,
+      0 calc(100% - 18px)
+    );
+  }
+
+  /* clip-path cuts a corner off the box, not off the 1px border drawn along
+     its original rectangular edge, so the diagonal is left bare. These square
+     patches sit over each cut corner and paint a 1px stripe along it.
+
+     Two things decide the numbers. A linear-gradient's stripes run
+     PERPENDICULAR to its angle, so a "/" cut needs 135deg and a "\" cut
+     needs 45deg. And the patch is pulled out to -1px on both axes so it
+     covers the border box rather than the padding box an absolutely
+     positioned element is otherwise placed against: at 0 the stripe stopped
+     1.41px short of each end, which on a small notch reads as a corner with
+     no border at all. Its own diagonal then lies exactly on the cut, so the
+     stripe is centred and drawn 2px wide; the half past the cut is clipped
+     away by the panel's clip-path, leaving 1px to match the borders. */
+  [data-game="hsr"] .game-panel::before,
+  [data-game="hsr"] .game-panel::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+    --corner-c: var(--panel-corner, var(--hsr-border));
+    background: linear-gradient(
+      135deg,
+      transparent calc(50% - 1px),
+      var(--corner-c) calc(50% - 1px),
+      var(--corner-c) calc(50% + 1px),
+      transparent calc(50% + 1px)
+    );
+  }
+  [data-game="hsr"] .game-panel::before {
+    top: -1px;
+    left: -1px;
+  }
+  [data-game="hsr"] .game-panel::after {
+    bottom: -1px;
+    right: -1px;
+  }
+
+  [data-game="zzz"] .game-panel::before,
+  [data-game="zzz"] .game-panel::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    --corner-c: var(--panel-corner, var(--zzz-border));
+    background: linear-gradient(
+      45deg,
+      transparent calc(50% - 1px),
+      var(--corner-c) calc(50% - 1px),
+      var(--corner-c) calc(50% + 1px),
+      transparent calc(50% + 1px)
+    );
+  }
+  [data-game="zzz"] .game-panel::before {
+    top: -1px;
+    right: -1px;
+  }
+  [data-game="zzz"] .game-panel::after {
+    bottom: -1px;
+    left: -1px;
+  }
+
+  /* Same corner language, smaller cut, for controls too short to carry the
+     full-size notch: a 14px/18px cut looks like a snipped-off pill on a
+     32px-tall chip rather than a shaped corner. */
+  .game-panel-sm {
+    border-radius: 8px;
+  }
+
+  [data-game="genshin"] .game-panel-sm {
+    border-radius: 10px;
+  }
+
+  [data-game="hsr"] .game-panel-sm {
+    position: relative;
+    border-radius: 0;
+    clip-path: polygon(
+      8px 0,
+      100% 0,
+      100% calc(100% - 8px),
+      calc(100% - 8px) 100%,
+      0 100%,
+      0 8px
+    );
+  }
+  [data-game="hsr"] .game-panel-sm::before,
+  [data-game="hsr"] .game-panel-sm::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+    --corner-c: var(--panel-corner, var(--hsr-border));
+    background: linear-gradient(
+      135deg,
+      transparent calc(50% - 1px),
+      var(--corner-c) calc(50% - 1px),
+      var(--corner-c) calc(50% + 1px),
+      transparent calc(50% + 1px)
+    );
+  }
+  [data-game="hsr"] .game-panel-sm::before {
+    top: -1px;
+    left: -1px;
+  }
+  [data-game="hsr"] .game-panel-sm::after {
+    bottom: -1px;
+    right: -1px;
+  }
+
+  [data-game="zzz"] .game-panel-sm {
+    position: relative;
+    border-radius: 0;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 10px) 0,
+      100% 10px,
+      100% 100%,
+      10px 100%,
+      0 calc(100% - 10px)
+    );
+  }
+  [data-game="zzz"] .game-panel-sm::before,
+  [data-game="zzz"] .game-panel-sm::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    --corner-c: var(--panel-corner, var(--zzz-border));
+    background: linear-gradient(
+      45deg,
+      transparent calc(50% - 1px),
+      var(--corner-c) calc(50% - 1px),
+      var(--corner-c) calc(50% + 1px),
+      transparent calc(50% + 1px)
+    );
+  }
+  [data-game="zzz"] .game-panel-sm::before {
+    top: -1px;
+    right: -1px;
+  }
+  [data-game="zzz"] .game-panel-sm::after {
+    bottom: -1px;
+    left: -1px;
+  }
+
   .character-card {
     background-color: var(--surface-card);
     border: 1px solid var(--surface-border);
-    border-radius: 12px;
     overflow: hidden;
   }
 }

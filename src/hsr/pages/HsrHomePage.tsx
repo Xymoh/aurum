@@ -40,23 +40,28 @@ export function HsrHomePage() {
         </p>
 
         <form onSubmit={submit} className="mt-6 flex items-center justify-center gap-2">
-          <input
-            value={uid}
-            // Digits only, capped at 9: the field should make an invalid UID
-            // hard to type rather than only complaining after submit.
-            onChange={(e) => {
-              setUid(sanitizeUidInput(e.target.value));
-              setError("");
-            }}
-            maxLength={9}
-            placeholder="Enter HSR UID"
-            inputMode="numeric"
-            aria-label="Honkai Star Rail UID"
-            className="w-56 rounded-md border border-hsr-border bg-hsr-card px-3 py-2 font-mono text-sm text-hsr-text placeholder:text-hsr-muted/70 focus:border-hsr-accent focus:outline-none"
-          />
+          {/* The shape lives on a wrapper, not the field: an input is a
+              replaced element and never renders the pseudo-element that
+              draws the border along the notch. */}
+          <div className="game-panel-sm w-56 border border-hsr-border bg-hsr-card focus-within:border-hsr-accent focus-within:[--panel-corner:var(--hsr-accent)]">
+            <input
+              value={uid}
+              // Digits only, capped at 9: the field should make an invalid UID
+              // hard to type rather than only complaining after submit.
+              onChange={(e) => {
+                setUid(sanitizeUidInput(e.target.value));
+                setError("");
+              }}
+              maxLength={9}
+              placeholder="Enter HSR UID"
+              inputMode="numeric"
+              aria-label="Honkai Star Rail UID"
+              className="w-full bg-transparent px-3 py-2 font-mono text-sm text-hsr-text placeholder:text-hsr-muted/70 focus:outline-none"
+            />
+          </div>
           <button
             type="submit"
-            className="rounded-md border border-hsr-accent/40 bg-hsr-accent/15 px-4 py-2 text-sm font-semibold text-hsr-accent transition-colors hover:bg-hsr-accent/25"
+            className="game-panel-sm border border-hsr-accent/40 [--panel-corner:color-mix(in_oklab,var(--hsr-accent)_40%,transparent)] bg-hsr-accent/15 px-4 py-2 text-sm font-semibold text-hsr-accent transition-colors hover:bg-hsr-accent/25"
           >
             Analyse
           </button>
@@ -73,7 +78,7 @@ export function HsrHomePage() {
                 <Link
                   key={entry.uid}
                   to={`/hsr/showcase/${entry.uid}`}
-                  className="rounded-lg border border-hsr-border bg-hsr-card px-3 py-1.5 font-mono text-sm text-hsr-text no-underline transition-colors hover:border-hsr-accent/50 hover:text-hsr-accent"
+                  className="game-panel-sm border border-hsr-border bg-hsr-card px-3 py-1.5 font-mono text-sm text-hsr-text no-underline transition-colors hover:border-hsr-accent/50 hover:[--panel-corner:color-mix(in_oklab,var(--hsr-accent)_50%,transparent)] hover:text-hsr-accent"
                 >
                   {entry.uid}
                 </Link>
@@ -101,7 +106,7 @@ export function HsrHomePage() {
             b: `Each relic is scored against the best relic its slot could hold for this character, the same way the Fribbels optimizer scores it. The build is the mean of its six pieces, with useful rolls counted against a ${BENCHMARK_ROLLS}-roll benchmark out of the ${MAX_ROLLS} a build can physically hold.`,
           },
         ].map((c) => (
-          <div key={c.n} className="rounded-xl border border-hsr-border bg-hsr-panel/40 p-4">
+          <div key={c.n} className="game-panel border border-hsr-border bg-hsr-panel/40 p-4">
             <span className="inline-flex h-6 w-6 items-center justify-center rounded border border-hsr-accent/30 font-mono text-sm text-hsr-accent">
               {c.n}
             </span>
@@ -111,7 +116,7 @@ export function HsrHomePage() {
         ))}
       </div>
 
-      <div className="w-full max-w-4xl rounded-xl border border-hsr-border bg-hsr-panel/40 p-5">
+      <div className="w-full max-w-4xl game-panel border border-hsr-border bg-hsr-panel/40 p-5">
         <h2 className="text-base font-semibold text-hsr-text">How a relic is graded</h2>
         <div className="mt-2 space-y-3 text-[15px] leading-relaxed text-hsr-muted">
           <p>
@@ -146,7 +151,7 @@ export function HsrHomePage() {
         </div>
       </div>
 
-      <div className="w-full max-w-4xl rounded-xl border border-hsr-border bg-hsr-panel/40 p-5">
+      <div className="w-full max-w-4xl game-panel border border-hsr-border bg-hsr-panel/40 p-5">
         <h2 className="text-base font-semibold text-hsr-text">
           Why a DPS score and a relic grade disagree
         </h2>

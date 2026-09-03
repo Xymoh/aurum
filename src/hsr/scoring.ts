@@ -34,6 +34,7 @@ import {
 } from "./weights";
 import { adviseReroll } from "./reroll";
 import { gradeFor } from "../lib/gradeLadder";
+import { computeStats } from "./stats";
 import affixes from "./data/affixes.json";
 
 /**
@@ -395,9 +396,20 @@ export function scoreCharacter(parsed: ParsedCharacter): HsrCharacter {
     return scored;
   });
 
+  const diagnostics = buildDiagnostics(relics, meta);
   return {
     ...parsed,
     relics,
-    diagnostics: buildDiagnostics(relics, meta),
+    stats: computeStats({
+      avatarId: parsed.avatarId,
+      element: parsed.element,
+      level: parsed.level,
+      promotion: parsed.promotion,
+      traceNodes: parsed.traceNodes,
+      lightCone: parsed.lightCone,
+      relics,
+      sets: diagnostics.sets,
+    }),
+    diagnostics,
   };
 }

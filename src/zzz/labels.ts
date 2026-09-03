@@ -51,6 +51,10 @@ export function statLabel(id: ZzzStatId): string {
   return STAT_LABELS[id] ?? PROPERTIES[String(id)]?.name ?? String(id);
 }
 
+export function statShort(id: ZzzStatId): string {
+  return STAT_SHORT[id] ?? statLabel(id);
+}
+
 export function isPercentStat(id: ZzzStatId): boolean {
   return PROPERTIES[String(id)]?.format.includes("%") ?? false;
 }

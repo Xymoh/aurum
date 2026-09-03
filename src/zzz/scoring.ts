@@ -21,6 +21,7 @@ import type {
 import type { ParsedAgent, ParsedDiscInput } from "./parsing";
 import { getScoringMeta, PERCENT_TO_FLAT, WASTE_THRESHOLD, weightOf, type ZzzScoringMeta } from "./weights";
 import { gradeFor } from "../lib/gradeLadder";
+import { computeZzzStats } from "./stats";
 
 export { gradeFor, GRADE_LADDER } from "../lib/gradeLadder";
 
@@ -279,5 +280,22 @@ function buildDiagnostics(discs: ZzzDisc[], meta: ZzzScoringMeta): ZzzBuildDiagn
 export function scoreAgent(parsed: ParsedAgent): ZzzAgent {
   const meta = getScoringMeta(parsed.id);
   const discs: ZzzDisc[] = parsed.discs.map((d) => ({ ...d, score: scoreDisc(d, meta) }));
-  return { ...parsed, discs, diagnostics: buildDiagnostics(discs, meta) };
+  const diagnostics = buildDiagnostics(discs, meta);
+  return {
+    ...parsed,
+    discs,
+    stats: computeZzzStats({
+      agentId: parsed.id,
+      element: parsed.element,
+      level: parsed.level,
+      promotion: parsed.promotion,
+      coreSkill: parsed.coreSkill,
+      engine: parsed.engine
+        ? { id: parsed.engine.id, level: parsed.engine.level, rank: parsed.engine.breakLevel }
+        : null,
+      discs,
+      sets: diagnostics.sets,
+    }),
+    diagnostics,
+  };
 }

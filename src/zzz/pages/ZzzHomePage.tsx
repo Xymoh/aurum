@@ -48,21 +48,27 @@ export function ZzzHomePage() {
         </p>
 
         <form onSubmit={submit} className="mt-6 flex items-center justify-center gap-2">
-          <input
-            value={uid}
-            onChange={(e) => {
-              setUid(sanitize(e.target.value));
-              setError("");
-            }}
-            maxLength={10}
-            placeholder="Enter ZZZ UID"
-            inputMode="numeric"
-            aria-label="Zenless Zone Zero UID"
-            className="w-60 rounded-md border border-zzz-border bg-zzz-card px-3 py-2 font-mono text-sm text-zzz-text placeholder:text-zzz-muted/70 focus:border-zzz-accent focus:outline-none"
-          />
+          {/* The shape lives on a wrapper, not the field: an input is a
+              replaced element and never renders the pseudo-element that
+              draws the border along the bevel. */}
+          <div className="game-panel-sm w-60 border border-zzz-border bg-zzz-card focus-within:border-zzz-accent focus-within:[--panel-corner:var(--zzz-accent)]">
+            <input
+              value={uid}
+              onChange={(e) => {
+                setUid(sanitize(e.target.value));
+                setError("");
+              }}
+              maxLength={10}
+              placeholder="Enter ZZZ UID"
+              inputMode="numeric"
+              aria-label="Zenless Zone Zero UID"
+              className="w-full bg-transparent px-3 py-2 font-mono text-sm text-zzz-text placeholder:text-zzz-muted/70 focus:outline-none"
+            />
+          </div>
           <button
             type="submit"
-            className="rounded-md bg-zzz-accent px-4 py-2 text-sm font-black uppercase tracking-wider text-black transition-transform hover:-translate-y-0.5"
+            /* No border on this one, so the bevel gets no line either. */
+            className="game-panel-sm [--panel-corner:transparent] bg-zzz-accent px-4 py-2 text-sm font-black uppercase tracking-wider text-black transition-transform hover:-translate-y-0.5"
           >
             Scan
           </button>
@@ -77,7 +83,7 @@ export function ZzzHomePage() {
                 <Link
                   key={entry.uid}
                   to={`/zzz/showcase/${entry.uid}`}
-                  className="rounded-lg border border-zzz-border bg-zzz-card px-3 py-1.5 font-mono text-sm text-zzz-text no-underline transition-colors hover:border-zzz-accent/60 hover:text-zzz-accent"
+                  className="game-panel-sm border border-zzz-border bg-zzz-card px-3 py-1.5 font-mono text-sm text-zzz-text no-underline transition-colors hover:border-zzz-accent/60 hover:[--panel-corner:color-mix(in_oklab,var(--zzz-accent)_60%,transparent)] hover:text-zzz-accent"
                 >
                   {entry.uid}
                 </Link>
@@ -105,7 +111,7 @@ export function ZzzHomePage() {
             b: `Each disc is scored against the best disc its slot could hold. The build is the mean of the six, with useful rolls counted against a ${BENCHMARK_ROLLS}-roll benchmark out of ${MAX_ROLLS}.`,
           },
         ].map((c) => (
-          <div key={c.n} className="rounded-xl border border-zzz-border bg-zzz-panel/50 p-4">
+          <div key={c.n} className="game-panel border border-zzz-border bg-zzz-panel/50 p-4">
             <span className="font-mono text-sm font-bold text-zzz-accent">{c.n}</span>
             <h3 className="mt-2 text-base font-bold uppercase tracking-wide text-zzz-text">{c.t}</h3>
             <p className="mt-1.5 text-sm leading-relaxed text-zzz-muted">{c.b}</p>
@@ -113,7 +119,7 @@ export function ZzzHomePage() {
         ))}
       </div>
 
-      <div className="w-full max-w-4xl rounded-xl border border-zzz-border bg-zzz-panel/50 p-5">
+      <div className="w-full max-w-4xl game-panel border border-zzz-border bg-zzz-panel/50 p-5">
         <h2 className="text-base font-bold uppercase tracking-wide text-zzz-text">How a disc is graded</h2>
         <div className="mt-2 space-y-3 text-[15px] leading-relaxed text-zzz-muted">
           <p>

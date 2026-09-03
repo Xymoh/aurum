@@ -4,6 +4,7 @@ import { getWeights, PATH_LABELS } from "../weights";
 import { DiagnosticsPanel } from "./DiagnosticsPanel";
 import { RelicCard } from "./RelicCard";
 import { gradeColor } from "../labels";
+import { statRowFor } from "../stats";
 import { characterPreview, elementIcon, lightConeIcon, pathIcon } from "../images";
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { formatScore } from "../../lib/format";
@@ -82,9 +83,13 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
   return (
     <section
       id={characterPanelId(character.avatarId)}
-      className="animate-fade-in-up scroll-mt-20 overflow-hidden rounded-xl border border-hsr-border bg-hsr-panel/50 transition-colors"
+      className="animate-fade-in-up scroll-mt-20 overflow-hidden game-panel border border-hsr-border bg-hsr-panel/50 transition-colors"
       style={{
         borderColor: open ? `${tint}55` : undefined,
+        // Keeps the notch's own border line in step with the highlight
+        // tint above; without it the corner stays the game's default
+        // border colour, which reads as missing against a dark panel.
+        ["--panel-corner" as string]: open ? `${tint}55` : undefined,
         animationDelay: `${Math.min(index, 8) * 45}ms`,
       }}
     >
@@ -220,15 +225,36 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
         </div>
       </button>
 
+      {/* ── COLLAPSED SUMMARY (always visible) ──
+          The character's final stats, the same figures the game's own
+          character screen shows, so a showcase can be read without opening
+          every panel. The Genshin cards carry the same row. */}
+      <div className="border-t border-hsr-border/40 bg-hsr-inset/50 px-3 py-2 sm:px-4">
+        <div className="flex flex-wrap gap-x-4 gap-y-1">
+          {statRowFor(character).map((s) => (
+            <span key={s.label} className="flex items-baseline gap-1.5 text-sm">
+              <span className="text-hsr-muted">{s.label}</span>
+              <span className="font-mono font-semibold tabular-nums text-hsr-text">{s.value}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* Expand and collapse both animate. The grid row runs 0fr to 1fr, which
-          transitions cleanly without needing the content height up front. */}
-      {everOpened && (
-        <div
-          id={bodyId}
-          className="grid transition-[grid-template-rows] duration-300 ease-out"
-          style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
-        >
-          <div className="overflow-hidden">
+          transitions cleanly without needing the content height up front.
+
+          The wrapper stays mounted while collapsed so 0fr is a value the
+          browser has actually rendered; mounting it only on first expand meant
+          it appeared already at 1fr, with nothing for the transition to start
+          from, and that first expand snapped open. The relics inside still
+          wait for that first expand. */}
+      <div
+        id={bodyId}
+        className="grid transition-[grid-template-rows] duration-300 ease-out"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          {everOpened && (
             <div className="space-y-4 border-t p-3 sm:p-4" style={{ borderColor: `${tint}33` }}>
               <DiagnosticsPanel d={d} tint={tint} relics={character.relics} />
               <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
@@ -237,9 +263,9 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
                 ))}
               </div>
             </div>
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </section>
   );
 }

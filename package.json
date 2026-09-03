@@ -17,6 +17,7 @@
     "fetch-pfps": "node scripts/fetch-profile-pictures.js",
     "fetch-hsr": "node scripts/fetch-hsr-data.js",
     "fetch-hsr-weights": "node scripts/fetch-fribbels-weights.mjs",
+    "fetch-hsr-stats": "node scripts/fetch-hsr-stats.mjs",
     "fetch-zzz": "node scripts/fetch-zzz-data.mjs",
     "fetch-zzz-weights": "node scripts/fetch-zzz-weights.mjs",
     "refresh": "node scripts/refresh.mjs",

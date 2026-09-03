@@ -14,7 +14,7 @@ export function ZzzLayout() {
   useDocumentTitle("Disc Aurum - Zenless Zone Zero drive disc scorer");
 
   return (
-    <div className="flex min-h-screen flex-col bg-zzz-bg text-zzz-text lg:pl-14">
+    <div className="flex min-h-screen flex-col bg-zzz-bg text-zzz-text lg:pl-14" data-game="zzz">
       <GameRail current="zzz" />
       <header className="sticky top-0 z-30 border-b border-zzz-border bg-zzz-panel/80 backdrop-blur-md">
         <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">

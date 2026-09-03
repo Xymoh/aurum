@@ -38,6 +38,7 @@ const STEPS = [
   { id: "pfps", label: "Profile pictures", script: "fetch-profile-pictures.js" },
   { id: "hsr", label: "Star Rail game tables (StarRailRes)", script: "fetch-hsr-data.js" },
   { id: "hsr-weights", label: "Star Rail per-character weights (Fribbels)", script: "fetch-fribbels-weights.mjs" },
+  { id: "hsr-stats", label: "Star Rail stat curves (StarRailRes)", script: "fetch-hsr-stats.mjs" },
   { id: "zzz", label: "Zenless game tables (Enka store)", script: "fetch-zzz-data.mjs" },
   { id: "zzz-weights", label: "Zenless per-agent weights (Prydwen guides)", script: "fetch-zzz-weights.mjs" },
 ];

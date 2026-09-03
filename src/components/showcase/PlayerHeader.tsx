@@ -118,7 +118,7 @@ export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastU
   }, [onRefresh]);
 
   return (
-    <div className="flex flex-wrap items-center gap-3 rounded-xl border border-dark-border bg-dark-card px-4 py-3 sm:gap-4 sm:px-5">
+    <div className="flex flex-wrap items-center gap-3 game-panel border border-dark-border bg-dark-card px-4 py-3 sm:gap-4 sm:px-5">
       <PlayerAvatar iconName={playerInfo.avatarIcon} nickname={playerInfo.nickname} />
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">

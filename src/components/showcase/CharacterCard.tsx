@@ -159,7 +159,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
   return (
     <div
       id={`character-${character.id}`}
-      className="character-card animate-fade-in-up flex scroll-mt-20 flex-col transition-colors"
+      className="character-card game-panel animate-fade-in-up flex scroll-mt-20 flex-col transition-colors"
       // Staggered so the list assembles top-down rather than flashing in as a
       // block, capped because a 12-character showcase spent nearly a second
       // waiting on the last card at the previous 80ms per index.
@@ -290,17 +290,22 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
 
       {/* ── EXPANDED BODY ──
           Expand and collapse both animate, via a grid row running 0fr to 1fr,
-          which transitions without needing the content height up front. The
-          body mounts on first expand and then stays, so there is something to
-          fold; mounting every character's artifacts up front would be a lot of
-          DOM for a twelve-character showcase. */}
-      {everExpanded && (
-        <div
-          id={bodyId}
-          className="grid transition-[grid-template-rows] duration-300 ease-out"
-          style={{ gridTemplateRows: isExpanded ? "1fr" : "0fr" }}
-        >
-          <div className="overflow-hidden">
+          which transitions without needing the content height up front.
+
+          The row wrapper stays mounted while collapsed so 0fr is a value the
+          browser has actually rendered. Mounting it only on first expand meant
+          it appeared already at 1fr, leaving the transition nothing to start
+          from, so the first expand snapped open. The artifacts inside still
+          mount on that first expand and then stay: mounting every character's
+          artifacts up front would be a lot of DOM for a twelve-character
+          showcase. */}
+      <div
+        id={bodyId}
+        className="grid transition-[grid-template-rows] duration-300 ease-out"
+        style={{ gridTemplateRows: isExpanded ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          {everExpanded && (
             <div className="border-t border-dark-border/60 bg-dark-bg/30">
               <div className="flex flex-col gap-3 p-3 sm:gap-4 sm:p-4 lg:p-5">
                 {/* Traveler notice - same avatarId across all 7 elements, so scoring can't be element-tuned */}
@@ -489,9 +494,9 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                 )}
               </div>
             </div>
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

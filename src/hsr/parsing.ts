@@ -57,6 +57,7 @@ interface RawEquipment {
   tid?: number;
   level?: number;
   rank?: number;
+  promotion?: number;
 }
 interface RawSkillNode {
   pointId: number;
@@ -65,6 +66,7 @@ interface RawSkillNode {
 interface RawAvatar {
   avatarId: number;
   level: number;
+  promotion?: number;
   rank?: number;
   equipment?: RawEquipment;
   relicList?: RawRelic[];
@@ -175,6 +177,20 @@ function parseRelic(raw: RawRelic): ParsedRelic | null {
   };
 }
 
+/**
+ * Ascension from level, for the rare payload that omits it. The thresholds
+ * are the game's: a level 80 character has taken all six ascensions.
+ */
+export function ascensionFor(level: number): number {
+  if (level > 70) return 6;
+  if (level > 60) return 5;
+  if (level > 50) return 4;
+  if (level > 40) return 3;
+  if (level > 30) return 2;
+  if (level > 20) return 1;
+  return 0;
+}
+
 /** Node ids end in a three-digit code identifying which trace they are. */
 const TRACE_CODES: Record<number, keyof Omit<HsrTraces, "bonusTaken" | "bonusTotal">> = {
   1: "basic",
@@ -215,6 +231,7 @@ function parseLightCone(eq: RawEquipment | undefined): HsrLightCone | null {
     name: meta?.name ?? `Light Cone ${eq.tid}`,
     path: meta?.path ?? "",
     level: eq.level ?? 1,
+    promotion: eq.promotion ?? ascensionFor(eq.level ?? 1),
     superimposition: eq.rank ?? 1,
   };
 }
@@ -222,7 +239,7 @@ function parseLightCone(eq: RawEquipment | undefined): HsrLightCone | null {
 /** A relic before scoring: shape only, no judgement applied yet. */
 export type ParsedRelic = Omit<HsrRelic, "score" | "reroll">;
 /** A character before scoring and diagnostics. */
-export type ParsedCharacter = Omit<HsrCharacter, "relics" | "diagnostics"> & {
+export type ParsedCharacter = Omit<HsrCharacter, "relics" | "diagnostics" | "stats"> & {
   relics: ParsedRelic[];
 };
 export type ParsedShowcase = Omit<HsrShowcase, "characters"> & {
@@ -246,9 +263,13 @@ export function parseHsrShowcase(raw: RawHsrResponse): ParsedShowcase {
       element: meta?.element ?? "",
       rarity: meta?.rarity ?? 5,
       level: a.level,
+      promotion: a.promotion ?? ascensionFor(a.level),
       eidolon: a.rank ?? 0,
       lightCone: parseLightCone(a.equipment),
       traces: parseTraces(a.skillTreeList),
+      // Every node the player has taken. The skill nodes carry no stat
+      // bonuses, so they simply miss the lookup rather than needing filtering.
+      traceNodes: (a.skillTreeList ?? []).filter((n) => n.level > 0).map((n) => n.pointId),
       relics: (a.relicList ?? []).map(parseRelic).filter((r): r is ParsedRelic => r !== null),
     };
   });

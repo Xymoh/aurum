@@ -48,13 +48,13 @@ export function UidInput() {
             value={rawInput}
             onChange={handleChange}
             maxLength={9}
-            className={`flex-1 h-12 px-4 rounded-xl text-lg font-mono tracking-wider
+            className={`game-panel-sm flex-1 h-12 px-4 text-lg font-mono tracking-wider
               bg-dark-card border outline-none transition-all duration-200
               text-dark-text placeholder:text-dark-muted/50
               ${
                 error
                   ? "border-red-500/50 focus:border-red-500"
-                  : "border-dark-border focus:border-accent"
+                  : "border-dark-border"
               }
               ${rawInput.length === 9 && !error ? "animate-[pulse_2s_ease-in-out_1]" : ""}
             `}
@@ -64,7 +64,7 @@ export function UidInput() {
           <button
             type="submit"
             disabled={!isValidUid(rawInput) || isSubmitting}
-            className="h-12 px-4 sm:px-6 rounded-xl bg-accent text-dark-bg font-semibold text-sm
+            className="game-panel-sm h-12 px-4 sm:px-6 bg-accent text-dark-bg font-semibold text-sm
               hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed
               transition-all duration-200 flex items-center gap-2 flex-shrink-0"
           >

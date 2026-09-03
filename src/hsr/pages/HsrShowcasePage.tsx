@@ -17,7 +17,7 @@ function Skeleton() {
   return (
     <div className="space-y-3">
       {[0, 1, 2, 3].map((i) => (
-        <div key={i} className="h-16 animate-pulse rounded-xl border border-hsr-border bg-hsr-panel/40" />
+        <div key={i} className="h-16 animate-pulse game-panel border border-hsr-border bg-hsr-panel/40" />
       ))}
     </div>
   );
@@ -68,7 +68,7 @@ interface NextMove {
 function BestNextMoves({ moves, onSelect }: { moves: NextMove[]; onSelect: (avatarId: number) => void }) {
   if (moves.length === 0) return null;
   return (
-    <section className="rounded-xl border border-hsr-border bg-hsr-panel/50 p-4 sm:p-5" aria-labelledby="hsr-next-moves">
+    <section className="game-panel border border-hsr-border bg-hsr-panel/50 p-4 sm:p-5" aria-labelledby="hsr-next-moves">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <h2 id="hsr-next-moves" className="flex items-center gap-2 text-sm font-semibold text-hsr-text">
           <TargetIcon className="h-4 w-4 text-hsr-accent" /> Best next moves
@@ -215,7 +215,7 @@ export function HsrShowcasePage() {
 
   if (error) {
     return (
-      <div className="mx-auto max-w-md rounded-xl border border-verdict-replace/30 bg-verdict-replace/10 p-5 text-center">
+      <div className="mx-auto max-w-md game-panel border border-verdict-replace/30 bg-verdict-replace/10 p-5 text-center">
         <p className="text-sm text-hsr-text">{error.message}</p>
         <Link
           to="/hsr"
@@ -245,7 +245,7 @@ export function HsrShowcasePage() {
 
   return (
     <div className="space-y-4">
-      <header className="flex flex-wrap items-center gap-3 rounded-xl border border-hsr-border bg-hsr-panel/50 px-4 py-3 sm:gap-4 sm:px-5">
+      <header className="flex flex-wrap items-center gap-3 game-panel border border-hsr-border bg-hsr-panel/50 px-4 py-3 sm:gap-4 sm:px-5">
         <div className="min-w-0 flex-1">
           <h1 className="truncate text-lg font-semibold text-hsr-text">{data.nickname}</h1>
           <p className="font-mono text-sm text-hsr-muted">
@@ -279,12 +279,12 @@ export function HsrShowcasePage() {
       <BestNextMoves moves={nextMoves} onSelect={jumpTo} />
 
       {characters.length === 0 ? (
-        <p className="rounded-xl border border-hsr-border bg-hsr-panel/40 p-5 text-center text-sm text-hsr-muted">
+        <p className="game-panel border border-hsr-border bg-hsr-panel/40 p-5 text-center text-sm text-hsr-muted">
           This showcase has no characters on display.
         </p>
       ) : (
         <div className="space-y-2">
-          <div className="z-20 flex flex-col gap-2 rounded-xl border border-hsr-border bg-hsr-panel/90 p-3 backdrop-blur-md sm:sticky sm:top-16 sm:flex-row sm:items-center">
+          <div className="z-20 flex flex-col gap-2 rounded-lg border border-hsr-border bg-hsr-panel/90 p-3 backdrop-blur-md sm:sticky sm:top-16 sm:flex-row sm:items-center">
             <input
               type="search"
               value={search}

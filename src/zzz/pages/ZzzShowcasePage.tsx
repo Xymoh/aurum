@@ -16,7 +16,7 @@ function Skeleton() {
   return (
     <div className="space-y-3">
       {[0, 1, 2, 3].map((i) => (
-        <div key={i} className="h-16 animate-pulse rounded-xl border border-zzz-border bg-zzz-panel/40" />
+        <div key={i} className="h-16 animate-pulse game-panel border border-zzz-border bg-zzz-panel/40" />
       ))}
     </div>
   );
@@ -59,7 +59,7 @@ interface WeakDisc {
 function WeakestDiscs({ items, onSelect }: { items: WeakDisc[]; onSelect: (id: number) => void }) {
   if (items.length === 0) return null;
   return (
-    <section className="rounded-xl border border-zzz-border bg-zzz-panel/50 p-4 sm:p-5" aria-labelledby="zzz-weakest">
+    <section className="game-panel border border-zzz-border bg-zzz-panel/50 p-4 sm:p-5" aria-labelledby="zzz-weakest">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <h2 id="zzz-weakest" className="flex items-center gap-2 text-sm font-black uppercase tracking-wide text-zzz-text">
           <TargetIcon className="h-4 w-4 text-zzz-accent" /> Replace first
@@ -180,7 +180,7 @@ export function ZzzShowcasePage() {
 
   if (error) {
     return (
-      <div className="mx-auto max-w-md rounded-xl border border-zzz-signal/30 bg-zzz-signal/10 p-5 text-center">
+      <div className="mx-auto max-w-md game-panel border border-zzz-signal/30 bg-zzz-signal/10 p-5 text-center">
         <p className="text-sm text-zzz-text">{error.message}</p>
         <Link to="/zzz" className="mt-3 inline-block text-sm text-zzz-accent underline underline-offset-2">
           Try another UID
@@ -203,7 +203,7 @@ export function ZzzShowcasePage() {
 
   return (
     <div className="space-y-4">
-      <header className="flex flex-wrap items-center gap-3 rounded-xl border border-zzz-border bg-zzz-panel/60 px-4 py-3 sm:gap-4 sm:px-5">
+      <header className="flex flex-wrap items-center gap-3 game-panel border border-zzz-border bg-zzz-panel/60 px-4 py-3 sm:gap-4 sm:px-5">
         {data.profilePicture && (
           <img src={data.profilePicture} alt="" className="h-12 w-12 shrink-0 rounded-full bg-zzz-inset object-cover ring-2 ring-zzz-accent/40" />
         )}
@@ -238,12 +238,12 @@ export function ZzzShowcasePage() {
       <WeakestDiscs items={weakest} onSelect={jumpTo} />
 
       {agents.length === 0 ? (
-        <p className="rounded-xl border border-zzz-border bg-zzz-panel/40 p-5 text-center text-sm text-zzz-muted">
+        <p className="game-panel border border-zzz-border bg-zzz-panel/40 p-5 text-center text-sm text-zzz-muted">
           This showcase has no agents on display.
         </p>
       ) : (
         <div className="space-y-2">
-          <div className="z-20 flex flex-col gap-2 rounded-xl border border-zzz-border bg-zzz-panel/90 p-3 backdrop-blur-md sm:sticky sm:top-16 sm:flex-row sm:items-center">
+          <div className="z-20 flex flex-col gap-2 rounded-lg border border-zzz-border bg-zzz-panel/90 p-3 backdrop-blur-md sm:sticky sm:top-16 sm:flex-row sm:items-center">
             <input type="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search agents…" aria-label="Search agents" className={`${CONTROL} min-w-[140px] flex-1 placeholder:text-zzz-muted/70`} />
             <select value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)} aria-label="Filter by role" className={CONTROL}>
               <option value="ALL">All roles</option>

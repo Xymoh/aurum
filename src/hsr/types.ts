@@ -106,11 +106,31 @@ export interface HsrTraces {
   bonusTotal: number;
 }
 
+/** Final stats, as the game's character screen shows them. */
+export interface HsrStats {
+  hp: number;
+  atk: number;
+  def: number;
+  spd: number;
+  /** Percentages as percents: 57.4 rather than 0.574. */
+  critRate: number;
+  critDmg: number;
+  breakEffect: number;
+  energyRegen: number;
+  effectHitRate: number;
+  effectRes: number;
+  healRatio: number;
+  /** The character's own element, the only damage bonus worth showing. */
+  elementalDmg: number;
+}
+
 export interface HsrLightCone {
   id: number;
   name: string;
   path: string;
   level: number;
+  /** Ascension, 0-6. Needed to read the right row of the stat curve. */
+  promotion: number;
   /** Superimposition, 1-5. */
   superimposition: number;
 }
@@ -122,11 +142,16 @@ export interface HsrCharacter {
   element: string;
   rarity: number;
   level: number;
+  /** Ascension, 0-6. Needed to read the right row of the stat curve. */
+  promotion: number;
   /** Eidolon, 0-6. */
   eidolon: number;
   lightCone: HsrLightCone | null;
   traces: HsrTraces | null;
+  /** Every skill-tree node the player has taken, for the trace stat bonuses. */
+  traceNodes: number[];
   relics: HsrRelic[];
+  stats: HsrStats;
   diagnostics: BuildDiagnostics;
 }
 

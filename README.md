@@ -76,6 +76,7 @@ Opens at `http://localhost:3000`. Enter a Genshin UID (e.g., `707019355`) to vie
 | `npm run fetch-locale` | Refresh localized game text for all 8 languages |
 | `npm run fetch-pfps` | Refresh player profile-picture icons (run after a new patch) |
 | `npm run fetch-hsr-weights` | Re-import per-character HSR scoring weights from Fribbels |
+| `npm run fetch-hsr-stats` | Re-import HSR stat curves, traces and set bonuses |
 | `npm run audit-genshin` | Cross-check Genshin substat weights against Prydwen, KQM and Game8 |
 
 ## Data Pipeline
@@ -166,9 +167,41 @@ npm run fetch-zzz            # game tables
 npm run fetch-zzz-weights    # Prydwen priorities -> src/zzz/data/scoring-metadata.json
 ```
 
+## Character stats
+
+All three scorers show the character's final stats, the same figures the
+game's own character screen and Enka print. Each is checked against Enka for
+a known UID, and those numbers are pinned in the tests:
+
+| Game | Source | Verified against |
+|---|---|---|
+| Genshin | Enka reports them directly | n/a |
+| Star Rail | `fetch-hsr-stats.mjs` (StarRailRes curves, traces, set bonuses, light cone passives) | Saber on `700600838` |
+| Zenless | `fetch-zzz-data.mjs` (Enka agent curves + W-Engine multipliers) | Burnice on `1300064261` |
+
+Conditional effects are deliberately excluded in both new engines: a light
+cone's "when the wearer attacks" clause cannot be read from a showcase, and
+Enka omits them too, so including them would put our numbers at odds with
+both the game and every other showcase site. The unconditional half of a
+light cone's passive **is** included, because the game always applies it.
+
+Two things that are easy to get wrong and are pinned by tests:
+
+- **Star Rail** light cone passives carry a flat stat bonus per
+  superimposition. Saber's grants 36% CRIT DMG; without it the total reads
+  165.8% instead of 201.8%.
+- **Zenless** reports a fully ascended agent as promotion 6 while Enka's own
+  promotion table has six rows indexed 0 to 5, so the lookup has to clamp or
+  the entire promotion bonus silently vanishes (Burnice's HP drops from
+  10,680 to 8,463).
+
 ## Adding a game
 
-Navigation is driven entirely by `src/games/registry.ts`. The picker at `/`,
+Navigation is driven entirely by `src/games/registry.ts`. Each entry also
+carries a `shape`, which is the corner geometry its tab takes in the game
+switcher when active: Genshin rounds, Star Rail notches two corners, Zenless
+cuts a bevel. That is the trick that makes Enka's switcher read as several
+separate tools rather than one bar, and the classes live in `index.css`. The picker at `/`,
 the fixed side rail and the compact header switcher all iterate `GAMES`, so a
 new game means:
 

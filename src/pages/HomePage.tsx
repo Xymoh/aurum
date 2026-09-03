@@ -48,7 +48,7 @@ export function HomePage() {
               <Link
                 key={entry.uid}
                 to={`/genshin/showcase/${entry.uid}`}
-                className="rounded-lg bg-dark-card border border-dark-border px-4 py-2 text-dark-text text-sm no-underline hover:border-accent hover:text-accent transition-colors"
+                className="game-panel-sm bg-dark-card border border-dark-border px-4 py-2 text-dark-text text-sm no-underline hover:border-accent hover:text-accent transition-colors"
               >
                 {entry.uid}
               </Link>
@@ -66,7 +66,7 @@ export function HomePage() {
           {steps.map((step, i) => (
             <li
               key={step.title}
-              className="rounded-xl border border-dark-border bg-dark-card/40 p-4 space-y-2"
+              className="game-panel border border-dark-border bg-dark-card/40 p-4 space-y-2"
             >
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/15 text-sm font-bold text-accent">
                 {i + 1}
@@ -81,7 +81,7 @@ export function HomePage() {
       {/* ── Scoring reference (same content as the in-app "?" panel).
           Collapsed by default: it is six hundred words, and the three steps
           above already answer "what does this do". ── */}
-      <details className="group w-full max-w-2xl rounded-xl border border-dark-border bg-dark-card/40 open:bg-dark-card/60">
+      <details className="group w-full max-w-2xl game-panel border border-dark-border bg-dark-card/40 open:bg-dark-card/60">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-5 sm:p-6 [&::-webkit-details-marker]:hidden">
           <span>
             <span className="block text-base font-bold text-dark-text">{t("nav", "howScoringWorks")}</span>
@@ -101,7 +101,7 @@ export function HomePage() {
       </details>
 
       {/* ── Where the numbers come from ── */}
-      <div className="w-full max-w-2xl rounded-xl border border-dark-border bg-dark-card/40 p-5 sm:p-6 space-y-3">
+      <div className="w-full max-w-2xl game-panel border border-dark-border bg-dark-card/40 p-5 sm:p-6 space-y-3">
         <h2 className="text-dark-text text-base font-bold">{t("home", "dataTitle")}</h2>
         <ul className="space-y-2 text-sm text-dark-muted leading-relaxed">
           <li>
@@ -132,7 +132,7 @@ export function HomePage() {
       </div>
 
       {/* ── Limitations ── */}
-      <div className="w-full max-w-2xl rounded-xl border border-dark-border/50 bg-dark-card/40 px-5 py-4 space-y-2">
+      <div className="w-full max-w-2xl game-panel border border-dark-border/50 bg-dark-card/40 px-5 py-4 space-y-2">
         <div className="flex items-start gap-2.5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
