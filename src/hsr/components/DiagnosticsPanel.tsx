@@ -39,28 +39,28 @@ export function DiagnosticsPanel({
   return (
     <div className="space-y-3">
       {/* Headline: how many upgrades are working, and against what bar. */}
-      <div className="rounded-lg border border-hsr-border/70 bg-black/25 p-3">
+      <div className="rounded-lg border border-hsr-border/70 bg-hsr-inset p-3">
         <div className="mb-2 flex items-baseline justify-between gap-3">
           <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-hsr-muted">
             Useful rolls
           </h3>
           <p className="font-mono text-sm">
-            <span style={{ color: tint }}>{d.effectiveRolls}</span>
+            <span className="font-bold text-hsr-text">{d.effectiveRolls}</span>
             <span className="text-hsr-muted"> of {d.totalRolls}</span>
           </p>
         </div>
 
-        <div className="relative h-2.5 w-full overflow-hidden rounded-full bg-white/5">
+        <div className="relative h-2.5 w-full overflow-hidden rounded-full bg-hsr-fill">
           <div
             className="animate-bar-grow absolute inset-y-0 left-0 rounded-full"
             style={{ width: `${effectivePct}%`, backgroundColor: tint }}
           />
           <div
-            className="absolute inset-y-0 bg-white/10"
+            className="absolute inset-y-0 bg-hsr-muted/30"
             style={{ left: `${effectivePct}%`, width: `${wastedPct}%` }}
           />
           <div
-            className="absolute inset-y-0 w-px bg-hsr-gold/70"
+            className="absolute inset-y-0 w-px bg-hsr-gold"
             style={{ left: `${(BENCHMARK_ROLLS / MAX_ROLLS) * 100}%` }}
             title={`Benchmark: ${BENCHMARK_ROLLS} useful rolls`}
           />
@@ -88,7 +88,7 @@ export function DiagnosticsPanel({
       </div>
 
       {(nextMoves.length > 0 || toReplace.length > 0) && (
-        <div className="rounded-lg border border-hsr-border/70 bg-black/25 p-3">
+        <div className="rounded-lg border border-hsr-border/70 bg-hsr-inset p-3">
           <h3 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-hsr-muted">
             Best next moves
           </h3>
@@ -108,7 +108,7 @@ export function DiagnosticsPanel({
               <li key={r.id} className="flex items-baseline justify-between gap-2 text-sm">
                 <span className="truncate">
                   <span className="text-hsr-text">{SLOT_LABELS[r.slot]}</span>{" "}
-                  <span className="text-rose-300/80">farm a replacement</span>
+                  <span className="text-verdict-replace">farm a replacement</span>
                 </span>
                 <span className="shrink-0 font-mono text-xs text-hsr-muted">
                   tops out {r.reroll.realisticCeiling.toFixed(0)}%
@@ -116,15 +116,12 @@ export function DiagnosticsPanel({
               </li>
             ))}
           </ul>
-          {nextMoves.length === 0 && toReplace.length === 0 && (
-            <p className="text-sm text-hsr-accent">Nothing worth spending dice on.</p>
-          )}
         </div>
       )}
 
       <div className="grid gap-3 lg:grid-cols-2">
         {/* Left: what the build actually adds up to. */}
-        <div className="rounded-lg border border-hsr-border/70 bg-black/20 p-3">
+        <div className="rounded-lg border border-hsr-border/70 bg-hsr-inset p-3">
           <h3 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-hsr-muted">
             Substat totals
           </h3>
@@ -142,20 +139,20 @@ export function DiagnosticsPanel({
           </ul>
 
           {d.critRatio !== null && (
-            <div className="mt-2 flex items-baseline justify-between border-t border-white/5 pt-2">
+            <div className="mt-2 flex items-baseline justify-between border-t border-hsr-line pt-2">
               <span className="text-sm text-hsr-muted">Crit ratio</span>
               <span className="font-mono text-sm">
-                <span className={critOk ? "text-hsr-accent" : "text-amber-400"}>
+                <span className={critOk ? "text-hsr-accent" : "text-warn"}>
                   1 : {d.critRatio.toFixed(2)}
                 </span>
-                <span className="ml-1.5 text-hsr-muted/70">target 1 : 2</span>
+                <span className="ml-1.5 text-hsr-muted">target 1 : 2</span>
               </span>
             </div>
           )}
         </div>
 
         {/* Right: what to actually do about it. */}
-        <div className="rounded-lg border border-hsr-border/70 bg-black/20 p-3">
+        <div className="rounded-lg border border-hsr-border/70 bg-hsr-inset p-3">
           <h3 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-hsr-muted">
             Where the dead rolls sit
           </h3>
@@ -180,7 +177,7 @@ export function DiagnosticsPanel({
             </ul>
           )}
 
-          <div className="mt-2 space-y-1 border-t border-white/5 pt-2">
+          <div className="mt-2 space-y-1 border-t border-hsr-line pt-2">
             {d.sets.map((s) => (
               <p key={s.setId} className="truncate text-sm text-hsr-text/80">
                 <span className="font-mono text-hsr-glow">{s.pieces}pc</span> {s.name}

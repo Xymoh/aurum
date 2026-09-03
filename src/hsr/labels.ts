@@ -2,6 +2,7 @@
 
 import type { HsrSlot, HsrStatKey } from "./types";
 import { isPercentStat } from "./parsing";
+import { gradeTextClass } from "../lib/grade";
 
 export const STAT_LABELS: Record<HsrStatKey, string> = {
   HPDelta: "HP",
@@ -45,34 +46,10 @@ export function formatStat(key: HsrStatKey, value: number): string {
 }
 
 /**
- * Colour per grade band.
- *
- * Keyed exactly rather than by prefix: "SSS" and "SS" both start with "SS",
- * and "AEON" starts with "A", so prefix matching silently collapsed bands the
- * ladder deliberately separates.
+ * Text colour class per grade band, from the ramp shared with the Genshin
+ * side (src/lib/grade.ts). "SSS" and "SS" resolve to different bands, and so
+ * do "AEON" and "A": the band lookup strips only a trailing plus.
  */
-const GRADE_COLORS: Record<string, string> = {
-  AEON: "text-fuchsia-300",
-  "WTF+": "text-emerald-300",
-  WTF: "text-emerald-400",
-  "SSS+": "text-rose-400",
-  SSS: "text-orange-400",
-  "SS+": "text-orange-300",
-  SS: "text-amber-300",
-  "S+": "text-hsr-gold",
-  S: "text-yellow-300",
-  "A+": "text-violet-300",
-  A: "text-violet-400",
-  "B+": "text-sky-300",
-  B: "text-sky-400",
-  "C+": "text-emerald-400",
-  C: "text-emerald-500",
-  "D+": "text-hsr-muted",
-  D: "text-hsr-muted",
-  "F+": "text-rose-500/80",
-  F: "text-rose-500/80",
-};
-
 export function gradeColor(grade: string): string {
-  return GRADE_COLORS[grade] ?? "text-hsr-muted";
+  return gradeTextClass(grade);
 }

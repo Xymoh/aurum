@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Design tokens
+
+   Everything colour-related that a component might reference lives here, in
+   two layers:
+
+   1. Raw palette variables on :root (--grade-*, --verdict-*, --surface-*),
+      with a full light-mode override block. Components never hard-code a hex.
+   2. Tailwind theme aliases (@theme) that point at those variables, so the
+      same value is reachable as `text-grade-s`, `bg-verdict-high/10` or
+      `var(--grade-s)` and stays in sync across the two games.
+   --------------------------------------------------------------------------- */
+
 @theme {
-  --color-dark-bg: #0f1117;
-  --color-dark-card: #1a1d2e;
-  --color-dark-card-hover: #1f2338;
-  --color-dark-border: #2a2d3e;
-  --color-dark-text: #e4e4e7;
-  --color-dark-muted: #8b8fa3;
-  --color-accent: #d4a853;
+  --color-dark-bg: var(--surface-bg);
+  --color-dark-card: var(--surface-card);
+  --color-dark-card-hover: var(--surface-card-hover);
+  --color-dark-border: var(--surface-border);
+  --color-dark-text: var(--surface-text);
+  --color-dark-muted: var(--surface-muted);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
 
   /* Honkai: Star Rail palette. Deliberately cold and high-contrast against
      the Genshin side's warm gold, so the two tabs never read as the same
      page with different data in it. */
-  --color-hsr-bg: #080a12;
-  --color-hsr-panel: #10131f;
-  --color-hsr-card: #151929;
-  --color-hsr-border: #242a40;
-  --color-hsr-text: #e8ecf8;
-  --color-hsr-muted: #7d86a3;
-  --color-hsr-accent: #5eead4;
-  --color-hsr-glow: #38bdf8;
-  --color-hsr-gold: #f5d580;
+  --color-hsr-bg: var(--hsr-bg);
+  --color-hsr-panel: var(--hsr-panel);
+  --color-hsr-card: var(--hsr-card);
+  --color-hsr-border: var(--hsr-border);
+  --color-hsr-text: var(--hsr-text);
+  --color-hsr-muted: var(--hsr-muted);
+  --color-hsr-accent: var(--hsr-accent);
+  --color-hsr-glow: var(--hsr-glow);
+  --color-hsr-gold: var(--hsr-gold);
+  /* Surfaces inside a card: a recessed well, a raised fill and a hairline. */
+  --color-hsr-inset: var(--hsr-inset);
+  --color-hsr-fill: var(--hsr-fill);
+  --color-hsr-line: var(--hsr-line);
+
+  /* Grade bands, best last. Plus-grades share their band's colour. */
+  --color-grade-f: var(--grade-f);
+  --color-grade-d: var(--grade-d);
+  --color-grade-c: var(--grade-c);
+  --color-grade-b: var(--grade-b);
+  --color-grade-a: var(--grade-a);
+  --color-grade-s: var(--grade-s);
+  --color-grade-ss: var(--grade-ss);
+  --color-grade-sss: var(--grade-sss);
+  --color-grade-wtf: var(--grade-wtf);
+  --color-grade-aeon: var(--grade-aeon);
+
+  /* What to do with a piece. */
+  --color-verdict-high: var(--verdict-high);
+  --color-verdict-medium: var(--verdict-medium);
+  --color-verdict-low: var(--verdict-low);
+  --color-verdict-replace: var(--verdict-replace);
+  --color-verdict-ok: var(--verdict-ok);
+  --color-warn: var(--warn);
 
   --color-path-warrior: #f87171;
   --color-path-rogue: #fbbf24;
@@ -40,14 +78,6 @@
   --color-hsrel-quantum: #818cf8;
   --color-hsrel-imaginary: #fde047;
 
-  --color-grade-s-plus: #ffd700;
-  --color-grade-s: #ff8c00;
-  --color-grade-a: #a855f7;
-  --color-grade-b: #3b82f6;
-  --color-grade-c: #22c55e;
-  --color-grade-d: #6b7280;
-  --color-grade-f: #ef4444;
-
   --color-element-pyro: #ef4444;
   --color-element-hydro: #3b82f6;
   --color-element-anemo: #22d3ee;
@@ -56,30 +86,58 @@
   --color-element-cryo: #93c5fd;
   --color-element-geo: #f59e0b;
 
-  --color-stat-crit-rate: #f59e0b;
-  --color-stat-crit-dmg: #ef4444;
-  --color-stat-atk-percent: #f97316;
-  --color-stat-hp-percent: #22c55e;
-  --color-stat-def-percent: #facc15;
-  --color-stat-em: #a855f7;
-  --color-stat-er: #60a5fa;
-  --color-stat-healing: #fb923c;
-  --color-stat-physical-dmg: #94a3b8;
-  --color-stat-elemental-dmg: #38bdf8;
-
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 }
 
 @layer base {
   :root {
-    --grade-s-plus: #ffd700;
-    --grade-s: #ff8c00;
-    --grade-a: #a855f7;
-    --grade-b: #3b82f6;
-    --grade-c: #22c55e;
-    --grade-d: #6b7280;
-    --grade-f: #ef4444;
+    color-scheme: dark;
+
+    /* Genshin surfaces */
+    --surface-bg: #0f1117;
+    --surface-card: #1a1d2e;
+    --surface-card-hover: #1f2338;
+    --surface-border: #2a2d3e;
+    --surface-text: #e4e4e7;
+    --surface-muted: #8b8fa3;
+    --accent: #d4a853;
+    --accent-strong: #f0c675;
+
+    /* Star Rail surfaces */
+    --hsr-bg: #080a12;
+    --hsr-panel: #10131f;
+    --hsr-card: #151929;
+    --hsr-border: #242a40;
+    --hsr-text: #e8ecf8;
+    --hsr-muted: #7d86a3;
+    --hsr-accent: #5eead4;
+    --hsr-glow: #38bdf8;
+    --hsr-gold: #f5d580;
+    --hsr-inset: rgba(0, 0, 0, 0.3);
+    --hsr-fill: rgba(255, 255, 255, 0.06);
+    --hsr-line: rgba(255, 255, 255, 0.1);
+
+    /* Grade ramp. Reads like item rarity, which every gacha player already
+       knows: grey, green, blue, purple, gold, then hotter above gold. One
+       direction only, so a colour is enough to place a grade at a glance. */
+    --grade-f: #6b7280;
+    --grade-d: #9ca3af;
+    --grade-c: #34d399;
+    --grade-b: #38bdf8;
+    --grade-a: #a78bfa;
+    --grade-s: #fbbf24;
+    --grade-ss: #fb923c;
+    --grade-sss: #fb7185;
+    --grade-wtf: #e879f9;
+    --grade-aeon: #f5d0fe;
+
+    --verdict-high: #34d399;
+    --verdict-medium: #fbbf24;
+    --verdict-low: #94a3b8;
+    --verdict-replace: #fb7185;
+    --verdict-ok: #a3abc4;
+    --warn: #fbbf24;
 
     --element-pyro: #ef4444;
     --element-hydro: #3b82f6;
@@ -88,73 +146,68 @@
     --element-dendro: #22c55e;
     --element-cryo: #93c5fd;
     --element-geo: #f59e0b;
-
-    --stat-crit-rate: #f59e0b;
-    --stat-crit-dmg: #ef4444;
-    --stat-atk-percent: #f97316;
-    --stat-hp-percent: #22c55e;
-    --stat-def-percent: #facc15;
-    --stat-em: #a855f7;
-    --stat-er: #60a5fa;
-    --stat-healing: #fb923c;
-    --stat-physical-dmg: #94a3b8;
-    --stat-elemental-dmg: #38bdf8;
   }
 
+  /* Light mode. Every text colour here clears 4.5:1 on its own surface, which
+     the dark values did not: a gold S on white was 1.3:1. */
   :root[data-theme="light"] {
-    --color-dark-bg: #f5f3ef;
-    --color-dark-card: #ffffff;
-    --color-dark-card-hover: #f9f7f4;
-    --color-dark-border: #e0dcd5;
-    --color-dark-text: #1c1917;
-    --color-dark-muted: #57534e;
-    --color-accent: #b8860b;
+    color-scheme: light;
+
+    --surface-bg: #f5f3ef;
+    --surface-card: #ffffff;
+    --surface-card-hover: #f9f7f4;
+    --surface-border: #e0dcd5;
+    --surface-text: #1c1917;
+    --surface-muted: #5c574f;
+    --accent: #6f5106;
+    --accent-strong: #4f3a04;
+
+    --hsr-bg: #eef1f8;
+    --hsr-panel: #ffffff;
+    --hsr-card: #f6f8fc;
+    --hsr-border: #d7dce8;
+    --hsr-text: #141a2e;
+    --hsr-muted: #545e78;
+    --hsr-accent: #115e59;
+    --hsr-glow: #075985;
+    --hsr-gold: #92400e;
+    --hsr-inset: rgba(20, 26, 46, 0.05);
+    --hsr-fill: rgba(20, 26, 46, 0.06);
+    --hsr-line: rgba(20, 26, 46, 0.1);
+
+    /* Badges paint these over a 16% wash of themselves, which costs about a
+       third of the contrast, so each one clears 4.5:1 on its own wash rather
+       than merely on white. */
+    --grade-f: #3f3f46;
+    --grade-d: #52525b;
+    --grade-c: #065f46;
+    --grade-b: #075985;
+    --grade-a: #5b21b6;
+    --grade-s: #92400e;
+    --grade-ss: #9a3412;
+    --grade-sss: #9f1239;
+    --grade-wtf: #86198f;
+    --grade-aeon: #701a75;
+
+    --verdict-high: #065f46;
+    --verdict-medium: #92400e;
+    --verdict-low: #334155;
+    --verdict-replace: #9f1239;
+    --verdict-ok: #545e78;
+    --warn: #92400e;
   }
 
   :root[data-theme="light"] body {
     background-image: linear-gradient(135deg, #f5f3ef 0%, #ede9e0 100%);
   }
 
-  :root[data-theme="light"] .tier-list-card,
   :root[data-theme="light"] .character-card {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
   }
 
-  :root[data-theme="light"] .tier-list-card:hover {
-    border-color: #c4bfb6;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-
-  :root[data-theme="light"] .substat-bar-track {
-    background-color: rgba(0, 0, 0, 0.06);
-  }
-
-  :root[data-theme="light"] .score-pill {
-    color: #1c1917;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  }
-
-  :root[data-theme="light"] .set-bonus-slot {
-    background-color: #faf8f5;
-  }
-
-  :root[data-theme="light"] .set-bonus-slot.active {
-    box-shadow: 0 0 8px rgba(184, 134, 11, 0.2);
-  }
-
   :root[data-theme="light"] .skeleton {
-    background: linear-gradient(
-      90deg,
-      #f0ece6 25%,
-      #e8e3db 50%,
-      #f0ece6 75%
-    );
+    background: linear-gradient(90deg, #f0ece6 25%, #e8e3db 50%, #f0ece6 75%);
     background-size: 400% 100%;
-  }
-
-  :root[data-theme="light"] header {
-    background-color: rgba(255, 255, 255, 0.85) !important;
-    border-bottom-color: #e0dcd5 !important;
   }
 
   /* Keep icon containers dark in light mode - Enka icons have white outlines */
@@ -178,8 +231,8 @@
 
   body {
     font-family: "Inter", system-ui, sans-serif;
-    background-color: var(--color-dark-bg);
-    color: var(--color-dark-text);
+    background-color: var(--surface-bg);
+    color: var(--surface-text);
     min-height: 100vh;
     line-height: 1.6;
   }
@@ -192,81 +245,18 @@
 }
 
 @layer components {
-  .tier-list-card {
-    background-color: var(--color-dark-card);
-    border: 1px solid var(--color-dark-border);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: border-color 0.2s ease;
-  }
-
-  .tier-list-card:hover {
-    border-color: rgba(255, 255, 255, 0.15);
-  }
-
-  .score-pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 56px;
-    height: 32px;
-    border-radius: 16px;
-    padding: 0 12px;
-    font-size: 0.875rem;
-    font-weight: 700;
-    font-family: "JetBrains Mono", monospace;
-    color: #0f1117;
-  }
-
-  .substat-bar-track {
-    height: 8px;
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.08);
-    overflow: hidden;
-  }
-
-  .substat-bar-fill {
-    height: 100%;
-    border-radius: 4px;
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
   .character-card {
-    background-color: var(--color-dark-card);
-    border: 1px solid var(--color-dark-border);
+    background-color: var(--surface-card);
+    border: 1px solid var(--surface-border);
     border-radius: 12px;
     overflow: hidden;
-  }
-
-  .set-bonus-slot {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 2px solid var(--color-dark-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    transition: border-color 0.2s ease;
-  }
-
-  .set-bonus-slot.active {
-    border-color: var(--color-accent);
-    box-shadow: 0 0 8px rgba(212, 168, 83, 0.3);
-  }
-
-  .stat-label-text {
-    font-size: 0.6875rem;
-    font-weight: 500;
-    color: var(--color-dark-muted);
-    white-space: nowrap;
   }
 }
 
 @layer utilities {
   .scrollbar-thin {
     scrollbar-width: thin;
-    scrollbar-color: var(--color-dark-border) transparent;
+    scrollbar-color: var(--surface-border) transparent;
   }
 
   .scrollbar-thin::-webkit-scrollbar {
@@ -278,7 +268,7 @@
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: var(--color-dark-border);
+    background-color: var(--surface-border);
     border-radius: 3px;
   }
 }
@@ -296,9 +286,9 @@
 .skeleton {
   background: linear-gradient(
     90deg,
-    var(--color-dark-card) 25%,
-    var(--color-dark-card-hover) 50%,
-    var(--color-dark-card) 75%
+    var(--surface-card) 25%,
+    var(--surface-card-hover) 50%,
+    var(--surface-card) 75%
   );
   background-size: 400% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
@@ -320,6 +310,23 @@
 .animate-fade-in-up {
   animation: fadeInUp 0.4s ease-out forwards;
   opacity: 0;
+}
+
+/* Popover reveal. Short and from very close by, so it reads as the badge
+   speaking rather than a new panel arriving. */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-pop-in {
+  animation: popIn 0.12s ease-out forwards;
 }
 
 /* Grow a progress bar from its left edge. Scaling rather than animating width
@@ -358,7 +365,8 @@
 
   /* Whose static state, for reveal utilities, is hidden. Restore them. */
   .animate-fade-in-up,
-  .animate-bar-grow {
+  .animate-bar-grow,
+  .animate-pop-in {
     opacity: 1 !important;
     transform: none !important;
   }
@@ -366,6 +374,10 @@
 
 /* Focus ring for accessibility */
 *:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+:root[data-theme="light"] *:focus-visible {
+  outline-color: var(--accent-strong);
 }

@@ -72,6 +72,10 @@ const zh: Dictionary = {
     allElements: "全部元素",
     shown: "显示 {visible}/{total}",
     noMatch: "没有符合筛选条件的角色。",
+    expand: "展开 {name} 的详情",
+    collapse: "收起 {name} 的详情",
+    methodologyHint: "阅读完整评分说明",
+    copied: "链接已复制",
     noCharacters: "此展示柜中未找到角色。",
     noCharactersHint: "该玩家可能需要在游戏中设置角色展示柜。",
     noArtifacts: "此角色未装备圣遗物。",
@@ -175,6 +179,17 @@ const zh: Dictionary = {
     critDmg: "暴击伤害",
     er: "元素充能效率",
     elemDmg: "元素伤害加成",
+  },
+
+  statsShort: {
+    maxHp: "生命",
+    atk: "攻击",
+    def: "防御",
+    em: "精通",
+    critRate: "暴击",
+    critDmg: "暴伤",
+    er: "充能",
+    elemDmg: "增伤",
   },
 
   slots: {

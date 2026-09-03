@@ -78,6 +78,10 @@ export const en = {
     allElements: "All elements",
     shown: "{visible}/{total} shown",
     noMatch: "No characters match your filters.",
+    expand: "Show details for {name}",
+    collapse: "Hide details for {name}",
+    methodologyHint: "Read the full methodology",
+    copied: "Link copied",
     noCharacters: "No characters found on this showcase.",
     noCharactersHint: "The player may need to set up their character showcase in-game.",
     noArtifacts: "No artifacts equipped on this character.",
@@ -187,6 +191,18 @@ export const en = {
     critDmg: "CRIT DMG",
     er: "En. Recharge",
     elemDmg: "El. DMG",
+  },
+
+  /** Chip labels. Short enough that all eight fit on one line of a card. */
+  statsShort: {
+    maxHp: "HP",
+    atk: "ATK",
+    def: "DEF",
+    em: "EM",
+    critRate: "CR",
+    critDmg: "CD",
+    er: "ER",
+    elemDmg: "DMG",
   },
 
   slots: {

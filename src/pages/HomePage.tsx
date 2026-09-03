@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useI18n } from "../i18n";
 
 const LINK_CLASS =
-  "text-amber-400/80 hover:text-amber-300 underline underline-offset-2";
+  "text-accent hover:text-accent-strong underline underline-offset-2";
 
 export function HomePage() {
   const { recent: recentUids } = useRecentUids(GENSHIN_RECENT_UIDS_KEY);
@@ -78,11 +78,27 @@ export function HomePage() {
         </ol>
       </div>
 
-      {/* ── Scoring reference (same content as the in-app "?" panel) ── */}
-      <div className="w-full max-w-2xl rounded-xl border border-dark-border bg-dark-card/40 p-5 sm:p-6">
-        <h2 className="text-dark-text text-base font-bold mb-4">{t("nav", "howScoringWorks")}</h2>
-        <ScoringExplainer />
-      </div>
+      {/* ── Scoring reference (same content as the in-app "?" panel).
+          Collapsed by default: it is six hundred words, and the three steps
+          above already answer "what does this do". ── */}
+      <details className="group w-full max-w-2xl rounded-xl border border-dark-border bg-dark-card/40 open:bg-dark-card/60">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-5 sm:p-6 [&::-webkit-details-marker]:hidden">
+          <span>
+            <span className="block text-base font-bold text-dark-text">{t("nav", "howScoringWorks")}</span>
+            <span className="mt-0.5 block text-sm text-dark-muted">{t("showcase", "methodologyHint")}</span>
+          </span>
+          <svg
+            width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+            className="flex-shrink-0 text-dark-muted transition-transform duration-300 group-open:rotate-180"
+            aria-hidden="true"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </summary>
+        <div className="border-t border-dark-border/60 p-5 sm:p-6">
+          <ScoringExplainer />
+        </div>
+      </details>
 
       {/* ── Where the numbers come from ── */}
       <div className="w-full max-w-2xl rounded-xl border border-dark-border bg-dark-card/40 p-5 sm:p-6 space-y-3">
@@ -128,7 +144,7 @@ export function HomePage() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-amber-400/80 flex-shrink-0 mt-0.5"
+            className="text-accent flex-shrink-0 mt-0.5"
           >
             <circle cx="12" cy="12" r="10" />
             <line x1="12" y1="16" x2="12" y2="12" />

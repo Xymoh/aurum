@@ -129,23 +129,5 @@ export type ScoreGrade =
   | "SSS" | "SSS+"
   | "WTF" | "WTF+";
 
-export const GRADE_COLORS: Record<ScoreGrade, string> = {
-  "F":    "#4b5563",
-  "F+":   "#6b7280",
-  "D":    "#6b7280",
-  "D+":   "#9ca3af",
-  "C":    "#22c55e",
-  "C+":   "#4ade80",
-  "B":    "#3b82f6",
-  "B+":   "#60a5fa",
-  "A":    "#a855f7",
-  "A+":   "#c084fc",
-  "S":    "#ffd700",
-  "S+":   "#ffe44d",
-  "SS":   "#ffbd59",
-  "SS+":  "#ff8c00",
-  "SSS":  "#ff8c00",
-  "SSS+": "#de3a35",
-  "WTF":  "#1fe03f",
-  "WTF+": "#39ff5e",
-};
+// Grade colours live in src/lib/grade.ts, backed by CSS variables so the
+// light theme can swap the whole ramp.

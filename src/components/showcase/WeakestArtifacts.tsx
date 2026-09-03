@@ -1,26 +1,22 @@
 import { useMemo } from "react";
 import type { Artifact } from "../../types/artifact";
 import type { CharacterData } from "../../types/character";
-import { GRADE_COLORS } from "../../types/artifact";
+import { gradeVar, tint } from "../../lib/grade";
+import { formatScore } from "../../lib/format";
 import { getWeakestArtifacts } from "../../lib/insights";
-import { getRerollTier, chanceWithin, formatChance } from "../../lib/reroll";
+import { getRerollTier, formatChance } from "../../lib/reroll";
 import { TargetIcon, DiceIcon, RecycleIcon } from "../ui/icons";
+import { GradeBadge } from "../ui/GradeBadge";
 import { useI18n } from "../../i18n";
 
 const ENKA_UI_BASE = "https://enka.network/ui";
 const LIMIT = 6;
 
-/** Reroll tier ids map onto the localized verdict labels and blurbs. */
+/** Reroll tier ids map onto the localized verdict labels. */
 const TIER_LABEL = {
   high: "rerollNow",
   medium: "worthRerolling",
   low: "lowPriority",
-} as const;
-
-const TIER_BLURB = {
-  high: "blurbHigh",
-  medium: "blurbMedium",
-  low: "blurbLow",
 } as const;
 
 interface WeakestArtifactsProps {
@@ -28,65 +24,50 @@ interface WeakestArtifactsProps {
   onSelectCharacter: (characterId: string) => void;
 }
 
-/** Turn the reroll advice into a compact action chip for the card footer. */
-function ActionChip({ artifact }: { artifact: Artifact }) {
+/**
+ * The verdict, with the one detail the player needs to act on it: which two
+ * stats to nominate. That used to sit in a hover-only tooltip; everything
+ * else (multi-try odds, ceiling) is on the artifact card one click away.
+ */
+function ActionLine({ artifact }: { artifact: Artifact }) {
   const { t } = useI18n();
   const reroll = artifact.score.reroll;
-  const reasonText =
-    reroll.action === "level_up"
-      ? t("verdict", "reasonLevelUp")
-      : reroll.realisticCeiling > 0
-        ? t("verdict", "reasonReplaceWeak", { ceiling: reroll.realisticCeiling.toFixed(0) })
-        : t("verdict", "reasonReplaceNoValue");
 
   if (reroll.action === "reroll") {
     const tier = getRerollTier(reroll.expectedDust);
     if (tier) {
       return (
-        <span
-          className="inline-flex w-fit items-center gap-1 whitespace-nowrap rounded px-1.5 py-0.5 text-xs font-semibold"
-          style={{ backgroundColor: `${tier.color}1f`, color: tier.color }}
-          title={
-            `${t("verdict", TIER_BLURB[tier.id])}\n\n` +
-            `${t("verdict", "tipCost", {
-              dust: reroll.dustCost,
-              chance: formatChance(reroll.improveChance),
-            })}\n` +
-            `${t("verdict", "tipTries", {
-              tries: 2,
-              dust: reroll.dustCost * 2,
-              chance: formatChance(chanceWithin(reroll.improveChance, 2)),
-            })}\n\n` +
-            `${t("verdict", "tipNominate", { stats: reroll.targetStats.join(" + ") })}`
-          }
-        >
-          <DiceIcon className="w-2.5 h-2.5 flex-shrink-0" />
-          {t("verdict", TIER_LABEL[tier.id])} · {formatChance(reroll.improveChance)} ·{" "}
-          {t("verdict", "dust", { n: reroll.dustCost })}
-        </span>
+        <div className="rounded-md px-2 py-1" style={{ backgroundColor: tint(tier.color, 12), color: tier.color }}>
+          <div className="flex items-center justify-between gap-2 text-xs font-semibold">
+            <span className="flex items-center gap-1">
+              <DiceIcon className="h-3 w-3 flex-shrink-0" />
+              {t("verdict", TIER_LABEL[tier.id])}
+            </span>
+            <span className="whitespace-nowrap font-mono">
+              {formatChance(reroll.improveChance)} · {t("verdict", "dust", { n: reroll.dustCost })}
+            </span>
+          </div>
+          <p className="mt-0.5 truncate text-[11px] opacity-90">
+            {t("verdict", "tipNominate", { stats: reroll.targetStats.join(" + ") })}
+          </p>
+        </div>
       );
     }
   }
 
   if (reroll.action === "replace") {
     return (
-      <span
-        className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs font-semibold bg-dark-border/40 text-dark-muted"
-        title={reasonText}
-      >
-        <RecycleIcon className="w-2.5 h-2.5" /> {t("verdict", "farmReplacement")}
-      </span>
+      <div className="flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold" style={{ backgroundColor: tint("var(--verdict-replace)", 12), color: "var(--verdict-replace)" }}>
+        <RecycleIcon className="h-3 w-3" /> {t("verdict", "farmReplacement")}
+      </div>
     );
   }
 
   if (reroll.action === "level_up") {
     return (
-      <span
-        className="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-semibold bg-dark-border/40 text-dark-muted"
-        title={reasonText}
-      >
+      <div className="rounded-md bg-dark-border/40 px-2 py-1 text-xs font-semibold text-dark-muted">
         {t("verdict", "levelTo20")}
-      </span>
+      </div>
     );
   }
 
@@ -100,17 +81,17 @@ export function WeakestArtifacts({ characters, onSelectCharacter }: WeakestArtif
   if (items.length === 0) return null;
 
   return (
-    <div className="rounded-xl border border-dark-border bg-dark-card/40 p-4 sm:p-5">
-      <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
-        <h3 className="text-sm font-semibold text-dark-text flex items-center gap-2">
-          <TargetIcon className="w-4 h-4 text-accent" /> {t("showcase", "roomToImprove")}
-        </h3>
+    <section className="rounded-xl border border-dark-border bg-dark-card/40 p-4 sm:p-5" aria-labelledby="room-to-improve">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+        <h2 id="room-to-improve" className="flex items-center gap-2 text-sm font-semibold text-dark-text">
+          <TargetIcon className="h-4 w-4 text-accent" /> {t("showcase", "roomToImprove")}
+        </h2>
         <span className="text-sm text-dark-muted">{t("showcase", "roomToImproveSub")}</span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
         {items.map(({ artifact, characterId, characterName, characterIcon }) => {
-          const gradeColor = GRADE_COLORS[artifact.score.grade] ?? "#6b7280";
+          const color = gradeVar(artifact.score.grade);
           const avatarUrl = characterIcon ? `${ENKA_UI_BASE}/${characterIcon}.png` : null;
 
           return (
@@ -118,46 +99,41 @@ export function WeakestArtifacts({ characters, onSelectCharacter }: WeakestArtif
               key={artifact.id}
               type="button"
               onClick={() => onSelectCharacter(characterId)}
-              className="flex flex-col gap-2 rounded-lg border border-dark-border bg-dark-card px-3 py-2.5 text-left hover:border-accent/50 hover:bg-dark-card-hover transition-colors"
-              title={t("showcase", "jumpTo", { name: characterName })}
+              className="flex flex-col gap-2 rounded-lg border border-dark-border bg-dark-card px-3 py-2.5 text-left transition-colors hover:border-accent/50 hover:bg-dark-card-hover"
+              aria-label={t("showcase", "jumpTo", { name: characterName })}
             >
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full overflow-hidden bg-dark-bg icon-dark-bg border border-dark-border/60 flex-shrink-0">
+                <div className="icon-dark-bg h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border border-dark-border/60 bg-dark-bg">
                   {avatarUrl ? (
-                    <img src={avatarUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
+                    <img src={avatarUrl} alt="" className="h-full w-full object-cover" loading="lazy" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-xs text-dark-muted">
+                    <div className="flex h-full w-full items-center justify-center text-xs text-dark-muted">
                       {characterName.charAt(0)}
                     </div>
                   )}
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <div className="text-sm font-semibold text-dark-text truncate">{characterName}</div>
+                  <div className="truncate text-sm font-semibold text-dark-text">{characterName}</div>
                   <div className="text-xs text-dark-muted">
                     {t("slots", artifact.slot)} · +{artifact.level}
                   </div>
                 </div>
 
                 {/* Score reads as the headline number, not a dim afterthought */}
-                <div className="flex items-center gap-1.5 flex-shrink-0">
-                  <span className="text-sm font-mono font-bold tabular-nums" style={{ color: gradeColor }}>
-                    {artifact.score.potentialPercent.toFixed(0)}%
+                <div className="flex flex-shrink-0 items-center gap-1.5">
+                  <span className="font-mono text-sm font-bold tabular-nums" style={{ color }}>
+                    {formatScore(artifact.score.potentialPercent)}
                   </span>
-                  <span
-                    className="text-xs font-extrabold px-1.5 py-0.5 rounded"
-                    style={{ backgroundColor: `${gradeColor}26`, color: gradeColor }}
-                  >
-                    {artifact.score.grade}
-                  </span>
+                  <GradeBadge grade={artifact.score.grade} size="xs" />
                 </div>
               </div>
 
-              <ActionChip artifact={artifact} />
+              <ActionLine artifact={artifact} />
             </button>
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }

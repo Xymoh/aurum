@@ -97,6 +97,7 @@ export interface RerollTierDef {
   label: string;
   /** Upper bound (inclusive) on expected dust spent to reach a meaningful gain. */
   maxExpectedDust: number;
+  /** A CSS colour, normally a `var(--verdict-*)` so the light theme can swap it. */
   color: string;
   blurb: string;
 }
@@ -107,21 +108,21 @@ export const REROLL_TIERS: RerollTierDef[] = [
     id: "high",
     label: "Reroll now",
     maxExpectedDust: 4,
-    color: "#4ade80",
+    color: "var(--verdict-high)",
     blurb: "Among the best value per dust on this account.",
   },
   {
     id: "medium",
     label: "Worth rerolling",
     maxExpectedDust: 10,
-    color: "#fbbf24",
+    color: "var(--verdict-medium)",
     blurb: "Decent value, but budget for several attempts.",
   },
   {
     id: "low",
     label: "Low priority",
     maxExpectedDust: 20,
-    color: "#94a3b8",
+    color: "var(--verdict-low)",
     blurb: "Dust goes further on other pieces first.",
   },
 ];

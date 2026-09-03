@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react";
-import { UserIcon, ClipboardIcon } from "../ui/icons";
+import { useCallback, useEffect, useState } from "react";
+import { UserIcon, ClipboardIcon, CheckIcon } from "../ui/icons";
 import { useI18n } from "../../i18n";
 
 interface PlayerHeaderProps {
@@ -48,7 +48,7 @@ function PlayerAvatar({ iconName, nickname }: { iconName: string; nickname: stri
   const initial = Array.from(nickname.trim())[0] ?? "";
 
   return (
-    <div className="flex h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-dark-border text-dark-muted icon-dark-bg">
+    <div className="icon-dark-bg flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-dark-border text-dark-muted ring-2 ring-accent/30 sm:h-14 sm:w-14">
       {url && !failed ? (
         <img
           src={url}
@@ -59,15 +59,51 @@ function PlayerAvatar({ iconName, nickname }: { iconName: string; nickname: stri
         />
       ) : initial ? (
         <span
-          className="select-none text-base sm:text-lg font-semibold text-dark-text/80"
+          className="select-none text-base font-semibold text-dark-text/80 sm:text-lg"
           aria-hidden="true"
         >
           {initial}
         </span>
       ) : (
-        <UserIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+        <UserIcon className="h-5 w-5 sm:h-6 sm:w-6" />
       )}
     </div>
+  );
+}
+
+/**
+ * Share button with feedback: the copy used to happen silently, so nothing
+ * told you it worked. A two-second "Link copied" state does.
+ */
+function ShareButton() {
+  const { t } = useI18n();
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!copied) return;
+    const id = window.setTimeout(() => setCopied(false), 2000);
+    return () => window.clearTimeout(id);
+  }, [copied]);
+
+  const handleCopyUrl = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+    } catch {
+      // Clipboard API not available
+    }
+  }, []);
+
+  return (
+    <button
+      type="button"
+      onClick={handleCopyUrl}
+      className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-dark-border px-3 text-sm font-medium text-dark-muted transition-colors hover:border-accent/50 hover:text-dark-text"
+      aria-live="polite"
+    >
+      {copied ? <CheckIcon className="h-3.5 w-3.5 text-verdict-high" /> : <ClipboardIcon className="h-3.5 w-3.5" />}
+      {copied ? t("showcase", "copied") : t("player", "share")}
+    </button>
   );
 }
 
@@ -81,69 +117,47 @@ export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastU
     setTimeout(() => setIsRefreshing(false), 2000);
   }, [onRefresh]);
 
-  const handleCopyUrl = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-    } catch {
-      // Clipboard API not available
-    }
-  }, []);
-
   return (
-    <div className="rounded-xl border border-dark-border bg-dark-card px-4 py-3 sm:px-5 sm:py-4">
-      {/* Top row: avatar + name + UID */}
-      <div className="flex items-center gap-3">
-        <PlayerAvatar
-          iconName={playerInfo.avatarIcon}
-          nickname={playerInfo.nickname}
-        />
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2 flex-wrap">
-            <h2 className="truncate text-base font-semibold text-dark-text">{playerInfo.nickname}</h2>
-            <span className="rounded-md bg-dark-border/50 px-2 py-0.5 text-sm font-mono text-dark-muted">
-              {uid}
-            </span>
-          </div>
-          <div className="mt-0.5 flex items-center gap-1.5 text-sm text-dark-muted flex-wrap">
-            <span>{t("player", "ar", { level: playerInfo.level })}</span>
-            {playerInfo.worldLevel > 0 && (
-              <>
-                <span>·</span>
-                <span>{t("player", "wl", { level: playerInfo.worldLevel })}</span>
-              </>
-            )}
-            <span>·</span>
-            <span>{t("player", "chars", { count: characterCount })}</span>
-            {lastUpdated && lastUpdated > 0 && (
-              <>
-                <span>·</span>
-                <span>{formatTimeAgo(lastUpdated, t)}</span>
-              </>
-            )}
-          </div>
+    <div className="flex flex-wrap items-center gap-3 rounded-xl border border-dark-border bg-dark-card px-4 py-3 sm:gap-4 sm:px-5">
+      <PlayerAvatar iconName={playerInfo.avatarIcon} nickname={playerInfo.nickname} />
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-2">
+          <h1 className="truncate text-lg font-semibold text-dark-text">{playerInfo.nickname}</h1>
+          <span className="rounded-md bg-dark-border/50 px-2 py-0.5 font-mono text-sm text-dark-muted">
+            {uid}
+          </span>
+        </div>
+        <div className="mt-0.5 flex flex-wrap items-center gap-1.5 text-sm text-dark-muted">
+          <span>{t("player", "ar", { level: playerInfo.level })}</span>
+          {playerInfo.worldLevel > 0 && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>{t("player", "wl", { level: playerInfo.worldLevel })}</span>
+            </>
+          )}
+          <span aria-hidden="true">·</span>
+          <span>{t("player", "chars", { count: characterCount })}</span>
+          {lastUpdated && lastUpdated > 0 && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>{formatTimeAgo(lastUpdated, t)}</span>
+            </>
+          )}
         </div>
       </div>
 
-      {/* Bottom row: actions */}
-      <div className="flex items-center gap-2 mt-3 pt-2 border-t border-dark-border/40">
-        <button
-          type="button"
-          onClick={handleCopyUrl}
-          className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-dark-muted hover:bg-dark-border/40 hover:text-dark-text transition-colors"
-          title={t("player", "share")}
-        >
-          <ClipboardIcon className="w-3 h-3" /> {t("player", "share")}
-        </button>
-        <div className="flex-1" />
+      <div className="flex w-full items-center gap-2 sm:w-auto">
+        <ShareButton />
+        <div className="flex-1 sm:hidden" />
         <button
           type="button"
           onClick={handleRefresh}
           disabled={isRefreshing}
-          className="flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-dark-bg hover:opacity-90 disabled:opacity-50 transition-all"
+          className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-accent px-3 text-sm font-semibold text-dark-bg transition-all hover:opacity-90 disabled:opacity-50"
         >
           <svg
-            width="12"
-            height="12"
+            width="13"
+            height="13"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -151,6 +165,7 @@ export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastU
             strokeLinecap="round"
             strokeLinejoin="round"
             className={isRefreshing ? "animate-spin" : ""}
+            aria-hidden="true"
           >
             <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
           </svg>

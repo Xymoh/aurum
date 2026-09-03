@@ -60,7 +60,7 @@ export function HsrHomePage() {
             Analyse
           </button>
         </form>
-        {error && <p className="mt-2 text-sm text-rose-400">{error}</p>}
+        {error && <p className="mt-2 text-sm text-verdict-replace" role="alert">{error}</p>}
 
         {recent.length > 0 && (
           <div className="mt-5">

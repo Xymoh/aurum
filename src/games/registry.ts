@@ -32,6 +32,11 @@ export interface GameDef {
    * safelisted utility classes.
    */
   accent: string;
+  /**
+   * The same accent as a theme token, for text. Unlike `accent` it swaps to a
+   * darker value in light mode, where the raw gold and teal fall below 3:1.
+   */
+  accentToken: string;
   status: "live" | "planned";
 }
 
@@ -44,6 +49,7 @@ export const GAMES: GameDef[] = [
     icon: genshinIcon,
     tagline: "Score artifacts and price up a reroll before you spend the dust.",
     accent: "#d4a853",
+    accentToken: "var(--accent)",
     status: "live",
   },
   {
@@ -54,6 +60,7 @@ export const GAMES: GameDef[] = [
     icon: hsrIcon,
     tagline: "See how many of your relic rolls are actually doing something.",
     accent: "#5eead4",
+    accentToken: "var(--hsr-accent)",
     status: "live",
   },
 ];

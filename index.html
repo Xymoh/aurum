@@ -13,6 +13,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <title>Aurum - Gear scoring for gacha games</title>
     <script>
+      // Apply the saved theme before first paint so light-mode visitors never
+      // see a dark flash. src/lib/theme.ts owns every change after this.
+      (function() {
+        try {
+          var t = localStorage.getItem('theme');
+          if (t !== 'light' && t !== 'dark') {
+            t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+          }
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
+    <script>
       // GitHub Pages SPA routing - handle redirect from 404.html
       (function(l) {
         if (l.search[1] === '/') {
