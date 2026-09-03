@@ -137,6 +137,9 @@ export const en = {
     potentialBody:
       "Each artifact's substats are weighted by how much they matter for the equipped character, then compared against that character's theoretical ideal roll. The result is a 0–200% scale: 100% is a solid, usable piece (roughly 4.5 max-value rolls), and 200% is a near-impossible, perfectly-rolled artifact. Main stats don't affect the score directly - Flower/Plume are fixed, and Sands/Goblet/Circlet main stat correctness is shown separately.",
     gradeTitle: "Grade Scale",
+    rollsTitle: "Roll quality",
+    rollsBody:
+      "Every substat roll lands on one of four tiers: 70%, 80%, 90% or 100% of the stat's max roll, so a CRIT Rate upgrade can be worth 2.7% or 3.9%. Enka reports each roll's tier, so each substat shows one pip per roll, coloured from max (green) to low (rose). Hover or tap the pips for the exact value of every roll. The score uses the actual values, so two artifacts with the same rolls but different luck score differently.",
     mainStatTitle: "Main Stat & Set Bonus",
     mainStatBody:
       "A warning icon next to a main stat means it doesn't match the character's recommended stat for that slot. The Set Bonuses panel on each character card shows which 2-piece/4-piece bonuses are active and whether they match the recommended sets - both are informational and don't change the artifact's score.",
@@ -191,6 +194,18 @@ export const en = {
     critDmg: "CRIT DMG",
     er: "En. Recharge",
     elemDmg: "El. DMG",
+  },
+
+  /** Roll history behind a substat's pips. */
+  rolls: {
+    summary: "{n} rolls · average {avg}% of max",
+    unknown: "{n} upgrades · roll quality not reported for this artifact",
+    initial: "Initial",
+    upgrade: "Upgrade",
+    max: "max roll",
+    high: "high roll",
+    mid: "mid roll",
+    low: "low roll",
   },
 
   /** Chip labels. Short enough that all eight fit on one line of a card. */

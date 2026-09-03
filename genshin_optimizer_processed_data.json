@@ -319,7 +319,7 @@
     "substat_weights": {
       "CRIT_RATE": 0.8,
       "CRIT_DMG": 0.8,
-      "ATK_PERCENT": 0.6,
+      "ATK_PERCENT": 0.8,
       "HP_PERCENT": 0,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 0.3,
@@ -555,9 +555,9 @@
       0.32
     ],
     "substat_weights": {
-      "CRIT_RATE": 0.8,
-      "CRIT_DMG": 0.8,
-      "ATK_PERCENT": 0.6,
+      "CRIT_RATE": 0.7,
+      "CRIT_DMG": 0.5,
+      "ATK_PERCENT": 0.7,
       "HP_PERCENT": 0,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 1,
@@ -981,10 +981,10 @@
       0.288
     ],
     "substat_weights": {
-      "CRIT_RATE": 1,
-      "CRIT_DMG": 1,
-      "ATK_PERCENT": 0.5,
-      "HP_PERCENT": 0.9,
+      "CRIT_RATE": 0.6,
+      "CRIT_DMG": 0.6,
+      "ATK_PERCENT": 0.3,
+      "HP_PERCENT": 1,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 0,
       "ENERGY_RECHARGE": 0.4,
@@ -1103,10 +1103,10 @@
       0.2667
     ],
     "substat_weights": {
-      "CRIT_RATE": 0.7,
-      "CRIT_DMG": 0.7,
-      "ATK_PERCENT": 0.4,
-      "HP_PERCENT": 0.6,
+      "CRIT_RATE": 0.25,
+      "CRIT_DMG": 0.25,
+      "ATK_PERCENT": 0.3,
+      "HP_PERCENT": 0.8,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 0.2,
       "ENERGY_RECHARGE": 1,
@@ -1228,7 +1228,7 @@
     "substat_weights": {
       "CRIT_RATE": 0.9,
       "CRIT_DMG": 0.9,
-      "ATK_PERCENT": 0,
+      "ATK_PERCENT": 0.5,
       "HP_PERCENT": 0,
       "DEF_PERCENT": 1,
       "ELEMENTAL_MASTERY": 0,
@@ -1284,14 +1284,14 @@
       0.2215
     ],
     "substat_weights": {
-      "CRIT_RATE": 0,
+      "CRIT_RATE": 0.3,
       "CRIT_DMG": 0,
       "ATK_PERCENT": 1,
       "HP_PERCENT": 0,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 0,
       "ENERGY_RECHARGE": 0.6,
-      "HEALING_BONUS": 0.7,
+      "HEALING_BONUS": 0.5,
       "PHYSICAL_DMG": 0,
       "ELEMENTAL_DMG": 0,
       "FLAT_ATK": 0.3,
@@ -2951,7 +2951,7 @@
       0.2667
     ],
     "substat_weights": {
-      "CRIT_RATE": 0,
+      "CRIT_RATE": 0.4,
       "CRIT_DMG": 0,
       "ATK_PERCENT": 0,
       "HP_PERCENT": 0,
@@ -3419,9 +3419,9 @@
       0.24
     ],
     "substat_weights": {
-      "CRIT_RATE": 0.5,
-      "CRIT_DMG": 0.5,
-      "ATK_PERCENT": 0,
+      "CRIT_RATE": 0.7,
+      "CRIT_DMG": 0.7,
+      "ATK_PERCENT": 0.4,
       "HP_PERCENT": 0.8,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 0,
@@ -3711,14 +3711,14 @@
       0.24
     ],
     "substat_weights": {
-      "CRIT_RATE": 0,
+      "CRIT_RATE": 0.3,
       "CRIT_DMG": 0,
       "ATK_PERCENT": 0,
       "HP_PERCENT": 0.8,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 0.3,
-      "ENERGY_RECHARGE": 0.7,
-      "HEALING_BONUS": 0.6,
+      "ENERGY_RECHARGE": 0.9,
+      "HEALING_BONUS": 0.5,
       "PHYSICAL_DMG": 0,
       "ELEMENTAL_DMG": 0,
       "FLAT_ATK": 0,
@@ -4318,7 +4318,7 @@
       "HP_PERCENT": 0.9,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 0.2,
-      "ENERGY_RECHARGE": 0.5,
+      "ENERGY_RECHARGE": 0.8,
       "HEALING_BONUS": 0,
       "PHYSICAL_DMG": 0,
       "ELEMENTAL_DMG": 0,
@@ -4439,7 +4439,7 @@
       "HP_PERCENT": 0.8,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 0.2,
-      "ENERGY_RECHARGE": 0.7,
+      "ENERGY_RECHARGE": 0.8,
       "HEALING_BONUS": 0,
       "PHYSICAL_DMG": 0,
       "ELEMENTAL_DMG": 0,
@@ -4853,7 +4853,7 @@
       "ATK_PERCENT": 0.8,
       "HP_PERCENT": 0,
       "DEF_PERCENT": 0,
-      "ELEMENTAL_MASTERY": 0.4,
+      "ELEMENTAL_MASTERY": 0.8,
       "ENERGY_RECHARGE": 0,
       "HEALING_BONUS": 0,
       "PHYSICAL_DMG": 0,
@@ -5272,7 +5272,7 @@
       "HP_PERCENT": 0,
       "DEF_PERCENT": 1,
       "ELEMENTAL_MASTERY": 0,
-      "ENERGY_RECHARGE": 0.8,
+      "ENERGY_RECHARGE": 1,
       "HEALING_BONUS": 0.4,
       "PHYSICAL_DMG": 0,
       "ELEMENTAL_DMG": 0,
@@ -5448,7 +5448,7 @@
       "ATK_PERCENT": 0.8,
       "HP_PERCENT": 0,
       "DEF_PERCENT": 0,
-      "ELEMENTAL_MASTERY": 0,
+      "ELEMENTAL_MASTERY": 0.8,
       "ENERGY_RECHARGE": 0.3,
       "HEALING_BONUS": 0,
       "PHYSICAL_DMG": 0,
@@ -5617,13 +5617,13 @@
       115.2
     ],
     "substat_weights": {
-      "CRIT_RATE": 0,
-      "CRIT_DMG": 0,
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
       "ATK_PERCENT": 0,
-      "HP_PERCENT": 0.4,
+      "HP_PERCENT": 0,
       "DEF_PERCENT": 0,
-      "ELEMENTAL_MASTERY": 1,
-      "ENERGY_RECHARGE": 0.8,
+      "ELEMENTAL_MASTERY": 0.8,
+      "ENERGY_RECHARGE": 0.4,
       "HEALING_BONUS": 0,
       "PHYSICAL_DMG": 0,
       "ELEMENTAL_DMG": 0,
@@ -5674,13 +5674,13 @@
       0.24
     ],
     "substat_weights": {
-      "CRIT_RATE": 1,
-      "CRIT_DMG": 1,
-      "ATK_PERCENT": 0.8,
+      "CRIT_RATE": 0.2,
+      "CRIT_DMG": 0.2,
+      "ATK_PERCENT": 1,
       "HP_PERCENT": 0,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 0,
-      "ENERGY_RECHARGE": 0.5,
+      "ENERGY_RECHARGE": 1,
       "HEALING_BONUS": 0,
       "PHYSICAL_DMG": 0,
       "ELEMENTAL_DMG": 0,
@@ -6021,9 +6021,9 @@
       0.192
     ],
     "substat_weights": {
-      "CRIT_RATE": 1,
-      "CRIT_DMG": 1,
-      "ATK_PERCENT": 0.7,
+      "CRIT_RATE": 0.9,
+      "CRIT_DMG": 0.9,
+      "ATK_PERCENT": 1,
       "HP_PERCENT": 0,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 0.5,
@@ -6259,10 +6259,10 @@
     "substat_weights": {
       "CRIT_RATE": 1,
       "CRIT_DMG": 1,
-      "ATK_PERCENT": 0.7,
+      "ATK_PERCENT": 0.3,
       "HP_PERCENT": 0,
       "DEF_PERCENT": 0,
-      "ELEMENTAL_MASTERY": 0.4,
+      "ELEMENTAL_MASTERY": 0.8,
       "ENERGY_RECHARGE": 0.3,
       "HEALING_BONUS": 0,
       "PHYSICAL_DMG": 0,
@@ -6322,7 +6322,7 @@
       "HP_PERCENT": 0,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 0.3,
-      "ENERGY_RECHARGE": 0.2,
+      "ENERGY_RECHARGE": 0.6,
       "HEALING_BONUS": 0,
       "PHYSICAL_DMG": 0,
       "ELEMENTAL_DMG": 0,
@@ -6496,7 +6496,7 @@
       "ATK_PERCENT": 0,
       "HP_PERCENT": 0,
       "DEF_PERCENT": 0.75,
-      "ELEMENTAL_MASTERY": 0,
+      "ELEMENTAL_MASTERY": 0.3,
       "ENERGY_RECHARGE": 0.4,
       "HEALING_BONUS": 0,
       "PHYSICAL_DMG": 0,
@@ -6728,12 +6728,12 @@
       0.192
     ],
     "substat_weights": {
-      "CRIT_RATE": 1,
-      "CRIT_DMG": 1,
+      "CRIT_RATE": 0.9,
+      "CRIT_DMG": 0.9,
       "ATK_PERCENT": 0,
       "HP_PERCENT": 0,
-      "DEF_PERCENT": 0.8,
-      "ELEMENTAL_MASTERY": 0,
+      "DEF_PERCENT": 1,
+      "ELEMENTAL_MASTERY": 0.3,
       "ENERGY_RECHARGE": 0.4,
       "HEALING_BONUS": 0,
       "PHYSICAL_DMG": 0,
@@ -6786,13 +6786,13 @@
       0.288
     ],
     "substat_weights": {
-      "CRIT_RATE": 1,
-      "CRIT_DMG": 1,
-      "ATK_PERCENT": 0.8,
+      "CRIT_RATE": 0.2,
+      "CRIT_DMG": 0.2,
+      "ATK_PERCENT": 1,
       "HP_PERCENT": 0,
       "DEF_PERCENT": 0,
       "ELEMENTAL_MASTERY": 0,
-      "ENERGY_RECHARGE": 0.3,
+      "ENERGY_RECHARGE": 0.8,
       "HEALING_BONUS": 0,
       "PHYSICAL_DMG": 0,
       "ELEMENTAL_DMG": 0,
@@ -6908,8 +6908,8 @@
       "ATK_PERCENT": 1,
       "HP_PERCENT": 0,
       "DEF_PERCENT": 0,
-      "ELEMENTAL_MASTERY": 0.2,
-      "ENERGY_RECHARGE": 0.35,
+      "ELEMENTAL_MASTERY": 0.4,
+      "ENERGY_RECHARGE": 0.3,
       "HEALING_BONUS": 0,
       "PHYSICAL_DMG": 0,
       "ELEMENTAL_DMG": 1,
@@ -6940,6 +6940,127 @@
       "hp_base": 1029.5856,
       "atk_base": 26.6266,
       "def_base": 58.57357
+    },
+    "region": null,
+    "source": "genshin-optimizer/frzyc",
+    "data_version": "allStat_gen.json - master branch"
+  },
+  "Alyosha": {
+    "name": "Alyosha",
+    "display_name": "Alyosha",
+    "element": "Electro",
+    "weapon_type": "Polearm",
+    "rarity": 4,
+    "avatar_id": "10000148",
+    "scaling_attribute": "ER%",
+    "scaling_stat": "ENERGY_RECHARGE",
+    "ascension_stat": "enerRech_",
+    "ascension_bonus_curve": [
+      0,
+      0,
+      0.0667,
+      0.1333,
+      0.1333,
+      0.2,
+      0.2667
+    ],
+    "substat_weights": {
+      "CRIT_RATE": 0.3,
+      "CRIT_DMG": 0.3,
+      "ATK_PERCENT": 0.7,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0,
+      "ENERGY_RECHARGE": 1,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.28,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ENERGY_RECHARGE",
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ATK_PERCENT"
+      ],
+      "CIRCLET": [
+        "ATK_PERCENT",
+        "CRIT_RATE"
+      ]
+    },
+    "recommended_sets": [
+      "15007",
+      "15048"
+    ],
+    "er_threshold": 200,
+    "base_stats": {
+      "hp_base": 1002.9701,
+      "atk_base": 22.26,
+      "def_base": 58.94175
+    },
+    "region": null,
+    "source": "genshin-optimizer/frzyc",
+    "data_version": "allStat_gen.json - master branch"
+  },
+  "Odette": {
+    "name": "Odette",
+    "display_name": "Odette",
+    "element": "Cryo",
+    "weapon_type": "Sword",
+    "rarity": 5,
+    "avatar_id": "10000150",
+    "scaling_attribute": "Crit DMG%",
+    "scaling_stat": "CRIT_DMG",
+    "ascension_stat": "critDMG_",
+    "ascension_bonus_curve": [
+      0,
+      0,
+      0.096,
+      0.192,
+      0.192,
+      0.288,
+      0.384
+    ],
+    "substat_weights": {
+      "CRIT_RATE": 1,
+      "CRIT_DMG": 1,
+      "ATK_PERCENT": 0.8,
+      "HP_PERCENT": 0,
+      "DEF_PERCENT": 0,
+      "ELEMENTAL_MASTERY": 0.3,
+      "ENERGY_RECHARGE": 0.3,
+      "HEALING_BONUS": 0,
+      "PHYSICAL_DMG": 0,
+      "ELEMENTAL_DMG": 0,
+      "FLAT_ATK": 0.32,
+      "FLAT_HP": 0,
+      "FLAT_DEF": 0
+    },
+    "main_stats_ideal": {
+      "SANDS": [
+        "ATK_PERCENT"
+      ],
+      "GOBLET": [
+        "ATK_PERCENT"
+      ],
+      "CIRCLET": [
+        "CRIT_RATE",
+        "CRIT_DMG"
+      ]
+    },
+    "recommended_sets": [
+      "15048",
+      "15046"
+    ],
+    "er_threshold": 135,
+    "base_stats": {
+      "hp_base": 1010.5192,
+      "atk_base": 26.068,
+      "def_base": 61.26592
     },
     "region": null,
     "source": "genshin-optimizer/frzyc",

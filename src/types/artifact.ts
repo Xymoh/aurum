@@ -9,8 +9,16 @@ export interface ArtifactSubstat {
   value: number;
   isPercentage: boolean;
   maxRoll: number;
+  /** Upgrades that landed on this stat, not counting the roll that created it. */
   rollCount: number;
   rollQuality: "high" | "medium" | "low";
+  /**
+   * Every roll on this stat as a share of the max roll, in the order they
+   * happened: the roll that created the substat first, then each upgrade.
+   * Genshin rolls come in four tiers (0.7, 0.8, 0.9, 1.0) and Enka states
+   * each one exactly. Empty when the roll list was not available.
+   */
+  rolls: number[];
 }
 
 export interface Artifact {

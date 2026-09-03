@@ -17,10 +17,15 @@
  *  3. A die shows you the result and lets you keep the old rolls, so a reroll
  *     has no downside. There is nothing here matching Genshin's ER guard,
  *     because there is no way to lose what you had.
+ *
+ * Outcomes are scored with the same contribution function and the same
+ * optimal-relic ceiling as the real score, so a simulated 120% means exactly
+ * what a displayed 120% means.
  */
 
 import type { HsrRelic, HsrStatKey } from "./types";
-import { WASTE_THRESHOLD, weightOf, type HsrWeights } from "./weights";
+import { WASTE_THRESHOLD, weightOf, type ScoringMeta } from "./weights";
+import affixes from "./data/affixes.json";
 
 /** Substat tiers, as a share of the best possible roll. */
 const DEFAULT_TIERS = [0.8, 0.9, 1.0];
@@ -30,6 +35,17 @@ const SPEED_TIERS = [0.7692, 0.8846, 1.0];
 function tiersFor(key: HsrStatKey): number[] {
   return key === "SpeedDelta" ? SPEED_TIERS : DEFAULT_TIERS;
 }
+
+const SUB_5 = (affixes as { sub: Record<string, Record<string, { Property: string; BaseValue: number; StepValue?: number }>> }).sub["5"];
+
+/** Best single roll per substat in display units, from the affix table. */
+const HIGH_ROLL: Partial<Record<HsrStatKey, number>> = Object.fromEntries(
+  Object.values(SUB_5).map((spec) => {
+    const key = spec.Property as HsrStatKey;
+    const raw = spec.BaseValue + 2 * (spec.StepValue ?? 0);
+    return [key, key.endsWith("Delta") ? raw : raw * 100];
+  }),
+);
 
 /**
  * Every relic ends at four substats, so four of its rolls are the substats
@@ -97,6 +113,12 @@ export interface RerollAdvice {
   targetStats: HsrStatKey[];
 }
 
+/** How the scorer values this relic: what a point of each stat is worth, and the ceiling. */
+export interface RelicScorer {
+  contribution: (key: HsrStatKey) => number;
+  ideal: number;
+}
+
 const NO_ADVICE: RerollAdvice = {
   eligible: false,
   action: "none",
@@ -135,26 +157,32 @@ function hashString(str: string): number {
  * Only +15 five-star relics can take a die, and a piece with fewer upgrades
  * than substats has nothing to redistribute.
  */
-export function adviseReroll(relic: HsrRelic, weights: HsrWeights): RerollAdvice {
+export function adviseReroll(relic: HsrRelic, meta: ScoringMeta, scorer: RelicScorer): RerollAdvice {
   const movable = relic.totalRolls - BASE_SUBSTATS;
-  if (relic.rarity < 5 || relic.level < 15 || relic.substats.length < 4 || movable <= 0) {
+  if (
+    relic.rarity < 5 ||
+    relic.level < 15 ||
+    relic.substats.length < 4 ||
+    movable <= 0 ||
+    !Number.isFinite(scorer.ideal) ||
+    scorer.ideal <= 0
+  ) {
     return NO_ADVICE;
   }
 
-  const maxWeight = Math.max(...Object.values(weights), 0.0001);
-  const ideal = relic.totalRolls * maxWeight;
   const currentPercent = relic.score.potentialPercent;
 
-  // What one roll on each substat is worth, and the value already banked by
-  // the four rolls that simply define which substats the piece has.
-  const perRoll = relic.substats.map((s) => weightOf(weights, s.key));
+  // What one max roll on each substat is worth, and the value already banked
+  // by the four rolls that simply define which substats the piece has: one
+  // roll each, at the quality the piece's rolls averaged.
+  const perMaxRoll = relic.substats.map((s) => scorer.contribution(s.key) * (HIGH_ROLL[s.key] ?? 0));
   const baseWeighted = relic.substats.reduce(
-    (acc, s, i) => acc + perRoll[i] * (s.quality > 0 ? s.quality : 1),
+    (acc, s, i) => acc + perMaxRoll[i] * (s.quality > 0 ? s.quality : 1),
     0,
   );
 
   const ranked = relic.substats
-    .map((s, i) => ({ key: s.key, weight: perRoll[i] }))
+    .map((s) => ({ key: s.key, weight: weightOf(meta.stats, s.key) }))
     .sort((a, b) => b.weight - a.weight);
   const targetStats = ranked.filter((r) => r.weight >= WASTE_THRESHOLD).slice(0, 2).map((r) => r.key);
 
@@ -175,9 +203,9 @@ export function adviseReroll(relic: HsrRelic, weights: HsrWeights): RerollAdvice
     for (let r = 0; r < movable; r++) {
       const target = Math.floor(rand() * 4);
       const tiers = subTiers[target];
-      weighted += perRoll[target] * tiers[Math.floor(rand() * tiers.length)];
+      weighted += perMaxRoll[target] * tiers[Math.floor(rand() * tiers.length)];
     }
-    const percent = (weighted / ideal) * 200;
+    const percent = (weighted / scorer.ideal) * 200;
     outcomes.push(percent);
     if (percent >= gainThreshold) improved.push(percent);
   }

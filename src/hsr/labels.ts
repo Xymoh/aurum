@@ -50,6 +50,6 @@ export function formatStat(key: HsrStatKey, value: number): string {
  * side (src/lib/grade.ts). "SSS" and "SS" resolve to different bands, and so
  * do "AEON" and "A": the band lookup strips only a trailing plus.
  */
-export function gradeColor(grade: string): string {
-  return gradeTextClass(grade);
+export function gradeColor(grade: string | null): string {
+  return grade ? gradeTextClass(grade) : "text-hsr-muted";
 }

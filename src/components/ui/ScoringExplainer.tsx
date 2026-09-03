@@ -1,6 +1,7 @@
 import { GRADE_THRESHOLDS } from "../../lib/constants";
 import { REROLL_TIERS } from "../../lib/reroll";
 import { gradeStyle, tint } from "../../lib/grade";
+import { ROLL_TIER_BG } from "../../lib/rollTier";
 import { WarningIcon, DiceIcon, RecycleIcon, CheckIcon } from "./icons";
 import { useI18n } from "../../i18n";
 
@@ -42,6 +43,19 @@ export function ScoringExplainer() {
               <span>{g.grade}</span>
               <span className="opacity-80">{g.min}%+</span>
             </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h3 className="mb-1.5 font-semibold text-dark-text">{t("explainer", "rollsTitle")}</h3>
+        <p className="mb-2">{t("explainer", "rollsBody")}</p>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
+          {(["max", "high", "mid", "low"] as const).map((tier) => (
+            <span key={tier} className="inline-flex items-center gap-1.5">
+              <span className={`inline-block h-2.5 w-[3px] rounded-sm ${ROLL_TIER_BG[tier]}`} aria-hidden="true" />
+              {t("rolls", tier)}
+            </span>
           ))}
         </div>
       </section>

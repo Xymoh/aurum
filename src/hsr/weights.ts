@@ -1,86 +1,137 @@
 /**
- * Substat weights for Honkai: Star Rail.
+ * Substat weights and ideal main stats for Honkai: Star Rail.
  *
- * Keyed by Path rather than by character. That is a deliberate trade: a
- * per-character table scores a known character slightly better, but every
- * character released after the table was written falls off it. Paths are
- * fixed game structure, so a character shipped tomorrow still lands on
- * sensible weights the moment Enka knows its Path.
+ * Primary source: the per-character scoring metadata maintained in the
+ * Fribbels HSR Optimizer (MIT), imported by scripts/fetch-fribbels-weights.mjs
+ * into ./data/scoring-metadata.json. That table is what the "relic score" on
+ * fribbels.github.io is built from, so a relic graded here should agree with
+ * the grade a player sees there.
  *
- * Per-character overrides sit in CHARACTER_OVERRIDES for the cases where a
- * character genuinely breaks its Path's mould. Absent an override, nothing
- * degrades: the Path weights apply and the build still scores.
+ * Fallback: Path-level profiles, so a character released after the table was
+ * last refreshed still scores sensibly the moment Enka knows their Path.
+ *
+ * Patch layer: CHARACTER_OVERRIDES, for the rare case where a guide site we
+ * trust (Prydwen) disagrees with Fribbels and we side with the guide.
  */
 
-import type { HsrStatKey } from "./types";
+import type { HsrSlot, HsrStatKey } from "./types";
 import characters from "./data/characters.json";
+import scoringMetadata from "./data/scoring-metadata.json";
 
 export type HsrWeights = Partial<Record<HsrStatKey, number>>;
+
+/** The four slots whose main stat is a choice. Head and Hands are fixed. */
+export type SelectableSlot = Extract<HsrSlot, "BODY" | "FOOT" | "NECK" | "OBJECT">;
+export const SELECTABLE_SLOTS: SelectableSlot[] = ["BODY", "FOOT", "NECK", "OBJECT"];
+
+export interface ScoringMeta {
+  /** Substat weights, 0 to 1, flats already scaled to 40% of their percent stat. */
+  stats: HsrWeights;
+  /**
+   * Ideal main stats per selectable slot. An empty list means any main stat
+   * the slot can roll is acceptable, which is how Fribbels reads it too.
+   */
+  parts: Record<SelectableSlot, HsrStatKey[]>;
+  /**
+   * When set, a flat substat of this stat is weighted like its percent stat
+   * on a relic whose main stat is that percent stat. Fribbels uses it for
+   * characters who scale off a flat stat their main stat also provides.
+   */
+  flatMainstatBoost?: HsrStatKey;
+  source: "fribbels" | "path";
+}
 
 const CHARS = characters as Record<
   string,
   { name: string; path: string; element: string; rarity: number }
 >;
 
+interface MetadataEntry {
+  name: string;
+  stats: Record<string, number>;
+  parts: Record<string, string[]>;
+  flatMainstatBoost?: string;
+}
+const FRIBBELS = (scoringMetadata as { characters: Record<string, MetadataEntry> }).characters;
+
 /** Below this, a roll is doing nothing useful and counts as waste. */
 export const WASTE_THRESHOLD = 0.2;
+
+/**
+ * Flat substats are worth 40% of their percent counterpart, whatever weight
+ * the table gives them. Same rule as Fribbels (FLAT_STAT_SCALING) and as the
+ * Genshin scorer, so a flat ATK roll means the same thing on both tabs.
+ */
+export const FLAT_STAT_SCALING = 0.4;
+
+export const PERCENT_TO_FLAT: Partial<Record<HsrStatKey, HsrStatKey>> = {
+  AttackAddedRatio: "AttackDelta",
+  HPAddedRatio: "HPDelta",
+  DefenceAddedRatio: "DefenceDelta",
+};
+
+function withFlatScaling(stats: HsrWeights): HsrWeights {
+  const out: HsrWeights = { ...stats };
+  for (const [pct, flat] of Object.entries(PERCENT_TO_FLAT) as [HsrStatKey, HsrStatKey][]) {
+    const scaled = (out[pct] ?? 0) * FLAT_STAT_SCALING;
+    if (scaled > 0) out[flat] = scaled;
+    else delete out[flat];
+  }
+  return out;
+}
 
 const DPS: HsrWeights = {
   CriticalChanceBase: 1.0,
   CriticalDamageBase: 1.0,
+  SpeedDelta: 1.0,
   AttackAddedRatio: 0.75,
-  SpeedDelta: 0.5,
-  AttackDelta: 0.25,
-  BreakDamageAddedRatioBase: 0.15,
 };
 
 const HARMONY: HsrWeights = {
   SpeedDelta: 1.0,
+  CriticalDamageBase: 0.75,
+  CriticalChanceBase: 0.5,
   AttackAddedRatio: 0.5,
-  BreakDamageAddedRatioBase: 0.45,
-  CriticalChanceBase: 0.35,
-  CriticalDamageBase: 0.35,
-  // A buffer that gets crowd-controlled buffs nobody that turn, so Effect RES
-  // and bulk do real work here even though they add no damage of their own.
-  StatusResistanceBase: 0.3,
+  BreakDamageAddedRatioBase: 0.25,
+  StatusResistanceBase: 0.25,
   HPAddedRatio: 0.25,
   DefenceAddedRatio: 0.25,
-  AttackDelta: 0.15,
 };
 
 const NIHILITY: HsrWeights = {
-  StatusProbabilityBase: 0.85,
-  SpeedDelta: 0.8,
-  AttackAddedRatio: 0.7,
-  BreakDamageAddedRatioBase: 0.6,
+  SpeedDelta: 1.0,
+  StatusProbabilityBase: 1.0,
+  AttackAddedRatio: 0.75,
   CriticalChanceBase: 0.5,
   CriticalDamageBase: 0.5,
-  AttackDelta: 0.2,
+  BreakDamageAddedRatioBase: 0.25,
+  StatusResistanceBase: 0.25,
 };
 
 const PRESERVATION: HsrWeights = {
-  DefenceAddedRatio: 0.85,
-  HPAddedRatio: 0.7,
-  SpeedDelta: 0.7,
-  CriticalChanceBase: 0.45,
-  CriticalDamageBase: 0.45,
-  StatusResistanceBase: 0.3,
-  DefenceDelta: 0.2,
-  HPDelta: 0.2,
+  SpeedDelta: 1.0,
+  DefenceAddedRatio: 1.0,
+  HPAddedRatio: 0.75,
+  StatusResistanceBase: 0.5,
+  CriticalChanceBase: 0.5,
+  CriticalDamageBase: 0.5,
+  StatusProbabilityBase: 0.25,
 };
 
 const ABUNDANCE: HsrWeights = {
-  SpeedDelta: 0.9,
-  HPAddedRatio: 0.85,
-  DefenceAddedRatio: 0.4,
-  StatusResistanceBase: 0.35,
-  HPDelta: 0.25,
-  AttackAddedRatio: 0.2,
+  SpeedDelta: 1.0,
+  HPAddedRatio: 1.0,
+  DefenceAddedRatio: 0.75,
+  StatusResistanceBase: 0.5,
+  AttackAddedRatio: 0.25,
 };
 
 /**
  * Internal Path names as they appear in the game data. The English names
- * players know are in PATH_LABELS.
+ * players know are in PATH_LABELS. These mirror Fribbels' role defaults
+ * (0.75 ATK, 1.0 SPD, 1.0 CR, 1.0 CD for crit damage dealers, 0.25 RES on
+ * offensive supports, 0.5 RES on sustains) and only apply when a character
+ * has no entry of their own.
  */
 const PATH_WEIGHTS: Record<string, HsrWeights> = {
   Warrior: DPS, // Destruction
@@ -107,55 +158,64 @@ export const PATH_LABELS: Record<string, string> = {
 };
 
 /**
- * Characters whose kit contradicts their Path's default. Kept intentionally
- * short: an entry here is a maintenance liability, so it should earn its
- * place by being clearly wrong otherwise.
+ * Patches applied over the imported table, keyed by avatarId. Each entry
+ * should say which guide it follows and why it beats the Fribbels value, so
+ * the next person can re-check it when either source moves.
  */
-export const CHARACTER_OVERRIDES: Record<string, HsrWeights> = {
-  // Break-damage carries: crit does almost nothing for them.
-  "1225": { // Fugue
-    BreakDamageAddedRatioBase: 1.0,
-    SpeedDelta: 0.9,
-    AttackAddedRatio: 0.6,
-    StatusProbabilityBase: 0.4,
-    CriticalChanceBase: 0.1,
-    CriticalDamageBase: 0.1,
-  },
-  // Silver Wolf LV.999 shares a name with the original debuffer but not a
-  // kit: this is the self-buffing Elation crit-stacker whose "Hidden MMR"
-  // converts into CRIT Rate then CRIT DMG, not a Effect Hit Rate debuffer.
-  // Prydwen's substat priority for her is exactly "SPD > CRIT Rate = CRIT
-  // DMG" and nothing else — no Effect RES, no Break Effect, no flat stats.
-  // An earlier version of this override assumed the debuffer identity and
-  // credited Effect RES and Break Effect rolls that guides never list.
-  "1506": { // Silver Wolf LV.999
-    SpeedDelta: 1.0,
-    CriticalDamageBase: 0.85,
-    CriticalChanceBase: 0.85,
-  },
-  "1310": { // Firefly
-    BreakDamageAddedRatioBase: 1.0,
-    SpeedDelta: 0.85,
-    AttackAddedRatio: 0.6,
-    DefenceAddedRatio: 0.2,
-    CriticalChanceBase: 0.05,
-    CriticalDamageBase: 0.05,
-  },
-};
+export const CHARACTER_OVERRIDES: Record<string, Partial<Pick<ScoringMeta, "stats" | "parts">>> = {};
 
 export function getCharacterInfo(avatarId: number) {
   return CHARS[String(avatarId)] ?? null;
 }
 
 /**
- * Weights for a character. Falls back through override -> Path -> generic DPS,
- * so an unknown avatarId still produces a usable score rather than nothing.
+ * The Trailblazer has one id per gender for each Path (8001/8002 Destruction,
+ * 8003/8004 Preservation, and so on). Fribbels keys the odd one; the kit is
+ * identical, so the even id borrows it.
  */
-export function getWeights(avatarId: number): HsrWeights {
+function metadataId(avatarId: number): string {
+  if (avatarId >= 8000 && avatarId % 2 === 0) return String(avatarId - 1);
+  return String(avatarId);
+}
+
+const EMPTY_PARTS: Record<SelectableSlot, HsrStatKey[]> = { BODY: [], FOOT: [], NECK: [], OBJECT: [] };
+
+/**
+ * Everything the scorer needs to know about a character. Falls through
+ * override -> Fribbels -> Path -> generic DPS, so an unknown avatarId still
+ * produces a usable score rather than nothing.
+ */
+export function getScoringMeta(avatarId: number): ScoringMeta {
+  const entry = FRIBBELS[metadataId(avatarId)];
   const override = CHARACTER_OVERRIDES[String(avatarId)];
-  if (override) return override;
-  const info = getCharacterInfo(avatarId);
-  return (info && PATH_WEIGHTS[info.path]) || DPS;
+
+  let meta: ScoringMeta;
+  if (entry) {
+    meta = {
+      stats: withFlatScaling(entry.stats as HsrWeights),
+      parts: { ...EMPTY_PARTS, ...(entry.parts as Record<SelectableSlot, HsrStatKey[]>) },
+      ...(entry.flatMainstatBoost ? { flatMainstatBoost: entry.flatMainstatBoost as HsrStatKey } : {}),
+      source: "fribbels",
+    };
+  } else {
+    const info = getCharacterInfo(avatarId);
+    meta = {
+      stats: withFlatScaling((info && PATH_WEIGHTS[info.path]) || DPS),
+      parts: { ...EMPTY_PARTS },
+      source: "path",
+    };
+  }
+
+  if (override) {
+    if (override.stats) meta.stats = withFlatScaling({ ...meta.stats, ...override.stats });
+    if (override.parts) meta.parts = { ...meta.parts, ...override.parts };
+  }
+  return meta;
+}
+
+/** Substat weights only, for callers that do not care about main stats. */
+export function getWeights(avatarId: number): HsrWeights {
+  return getScoringMeta(avatarId).stats;
 }
 
 export function weightOf(weights: HsrWeights, key: HsrStatKey): number {

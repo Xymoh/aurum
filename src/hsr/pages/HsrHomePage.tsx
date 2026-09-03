@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BENCHMARK_ROLLS, MAX_ROLLS } from "../scoring";
+import { BENCHMARK_ROLLS, MAX_ROLLS, GRADE_LADDER } from "../scoring";
+import { GradeBadge } from "../../components/ui/GradeBadge";
 import { isValidHsrUid } from "../useHsrShowcase";
 import { sanitizeUidInput } from "../../lib/uid";
 import { HSR_RECENT_UIDS_KEY, useRecentUids } from "../../hooks/useRecentUids";
@@ -97,7 +98,7 @@ export function HsrHomePage() {
           {
             n: "3",
             t: "The build gets one honest number",
-            b: `Effective rolls measured against a ${BENCHMARK_ROLLS}-roll benchmark, out of the ${MAX_ROLLS} a build can physically hold.`,
+            b: `Each relic is scored against the best relic its slot could hold for this character, the same way the Fribbels optimizer scores it. The build is the mean of its six pieces, with useful rolls counted against a ${BENCHMARK_ROLLS}-roll benchmark out of the ${MAX_ROLLS} a build can physically hold.`,
           },
         ].map((c) => (
           <div key={c.n} className="rounded-xl border border-hsr-border bg-hsr-panel/40 p-4">
@@ -108,6 +109,41 @@ export function HsrHomePage() {
             <p className="mt-1.5 text-sm leading-relaxed text-hsr-muted">{c.b}</p>
           </div>
         ))}
+      </div>
+
+      <div className="w-full max-w-4xl rounded-xl border border-hsr-border bg-hsr-panel/40 p-5">
+        <h2 className="text-base font-semibold text-hsr-text">How a relic is graded</h2>
+        <div className="mt-2 space-y-3 text-[15px] leading-relaxed text-hsr-muted">
+          <p>
+            Every substat is converted to CRIT DMG units, so one max roll of anything is worth
+            the same 6.48 before weighting: a CRIT Rate roll counts double, a SPD roll two and a
+            half times. Each point is then weighted for the character, and the total is measured
+            against the best relic the slot could hold: one max roll on each of the four best
+            stats plus the five upgrades all on the best, with the main stat removed from the
+            pool because it cannot also roll as a substat. That optimum is 200%; 100% is half of
+            it, and the ladder climbs one band every 10 points: S at 100, SS at 120, SSS at 140,
+            WTF at 160.
+          </p>
+          <p>
+            A relic whose main stat the character has no use for keeps its percent but gets no
+            letter. The number still tells you how the substats rolled; the missing grade tells
+            you the piece is not a candidate. Flat ATK, HP and DEF rolls count for 40% of their
+            percent stat.
+          </p>
+          <div className="flex flex-wrap items-center gap-1.5">
+            {GRADE_LADDER.filter((_, i) => i % 2 === 0).map((band) => (
+              <span key={band.grade} className="inline-flex items-center gap-1 rounded-md border border-hsr-line bg-hsr-inset px-2 py-0.5 font-mono text-xs">
+                <GradeBadge grade={band.grade} size="xs" /> {band.min}%+
+              </span>
+            ))}
+          </div>
+          <p>
+            Rolls are shown as pips, one per roll, coloured by how good the roll was. Star Rail
+            reports a stat's roll count and combined quality rather than each roll on its own,
+            so every pip on a stat carries that stat's average tier; hover or tap them for the
+            numbers.
+          </p>
+        </div>
       </div>
 
       <div className="w-full max-w-4xl rounded-xl border border-hsr-border bg-hsr-panel/40 p-5">
@@ -128,8 +164,18 @@ export function HsrHomePage() {
             arithmetic over stats we can read exactly, so it stays correct when new characters ship.
           </p>
           <p>
-            Weights are keyed by Path rather than per character, so someone released tomorrow still
-            scores sensibly instead of falling off a hand-written table.
+            Substat weights and ideal main stats come per character from the{" "}
+            <a
+              href="https://github.com/fribbels/hsr-optimizer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-hsr-accent underline underline-offset-2 hover:text-hsr-text"
+            >
+              Fribbels HSR Optimizer
+            </a>{" "}
+            tables, cross-checked against Prydwen's build guides, so a relic graded here matches the
+            grade you would see there. A character released after the last refresh falls back to a
+            Path profile until the table is re-imported, so nothing goes ungraded.
           </p>
         </div>
       </div>

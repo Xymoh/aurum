@@ -1,0 +1,1491 @@
+{
+  "source": "https://www.prydwen.gg/zenless/characters/",
+  "method": "Priority tiers mapped to 1 / 0.75 / 0.5 / 0.25; see scripts/fetch-zzz-weights.mjs",
+  "fetchedAt": "2026-09-03T12:12:15.118Z",
+  "characters": {
+    "1011": {
+      "name": "Anby",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.5,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103
+        ],
+        "5": [
+          31803,
+          12102
+        ],
+        "6": [
+          12201
+        ]
+      },
+      "priority": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/anby-demara"
+    },
+    "1021": {
+      "name": "Nekomata",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.5,
+        "20103": 1,
+        "21103": 0.75,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103,
+          12102
+        ],
+        "5": [
+          23103,
+          12102,
+          31503
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "thresholds": {
+        "20103": 100
+      },
+      "priority": "CRIT RATE (Until 100%) >= CRIT DMG = ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/nekomata"
+    },
+    "1031": {
+      "name": "Nicole",
+      "stats": {
+        "12102": 1,
+        "12103": 0.75,
+        "23203": 0.75,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          12102,
+          31203
+        ],
+        "5": [
+          31903,
+          12102
+        ],
+        "6": [
+          30502,
+          12102
+        ]
+      },
+      "priority": "Anomaly Proficiency = ATK% > PEN = FLAT ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/nicole-demara"
+    },
+    "1041": {
+      "name": "Soldier 11",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.25,
+        "31203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103,
+          12102,
+          21103
+        ],
+        "5": [
+          23103,
+          12102,
+          31603
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "priority": "CRIT RATE = CRIT DMG > ATK% > Anomaly Proficiency > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/soldier-11"
+    },
+    "1051": {
+      "name": "Yidhari",
+      "stats": {
+        "11102": 0.75,
+        "11103": 0.5,
+        "12102": 0.5,
+        "20103": 1,
+        "21103": 1
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103
+        ],
+        "5": [
+          31703,
+          11102
+        ],
+        "6": [
+          11102
+        ]
+      },
+      "priority": "CRIT Rate = CRIT DMG > HP% > ATK% = Flat HP",
+      "source": "https://www.prydwen.gg/zenless/characters/yidhari"
+    },
+    "1061": {
+      "name": "Corin",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.5,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103
+        ],
+        "5": [
+          23103,
+          12102,
+          31503
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "priority": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/corin"
+    },
+    "1071": {
+      "name": "Caesar",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.5,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103,
+          31203
+        ],
+        "5": [
+          31503,
+          12102,
+          23103
+        ],
+        "6": [
+          12201
+        ]
+      },
+      "priority": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/caesar"
+    },
+    "1081": {
+      "name": "Billy",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.5,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103
+        ],
+        "5": [
+          23103,
+          12102,
+          31503
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "priority": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/billy-kid"
+    },
+    "1091": {
+      "name": "Miyabi",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.5,
+        "20103": 1,
+        "21103": 0.75,
+        "23203": 0.5,
+        "31203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103,
+          12102
+        ],
+        "5": [
+          31703,
+          12102
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "thresholds": {
+        "20103": 80
+      },
+      "priority": "CRIT RATE (Until 80%) >= CRIT DMG = ATK% > Anomaly Proficiency = ATK = PEN",
+      "source": "https://www.prydwen.gg/zenless/characters/miyabi"
+    },
+    "1101": {
+      "name": "Koleda",
+      "stats": {
+        "12102": 0.5,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 0.75,
+        "23203": 0.25
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103
+        ],
+        "5": [
+          31603,
+          12102
+        ],
+        "6": [
+          12201
+        ]
+      },
+      "priority": "CRIT RATE > CRIT DMG > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/koleda"
+    },
+    "1111": {
+      "name": "Anton",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.5,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103
+        ],
+        "5": [
+          31803
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "priority": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/anton"
+    },
+    "1121": {
+      "name": "Ben",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.5,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103
+        ],
+        "5": [
+          31603,
+          23103
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "priority": "CRIT RATE% (aim for 70%+) = CRIT DMG% > ATK% > Flat PEN = Flat ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/ben"
+    },
+    "1131": {
+      "name": "Soukaku",
+      "stats": {
+        "12102": 1,
+        "12103": 0.75,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.75
+      },
+      "parts": {
+        "4": [
+          12102,
+          20103
+        ],
+        "5": [
+          12102,
+          31703
+        ],
+        "6": [
+          30502,
+          12102
+        ]
+      },
+      "priority": "ATK% (top priority until ability cap) = CRIT RATE = CRIT DMG > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/soukaku"
+    },
+    "1141": {
+      "name": "Lycaon",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.5,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103
+        ],
+        "5": [
+          31703,
+          12102
+        ],
+        "6": [
+          12201
+        ]
+      },
+      "priority": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/lycaon"
+    },
+    "1151": {
+      "name": "Lucy",
+      "stats": {
+        "12102": 1,
+        "12103": 0.75,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.75
+      },
+      "parts": {
+        "4": [
+          12102,
+          20103
+        ],
+        "5": [
+          12102
+        ],
+        "6": [
+          30502,
+          12102
+        ]
+      },
+      "priority": "ATK% (top priority until ability cap) = CRIT RATE = CRIT DMG > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/lucy"
+    },
+    "1161": {
+      "name": "Lighter",
+      "stats": {
+        "12102": 0.5,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 0.75,
+        "23203": 0.25
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103
+        ],
+        "5": [
+          12102,
+          31603,
+          23103
+        ],
+        "6": [
+          12201
+        ]
+      },
+      "priority": "CRIT RATE > CRIT DMG > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/lighter"
+    },
+    "1171": {
+      "name": "Burnice",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "23203": 0.5,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          31203
+        ],
+        "5": [
+          23103,
+          31603
+        ],
+        "6": [
+          31402
+        ]
+      },
+      "priority": "Anomaly Proficiency > ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/burnice"
+    },
+    "1181": {
+      "name": "Grace",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "23203": 0.5,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          31203,
+          12102
+        ],
+        "5": [
+          23103,
+          31803,
+          12102
+        ],
+        "6": [
+          31402
+        ]
+      },
+      "priority": "Anomaly Proficiency > ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/grace-howard"
+    },
+    "1191": {
+      "name": "Ellen",
+      "stats": {
+        "12102": 0.5,
+        "12103": 0.25,
+        "20103": 0.75,
+        "21103": 1,
+        "23203": 0.25
+      },
+      "parts": {
+        "4": [
+          21103
+        ],
+        "5": [
+          23103,
+          31703
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "priority": "CRIT DMG >= CRIT Rate > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/ellen"
+    },
+    "1201": {
+      "name": "Harumasa",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 0.5,
+        "23203": 0.25
+      },
+      "parts": {
+        "4": [
+          12102,
+          21103,
+          20103
+        ],
+        "5": [
+          12102,
+          31803
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "thresholds": {
+        "20103": 75
+      },
+      "priority": "Crit Rate (until 75% in stat screen) > ATK% > Crit DMG% > Flat PEN > Flat ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/harumasa"
+    },
+    "1211": {
+      "name": "Rina",
+      "stats": {
+        "12102": 1,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 0.75,
+        "23203": 0.5,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          12102,
+          31203,
+          20103
+        ],
+        "5": [
+          23103
+        ],
+        "6": [
+          30502
+        ]
+      },
+      "priority": "Anomaly Proficiency = CRIT Rate = ATK% > CRIT DMG > PEN > FLAT ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/rina"
+    },
+    "1221": {
+      "name": "Yanagi",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.5,
+        "23203": 0.5,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          31203
+        ],
+        "5": [
+          23103,
+          31803,
+          12102
+        ],
+        "6": [
+          31402,
+          12102
+        ]
+      },
+      "priority": "Anomaly Proficiency > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/yanagi"
+    },
+    "1241": {
+      "name": "Zhu Yuan",
+      "stats": {
+        "12102": 1,
+        "12103": 0.5,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.75
+      },
+      "parts": {
+        "4": [
+          21103,
+          20103
+        ],
+        "5": [
+          12102,
+          31903,
+          23103
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "priority": "CRIT RATE = CRIT DMG = ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/zhu-yuan"
+    },
+    "1251": {
+      "name": "Qingyi",
+      "stats": {
+        "12102": 0.5,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 0.75,
+        "23203": 0.25
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103
+        ],
+        "5": [
+          31803,
+          12102
+        ],
+        "6": [
+          12201
+        ]
+      },
+      "priority": "CRIT RATE > CRIT DMG > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/qingyi"
+    },
+    "1261": {
+      "name": "Jane",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "23203": 0.5,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          31203
+        ],
+        "5": [
+          23103,
+          31503,
+          12102
+        ],
+        "6": [
+          31402
+        ]
+      },
+      "priority": "Anomaly Proficiency >= ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/jane-doe"
+    },
+    "1271": {
+      "name": "Seth",
+      "stats": {
+        "12102": 1,
+        "12103": 0.5,
+        "23203": 0.25,
+        "31203": 0.75
+      },
+      "parts": {
+        "4": [
+          12102,
+          31203
+        ],
+        "5": [
+          12102,
+          31803
+        ],
+        "6": [
+          30502,
+          31402
+        ]
+      },
+      "priority": "ATK% > Anomaly Proficiency > ATK > PEN",
+      "source": "https://www.prydwen.gg/zenless/characters/seth"
+    },
+    "1281": {
+      "name": "Piper",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.5,
+        "23203": 0.5,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          31203
+        ],
+        "5": [
+          23103,
+          12102,
+          31503
+        ],
+        "6": [
+          31402
+        ]
+      },
+      "priority": "Anomaly Proficiency > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/piper"
+    },
+    "1291": {
+      "name": "Hugo",
+      "stats": {
+        "12102": 0.5,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 0.75,
+        "23203": 0.25
+      },
+      "parts": {
+        "4": [
+          21103,
+          20103
+        ],
+        "5": [
+          31703,
+          12102,
+          23103
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "priority": "CRIT Rate > CRIT DMG > ATK% > Flat ATK > PEN",
+      "source": "https://www.prydwen.gg/zenless/characters/hugo"
+    },
+    "1301": {
+      "name": "Orphie & Magus",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          21103,
+          20103
+        ],
+        "5": [
+          31603,
+          12102
+        ],
+        "6": [
+          30502,
+          12102
+        ]
+      },
+      "priority": "CRIT DMG = CRIT Rate > ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/orphie-and-magus"
+    },
+    "1311": {
+      "name": "Astra Yao",
+      "stats": {
+        "12102": 1,
+        "12103": 0.75,
+        "23203": 0.25,
+        "31203": 0.5
+      },
+      "parts": {
+        "4": [
+          12102
+        ],
+        "5": [
+          12102
+        ],
+        "6": [
+          30502,
+          12102
+        ]
+      },
+      "priority": "ATK% > Flat ATK (Top Priorities Until Ability Cap) > Anomaly Proficiency > PEN",
+      "source": "https://www.prydwen.gg/zenless/characters/astra-yao"
+    },
+    "1321": {
+      "name": "Evelyn",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 0.75,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          12102,
+          21103
+        ],
+        "5": [
+          23103,
+          31603,
+          12102
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "thresholds": {
+        "20103": 75
+      },
+      "priority": "CRIT RATE (Until 75% in stat screen) > CRIT DMG = ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/evelyn"
+    },
+    "1331": {
+      "name": "Vivian",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.5,
+        "23203": 0.5,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          31203
+        ],
+        "5": [
+          31903,
+          23103,
+          12102
+        ],
+        "6": [
+          31402
+        ]
+      },
+      "priority": "Anomaly Proficiency >>> ATK% > ATK = PEN",
+      "source": "https://www.prydwen.gg/zenless/characters/vivian"
+    },
+    "1341": {
+      "name": "Zhao",
+      "stats": {
+        "11102": 1,
+        "11103": 0.75,
+        "20103": 0.5,
+        "21103": 0.5
+      },
+      "parts": {
+        "4": [
+          11102
+        ],
+        "5": [
+          11102
+        ],
+        "6": [
+          30502
+        ]
+      },
+      "thresholds": {
+        "11102": 27000,
+        "11103": 27000
+      },
+      "priority": "HP% (Until 27000 Initial HP) > Flat HP (Until 27000 Initial HP) > Crit Rate = Crit DMG",
+      "source": "https://www.prydwen.gg/zenless/characters/zhao"
+    },
+    "1351": {
+      "name": "Pulchra",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "23203": 0.5,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          31203
+        ],
+        "5": [
+          12102,
+          31503
+        ],
+        "6": [
+          12201
+        ]
+      },
+      "priority": "Anomaly Profiency > ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/pulchra"
+    },
+    "1361": {
+      "name": "Trigger",
+      "stats": {
+        "12102": 0.5,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 0.75,
+        "23203": 0.25
+      },
+      "parts": {
+        "4": [
+          20103
+        ],
+        "5": [
+          31803,
+          12102
+        ],
+        "6": [
+          12201
+        ]
+      },
+      "priority": "CRIT RATE >= CRIT DMG > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/trigger"
+    },
+    "1371": {
+      "name": "Yixuan",
+      "stats": {
+        "11102": 0.75,
+        "11103": 0.25,
+        "12102": 0.5,
+        "20103": 1,
+        "21103": 1
+      },
+      "parts": {
+        "4": [
+          21103,
+          20103
+        ],
+        "5": [
+          31903,
+          11102
+        ],
+        "6": [
+          11102
+        ]
+      },
+      "priority": "CRIT Rate = CRIT DMG > HP% > ATK% > Flat HP",
+      "source": "https://www.prydwen.gg/zenless/characters/yixuan"
+    },
+    "1381": {
+      "name": "Soldier 0 - Anby",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.5,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103
+        ],
+        "5": [
+          31803,
+          12102
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "priority": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/anby-demara-soldier-0"
+    },
+    "1391": {
+      "name": "Ju Fufu",
+      "stats": {
+        "12103": 0.75,
+        "20103": 1,
+        "21103": 0.5,
+        "23203": 0.25
+      },
+      "parts": {
+        "4": [
+          20103,
+          12102
+        ],
+        "5": [
+          12102
+        ],
+        "6": [
+          12201,
+          12102
+        ]
+      },
+      "thresholds": {
+        "20103": 50
+      },
+      "priority": "CRIT Rate (until 50% if using 4P King) > ATK/Flat ATK (until max. 3400) > CRIT DMG > PEN",
+      "source": "https://www.prydwen.gg/zenless/characters/ju-fufu"
+    },
+    "1401": {
+      "name": "Alice",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "23203": 0.5,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          31203,
+          12102
+        ],
+        "5": [
+          23103,
+          31503,
+          12102
+        ],
+        "6": [
+          31402
+        ]
+      },
+      "priority": "Anomaly Proficiency > ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/alice"
+    },
+    "1411": {
+      "name": "Yuzuha",
+      "stats": {
+        "12102": 1,
+        "12103": 0.75,
+        "23203": 0.25,
+        "31203": 0.5
+      },
+      "parts": {
+        "4": [
+          12102,
+          31203
+        ],
+        "5": [
+          12102,
+          23103
+        ],
+        "6": [
+          31402,
+          12102
+        ]
+      },
+      "thresholds": {
+        "12103": 3000
+      },
+      "priority": "ATK% > ATK (until 3000) > Anomaly Proficiency > PEN",
+      "source": "https://www.prydwen.gg/zenless/characters/ukinami-yuzuha"
+    },
+    "1421": {
+      "name": "Pan Yinhu",
+      "stats": {
+        "12102": 1,
+        "12103": 1,
+        "20103": 0.75,
+        "21103": 0.75,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103,
+          12102
+        ],
+        "5": [
+          31503,
+          12102
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "thresholds": {
+        "12103": 3000
+      },
+      "priority": "ATK%/Flat ATK (until 3000 ATK) > CRIT Rate = CRIT DMG > PEN",
+      "source": "https://www.prydwen.gg/zenless/characters/pan-yinhu"
+    },
+    "1431": {
+      "name": "Ye Shunguang",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          12102,
+          21103
+        ],
+        "5": [
+          23103,
+          12102
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "priority": "CRIT DMG = CRIT Rate > ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/ye-shunguang"
+    },
+    "1441": {
+      "name": "Manato",
+      "stats": {
+        "11102": 0.75,
+        "11103": 0.5,
+        "12102": 0.25,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 1
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103
+        ],
+        "5": [
+          31603,
+          11102
+        ],
+        "6": [
+          11102
+        ]
+      },
+      "priority": "CRIT Rate = CRIT DMG > HP% > HP > ATK% > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/manato"
+    },
+    "1451": {
+      "name": "Lucia",
+      "stats": {
+        "11102": 1,
+        "11103": 0.75,
+        "20103": 0.5,
+        "21103": 0.25
+      },
+      "parts": {
+        "4": [
+          11102
+        ],
+        "5": [
+          11102
+        ],
+        "6": [
+          11102
+        ]
+      },
+      "priority": "HP% > HP > CRIT Rate >= CRIT DMG",
+      "source": "https://www.prydwen.gg/zenless/characters/lucia"
+    },
+    "1461": {
+      "name": "Seed",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          21103,
+          20103
+        ],
+        "5": [
+          23103,
+          12102,
+          31803
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "priority": "CRIT DMG = CRIT Rate > ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/seed"
+    },
+    "1471": {
+      "name": "Banyue",
+      "stats": {
+        "11102": 0.75,
+        "11103": 0.25,
+        "12102": 0.5,
+        "20103": 1,
+        "21103": 1
+      },
+      "parts": {
+        "4": [
+          21103,
+          20103
+        ],
+        "5": [
+          31603,
+          11102
+        ],
+        "6": [
+          11102
+        ]
+      },
+      "priority": "CRIT Rate = CRIT DMG > HP% > ATK% > Flat HP",
+      "source": "https://www.prydwen.gg/zenless/characters/banyue"
+    },
+    "1481": {
+      "name": "Dialyn",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 0.75,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103
+        ],
+        "5": [
+          12102,
+          31503,
+          23103
+        ],
+        "6": [
+          30502
+        ]
+      },
+      "thresholds": {
+        "20103": 100
+      },
+      "priority": "CRIT RATE (until 100%) > CRIT DMG = ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/dialyn"
+    },
+    "1491": {
+      "name": "Sunna",
+      "stats": {
+        "12102": 1,
+        "12103": 0.75,
+        "23203": 0.25,
+        "31203": 0.5
+      },
+      "parts": {
+        "4": [
+          12102
+        ],
+        "5": [
+          12102
+        ],
+        "6": [
+          30502
+        ]
+      },
+      "thresholds": {
+        "12103": 3500
+      },
+      "priority": "ATK% > ATK (until 3500) > Anomaly Proficiency > Flat PEN",
+      "source": "https://www.prydwen.gg/zenless/characters/sunna"
+    },
+    "1501": {
+      "name": "Aria",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "23203": 0.5,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          31203
+        ],
+        "5": [
+          31903,
+          12102,
+          23103
+        ],
+        "6": [
+          31402
+        ]
+      },
+      "priority": "Anomaly Proficiency > ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/aria"
+    },
+    "1511": {
+      "name": "Nangong Yu",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "23203": 0.5,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          31203
+        ],
+        "5": [
+          31903,
+          12102,
+          23103
+        ],
+        "6": [
+          31402
+        ]
+      },
+      "priority": "Anomaly Proficiency > ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/nangong-yu"
+    },
+    "1521": {
+      "name": "Cissia",
+      "stats": {
+        "12102": 1,
+        "12103": 0.5,
+        "20103": 1,
+        "21103": 1,
+        "23203": 0.75
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103
+        ],
+        "5": [
+          31803,
+          12102
+        ],
+        "6": [
+          30502
+        ]
+      },
+      "priority": "CRIT RATE = CRIT DMG = ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/cissia"
+    },
+    "1531": {
+      "name": "Starlight - Billy",
+      "stats": {
+        "11102": 0.75,
+        "11103": 0.5,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 0.75
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103,
+          11102
+        ],
+        "5": [
+          31503,
+          11102
+        ],
+        "6": [
+          11102
+        ]
+      },
+      "priority": "CRIT RATE > CRIT DMG = HP% > Flat HP > Flat ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/billy-starlight"
+    },
+    "1541": {
+      "name": "Promeia",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "23203": 0.5,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          31203
+        ],
+        "5": [
+          31703,
+          12102,
+          23103
+        ],
+        "6": [
+          31402
+        ]
+      },
+      "priority": "Anomaly Proficiency > ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/promeia"
+    },
+    "1551": {
+      "name": "Pyrois",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 0.75,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103,
+          21103
+        ],
+        "5": [
+          23103,
+          31903,
+          12102
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "thresholds": {
+        "20103": 100
+      },
+      "priority": "CRIT RATE (until 100% in combat) > CRIT DMG = ATK% > Flat PEN > Flat ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/pyrois"
+    },
+    "1561": {
+      "name": "Velina",
+      "stats": {
+        "12102": 1,
+        "12103": 0.5,
+        "23203": 0.75,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          31203
+        ],
+        "5": [
+          32303,
+          12102,
+          23103
+        ],
+        "6": [
+          30502
+        ]
+      },
+      "priority": "Anomaly Proficiency = ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/velina"
+    },
+    "1571": {
+      "name": "Norma",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 0.75,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          20103
+        ],
+        "5": [
+          31603,
+          23103,
+          12102
+        ],
+        "6": [
+          30502,
+          12201
+        ]
+      },
+      "thresholds": {
+        "20103": 100
+      },
+      "priority": "CRIT RATE (until 100% in combat) > CRIT DMG = ATK% > Flat PEN > Flat ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/norma"
+    },
+    "1581": {
+      "name": "Remielle",
+      "stats": {
+        "12102": 1,
+        "23203": 0.5,
+        "31203": 0.75
+      },
+      "parts": {
+        "4": [
+          31203
+        ],
+        "5": [
+          12102
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "thresholds": {
+        "12102": 4000
+      },
+      "priority": "ATK% (until 4000 in statscreen) > Anomaly Proficiency > PEN",
+      "source": "https://www.prydwen.gg/zenless/characters/remielle"
+    },
+    "1591": {
+      "name": "Sigrid",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "20103": 1,
+        "21103": 0.75,
+        "23203": 0.5
+      },
+      "parts": {
+        "4": [
+          21103,
+          12102
+        ],
+        "5": [
+          23103
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "thresholds": {
+        "20103": 33.8
+      },
+      "priority": "CRIT RATE (until 33.8% in statscreen) > CRIT DMG = ATK% > PEN > ATK",
+      "source": "https://www.prydwen.gg/zenless/characters/sigrid"
+    }
+  }
+}

@@ -17,7 +17,7 @@ export function GamePickerPage() {
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(60% 50% at 20% 30%, color-mix(in srgb, #d4a853 14%, transparent), transparent 70%), radial-gradient(60% 50% at 80% 70%, color-mix(in srgb, #5eead4 12%, transparent), transparent 70%)",
+            "radial-gradient(50% 45% at 15% 30%, color-mix(in srgb, #d4a853 14%, transparent), transparent 70%), radial-gradient(50% 45% at 50% 80%, color-mix(in srgb, #5eead4 12%, transparent), transparent 70%), radial-gradient(50% 45% at 85% 25%, color-mix(in srgb, #d4ff00 10%, transparent), transparent 70%)",
         }}
       />
 
@@ -25,7 +25,7 @@ export function GamePickerPage() {
         <ThemeToggle className="text-dark-muted hover:bg-dark-border/40 hover:text-dark-text" />
       </div>
 
-      <div className="relative w-full max-w-3xl text-center">
+      <div className="relative w-full max-w-4xl text-center">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
           <span className="bg-gradient-to-r from-amber-300 via-teal-200 to-sky-400 bg-clip-text text-transparent">
             Aurum
@@ -39,7 +39,7 @@ export function GamePickerPage() {
           what a reroll is actually likely to buy you.
         </p>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+        <div className="mt-10 grid gap-4 sm:grid-cols-3">
           {GAMES.map((game) => {
             const planned = game.status === "planned";
             const card = (

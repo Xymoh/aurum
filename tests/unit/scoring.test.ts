@@ -22,6 +22,7 @@ function makeSubstat(
     rollCount:
       rollCount ?? (maxRoll > 0 ? Math.max(0, Math.round(value / (maxRoll * 0.85)) - 1) : 0),
     rollQuality: "high",
+    rolls: [],
   };
 }
 

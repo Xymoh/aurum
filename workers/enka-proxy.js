@@ -10,11 +10,13 @@
  *
  * GET /?uid=707023973          ->  Genshin showcase JSON
  * GET /?uid=700600838&game=hsr ->  Honkai: Star Rail showcase JSON
+ * GET /?uid=1300064261&game=zzz -> Zenless Zone Zero showcase JSON
  */
 
 const ENKA_BASE = {
   gi: "https://enka.network/api/uid",
   hsr: "https://enka.network/api/hsr/uid",
+  zzz: "https://enka.network/api/zzz/uid",
 };
 
 const CORS_HEADERS = {
@@ -41,9 +43,10 @@ export default {
 
     const params = new URL(request.url).searchParams;
     const uid = params.get("uid");
-    const game = params.get("game") === "hsr" ? "hsr" : "gi";
-    if (!uid || !/^[1-9]\d{8}$/.test(uid)) {
-      return json({ error: "Invalid UID. Must be exactly 9 digits starting with 1-9." }, 400);
+    const gameParam = params.get("game");
+    const game = gameParam === "hsr" || gameParam === "zzz" ? gameParam : "gi";
+    if (!uid || !/^[1-9]\d{8,9}$/.test(uid)) {
+      return json({ error: "Invalid UID. Must be 9 or 10 digits starting with 1-9." }, 400);
     }
 
     const upstream = await fetch(`${ENKA_BASE[game]}/${uid}`, {

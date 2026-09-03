@@ -1,0 +1,2987 @@
+{
+  "source": "https://github.com/fribbels/hsr-optimizer",
+  "license": "MIT",
+  "commit": "df630a0488a64eeb740e4e0c14f265d96b9f6f8f",
+  "fetchedAt": "2026-09-03T11:12:04.626Z",
+  "characters": {
+    "1001": {
+      "name": "March 7th",
+      "stats": {
+        "DefenceDelta": 1,
+        "DefenceAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusProbabilityBase": 1,
+        "StatusResistanceBase": 0.5
+      },
+      "parts": {
+        "BODY": [
+          "DefenceAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "DefenceAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "DefenceAddedRatio"
+        ],
+        "OBJECT": [
+          "DefenceAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "flatMainstatBoost": "DefenceDelta",
+      "file": "src/lib/conditionals/character/1000/March7th.ts",
+      "variant": "base"
+    },
+    "1002": {
+      "name": "Dan Heng",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "WindAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1000/DanHeng.ts",
+      "variant": "base"
+    },
+    "1003": {
+      "name": "Himeko",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalDamageBase",
+          "CriticalChanceBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "FireAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1000/Himeko.ts",
+      "variant": "base"
+    },
+    "1004": {
+      "name": "Welt",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1,
+        "StatusProbabilityBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalDamageBase",
+          "CriticalChanceBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "ImaginaryAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1000/WeltB1.ts",
+      "variant": "B1",
+      "variants": [
+        {
+          "name": "Welt",
+          "stats": {
+            "AttackDelta": 0.75,
+            "AttackAddedRatio": 0.75,
+            "SpeedDelta": 1,
+            "CriticalChanceBase": 1,
+            "CriticalDamageBase": 1,
+            "StatusProbabilityBase": 1
+          },
+          "parts": {
+            "BODY": [
+              "CriticalDamageBase",
+              "CriticalChanceBase",
+              "StatusProbabilityBase"
+            ],
+            "FOOT": [
+              "AttackAddedRatio",
+              "SpeedDelta"
+            ],
+            "NECK": [
+              "AttackAddedRatio",
+              "ImaginaryAddedRatio"
+            ],
+            "OBJECT": [
+              "AttackAddedRatio",
+              "SPRatioBase"
+            ]
+          },
+          "file": "src/lib/conditionals/character/1000/Welt.ts",
+          "variant": "base"
+        }
+      ]
+    },
+    "1005": {
+      "name": "Kafka",
+      "stats": {
+        "AttackDelta": 1,
+        "AttackAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusProbabilityBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "AttackAddedRatio"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "ThunderAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1000/KafkaB1.ts",
+      "variant": "B1",
+      "variants": [
+        {
+          "name": "Kafka",
+          "stats": {
+            "AttackDelta": 1,
+            "AttackAddedRatio": 1,
+            "SpeedDelta": 1,
+            "StatusProbabilityBase": 0.5
+          },
+          "parts": {
+            "BODY": [
+              "AttackAddedRatio",
+              "StatusProbabilityBase"
+            ],
+            "FOOT": [
+              "SpeedDelta",
+              "AttackAddedRatio"
+            ],
+            "NECK": [
+              "AttackAddedRatio",
+              "ThunderAddedRatio"
+            ],
+            "OBJECT": [
+              "AttackAddedRatio"
+            ]
+          },
+          "file": "src/lib/conditionals/character/1000/Kafka.ts",
+          "variant": "base"
+        }
+      ]
+    },
+    "1006": {
+      "name": "Silver Wolf",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1,
+        "StatusProbabilityBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalDamageBase",
+          "CriticalChanceBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "QuantumAddedRatio",
+          "AttackAddedRatio",
+          "HPAddedRatio",
+          "DefenceAddedRatio"
+        ],
+        "OBJECT": [
+          "SPRatioBase",
+          "AttackAddedRatio",
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1000/SilverWolfB1.ts",
+      "variant": "B1",
+      "variants": [
+        {
+          "name": "Silver Wolf",
+          "stats": {
+            "SpeedDelta": 1,
+            "StatusProbabilityBase": 1,
+            "StatusResistanceBase": 0.25
+          },
+          "parts": {
+            "BODY": [
+              "CriticalDamageBase",
+              "CriticalChanceBase",
+              "StatusProbabilityBase"
+            ],
+            "FOOT": [
+              "SpeedDelta"
+            ],
+            "NECK": [
+              "QuantumAddedRatio",
+              "AttackAddedRatio",
+              "HPAddedRatio",
+              "DefenceAddedRatio"
+            ],
+            "OBJECT": [
+              "SPRatioBase",
+              "AttackAddedRatio",
+              "BreakDamageAddedRatioBase"
+            ]
+          },
+          "file": "src/lib/conditionals/character/1000/SilverWolf.ts",
+          "variant": "base"
+        }
+      ]
+    },
+    "1008": {
+      "name": "Arlan",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "ThunderAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1000/Arlan.ts",
+      "variant": "base"
+    },
+    "1009": {
+      "name": "Asta",
+      "stats": {
+        "DefenceDelta": 0.25,
+        "DefenceAddedRatio": 0.25,
+        "HPDelta": 0.25,
+        "HPAddedRatio": 0.25,
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.25
+      },
+      "parts": {
+        "BODY": [],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1000/Asta.ts",
+      "variant": "base"
+    },
+    "1013": {
+      "name": "Herta",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "IceAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1000/Herta.ts",
+      "variant": "base"
+    },
+    "1014": {
+      "name": "Saber",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "WindAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1000/Saber.ts",
+      "variant": "base"
+    },
+    "1015": {
+      "name": "Archer",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "QuantumAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1000/Archer.ts",
+      "variant": "base"
+    },
+    "1101": {
+      "name": "Bronya",
+      "stats": {
+        "SpeedDelta": 1,
+        "CriticalDamageBase": 1,
+        "StatusResistanceBase": 0.25
+      },
+      "parts": {
+        "BODY": [
+          "CriticalDamageBase"
+        ],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1100/Bronya.ts",
+      "variant": "base"
+    },
+    "1102": {
+      "name": "Seele",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "QuantumAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1100/SeeleB1.ts",
+      "variant": "B1",
+      "variants": [
+        {
+          "name": "Seele",
+          "stats": {
+            "AttackDelta": 0.75,
+            "AttackAddedRatio": 0.75,
+            "SpeedDelta": 1,
+            "CriticalChanceBase": 1,
+            "CriticalDamageBase": 1
+          },
+          "parts": {
+            "BODY": [
+              "CriticalChanceBase",
+              "CriticalDamageBase",
+              "StatusProbabilityBase"
+            ],
+            "FOOT": [
+              "AttackAddedRatio",
+              "SpeedDelta"
+            ],
+            "NECK": [
+              "AttackAddedRatio",
+              "QuantumAddedRatio"
+            ],
+            "OBJECT": [
+              "AttackAddedRatio"
+            ]
+          },
+          "file": "src/lib/conditionals/character/1100/Seele.ts",
+          "variant": "base"
+        }
+      ]
+    },
+    "1103": {
+      "name": "Serval",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalDamageBase",
+          "CriticalChanceBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "AttackAddedRatio"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "ThunderAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1100/Serval.ts",
+      "variant": "base"
+    },
+    "1104": {
+      "name": "Gepard",
+      "stats": {
+        "DefenceDelta": 1,
+        "DefenceAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusProbabilityBase": 0.75,
+        "StatusResistanceBase": 0.5
+      },
+      "parts": {
+        "BODY": [
+          "DefenceAddedRatio"
+        ],
+        "FOOT": [
+          "DefenceAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "DefenceAddedRatio"
+        ],
+        "OBJECT": [
+          "DefenceAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "flatMainstatBoost": "DefenceDelta",
+      "file": "src/lib/conditionals/character/1100/Gepard.ts",
+      "variant": "base"
+    },
+    "1105": {
+      "name": "Natasha",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.5
+      },
+      "parts": {
+        "BODY": [
+          "HPAddedRatio",
+          "HealRatioBase"
+        ],
+        "FOOT": [
+          "HPAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "HPAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "flatMainstatBoost": "HPDelta",
+      "file": "src/lib/conditionals/character/1100/Natasha.ts",
+      "variant": "base"
+    },
+    "1106": {
+      "name": "Pela",
+      "stats": {
+        "DefenceDelta": 0.25,
+        "DefenceAddedRatio": 0.25,
+        "HPDelta": 0.25,
+        "HPAddedRatio": 0.25,
+        "SpeedDelta": 1,
+        "StatusProbabilityBase": 1,
+        "StatusResistanceBase": 0.25
+      },
+      "parts": {
+        "BODY": [
+          "StatusProbabilityBase",
+          "HPAddedRatio",
+          "DefenceAddedRatio"
+        ],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "HPAddedRatio",
+          "DefenceAddedRatio",
+          "IceAddedRatio"
+        ],
+        "OBJECT": [
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1100/Pela.ts",
+      "variant": "base"
+    },
+    "1107": {
+      "name": "Clara",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "PhysicalAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1100/Clara.ts",
+      "variant": "base"
+    },
+    "1108": {
+      "name": "Sampo",
+      "stats": {
+        "AttackDelta": 1,
+        "AttackAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusProbabilityBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "AttackAddedRatio"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "WindAddedRatio"
+        ],
+        "OBJECT": [
+          "SPRatioBase",
+          "AttackAddedRatio",
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1100/Sampo.ts",
+      "variant": "base"
+    },
+    "1109": {
+      "name": "Hook",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "FireAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1100/Hook.ts",
+      "variant": "base"
+    },
+    "1110": {
+      "name": "Lynx",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.5
+      },
+      "parts": {
+        "BODY": [
+          "HPAddedRatio",
+          "HealRatioBase"
+        ],
+        "FOOT": [
+          "HPAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "HPAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "flatMainstatBoost": "HPDelta",
+      "file": "src/lib/conditionals/character/1100/Lynx.ts",
+      "variant": "base"
+    },
+    "1111": {
+      "name": "Luka",
+      "stats": {
+        "AttackDelta": 1,
+        "AttackAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusProbabilityBase": 1,
+        "BreakDamageAddedRatioBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "AttackAddedRatio"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "PhysicalAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1100/Luka.ts",
+      "variant": "base"
+    },
+    "1112": {
+      "name": "Topaz & Numby",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "FireAddedRatio",
+          "AttackAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1100/Topaz.ts",
+      "variant": "base"
+    },
+    "1201": {
+      "name": "Qingque",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "QuantumAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Qingque.ts",
+      "variant": "base"
+    },
+    "1202": {
+      "name": "Tingyun",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "DefenceDelta": 0.25,
+        "DefenceAddedRatio": 0.25,
+        "HPDelta": 0.25,
+        "HPAddedRatio": 0.25,
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.25
+      },
+      "parts": {
+        "BODY": [
+          "AttackAddedRatio",
+          "HPAddedRatio",
+          "DefenceAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "HPAddedRatio",
+          "DefenceAddedRatio",
+          "AttackAddedRatio"
+        ],
+        "OBJECT": [
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Tingyun.ts",
+      "variant": "base"
+    },
+    "1203": {
+      "name": "Luocha",
+      "stats": {
+        "AttackDelta": 1,
+        "AttackAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.5
+      },
+      "parts": {
+        "BODY": [
+          "HealRatioBase",
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "AttackAddedRatio"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "HPAddedRatio",
+          "DefenceAddedRatio"
+        ],
+        "OBJECT": [
+          "SPRatioBase"
+        ]
+      },
+      "flatMainstatBoost": "AttackDelta",
+      "file": "src/lib/conditionals/character/1200/Luocha.ts",
+      "variant": "base"
+    },
+    "1204": {
+      "name": "Jing Yuan",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "ThunderAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/JingYuan.ts",
+      "variant": "base"
+    },
+    "1205": {
+      "name": "Blade",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalDamageBase",
+          "CriticalChanceBase",
+          "HPAddedRatio"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "HPAddedRatio"
+        ],
+        "NECK": [
+          "WindAddedRatio",
+          "HPAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/BladeB1.ts",
+      "variant": "B1",
+      "variants": [
+        {
+          "name": "Blade",
+          "stats": {
+            "AttackDelta": 0.25,
+            "AttackAddedRatio": 0.25,
+            "HPDelta": 1,
+            "HPAddedRatio": 1,
+            "SpeedDelta": 1,
+            "CriticalChanceBase": 1,
+            "CriticalDamageBase": 1
+          },
+          "parts": {
+            "BODY": [
+              "CriticalDamageBase",
+              "CriticalChanceBase"
+            ],
+            "FOOT": [
+              "SpeedDelta",
+              "HPAddedRatio"
+            ],
+            "NECK": [
+              "WindAddedRatio",
+              "HPAddedRatio"
+            ],
+            "OBJECT": [
+              "HPAddedRatio"
+            ]
+          },
+          "file": "src/lib/conditionals/character/1200/Blade.ts",
+          "variant": "base"
+        }
+      ]
+    },
+    "1206": {
+      "name": "Sushang",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "PhysicalAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Sushang.ts",
+      "variant": "base"
+    },
+    "1207": {
+      "name": "Yukong",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "ImaginaryAddedRatio"
+        ],
+        "OBJECT": [
+          "SPRatioBase",
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Yukong.ts",
+      "variant": "base"
+    },
+    "1208": {
+      "name": "Fu Xuan",
+      "stats": {
+        "DefenceDelta": 0.75,
+        "DefenceAddedRatio": 0.75,
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.5
+      },
+      "parts": {
+        "BODY": [
+          "HPAddedRatio",
+          "DefenceAddedRatio"
+        ],
+        "FOOT": [
+          "HPAddedRatio",
+          "DefenceAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "HPAddedRatio",
+          "DefenceAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio",
+          "DefenceAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/FuXuan.ts",
+      "variant": "base"
+    },
+    "1209": {
+      "name": "Yanqing",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "IceAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Yanqing.ts",
+      "variant": "base"
+    },
+    "1210": {
+      "name": "Guinaifen",
+      "stats": {
+        "AttackDelta": 0.5,
+        "AttackAddedRatio": 0.5,
+        "DefenceDelta": 0.25,
+        "DefenceAddedRatio": 0.25,
+        "HPDelta": 0.25,
+        "HPAddedRatio": 0.25,
+        "SpeedDelta": 1,
+        "StatusProbabilityBase": 1,
+        "StatusResistanceBase": 0.25
+      },
+      "parts": {
+        "BODY": [
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "FireAddedRatio"
+        ],
+        "OBJECT": [
+          "SPRatioBase",
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Guinaifen.ts",
+      "variant": "base"
+    },
+    "1211": {
+      "name": "Bailu",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.5
+      },
+      "parts": {
+        "BODY": [
+          "HealRatioBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "HPAddedRatio"
+        ],
+        "NECK": [
+          "HPAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "flatMainstatBoost": "HPDelta",
+      "file": "src/lib/conditionals/character/1200/Bailu.ts",
+      "variant": "base"
+    },
+    "1212": {
+      "name": "Jingliu",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "HPAddedRatio"
+        ],
+        "FOOT": [
+          "HPAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "HPAddedRatio",
+          "IceAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/JingliuB1.ts",
+      "variant": "B1",
+      "variants": [
+        {
+          "name": "Jingliu",
+          "stats": {
+            "AttackDelta": 0.75,
+            "AttackAddedRatio": 0.75,
+            "SpeedDelta": 1,
+            "CriticalChanceBase": 1,
+            "CriticalDamageBase": 1
+          },
+          "parts": {
+            "BODY": [
+              "CriticalChanceBase",
+              "CriticalDamageBase",
+              "StatusProbabilityBase"
+            ],
+            "FOOT": [
+              "AttackAddedRatio",
+              "SpeedDelta"
+            ],
+            "NECK": [
+              "AttackAddedRatio",
+              "IceAddedRatio"
+            ],
+            "OBJECT": [
+              "AttackAddedRatio",
+              "SPRatioBase"
+            ]
+          },
+          "file": "src/lib/conditionals/character/1200/Jingliu.ts",
+          "variant": "base"
+        }
+      ]
+    },
+    "1213": {
+      "name": "Dan Heng • Imbibitor Lunae",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "ImaginaryAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/ImbibitorLunae.ts",
+      "variant": "base"
+    },
+    "1214": {
+      "name": "Xueyi",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1,
+        "BreakDamageAddedRatioBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "QuantumAddedRatio",
+          "AttackAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Xueyi.ts",
+      "variant": "base"
+    },
+    "1215": {
+      "name": "Hanya",
+      "stats": {
+        "DefenceDelta": 0.25,
+        "DefenceAddedRatio": 0.25,
+        "HPDelta": 0.25,
+        "HPAddedRatio": 0.25,
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.25
+      },
+      "parts": {
+        "BODY": [],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Hanya.ts",
+      "variant": "base"
+    },
+    "1217": {
+      "name": "Huohuo",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.5
+      },
+      "parts": {
+        "BODY": [
+          "HPAddedRatio",
+          "HealRatioBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "HPAddedRatio"
+        ],
+        "NECK": [
+          "HPAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "flatMainstatBoost": "HPDelta",
+      "file": "src/lib/conditionals/character/1200/HuohuoB1.ts",
+      "variant": "B1",
+      "variants": [
+        {
+          "name": "Huohuo",
+          "stats": {
+            "HPDelta": 1,
+            "HPAddedRatio": 1,
+            "SpeedDelta": 1,
+            "StatusResistanceBase": 0.5
+          },
+          "parts": {
+            "BODY": [
+              "HPAddedRatio",
+              "HealRatioBase"
+            ],
+            "FOOT": [
+              "SpeedDelta",
+              "HPAddedRatio"
+            ],
+            "NECK": [
+              "HPAddedRatio"
+            ],
+            "OBJECT": [
+              "HPAddedRatio",
+              "SPRatioBase"
+            ]
+          },
+          "file": "src/lib/conditionals/character/1200/Huohuo.ts",
+          "variant": "base"
+        }
+      ]
+    },
+    "1218": {
+      "name": "Jiaoqiu",
+      "stats": {
+        "AttackDelta": 0.5,
+        "AttackAddedRatio": 0.5,
+        "SpeedDelta": 1,
+        "StatusProbabilityBase": 1,
+        "StatusResistanceBase": 0.25
+      },
+      "parts": {
+        "BODY": [
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Jiaoqiu.ts",
+      "variant": "base"
+    },
+    "1220": {
+      "name": "Feixiao",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "WindAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Feixiao.ts",
+      "variant": "base"
+    },
+    "1221": {
+      "name": "Yunli",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "PhysicalAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Yunli.ts",
+      "variant": "base"
+    },
+    "1222": {
+      "name": "Lingsha",
+      "stats": {
+        "AttackDelta": 1,
+        "AttackAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.5,
+        "BreakDamageAddedRatioBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "AttackAddedRatio",
+          "HealRatioBase",
+          "DefenceAddedRatio",
+          "HPAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "DefenceAddedRatio",
+          "HPAddedRatio",
+          "FireAddedRatio"
+        ],
+        "OBJECT": [
+          "BreakDamageAddedRatioBase",
+          "SPRatioBase",
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Lingsha.ts",
+      "variant": "base"
+    },
+    "1223": {
+      "name": "Moze",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "ThunderAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Moze.ts",
+      "variant": "base"
+    },
+    "1224": {
+      "name": "March 7th",
+      "stats": {
+        "SpeedDelta": 1,
+        "BreakDamageAddedRatioBase": 1
+      },
+      "parts": {
+        "BODY": [],
+        "FOOT": [
+          "SpeedDelta",
+          "AttackAddedRatio"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/March7thImaginary.ts",
+      "variant": "base"
+    },
+    "1225": {
+      "name": "Fugue",
+      "stats": {
+        "SpeedDelta": 1,
+        "StatusProbabilityBase": 1,
+        "BreakDamageAddedRatioBase": 1
+      },
+      "parts": {
+        "BODY": [],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "SPRatioBase",
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1200/Fugue.ts",
+      "variant": "base"
+    },
+    "1301": {
+      "name": "Gallagher",
+      "stats": {
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.5,
+        "BreakDamageAddedRatioBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "HealRatioBase"
+        ],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "SPRatioBase",
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/Gallagher.ts",
+      "variant": "base"
+    },
+    "1302": {
+      "name": "Argenti",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "PhysicalAddedRatio",
+          "AttackAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/Argenti.ts",
+      "variant": "base"
+    },
+    "1303": {
+      "name": "Ruan Mei",
+      "stats": {
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.25,
+        "BreakDamageAddedRatioBase": 1
+      },
+      "parts": {
+        "BODY": [],
+        "FOOT": [],
+        "NECK": [],
+        "OBJECT": [
+          "SPRatioBase",
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/RuanMei.ts",
+      "variant": "base"
+    },
+    "1304": {
+      "name": "Aventurine",
+      "stats": {
+        "DefenceDelta": 1,
+        "DefenceAddedRatio": 1,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 0.25,
+        "CriticalDamageBase": 0.25
+      },
+      "parts": {
+        "BODY": [
+          "DefenceAddedRatio",
+          "CriticalChanceBase",
+          "CriticalDamageBase"
+        ],
+        "FOOT": [
+          "DefenceAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "ImaginaryAddedRatio",
+          "DefenceAddedRatio"
+        ],
+        "OBJECT": [
+          "DefenceAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "flatMainstatBoost": "DefenceDelta",
+      "file": "src/lib/conditionals/character/1300/Aventurine.ts",
+      "variant": "base"
+    },
+    "1305": {
+      "name": "Dr. Ratio",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "ImaginaryAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/DrRatio.ts",
+      "variant": "base"
+    },
+    "1306": {
+      "name": "Sparkle",
+      "stats": {
+        "SpeedDelta": 1,
+        "CriticalDamageBase": 1,
+        "StatusResistanceBase": 0.25
+      },
+      "parts": {
+        "BODY": [
+          "CriticalDamageBase"
+        ],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/SparkleB1.ts",
+      "variant": "B1",
+      "variants": [
+        {
+          "name": "Sparkle",
+          "stats": {
+            "SpeedDelta": 1,
+            "CriticalDamageBase": 1,
+            "StatusResistanceBase": 0.25
+          },
+          "parts": {
+            "BODY": [
+              "CriticalDamageBase"
+            ],
+            "FOOT": [
+              "SpeedDelta"
+            ],
+            "NECK": [],
+            "OBJECT": [
+              "SPRatioBase"
+            ]
+          },
+          "file": "src/lib/conditionals/character/1300/Sparkle.ts",
+          "variant": "base"
+        }
+      ]
+    },
+    "1307": {
+      "name": "Black Swan",
+      "stats": {
+        "AttackDelta": 1,
+        "AttackAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusProbabilityBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "AttackAddedRatio"
+        ],
+        "NECK": [
+          "WindAddedRatio",
+          "AttackAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/BlackSwanB1.ts",
+      "variant": "B1",
+      "variants": [
+        {
+          "name": "Black Swan",
+          "stats": {
+            "AttackDelta": 1,
+            "AttackAddedRatio": 1,
+            "SpeedDelta": 1,
+            "StatusProbabilityBase": 1
+          },
+          "parts": {
+            "BODY": [
+              "AttackAddedRatio",
+              "StatusProbabilityBase"
+            ],
+            "FOOT": [
+              "SpeedDelta",
+              "AttackAddedRatio"
+            ],
+            "NECK": [
+              "WindAddedRatio",
+              "AttackAddedRatio"
+            ],
+            "OBJECT": [
+              "AttackAddedRatio"
+            ]
+          },
+          "file": "src/lib/conditionals/character/1300/BlackSwan.ts",
+          "variant": "base"
+        }
+      ]
+    },
+    "1308": {
+      "name": "Acheron",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "ThunderAddedRatio",
+          "AttackAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/Acheron.ts",
+      "variant": "base"
+    },
+    "1309": {
+      "name": "Robin",
+      "stats": {
+        "AttackDelta": 1,
+        "AttackAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.25
+      },
+      "parts": {
+        "BODY": [
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "PhysicalAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "flatMainstatBoost": "AttackDelta",
+      "file": "src/lib/conditionals/character/1300/Robin.ts",
+      "variant": "base"
+    },
+    "1310": {
+      "name": "Firefly",
+      "stats": {
+        "AttackDelta": 0.5,
+        "AttackAddedRatio": 0.5,
+        "SpeedDelta": 1,
+        "BreakDamageAddedRatioBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio"
+        ],
+        "OBJECT": [
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/FireflyB1.ts",
+      "variant": "B1",
+      "variants": [
+        {
+          "name": "Firefly",
+          "stats": {
+            "AttackDelta": 0.5,
+            "AttackAddedRatio": 0.5,
+            "SpeedDelta": 1,
+            "BreakDamageAddedRatioBase": 1
+          },
+          "parts": {
+            "BODY": [
+              "AttackAddedRatio",
+              "StatusProbabilityBase"
+            ],
+            "FOOT": [
+              "AttackAddedRatio",
+              "SpeedDelta"
+            ],
+            "NECK": [
+              "AttackAddedRatio"
+            ],
+            "OBJECT": [
+              "BreakDamageAddedRatioBase"
+            ]
+          },
+          "file": "src/lib/conditionals/character/1300/Firefly.ts",
+          "variant": "base"
+        }
+      ]
+    },
+    "1312": {
+      "name": "Misha",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "IceAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/Misha.ts",
+      "variant": "base"
+    },
+    "1313": {
+      "name": "Sunday",
+      "stats": {
+        "SpeedDelta": 1,
+        "CriticalDamageBase": 1,
+        "StatusResistanceBase": 0.25
+      },
+      "parts": {
+        "BODY": [
+          "CriticalDamageBase"
+        ],
+        "FOOT": [],
+        "NECK": [],
+        "OBJECT": [
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/Sunday.ts",
+      "variant": "base"
+    },
+    "1314": {
+      "name": "Jade",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "QuantumAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/Jade.ts",
+      "variant": "base"
+    },
+    "1315": {
+      "name": "Boothill",
+      "stats": {
+        "AttackDelta": 0.25,
+        "AttackAddedRatio": 0.25,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 0.25,
+        "CriticalDamageBase": 0.25,
+        "BreakDamageAddedRatioBase": 1
+      },
+      "parts": {
+        "BODY": [],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/Boothill.ts",
+      "variant": "base"
+    },
+    "1317": {
+      "name": "Rappa",
+      "stats": {
+        "AttackDelta": 0.5,
+        "AttackAddedRatio": 0.5,
+        "SpeedDelta": 1,
+        "BreakDamageAddedRatioBase": 1
+      },
+      "parts": {
+        "BODY": [],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/Rappa.ts",
+      "variant": "base"
+    },
+    "1321": {
+      "name": "The Dahlia",
+      "stats": {
+        "SpeedDelta": 1,
+        "BreakDamageAddedRatioBase": 1
+      },
+      "parts": {
+        "BODY": [],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "SPRatioBase",
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1300/TheDahlia.ts",
+      "variant": "base"
+    },
+    "1401": {
+      "name": "The Herta",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "IceAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1400/TheHerta.ts",
+      "variant": "base"
+    },
+    "1402": {
+      "name": "Aglaea",
+      "stats": {
+        "AttackDelta": 0.5,
+        "AttackAddedRatio": 0.5,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "ThunderAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1400/Aglaea.ts",
+      "variant": "base"
+    },
+    "1403": {
+      "name": "Tribbie",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalDamageBase",
+          "CriticalChanceBase",
+          "HPAddedRatio"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "HPAddedRatio"
+        ],
+        "NECK": [
+          "QuantumAddedRatio",
+          "HPAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1400/Tribbie.ts",
+      "variant": "base"
+    },
+    "1404": {
+      "name": "Mydei",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalDamageBase",
+          "CriticalChanceBase",
+          "HPAddedRatio"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "HPAddedRatio"
+        ],
+        "NECK": [
+          "ImaginaryAddedRatio",
+          "HPAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1400/Mydei.ts",
+      "variant": "base"
+    },
+    "1405": {
+      "name": "Anaxa",
+      "stats": {
+        "AttackDelta": 1,
+        "AttackAddedRatio": 1,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "WindAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1400/Anaxa.ts",
+      "variant": "base"
+    },
+    "1406": {
+      "name": "Cipher",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1,
+        "StatusProbabilityBase": 0.5
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "QuantumAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1400/Cipher.ts",
+      "variant": "base"
+    },
+    "1407": {
+      "name": "Castorice",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "HPAddedRatio"
+        ],
+        "FOOT": [
+          "HPAddedRatio"
+        ],
+        "NECK": [
+          "HPAddedRatio",
+          "QuantumAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1400/Castorice.ts",
+      "variant": "base"
+    },
+    "1408": {
+      "name": "Phainon",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "PhysicalAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1400/Phainon.ts",
+      "variant": "base"
+    },
+    "1409": {
+      "name": "Hyacine",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "CriticalDamageBase": 1,
+        "StatusResistanceBase": 0.5
+      },
+      "parts": {
+        "BODY": [
+          "CriticalDamageBase",
+          "HPAddedRatio",
+          "HealRatioBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "HPAddedRatio"
+        ],
+        "NECK": [
+          "HPAddedRatio",
+          "WindAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1400/Hyacine.ts",
+      "variant": "base"
+    },
+    "1410": {
+      "name": "Hysilens",
+      "stats": {
+        "AttackDelta": 1,
+        "AttackAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusProbabilityBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "AttackAddedRatio"
+        ],
+        "NECK": [
+          "PhysicalAddedRatio",
+          "AttackAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1400/Hysilens.ts",
+      "variant": "base"
+    },
+    "1412": {
+      "name": "Cerydra",
+      "stats": {
+        "AttackDelta": 1,
+        "AttackAddedRatio": 1,
+        "SpeedDelta": 1,
+        "CriticalDamageBase": 0.75,
+        "StatusResistanceBase": 0.25
+      },
+      "parts": {
+        "BODY": [
+          "AttackAddedRatio"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "AttackAddedRatio"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "WindAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "flatMainstatBoost": "AttackDelta",
+      "file": "src/lib/conditionals/character/1400/Cerydra.ts",
+      "variant": "base"
+    },
+    "1413": {
+      "name": "Evernight",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "HPAddedRatio"
+        ],
+        "FOOT": [
+          "HPAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "HPAddedRatio",
+          "IceAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1400/Evernight.ts",
+      "variant": "base"
+    },
+    "1414": {
+      "name": "Dan Heng • Permansor Terrae",
+      "stats": {
+        "AttackDelta": 1,
+        "AttackAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.25
+      },
+      "parts": {
+        "BODY": [
+          "AttackAddedRatio",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "AttackAddedRatio"
+        ],
+        "NECK": [
+          "AttackAddedRatio"
+        ],
+        "OBJECT": [
+          "SPRatioBase",
+          "AttackAddedRatio"
+        ]
+      },
+      "flatMainstatBoost": "AttackDelta",
+      "file": "src/lib/conditionals/character/1400/PermansorTerrae.ts",
+      "variant": "base"
+    },
+    "1415": {
+      "name": "Cyrene",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "HPAddedRatio",
+          "CriticalChanceBase",
+          "CriticalDamageBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "HPAddedRatio"
+        ],
+        "NECK": [
+          "HPAddedRatio",
+          "IceAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1400/Cyrene.ts",
+      "variant": "base"
+    },
+    "1501": {
+      "name": "Sparxie",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "AttackAddedRatio"
+        ],
+        "NECK": [
+          "FireAddedRatio",
+          "AttackAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1500/Sparxie.ts",
+      "variant": "base"
+    },
+    "1502": {
+      "name": "Yao Guang",
+      "stats": {
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase"
+        ],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1500/Yaoguang.ts",
+      "variant": "base"
+    },
+    "1503": {
+      "name": "Pearl",
+      "stats": {
+        "DefenceDelta": 1,
+        "DefenceAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.5
+      },
+      "parts": {
+        "BODY": [
+          "DefenceAddedRatio",
+          "HealRatioBase"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "DefenceAddedRatio"
+        ],
+        "NECK": [
+          "DefenceAddedRatio"
+        ],
+        "OBJECT": [
+          "SPRatioBase",
+          "DefenceAddedRatio"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1500/Pearl.ts",
+      "variant": "base"
+    },
+    "1504": {
+      "name": "Ashveil",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "ThunderAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1500/Ashveil.ts",
+      "variant": "base"
+    },
+    "1505": {
+      "name": "Evanescia",
+      "stats": {
+        "AttackDelta": 0.25,
+        "AttackAddedRatio": 0.25,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase"
+        ],
+        "FOOT": [],
+        "NECK": [],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1500/Evanescia.ts",
+      "variant": "base"
+    },
+    "1506": {
+      "name": "Silver Wolf LV.999",
+      "stats": {
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase"
+        ],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": []
+      },
+      "file": "src/lib/conditionals/character/1500/SilverWolfLv999.ts",
+      "variant": "base"
+    },
+    "1507": {
+      "name": "Mortenax Blade",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalDamageBase",
+          "CriticalChanceBase",
+          "HPAddedRatio"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "HPAddedRatio"
+        ],
+        "NECK": [
+          "FireAddedRatio",
+          "HPAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1500/MortenaxBlade.ts",
+      "variant": "base"
+    },
+    "1508": {
+      "name": "Rin Tohsaka",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "AttackAddedRatio"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "QuantumAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1500/RinTohsaka.ts",
+      "variant": "base"
+    },
+    "1509": {
+      "name": "Gilgamesh",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "AttackAddedRatio"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "ThunderAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1500/Gilgamesh.ts",
+      "variant": "base"
+    },
+    "1510": {
+      "name": "Himeko • Nova",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "AttackAddedRatio"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "FireAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1500/HimekoNova.ts",
+      "variant": "base"
+    },
+    "1512": {
+      "name": "Robin • Summeretto",
+      "stats": {
+        "HPDelta": 1,
+        "HPAddedRatio": 1,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "HPAddedRatio"
+        ],
+        "FOOT": [
+          "SpeedDelta",
+          "HPAddedRatio"
+        ],
+        "NECK": [
+          "HPAddedRatio",
+          "WindAddedRatio"
+        ],
+        "OBJECT": [
+          "HPAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1500/RobinSummeretto.ts",
+      "variant": "base"
+    },
+    "1513": {
+      "name": "Aventurine • Waveflair",
+      "stats": {
+        "AttackDelta": 0.25,
+        "AttackAddedRatio": 0.25,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/1500/AventurineWaveflair.ts",
+      "variant": "base"
+    },
+    "8001": {
+      "name": "{NICKNAME}",
+      "stats": {
+        "AttackDelta": 0.75,
+        "AttackAddedRatio": 0.75,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase",
+          "StatusProbabilityBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "AttackAddedRatio",
+          "PhysicalAddedRatio"
+        ],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "BreakDamageAddedRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/8000/TrailblazerDestruction.ts",
+      "variant": "base"
+    },
+    "8003": {
+      "name": "{NICKNAME}",
+      "stats": {
+        "DefenceDelta": 1,
+        "DefenceAddedRatio": 1,
+        "SpeedDelta": 1,
+        "StatusProbabilityBase": 0.75,
+        "StatusResistanceBase": 0.5
+      },
+      "parts": {
+        "BODY": [
+          "DefenceAddedRatio"
+        ],
+        "FOOT": [
+          "DefenceAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [
+          "DefenceAddedRatio"
+        ],
+        "OBJECT": [
+          "DefenceAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "flatMainstatBoost": "DefenceDelta",
+      "file": "src/lib/conditionals/character/8000/TrailblazerPreservation.ts",
+      "variant": "base"
+    },
+    "8005": {
+      "name": "{NICKNAME}",
+      "stats": {
+        "SpeedDelta": 1,
+        "StatusResistanceBase": 0.25,
+        "BreakDamageAddedRatioBase": 1
+      },
+      "parts": {
+        "BODY": [],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "BreakDamageAddedRatioBase",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/8000/TrailblazerHarmony.ts",
+      "variant": "base"
+    },
+    "8007": {
+      "name": "{NICKNAME}",
+      "stats": {
+        "SpeedDelta": 1,
+        "CriticalDamageBase": 1,
+        "StatusResistanceBase": 0.25
+      },
+      "parts": {
+        "BODY": [
+          "CriticalDamageBase",
+          "HealRatioBase"
+        ],
+        "FOOT": [
+          "AttackAddedRatio",
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "AttackAddedRatio",
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/8000/TrailblazerRemembrance.ts",
+      "variant": "base"
+    },
+    "8009": {
+      "name": "{NICKNAME}",
+      "stats": {
+        "AttackDelta": 0.25,
+        "AttackAddedRatio": 0.25,
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 0.25,
+        "CriticalDamageBase": 0.25
+      },
+      "parts": {
+        "BODY": [],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": [
+          "SPRatioBase"
+        ]
+      },
+      "file": "src/lib/conditionals/character/8000/TrailblazerElation.ts",
+      "variant": "base"
+    }
+  }
+}

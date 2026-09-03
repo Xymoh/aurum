@@ -40,6 +40,20 @@
   --color-hsr-fill: var(--hsr-fill);
   --color-hsr-line: var(--hsr-line);
 
+  /* Zenless Zone Zero palette: near-black surfaces, acid lime and signal
+     orange, the way the game's own UI reads. */
+  --color-zzz-bg: var(--zzz-bg);
+  --color-zzz-panel: var(--zzz-panel);
+  --color-zzz-card: var(--zzz-card);
+  --color-zzz-border: var(--zzz-border);
+  --color-zzz-text: var(--zzz-text);
+  --color-zzz-muted: var(--zzz-muted);
+  --color-zzz-accent: var(--zzz-accent);
+  --color-zzz-signal: var(--zzz-signal);
+  --color-zzz-inset: var(--zzz-inset);
+  --color-zzz-fill: var(--zzz-fill);
+  --color-zzz-line: var(--zzz-line);
+
   /* Grade bands, best last. Plus-grades share their band's colour. */
   --color-grade-f: var(--grade-f);
   --color-grade-d: var(--grade-d);
@@ -59,6 +73,12 @@
   --color-verdict-replace: var(--verdict-replace);
   --color-verdict-ok: var(--verdict-ok);
   --color-warn: var(--warn);
+
+  /* How good one substat roll was, best to worst. */
+  --color-roll-max: var(--roll-max);
+  --color-roll-high: var(--roll-high);
+  --color-roll-mid: var(--roll-mid);
+  --color-roll-low: var(--roll-low);
 
   --color-path-warrior: #f87171;
   --color-path-rogue: #fbbf24;
@@ -118,6 +138,19 @@
     --hsr-fill: rgba(255, 255, 255, 0.06);
     --hsr-line: rgba(255, 255, 255, 0.1);
 
+    /* Zenless surfaces */
+    --zzz-bg: #0a0a0b;
+    --zzz-panel: #131315;
+    --zzz-card: #1a1a1d;
+    --zzz-border: #2a2a2f;
+    --zzz-text: #f3f3ee;
+    --zzz-muted: #9d9d97;
+    --zzz-accent: #d4ff00;
+    --zzz-signal: #ff6a1a;
+    --zzz-inset: rgba(0, 0, 0, 0.35);
+    --zzz-fill: rgba(255, 255, 255, 0.06);
+    --zzz-line: rgba(255, 255, 255, 0.1);
+
     /* Grade ramp. Reads like item rarity, which every gacha player already
        knows: grey, green, blue, purple, gold, then hotter above gold. One
        direction only, so a colour is enough to place a grade at a glance. */
@@ -138,6 +171,13 @@
     --verdict-replace: #fb7185;
     --verdict-ok: #a3abc4;
     --warn: #fbbf24;
+
+    /* Roll tiers: a max roll is green, the floor roll is rose. Same heat
+       direction as the grade ramp, so the eye reads both the same way. */
+    --roll-max: #34d399;
+    --roll-high: #a3e635;
+    --roll-mid: #fbbf24;
+    --roll-low: #fb7185;
 
     --element-pyro: #ef4444;
     --element-hydro: #3b82f6;
@@ -175,6 +215,18 @@
     --hsr-fill: rgba(20, 26, 46, 0.06);
     --hsr-line: rgba(20, 26, 46, 0.1);
 
+    --zzz-bg: #f1f1ea;
+    --zzz-panel: #ffffff;
+    --zzz-card: #f8f8f3;
+    --zzz-border: #d9d9cf;
+    --zzz-text: #121212;
+    --zzz-muted: #5a5a53;
+    --zzz-accent: #5c7a00;
+    --zzz-signal: #b83f00;
+    --zzz-inset: rgba(18, 18, 18, 0.05);
+    --zzz-fill: rgba(18, 18, 18, 0.06);
+    --zzz-line: rgba(18, 18, 18, 0.12);
+
     /* Badges paint these over a 16% wash of themselves, which costs about a
        third of the contrast, so each one clears 4.5:1 on its own wash rather
        than merely on white. */
@@ -195,6 +247,11 @@
     --verdict-replace: #9f1239;
     --verdict-ok: #545e78;
     --warn: #92400e;
+
+    --roll-max: #047857;
+    --roll-high: #4d7c0f;
+    --roll-mid: #b45309;
+    --roll-low: #be123c;
   }
 
   :root[data-theme="light"] body {

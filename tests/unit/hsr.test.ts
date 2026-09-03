@@ -10,13 +10,18 @@ import type { HsrStatKey } from "../../src/hsr/types";
 import {
   BENCHMARK_ROLLS,
   MAX_ROLLS,
+  HIGH_ROLL,
   scoreCharacter,
   gradeFor,
   GRADE_LADDER,
+  optimalScore,
+  mainStatWeight,
+  substatScale,
 } from "../../src/hsr/scoring";
 import { gradeColor } from "../../src/hsr/labels";
 import {
   getWeights,
+  getScoringMeta,
   WASTE_THRESHOLD,
   weightOf,
   CHARACTER_OVERRIDES,
@@ -77,6 +82,87 @@ describe("HSR parsing", () => {
   });
 });
 
+describe("Fribbels parity", () => {
+  it("reads the best roll of each substat from the affix table", () => {
+    // The normalisation unit. Every other stat is expressed in CRIT DMG points.
+    expect(HIGH_ROLL.CriticalDamageBase).toBeCloseTo(6.48, 2);
+    expect(HIGH_ROLL.CriticalChanceBase).toBeCloseTo(3.24, 2);
+    expect(HIGH_ROLL.SpeedDelta).toBeCloseTo(2.6, 2);
+    expect(HIGH_ROLL.AttackAddedRatio).toBeCloseTo(4.32, 2);
+    expect(substatScale("CriticalChanceBase")).toBeCloseTo(2, 3);
+    expect(substatScale("SpeedDelta")).toBeCloseTo(2.49, 2);
+  });
+
+  it("scores the fixture's relics at what fribbels.github.io shows for the same UID", () => {
+    // Fribbels' showcase for 700600838 reports Saber's pieces as 63.1, 63.4,
+    // 58.4 and 80.6 on its 0-100 scale. Ours is that scale doubled.
+    const bySlot = Object.fromEntries(saber.relics.map((r) => [r.slot, r.score.potentialPercent]));
+    expect(bySlot.HEAD).toBeCloseTo(126.2, 0);
+    expect(bySlot.HAND).toBeCloseTo(126.8, 0);
+    expect(bySlot.BODY).toBeCloseTo(116.8, 0);
+    expect(bySlot.FOOT).toBeCloseTo(161.2, 0);
+  });
+
+  it("takes per-character weights from the imported table", () => {
+    // Sparkle: SPD and CRIT DMG only, a little Effect RES, no CRIT Rate. The
+    // old Harmony profile credited ATK%, Break Effect and CRIT Rate rolls.
+    const sparkle = getScoringMeta(1306);
+    expect(sparkle.source).toBe("fribbels");
+    expect(weightOf(sparkle.stats, "SpeedDelta")).toBe(1);
+    expect(weightOf(sparkle.stats, "CriticalDamageBase")).toBe(1);
+    expect(weightOf(sparkle.stats, "StatusResistanceBase")).toBe(0.25);
+    expect(weightOf(sparkle.stats, "CriticalChanceBase")).toBe(0);
+    expect(weightOf(sparkle.stats, "AttackAddedRatio")).toBe(0);
+  });
+
+  it("weights flat stats at 40% of their percent stat, whatever the table says", () => {
+    const meta = getScoringMeta(1014);
+    expect(weightOf(meta.stats, "AttackDelta")).toBeCloseTo(0.4 * weightOf(meta.stats, "AttackAddedRatio"), 5);
+  });
+
+  it("lets the even Trailblazer id borrow the odd one's weights", () => {
+    expect(getScoringMeta(8002).source).toBe("fribbels");
+    expect(getScoringMeta(8002).stats).toEqual(getScoringMeta(8001).stats);
+  });
+});
+
+describe("main stats", () => {
+  const meta = getScoringMeta(1014);
+
+  it("excludes the main stat from the substat pool when computing the ceiling", () => {
+    // A CRIT DMG body can never roll CRIT DMG as a substat, so its ceiling is
+    // lower than a Head's, whose fixed HP main blocks nothing Saber wants.
+    const body = optimalScore("BODY", "CriticalDamageBase", meta);
+    const head = optimalScore("HEAD", "HPDelta", meta);
+    expect(body).toBeLessThan(head);
+    // CRIT Rate and CRIT DMG both carry full weight, so either main leaves
+    // the same pool behind.
+    expect(optimalScore("BODY", "CriticalChanceBase", meta)).toBeCloseTo(body, 6);
+  });
+
+  it("accepts an ideal main stat, tolerates a weighted one, rejects a useless one", () => {
+    expect(mainStatWeight("BODY", "CriticalDamageBase", meta)).toBe(1);
+    expect(mainStatWeight("BODY", "HPAddedRatio", meta)).toBe(0);
+    expect(mainStatWeight("HEAD", "HPDelta", meta)).toBe(1);
+    // Sparkle has no use for an ATK% body; its weight as a substat is 0 too.
+    expect(mainStatWeight("BODY", "AttackAddedRatio", getScoringMeta(1306))).toBe(0);
+  });
+
+  it("withholds the letter grade from a relic whose main stat the character cannot use", () => {
+    const sparkle = parsed.characters.find((c) => c.avatarId === 1306)!;
+    const body = sparkle.relics.find((r) => r.slot === "BODY")!;
+    const wrong: ParsedCharacter = {
+      ...sparkle,
+      relics: [{ ...body, mainStat: { key: "AttackAddedRatio", value: 43.2 } }],
+    };
+    const scored = scoreCharacter(wrong);
+    expect(scored.relics[0].score.mainStatOk).toBe(false);
+    expect(scored.relics[0].score.grade).toBeNull();
+    // The substats are still measured, so the number stays informative.
+    expect(scored.relics[0].score.potentialPercent).toBeGreaterThan(0);
+  });
+});
+
 describe("build diagnostics", () => {
   const d = saber.diagnostics;
 
@@ -98,6 +184,11 @@ describe("build diagnostics", () => {
 
   it("reports efficiency against the benchmark, not against volume", () => {
     expect(d.efficiency).toBeCloseTo((d.effectiveRolls / BENCHMARK_ROLLS) * 100, 1);
+  });
+
+  it("scores the build as the mean of its six slots", () => {
+    const mean = saber.relics.reduce((n, r) => n + r.score.potentialPercent, 0) / 6;
+    expect(d.score).toBeCloseTo(mean, 0);
   });
 
   it("attributes waste to specific slots and stats", () => {
@@ -124,33 +215,30 @@ describe("build diagnostics", () => {
 describe("grading", () => {
   it("falls back to Path weights for an unknown character", () => {
     // A character released after the data was bundled must still score.
-    const weights = getWeights(999999);
-    expect(Object.keys(weights).length).toBeGreaterThan(0);
+    const meta = getScoringMeta(999999);
+    expect(meta.source).toBe("path");
+    expect(Object.keys(meta.stats).length).toBeGreaterThan(0);
   });
 });
 
 describe("grade ladder", () => {
-  it("matches the ladder Fribbels uses for Star Rail", () => {
-    // The band a score lands in is the whole point of the number, so the
-    // boundaries are pinned rather than left to drift.
-    expect(gradeFor(200)).toBe("AEON");
-    expect(gradeFor(150)).toBe("WTF+");
-    expect(gradeFor(142)).toBe("WTF");
-    expect(gradeFor(130)).toBe("SSS+");
-    expect(gradeFor(121)).toBe("SSS");
-    expect(gradeFor(113)).toBe("SS+");
-    expect(gradeFor(106)).toBe("SS");
-    expect(gradeFor(100)).toBe("S+");
-    expect(gradeFor(95)).toBe("S");
-    expect(gradeFor(90)).toBe("A+");
-    expect(gradeFor(85)).toBe("A");
-    expect(gradeFor(80)).toBe("B+");
-    expect(gradeFor(75)).toBe("B");
-    expect(gradeFor(70)).toBe("C+");
-    expect(gradeFor(65)).toBe("C");
-    expect(gradeFor(60)).toBe("D+");
-    expect(gradeFor(55)).toBe("D");
-    expect(gradeFor(50)).toBe("F+");
+  it("is Fribbels' ladder doubled, one band per 10 points", () => {
+    // Fribbels awards S at 50% of the optimal relic and steps every 5%; on
+    // our 0-200 scale that is S at 100 and a band every 10. The same ladder
+    // the Genshin side uses, so a grade means one thing across the site.
+    expect(gradeFor(175)).toBe("WTF+");
+    expect(gradeFor(160)).toBe("WTF");
+    expect(gradeFor(150)).toBe("SSS+");
+    expect(gradeFor(140)).toBe("SSS");
+    expect(gradeFor(130)).toBe("SS+");
+    expect(gradeFor(120)).toBe("SS");
+    expect(gradeFor(110)).toBe("S+");
+    expect(gradeFor(100)).toBe("S");
+    expect(gradeFor(99.9)).toBe("A+");
+    expect(gradeFor(80)).toBe("A");
+    expect(gradeFor(60)).toBe("B");
+    expect(gradeFor(40)).toBe("C");
+    expect(gradeFor(20)).toBe("D");
     expect(gradeFor(0)).toBe("F");
   });
 
@@ -166,30 +254,24 @@ describe("grade ladder", () => {
 
   it("gives every band its own colour", () => {
     const colors = GRADE_LADDER.map((b) => gradeColor(b.grade));
-    // Prefix matching used to collapse SSS into SS and AEON into A.
+    // Prefix matching used to collapse SSS into SS.
     expect(gradeColor("SSS")).not.toBe(gradeColor("SS"));
-    expect(gradeColor("AEON")).not.toBe(gradeColor("A"));
+    expect(gradeColor(null)).toBe("text-hsr-muted");
     expect(colors.every((c) => c.startsWith("text-"))).toBe(true);
   });
 });
 
 describe("character overrides", () => {
-  it("targets characters that actually exist, by the name in the comment", () => {
+  it("targets characters that actually exist", () => {
     // An override keyed to the wrong avatarId silently rescores a different
     // character, which is exactly what happened when Silver Wolf LV.999's
     // support profile was pinned to Archer's id.
-    const expected: Record<string, string> = {
-      "1225": "Fugue",
-      "1310": "Firefly",
-      "1506": "Silver Wolf LV.999",
-    };
-    expect(Object.keys(CHARACTER_OVERRIDES).sort()).toEqual(Object.keys(expected).sort());
-    for (const [id, name] of Object.entries(expected)) {
-      expect(getCharacterInfo(Number(id))?.name).toBe(name);
+    for (const id of Object.keys(CHARACTER_OVERRIDES)) {
+      expect(getCharacterInfo(Number(id))).not.toBeNull();
     }
   });
 
-  it("leaves every other character on its Path profile", () => {
+  it("keeps a damage dealer on a damage profile", () => {
     // Archer is a Hunt damage dealer and must not inherit a support profile.
     const archer = getWeights(1015);
     expect(weightOf(archer, "CriticalDamageBase")).toBeGreaterThan(0.9);
@@ -249,21 +331,19 @@ describe("reroll advice", () => {
   });
 });
 
-describe("score ceiling is reachable and profile-independent", () => {
+describe("score ceiling", () => {
   /** A relic that is the best this character could possibly be handed. */
   function perfectRelicFor(avatarId: number, totalRolls: number): ParsedCharacter {
     const weights = getWeights(avatarId);
     const ranked = (Object.entries(weights) as [HsrStatKey, number][])
-      .filter(([, w]) => w > 0)
+      .filter(([key, w]) => w > 0 && key !== "HPDelta")
       .sort((a, b) => b[1] - a[1])
       .slice(0, 4);
     // Top stat soaks every upgrade; the other three fill the remaining slots.
-    const substats = ranked.map(([key], i) => ({
-      key,
-      value: 10,
-      rolls: i === 0 ? totalRolls - 3 : 1,
-      quality: 1,
-    }));
+    const substats = ranked.map(([key], i) => {
+      const rolls = i === 0 ? totalRolls - 3 : 1;
+      return { key, value: rolls * HIGH_ROLL[key], rolls, quality: 1 };
+    });
     return {
       avatarId,
       name: "test",
@@ -291,24 +371,26 @@ describe("score ceiling is reachable and profile-independent", () => {
     };
   }
 
-  it("scores a theoretically perfect relic at 200 for a damage dealer", () => {
+  it("scores a theoretically perfect 9-roll relic at 200 for a damage dealer", () => {
     const scored = scoreCharacter(perfectRelicFor(1014, 9));
     expect(scored.relics[0].score.potentialPercent).toBeCloseTo(200, 1);
+    expect(scored.relics[0].score.grade).toBe("WTF+");
   });
 
   it("scores it at 200 for a support too, whose weights fall away after the top stat", () => {
-    // The point of the fix. Silver Wolf LV.999 runs 1.0 / 0.85 / 0.85 / 0.3,
-    // so against an "every roll on the best stat" ideal her ceiling sat far
-    // below a crit carry's and she scored ~20 points low for the same quality
-    // of build.
-    const scored = scoreCharacter(perfectRelicFor(1506, 9));
-    expect(scored.relics[0].score.potentialPercent).toBeCloseTo(200, 1);
-  });
-
-  it("holds for 8-roll relics as well as 9-roll ones", () => {
-    for (const id of [1014, 1506]) {
-      const scored = scoreCharacter(perfectRelicFor(id, 8));
+    // Silver Wolf LV.999 runs 1.0 / 1.0 / 1.0 and Sparkle 1.0 / 1.0 / 0.25;
+    // the ceiling is built from the character's own top four, so both reach it.
+    for (const id of [1506, 1306]) {
+      const scored = scoreCharacter(perfectRelicFor(id, 9));
       expect(scored.relics[0].score.potentialPercent).toBeCloseTo(200, 1);
     }
+  });
+
+  it("keeps an 8-roll relic short of the ceiling, as Fribbels does", () => {
+    // The optimal relic always has nine rolls. A piece that started with
+    // three substats has one fewer, and that is a real deficit.
+    const scored = scoreCharacter(perfectRelicFor(1014, 8));
+    expect(scored.relics[0].score.potentialPercent).toBeLessThan(200);
+    expect(scored.relics[0].score.potentialPercent).toBeGreaterThan(175);
   });
 });

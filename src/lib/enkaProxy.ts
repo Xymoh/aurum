@@ -11,12 +11,18 @@
  * walked until something actually returns Enka data.
  */
 
-export type EnkaGame = "gi" | "hsr";
+export type EnkaGame = "gi" | "hsr" | "zzz";
 
 const ENKA_BASE: Record<EnkaGame, string> = {
   gi: "https://enka.network/api/uid",
   hsr: "https://enka.network/api/hsr/uid",
+  zzz: "https://enka.network/api/zzz/uid",
 };
+
+/** Same shape for all three games; ZZZ 308-redirects a trailing slash away, so none is added. */
+function enkaUrl(game: EnkaGame, uid: string): string {
+  return `${ENKA_BASE[game]}/${uid}`;
+}
 
 interface CorsProxy {
   /** Builds the proxy URL for a given upstream URL. */
@@ -134,7 +140,7 @@ async function viaCorsProxy<T>(
   game: EnkaGame,
   isValid: (data: unknown) => boolean,
 ): Promise<T> {
-  const response = await fetchWithTimeout(proxy.url(`${ENKA_BASE[game]}/${uid}`));
+  const response = await fetchWithTimeout(proxy.url(enkaUrl(game, uid)));
 
   // Enka's own status codes are forwarded by most proxies; treat the
   // conclusive ones as final so we don't hammer every proxy in the list.

@@ -230,12 +230,36 @@ function countEnhancementsFromAppendList(appendPropIdList: number[]): Map<string
   return enhancements;
 }
 
+/**
+ * The last digit of an appendPropId is the roll's tier: 1 is the lowest roll
+ * (70% of max), 4 the highest (100%). Verified against live showcases: summing
+ * maxRoll x tier over a stat's ids reproduces its displayed value.
+ */
+const ROLL_TIER_FACTOR: Record<number, number> = { 1: 0.7, 2: 0.8, 3: 0.9, 4: 1.0 };
+
+/** Every roll per stat, in order, as a share of the max roll. */
+function rollTiersFromAppendList(appendPropIdList: number[]): Map<string, number[]> {
+  const tiers = new Map<string, number[]>();
+  for (const id of appendPropIdList) {
+    const statKey = APPEND_PROP_STAT_MAP[Math.floor(id / 10) % 100];
+    const factor = ROLL_TIER_FACTOR[id % 10];
+    if (!statKey || !factor) continue;
+    const list = tiers.get(statKey) ?? [];
+    list.push(factor);
+    tiers.set(statKey, list);
+  }
+  return tiers;
+}
+
 function buildSubstats(raw: EnkaSubstat[] | undefined, appendPropIdList?: number[]): ArtifactSubstat[] {
   if (!raw || raw.length === 0) return [];
 
   // If appendPropIdList is available, use exact roll counting
   const enhancementCounts = appendPropIdList && appendPropIdList.length > 0
     ? countEnhancementsFromAppendList(appendPropIdList)
+    : null;
+  const rollTiers = appendPropIdList && appendPropIdList.length > 0
+    ? rollTiersFromAppendList(appendPropIdList)
     : null;
 
   return raw.map((s) => {
@@ -266,6 +290,7 @@ function buildSubstats(raw: EnkaSubstat[] | undefined, appendPropIdList?: number
       maxRoll,
       rollCount,
       rollQuality: quality,
+      rolls: rollTiers?.get(statKey) ?? [],
     };
   });
 }

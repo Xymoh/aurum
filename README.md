@@ -75,8 +75,22 @@ Opens at `http://localhost:3000`. Enter a Genshin UID (e.g., `707019355`) to vie
 | `npm test` | Run tests |
 | `npm run fetch-locale` | Refresh localized game text for all 8 languages |
 | `npm run fetch-pfps` | Refresh player profile-picture icons (run after a new patch) |
+| `npm run fetch-hsr-weights` | Re-import per-character HSR scoring weights from Fribbels |
+| `npm run audit-genshin` | Cross-check Genshin substat weights against Prydwen, KQM and Game8 |
 
 ## Data Pipeline
+
+**Patch day:** one command runs every fetcher below in order, tolerates a
+failing source, and ends with what changed and which new characters still
+need curated weights.
+
+```bash
+npm run refresh                       # everything
+npm run refresh -- --only=hsr,hsr-weights
+npm run refresh -- --skip=locale
+```
+
+The individual steps:
 
 ```bash
 node scripts/fetch-go-data.js           # Fetch character stats from Genshin Optimizer
@@ -90,7 +104,67 @@ player's avatar as a ProfilePicture id whose mapping to an icon is arbitrary
 pictures can't be resolved until the upstream game data catches up. Unresolved
 ids fall back to the player's initial and log a console warning naming the id.
 
-Character substat weights and ideal main stats are manually curated in `genshin_optimizer_processed_data.json`. The pipeline auto-generates default weights for new characters based on their ascension stat.
+Character substat weights and ideal main stats are manually curated in
+`src/data/character-builds.json` and merged into
+`genshin_optimizer_processed_data.json` by `fetch-go-data.js`. The pipeline
+auto-generates default weights for new characters based on their ascension
+stat.
+
+The curated table is audited against Prydwen, KQM and Game8:
+
+```bash
+node scripts/audit-genshin-weights.mjs        # writes plans/genshin-weight-audit.md
+```
+
+The report lists every character where a guide's substat priority disagrees
+with the table in a way that would change a score. It never edits weights
+itself: guides give an ordering, the table gives magnitudes, and turning
+"ER (until requirement) > CRIT > ATK%" into numbers is a judgement call.
+Prydwen refuses plain HTTP clients, so the script drives the Edge that ships
+with Windows through Playwright.
+
+**Roll quality.** Enka's `appendPropIdList` names every roll on an artifact
+and its tier (the last digit: 1 is 70% of the max roll, 4 is 100%), so each
+substat shows one pip per roll coloured by tier, with the exact values in a
+popover. Star Rail only reports a stat's roll count and combined quality, so
+its pips share the stat's average tier.
+
+## Zenless Zone Zero
+
+A third scorer lives at `/zzz`. Enka serves ZZZ showcases at
+`https://enka.network/api/zzz/uid/{uid}` (UIDs are 9 or 10 digits) and
+publishes the game tables the parser needs (agents, disc sets, W-Engines, a
+stat-id decoder, 13 locales); `scripts/fetch-zzz-data.mjs` writes compact
+copies to `src/zzz/data/`.
+
+**No roll quality.** Every substat entry carries `PropertyLevel` (rolls,
+including the roll that created it) and `PropertyValue`, and `PropertyValue`
+is the fixed worth of one roll: it is 300 (3.0%) for ATK% whether the stat
+has one roll or four. Checked across a live profile. So a disc's substats are
+exactly `rolls × a known amount`, the pips show roll counts only, and the
+only luck in a disc is which stats the rolls landed on.
+
+**Scoring** is the Star Rail construction with ZZZ's numbers: substats are
+normalised to CRIT DMG units (one roll of anything is 4.8), weighted per
+agent, and measured against the optimal disc for the slot (6 × best + the
+next three, main stat excluded). Discs 1 to 3 have fixed mains; a disc 4, 5
+or 6 whose main the agent cannot use gets a percent but no letter. The build
+is the mean of the six slots. ZZZ has no reroll mechanic, so the account
+panel is "replace first" rather than reroll advice.
+
+**Weights** come from Prydwen's per-agent build guides, which list an ideal
+main stat per disc and a ranked substat priority for every agent.
+`scripts/fetch-zzz-weights.mjs` reads them and maps priority tiers onto the
+discrete scale Fribbels uses (1 / 0.75 / 0.5 / 0.25); a "(Until 80%)"
+qualifier becomes a threshold the build panel reports against. Prydwen's
+Zenless pages sit behind a Cloudflare check that headless browsers fail, so
+the script opens a visible Edge window (`ZZZ_HEADLESS=1` to try without).
+Agents with no guide fall back to a role profile.
+
+```bash
+npm run fetch-zzz            # game tables
+npm run fetch-zzz-weights    # Prydwen priorities -> src/zzz/data/scoring-metadata.json
+```
 
 ## Adding a game
 
@@ -132,12 +206,16 @@ both games have the same two mechanics behind them:
    game's own currency: Dust of Enlightenment in Genshin, Variable Dice in
    Star Rail (added in 3.0, and functionally the same redistribution).
 
-- **Build score, 0-200** - the same scale as the per-piece grades and as the
-  Genshin side, so every percentage on the page means the same kind of thing.
-  200 is the reachable ceiling: the four best-weighted stats filling the four
-  substat slots, with every remaining upgrade on the best of them. Not "every
-  roll on one stat", which no relic can be, and which quietly punished any
-  character whose weights fall away after their top stat.
+- **Relic score, 0-200** - the Fribbels relic score, reimplemented step for
+  step (`src/hsr/scoring.ts`) and checked against their showcase for the same
+  UID: every substat is normalised to CRIT DMG units (one max roll of anything
+  is worth 6.48), weighted per character, and measured against the optimal
+  relic for that slot: one max roll on each of the four best stats plus the
+  five upgrades all on the best, with the main stat removed from the pool.
+  200 is that optimum; the grade ladder is Fribbels' doubled (S at 100, SS at
+  120, SSS at 140), which is also the Genshin ladder. A relic whose main stat
+  the character cannot use keeps its percent but gets no letter.
+- **Build score** - the mean of the six slots, as on Fribbels.
 - **Useful rolls** - effective rolls against a 48-roll benchmark, out of the 54
   a build can hold. A build can carry more upgrades than the benchmark and
   still fall short, because a quarter of them sit on stats the character never
@@ -150,15 +228,19 @@ via jsDelivr rather than bundled: ~200 MB of images stays out of the repo, and
 every image is decorative, so the scorer reads correctly with all of them
 missing.
 
-Weights are keyed by **Path**, not per character, so a character released
-tomorrow still scores sensibly instead of falling off a hand-written table.
-`CHARACTER_OVERRIDES` in `src/hsr/weights.ts` handles the few kits that
-contradict their Path (break carries, mainly).
+Substat weights and ideal main stats are **per character**, imported from the
+MIT-licensed Fribbels HSR Optimizer into `src/hsr/data/scoring-metadata.json`
+(the file records the source commit). Reworked kits (`…B1.ts` upstream) win
+over the original. A character missing from the table falls back to a Path
+profile, so nothing goes ungraded, and `CHARACTER_OVERRIDES` in
+`src/hsr/weights.ts` is the place to side with a guide over Fribbels for a
+specific character.
 
-Refresh the bundled game tables after a patch:
+Refresh the bundled game tables and the weights after a patch:
 
 ```bash
 npm run fetch-hsr
+GITHUB_TOKEN=$(gh auth token) node scripts/fetch-fribbels-weights.mjs
 ```
 
 ## Deployment

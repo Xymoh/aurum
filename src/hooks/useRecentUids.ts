@@ -57,3 +57,4 @@ export function useRecentUids(key: string) {
 /** Storage keys, one per game, so suggestions never cross over. */
 export const GENSHIN_RECENT_UIDS_KEY = "recent-uids";
 export const HSR_RECENT_UIDS_KEY = "hsr-recent-uids";
+export const ZZZ_RECENT_UIDS_KEY = "zzz-recent-uids";

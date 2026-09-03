@@ -9,6 +9,9 @@ import { GamePickerPage } from "./games/GamePickerPage";
 import { HsrLayout } from "./hsr/pages/HsrLayout";
 import { HsrHomePage } from "./hsr/pages/HsrHomePage";
 import { HsrShowcasePage } from "./hsr/pages/HsrShowcasePage";
+import { ZzzLayout } from "./zzz/pages/ZzzLayout";
+import { ZzzHomePage } from "./zzz/pages/ZzzHomePage";
+import { ZzzShowcasePage } from "./zzz/pages/ZzzShowcasePage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -49,6 +52,11 @@ export function App() {
             <Route path="hsr" element={<HsrLayout />}>
               <Route index element={<HsrHomePage />} />
               <Route path="showcase/:uid" element={<HsrShowcasePage />} />
+            </Route>
+
+            <Route path="zzz" element={<ZzzLayout />}>
+              <Route index element={<ZzzHomePage />} />
+              <Route path="showcase/:uid" element={<ZzzShowcasePage />} />
             </Route>
 
             <Route path="showcase/:uid" element={<LegacyShowcaseRedirect />} />

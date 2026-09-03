@@ -12,8 +12,9 @@
 
 import genshinIcon from "../assets/games/genshin.png";
 import hsrIcon from "../assets/games/hsr.png";
+import zzzIcon from "../assets/games/zzz.png";
 
-export type GameId = "genshin" | "hsr";
+export type GameId = "genshin" | "hsr" | "zzz";
 
 export interface GameDef {
   id: GameId;
@@ -61,6 +62,17 @@ export const GAMES: GameDef[] = [
     tagline: "See how many of your relic rolls are actually doing something.",
     accent: "#5eead4",
     accentToken: "var(--hsr-accent)",
+    status: "live",
+  },
+  {
+    id: "zzz",
+    name: "Zenless Zone Zero",
+    short: "Zenless",
+    path: "/zzz",
+    icon: zzzIcon,
+    tagline: "Find out which drive discs are carrying dead rolls.",
+    accent: "#d4ff00",
+    accentToken: "var(--zzz-accent)",
     status: "live",
   },
 ];

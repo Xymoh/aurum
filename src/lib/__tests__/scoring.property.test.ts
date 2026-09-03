@@ -67,6 +67,7 @@ const arbSubstat: fc.Arbitrary<ArtifactSubstat> = fc
       maxRoll,
       rollCount: rollMultiplier,
       rollQuality: "high" as const,
+      rolls: [],
     };
   });
 

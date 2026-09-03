@@ -103,7 +103,7 @@ function BestNextMoves({ moves, onSelect }: { moves: NextMove[]; onSelect: (avat
                   <span className={`font-mono text-sm font-bold tabular-nums ${gradeColor(relic.score.grade)}`}>
                     {formatScore(relic.score.potentialPercent)}
                   </span>
-                  <GradeBadge grade={relic.score.grade} size="xs" />
+                  {relic.score.grade && <GradeBadge grade={relic.score.grade} size="xs" />}
                 </div>
               </div>
               <div className="rounded-md px-2 py-1" style={{ backgroundColor: tint(color, 12), color }}>

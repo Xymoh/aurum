@@ -1,5 +1,7 @@
 import { useState } from "react";
-import type { Artifact } from "../../types/artifact";
+import type { Artifact, ArtifactSubstat } from "../../types/artifact";
+import { RollPips } from "../ui/RollPips";
+import { ROLL_TIER_BG, rollTier } from "../../lib/rollTier";
 import { getRerollTier, chanceWithin, formatChance } from "../../lib/reroll";
 import { gradeVar, tint } from "../../lib/grade";
 import { formatScore, formatStatValue } from "../../lib/format";
@@ -18,28 +20,39 @@ interface ArtifactCardProps {
   artifact: Artifact;
 }
 
-// ── Chevron icon for roll indicators (Fribbels-style) ── color comes from the wrapping span's currentColor.
-function RollChevrons({ count }: { count: number }) {
-  if (count <= 0) return null;
+/**
+ * The roll history of one substat: every roll's value and tier, so "12.1%
+ * CRIT Rate" can be read as "three good rolls" or "four poor ones".
+ */
+function RollBreakdown({ sub }: { sub: ArtifactSubstat }) {
+  const { t } = useI18n();
+  if (sub.rolls.length === 0) {
+    return <p>{t("rolls", "unknown", { n: sub.rollCount })}</p>;
+  }
+  const avg = sub.rolls.reduce((a, b) => a + b, 0) / sub.rolls.length;
   return (
-    <svg width={Math.min(count * 5 + 4, 24)} height="8" viewBox={`0 0 ${Math.min(count * 5 + 4, 24)} 8`} style={{ opacity: 0.85 }} aria-hidden="true">
-      {Array.from({ length: Math.min(count, 6) }, (_, i) => (
-        <g key={i} transform={`translate(${i * 5 + 1} 0) scale(0.35)`}>
-          <g transform="translate(24 1) scale(-1 1)">
-            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="3" d="M8 12L15 5M8 12L15 19" />
-          </g>
-        </g>
-      ))}
-    </svg>
+    <div className="space-y-1">
+      <p className="font-medium">
+        {t("rolls", "summary", { n: sub.rolls.length, avg: Math.round(avg * 100) })}
+      </p>
+      <ul className="space-y-0.5 font-mono text-dark-muted">
+        {sub.rolls.map((share, i) => {
+          const tier = rollTier(share);
+          return (
+            <li key={i} className="flex items-center gap-2">
+              <span className={`inline-block h-2.5 w-[3px] rounded-sm ${ROLL_TIER_BG[tier]}`} aria-hidden="true" />
+              <span className="w-14 text-dark-text">
+                +{formatStatValue(sub.maxRoll * share, sub.isPercentage)}
+              </span>
+              <span>
+                {i === 0 ? t("rolls", "initial") : t("rolls", "upgrade")} · {t("rolls", tier)} ({Math.round(share * 100)}%)
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
-}
-
-/** Colour for how many upgrades a substat took: the same ramp as verdicts. */
-function rollColor(rolls: number): string {
-  if (rolls >= 4) return "var(--verdict-high)";
-  if (rolls >= 3) return "var(--verdict-medium)";
-  if (rolls >= 2) return "var(--grade-ss)";
-  return "var(--verdict-low)";
 }
 
 /** Localized justification for a non-reroll verdict, keyed off the action. */
@@ -139,10 +152,17 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
               <span className="sm:hidden">{sub.shortName}</span>
               <span className="hidden sm:inline">{sub.displayName}</span>
             </span>
-            <div className="flex flex-shrink-0 items-center gap-1">
-              <span style={{ color: rollColor(sub.rollCount) }} aria-label={`${sub.rollCount} rolls`}>
-                <RollChevrons count={sub.rollCount} />
-              </span>
+            <div className="flex flex-shrink-0 items-center gap-1.5">
+              <InfoTip
+                content={<RollBreakdown sub={sub} />}
+                align="right"
+                label={t("rolls", "summary", { n: sub.rolls.length || sub.rollCount + 1, avg: "?" })}
+              >
+                <RollPips
+                  rolls={sub.rolls}
+                  unknownCount={sub.rolls.length === 0 ? sub.rollCount + 1 : 0}
+                />
+              </InfoTip>
               <span className="w-[50px] text-right font-mono text-sm tabular-nums text-dark-text">
                 {formatStatValue(sub.value, sub.isPercentage)}
               </span>

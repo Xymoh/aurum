@@ -72,7 +72,14 @@ export interface HsrRelic {
 export interface HsrRelicScore {
   /** Weighted potential as a share of this character's ideal, 0-200 scale. */
   potentialPercent: number;
-  grade: string;
+  /**
+   * Letter grade, or null when the piece cannot be graded: a non-5-star, a
+   * main stat the character has no use for, or a zero score. The percent is
+   * still reported so the substats can be judged on their own.
+   */
+  grade: string | null;
+  /** Whether the main stat is one the character can use (always true for Head and Hands). */
+  mainStatOk: boolean;
   /** Raw weighted roll value, aggregated into the build score. */
   weighted: number;
   /** The reachable ceiling for a piece this size on this character. */

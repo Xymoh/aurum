@@ -15,7 +15,12 @@
     "fetch-locale": "node scripts/fetch-enka-locale.js",
     "fetch-weapons": "node scripts/build-weapon-ids.js",
     "fetch-pfps": "node scripts/fetch-profile-pictures.js",
-    "fetch-hsr": "node scripts/fetch-hsr-data.js"
+    "fetch-hsr": "node scripts/fetch-hsr-data.js",
+    "fetch-hsr-weights": "node scripts/fetch-fribbels-weights.mjs",
+    "fetch-zzz": "node scripts/fetch-zzz-data.mjs",
+    "fetch-zzz-weights": "node scripts/fetch-zzz-weights.mjs",
+    "refresh": "node scripts/refresh.mjs",
+    "audit-genshin": "node scripts/audit-genshin-weights.mjs"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.3.0",

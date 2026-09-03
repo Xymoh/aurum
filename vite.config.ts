@@ -4,7 +4,7 @@ import path from "path";
 import https from "node:https";
 
 const ENKA_API_HOST = "enka.network";
-const ENKA_API_PATH = { gi: "/api/uid", hsr: "/api/hsr/uid" };
+const ENKA_API_PATH = { gi: "/api/uid", hsr: "/api/hsr/uid", zzz: "/api/zzz/uid" };
 
 /**
  * Vite dev-server plugin that replicates the Vercel Edge Function at /api/proxy
@@ -21,7 +21,8 @@ function enkaProxyPlugin(): Plugin {
 
         const url = new URL(req.url, "http://localhost");
         const uid = url.searchParams.get("uid");
-        const game = url.searchParams.get("game") === "hsr" ? "hsr" : "gi";
+        const gameParam = url.searchParams.get("game");
+        const game = gameParam === "hsr" || gameParam === "zzz" ? gameParam : "gi";
 
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
@@ -40,12 +41,13 @@ function enkaProxyPlugin(): Plugin {
           return;
         }
 
-        if (!uid || !/^[1-9]\d{8}$/.test(uid)) {
+        // Genshin and Star Rail UIDs are 9 digits; Zenless UIDs run to 10.
+        if (!uid || !/^[1-9]\d{8,9}$/.test(uid)) {
           res.statusCode = 400;
           res.end(
             JSON.stringify({
               success: false,
-              error: "Invalid UID. Must be exactly 9 digits starting with 1-9.",
+              error: "Invalid UID. Must be 9 or 10 digits starting with 1-9.",
             }),
           );
           return;
