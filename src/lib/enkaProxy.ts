@@ -1,14 +1,12 @@
 /**
- * Shared transport for Enka.Network, used by both the Genshin and the HSR
- * scorers.
+ * Shared transport for Enka.Network, used by the Genshin, HSR and ZZZ scorers.
  *
  * Enka does NOT send CORS headers, so a browser cannot call it directly.
  * In development the Vite dev server proxies /api/proxy. In production
- * (GitHub Pages) there is no backend, so requests go through a CORS proxy:
- * a self-hosted worker when VITE_ENKA_PROXY is set, otherwise a list of free
- * public ones. Those come and go without notice (corsproxy.io started
- * answering 403 "keyless_legacy_url" to anonymous requests), so the list is
- * walked until something actually returns Enka data.
+ * (GitHub Pages) requests go through the self-hosted Cloudflare Worker in
+ * workers/enka-proxy.js, configured at build time via VITE_ENKA_PROXY. A
+ * single public CORS proxy is kept as a last resort for builds without one;
+ * it receives the user's UID, so it is only tried after the worker fails.
  */
 
 export type EnkaGame = "gi" | "hsr" | "zzz";
@@ -32,15 +30,6 @@ interface CorsProxy {
 }
 
 const passthrough = (body: string): unknown => JSON.parse(body);
-
-/** Proxies that wrap the upstream body in { contents: "<json string>" }. */
-const unwrapContents = (body: string): unknown => {
-  const wrapper = JSON.parse(body) as { contents?: string };
-  if (typeof wrapper.contents !== "string") {
-    throw new Error("Unexpected proxy response shape.");
-  }
-  return JSON.parse(wrapper.contents);
-};
 
 /**
  * Optional self-hosted proxy, configured at build time via VITE_ENKA_PROXY.
@@ -66,29 +55,20 @@ function customProxy(uid: string, game: EnkaGame): CorsProxy | null {
   };
 }
 
+/**
+ * Last-resort fallback for builds without VITE_ENKA_PROXY. Public proxies come
+ * and go without notice, so only one is kept and it is always tried last.
+ */
 const PUBLIC_PROXIES: CorsProxy[] = [
   {
     url: (target) => `https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`,
     extract: passthrough,
   },
-  {
-    url: (target) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(target)}`,
-    extract: passthrough,
-  },
-  {
-    url: (target) => `https://api.cors.lol/?url=${encodeURIComponent(target)}`,
-    extract: passthrough,
-  },
-  {
-    url: (target) => `https://api.allorigins.win/get?url=${encodeURIComponent(target)}`,
-    extract: unwrapContents,
-  },
 ];
 
 /**
- * The free proxies are individually unreliable (they routinely answer 408/429
- * or time out on the Enka leg), so the whole list gets a second pass before we
- * give up.
+ * Proxies occasionally answer 408/429 or time out on the Enka leg, so the
+ * list gets a second pass before we give up.
  */
 const PROXY_PASSES = 2;
 const PER_ATTEMPT_TIMEOUT = 10_000;

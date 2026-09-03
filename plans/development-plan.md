@@ -1,7 +1,7 @@
 # Genshin ArtScore - Development Plan
 
 > **Codename:** genshin-artscore
-> **Stack:** React 19 + TypeScript + Vite, TailwindCSS, Vercel Edge Functions (serverless proxy)
+> **Stack:** React 19 + TypeScript + Vite, TailwindCSS, Cloudflare Worker (CORS proxy)
 > **Inspiration:** [Fribbels HSR Relic Optimizer Showcase](https://fribbels.github.io/hsr-optimizer#showcase?id=700600838)
 > **Scope:** UID input → artifact showcase with quality scoring. No optimizer, no team builder, no damage calculator.
 

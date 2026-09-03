@@ -7,8 +7,9 @@ const ENKA_API_HOST = "enka.network";
 const ENKA_API_PATH = { gi: "/api/uid", hsr: "/api/hsr/uid", zzz: "/api/zzz/uid" };
 
 /**
- * Vite dev-server plugin that replicates the Vercel Edge Function at /api/proxy
- * during local development. Uses Node's built-in https module (no fetch needed).
+ * Vite dev-server plugin that serves /api/proxy during local development, the
+ * same job the Cloudflare Worker (workers/enka-proxy.js) does in production.
+ * Uses Node's built-in https module (no fetch needed).
  */
 function enkaProxyPlugin(): Plugin {
   return {
