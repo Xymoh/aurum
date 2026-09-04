@@ -32,15 +32,23 @@ const SORT_OPTIONS: Array<{ value: SortKey; label: string }> = [
   { value: "name-asc", label: "Name (A → Z)" },
 ];
 
+/** Unscored builds sort last both ways: they have no score to rank. */
+function byScore(a: ZzzAgent, b: ZzzAgent, dir: 1 | -1): number {
+  if (a.diagnostics.complete !== b.diagnostics.complete) {
+    return a.diagnostics.complete ? -1 : 1;
+  }
+  return dir * (a.diagnostics.score - b.diagnostics.score);
+}
+
 function sortAgents(list: ZzzAgent[], key: SortKey): ZzzAgent[] {
   const sorted = [...list];
   switch (key) {
     case "score-desc":
-      return sorted.sort((a, b) => b.diagnostics.score - a.diagnostics.score);
+      return sorted.sort((a, b) => byScore(a, b, -1));
     case "score-asc":
-      return sorted.sort((a, b) => a.diagnostics.score - b.diagnostics.score);
+      return sorted.sort((a, b) => byScore(a, b, 1));
     case "level-desc":
-      return sorted.sort((a, b) => b.level - a.level || b.diagnostics.score - a.diagnostics.score);
+      return sorted.sort((a, b) => b.level - a.level || byScore(a, b, -1));
     case "name-asc":
       return sorted.sort((a, b) => a.name.localeCompare(b.name));
   }
@@ -190,15 +198,20 @@ export function ZzzShowcasePage() {
   }
   if (!data) return null;
 
+  // Only fully geared agents count toward the mean: a half-built one would
+  // drag the account number down for gear the player has not finished rather
+  // than gear that rolled badly. The roll counters still count every disc,
+  // since those upgrades were really spent.
   const totals = agents.reduce(
     (acc, a) => ({
       effective: acc.effective + a.diagnostics.effectiveRolls,
       total: acc.total + a.diagnostics.totalRolls,
-      score: acc.score + a.diagnostics.score,
+      score: acc.score + (a.diagnostics.complete ? a.diagnostics.score : 0),
+      scored: acc.scored + (a.diagnostics.complete ? 1 : 0),
     }),
-    { effective: 0, total: 0, score: 0 },
+    { effective: 0, total: 0, score: 0, scored: 0 },
   );
-  const accountScore = agents.length > 0 ? totals.score / agents.length : 0;
+  const accountScore = totals.scored > 0 ? totals.score / totals.scored : 0;
   const accountGrade = gradeFor(accountScore);
 
   return (

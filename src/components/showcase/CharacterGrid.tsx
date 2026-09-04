@@ -24,15 +24,27 @@ const SORT_OPTIONS = [
   { value: "name-asc", key: "sortNameAsc" },
 ] as const;
 
+/**
+ * Unscored builds sort last whichever way the score sorts, including "lowest
+ * first": they have no score to be lowest, and putting half-built characters
+ * at the top of that list buries the ones the sort is actually asking about.
+ */
+function byScore(a: CharacterData, b: CharacterData, dir: 1 | -1): number {
+  if (a.buildScore.complete !== b.buildScore.complete) {
+    return a.buildScore.complete ? -1 : 1;
+  }
+  return dir * (a.buildScore.total - b.buildScore.total);
+}
+
 function sortCharacters(characters: CharacterData[], sortKey: SortKey): CharacterData[] {
   const sorted = [...characters];
   switch (sortKey) {
     case "score-desc":
-      return sorted.sort((a, b) => b.buildScore.total - a.buildScore.total);
+      return sorted.sort((a, b) => byScore(a, b, -1));
     case "score-asc":
-      return sorted.sort((a, b) => a.buildScore.total - b.buildScore.total);
+      return sorted.sort((a, b) => byScore(a, b, 1));
     case "level-desc":
-      return sorted.sort((a, b) => b.level - a.level || b.buildScore.total - a.buildScore.total);
+      return sorted.sort((a, b) => b.level - a.level || byScore(a, b, -1));
     case "name-asc":
       return sorted.sort((a, b) => a.name.localeCompare(b.name));
   }

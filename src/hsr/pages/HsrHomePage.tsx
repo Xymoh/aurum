@@ -143,10 +143,12 @@ export function HsrHomePage() {
             ))}
           </div>
           <p>
-            Rolls are shown as pips, one per roll, coloured by how good the roll was. Star Rail
-            reports a stat's roll count and combined quality rather than each roll on its own,
-            so every pip on a stat carries that stat's average tier; hover or tap them for the
-            numbers.
+            Rolls are shown as pips, one per roll, coloured by how good the roll was. A roll lands
+            on one of three tiers, 80%, 90% or 100% of the max, but Enka reports a stat's roll
+            count and combined quality rather than each roll on its own, so every pip on a stat
+            carries that stat's average rather than its own tier. The colour is measured against
+            the worst roll the game can give, so a stat that rolled all minimums reads as bad
+            instead of merely average; hover or tap the pips for the numbers.
           </p>
         </div>
       </div>

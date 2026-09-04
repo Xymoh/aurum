@@ -85,7 +85,7 @@ export const en = {
     noCharacters: "No characters found on this showcase.",
     noCharactersHint: "The player may need to set up their character showcase in-game.",
     noArtifacts: "No artifacts equipped on this character.",
-    incompleteScore: "Score is incomplete, based on {count}/5 artifact slots.",
+    incompleteScore: "Not scored: {count} of 5 artifact slots filled. The pieces below are still graded.",
     mainStats: "{correct}/{total} main stats",
     noSetBonus: "No set bonuses active",
     fullMatch: "Full Match",

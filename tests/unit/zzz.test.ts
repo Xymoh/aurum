@@ -202,3 +202,21 @@ describe("score ceiling", () => {
     expect(scored.discs[0].score.grade).toBe("WTF+");
   });
 });
+
+describe("incomplete builds", () => {
+  it("scores an agent wearing all six discs", () => {
+    const burnice = scoreAgent(parsed.agents.find((a) => a.id === 1171)!);
+    expect(burnice.discs).toHaveLength(6);
+    expect(burnice.diagnostics.complete).toBe(true);
+  });
+
+  it("leaves an agent short of six discs unscored", () => {
+    const raw = parsed.agents.find((a) => a.id === 1171)!;
+    const partial = scoreAgent({ ...raw, discs: raw.discs.slice(0, 2) });
+
+    // No build score to show, but the two discs are still graded.
+    expect(partial.diagnostics.complete).toBe(false);
+    expect(partial.discs).toHaveLength(2);
+    expect(partial.discs[0].score.potentialPercent).toBeGreaterThan(0);
+  });
+});

@@ -536,6 +536,9 @@ export function scoreArtifact(
 
 // ── Build score ──
 
+/** Flower, plume, sands, goblet, circlet. */
+export const ARTIFACT_SLOT_COUNT = 5;
+
 export function scoreBuild(character: CharacterData): BuildScore {
   const artifactCount = character.artifacts.length;
 
@@ -543,6 +546,7 @@ export function scoreBuild(character: CharacterData): BuildScore {
     return {
       total: 0,
       grade: "F",
+      complete: false,
       artifactCount: 0,
       correctMainStats: 0,
       totalSelectableSlots: 0,
@@ -573,6 +577,10 @@ export function scoreBuild(character: CharacterData): BuildScore {
   return {
     total,
     grade: getGrade(total),
+    // The average runs over equipped pieces only, so a two-piece build would
+    // otherwise present as a finished one. Anything short of five slots is
+    // reported as unscored rather than scored generously.
+    complete: artifactCount === ARTIFACT_SLOT_COUNT,
     artifactCount,
     correctMainStats,
     totalSelectableSlots,

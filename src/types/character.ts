@@ -77,6 +77,13 @@ export interface SetBonusResult {
 export interface BuildScore {
   total: number;
   grade: ScoreGrade;
+  /**
+   * All five slots filled. A partial build has no meaningful build score:
+   * the total averages only the pieces that are there, so two good artifacts
+   * read as a finished S+ build. Callers show the slot count instead, and
+   * leave the character out of account-wide averages.
+   */
+  complete: boolean;
   artifactCount: number;
   correctMainStats: number;
   totalSelectableSlots: number;

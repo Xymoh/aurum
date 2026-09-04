@@ -108,6 +108,12 @@ export interface ZzzBuildDiagnostics {
   /** Mean of the six slots on the 0-200 scale, an empty slot counting as zero. */
   score: number;
   grade: string;
+  /**
+   * All six slots filled. A partial build has no meaningful overall score,
+   * so callers show the slot count instead and leave the agent out of
+   * account-wide averages.
+   */
+  complete: boolean;
   totalRolls: number;
   effectiveRolls: number;
   wastedRolls: number;

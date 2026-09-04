@@ -1,6 +1,8 @@
 import { useId, useState } from "react";
 import type { HsrCharacter } from "../types";
 import { getWeights, PATH_LABELS } from "../weights";
+import { SLOT_COUNT as RELIC_SLOT_COUNT } from "../scoring";
+import { IncompleteScore } from "../../components/ui/IncompleteScore";
 import { DiagnosticsPanel } from "./DiagnosticsPanel";
 import { RelicCard } from "./RelicCard";
 import { gradeColor } from "../labels";
@@ -159,7 +161,9 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
             <h2 className="truncate text-base font-semibold text-hsr-text sm:text-lg">
               {character.name}
             </h2>
-            <GradeBadge grade={d.grade} size="sm" className="hidden sm:inline-flex" />
+            {d.complete && (
+              <GradeBadge grade={d.grade} size="sm" className="hidden sm:inline-flex" />
+            )}
           </div>
 
           <div className="mt-1 flex flex-wrap items-center gap-1.5">
@@ -199,12 +203,22 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
         </div>
 
         <div className="relative shrink-0 self-center text-right">
-          <p className={`font-mono text-2xl font-bold leading-none tabular-nums sm:text-3xl ${gradeColor(d.grade)}`}>
-            {formatScore(d.score)}
-          </p>
-          <p className="mt-1 sm:hidden">
-            <GradeBadge grade={d.grade} size="xs" />
-          </p>
+          {d.complete ? (
+            <>
+              <p className={`font-mono text-2xl font-bold leading-none tabular-nums sm:text-3xl ${gradeColor(d.grade)}`}>
+                {formatScore(d.score)}
+              </p>
+              <p className="mt-1 sm:hidden">
+                <GradeBadge grade={d.grade} size="xs" />
+              </p>
+            </>
+          ) : (
+            <IncompleteScore
+              filled={character.relics.length}
+              total={RELIC_SLOT_COUNT}
+              mutedClass="text-hsr-muted"
+            />
+          )}
           <p className="mt-1 font-mono text-xs text-hsr-muted">
             {d.effectiveRolls}/{d.totalRolls} rolls
           </p>

@@ -167,6 +167,13 @@ export interface BuildDiagnostics {
    */
   score: number;
   grade: string;
+  /**
+   * All six slots filled. A partial build scores against six slots either
+   * way, so the number is real but reads as a bad build rather than an
+   * unfinished one; callers show the slot count instead and leave the
+   * character out of account-wide averages.
+   */
+  complete: boolean;
   /** Upgrades across all six relics. The realistic ceiling is 54. */
   totalRolls: number;
   /** Of those, the ones on stats this character uses. */

@@ -430,3 +430,21 @@ describe("score ceiling", () => {
     expect(scored.relics[0].score.potentialPercent).toBeGreaterThan(175);
   });
 });
+
+describe("incomplete builds", () => {
+  it("scores a character wearing all six relics", () => {
+    expect(saber.relics).toHaveLength(6);
+    expect(saber.diagnostics.complete).toBe(true);
+  });
+
+  it("leaves a character short of six relics unscored", () => {
+    const raw = parsed.characters.find((c) => c.avatarId === 1014)!;
+    const partial = scoreCharacter({ ...raw, relics: raw.relics.slice(0, 2) });
+
+    // No build score to show, but the two relics are still graded, so the
+    // player can see whether the pieces they do have are worth keeping.
+    expect(partial.diagnostics.complete).toBe(false);
+    expect(partial.relics).toHaveLength(2);
+    expect(partial.relics[0].score.potentialPercent).toBeGreaterThan(0);
+  });
+});

@@ -213,7 +213,7 @@ export function scoreDisc(disc: ParsedDiscInput, meta: ZzzScoringMeta): ZzzDiscS
 
 // ── Build diagnostics ───────────────────────────────────────────────
 
-const SLOT_COUNT = 6;
+export const SLOT_COUNT = 6;
 
 function buildDiagnostics(discs: ZzzDisc[], meta: ZzzScoringMeta): ZzzBuildDiagnostics {
   const totals = new Map<ZzzStatId, { rolls: number; value: number }>();
@@ -256,6 +256,7 @@ function buildDiagnostics(discs: ZzzDisc[], meta: ZzzScoringMeta): ZzzBuildDiagn
   return {
     score: Math.round(score * 10) / 10,
     grade: gradeFor(score),
+    complete: discs.length === SLOT_COUNT,
     totalRolls,
     effectiveRolls,
     wastedRolls,

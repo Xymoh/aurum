@@ -324,7 +324,7 @@ function critRatio(totals: Map<HsrStatKey, { rolls: number; value: number }>): n
   return cd / cr;
 }
 
-const SLOT_COUNT = 6;
+export const SLOT_COUNT = 6;
 
 function buildDiagnostics(relics: HsrRelic[], meta: ScoringMeta): BuildDiagnostics {
   const totals = new Map<HsrStatKey, { rolls: number; value: number }>();
@@ -367,6 +367,7 @@ function buildDiagnostics(relics: HsrRelic[], meta: ScoringMeta): BuildDiagnosti
   return {
     score: Math.round(score * 10) / 10,
     grade: gradeFor(score),
+    complete: relics.length === SLOT_COUNT,
     totalRolls,
     effectiveRolls,
     wastedRolls,

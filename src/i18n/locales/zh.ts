@@ -79,7 +79,7 @@ const zh: Dictionary = {
     noCharacters: "此展示柜中未找到角色。",
     noCharactersHint: "该玩家可能需要在游戏中设置角色展示柜。",
     noArtifacts: "此角色未装备圣遗物。",
-    incompleteScore: "评分不完整，仅基于 5 个部位中的 {count} 件。",
+    incompleteScore: "未评分：5 个部位中仅装备了 {count} 件。下方各部位仍会单独评分。",
     mainStats: "主词条 {correct}/{total}",
     noSetBonus: "没有生效的套装效果",
     fullMatch: "完全匹配",

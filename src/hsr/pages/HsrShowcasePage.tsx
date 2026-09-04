@@ -35,15 +35,23 @@ const SORT_OPTIONS: Array<{ value: SortKey; label: string }> = [
   { value: "name-asc", label: "Name (A → Z)" },
 ];
 
+/** Unscored builds sort last both ways: they have no score to rank. */
+function byScore(a: HsrCharacter, b: HsrCharacter, dir: 1 | -1): number {
+  if (a.diagnostics.complete !== b.diagnostics.complete) {
+    return a.diagnostics.complete ? -1 : 1;
+  }
+  return dir * (a.diagnostics.score - b.diagnostics.score);
+}
+
 function sortCharacters(list: HsrCharacter[], key: SortKey): HsrCharacter[] {
   const sorted = [...list];
   switch (key) {
     case "score-desc":
-      return sorted.sort((a, b) => b.diagnostics.score - a.diagnostics.score);
+      return sorted.sort((a, b) => byScore(a, b, -1));
     case "score-asc":
-      return sorted.sort((a, b) => a.diagnostics.score - b.diagnostics.score);
+      return sorted.sort((a, b) => byScore(a, b, 1));
     case "level-desc":
-      return sorted.sort((a, b) => b.level - a.level || b.diagnostics.score - a.diagnostics.score);
+      return sorted.sort((a, b) => b.level - a.level || byScore(a, b, -1));
     case "name-asc":
       return sorted.sort((a, b) => a.name.localeCompare(b.name));
   }
@@ -232,15 +240,22 @@ export function HsrShowcasePage() {
   // Account-level view: the mean build score, on the same 0-200 scale as every
   // other number on the page. A player with one immaculate carry and five
   // neglected supports should see that without opening every panel.
+  //
+  // Only fully geared characters count toward the mean. A half-built one
+  // scores against six slots either way, so leaving it in would drag the
+  // account number down for gear the player has not finished rather than
+  // gear that rolled badly. The roll counters still count every relic,
+  // since those upgrades were really spent.
   const totals = characters.reduce(
     (acc, c) => ({
       effective: acc.effective + c.diagnostics.effectiveRolls,
       total: acc.total + c.diagnostics.totalRolls,
-      score: acc.score + c.diagnostics.score,
+      score: acc.score + (c.diagnostics.complete ? c.diagnostics.score : 0),
+      scored: acc.scored + (c.diagnostics.complete ? 1 : 0),
     }),
-    { effective: 0, total: 0, score: 0 },
+    { effective: 0, total: 0, score: 0, scored: 0 },
   );
-  const accountScore = characters.length > 0 ? totals.score / characters.length : 0;
+  const accountScore = totals.scored > 0 ? totals.score / totals.scored : 0;
   const accountGrade = gradeFor(accountScore);
 
   return (

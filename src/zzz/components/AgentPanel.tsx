@@ -1,6 +1,8 @@
 import { useId, useState } from "react";
 import type { ZzzAgent } from "../types";
 import { getAgentInfo, getScoringMeta } from "../weights";
+import { SLOT_COUNT as DISC_SLOT_COUNT } from "../scoring";
+import { IncompleteScore } from "../../components/ui/IncompleteScore";
 import { BuildPanel } from "./BuildPanel";
 import { DiscCard } from "./DiscCard";
 import { ELEMENT_LABELS, PROFESSION_LABELS } from "../labels";
@@ -86,7 +88,9 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
         <div className="relative min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <h2 className="truncate text-base font-black uppercase tracking-wide text-zzz-text sm:text-lg">{agent.name}</h2>
-            <GradeBadge grade={d.grade} size="sm" className="hidden sm:inline-flex" />
+            {d.complete && (
+              <GradeBadge grade={d.grade} size="sm" className="hidden sm:inline-flex" />
+            )}
           </div>
           <div className="mt-1 flex flex-wrap items-center gap-1.5">
             <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 font-mono text-xs text-zzz-text">Lv{agent.level}</span>
@@ -130,12 +134,22 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
         </div>
 
         <div className="relative shrink-0 self-center text-right">
-          <p className={`font-mono text-2xl font-black leading-none tabular-nums sm:text-3xl ${gradeTextClass(d.grade)}`}>
-            {formatScore(d.score)}
-          </p>
-          <p className="mt-1 sm:hidden">
-            <GradeBadge grade={d.grade} size="xs" />
-          </p>
+          {d.complete ? (
+            <>
+              <p className={`font-mono text-2xl font-black leading-none tabular-nums sm:text-3xl ${gradeTextClass(d.grade)}`}>
+                {formatScore(d.score)}
+              </p>
+              <p className="mt-1 sm:hidden">
+                <GradeBadge grade={d.grade} size="xs" />
+              </p>
+            </>
+          ) : (
+            <IncompleteScore
+              filled={agent.discs.length}
+              total={DISC_SLOT_COUNT}
+              mutedClass="text-zzz-muted"
+            />
+          )}
           <p className="mt-1 font-mono text-xs text-zzz-muted">
             {d.effectiveRolls}/{d.totalRolls} rolls
           </p>

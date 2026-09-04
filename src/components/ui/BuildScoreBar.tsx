@@ -6,6 +6,8 @@ import { useI18n } from "../../i18n";
 interface BuildScoreBarProps {
   score: number;
   grade: ScoreGrade;
+  /** False while slots are still empty; the meter is replaced by a note. */
+  complete: boolean;
   artifactCount: number;
   correctMainStats: number;
   totalSelectableSlots: number;
@@ -32,12 +34,36 @@ const TICKS: Array<{ label: string; at: number; minor?: boolean }> = [
 export function BuildScoreBar({
   score,
   grade,
+  complete,
   artifactCount,
   correctMainStats,
   totalSelectableSlots,
 }: BuildScoreBarProps) {
   const { t } = useI18n();
   const color = gradeVar(grade);
+
+  // A build missing pieces gets no meter and no letter. The average runs over
+  // equipped pieces only, so two good artifacts would otherwise present as a
+  // finished S+ build; the artifacts below are still graded individually.
+  if (!complete) {
+    return (
+      <div className="flex items-center gap-4 rounded-xl border border-dark-border bg-dark-card/40 p-3 sm:p-4">
+        <div className="flex h-14 min-w-14 flex-shrink-0 items-center justify-center rounded-lg bg-dark-border/30 px-2 font-mono text-2xl font-bold text-dark-muted">
+          &mdash;
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="text-sm font-medium text-dark-muted">
+            {t("showcase", "buildScore")}
+            <span className="mx-1.5 opacity-50" aria-hidden="true">·</span>
+            {t("showcase", "mainStats", { correct: correctMainStats, total: totalSelectableSlots })}
+          </div>
+          <p className="mt-1 text-sm text-dark-muted/80">
+            {t("showcase", "incompleteScore", { count: artifactCount })}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center gap-4 rounded-xl border border-dark-border bg-dark-card/40 p-3 sm:p-4">

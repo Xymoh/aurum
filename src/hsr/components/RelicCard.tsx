@@ -8,6 +8,7 @@ import { formatScore } from "../../lib/format";
 import { tint } from "../../lib/grade";
 import { WarningIcon } from "../../components/ui/icons";
 import { RollPips } from "../../components/ui/RollPips";
+import { ROLL_FLOOR } from "../../lib/rollTier";
 import { HIGH_ROLL } from "../scoring";
 
 /** Colour per verdict, from the shared tokens so light mode gets its own set. */
@@ -118,14 +119,19 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
                         {sub.rolls} {sub.rolls === 1 ? "roll" : "rolls"} · average {Math.round(sub.quality * 100)}% of max
                       </p>
                       <p className="text-hsr-muted">
-                        Best possible for {sub.rolls} rolls: +{formatStat(sub.key, sub.rolls * (HIGH_ROLL[sub.key] ?? 0))}. Star Rail
-                        reports the combined quality of a stat's rolls, not each roll on its own.
+                        Best possible for {sub.rolls} rolls: +{formatStat(sub.key, sub.rolls * (HIGH_ROLL[sub.key] ?? 0))}. A Star
+                        Rail roll lands on one of three tiers, 80%, 90% or 100% of the max, but Enka reports the combined quality
+                        of a stat's rolls rather than each roll on its own, so every pip here carries that average.
                       </p>
                       {dead && <p className="text-hsr-muted">This stat does nothing for the character, so these rolls count as wasted.</p>}
                     </div>
                   }
                 >
-                  <RollPips rolls={Array.from({ length: sub.rolls }, () => sub.quality)} muted={dead} />
+                  <RollPips
+                    rolls={Array.from({ length: sub.rolls }, () => sub.quality)}
+                    floor={ROLL_FLOOR.hsr}
+                    muted={dead}
+                  />
                 </InfoTip>
                 <span
                   className={`w-14 text-right font-mono text-sm tabular-nums ${

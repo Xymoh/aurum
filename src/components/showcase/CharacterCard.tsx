@@ -4,8 +4,10 @@ import type { ArtifactSlot } from "../../types/artifact";
 import { SLOT_ORDER } from "../../lib/constants";
 import { gradeVar } from "../../lib/grade";
 import { formatScore } from "../../lib/format";
+import { ARTIFACT_SLOT_COUNT } from "../../lib/scoring";
 import { SetBonusRow } from "../ui/SetBonusRow";
 import { BuildScoreBar } from "../ui/BuildScoreBar";
+import { IncompleteScore } from "../ui/IncompleteScore";
 import { GradeBadge } from "../ui/GradeBadge";
 import { ArtifactCard } from "./ArtifactCard";
 import { WarningIcon } from "../ui/icons";
@@ -129,7 +131,6 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
   const [imgError, setImgError] = useState(false);
   const elementColor = ELEMENT_COLORS[character.element] ?? "#6b7280";
   const gradeColor = gradeVar(character.buildScore.grade);
-  const hasAllArtifacts = character.artifacts.length === 5;
 
   const portraitUrl = character.icon
     ? `${ENKA_UI_BASE}/${character.icon.replace("AvatarIcon", "Gacha_AvatarImg")}.png`
@@ -227,7 +228,9 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                 <h3 className="max-w-[180px] truncate text-lg font-bold tracking-wide text-dark-text sm:max-w-none sm:text-xl">
                   {character.name}
                 </h3>
-                <GradeBadge grade={character.buildScore.grade} size="sm" className="hidden sm:inline-flex" />
+                {character.buildScore.complete && (
+                  <GradeBadge grade={character.buildScore.grade} size="sm" className="hidden sm:inline-flex" />
+                )}
               </div>
               <div className="flex flex-wrap items-center gap-1.5 text-sm font-medium text-dark-muted">
                 <span className="rounded border border-dark-border/60 bg-dark-card px-1.5 py-0.5 text-dark-text/90">
@@ -241,10 +244,18 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                 </span>
                 {/* Score on mobile inline */}
                 <span className="inline items-center gap-1 sm:hidden">
-                  <span className="font-mono font-bold tabular-nums" style={{ color: gradeColor }}>
-                    {formatScore(character.buildScore.total)}
-                  </span>{" "}
-                  <GradeBadge grade={character.buildScore.grade} size="xs" />
+                  {character.buildScore.complete ? (
+                    <>
+                      <span className="font-mono font-bold tabular-nums" style={{ color: gradeColor }}>
+                        {formatScore(character.buildScore.total)}
+                      </span>{" "}
+                      <GradeBadge grade={character.buildScore.grade} size="xs" />
+                    </>
+                  ) : (
+                    <span className="font-mono text-dark-muted">
+                      {character.buildScore.artifactCount}/{ARTIFACT_SLOT_COUNT} pieces
+                    </span>
+                  )}
                 </span>
               </div>
             </div>
@@ -254,9 +265,16 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
           <div className="flex items-center gap-3 drop-shadow-md">
             <div className="hidden flex-col items-end text-right sm:flex">
               <span className="mb-0.5 text-[11px] font-bold uppercase tracking-wider text-dark-muted">{t("showcase", "buildScore")}</span>
-              <span className="font-mono text-2xl font-bold leading-none tabular-nums" style={{ color: gradeColor }}>
-                {formatScore(character.buildScore.total)}
-              </span>
+              {character.buildScore.complete ? (
+                <span className="font-mono text-2xl font-bold leading-none tabular-nums" style={{ color: gradeColor }}>
+                  {formatScore(character.buildScore.total)}
+                </span>
+              ) : (
+                <IncompleteScore
+                  filled={character.buildScore.artifactCount}
+                  total={ARTIFACT_SLOT_COUNT}
+                />
+              )}
             </div>
 
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-dark-border bg-dark-card text-dark-text backdrop-blur-md transition-colors group-hover:bg-dark-card-hover">
@@ -320,6 +338,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                 <BuildScoreBar
                   score={character.buildScore.total}
                   grade={character.buildScore.grade}
+                  complete={character.buildScore.complete}
                   artifactCount={character.buildScore.artifactCount}
                   correctMainStats={character.buildScore.correctMainStats}
                   totalSelectableSlots={character.buildScore.totalSelectableSlots}
@@ -351,7 +370,9 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                     <div>
                       <div className="flex items-center gap-2 text-base font-bold text-dark-text sm:text-lg">
                         {character.name}
-                        <GradeBadge grade={character.buildScore.grade} size="sm" />
+                        {character.buildScore.complete && (
+                          <GradeBadge grade={character.buildScore.grade} size="sm" />
+                        )}
                       </div>
                       <div className="mt-1 flex flex-wrap gap-1.5">
                         <span className="rounded border border-dark-border/60 bg-dark-card px-1.5 py-0.5 text-sm text-dark-text/80">{t("weapons", "level", { n: character.level })}</span>
@@ -478,12 +499,9 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                   <SetBonusRow artifacts={character.artifacts} setBonus={character.buildScore.setBonus} />
                 )}
 
-                {/* Incomplete notice */}
-                {!hasAllArtifacts && character.artifacts.length > 0 && (
-                  <div className="flex items-center gap-2 rounded-lg border border-warn/20 bg-warn/10 px-4 py-2.5 text-sm font-medium text-dark-text">
-                    <WarningIcon className="h-4 w-4 flex-shrink-0 text-warn" /> {t("showcase", "incompleteScore", { count: character.artifacts.length })}
-                  </div>
-                )}
+                {/* The incomplete notice lives in the score bar at the top of
+                    this body, where the score used to be. Repeating it down
+                    here read as noise. */}
 
                 {/* No artifacts */}
                 {character.artifacts.length === 0 && (

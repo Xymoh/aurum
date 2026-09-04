@@ -691,7 +691,7 @@ function parseCharacter(
     weapon,
     artifacts,
     stats: computeStats(avatar.fightPropMap, artifacts),
-    buildScore: { total: 0, grade: "F", artifactCount: artifacts.length, correctMainStats: 0, totalSelectableSlots: 0, setBonus: { activeSets: [], matchStatus: "no_recommendation" } },
+    buildScore: { total: 0, grade: "F", complete: false, artifactCount: artifacts.length, correctMainStats: 0, totalSelectableSlots: 0, setBonus: { activeSets: [], matchStatus: "no_recommendation" } },
     activeSetBonuses,
     usesGenericWeights: isTraveler(avatarId),
   };
