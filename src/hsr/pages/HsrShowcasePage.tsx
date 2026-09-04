@@ -11,6 +11,7 @@ import type { HsrCharacter, HsrRelic } from "../types";
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { CheckIcon, ClipboardIcon, DiceIcon, TargetIcon } from "../../components/ui/icons";
 import { formatScore } from "../../lib/format";
+import { ShowcaseHelp } from "../../components/ui/ShowcaseHelp";
 import { tint } from "../../lib/grade";
 
 function Skeleton() {
@@ -294,9 +295,20 @@ export function HsrShowcasePage() {
       <BestNextMoves moves={nextMoves} onSelect={jumpTo} />
 
       {characters.length === 0 ? (
-        <p className="game-panel border border-hsr-border bg-hsr-panel/40 p-5 text-center text-sm text-hsr-muted">
-          This showcase has no characters on display.
-        </p>
+        <ShowcaseHelp
+          title="This showcase has no characters on display"
+          lead="Relic Aurum reads the characters you have made public in game, and nothing else. It never sees the rest of the account, so an empty showcase leaves it nothing to score."
+          steps={[
+            "In game, open the phone menu and select your profile at the top left.",
+            "Edit the profile and fill the character showcase, up to eight characters.",
+            "Save it, then come back here and hit Refresh.",
+          ]}
+          footer="Already set it up? The game takes a moment to publish the change. Give it a minute and refresh again."
+          panelClass="border-hsr-border bg-hsr-panel/40 text-hsr-text"
+          accentClass="bg-hsr-accent/15 text-hsr-accent"
+          mutedClass="text-hsr-muted"
+          slotClass="border-hsr-border bg-hsr-inset/60"
+        />
       ) : (
         <div className="space-y-2">
           <div className="z-20 flex flex-col gap-2 rounded-lg border border-hsr-border bg-hsr-panel/90 p-3 backdrop-blur-md sm:sticky sm:top-16 sm:flex-row sm:items-center">

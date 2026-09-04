@@ -82,8 +82,15 @@ export const en = {
     collapse: "Hide details for {name}",
     methodologyHint: "Read the full methodology",
     copied: "Link copied",
-    noCharacters: "No characters found on this showcase.",
-    noCharactersHint: "The player may need to set up their character showcase in-game.",
+    noCharacters: "This showcase has no characters on display",
+    noCharactersHint:
+      "Artifact Aurum reads the characters you have made public in game, and nothing else. It never sees the rest of the account, so an empty showcase leaves it nothing to score.",
+    showcaseStep1: "In game, open the Paimon menu and select your profile card at the top left.",
+    showcaseStep2: "Choose Edit Profile, then Character Showcase, and add up to eight characters.",
+    showcaseStep3:
+      "Turn on Show Character Details. Without it the profile still loads, but every build comes back empty.",
+    showcaseRetry:
+      "Already set it up? The game takes a moment to publish the change. Give it a minute and refresh again.",
     noArtifacts: "No artifacts equipped on this character.",
     incompleteScore: "Not scored: {count} of 5 artifact slots filled. The pieces below are still graded.",
     mainStats: "{correct}/{total} main stats",

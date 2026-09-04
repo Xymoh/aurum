@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { CharacterData } from "../../types/character";
 import type { GenshinElement } from "../../types/character";
 import { CharacterCard } from "./CharacterCard";
-import charactersEmptyIcon from "../../assets/svg/ico-characters-empty.svg";
+import { ShowcaseHelp } from "../ui/ShowcaseHelp";
 import { useI18n } from "../../i18n";
 
 export interface FocusSignal {
@@ -93,13 +93,20 @@ export function CharacterGrid({ characters, focusSignal }: CharacterGridProps) {
 
   if (characters.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 text-dark-muted">
-        <img src={charactersEmptyIcon} alt="" className="w-12 h-12 mb-3 opacity-40" />
-        <p className="text-sm">{t("showcase", "noCharacters")}</p>
-        <p className="text-sm mt-1 opacity-60">
-          {t("showcase", "noCharactersHint")}
-        </p>
-      </div>
+      <ShowcaseHelp
+        title={t("showcase", "noCharacters")}
+        lead={t("showcase", "noCharactersHint")}
+        steps={[
+          t("showcase", "showcaseStep1"),
+          t("showcase", "showcaseStep2"),
+          t("showcase", "showcaseStep3"),
+        ]}
+        footer={t("showcase", "showcaseRetry")}
+        panelClass="border-dark-border bg-dark-card/40 text-dark-text"
+        accentClass="bg-accent/15 text-accent"
+        mutedClass="text-dark-muted"
+        slotClass="border-dark-border bg-dark-bg/60"
+      />
     );
   }
 

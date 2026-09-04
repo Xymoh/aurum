@@ -10,6 +10,7 @@ import type { ZzzAgent, ZzzDisc } from "../types";
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { CheckIcon, ClipboardIcon, TargetIcon } from "../../components/ui/icons";
 import { formatScore } from "../../lib/format";
+import { ShowcaseHelp } from "../../components/ui/ShowcaseHelp";
 import { gradeTextClass } from "../../lib/grade";
 
 function Skeleton() {
@@ -251,9 +252,21 @@ export function ZzzShowcasePage() {
       <WeakestDiscs items={weakest} onSelect={jumpTo} />
 
       {agents.length === 0 ? (
-        <p className="game-panel border border-zzz-border bg-zzz-panel/40 p-5 text-center text-sm text-zzz-muted">
-          This showcase has no agents on display.
-        </p>
+        <ShowcaseHelp
+          title="This showcase has no agents on display"
+          lead="Disc Aurum reads the agents you have made public in game, and nothing else. It never sees the rest of the account, so an empty showcase leaves it nothing to score."
+          steps={[
+            "In game, open the menu and select your Inter-Knot profile at the top left.",
+            "Edit the profile and add agents to the showcase.",
+            "Save it, then come back here and hit Refresh.",
+          ]}
+          footer="Already set it up? The game takes a moment to publish the change. Give it a minute and refresh again."
+          slots={6}
+          panelClass="border-zzz-border bg-zzz-panel/40 text-zzz-text"
+          accentClass="bg-zzz-accent/20 text-zzz-accent"
+          mutedClass="text-zzz-muted"
+          slotClass="border-zzz-border bg-zzz-inset/60"
+        />
       ) : (
         <div className="space-y-2">
           <div className="z-20 flex flex-col gap-2 rounded-lg border border-zzz-border bg-zzz-panel/90 p-3 backdrop-blur-md sm:sticky sm:top-16 sm:flex-row sm:items-center">
