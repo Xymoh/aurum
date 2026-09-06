@@ -1,4 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
+import { PageTransition } from "../../components/ui/PageTransition";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { GameRail, GameSwitcherCompact } from "../../games/GameRail";
 import { ThemeToggle } from "../../components/ui/ThemeToggle";
@@ -34,7 +35,9 @@ export function ZzzLayout() {
       </header>
 
       <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
-        <Outlet />
+        <PageTransition>
+          <Outlet />
+        </PageTransition>
       </main>
 
       <footer className="border-t border-zzz-border bg-zzz-panel/40">

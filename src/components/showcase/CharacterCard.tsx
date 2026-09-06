@@ -330,7 +330,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                 {character.usesGenericWeights && (
                   <div className="flex items-center gap-2 rounded-lg border border-sky-500/20 bg-sky-500/10 px-4 py-2.5 text-sm font-medium text-dark-text">
                     <WarningIcon className="h-4 w-4 flex-shrink-0 text-sky-400" />
-                    {t("showcase", "travelerNotice")}
+                    {t("showcase", "travelerNotice", { element: t("elements", character.element) })}
                   </div>
                 )}
 

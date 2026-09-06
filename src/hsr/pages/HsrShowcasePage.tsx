@@ -14,12 +14,40 @@ import { formatScore } from "../../lib/format";
 import { ShowcaseHelp } from "../../components/ui/ShowcaseHelp";
 import { tint } from "../../lib/grade";
 
+/**
+ * Stands in for the real page while the showcase loads: the account bar, then
+ * a stack of character rows. Sized to what actually arrives, so the layout
+ * does not jump when it does.
+ */
 function Skeleton() {
   return (
-    <div className="space-y-3">
-      {[0, 1, 2, 3].map((i) => (
-        <div key={i} className="h-16 animate-pulse game-panel border border-hsr-border bg-hsr-panel/40" />
-      ))}
+    <div className="animate-pulse space-y-4" aria-hidden="true">
+      <div className="flex items-center gap-3 game-panel border border-hsr-border bg-hsr-panel/50 px-4 py-3 sm:gap-4 sm:px-5">
+        <div className="skeleton h-11 w-11 rounded-full" />
+        <div className="flex-1 space-y-2">
+          <div className="skeleton h-4 w-36 rounded" />
+          <div className="skeleton h-3 w-52 rounded" />
+        </div>
+        <div className="skeleton h-8 w-16 rounded-lg" />
+      </div>
+
+      <div className="space-y-2">
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} className="game-panel border border-hsr-border bg-hsr-panel/40">
+            <div className="flex items-center gap-3 p-3 sm:gap-4 sm:p-4">
+              <div className="skeleton h-12 w-12 shrink-0 rounded-full" />
+              <div className="min-w-0 flex-1 space-y-2">
+                <div className="skeleton h-4 w-32 rounded" />
+                <div className="skeleton h-3 w-24 rounded" />
+              </div>
+              <div className="skeleton h-7 w-14 rounded" />
+            </div>
+            <div className="border-t border-hsr-border/40 px-3 py-2 sm:px-4">
+              <div className="skeleton h-3 w-2/3 rounded" />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

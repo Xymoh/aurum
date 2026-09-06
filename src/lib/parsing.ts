@@ -121,15 +121,39 @@ function detectElement(fightPropMap: Record<string, number> | undefined, fallbac
   return fallback;
 }
 
-// The Traveler's avatarId never changes when the player switches Vision - Enka
-// doesn't expose the active element as a clean enum on this API version, so
-// characters.json can only store one static "Anemo" guess. Unlike every other
-// character, that static value is wrong 6 times out of 7. Detect the live
-// element from the character's own elemental DMG% stat instead (reliable
-// whenever any equipped piece grants an elemental DMG bonus - the common case
-// for an on-field Traveler build; falls back to Anemo, the base/default
-// Vision, when no elemental DMG% is present at all, e.g. a pure ATK%/EM build).
+// The Traveler's avatarId never changes when the player switches Vision, but
+// skillDepotId does, and that is what actually identifies the element: Enka
+// keys its own Traveler entries as `avatarId-skillDepotId`. The last digit
+// follows the game's internal element order (Fire, Water, Wind, Ice, Rock,
+// Electric, Grass), so 502 is Pyro and 508 is Dendro, on 5xx for one Traveler
+// and 7xx for the other.
+//
+// Enka's store has no Cryo entry yet, but 505/705 is the gap in that
+// sequence and Ice is the missing element, so Cryo is mapped here rather
+// than left to the fallback.
+//
+// This replaces sniffing the element from the character's own elemental DMG%.
+// That worked only when some equipped piece granted an elemental bonus, so a
+// Traveler on an ATK% or EM goblet - the recommended goblet for several of
+// them - was silently reported as Anemo.
 const TRAVELER_AVATAR_IDS = new Set([10000005, 10000007]);
+
+const TRAVELER_DEPOT_ELEMENT: Record<number, GenshinElement> = {
+  502: "Pyro",
+  503: "Hydro",
+  504: "Anemo",
+  505: "Cryo",
+  506: "Geo",
+  507: "Electro",
+  508: "Dendro",
+  702: "Pyro",
+  703: "Hydro",
+  704: "Anemo",
+  705: "Cryo",
+  706: "Geo",
+  707: "Electro",
+  708: "Dendro",
+};
 
 // ── Substat building ──
 
@@ -349,9 +373,16 @@ function getCharacterName(avatarId: number): string {
   return `Character #${avatarId}`;
 }
 
-function getCharacterElement(avatarId: number, fightPropMap?: Record<string, number>): GenshinElement {
+export function getCharacterElement(
+  avatarId: number,
+  fightPropMap?: Record<string, number>,
+  skillDepotId?: number,
+): GenshinElement {
   if (TRAVELER_AVATAR_IDS.has(avatarId)) {
-    return detectElement(fightPropMap, "Anemo");
+    // Depot first, since it is stated rather than inferred. The old sniff
+    // stays as the fallback for a depot id shipped after this table.
+    const fromDepot = skillDepotId ? TRAVELER_DEPOT_ELEMENT[skillDepotId] : undefined;
+    return fromDepot ?? detectElement(fightPropMap, "Anemo");
   }
   const char = CHARACTERS[String(avatarId)];
   if (char) return char.element as GenshinElement;
@@ -681,7 +712,7 @@ function parseCharacter(
     id: String(avatarId),
     avatarId,
     name: getCharacterName(avatarId),
-    element: getCharacterElement(avatarId, avatar.fightPropMap),
+    element: getCharacterElement(avatarId, avatar.fightPropMap, avatar.skillDepotId),
     weaponType: getCharacterWeaponType(avatarId),
     level: charLevel,
     constellation,

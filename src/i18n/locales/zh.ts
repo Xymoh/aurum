@@ -91,7 +91,7 @@ const zh: Dictionary = {
     partialMatch: "部分匹配",
     pieces: "{count} 件",
     travelerNotice:
-      "无法从展示柜数据判断旅行者的元素，因此本次评分使用通用权重，而非针对你当前神之眼调整的权重。",
+      "已识别为{element}旅行者。理想主词条按该元素的配装判断；副词条权重使用旅行者通用配置，未按元素单独调整。",
     sortScoreDesc: "评分（从高到低）",
     sortScoreAsc: "评分（从低到高）",
     sortLevelDesc: "等级（从高到低）",

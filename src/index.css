@@ -563,6 +563,25 @@
   opacity: 0;
 }
 
+/* Route arrival. Enough travel to read as a new page, short enough that it
+   never delays reading it. Opacity starts at 0 only inside the keyframe, so
+   the reduced-motion rule below - which cancels animations outright - leaves
+   the page at its static, visible state instead of stranding it invisible. */
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-page-in {
+  animation: pageIn 0.22s ease-out;
+}
+
 /* Popover reveal. Short and from very close by, so it reads as the badge
    speaking rather than a new panel arriving. */
 @keyframes popIn {

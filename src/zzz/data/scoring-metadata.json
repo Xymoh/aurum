@@ -1,7 +1,7 @@
 {
   "source": "https://www.prydwen.gg/zenless/characters/",
   "method": "Priority tiers mapped to 1 / 0.75 / 0.5 / 0.25; see scripts/fetch-zzz-weights.mjs",
-  "fetchedAt": "2026-09-03T12:12:15.118Z",
+  "fetchedAt": "2026-09-06T20:04:34.618Z",
   "characters": {
     "1011": {
       "name": "Anby",

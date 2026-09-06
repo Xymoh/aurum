@@ -27,6 +27,13 @@ const ROOT = path.resolve(__dirname, "..");
 
 const WEAPON_EXCEL_URL =
   "https://raw.githubusercontent.com/DimbreathBot/AnimeGameData/master/ExcelBinOutput/WeaponExcelConfigData.json";
+// Project Amber, the same live source fetch-enka-locale.js uses for character
+// names. Enka's loc.json carries no weapon names at all, and the excel mirror
+// above lags behind new releases, so a weapon newer than both resolved to
+// nothing and the app fell back to prettifying its icon file name: Exaiphanes
+// Blade showed up as "Sword Weapon Quest Snezhnaya". Amber tracks new weapons,
+// so it closes that gap without a hand-written override every patch.
+const AMBER_WEAPON_URL = "https://gi.yatta.moe/api/v2/en/weapon";
 
 const OUTPUT_WEAPON_IDS = path.join(ROOT, "src", "data", "weapon-ids.json");
 const OUTPUT_WEAPONS = path.join(ROOT, "src", "data", "weapons.json");
@@ -107,6 +114,8 @@ async function main() {
 
   console.log("\n[1/3] Fetching WeaponExcelConfigData.json…");
   const weaponExcel = await fetchJSON(WEAPON_EXCEL_URL);
+  const amber = Object.values((await fetchJSON(AMBER_WEAPON_URL))?.data?.items ?? {});
+  const amberById = new Map(amber.map((w) => [w.id, w]));
   console.log(`  ✔ Got ${weaponExcel.length} weapon entries\n`);
 
   console.log("[2/3] Building weapon ID → name mapping…");
@@ -116,6 +125,8 @@ async function main() {
   let fromDirect = 0;
   let fromOffset = 0;
   let fromManual = 0;
+  let fromAmber = 0;
+  let fromAmberOnly = 0;
   let unresolved = 0;
   const unresolvedList = [];
 
@@ -145,6 +156,11 @@ async function main() {
     else if (MANUAL_OVERRIDES[id]) {
       name = MANUAL_OVERRIDES[id];
       fromManual++;
+    }
+    // Strategy 4: Project Amber, which names weapons the locale never covered
+    else if (amberById.get(id)?.name) {
+      name = amberById.get(id).name;
+      fromAmber++;
     }
     // Unresolved
     else {
@@ -177,6 +193,18 @@ async function main() {
 
   // ── 3. Write outputs ─────────────────────────────────────────────
   console.log("\n[3/3] Writing output files…");
+
+  // Weapons Amber knows about that the excel mirror has not published at all,
+  // so a new release is named the moment Amber lists it.
+  for (const w of amber) {
+    if (!w?.id || !w?.name || weaponIdToName[w.id]) continue;
+    weaponIdToName[w.id] = w.name;
+    const suffix = w.icon?.match(/UI_EquipIcon_(.+)/)?.[1];
+    if (suffix) iconToName[suffix] = w.name;
+    fromAmberOnly++;
+  }
+  console.log(`  Amber filled a missing name: ${fromAmber}`);
+  console.log(`  Amber supplied a weapon upstream lacks: ${fromAmberOnly}`);
 
   // Sort weapon-ids by numeric key
   const sortedIds = {};

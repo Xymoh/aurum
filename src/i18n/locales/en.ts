@@ -99,7 +99,7 @@ export const en = {
     partialMatch: "Partial Match",
     pieces: "{count}pc",
     travelerNotice:
-      "Traveler's element isn't identifiable from the showcase data, so this score uses one generic all-purpose weighting instead of one tuned to your current Vision.",
+      "Read as the {element} Traveler. Ideal main stats follow that element's build; the substat weighting is one shared Traveler profile rather than one tuned per element.",
     sortScoreDesc: "Score (high → low)",
     sortScoreAsc: "Score (low → high)",
     sortLevelDesc: "Level (high → low)",

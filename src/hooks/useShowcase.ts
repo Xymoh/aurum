@@ -26,7 +26,9 @@ export function useShowcase(uid: string) {
       character.artifacts = character.artifacts.map((art) =>
         // Pass the character's live ER so reroll advice can respect their
         // rotation requirement rather than trading it away for crit.
-        scoreArtifact(art, character.avatarId, character.stats.energyRecharge),
+        // The element matters only for the Traveler, whose seven variants
+        // share one avatarId but want different main stats.
+        scoreArtifact(art, character.avatarId, character.stats.energyRecharge, character.element),
       );
       character.buildScore = scoreBuild(character);
     }

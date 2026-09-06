@@ -1,5 +1,5 @@
 import type { Artifact, ScoreGrade, ArtifactSubstat } from "../types/artifact";
-import type { CharacterData, BuildScore, SetBonusResult } from "../types/character";
+import type { CharacterData, BuildScore, SetBonusResult, GenshinElement } from "../types/character";
 import type { ScoringWeights, CharacterBuildConfig } from "../types/scoring";
 import type { FightProp } from "../types/enka";
 import {
@@ -12,6 +12,7 @@ import {
   REFERENCE_HIGH_ROLL,
 } from "./constants";
 import { computeRerollAdvice } from "./reroll";
+import { travelerMainStats } from "./travelerBuilds";
 import characterBuildsData from "../data/character-builds.json";
 import goProcessedData from "../../genshin_optimizer_processed_data.json";
 
@@ -341,10 +342,19 @@ export function checkMainStat(
   slot: string,
   mainStatKey: FightProp,
   avatarId: number,
+  /** The Traveler's active element, which decides which build applies. */
+  element?: GenshinElement,
 ): { isCorrect: boolean; isRecommended: boolean } {
   // Flower/Plume have fixed main stats - always correct
   if (slot === "FLOWER" || slot === "PLUME") {
     return { isCorrect: true, isRecommended: true };
+  }
+
+  // The Traveler's seven elements want different pieces and share one
+  // avatarId, so they cannot be told apart by the build table alone.
+  const travelerIdeal = travelerMainStats(avatarId, element);
+  if (travelerIdeal) {
+    return matchMainStat(mainStatKey, travelerIdeal[slot as keyof typeof travelerIdeal]);
   }
 
   const config = getBuildConfig(avatarId);
@@ -353,6 +363,14 @@ export function checkMainStat(
   const idealSlot = config.main_stats_ideal as Record<string, string[] | undefined>;
   const ideal = idealSlot[slot];
 
+  return matchMainStat(mainStatKey, ideal);
+}
+
+/** Does this main stat appear in the slot's ideal list, aliases included? */
+function matchMainStat(
+  mainStatKey: FightProp,
+  ideal: string[] | undefined,
+): { isCorrect: boolean; isRecommended: boolean } {
   if (!ideal || ideal.length === 0) return { isCorrect: true, isRecommended: true };
 
   // Build a list of stat keys to match against (resolve aliases)
@@ -360,7 +378,8 @@ export function checkMainStat(
   const mappedKey = resolveWeightKey(mainStatKey);
   if (mappedKey) statKeysToCheck.push(mappedKey);
 
-  // If main stat is an elemental damage bonus, also add ELEMENTAL_DMG alias
+  // If main stat is an elemental damage bonus, also add ELEMENTAL_DMG alias.
+  // The per-element token is what lets a list name one element specifically.
   if (mainStatKey in ELEMENT_DMG_MAP) {
     statKeysToCheck.push("ELEMENTAL_DMG");
     statKeysToCheck.push(`${ELEMENT_DMG_MAP[mainStatKey].toUpperCase()}_DMG`);
@@ -472,6 +491,8 @@ export function scoreArtifact(
    * treated as an ordinary substat.
    */
   currentTotalER?: number,
+  /** The Traveler's active element; ignored for everyone else. */
+  element?: GenshinElement,
 ): Artifact {
   const config = getBuildConfig(avatarId);
   const weights = config?.substat_weights ?? DEFAULT_WEIGHTS;
@@ -483,7 +504,7 @@ export function scoreArtifact(
   const grade = getGrade(potentialPercent);
 
   // Main stat evaluation
-  const mainStatResult = checkMainStat(artifact.slot, artifact.mainStat.statKey, avatarId);
+  const mainStatResult = checkMainStat(artifact.slot, artifact.mainStat.statKey, avatarId, element);
 
   // Legacy fields (backward compat)
   const rv = computeRV(artifact.substats);

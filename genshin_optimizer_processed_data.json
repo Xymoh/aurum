@@ -158,14 +158,18 @@
     "main_stats_ideal": {
       "SANDS": [
         "ATK_PERCENT",
-        "ENERGY_RECHARGE"
+        "ENERGY_RECHARGE",
+        "ELEMENTAL_MASTERY"
       ],
       "GOBLET": [
-        "ELEMENTAL_DMG"
+        "ELEMENTAL_DMG",
+        "ATK_PERCENT",
+        "ELEMENTAL_MASTERY"
       ],
       "CIRCLET": [
         "CRIT_RATE",
-        "CRIT_DMG"
+        "CRIT_DMG",
+        "ELEMENTAL_MASTERY"
       ]
     },
     "recommended_sets": [],
