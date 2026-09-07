@@ -1,6 +1,8 @@
 import type { BuildDiagnostics, HsrRelic } from "../types";
 import { BENCHMARK_ROLLS, MAX_ROLLS } from "../scoring";
-import { SLOT_LABELS, formatStat, statLabel } from "../labels";
+import { formatStat } from "../labels";
+import { useI18n } from "../../i18n";
+import { useHsrVerdict } from "../verdict";
 
 /**
  * The aggregate view of a build.
@@ -24,6 +26,8 @@ export function DiagnosticsPanel({
   tint: string;
   relics: HsrRelic[];
 }) {
+  const { t } = useI18n();
+  const verdict = useHsrVerdict();
   // Cheapest wins first, the same ordering the Genshin side uses for "Room to
   // Improve": best odds at the top, since every die costs the same.
   const nextMoves = relics
@@ -42,11 +46,11 @@ export function DiagnosticsPanel({
       <div className="rounded-lg border border-hsr-border/70 bg-hsr-inset p-3">
         <div className="mb-2 flex items-baseline justify-between gap-3">
           <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-hsr-muted">
-            Useful rolls
+            {t("hsr", "usefulRolls")}
           </h3>
           <p className="font-mono text-sm">
             <span className="font-bold text-hsr-text">{d.effectiveRolls}</span>
-            <span className="text-hsr-muted"> of {d.totalRolls}</span>
+            <span className="text-hsr-muted"> {t("hsr", "ofTotal", { total: d.totalRolls })}</span>
           </p>
         </div>
 
@@ -62,56 +66,51 @@ export function DiagnosticsPanel({
           <div
             className="absolute inset-y-0 w-px bg-hsr-gold"
             style={{ left: `${(BENCHMARK_ROLLS / MAX_ROLLS) * 100}%` }}
-            title={`Benchmark: ${BENCHMARK_ROLLS} useful rolls`}
+            title={t("hsr", "benchmarkTitle", { n: BENCHMARK_ROLLS })}
           />
         </div>
 
         <p className="mt-2 text-sm leading-relaxed text-hsr-muted">
-          {d.effectiveRolls >= BENCHMARK_ROLLS ? (
-            <>
-              At or above the {BENCHMARK_ROLLS}-roll benchmark for a strong build.
-            </>
-          ) : d.totalRolls >= BENCHMARK_ROLLS ? (
-            <>
-              This build carries <span className="text-hsr-text">{d.totalRolls}</span> upgrades,
-              past the {BENCHMARK_ROLLS}-roll benchmark, but{" "}
-              <span className="text-hsr-text">{d.wastedRolls}</span> sit on stats this character
-              never uses. That gap is what a per-piece grade cannot show.
-            </>
-          ) : (
-            <>
-              <span className="text-hsr-text">{d.wastedRolls}</span> upgrades sit on stats this
-              character never uses, leaving it short of the {BENCHMARK_ROLLS}-roll benchmark.
-            </>
-          )}
-        </p>
+          {d.effectiveRolls >= BENCHMARK_ROLLS
+            ? t("hsr", "atBenchmark", { benchmark: BENCHMARK_ROLLS })
+            : d.totalRolls >= BENCHMARK_ROLLS
+              ? t("hsr", "pastBenchmark", {
+                  total: d.totalRolls,
+                  benchmark: BENCHMARK_ROLLS,
+                  wasted: d.wastedRolls,
+                })
+              : t("hsr", "shortOfBenchmark", {
+                  wasted: d.wastedRolls,
+                  benchmark: BENCHMARK_ROLLS,
+                })}
+</p>
       </div>
 
       {(nextMoves.length > 0 || toReplace.length > 0) && (
         <div className="rounded-lg border border-hsr-border/70 bg-hsr-inset p-3">
           <h3 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-hsr-muted">
-            Best next moves
+            {t("hsr", "bestNextMoves")}
           </h3>
           <ul className="space-y-1">
             {nextMoves.map((r) => (
               <li key={r.id} className="flex items-baseline justify-between gap-2 text-sm">
                 <span className="truncate">
-                  <span className="text-hsr-text">{SLOT_LABELS[r.slot]}</span>{" "}
-                  <span className="text-hsr-muted">{r.reroll.label.toLowerCase()}</span>
+                  <span className="text-hsr-text">{t("hsrSlots", r.slot)}</span>{" "}
+                  <span className="text-hsr-muted">{verdict(r.reroll).label}</span>
                 </span>
                 <span className="shrink-0 font-mono text-xs text-hsr-muted">
-                  {Math.round(r.reroll.improveChance * 100)}% / die
+                  {Math.round(r.reroll.improveChance * 100)}{t("hsr", "perDie")}
                 </span>
               </li>
             ))}
             {toReplace.map((r) => (
               <li key={r.id} className="flex items-baseline justify-between gap-2 text-sm">
                 <span className="truncate">
-                  <span className="text-hsr-text">{SLOT_LABELS[r.slot]}</span>{" "}
-                  <span className="text-verdict-replace">farm a replacement</span>
+                  <span className="text-hsr-text">{t("hsrSlots", r.slot)}</span>{" "}
+                  <span className="text-verdict-replace">{t("hsr", "farmReplacementShort")}</span>
                 </span>
                 <span className="shrink-0 font-mono text-xs text-hsr-muted">
-                  tops out {r.reroll.realisticCeiling.toFixed(0)}%
+                  {t("hsr", "topsOut", { n: r.reroll.realisticCeiling.toFixed(0) })}
                 </span>
               </li>
             ))}
@@ -123,16 +122,17 @@ export function DiagnosticsPanel({
         {/* Left: what the build actually adds up to. */}
         <div className="rounded-lg border border-hsr-border/70 bg-hsr-inset p-3">
           <h3 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-hsr-muted">
-            Substat totals
+            {t("hsr", "substatTotals")}
           </h3>
           <ul className="space-y-1">
-            {d.totals.slice(0, 6).map((t) => (
-              <li key={t.key} className="flex items-baseline justify-between gap-2">
+            {d.totals.slice(0, 6).map((total) => (
+              <li key={total.key} className="flex items-baseline justify-between gap-2">
                 <span className="truncate text-sm text-hsr-text/85">
-                  <span className="font-mono text-hsr-muted">{t.rolls}x</span> {statLabel(t.key)}
+                  <span className="font-mono text-hsr-muted">{total.rolls}x</span>{" "}
+                  {t("hsrStats", total.key)}
                 </span>
                 <span className="shrink-0 font-mono text-sm text-hsr-text">
-                  +{formatStat(t.key, t.value)}
+                  +{formatStat(total.key, total.value)}
                 </span>
               </li>
             ))}
@@ -140,12 +140,12 @@ export function DiagnosticsPanel({
 
           {d.critRatio !== null && (
             <div className="mt-2 flex items-baseline justify-between border-t border-hsr-line pt-2">
-              <span className="text-sm text-hsr-muted">Crit ratio</span>
+              <span className="text-sm text-hsr-muted">{t("hsr", "critRatio")}</span>
               <span className="font-mono text-sm">
                 <span className={critOk ? "text-hsr-accent" : "text-warn"}>
                   1 : {d.critRatio.toFixed(2)}
                 </span>
-                <span className="ml-1.5 text-hsr-muted">target 1 : 2</span>
+                <span className="ml-1.5 text-hsr-muted">{t("hsr", "critRatioTarget")}</span>
               </span>
             </div>
           )}
@@ -154,11 +154,11 @@ export function DiagnosticsPanel({
         {/* Right: what to actually do about it. */}
         <div className="rounded-lg border border-hsr-border/70 bg-hsr-inset p-3">
           <h3 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-hsr-muted">
-            Where the dead rolls sit
+            {t("hsr", "deadRolls")}
           </h3>
           {d.waste.length === 0 ? (
             <p className="text-sm text-hsr-accent">
-              Nothing wasted. Every upgrade is on a stat this character uses.
+              {t("hsr", "nothingWasted")}
             </p>
           ) : (
             <ul className="space-y-1">
@@ -168,10 +168,10 @@ export function DiagnosticsPanel({
                   className="flex items-baseline justify-between gap-2 text-sm"
                 >
                   <span className="truncate text-hsr-muted">
-                    <span className="text-hsr-text/80">{SLOT_LABELS[w.slot]}</span>{" "}
-                    {statLabel(w.key)}
+                    <span className="text-hsr-text/80">{t("hsrSlots", w.slot)}</span>{" "}
+                    {t("hsrStats", w.key)}
                   </span>
-                  <span className="shrink-0 font-mono text-hsr-muted">{w.rolls} rolls</span>
+                  <span className="shrink-0 font-mono text-hsr-muted">{t("hsr", "rollsCount", { n: w.rolls })}</span>
                 </li>
               ))}
             </ul>
@@ -180,7 +180,7 @@ export function DiagnosticsPanel({
           <div className="mt-2 space-y-1 border-t border-hsr-line pt-2">
             {d.sets.map((s) => (
               <p key={s.setId} className="truncate text-sm text-hsr-text/80">
-                <span className="font-mono text-hsr-glow">{s.pieces}pc</span> {s.name}
+                <span className="font-mono text-hsr-glow">{t("hsr", "pieces", { n: s.pieces })}</span> {s.name}
               </p>
             ))}
           </div>

@@ -13,7 +13,7 @@
  *   weapons.json     W-Engine id -> name, image, rarity
  *   properties.json  PropertyId -> stat name and display format
  *
- * Names are resolved from Enka's English locale. Run after a patch; the
+ * Names are emitted in English and Simplified Chinese. Run after a patch; the
  * refresh script calls this as its "zzz" step.
  * ──────────────────────────────────────────────────────────────────
  */
@@ -58,13 +58,19 @@ async function main() {
     getJSON("WeaponLevelTemplateTb", WEAPON_CURVES),
     getJSON("WeaponStarTemplateTb", WEAPON_CURVES),
   ]);
+  // Enka ships every language in one table, so the Chinese names cost an
+  // extra lookup rather than an extra request. Emitting both keeps the app
+  // from showing "Ye Shunguang" to a reader who picked 简体中文.
   const en = locs.en;
+  const zh = locs["zh-cn"] ?? {};
   const t = (key) => en[key] ?? key;
+  const tz = (key) => zh[key] ?? en[key] ?? key;
 
   const agents = {};
   for (const [id, a] of Object.entries(avatars)) {
     agents[id] = {
       name: t(a.Name),
+      nameZh: tz(a.Name),
       rarity: a.Rarity,
       profession: a.ProfessionType,
       element: a.ElementTypes?.[0] ?? "",
@@ -82,7 +88,12 @@ async function main() {
 
   const sets = { suits: {}, items: {} };
   for (const [id, s] of Object.entries(equipments.Suits)) {
-    sets.suits[id] = { name: t(s.Name), icon: s.Icon, setBonus: s.SetBonusProps ?? {} };
+    sets.suits[id] = {
+      name: t(s.Name),
+      nameZh: tz(s.Name),
+      icon: s.Icon,
+      setBonus: s.SetBonusProps ?? {},
+    };
   }
   for (const [id, item] of Object.entries(equipments.Items)) {
     sets.items[id] = { suit: item.SuitId, rarity: item.Rarity };
@@ -92,6 +103,7 @@ async function main() {
   for (const [id, w] of Object.entries(weapons)) {
     engines[id] = {
       name: t(w.ItemName),
+      nameZh: tz(w.ItemName),
       rarity: w.Rarity,
       image: w.ImagePath,
       profession: w.ProfessionType,

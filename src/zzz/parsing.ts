@@ -23,9 +23,9 @@ import setItems from "./data/set-items.json";
 import weapons from "./data/weapons.json";
 import { engineImage, profilePicture } from "./images";
 
-const SETS = sets as Record<string, { name: string; icon: string }>;
+const SETS = sets as Record<string, { name: string; nameZh?: string; icon: string }>;
 const SET_ITEMS = setItems as Record<string, { suit: number; rarity: number }>;
-const WEAPONS = weapons as Record<string, { name: string; rarity: number; image: string }>;
+const WEAPONS = weapons as Record<string, { name: string; nameZh?: string; rarity: number; image: string }>;
 
 /** Raw Enka shapes, only the fields we read. */
 interface RawProperty {
@@ -69,7 +69,7 @@ export function mainStatAtLevel(base: number, level: number): number {
   return base * (1 + 0.2 * level);
 }
 
-function parseDisc(slot: number, raw: RawEquipment): Omit<ZzzDisc, "score"> | null {
+function parseDisc(slot: number, raw: RawEquipment, lang: ZzzLang): Omit<ZzzDisc, "score"> | null {
   const main = raw.MainPropertyList?.[0];
   if (!main || slot < 1 || slot > 6) return null;
   const item = SET_ITEMS[String(raw.Id)];
@@ -90,7 +90,7 @@ function parseDisc(slot: number, raw: RawEquipment): Omit<ZzzDisc, "score"> | nu
     itemId: raw.Id,
     slot: slot as ZzzSlot,
     setId,
-    setName: SETS[String(setId)]?.name ?? `Set ${setId}`,
+    setName: pickName(SETS[String(setId)], lang, `Set ${setId}`),
     rarity: item?.rarity ?? 4,
     level: raw.Level,
     mainStat: { id: main.PropertyId, value: displayValue(main.PropertyId, mainStatAtLevel(main.PropertyValue, raw.Level)) },
@@ -99,12 +99,12 @@ function parseDisc(slot: number, raw: RawEquipment): Omit<ZzzDisc, "score"> | nu
   };
 }
 
-function parseEngine(raw: RawAvatar["Weapon"]): ZzzEngine | null {
+function parseEngine(raw: RawAvatar["Weapon"], lang: ZzzLang): ZzzEngine | null {
   if (!raw?.Id) return null;
   const meta = WEAPONS[String(raw.Id)];
   return {
     id: raw.Id,
-    name: meta?.name ?? `W-Engine ${raw.Id}`,
+    name: pickName(meta, lang, `W-Engine ${raw.Id}`),
     level: raw.Level ?? 1,
     rank: raw.UpgradeLevel ?? 1,
     breakLevel: raw.BreakLevel ?? 0,
@@ -131,7 +131,19 @@ export type ParsedAgent = Omit<ZzzAgent, "discs" | "diagnostics" | "stats"> & {
 };
 export type ParsedZzzShowcase = Omit<ZzzShowcase, "agents"> & { agents: ParsedAgent[] };
 
-export function parseZzzShowcase(raw: RawZzzResponse): ParsedZzzShowcase {
+/**
+ * Enka publishes each name in every language it ships, and the fetch script
+ * emits the English and Simplified Chinese pair. Reading the right one here
+ * means the rest of the app keeps working with a single `name` field.
+ */
+type ZzzLang = "en" | "zh";
+
+function pickName(entry: { name: string; nameZh?: string } | undefined, lang: ZzzLang, fallback: string): string {
+  if (!entry) return fallback;
+  return (lang === "zh" ? entry.nameZh : undefined) ?? entry.name;
+}
+
+export function parseZzzShowcase(raw: RawZzzResponse, lang: ZzzLang = "en"): ParsedZzzShowcase {
   const info = raw.PlayerInfo;
   if (!info) throw new Error("Malformed response: no PlayerInfo.");
   const profile = info.SocialDetail?.ProfileDetail;
@@ -140,7 +152,7 @@ export function parseZzzShowcase(raw: RawZzzResponse): ParsedZzzShowcase {
     const meta = getAgentInfo(a.Id);
     return {
       id: a.Id,
-      name: meta?.name ?? `Agent ${a.Id}`,
+      name: pickName(meta, lang, `Agent ${a.Id}`),
       rarity: meta?.rarity ?? 4,
       profession: meta?.profession ?? "",
       element: meta?.element ?? "",
@@ -149,9 +161,9 @@ export function parseZzzShowcase(raw: RawZzzResponse): ParsedZzzShowcase {
       mindscape: a.TalentLevel ?? 0,
       coreSkill: a.CoreSkillEnhancement ?? 0,
       skills: parseSkills(a.SkillLevelList),
-      engine: parseEngine(a.Weapon),
+      engine: parseEngine(a.Weapon, lang),
       discs: (a.EquippedList ?? [])
-        .map((e) => parseDisc(e.Slot, e.Equipment))
+        .map((e) => parseDisc(e.Slot, e.Equipment, lang))
         .filter((d): d is Omit<ZzzDisc, "score"> => d !== null)
         .sort((x, y) => x.slot - y.slot),
     };

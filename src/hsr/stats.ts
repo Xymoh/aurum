@@ -13,6 +13,10 @@
  * character screen and every other showcase site.
  */
 
+export type HsrRowKey =
+  | "rowHp" | "rowAtk" | "rowDef" | "rowSpd" | "rowCritRate" | "rowCritDmg"
+  | "rowBreak" | "rowEnergy" | "rowEhr" | "rowRes" | "rowDmg";
+
 import type { HsrCharacter, HsrRelic, HsrStatKey, HsrStats } from "./types";
 import statsData from "./data/stats.json";
 
@@ -139,18 +143,18 @@ export function computeStats(input: StatInput): HsrStats {
 }
 
 /** The stats worth showing in a summary row, in the order the game lists them. */
-export const STAT_ROW: Array<{ key: keyof HsrStats; label: string; percent: boolean }> = [
-  { key: "hp", label: "HP", percent: false },
-  { key: "atk", label: "ATK", percent: false },
-  { key: "def", label: "DEF", percent: false },
-  { key: "spd", label: "SPD", percent: false },
-  { key: "critRate", label: "CRIT Rate", percent: true },
-  { key: "critDmg", label: "CRIT DMG", percent: true },
-  { key: "breakEffect", label: "Break", percent: true },
-  { key: "energyRegen", label: "Energy", percent: true },
-  { key: "effectHitRate", label: "EHR", percent: true },
-  { key: "effectRes", label: "RES", percent: true },
-  { key: "elementalDmg", label: "DMG", percent: true },
+export const STAT_ROW: Array<{ key: keyof HsrStats; label: HsrRowKey; percent: boolean }> = [
+  { key: "hp", label: "rowHp", percent: false },
+  { key: "atk", label: "rowAtk", percent: false },
+  { key: "def", label: "rowDef", percent: false },
+  { key: "spd", label: "rowSpd", percent: false },
+  { key: "critRate", label: "rowCritRate", percent: true },
+  { key: "critDmg", label: "rowCritDmg", percent: true },
+  { key: "breakEffect", label: "rowBreak", percent: true },
+  { key: "energyRegen", label: "rowEnergy", percent: true },
+  { key: "effectHitRate", label: "rowEhr", percent: true },
+  { key: "effectRes", label: "rowRes", percent: true },
+  { key: "elementalDmg", label: "rowDmg", percent: true },
 ];
 
 export function formatStatValue(stats: HsrStats, key: keyof HsrStats, percent: boolean): string {
@@ -159,7 +163,7 @@ export function formatStatValue(stats: HsrStats, key: keyof HsrStats, percent: b
 }
 
 /** Convenience for the panels: the row entries that are worth rendering. */
-export function statRowFor(character: HsrCharacter): Array<{ label: string; value: string }> {
+export function statRowFor(character: HsrCharacter): Array<{ label: HsrRowKey; value: string }> {
   return STAT_ROW.filter(
     // Effect Hit Rate, Break Effect and healing are noise on a build that has
     // none of them, so they only appear once something actually grants them.

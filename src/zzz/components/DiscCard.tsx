@@ -1,6 +1,7 @@
 import type { ZzzDisc } from "../types";
 import { WASTE_THRESHOLD, weightOf, type ZzzWeights } from "../weights";
-import { SLOT_LABELS, formatStat, statLabel } from "../labels";
+import { formatStat } from "../labels";
+import { useI18n } from "../../i18n";
 import { setIcon } from "../images";
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { InfoTip } from "../../components/ui/InfoTip";
@@ -19,6 +20,7 @@ const ZZZ_PANEL = "border-zzz-border bg-zzz-panel text-zzz-text";
  * not read as an alarm.
  */
 export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights }) {
+  const { t } = useI18n();
   const { score } = disc;
   const icon = setIcon(disc.setId);
 
@@ -30,7 +32,7 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
         )}
         <div className="min-w-0 flex-1">
           <p className="font-mono text-sm font-bold uppercase tracking-wider text-zzz-accent">
-            {SLOT_LABELS[disc.slot]}
+            {t("zzzSlots", String(disc.slot) as "1")}
           </p>
           <p className="truncate text-xs text-zzz-muted" title={disc.setName}>
             {disc.setName}
@@ -42,17 +44,17 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
           <InfoTip
             panelClassName={ZZZ_PANEL}
             align="right"
-            content="This main stat does nothing for the agent, so the disc is not a candidate however well its substats rolled. The percent below still measures the substats."
+            content={t("zzz", "notGradedMain")}
           >
             <span className="rounded-md bg-zzz-signal/15 px-1.5 py-0.5 text-xs font-bold uppercase text-zzz-signal">
-              Wrong main
+              {t("zzz", "wrongMain")}
             </span>
           </InfoTip>
         )}
       </div>
 
       <div className="mb-2 flex items-baseline justify-between rounded bg-zzz-inset px-2 py-1">
-        <span className="text-sm font-medium text-zzz-text">{statLabel(disc.mainStat.id)}</span>
+        <span className="text-sm font-medium text-zzz-text">{t("zzzStats", String(disc.mainStat.id) as "11101")}</span>
         <span className="font-mono text-sm text-zzz-text">{formatStat(disc.mainStat.id, disc.mainStat.value)}</span>
       </div>
 
@@ -62,23 +64,22 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
           return (
             <li key={sub.id} className="flex items-center justify-between gap-2">
               <span className={`text-sm ${dead ? "text-zzz-muted line-through decoration-zzz-muted/50" : "text-zzz-text/85"}`}>
-                {statLabel(sub.id)}
+                {t("zzzStats", String(sub.id) as "11101")}
               </span>
               <span className="flex items-center gap-2">
                 <InfoTip
                   align="right"
                   panelClassName={ZZZ_PANEL}
-                  label={`${sub.rolls} rolls of ${formatStat(sub.id, sub.perRoll)}`}
+                  label={t("zzz", "rollTipLabel", { n: sub.rolls, value: formatStat(sub.id, sub.perRoll) })}
                   content={
                     <div className="space-y-1">
                       <p className="font-medium">
-                        {sub.rolls} {sub.rolls === 1 ? "roll" : "rolls"} × {formatStat(sub.id, sub.perRoll)}
+                        {t("zzz", "rollTipHeading", { n: sub.rolls, value: formatStat(sub.id, sub.perRoll) })}
                       </p>
                       <p className="text-zzz-muted">
-                        Every roll of {statLabel(sub.id)} is worth exactly {formatStat(sub.id, sub.perRoll)} in Zenless, so
-                        there is no roll quality to show, only how many landed here.
+                        {t("zzz", "rollTipFixed")}
                       </p>
-                      {dead && <p className="text-zzz-muted">This stat does nothing for the agent, so these rolls count as wasted.</p>}
+                      {dead && <p className="text-zzz-muted">{t("zzz", "rollTipDead")}</p>}
                     </div>
                   }
                 >
@@ -100,7 +101,7 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
       <div className="mt-2 flex items-center justify-between border-t border-zzz-line pt-1.5 font-mono text-xs">
         <span className="text-zzz-muted">
           <span className={score.wastedRolls > 0 ? "text-zzz-text" : "text-zzz-accent"}>{score.effectiveRolls}</span>
-          /{disc.totalRolls} useful
+          {t("zzz", "usefulSuffix", { total: disc.totalRolls })}
         </span>
         <span className={`font-bold ${score.grade ? gradeTextClass(score.grade) : "text-zzz-muted"}`}>
           {formatScore(score.potentialPercent)}

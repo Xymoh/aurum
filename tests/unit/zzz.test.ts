@@ -220,3 +220,31 @@ describe("incomplete builds", () => {
     expect(partial.discs[0].score.potentialPercent).toBeGreaterThan(0);
   });
 });
+
+describe("localized names", () => {
+  it("keeps English names by default", () => {
+    const burnice = parsed.agents.find((a) => a.id === 1171);
+    expect(burnice?.name).toBe("Burnice");
+  });
+
+  it("returns Chinese names when the reader picked 简体中文", () => {
+    // Agent, disc set and W-Engine names all come from Enka's own zh-cn
+    // table, so a Chinese reader is not left with a page of English proper
+    // nouns among translated chrome.
+    const zh = parseZzzShowcase(fixture as RawZzzResponse, "zh");
+    const burnice = zh.agents.find((a) => a.id === 1171);
+    expect(burnice?.name).toBe("柏妮思");
+    expect(zh.agents.find((a) => a.id === 1431)?.name).toBe("叶瞬光");
+
+    const anyDisc = zh.agents.flatMap((a) => a.discs)[0];
+    expect(anyDisc.setName).not.toMatch(/^[\x00-\x7F]*$/);
+  });
+
+  it("falls back to English for anything the zh table is missing", () => {
+    const zh = parseZzzShowcase(fixture as RawZzzResponse, "zh");
+    for (const agent of zh.agents) {
+      expect(agent.name.length).toBeGreaterThan(0);
+      expect(agent.name).not.toMatch(/^Agent \d+$/);
+    }
+  });
+});

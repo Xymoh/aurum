@@ -3,6 +3,8 @@ import { PageTransition } from "../../components/ui/PageTransition";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { GameRail, GameSwitcherCompact } from "../../games/GameRail";
 import { ThemeToggle } from "../../components/ui/ThemeToggle";
+import { LanguageSwitcher } from "../../components/ui/LanguageSwitcher";
+import { useI18n } from "../../i18n";
 
 /**
  * Layout for the Zenless side.
@@ -12,7 +14,8 @@ import { ThemeToggle } from "../../components/ui/ThemeToggle";
  * wordmark leans on the "//" motif New Eridu's UI uses everywhere.
  */
 export function ZzzLayout() {
-  useDocumentTitle("Disc Aurum - Zenless Zone Zero drive disc scorer");
+  const { t } = useI18n();
+  useDocumentTitle(t("zzz", "documentTitle"));
 
   return (
     <div className="flex min-h-screen flex-col bg-zzz-bg text-zzz-text lg:pl-14" data-game="zzz">
@@ -24,11 +27,12 @@ export function ZzzLayout() {
               //
             </span>
             <span className="text-sm font-black uppercase tracking-[0.22em] text-zzz-text">
-              Disc Aurum
+              {t("zzz", "title")}
             </span>
           </Link>
           <nav className="flex items-center gap-1.5" aria-label="Site">
             <GameSwitcherCompact current="zzz" />
+            <LanguageSwitcher />
             <ThemeToggle className="text-zzz-muted hover:bg-zzz-fill hover:text-zzz-text" />
           </nav>
         </div>
@@ -42,9 +46,9 @@ export function ZzzLayout() {
 
       <footer className="border-t border-zzz-border bg-zzz-panel/40">
         <div className="mx-auto w-full max-w-7xl px-4 py-5 text-center text-sm text-zzz-muted sm:px-6">
-          <p>Disc Aurum is a fan-made tool and is not affiliated with HoYoverse.</p>
+          <p>{t("zzz", "footerDisclaimer")}</p>
           <p className="mt-1">
-            Showcase data and game tables from{" "}
+            {t("zzz", "footerDataPrefix")}
             <a
               href="https://enka.network/"
               target="_blank"
@@ -53,7 +57,7 @@ export function ZzzLayout() {
             >
               Enka.Network
             </a>
-            , build priorities from{" "}
+            {t("zzz", "footerDataMiddle")}
             <a
               href="https://www.prydwen.gg/zenless/characters/"
               target="_blank"

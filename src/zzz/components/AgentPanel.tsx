@@ -5,7 +5,7 @@ import { SLOT_COUNT as DISC_SLOT_COUNT } from "../scoring";
 import { IncompleteScore } from "../../components/ui/IncompleteScore";
 import { BuildPanel } from "./BuildPanel";
 import { DiscCard } from "./DiscCard";
-import { ELEMENT_LABELS, PROFESSION_LABELS } from "../labels";
+import { useI18n } from "../../i18n";
 import { zzzStatRow } from "../stats";
 import { agentImage } from "../images";
 import { GradeBadge } from "../../components/ui/GradeBadge";
@@ -29,6 +29,7 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
   const [everOpened, setEverOpened] = useState(open);
   if (open && !everOpened) setEverOpened(true);
 
+  const { t } = useI18n();
   const bodyId = useId();
   const meta = getScoringMeta(agent.id);
   const d = agent.diagnostics;
@@ -96,20 +97,20 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
             <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 font-mono text-xs text-zzz-text">Lv{agent.level}</span>
             <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 font-mono text-xs text-zzz-text">M{agent.mindscape}</span>
             <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 text-xs text-zzz-muted">
-              {PROFESSION_LABELS[agent.profession] ?? agent.profession}
+              {t("zzzRoles", agent.profession as "Attack")}
             </span>
             <span className="hidden rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 text-xs text-zzz-muted sm:inline">
-              {ELEMENT_LABELS[agent.element] ?? agent.element}
+              {t("zzzElements", agent.element as "Fire")}
             </span>
           </div>
           <div className="mt-1.5 hidden flex-wrap items-center gap-1.5 sm:flex">
             {(
               [
-                ["Basic", agent.skills.basic],
-                ["Dodge", agent.skills.dodge],
-                ["Assist", agent.skills.assist],
-                ["Special", agent.skills.special],
-                ["Chain", agent.skills.chain],
+                [t("zzz", "skillBasic"), agent.skills.basic],
+                [t("zzz", "skillDodge"), agent.skills.dodge],
+                [t("zzz", "skillAssist"), agent.skills.assist],
+                [t("zzz", "skillSpecial"), agent.skills.special],
+                [t("zzz", "skillChain"), agent.skills.chain],
               ] as const
             ).map(([label, level]) => (
               <span key={label} className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 text-xs text-zzz-muted">
@@ -117,7 +118,7 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
               </span>
             ))}
             <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 text-xs text-zzz-muted">
-              Core <span className="font-mono text-zzz-text">{"ABCDEF"[Math.max(0, agent.coreSkill - 1)] ?? "-"}</span>
+              {t("zzz", "core")} <span className="font-mono text-zzz-text">{"ABCDEF"[Math.max(0, agent.coreSkill - 1)] ?? "-"}</span>
             </span>
           </div>
           {agent.engine && (
@@ -151,7 +152,7 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
             />
           )}
           <p className="mt-1 font-mono text-xs text-zzz-muted">
-            {d.effectiveRolls}/{d.totalRolls} rolls
+            {t("zzz", "rolls", { effective: d.effectiveRolls, total: d.totalRolls })}
           </p>
         </div>
 
@@ -170,7 +171,7 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
         <div className="flex flex-wrap gap-x-4 gap-y-1">
           {zzzStatRow(agent.stats).map((s) => (
             <span key={s.label} className="flex items-baseline gap-1.5 text-sm">
-              <span className="text-zzz-muted">{s.label}</span>
+              <span className="text-zzz-muted">{t("zzz", s.label)}</span>
               <span className="font-mono font-semibold tabular-nums text-zzz-text">{s.value}</span>
             </span>
           ))}

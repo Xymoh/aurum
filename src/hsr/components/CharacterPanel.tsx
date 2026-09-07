@@ -1,6 +1,7 @@
 import { useId, useState } from "react";
 import type { HsrCharacter } from "../types";
-import { getWeights, PATH_LABELS } from "../weights";
+import { getWeights } from "../weights";
+import { useI18n } from "../../i18n";
 import { SLOT_COUNT as RELIC_SLOT_COUNT } from "../scoring";
 import { IncompleteScore } from "../../components/ui/IncompleteScore";
 import { DiagnosticsPanel } from "./DiagnosticsPanel";
@@ -23,12 +24,13 @@ const ELEMENT_TINT: Record<string, string> = {
 };
 
 /** Trace levels, labelled the way the game labels them. */
-function Traces({ t }: { t: NonNullable<HsrCharacter["traces"]> }) {
+function Traces({ t: traces }: { t: NonNullable<HsrCharacter["traces"]> }) {
+  const { t } = useI18n();
   const parts = [
-    { label: "Basic", value: t.basic },
-    { label: "Skill", value: t.skill },
-    { label: "Ult", value: t.ultimate },
-    { label: "Talent", value: t.talent },
+    { label: t("hsr", "traceBasic"), value: traces.basic },
+    { label: t("hsr", "traceSkill"), value: traces.skill },
+    { label: t("hsr", "traceUlt"), value: traces.ultimate },
+    { label: t("hsr", "traceTalent"), value: traces.talent },
   ];
   return (
     <div className="flex flex-wrap items-center gap-1.5">
@@ -40,14 +42,14 @@ function Traces({ t }: { t: NonNullable<HsrCharacter["traces"]> }) {
           {p.label} <span className="font-mono text-hsr-text">{p.value}</span>
         </span>
       ))}
-      {t.bonusTotal > 0 && (
+      {traces.bonusTotal > 0 && (
         <span
           className="rounded border border-hsr-line bg-hsr-inset px-1.5 py-0.5 text-xs text-hsr-muted"
-          title="Bonus trace nodes taken"
+          title={t("hsr", "traceBonusTitle")}
         >
-          Traces{" "}
+          {t("hsr", "traceBonus")}{" "}
           <span className="font-mono text-hsr-text">
-            {t.bonusTaken}/{t.bonusTotal}
+            {traces.bonusTaken}/{traces.bonusTotal}
           </span>
         </span>
       )}
@@ -76,6 +78,7 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
   const [everOpened, setEverOpened] = useState(open);
   if (open && !everOpened) setEverOpened(true);
 
+  const { t } = useI18n();
   const bodyId = useId();
   const weights = getWeights(character.avatarId);
   const d = character.diagnostics;
@@ -174,7 +177,7 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
               E{character.eidolon}
             </span>
             <span className="hidden rounded border border-hsr-line bg-hsr-inset px-1.5 py-0.5 text-xs text-hsr-muted sm:inline">
-              {PATH_LABELS[character.path] ?? character.path}
+              {t("hsrPaths", character.path as "Warrior")}
             </span>
           </div>
 
@@ -220,7 +223,7 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
             />
           )}
           <p className="mt-1 font-mono text-xs text-hsr-muted">
-            {d.effectiveRolls}/{d.totalRolls} rolls
+            {t("hsr", "rolls", { effective: d.effectiveRolls, total: d.totalRolls })}
           </p>
         </div>
 
@@ -247,7 +250,7 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
         <div className="flex flex-wrap gap-x-4 gap-y-1">
           {statRowFor(character).map((s) => (
             <span key={s.label} className="flex items-baseline gap-1.5 text-sm">
-              <span className="text-hsr-muted">{s.label}</span>
+              <span className="text-hsr-muted">{t("hsr", s.label)}</span>
               <span className="font-mono font-semibold tabular-nums text-hsr-text">{s.value}</span>
             </span>
           ))}

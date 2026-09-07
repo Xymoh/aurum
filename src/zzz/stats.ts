@@ -12,6 +12,11 @@
  */
 
 import type { ZzzDisc, ZzzStatId, ZzzStats } from "./types";
+
+/** Dictionary keys for the summary row, so the labels can be translated. */
+export type ZzzRowKey =
+  | "rowHp" | "rowAtk" | "rowDef" | "rowImpact" | "rowCritRate" | "rowCritDmg"
+  | "rowAp" | "rowAm" | "rowPenRatio" | "rowPen" | "rowDmg";
 import agents from "./data/agents.json";
 import weapons from "./data/weapons.json";
 import curves from "./data/weapon-curves.json";
@@ -185,21 +190,21 @@ const PERCENT_IDS = new Set<number>([
 ]);
 
 /** The stats worth showing in a summary row, in the order the game lists them. */
-export const ZZZ_STAT_ROW: Array<{ key: keyof ZzzStats; label: string; percent: boolean; hideWhenZero?: boolean }> = [
-  { key: "hp", label: "HP", percent: false },
-  { key: "atk", label: "ATK", percent: false },
-  { key: "def", label: "DEF", percent: false },
-  { key: "impact", label: "Impact", percent: false },
-  { key: "critRate", label: "CRIT Rate", percent: true },
-  { key: "critDmg", label: "CRIT DMG", percent: true },
-  { key: "anomalyProficiency", label: "AP", percent: false },
-  { key: "anomalyMastery", label: "AM", percent: false },
-  { key: "penRatio", label: "PEN Ratio", percent: true, hideWhenZero: true },
-  { key: "pen", label: "PEN", percent: false, hideWhenZero: true },
-  { key: "elementalDmg", label: "DMG", percent: true, hideWhenZero: true },
+export const ZZZ_STAT_ROW: Array<{ key: keyof ZzzStats; label: ZzzRowKey; percent: boolean; hideWhenZero?: boolean }> = [
+  { key: "hp", label: "rowHp", percent: false },
+  { key: "atk", label: "rowAtk", percent: false },
+  { key: "def", label: "rowDef", percent: false },
+  { key: "impact", label: "rowImpact", percent: false },
+  { key: "critRate", label: "rowCritRate", percent: true },
+  { key: "critDmg", label: "rowCritDmg", percent: true },
+  { key: "anomalyProficiency", label: "rowAp", percent: false },
+  { key: "anomalyMastery", label: "rowAm", percent: false },
+  { key: "penRatio", label: "rowPenRatio", percent: true, hideWhenZero: true },
+  { key: "pen", label: "rowPen", percent: false, hideWhenZero: true },
+  { key: "elementalDmg", label: "rowDmg", percent: true, hideWhenZero: true },
 ];
 
-export function zzzStatRow(stats: ZzzStats): Array<{ label: string; value: string }> {
+export function zzzStatRow(stats: ZzzStats): Array<{ label: ZzzRowKey; value: string }> {
   return ZZZ_STAT_ROW.filter((s) => !s.hideWhenZero || stats[s.key] > 0).map((s) => ({
     label: s.label,
     value: s.percent ? `${stats[s.key].toFixed(1)}%` : Math.round(stats[s.key]).toLocaleString(),

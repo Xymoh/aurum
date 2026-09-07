@@ -1,6 +1,8 @@
 import type { HsrRelic } from "../types";
 import { WASTE_THRESHOLD, weightOf, type HsrWeights } from "../weights";
-import { SLOT_LABELS, formatStat, gradeColor, statLabel } from "../labels";
+import { formatStat, gradeColor } from "../labels";
+import { useI18n } from "../../i18n";
+import { useHsrVerdict } from "../verdict";
 import { relicIcon } from "../images";
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { InfoTip } from "../../components/ui/InfoTip";
@@ -38,6 +40,8 @@ function formatChance(p: number): string {
  * not faded: the label still has to be readable to know what was wasted.
  */
 export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWeights }) {
+  const { t } = useI18n();
+  const verdict = useHsrVerdict()(relic.reroll);
   const { score, reroll } = relic;
   const icon = relicIcon(relic.tid);
   const verdictColor =
@@ -62,7 +66,7 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
         )}
         <div className="min-w-0 flex-1">
           <p className="text-sm font-semibold uppercase tracking-wider text-hsr-glow">
-            {SLOT_LABELS[relic.slot]}
+            {t("hsrSlots", relic.slot)}
           </p>
           <p className="truncate text-xs text-hsr-muted" title={relic.setName}>
             {relic.setName}
@@ -74,16 +78,16 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
           <InfoTip
             content={
               score.mainStatOk
-                ? "Not graded: only 5-star relics with a usable score get a letter."
-                : "Not graded: this main stat does nothing for the character, so the piece is not a candidate however well its substats rolled."
+                ? t("hsr", "notGraded")
+                : t("hsr", "notGradedMain")
             }
             panelClassName={HSR_PANEL}
             align="right"
-            label="Why is there no grade?"
+            label={t("hsr", "whyNoGrade")}
           >
             <span className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs font-semibold" style={{ backgroundColor: tint("var(--warn)", 12), color: "var(--warn)" }}>
               <WarningIcon className="h-3 w-3" />
-              {score.mainStatOk ? "n/a" : "wrong main"}
+              {score.mainStatOk ? t("hsr", "notApplicable") : t("hsr", "wrongMain")}
             </span>
           </InfoTip>
         )}
@@ -91,7 +95,7 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
 
       <div className="mb-2 flex items-baseline justify-between rounded bg-hsr-inset px-2 py-1">
         <span className="text-sm font-medium text-hsr-text">
-          {statLabel(relic.mainStat.key)}
+          {t("hsrStats", relic.mainStat.key)}
         </span>
         <span className="font-mono text-sm text-hsr-text">
           {formatStat(relic.mainStat.key, relic.mainStat.value)}
@@ -103,7 +107,7 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
           return (
             <li key={sub.key} className="flex items-center justify-between gap-2">
               <span className={`text-sm ${dead ? "text-hsr-muted line-through decoration-hsr-muted/50" : "text-hsr-text/85"}`}>
-                {statLabel(sub.key)}
+                {t("hsrStats", sub.key)}
               </span>
               <span className="flex items-center gap-2">
                 {/* Enka states how many rolls landed here and their combined
@@ -112,18 +116,19 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
                 <InfoTip
                   align="right"
                   panelClassName={HSR_PANEL}
-                  label={`${sub.rolls} rolls, average ${Math.round(sub.quality * 100)}% of max`}
+                  label={t("hsr", "rollTipLabel", { n: sub.rolls, pct: Math.round(sub.quality * 100) })}
                   content={
                     <div className="space-y-1">
                       <p className="font-medium">
-                        {sub.rolls} {sub.rolls === 1 ? "roll" : "rolls"} · average {Math.round(sub.quality * 100)}% of max
+                        {t("hsr", "rollTipHeading", { n: sub.rolls, pct: Math.round(sub.quality * 100) })}
                       </p>
                       <p className="text-hsr-muted">
-                        Best possible for {sub.rolls} rolls: +{formatStat(sub.key, sub.rolls * (HIGH_ROLL[sub.key] ?? 0))}. A Star
-                        Rail roll lands on one of three tiers, 80%, 90% or 100% of the max, but Enka reports the combined quality
-                        of a stat's rolls rather than each roll on its own, so every pip here carries that average.
+                        {t("hsr", "rollTipBody", {
+                          n: sub.rolls,
+                          best: formatStat(sub.key, sub.rolls * (HIGH_ROLL[sub.key] ?? 0)),
+                        })}
                       </p>
-                      {dead && <p className="text-hsr-muted">This stat does nothing for the character, so these rolls count as wasted.</p>}
+                      {dead && <p className="text-hsr-muted">{t("hsr", "rollTipDead")}</p>}
                     </div>
                   }
                 >
@@ -151,7 +156,7 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
           <span className={score.wastedRolls > 0 ? "text-hsr-text" : "text-hsr-accent"}>
             {score.effectiveRolls}
           </span>
-          /{relic.totalRolls} useful
+          {t("hsr", "usefulSuffix", { total: relic.totalRolls })}
         </span>
         <span className={`font-bold ${gradeColor(score.grade)}`}>{formatScore(score.potentialPercent)}</span>
       </div>
@@ -160,23 +165,23 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
           slot, so the verdict is driven by the odds alone. The reasoning opens
           on hover, focus or tap. */}
       {reroll.eligible && (
-        <InfoTip className="mt-2" content={reroll.reason} panelClassName={HSR_PANEL}>
+        <InfoTip className="mt-2" content={verdict.reason} panelClassName={HSR_PANEL}>
           <div
             className="rounded-md px-2 py-1.5"
             style={{ backgroundColor: tint(verdictColor, 12), color: verdictColor }}
           >
             <div className="flex items-baseline justify-between gap-2">
-              <span className="text-xs font-semibold">{reroll.label}</span>
+              <span className="text-xs font-semibold">{verdict.label}</span>
               {reroll.action === "reroll" && (
                 <span className="shrink-0 font-mono text-xs font-bold">
                   {formatChance(reroll.improveChance)}
-                  <span className="opacity-70"> / die</span>
+                  <span className="opacity-70">{t("hsr", "perDieSuffix")}</span>
                 </span>
               )}
             </div>
             {reroll.action === "reroll" && reroll.targetStats.length > 0 && (
               <p className="mt-0.5 truncate text-[11px] opacity-90">
-                Hope for {reroll.targetStats.map(statLabel).join(" or ")}
+                {t("hsr", "hopeFor", { stats: reroll.targetStats.map((k) => t("hsrStats", k)).join(" / ") })}
               </p>
             )}
           </div>

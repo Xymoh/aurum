@@ -3,6 +3,8 @@ import { PageTransition } from "../../components/ui/PageTransition";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { GameRail, GameSwitcherCompact } from "../../games/GameRail";
 import { ThemeToggle } from "../../components/ui/ThemeToggle";
+import { LanguageSwitcher } from "../../components/ui/LanguageSwitcher";
+import { useI18n } from "../../i18n";
 
 /**
  * Layout for the Star Rail side.
@@ -14,7 +16,8 @@ import { ThemeToggle } from "../../components/ui/ThemeToggle";
  * headers differ in look but not in what they can do.
  */
 export function HsrLayout() {
-  useDocumentTitle("Relic Aurum - Honkai: Star Rail relic scorer");
+  const { t } = useI18n();
+  useDocumentTitle(t("hsr", "documentTitle"));
 
   return (
     <div className="flex min-h-screen flex-col bg-hsr-bg text-hsr-text lg:pl-14" data-game="hsr">
@@ -26,11 +29,12 @@ export function HsrLayout() {
               ✧
             </span>
             <span className="text-sm font-semibold uppercase tracking-[0.2em] text-hsr-text">
-              Relic Aurum
+              {t("hsr", "title")}
             </span>
           </Link>
           <nav className="flex items-center gap-1.5" aria-label="Site">
             <GameSwitcherCompact current="hsr" />
+            <LanguageSwitcher />
             <ThemeToggle className="text-hsr-muted hover:bg-hsr-fill hover:text-hsr-text" />
           </nav>
         </div>
@@ -44,9 +48,9 @@ export function HsrLayout() {
 
       <footer className="border-t border-hsr-border bg-hsr-panel/40">
         <div className="mx-auto w-full max-w-7xl px-4 py-5 text-center text-sm text-hsr-muted sm:px-6">
-          <p>Relic Aurum is a fan-made tool and is not affiliated with HoYoverse.</p>
+          <p>{t("hsr", "footerDisclaimer")}</p>
           <p className="mt-1">
-            Character data from{" "}
+            {t("hsr", "footerDataPrefix")}
             <a
               href="https://enka.network/"
               target="_blank"
@@ -55,7 +59,7 @@ export function HsrLayout() {
             >
               Enka.Network
             </a>
-            , game tables from{" "}
+            {t("hsr", "footerDataMiddle")}
             <a
               href="https://github.com/Mar-7th/StarRailRes"
               target="_blank"
