@@ -32,7 +32,13 @@ export function ZzzLayout() {
           </Link>
           <nav className="flex items-center gap-1.5" aria-label="Site">
             <GameSwitcherCompact current="zzz" />
-            <LanguageSwitcher />
+            <Link
+            to="/zzz/builds"
+            className="rounded-lg px-2 py-1.5 text-sm font-semibold uppercase tracking-wide text-zzz-muted no-underline transition-colors hover:bg-zzz-fill hover:text-zzz-text"
+          >
+            {t("builds", "navLabel")}
+          </Link>
+                      <LanguageSwitcher />
             <ThemeToggle className="text-zzz-muted hover:bg-zzz-fill hover:text-zzz-text" />
           </nav>
         </div>

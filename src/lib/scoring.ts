@@ -14,6 +14,7 @@ import {
 import { computeRerollAdvice } from "./reroll";
 import { travelerMainStats } from "./travelerBuilds";
 import characterBuildsData from "../data/character-builds.json";
+import setRecommendationsData from "../data/set-recommendations.json";
 import goProcessedData from "../../genshin_optimizer_processed_data.json";
 
 // ── Character entry shape from the GO processed data ───────────────
@@ -194,7 +195,44 @@ function resolveWeightKey(statKey: string): keyof ScoringWeights | null {
   return mapping[statKey] ?? null;
 }
 
-function getBuildConfig(avatarId: number): CharacterBuildConfig | null {
+/**
+ * The curated build for a character: substat weights, ideal main stats,
+ * recommended sets. Exported so the build-target pages can show exactly what
+ * the scorer grades against, rather than a second opinion that could drift.
+ */
+export interface SetPick {
+  setId: string;
+  pieces: number;
+}
+
+const SET_RECOMMENDATIONS = (setRecommendationsData as { characters: Record<string, { sets: SetPick[][]; source?: string }> }).characters;
+
+/** The page the fetched recommendations were read from, or null if curated. */
+export function getSetRecommendationSource(avatarId: number): string | null {
+  const entry = SET_RECOMMENDATIONS[String(avatarId)];
+  return entry && entry.sets.length > 0 ? (entry.source ?? null) : null;
+}
+
+/**
+ * Recommended loadouts for a character, best first: each entry is one set
+ * run as a 4-piece or two sets run as 2+2. From genshin.gg, which lists them
+ * for the whole roster; a character it lacks falls back to the curated
+ * `recommended_sets`, read as 4-pieces.
+ */
+export function getSetRecommendations(avatarId: number): SetPick[][] {
+  const fetched = SET_RECOMMENDATIONS[String(avatarId)]?.sets;
+  if (fetched && fetched.length > 0) return fetched;
+  const config = getBuildConfig(avatarId);
+  return (config?.recommended_sets ?? []).map((setId) => [{ setId, pieces: 4 }]);
+}
+
+/** Every set id named in the fetched recommendations, for the set-bonus check. */
+function fetchedSetIds(idStr: string): string[] {
+  const sets = SET_RECOMMENDATIONS[idStr]?.sets ?? [];
+  return Array.from(new Set(sets.flat().map((p) => p.setId)));
+}
+
+export function getBuildConfig(avatarId: number): CharacterBuildConfig | null {
   const idStr = String(avatarId);
 
   // ── 1. Primary: GO processed data (authoritative + merged build configs) ──
@@ -204,7 +242,9 @@ function getBuildConfig(avatarId: number): CharacterBuildConfig | null {
       name: goEntry.display_name,
       substat_weights: goEntry.substat_weights,
       main_stats_ideal: goEntry.main_stats_ideal ?? {},
-      recommended_sets: goEntry.recommended_sets,
+      // The curated list wins where it exists; the fetched one covers the
+      // rest of the roster so the showcase's set check has something to say.
+      recommended_sets: goEntry.recommended_sets?.length ? goEntry.recommended_sets : fetchedSetIds(idStr),
       er_threshold: goEntry.er_threshold ?? undefined,
     };
   }
@@ -217,7 +257,7 @@ function getBuildConfig(avatarId: number): CharacterBuildConfig | null {
       name: goEntry.display_name,
       substat_weights: deriveWeightsFromScaling(goEntry),
       main_stats_ideal: {},
-      recommended_sets: [],
+      recommended_sets: fetchedSetIds(idStr),
       er_threshold: undefined,
     };
   }

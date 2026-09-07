@@ -12,6 +12,12 @@
  *   stats: { [Stats.SPD]: 1, [Stats.CD]: 1, [Stats.RES]: 0.25, ... }
  *   parts: { [Parts.Body]: [Stats.CD], [Parts.Feet]: [Stats.SPD], ... }
  *   flatMainstatBoost?: Stats.HP
+ *   relicSets: [[Sets.X, Sets.X], ...SPREAD_RELICS_4P_...]
+ *   ornamentSets: [Sets.Y, ...SPREAD_ORNAMENTS_2P_...]
+ *
+ * Sets are read too. Only the explicit `Sets.X` entries count: the spread
+ * constants that follow them are "every set with a matching conditional",
+ * a fallback list for the optimizer rather than a recommendation.
  *
  * We read those literally: no TypeScript evaluation, just a tolerant parse
  * of the object literal. Stat names are mapped onto Enka's property keys so
@@ -135,7 +141,64 @@ function parseParts(block) {
   return parts;
 }
 
-function parseCharacterFile(source, file) {
+/** Like braceBlock, for an array literal. */
+function bracketBlock(source, marker) {
+  const at = source.indexOf(marker);
+  if (at < 0) return null;
+  const open = source.indexOf("[", at);
+  if (open < 0) return null;
+  let depth = 0;
+  for (let i = open; i < source.length; i++) {
+    if (source[i] === "[") depth++;
+    else if (source[i] === "]") {
+      depth--;
+      if (depth === 0) return source.slice(open + 1, i);
+    }
+  }
+  return null;
+}
+
+/** `[Sets.A, Sets.B]` pairs, as set names. Spread constants are skipped. */
+function parseRelicSets(block, setNames) {
+  const pairs = [];
+  const re = /\[\s*Sets\.(\w+)\s*,\s*Sets\.(\w+)\s*\]/g;
+  let m;
+  while ((m = re.exec(block))) {
+    const a = setNames[m[1]];
+    const b = setNames[m[2]];
+    if (a && b) pairs.push([a, b]);
+    else console.warn(`    ? unknown set ${!a ? m[1] : m[2]}`);
+  }
+  return pairs;
+}
+
+/** Bare `Sets.A` entries, as set names. Spread constants are skipped. */
+function parseOrnamentSets(block, setNames) {
+  const names = [];
+  const re = /(?:^|[,\s])Sets\.(\w+)/g;
+  let m;
+  while ((m = re.exec(block))) {
+    const name = setNames[m[1]];
+    if (name) names.push(name);
+    else console.warn(`    ? unknown set ${m[1]}`);
+  }
+  return names;
+}
+
+/** Fribbels' `Sets` map, key to display name, from constants.ts. */
+async function fetchSetNames(sha) {
+  const source = await getText(`https://raw.githubusercontent.com/${REPO}/${sha}/src/lib/constants/constants.ts`);
+  const block = braceBlock(source, "export const Sets");
+  if (!block) throw new Error("Could not find the Sets map in constants.ts");
+  const names = {};
+  // Names can carry an escaped apostrophe: 'Bone Collection\'s Serene Demesne'.
+  const re = /(\w+):\s*'((?:[^'\\]|\\.)*)'/g;
+  let m;
+  while ((m = re.exec(block))) names[m[1]] = m[2].replace(/\\'/g, "'");
+  return names;
+}
+
+function parseCharacterFile(source, file, setNames) {
   // Reworked kits carry a "b1" suffix on the same in-game id: '1306b1'.
   const idMatch = source.match(/\bid:\s*'(\d{4})(b1)?'/i);
   if (!idMatch) return null;
@@ -147,6 +210,10 @@ function parseCharacterFile(source, file) {
   if (!statsBlock || !partsBlock) return null;
 
   const boost = scoringBlock.match(/flatMainstatBoost:\s*Stats\.(\w+)/);
+  // Sets live in the DPS-simulation block, not the scoring block, so they
+  // are looked up across the whole file.
+  const relicBlock = bracketBlock(source, "relicSets:");
+  const ornamentBlock = bracketBlock(source, "ornamentSets:");
 
   return {
     id: idMatch[1],
@@ -155,6 +222,8 @@ function parseCharacterFile(source, file) {
     stats: parseStats(statsBlock),
     parts: parseParts(partsBlock),
     flatMainstatBoost: boost ? STAT_TO_ENKA[boost[1]] : undefined,
+    relicSets: relicBlock ? parseRelicSets(relicBlock, setNames) : [],
+    ornamentSets: ornamentBlock ? parseOrnamentSets(ornamentBlock, setNames) : [],
   };
 }
 
@@ -166,11 +235,13 @@ async function main() {
     .map((t) => t.path)
     .filter((p) => p.startsWith(CHARACTER_DIR) && p.endsWith(".ts") && !p.endsWith(".test.ts"));
   console.log(`  ${files.length} character files at ${head.sha.slice(0, 7)}`);
+  const setNames = await fetchSetNames(head.sha);
+  console.log(`  ${Object.keys(setNames).length} set names`);
 
   const parsed = [];
   for (const file of files) {
     const source = await getText(`https://raw.githubusercontent.com/${REPO}/${head.sha}/${file}`);
-    const entry = parseCharacterFile(source, file);
+    const entry = parseCharacterFile(source, file, setNames);
     if (entry) parsed.push(entry);
     else console.warn(`  ✖ could not parse ${file}`);
   }
@@ -186,6 +257,8 @@ async function main() {
       stats: entry.stats,
       parts: entry.parts,
       ...(entry.flatMainstatBoost ? { flatMainstatBoost: entry.flatMainstatBoost } : {}),
+      relicSets: entry.relicSets,
+      ornamentSets: entry.ornamentSets,
       file: entry.file,
       variant: entry.variant,
     };

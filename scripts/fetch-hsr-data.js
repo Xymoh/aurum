@@ -119,9 +119,15 @@ const main = async () => {
   for (const [id, s] of Object.entries(srrSets)) sets[id] = s.name;
   write("sets.json", sets);
 
+  // StarRailRes stores the Trailblazer's name as the literal "{NICKNAME}"
+  // placeholder the game fills in at runtime. Odd ids are Caelus, even ids
+  // Stelle, one pair per Path.
+  const trailblazer = (id, name) =>
+    name === "{NICKNAME}" ? `Trailblazer (${Number(id) % 2 === 1 ? "Caelus" : "Stelle"})` : name;
+
   const chars = {};
   for (const [id, c] of Object.entries(srrChars)) {
-    chars[id] = { name: c.name, path: c.path, element: c.element, rarity: c.rarity };
+    chars[id] = { name: trailblazer(id, c.name), path: c.path, element: c.element, rarity: c.rarity };
   }
   write("characters.json", chars);
 

@@ -3,15 +3,18 @@ import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-
 import { Layout } from "./components/layout/Layout";
 import { HomePage } from "./pages/HomePage";
 import { ShowcasePage } from "./pages/ShowcasePage";
+import { GenshinBuildsPage } from "./pages/GenshinBuildsPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { I18nProvider } from "./i18n/I18nProvider";
 import { GamePickerPage } from "./games/GamePickerPage";
 import { HsrLayout } from "./hsr/pages/HsrLayout";
 import { HsrHomePage } from "./hsr/pages/HsrHomePage";
 import { HsrShowcasePage } from "./hsr/pages/HsrShowcasePage";
+import { HsrBuildsPage } from "./hsr/pages/HsrBuildsPage";
 import { ZzzLayout } from "./zzz/pages/ZzzLayout";
 import { ZzzHomePage } from "./zzz/pages/ZzzHomePage";
 import { ZzzShowcasePage } from "./zzz/pages/ZzzShowcasePage";
+import { ZzzBuildsPage } from "./zzz/pages/ZzzBuildsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,16 +50,22 @@ export function App() {
             <Route path="genshin" element={<Layout />}>
               <Route index element={<HomePage />} />
               <Route path="showcase/:uid" element={<ShowcasePage />} />
+              <Route path="builds" element={<GenshinBuildsPage />} />
+              <Route path="builds/:id" element={<GenshinBuildsPage />} />
             </Route>
 
             <Route path="hsr" element={<HsrLayout />}>
               <Route index element={<HsrHomePage />} />
               <Route path="showcase/:uid" element={<HsrShowcasePage />} />
+              <Route path="builds" element={<HsrBuildsPage />} />
+              <Route path="builds/:id" element={<HsrBuildsPage />} />
             </Route>
 
             <Route path="zzz" element={<ZzzLayout />}>
               <Route index element={<ZzzHomePage />} />
               <Route path="showcase/:uid" element={<ZzzShowcasePage />} />
+              <Route path="builds" element={<ZzzBuildsPage />} />
+              <Route path="builds/:id" element={<ZzzBuildsPage />} />
             </Route>
 
             <Route path="showcase/:uid" element={<LegacyShowcaseRedirect />} />

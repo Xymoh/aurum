@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useShowcase } from "../hooks/useShowcase";
+import { ShareCardProvider } from "../lib/shareCard/ShareCardProvider";
 import { PlayerHeader } from "../components/showcase/PlayerHeader";
 import { CharacterGrid, type FocusSignal } from "../components/showcase/CharacterGrid";
 import { WeakestArtifacts } from "../components/showcase/WeakestArtifacts";
@@ -66,7 +67,9 @@ export function ShowcasePage() {
       />
 
       {/* Character Grid - dak.gg-style card layout with Fribbels scoring */}
-      <CharacterGrid characters={characters} focusSignal={focusSignal} />
+      <ShareCardProvider uid={uid} playerName={data.playerInfo.nickname}>
+        <CharacterGrid characters={characters} focusSignal={focusSignal} />
+      </ShareCardProvider>
     </div>
   );
 }

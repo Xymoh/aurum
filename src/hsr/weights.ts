@@ -17,6 +17,8 @@
 import type { HsrSlot, HsrStatKey } from "./types";
 import characters from "./data/characters.json";
 import scoringMetadata from "./data/scoring-metadata.json";
+import setNames from "./data/sets.json";
+import setRecommendations from "./data/set-recommendations.json";
 
 export type HsrWeights = Partial<Record<HsrStatKey, number>>;
 
@@ -38,7 +40,20 @@ export interface ScoringMeta {
    * characters who scale off a flat stat their main stat also provides.
    */
   flatMainstatBoost?: HsrStatKey;
+  /** Recommended cavern relic loadouts, best first: a 4-piece or a 2+2. */
+  relicSets: SetPick[][];
+  /** Recommended planar ornament sets, best first. */
+  ornamentSets: SetPick[][];
+  /** Who answered for the sets: Prydwen fills in where Fribbels lists none. */
+  setsSource: "fribbels" | "prydwen" | null;
   source: "fribbels" | "path";
+}
+
+/** One set within a recommendation. `setId` is null for a name no table knows. */
+export interface SetPick {
+  setId: string | null;
+  name: string;
+  pieces: number;
 }
 
 const CHARS = characters as Record<
@@ -51,8 +66,51 @@ interface MetadataEntry {
   stats: Record<string, number>;
   parts: Record<string, string[]>;
   flatMainstatBoost?: string;
+  relicSets?: string[][];
+  ornamentSets?: string[];
 }
 const FRIBBELS = (scoringMetadata as { characters: Record<string, MetadataEntry> }).characters;
+
+const SET_NAMES = setNames as Record<string, string>;
+const SET_ID_BY_NAME = new Map(Object.entries(SET_NAMES).map(([id, name]) => [name, id]));
+
+interface FetchedSets {
+  relicSets?: { setId: string; pieces: number }[][];
+  ornamentSets?: { setId: string; pieces: number }[][];
+  source?: string;
+}
+/** Prydwen's lists, for the characters Fribbels does not simulate. */
+const PRYDWEN_SETS = (setRecommendations as { characters: Record<string, FetchedSets> }).characters;
+
+/** Fribbels states names; the same name twice is a 4-piece, two names a 2+2. */
+function fromFribbelsPair(pair: string[]): SetPick[] {
+  const pick = (name: string, pieces: number): SetPick => ({ setId: SET_ID_BY_NAME.get(name) ?? null, name, pieces });
+  return pair.length === 2 && pair[0] === pair[1] ? [pick(pair[0], 4)] : pair.map((name) => pick(name, 2));
+}
+
+function fromFetched(picks: { setId: string; pieces: number }[][] | undefined): SetPick[][] {
+  return (picks ?? []).map((parts) => parts.map((p) => ({ setId: p.setId, name: SET_NAMES[p.setId] ?? p.setId, pieces: p.pieces })));
+}
+
+/**
+ * Fribbels first, Prydwen where Fribbels has nothing: Fribbels only lists
+ * sets for characters it runs damage simulations on, which leaves the
+ * supports blank, and Prydwen covers everyone.
+ */
+function setsFor(avatarId: number, entry: MetadataEntry | undefined): Pick<ScoringMeta, "relicSets" | "ornamentSets" | "setsSource"> {
+  const relicSets = (entry?.relicSets ?? []).map(fromFribbelsPair);
+  const ornamentSets = (entry?.ornamentSets ?? []).map((name) => [{ setId: SET_ID_BY_NAME.get(name) ?? null, name, pieces: 2 }]);
+  if (relicSets.length || ornamentSets.length) return { relicSets, ornamentSets, setsSource: "fribbels" };
+  const fetched = PRYDWEN_SETS[String(avatarId)];
+  const fromPrydwen = { relicSets: fromFetched(fetched?.relicSets), ornamentSets: fromFetched(fetched?.ornamentSets) };
+  const any = fromPrydwen.relicSets.length || fromPrydwen.ornamentSets.length;
+  return { ...fromPrydwen, setsSource: any ? "prydwen" : null };
+}
+
+/** The Prydwen page a character's sets were read from, when they were. */
+export function prydwenSetsUrl(avatarId: number): string | null {
+  return PRYDWEN_SETS[String(avatarId)]?.source ?? null;
+}
 
 /** Below this, a roll is doing nothing useful and counts as waste. */
 export const WASTE_THRESHOLD = 0.2;
@@ -195,6 +253,7 @@ export function getScoringMeta(avatarId: number): ScoringMeta {
       stats: withFlatScaling(entry.stats as HsrWeights),
       parts: { ...EMPTY_PARTS, ...(entry.parts as Record<SelectableSlot, HsrStatKey[]>) },
       ...(entry.flatMainstatBoost ? { flatMainstatBoost: entry.flatMainstatBoost as HsrStatKey } : {}),
+      ...setsFor(avatarId, entry),
       source: "fribbels",
     };
   } else {
@@ -202,6 +261,7 @@ export function getScoringMeta(avatarId: number): ScoringMeta {
     meta = {
       stats: withFlatScaling((info && PATH_WEIGHTS[info.path]) || DPS),
       parts: { ...EMPTY_PARTS },
+      ...setsFor(avatarId, undefined),
       source: "path",
     };
   }

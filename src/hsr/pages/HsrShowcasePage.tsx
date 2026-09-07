@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useHsrShowcase } from "../useHsrShowcase";
 import { CharacterPanel } from "../components/CharacterPanel";
+import { ShareCardProvider } from "../../lib/shareCard/ShareCardProvider";
 import { characterPanelId } from "../panelId";
 import { gradeColor } from "../labels";
 import { useI18n } from "../../i18n";
@@ -385,15 +386,17 @@ export function HsrShowcasePage() {
           {visible.length === 0 ? (
             <p className="py-12 text-center text-sm text-hsr-muted">{t("hsr", "noMatch")}</p>
           ) : (
-            visible.map((c, i) => (
-              <CharacterPanel
-                key={c.avatarId}
-                character={c}
-                index={i}
-                open={expanded.has(c.avatarId)}
-                onToggle={() => toggle(c.avatarId)}
-              />
-            ))
+            <ShareCardProvider uid={data.uid} playerName={data.nickname}>
+              {visible.map((c, i) => (
+                <CharacterPanel
+                  key={c.avatarId}
+                  character={c}
+                  index={i}
+                  open={expanded.has(c.avatarId)}
+                  onToggle={() => toggle(c.avatarId)}
+                />
+              ))}
+            </ShareCardProvider>
           )}
         </div>
       )}

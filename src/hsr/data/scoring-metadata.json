@@ -2,7 +2,7 @@
   "source": "https://github.com/fribbels/hsr-optimizer",
   "license": "MIT",
   "commit": "df630a0488a64eeb740e4e0c14f265d96b9f6f8f",
-  "fetchedAt": "2026-09-06T20:02:43.667Z",
+  "fetchedAt": "2026-09-07T11:47:28.592Z",
   "characters": {
     "1001": {
       "name": "March 7th",
@@ -31,6 +31,15 @@
         ]
       },
       "flatMainstatBoost": "DefenceDelta",
+      "relicSets": [
+        [
+          "Self-Enshrouded Recluse",
+          "Self-Enshrouded Recluse"
+        ]
+      ],
+      "ornamentSets": [
+        "Lushaka, the Sunken Seas"
+      ],
       "file": "src/lib/conditionals/character/1000/March7th.ts",
       "variant": "base"
     },
@@ -61,6 +70,19 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ],
+        [
+          "Pioneer Diver of Dead Waters",
+          "Pioneer Diver of Dead Waters"
+        ]
+      ],
+      "ornamentSets": [
+        "Rutilant Arena"
+      ],
       "file": "src/lib/conditionals/character/1000/DanHeng.ts",
       "variant": "base"
     },
@@ -91,6 +113,15 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "The Ashblazing Grand Duke",
+          "The Ashblazing Grand Duke"
+        ]
+      ],
+      "ornamentSets": [
+        "Duran, Dynasty of Running Wolves"
+      ],
       "file": "src/lib/conditionals/character/1000/Himeko.ts",
       "variant": "base"
     },
@@ -123,6 +154,17 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Pioneer Diver of Dead Waters",
+          "Pioneer Diver of Dead Waters"
+        ]
+      ],
+      "ornamentSets": [
+        "Rutilant Arena",
+        "Firmament Frontline: Glamoth",
+        "Izumo Gensei and Takama Divine Realm"
+      ],
       "file": "src/lib/conditionals/character/1000/WeltB1.ts",
       "variant": "B1",
       "variants": [
@@ -155,6 +197,8 @@
               "SPRatioBase"
             ]
           },
+          "relicSets": [],
+          "ornamentSets": [],
           "file": "src/lib/conditionals/character/1000/Welt.ts",
           "variant": "base"
         }
@@ -186,6 +230,16 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Prisoner in Deep Confinement",
+          "Prisoner in Deep Confinement"
+        ]
+      ],
+      "ornamentSets": [
+        "Revelry by the Sea",
+        "Firmament Frontline: Glamoth"
+      ],
       "file": "src/lib/conditionals/character/1000/KafkaB1.ts",
       "variant": "B1",
       "variants": [
@@ -214,6 +268,8 @@
               "AttackAddedRatio"
             ]
           },
+          "relicSets": [],
+          "ornamentSets": [],
           "file": "src/lib/conditionals/character/1000/Kafka.ts",
           "variant": "base"
         }
@@ -250,6 +306,8 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [],
+      "ornamentSets": [],
       "file": "src/lib/conditionals/character/1000/SilverWolfB1.ts",
       "variant": "B1",
       "variants": [
@@ -281,6 +339,8 @@
               "BreakDamageAddedRatioBase"
             ]
           },
+          "relicSets": [],
+          "ornamentSets": [],
           "file": "src/lib/conditionals/character/1000/SilverWolf.ts",
           "variant": "base"
         }
@@ -313,6 +373,15 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ]
+      ],
+      "ornamentSets": [
+        "Rutilant Arena"
+      ],
       "file": "src/lib/conditionals/character/1000/Arlan.ts",
       "variant": "base"
     },
@@ -337,6 +406,8 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [],
+      "ornamentSets": [],
       "file": "src/lib/conditionals/character/1000/Asta.ts",
       "variant": "base"
     },
@@ -368,6 +439,23 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "The Ashblazing Grand Duke",
+          "The Ashblazing Grand Duke"
+        ],
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ],
+        [
+          "Hunter of Glacial Forest",
+          "Hunter of Glacial Forest"
+        ]
+      ],
+      "ornamentSets": [
+        "Duran, Dynasty of Running Wolves"
+      ],
       "file": "src/lib/conditionals/character/1000/Herta.ts",
       "variant": "base"
     },
@@ -400,6 +488,20 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Wavestrider Captain",
+          "Wavestrider Captain"
+        ],
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ]
+      ],
+      "ornamentSets": [
+        "Inert Salsotto",
+        "Firmament Frontline: Glamoth"
+      ],
       "file": "src/lib/conditionals/character/1000/Saber.ts",
       "variant": "base"
     },
@@ -431,6 +533,20 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Wavestrider Captain",
+          "Wavestrider Captain"
+        ],
+        [
+          "Genius of Brilliant Stars",
+          "Genius of Brilliant Stars"
+        ]
+      ],
+      "ornamentSets": [
+        "Rutilant Arena",
+        "Tengoku@Livestream"
+      ],
       "file": "src/lib/conditionals/character/1000/Archer.ts",
       "variant": "base"
     },
@@ -453,6 +569,15 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Sacerdos' Relived Ordeal",
+          "Sacerdos' Relived Ordeal"
+        ]
+      ],
+      "ornamentSets": [
+        "Broken Keel"
+      ],
       "file": "src/lib/conditionals/character/1100/Bronya.ts",
       "variant": "base"
     },
@@ -483,6 +608,21 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ],
+        [
+          "Genius of Brilliant Stars",
+          "Genius of Brilliant Stars"
+        ]
+      ],
+      "ornamentSets": [
+        "Rutilant Arena",
+        "Tengoku@Livestream",
+        "Firmament Frontline: Glamoth"
+      ],
       "file": "src/lib/conditionals/character/1100/SeeleB1.ts",
       "variant": "B1",
       "variants": [
@@ -513,6 +653,8 @@
               "AttackAddedRatio"
             ]
           },
+          "relicSets": [],
+          "ornamentSets": [],
           "file": "src/lib/conditionals/character/1100/Seele.ts",
           "variant": "base"
         }
@@ -546,6 +688,29 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Pioneer Diver of Dead Waters",
+          "Pioneer Diver of Dead Waters"
+        ],
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ],
+        [
+          "Band of Sizzling Thunder",
+          "Band of Sizzling Thunder"
+        ],
+        [
+          "Eagle of Twilight Line",
+          "Eagle of Twilight Line"
+        ]
+      ],
+      "ornamentSets": [
+        "Firmament Frontline: Glamoth",
+        "Rutilant Arena",
+        "Sprightly Vonwacq"
+      ],
       "file": "src/lib/conditionals/character/1100/Serval.ts",
       "variant": "base"
     },
@@ -575,6 +740,15 @@
         ]
       },
       "flatMainstatBoost": "DefenceDelta",
+      "relicSets": [
+        [
+          "Self-Enshrouded Recluse",
+          "Self-Enshrouded Recluse"
+        ]
+      ],
+      "ornamentSets": [
+        "Lushaka, the Sunken Seas"
+      ],
       "file": "src/lib/conditionals/character/1100/Gepard.ts",
       "variant": "base"
     },
@@ -604,6 +778,15 @@
         ]
       },
       "flatMainstatBoost": "HPDelta",
+      "relicSets": [
+        [
+          "Warrior Goddess of Sun and Thunder",
+          "Warrior Goddess of Sun and Thunder"
+        ]
+      ],
+      "ornamentSets": [
+        "Lushaka, the Sunken Seas"
+      ],
       "file": "src/lib/conditionals/character/1100/Natasha.ts",
       "variant": "base"
     },
@@ -636,6 +819,8 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [],
+      "ornamentSets": [],
       "file": "src/lib/conditionals/character/1100/Pela.ts",
       "variant": "base"
     },
@@ -666,6 +851,15 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Champion of Streetwise Boxing",
+          "Champion of Streetwise Boxing"
+        ]
+      ],
+      "ornamentSets": [
+        "Duran, Dynasty of Running Wolves"
+      ],
       "file": "src/lib/conditionals/character/1100/Clara.ts",
       "variant": "base"
     },
@@ -696,6 +890,16 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Prisoner in Deep Confinement",
+          "Prisoner in Deep Confinement"
+        ]
+      ],
+      "ornamentSets": [
+        "Revelry by the Sea",
+        "Firmament Frontline: Glamoth"
+      ],
       "file": "src/lib/conditionals/character/1100/Sampo.ts",
       "variant": "base"
     },
@@ -726,6 +930,20 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Pioneer Diver of Dead Waters",
+          "Pioneer Diver of Dead Waters"
+        ],
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ]
+      ],
+      "ornamentSets": [
+        "Rutilant Arena",
+        "Firmament Frontline: Glamoth"
+      ],
       "file": "src/lib/conditionals/character/1100/Hook.ts",
       "variant": "base"
     },
@@ -755,6 +973,15 @@
         ]
       },
       "flatMainstatBoost": "HPDelta",
+      "relicSets": [
+        [
+          "Warrior Goddess of Sun and Thunder",
+          "Warrior Goddess of Sun and Thunder"
+        ]
+      ],
+      "ornamentSets": [
+        "Lushaka, the Sunken Seas"
+      ],
       "file": "src/lib/conditionals/character/1100/Lynx.ts",
       "variant": "base"
     },
@@ -785,6 +1012,17 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Prisoner in Deep Confinement",
+          "Prisoner in Deep Confinement"
+        ]
+      ],
+      "ornamentSets": [
+        "Talia: Kingdom of Banditry",
+        "Firmament Frontline: Glamoth",
+        "Revelry by the Sea"
+      ],
       "file": "src/lib/conditionals/character/1100/Luka.ts",
       "variant": "base"
     },
@@ -816,6 +1054,16 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "The Ashblazing Grand Duke",
+          "The Ashblazing Grand Duke"
+        ]
+      ],
+      "ornamentSets": [
+        "Duran, Dynasty of Running Wolves",
+        "The Wondrous BananAmusement Park"
+      ],
       "file": "src/lib/conditionals/character/1100/Topaz.ts",
       "variant": "base"
     },
@@ -846,6 +1094,28 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ],
+        [
+          "Genius of Brilliant Stars",
+          "Genius of Brilliant Stars"
+        ],
+        [
+          "Poet of Mourning Collapse",
+          "Poet of Mourning Collapse"
+        ],
+        [
+          "Sacerdos' Relived Ordeal",
+          "Sacerdos' Relived Ordeal"
+        ]
+      ],
+      "ornamentSets": [
+        "Rutilant Arena",
+        "Tengoku@Livestream"
+      ],
       "file": "src/lib/conditionals/character/1200/Qingque.ts",
       "variant": "base"
     },
@@ -880,6 +1150,8 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [],
+      "ornamentSets": [],
       "file": "src/lib/conditionals/character/1200/Tingyun.ts",
       "variant": "base"
     },
@@ -911,6 +1183,15 @@
         ]
       },
       "flatMainstatBoost": "AttackDelta",
+      "relicSets": [
+        [
+          "Warrior Goddess of Sun and Thunder",
+          "Warrior Goddess of Sun and Thunder"
+        ]
+      ],
+      "ornamentSets": [
+        "Lushaka, the Sunken Seas"
+      ],
       "file": "src/lib/conditionals/character/1200/Luocha.ts",
       "variant": "base"
     },
@@ -941,6 +1222,16 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "The Ashblazing Grand Duke",
+          "The Ashblazing Grand Duke"
+        ]
+      ],
+      "ornamentSets": [
+        "The Wondrous BananAmusement Park",
+        "Inert Salsotto"
+      ],
       "file": "src/lib/conditionals/character/1200/JingYuan.ts",
       "variant": "base"
     },
@@ -971,6 +1262,16 @@
           "HPAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Longevous Disciple",
+          "Longevous Disciple"
+        ]
+      ],
+      "ornamentSets": [
+        "Bone Collection's Serene Demesne",
+        "Inert Salsotto"
+      ],
       "file": "src/lib/conditionals/character/1200/BladeB1.ts",
       "variant": "B1",
       "variants": [
@@ -1002,6 +1303,8 @@
               "HPAddedRatio"
             ]
           },
+          "relicSets": [],
+          "ornamentSets": [],
           "file": "src/lib/conditionals/character/1200/Blade.ts",
           "variant": "base"
         }
@@ -1035,6 +1338,25 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ],
+        [
+          "Champion of Streetwise Boxing",
+          "Champion of Streetwise Boxing"
+        ],
+        [
+          "Iron Cavalry Against the Scourge",
+          "Iron Cavalry Against the Scourge"
+        ]
+      ],
+      "ornamentSets": [
+        "Firmament Frontline: Glamoth",
+        "Talia: Kingdom of Banditry",
+        "Rutilant Arena"
+      ],
       "file": "src/lib/conditionals/character/1200/Sushang.ts",
       "variant": "base"
     },
@@ -1065,6 +1387,8 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [],
+      "ornamentSets": [],
       "file": "src/lib/conditionals/character/1200/Yukong.ts",
       "variant": "base"
     },
@@ -1098,6 +1422,8 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [],
+      "ornamentSets": [],
       "file": "src/lib/conditionals/character/1200/FuXuan.ts",
       "variant": "base"
     },
@@ -1128,6 +1454,20 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ],
+        [
+          "Hunter of Glacial Forest",
+          "Hunter of Glacial Forest"
+        ]
+      ],
+      "ornamentSets": [
+        "Rutilant Arena",
+        "Firmament Frontline: Glamoth"
+      ],
       "file": "src/lib/conditionals/character/1200/Yanqing.ts",
       "variant": "base"
     },
@@ -1161,6 +1501,8 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [],
+      "ornamentSets": [],
       "file": "src/lib/conditionals/character/1200/Guinaifen.ts",
       "variant": "base"
     },
@@ -1189,6 +1531,15 @@
         ]
       },
       "flatMainstatBoost": "HPDelta",
+      "relicSets": [
+        [
+          "Warrior Goddess of Sun and Thunder",
+          "Warrior Goddess of Sun and Thunder"
+        ]
+      ],
+      "ornamentSets": [
+        "Lushaka, the Sunken Seas"
+      ],
       "file": "src/lib/conditionals/character/1200/Bailu.ts",
       "variant": "base"
     },
@@ -1220,6 +1571,20 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ],
+        [
+          "Genius of Brilliant Stars",
+          "Genius of Brilliant Stars"
+        ]
+      ],
+      "ornamentSets": [
+        "Bone Collection's Serene Demesne",
+        "Rutilant Arena"
+      ],
       "file": "src/lib/conditionals/character/1200/JingliuB1.ts",
       "variant": "B1",
       "variants": [
@@ -1251,6 +1616,8 @@
               "SPRatioBase"
             ]
           },
+          "relicSets": [],
+          "ornamentSets": [],
           "file": "src/lib/conditionals/character/1200/Jingliu.ts",
           "variant": "base"
         }
@@ -1283,6 +1650,24 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Musketeer of Wild Wheat",
+          "Musketeer of Wild Wheat"
+        ],
+        [
+          "Genius of Brilliant Stars",
+          "Genius of Brilliant Stars"
+        ],
+        [
+          "Wastelander of Banditry Desert",
+          "Wastelander of Banditry Desert"
+        ]
+      ],
+      "ornamentSets": [
+        "Rutilant Arena",
+        "Tengoku@Livestream"
+      ],
       "file": "src/lib/conditionals/character/1200/ImbibitorLunae.ts",
       "variant": "base"
     },
@@ -1315,6 +1700,22 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Genius of Brilliant Stars",
+          "Genius of Brilliant Stars"
+        ],
+        [
+          "Poet of Mourning Collapse",
+          "Poet of Mourning Collapse"
+        ]
+      ],
+      "ornamentSets": [
+        "Talia: Kingdom of Banditry",
+        "Inert Salsotto",
+        "Space Sealing Station",
+        "Firmament Frontline: Glamoth"
+      ],
       "file": "src/lib/conditionals/character/1200/Xueyi.ts",
       "variant": "base"
     },
@@ -1338,6 +1739,8 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [],
+      "ornamentSets": [],
       "file": "src/lib/conditionals/character/1200/Hanya.ts",
       "variant": "base"
     },
@@ -1367,6 +1770,15 @@
         ]
       },
       "flatMainstatBoost": "HPDelta",
+      "relicSets": [
+        [
+          "Warrior Goddess of Sun and Thunder",
+          "Warrior Goddess of Sun and Thunder"
+        ]
+      ],
+      "ornamentSets": [
+        "Giant Tree of Rapt Brooding"
+      ],
       "file": "src/lib/conditionals/character/1200/HuohuoB1.ts",
       "variant": "B1",
       "variants": [
@@ -1395,6 +1807,8 @@
               "SPRatioBase"
             ]
           },
+          "relicSets": [],
+          "ornamentSets": [],
           "file": "src/lib/conditionals/character/1200/Huohuo.ts",
           "variant": "base"
         }
@@ -1422,6 +1836,8 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [],
+      "ornamentSets": [],
       "file": "src/lib/conditionals/character/1200/Jiaoqiu.ts",
       "variant": "base"
     },
@@ -1452,6 +1868,23 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "The Wind-Soaring Valorous",
+          "The Wind-Soaring Valorous"
+        ],
+        [
+          "The Ashblazing Grand Duke",
+          "The Ashblazing Grand Duke"
+        ],
+        [
+          "Eagle of Twilight Line",
+          "Eagle of Twilight Line"
+        ]
+      ],
+      "ornamentSets": [
+        "Duran, Dynasty of Running Wolves"
+      ],
       "file": "src/lib/conditionals/character/1200/Feixiao.ts",
       "variant": "base"
     },
@@ -1483,6 +1916,15 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "The Wind-Soaring Valorous",
+          "The Wind-Soaring Valorous"
+        ]
+      ],
+      "ornamentSets": [
+        "Duran, Dynasty of Running Wolves"
+      ],
       "file": "src/lib/conditionals/character/1200/Yunli.ts",
       "variant": "base"
     },
@@ -1518,6 +1960,8 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [],
+      "ornamentSets": [],
       "file": "src/lib/conditionals/character/1200/Lingsha.ts",
       "variant": "base"
     },
@@ -1549,6 +1993,20 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Pioneer Diver of Dead Waters",
+          "Pioneer Diver of Dead Waters"
+        ],
+        [
+          "The Ashblazing Grand Duke",
+          "The Ashblazing Grand Duke"
+        ]
+      ],
+      "ornamentSets": [
+        "Duran, Dynasty of Running Wolves",
+        "Izumo Gensei and Takama Divine Realm"
+      ],
       "file": "src/lib/conditionals/character/1200/Moze.ts",
       "variant": "base"
     },
@@ -1569,6 +2027,26 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Iron Cavalry Against the Scourge",
+          "Iron Cavalry Against the Scourge"
+        ],
+        [
+          "Musketeer of Wild Wheat",
+          "Musketeer of Wild Wheat"
+        ],
+        [
+          "Wastelander of Banditry Desert",
+          "Wastelander of Banditry Desert"
+        ]
+      ],
+      "ornamentSets": [
+        "Talia: Kingdom of Banditry",
+        "Forge of the Kalpagni Lantern",
+        "Rutilant Arena",
+        "Izumo Gensei and Takama Divine Realm"
+      ],
       "file": "src/lib/conditionals/character/1200/March7thImaginary.ts",
       "variant": "base"
     },
@@ -1590,6 +2068,20 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Thief of Shooting Meteor",
+          "Thief of Shooting Meteor"
+        ],
+        [
+          "Eagle of Twilight Line",
+          "Eagle of Twilight Line"
+        ]
+      ],
+      "ornamentSets": [
+        "Forge of the Kalpagni Lantern",
+        "Talia: Kingdom of Banditry"
+      ],
       "file": "src/lib/conditionals/character/1200/Fugue.ts",
       "variant": "base"
     },
@@ -1613,6 +2105,8 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [],
+      "ornamentSets": [],
       "file": "src/lib/conditionals/character/1300/Gallagher.ts",
       "variant": "base"
     },
@@ -1644,6 +2138,20 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ],
+        [
+          "Champion of Streetwise Boxing",
+          "Champion of Streetwise Boxing"
+        ]
+      ],
+      "ornamentSets": [
+        "Inert Salsotto",
+        "Firmament Frontline: Glamoth"
+      ],
       "file": "src/lib/conditionals/character/1300/Argenti.ts",
       "variant": "base"
     },
@@ -1663,6 +2171,8 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [],
+      "ornamentSets": [],
       "file": "src/lib/conditionals/character/1300/RuanMei.ts",
       "variant": "base"
     },
@@ -1695,6 +2205,15 @@
         ]
       },
       "flatMainstatBoost": "DefenceDelta",
+      "relicSets": [
+        [
+          "Self-Enshrouded Recluse",
+          "Self-Enshrouded Recluse"
+        ]
+      ],
+      "ornamentSets": [
+        "Lushaka, the Sunken Seas"
+      ],
       "file": "src/lib/conditionals/character/1300/Aventurine.ts",
       "variant": "base"
     },
@@ -1725,6 +2244,16 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Pioneer Diver of Dead Waters",
+          "Pioneer Diver of Dead Waters"
+        ]
+      ],
+      "ornamentSets": [
+        "Duran, Dynasty of Running Wolves",
+        "Izumo Gensei and Takama Divine Realm"
+      ],
       "file": "src/lib/conditionals/character/1300/DrRatio.ts",
       "variant": "base"
     },
@@ -1747,6 +2276,15 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Sacerdos' Relived Ordeal",
+          "Sacerdos' Relived Ordeal"
+        ]
+      ],
+      "ornamentSets": [
+        "Broken Keel"
+      ],
       "file": "src/lib/conditionals/character/1300/SparkleB1.ts",
       "variant": "B1",
       "variants": [
@@ -1769,6 +2307,8 @@
               "SPRatioBase"
             ]
           },
+          "relicSets": [],
+          "ornamentSets": [],
           "file": "src/lib/conditionals/character/1300/Sparkle.ts",
           "variant": "base"
         }
@@ -1799,6 +2339,17 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Prisoner in Deep Confinement",
+          "Prisoner in Deep Confinement"
+        ]
+      ],
+      "ornamentSets": [
+        "Revelry by the Sea",
+        "Firmament Frontline: Glamoth",
+        "Pan-Cosmic Commercial Enterprise"
+      ],
       "file": "src/lib/conditionals/character/1300/BlackSwanB1.ts",
       "variant": "B1",
       "variants": [
@@ -1827,6 +2378,8 @@
               "AttackAddedRatio"
             ]
           },
+          "relicSets": [],
+          "ornamentSets": [],
           "file": "src/lib/conditionals/character/1300/BlackSwan.ts",
           "variant": "base"
         }
@@ -1860,6 +2413,15 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Pioneer Diver of Dead Waters",
+          "Pioneer Diver of Dead Waters"
+        ]
+      ],
+      "ornamentSets": [
+        "Izumo Gensei and Takama Divine Realm"
+      ],
       "file": "src/lib/conditionals/character/1300/Acheron.ts",
       "variant": "base"
     },
@@ -1890,6 +2452,15 @@
         ]
       },
       "flatMainstatBoost": "AttackDelta",
+      "relicSets": [
+        [
+          "Prisoner in Deep Confinement",
+          "The Wind-Soaring Valorous"
+        ]
+      ],
+      "ornamentSets": [
+        "Lushaka, the Sunken Seas"
+      ],
       "file": "src/lib/conditionals/character/1300/Robin.ts",
       "variant": "base"
     },
@@ -1917,6 +2488,15 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Iron Cavalry Against the Scourge",
+          "Iron Cavalry Against the Scourge"
+        ]
+      ],
+      "ornamentSets": [
+        "Forge of the Kalpagni Lantern"
+      ],
       "file": "src/lib/conditionals/character/1300/FireflyB1.ts",
       "variant": "B1",
       "variants": [
@@ -1944,6 +2524,8 @@
               "BreakDamageAddedRatioBase"
             ]
           },
+          "relicSets": [],
+          "ornamentSets": [],
           "file": "src/lib/conditionals/character/1300/Firefly.ts",
           "variant": "base"
         }
@@ -1976,6 +2558,21 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ],
+        [
+          "Pioneer Diver of Dead Waters",
+          "Pioneer Diver of Dead Waters"
+        ]
+      ],
+      "ornamentSets": [
+        "Rutilant Arena",
+        "Firmament Frontline: Glamoth",
+        "Inert Salsotto"
+      ],
       "file": "src/lib/conditionals/character/1300/Misha.ts",
       "variant": "base"
     },
@@ -1996,6 +2593,15 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Sacerdos' Relived Ordeal",
+          "Sacerdos' Relived Ordeal"
+        ]
+      ],
+      "ornamentSets": [
+        "Broken Keel"
+      ],
       "file": "src/lib/conditionals/character/1300/Sunday.ts",
       "variant": "base"
     },
@@ -2026,6 +2632,28 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "The Ashblazing Grand Duke",
+          "The Ashblazing Grand Duke"
+        ],
+        [
+          "Genius of Brilliant Stars",
+          "Genius of Brilliant Stars"
+        ],
+        [
+          "Poet of Mourning Collapse",
+          "Poet of Mourning Collapse"
+        ],
+        [
+          "Sacerdos' Relived Ordeal",
+          "Sacerdos' Relived Ordeal"
+        ]
+      ],
+      "ornamentSets": [
+        "Duran, Dynasty of Running Wolves",
+        "Izumo Gensei and Takama Divine Realm"
+      ],
       "file": "src/lib/conditionals/character/1300/Jade.ts",
       "variant": "base"
     },
@@ -2049,6 +2677,19 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Thief of Shooting Meteor",
+          "Watchmaker, Master of Dream Machinations"
+        ],
+        [
+          "Iron Cavalry Against the Scourge",
+          "Iron Cavalry Against the Scourge"
+        ]
+      ],
+      "ornamentSets": [
+        "Talia: Kingdom of Banditry"
+      ],
       "file": "src/lib/conditionals/character/1300/Boothill.ts",
       "variant": "base"
     },
@@ -2070,6 +2711,19 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Iron Cavalry Against the Scourge",
+          "Iron Cavalry Against the Scourge"
+        ],
+        [
+          "Eagle of Twilight Line",
+          "Eagle of Twilight Line"
+        ]
+      ],
+      "ornamentSets": [
+        "Talia: Kingdom of Banditry"
+      ],
       "file": "src/lib/conditionals/character/1300/Rappa.ts",
       "variant": "base"
     },
@@ -2090,6 +2744,19 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Iron Cavalry Against the Scourge",
+          "Iron Cavalry Against the Scourge"
+        ],
+        [
+          "Thief of Shooting Meteor",
+          "Thief of Shooting Meteor"
+        ]
+      ],
+      "ornamentSets": [
+        "Forge of the Kalpagni Lantern"
+      ],
       "file": "src/lib/conditionals/character/1300/TheDahlia.ts",
       "variant": "base"
     },
@@ -2121,6 +2788,16 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ]
+      ],
+      "ornamentSets": [
+        "Izumo Gensei and Takama Divine Realm",
+        "Rutilant Arena"
+      ],
       "file": "src/lib/conditionals/character/1400/TheHerta.ts",
       "variant": "base"
     },
@@ -2152,6 +2829,16 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Hero of Triumphant Song",
+          "Hero of Triumphant Song"
+        ]
+      ],
+      "ornamentSets": [
+        "The Wondrous BananAmusement Park",
+        "Rutilant Arena"
+      ],
       "file": "src/lib/conditionals/character/1400/Aglaea.ts",
       "variant": "base"
     },
@@ -2183,6 +2870,23 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Genius of Brilliant Stars",
+          "Genius of Brilliant Stars"
+        ],
+        [
+          "Longevous Disciple",
+          "Longevous Disciple"
+        ],
+        [
+          "Poet of Mourning Collapse",
+          "Poet of Mourning Collapse"
+        ]
+      ],
+      "ornamentSets": [
+        "Bone Collection's Serene Demesne"
+      ],
       "file": "src/lib/conditionals/character/1400/Tribbie.ts",
       "variant": "base"
     },
@@ -2213,6 +2917,16 @@
           "HPAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ]
+      ],
+      "ornamentSets": [
+        "Bone Collection's Serene Demesne",
+        "Rutilant Arena"
+      ],
       "file": "src/lib/conditionals/character/1400/Mydei.ts",
       "variant": "base"
     },
@@ -2245,6 +2959,27 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ],
+        [
+          "Genius of Brilliant Stars",
+          "Genius of Brilliant Stars"
+        ],
+        [
+          "Pioneer Diver of Dead Waters",
+          "Pioneer Diver of Dead Waters"
+        ]
+      ],
+      "ornamentSets": [
+        "Rutilant Arena",
+        "Firmament Frontline: Glamoth",
+        "Izumo Gensei and Takama Divine Realm",
+        "Space Sealing Station",
+        "Firmament Frontline: Glamoth"
+      ],
       "file": "src/lib/conditionals/character/1400/Anaxa.ts",
       "variant": "base"
     },
@@ -2277,6 +3012,21 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Pioneer Diver of Dead Waters",
+          "Pioneer Diver of Dead Waters"
+        ],
+        [
+          "Genius of Brilliant Stars",
+          "Genius of Brilliant Stars"
+        ]
+      ],
+      "ornamentSets": [
+        "Inert Salsotto",
+        "Duran, Dynasty of Running Wolves",
+        "Firmament Frontline: Glamoth"
+      ],
       "file": "src/lib/conditionals/character/1400/Cipher.ts",
       "variant": "base"
     },
@@ -2305,6 +3055,15 @@
           "HPAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Poet of Mourning Collapse",
+          "Poet of Mourning Collapse"
+        ]
+      ],
+      "ornamentSets": [
+        "Bone Collection's Serene Demesne"
+      ],
       "file": "src/lib/conditionals/character/1400/Castorice.ts",
       "variant": "base"
     },
@@ -2336,6 +3095,15 @@
           "AttackAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Wavestrider Captain",
+          "Wavestrider Captain"
+        ]
+      ],
+      "ornamentSets": [
+        "Rutilant Arena"
+      ],
       "file": "src/lib/conditionals/character/1400/Phainon.ts",
       "variant": "base"
     },
@@ -2367,6 +3135,33 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Warrior Goddess of Sun and Thunder",
+          "Warrior Goddess of Sun and Thunder"
+        ],
+        [
+          "World-Remaking Deliverer",
+          "World-Remaking Deliverer"
+        ],
+        [
+          "Hero of Triumphant Song",
+          "Hero of Triumphant Song"
+        ],
+        [
+          "Eagle of Twilight Line",
+          "Eagle of Twilight Line"
+        ],
+        [
+          "Messenger Traversing Hackerspace",
+          "Messenger Traversing Hackerspace"
+        ]
+      ],
+      "ornamentSets": [
+        "Giant Tree of Rapt Brooding",
+        "Bone Collection's Serene Demesne",
+        "Arcadia of Woven Dreams"
+      ],
       "file": "src/lib/conditionals/character/1400/Hyacine.ts",
       "variant": "base"
     },
@@ -2396,6 +3191,16 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Prisoner in Deep Confinement",
+          "Prisoner in Deep Confinement"
+        ]
+      ],
+      "ornamentSets": [
+        "Revelry by the Sea",
+        "Pan-Cosmic Commercial Enterprise"
+      ],
       "file": "src/lib/conditionals/character/1400/Hysilens.ts",
       "variant": "base"
     },
@@ -2426,6 +3231,15 @@
         ]
       },
       "flatMainstatBoost": "AttackDelta",
+      "relicSets": [
+        [
+          "Sacerdos' Relived Ordeal",
+          "Sacerdos' Relived Ordeal"
+        ]
+      ],
+      "ornamentSets": [
+        "Lushaka, the Sunken Seas"
+      ],
       "file": "src/lib/conditionals/character/1400/Cerydra.ts",
       "variant": "base"
     },
@@ -2456,6 +3270,20 @@
           "HPAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "World-Remaking Deliverer",
+          "World-Remaking Deliverer"
+        ],
+        [
+          "Poet of Mourning Collapse",
+          "Poet of Mourning Collapse"
+        ]
+      ],
+      "ornamentSets": [
+        "Bone Collection's Serene Demesne",
+        "Arcadia of Woven Dreams"
+      ],
       "file": "src/lib/conditionals/character/1400/Evernight.ts",
       "variant": "base"
     },
@@ -2485,6 +3313,15 @@
         ]
       },
       "flatMainstatBoost": "AttackDelta",
+      "relicSets": [
+        [
+          "Self-Enshrouded Recluse",
+          "Self-Enshrouded Recluse"
+        ]
+      ],
+      "ornamentSets": [
+        "Lushaka, the Sunken Seas"
+      ],
       "file": "src/lib/conditionals/character/1400/PermansorTerrae.ts",
       "variant": "base"
     },
@@ -2515,6 +3352,17 @@
           "HPAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "World-Remaking Deliverer",
+          "World-Remaking Deliverer"
+        ]
+      ],
+      "ornamentSets": [
+        "Bone Collection's Serene Demesne",
+        "Amphoreus, The Eternal Land",
+        "Arcadia of Woven Dreams"
+      ],
       "file": "src/lib/conditionals/character/1400/Cyrene.ts",
       "variant": "base"
     },
@@ -2545,6 +3393,18 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Ever-Glorious Magical Girl",
+          "Ever-Glorious Magical Girl"
+        ]
+      ],
+      "ornamentSets": [
+        "Tengoku@Livestream",
+        "Punklorde Stage Zero",
+        "Rutilant Arena",
+        "Izumo Gensei and Takama Divine Realm"
+      ],
       "file": "src/lib/conditionals/character/1500/Sparxie.ts",
       "variant": "base"
     },
@@ -2568,6 +3428,20 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Ever-Glorious Magical Girl",
+          "Ever-Glorious Magical Girl"
+        ],
+        [
+          "Diviner of Distant Reach",
+          "Diviner of Distant Reach"
+        ]
+      ],
+      "ornamentSets": [
+        "Tengoku@Livestream",
+        "Punklorde Stage Zero"
+      ],
       "file": "src/lib/conditionals/character/1500/Yaoguang.ts",
       "variant": "base"
     },
@@ -2596,6 +3470,23 @@
           "DefenceAddedRatio"
         ]
       },
+      "relicSets": [
+        [
+          "Passerby of Wandering Cloud",
+          "Passerby of Wandering Cloud"
+        ],
+        [
+          "Dreamlit Actor",
+          "Dreamlit Actor"
+        ],
+        [
+          "Diviner of Distant Reach",
+          "Diviner of Distant Reach"
+        ]
+      ],
+      "ornamentSets": [
+        "Lushaka, the Sunken Seas"
+      ],
       "file": "src/lib/conditionals/character/1500/Pearl.ts",
       "variant": "base"
     },
@@ -2626,6 +3517,21 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "The Ashblazing Grand Duke",
+          "The Ashblazing Grand Duke"
+        ],
+        [
+          "Pioneer Diver of Dead Waters",
+          "Pioneer Diver of Dead Waters"
+        ]
+      ],
+      "ornamentSets": [
+        "City of Converging Stars",
+        "Duran, Dynasty of Running Wolves",
+        "Izumo Gensei and Takama Divine Realm"
+      ],
       "file": "src/lib/conditionals/character/1500/Ashveil.ts",
       "variant": "base"
     },
@@ -2649,6 +3555,16 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Ever-Glorious Magical Girl",
+          "Ever-Glorious Magical Girl"
+        ]
+      ],
+      "ornamentSets": [
+        "Punklorde Stage Zero",
+        "Tengoku@Livestream"
+      ],
       "file": "src/lib/conditionals/character/1500/Evanescia.ts",
       "variant": "base"
     },
@@ -2670,6 +3586,15 @@
         "NECK": [],
         "OBJECT": []
       },
+      "relicSets": [
+        [
+          "Ever-Glorious Magical Girl",
+          "Ever-Glorious Magical Girl"
+        ]
+      ],
+      "ornamentSets": [
+        "Punklorde Stage Zero"
+      ],
       "file": "src/lib/conditionals/character/1500/SilverWolfLv999.ts",
       "variant": "base"
     },
@@ -2701,6 +3626,19 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Divine-Querying Master Smith",
+          "Divine-Querying Master Smith"
+        ],
+        [
+          "Guard of Wuthering Snow",
+          "Guard of Wuthering Snow"
+        ]
+      ],
+      "ornamentSets": [
+        "Bone Collection's Serene Demesne"
+      ],
       "file": "src/lib/conditionals/character/1500/MortenaxBlade.ts",
       "variant": "base"
     },
@@ -2732,6 +3670,15 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Genius of Brilliant Stars",
+          "Genius of Brilliant Stars"
+        ]
+      ],
+      "ornamentSets": [
+        "Tengoku@Livestream"
+      ],
       "file": "src/lib/conditionals/character/1500/RinTohsaka.ts",
       "variant": "base"
     },
@@ -2763,6 +3710,15 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ]
+      ],
+      "ornamentSets": [
+        "Cosmic Life Sciences Institute"
+      ],
       "file": "src/lib/conditionals/character/1500/Gilgamesh.ts",
       "variant": "base"
     },
@@ -2794,6 +3750,15 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "As Navigator Isee Sees It",
+          "As Navigator Isee Sees It"
+        ]
+      ],
+      "ornamentSets": [
+        "Fallen Star Anchorage"
+      ],
       "file": "src/lib/conditionals/character/1500/HimekoNova.ts",
       "variant": "base"
     },
@@ -2825,6 +3790,15 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "World-Remaking Deliverer",
+          "World-Remaking Deliverer"
+        ]
+      ],
+      "ornamentSets": [
+        "Amphoreus, The Eternal Land"
+      ],
       "file": "src/lib/conditionals/character/1500/RobinSummeretto.ts",
       "variant": "base"
     },
@@ -2852,11 +3826,20 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Ever-Glorious Magical Girl",
+          "Ever-Glorious Magical Girl"
+        ]
+      ],
+      "ornamentSets": [
+        "Punklorde Stage Zero"
+      ],
       "file": "src/lib/conditionals/character/1500/AventurineWaveflair.ts",
       "variant": "base"
     },
     "8001": {
-      "name": "{NICKNAME}",
+      "name": "Trailblazer (Caelus)",
       "stats": {
         "AttackDelta": 0.75,
         "AttackAddedRatio": 0.75,
@@ -2883,11 +3866,21 @@
           "BreakDamageAddedRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Scholar Lost in Erudition",
+          "Scholar Lost in Erudition"
+        ]
+      ],
+      "ornamentSets": [
+        "Rutilant Arena",
+        "Firmament Frontline: Glamoth"
+      ],
       "file": "src/lib/conditionals/character/8000/TrailblazerDestruction.ts",
       "variant": "base"
     },
     "8003": {
-      "name": "{NICKNAME}",
+      "name": "Trailblazer (Caelus)",
       "stats": {
         "DefenceDelta": 1,
         "DefenceAddedRatio": 1,
@@ -2912,11 +3905,20 @@
         ]
       },
       "flatMainstatBoost": "DefenceDelta",
+      "relicSets": [
+        [
+          "Self-Enshrouded Recluse",
+          "Self-Enshrouded Recluse"
+        ]
+      ],
+      "ornamentSets": [
+        "Lushaka, the Sunken Seas"
+      ],
       "file": "src/lib/conditionals/character/8000/TrailblazerPreservation.ts",
       "variant": "base"
     },
     "8005": {
-      "name": "{NICKNAME}",
+      "name": "Trailblazer (Caelus)",
       "stats": {
         "SpeedDelta": 1,
         "StatusResistanceBase": 0.25,
@@ -2933,11 +3935,20 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "Watchmaker, Master of Dream Machinations",
+          "Watchmaker, Master of Dream Machinations"
+        ]
+      ],
+      "ornamentSets": [
+        "Forge of the Kalpagni Lantern"
+      ],
       "file": "src/lib/conditionals/character/8000/TrailblazerHarmony.ts",
       "variant": "base"
     },
     "8007": {
-      "name": "{NICKNAME}",
+      "name": "Trailblazer (Caelus)",
       "stats": {
         "SpeedDelta": 1,
         "CriticalDamageBase": 1,
@@ -2958,11 +3969,20 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [
+        [
+          "World-Remaking Deliverer",
+          "World-Remaking Deliverer"
+        ]
+      ],
+      "ornamentSets": [
+        "Broken Keel"
+      ],
       "file": "src/lib/conditionals/character/8000/TrailblazerRemembrance.ts",
       "variant": "base"
     },
     "8009": {
-      "name": "{NICKNAME}",
+      "name": "Trailblazer (Caelus)",
       "stats": {
         "AttackDelta": 0.25,
         "AttackAddedRatio": 0.25,
@@ -2980,6 +4000,8 @@
           "SPRatioBase"
         ]
       },
+      "relicSets": [],
+      "ornamentSets": [],
       "file": "src/lib/conditionals/character/8000/TrailblazerElation.ts",
       "variant": "base"
     }

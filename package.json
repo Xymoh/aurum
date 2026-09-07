@@ -20,6 +20,8 @@
     "fetch-hsr-stats": "node scripts/fetch-hsr-stats.mjs",
     "fetch-zzz": "node scripts/fetch-zzz-data.mjs",
     "fetch-zzz-weights": "node scripts/fetch-zzz-weights.mjs",
+    "fetch-genshin-sets": "node scripts/fetch-genshin-sets.mjs",
+    "fetch-sets": "node scripts/fetch-prydwen-sets.mjs",
     "refresh": "node scripts/refresh.mjs",
     "audit-genshin": "node scripts/audit-genshin-weights.mjs"
   },

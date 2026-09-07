@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useZzzShowcase } from "../useZzzShowcase";
 import { AgentPanel } from "../components/AgentPanel";
+import { ShareCardProvider } from "../../lib/shareCard/ShareCardProvider";
 import { agentPanelId } from "../panelId";
 import { useI18n } from "../../i18n";
 import { gradeFor } from "../scoring";
@@ -325,7 +326,9 @@ export function ZzzShowcasePage() {
           {visible.length === 0 ? (
             <p className="py-12 text-center text-sm text-zzz-muted">{t("zzz", "noMatch")}</p>
           ) : (
-            visible.map((a, i) => <AgentPanel key={a.id} agent={a} index={i} open={expanded.has(a.id)} onToggle={() => toggle(a.id)} />)
+            <ShareCardProvider uid={data.uid} playerName={data.nickname}>
+              {visible.map((a, i) => <AgentPanel key={a.id} agent={a} index={i} open={expanded.has(a.id)} onToggle={() => toggle(a.id)} />)}
+            </ShareCardProvider>
           )}
         </div>
       )}

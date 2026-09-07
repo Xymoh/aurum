@@ -54,6 +54,11 @@ export function pathIcon(path: string): string | null {
   return name ? `${CDN}/icon/path/${name}.png` : null;
 }
 
+/** A set's own icon, the same for every slot in it. */
+export function relicSetIcon(setId: number | string): string {
+  return `${CDN}/icon/relic/${setId}.png`;
+}
+
 /** The relic's own artwork, which differs per slot within a set. */
 export function relicIcon(tid: number): string | null {
   const icon = RELICS[String(tid)]?.icon;

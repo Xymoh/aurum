@@ -2,26 +2,19 @@ import { useId, useState } from "react";
 import type { HsrCharacter } from "../types";
 import { getWeights } from "../weights";
 import { useI18n } from "../../i18n";
+import { useShareContext } from "../../lib/shareCard/context";
+import { ShareCardButton } from "../../lib/shareCard/ShareCardButton";
+import { hsrShareCard } from "../shareCard";
 import { SLOT_COUNT as RELIC_SLOT_COUNT } from "../scoring";
 import { IncompleteScore } from "../../components/ui/IncompleteScore";
 import { DiagnosticsPanel } from "./DiagnosticsPanel";
 import { RelicCard } from "./RelicCard";
-import { gradeColor } from "../labels";
+import { elementTint, gradeColor } from "../labels";
 import { statRowFor } from "../stats";
 import { characterPreview, elementIcon, lightConeIcon, pathIcon } from "../images";
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { formatScore } from "../../lib/format";
 import { characterPanelId } from "../panelId";
-
-const ELEMENT_TINT: Record<string, string> = {
-  Physical: "#d4d4d8",
-  Fire: "#fb7185",
-  Ice: "#7dd3fc",
-  Thunder: "#c084fc",
-  Wind: "#5eead4",
-  Quantum: "#818cf8",
-  Imaginary: "#fde047",
-};
 
 /** Trace levels, labelled the way the game labels them. */
 function Traces({ t: traces }: { t: NonNullable<HsrCharacter["traces"]> }) {
@@ -79,10 +72,11 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
   if (open && !everOpened) setEverOpened(true);
 
   const { t } = useI18n();
+  const share = useShareContext();
   const bodyId = useId();
   const weights = getWeights(character.avatarId);
   const d = character.diagnostics;
-  const tint = ELEMENT_TINT[character.element] ?? "#7d86a3";
+  const tint = elementTint(character.element);
   const path = pathIcon(character.path);
 
   return (
@@ -246,8 +240,8 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
           The character's final stats, the same figures the game's own
           character screen shows, so a showcase can be read without opening
           every panel. The Genshin cards carry the same row. */}
-      <div className="border-t border-hsr-border/40 bg-hsr-inset/50 px-3 py-2 sm:px-4">
-        <div className="flex flex-wrap gap-x-4 gap-y-1">
+      <div className="flex items-center gap-3 border-t border-hsr-border/40 bg-hsr-inset/50 px-3 py-2 sm:px-4">
+        <div className="flex min-w-0 flex-1 flex-wrap gap-x-4 gap-y-1">
           {statRowFor(character).map((s) => (
             <span key={s.label} className="flex items-baseline gap-1.5 text-sm">
               <span className="text-hsr-muted">{t("hsr", s.label)}</span>
@@ -255,6 +249,12 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
             </span>
           ))}
         </div>
+        {share && (
+          <ShareCardButton
+            build={() => hsrShareCard(character, share)}
+            className="border border-hsr-line bg-hsr-fill text-hsr-muted hover:text-hsr-text"
+          />
+        )}
       </div>
 
       {/* Expand and collapse both animate. The grid row runs 0fr to 1fr, which

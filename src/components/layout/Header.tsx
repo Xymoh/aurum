@@ -24,7 +24,13 @@ export function Header() {
         </Link>
         <nav className="flex items-center gap-1.5" aria-label="Site">
           <GameSwitcherCompact current="genshin" />
-          <LanguageSwitcher />
+          <Link
+            to="/genshin/builds"
+            className="rounded-lg px-2 py-1.5 text-sm text-dark-muted no-underline transition-colors hover:bg-dark-border/40 hover:text-dark-text"
+          >
+            {t("builds", "navLabel")}
+          </Link>
+                    <LanguageSwitcher />
           <button
             type="button"
             className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-dark-muted transition-colors hover:bg-dark-border/40 hover:text-dark-text"

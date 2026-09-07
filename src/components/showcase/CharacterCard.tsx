@@ -11,6 +11,9 @@ import { IncompleteScore } from "../ui/IncompleteScore";
 import { GradeBadge } from "../ui/GradeBadge";
 import { ArtifactCard } from "./ArtifactCard";
 import { WarningIcon } from "../ui/icons";
+import { useShareContext } from "../../lib/shareCard/context";
+import { ShareCardButton } from "../../lib/shareCard/ShareCardButton";
+import { genshinShareCard } from "../../lib/shareCard/genshin";
 import { useEffect, useId, useState } from "react";
 import { useI18n } from "../../i18n";
 
@@ -127,6 +130,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
   }, [isExpanded]);
 
   const { t } = useI18n();
+  const share = useShareContext();
   const bodyId = useId();
   const [imgError, setImgError] = useState(false);
   const elementColor = ELEMENT_COLORS[character.element] ?? "#6b7280";
@@ -299,10 +303,18 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
             <SlotPill key={slot} slot={slot} character={character} />
           ))}
         </div>
-        <div className="flex flex-wrap gap-x-4 gap-y-1">
-          {statEntries.map((stat) => (
-            <StatChip key={stat.key} statKey={stat.key} value={stat.value} />
-          ))}
+        <div className="flex items-center gap-3">
+          <div className="flex min-w-0 flex-1 flex-wrap gap-x-4 gap-y-1">
+            {statEntries.map((stat) => (
+              <StatChip key={stat.key} statKey={stat.key} value={stat.value} />
+            ))}
+          </div>
+          {share && (
+            <ShareCardButton
+              build={() => genshinShareCard(character, share)}
+              className="border border-dark-border bg-dark-card text-dark-muted hover:text-dark-text"
+            />
+          )}
         </div>
       </div>
 

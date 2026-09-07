@@ -6,6 +6,9 @@ import { IncompleteScore } from "../../components/ui/IncompleteScore";
 import { BuildPanel } from "./BuildPanel";
 import { DiscCard } from "./DiscCard";
 import { useI18n } from "../../i18n";
+import { useShareContext } from "../../lib/shareCard/context";
+import { ShareCardButton } from "../../lib/shareCard/ShareCardButton";
+import { zzzShareCard } from "../shareCard";
 import { zzzStatRow } from "../stats";
 import { agentImage } from "../images";
 import { GradeBadge } from "../../components/ui/GradeBadge";
@@ -30,6 +33,7 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
   if (open && !everOpened) setEverOpened(true);
 
   const { t } = useI18n();
+  const share = useShareContext();
   const bodyId = useId();
   const meta = getScoringMeta(agent.id);
   const d = agent.diagnostics;
@@ -167,8 +171,8 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
           The agent's final stats, the same figures the game's own agent
           screen shows, so a showcase can be read without opening every
           panel. The other two games carry the same row. */}
-      <div className="border-t border-zzz-border/40 bg-zzz-inset/60 px-3 py-2 sm:px-4">
-        <div className="flex flex-wrap gap-x-4 gap-y-1">
+      <div className="flex items-center gap-3 border-t border-zzz-border/40 bg-zzz-inset/60 px-3 py-2 sm:px-4">
+        <div className="flex min-w-0 flex-1 flex-wrap gap-x-4 gap-y-1">
           {zzzStatRow(agent.stats).map((s) => (
             <span key={s.label} className="flex items-baseline gap-1.5 text-sm">
               <span className="text-zzz-muted">{t("zzz", s.label)}</span>
@@ -176,6 +180,12 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
             </span>
           ))}
         </div>
+        {share && (
+          <ShareCardButton
+            build={() => zzzShareCard(agent, share)}
+            className="border border-zzz-line bg-zzz-fill text-zzz-muted hover:text-zzz-text"
+          />
+        )}
       </div>
 
       {/* The row wrapper stays mounted even while collapsed, so 0fr is a value

@@ -73,3 +73,23 @@ export function formatStat(key: HsrStatKey, value: number): string {
 export function gradeColor(grade: string | null): string {
   return grade ? gradeTextClass(grade) : "text-hsr-muted";
 }
+
+/**
+ * Per-element accent, used for the panel highlight and the share card. Kept
+ * here rather than in the panel so the card cannot drift from the page it is
+ * a picture of.
+ */
+export const ELEMENT_TINT: Record<string, string> = {
+  Physical: "#d4d4d8",
+  Fire: "#fb7185",
+  Ice: "#7dd3fc",
+  Thunder: "#c084fc",
+  Wind: "#5eead4",
+  Quantum: "#818cf8",
+  Imaginary: "#fde047",
+};
+
+/** The element accent, or the neutral border tone for an unknown element. */
+export function elementTint(element: string): string {
+  return ELEMENT_TINT[element] ?? "#7d86a3";
+}

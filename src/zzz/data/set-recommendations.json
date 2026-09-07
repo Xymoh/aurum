@@ -1,0 +1,1502 @@
+{
+  "source": "https://www.prydwen.gg/zenless/characters/",
+  "fetchedAt": "2026-09-07T12:19:40.792Z",
+  "characters": {
+    "1011": {
+      "name": "Anby",
+      "sets": [
+        [
+          {
+            "setId": "33200",
+            "pieces": 4
+          },
+          {
+            "setId": "31200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31900",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/anby-demara"
+    },
+    "1021": {
+      "name": "Nekomata",
+      "sets": [
+        [
+          {
+            "setId": "31000",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31100",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/nekomata"
+    },
+    "1031": {
+      "name": "Nicole",
+      "sets": [
+        [
+          {
+            "setId": "33400",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31600",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/nicole-demara"
+    },
+    "1041": {
+      "name": "Soldier 11",
+      "sets": [
+        [
+          {
+            "setId": "31100",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31000",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "33300",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/soldier-11"
+    },
+    "1051": {
+      "name": "Yidhari",
+      "sets": [
+        [
+          {
+            "setId": "33100",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/yidhari"
+    },
+    "1061": {
+      "name": "Corin",
+      "sets": [
+        [
+          {
+            "setId": "31100",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31400",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/corin"
+    },
+    "1071": {
+      "name": "Caesar",
+      "sets": [
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "31200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31900",
+            "pieces": 4
+          },
+          {
+            "setId": "31200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31300",
+            "pieces": 4
+          },
+          {
+            "setId": "31200",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/caesar"
+    },
+    "1081": {
+      "name": "Billy",
+      "sets": [
+        [
+          {
+            "setId": "31000",
+            "pieces": 4
+          },
+          {
+            "setId": "32700",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32900",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31100",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/billy-kid"
+    },
+    "1091": {
+      "name": "Miyabi",
+      "sets": [
+        [
+          {
+            "setId": "32700",
+            "pieces": 4
+          },
+          {
+            "setId": "32500",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31000",
+            "pieces": 4
+          },
+          {
+            "setId": "32500",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32500",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/miyabi"
+    },
+    "1101": {
+      "name": "Koleda",
+      "sets": [
+        [
+          {
+            "setId": "33200",
+            "pieces": 4
+          },
+          {
+            "setId": "31200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31900",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/koleda"
+    },
+    "1111": {
+      "name": "Anton",
+      "sets": [
+        [
+          {
+            "setId": "32400",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31100",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31000",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/anton"
+    },
+    "1121": {
+      "name": "Ben",
+      "sets": [
+        [
+          {
+            "setId": "32200",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31000",
+            "pieces": 4
+          },
+          {
+            "setId": "32700",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31100",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/ben"
+    },
+    "1131": {
+      "name": "Soukaku",
+      "sets": [
+        [
+          {
+            "setId": "31300",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "33400",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/soukaku"
+    },
+    "1141": {
+      "name": "Lycaon",
+      "sets": [
+        [
+          {
+            "setId": "33200",
+            "pieces": 4
+          },
+          {
+            "setId": "31200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31900",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/lycaon"
+    },
+    "1151": {
+      "name": "Lucy",
+      "sets": [
+        [
+          {
+            "setId": "33400",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31600",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/lucy"
+    },
+    "1161": {
+      "name": "Lighter",
+      "sets": [
+        [
+          {
+            "setId": "33200",
+            "pieces": 4
+          },
+          {
+            "setId": "31200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31900",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/lighter"
+    },
+    "1171": {
+      "name": "Burnice",
+      "sets": [
+        [
+          {
+            "setId": "31300",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "31800",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/burnice"
+    },
+    "1181": {
+      "name": "Grace",
+      "sets": [
+        [
+          {
+            "setId": "32400",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31800",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/grace-howard"
+    },
+    "1191": {
+      "name": "Ellen",
+      "sets": [
+        [
+          {
+            "setId": "31100",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31000",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32900",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/ellen"
+    },
+    "1201": {
+      "name": "Harumasa",
+      "sets": [
+        [
+          {
+            "setId": "32400",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "32900",
+            "pieces": 4
+          },
+          {
+            "setId": "32700",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/harumasa"
+    },
+    "1211": {
+      "name": "Rina",
+      "sets": [
+        [
+          {
+            "setId": "33400",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/rina"
+    },
+    "1221": {
+      "name": "Yanagi",
+      "sets": [
+        [
+          {
+            "setId": "31800",
+            "pieces": 4
+          },
+          {
+            "setId": "31300",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/yanagi"
+    },
+    "1241": {
+      "name": "Zhu Yuan",
+      "sets": [
+        [
+          {
+            "setId": "32300",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31100",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31000",
+            "pieces": 4
+          },
+          {
+            "setId": "32700",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/zhu-yuan"
+    },
+    "1251": {
+      "name": "Qingyi",
+      "sets": [
+        [
+          {
+            "setId": "33200",
+            "pieces": 4
+          },
+          {
+            "setId": "31200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31900",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/qingyi"
+    },
+    "1261": {
+      "name": "Jane",
+      "sets": [
+        [
+          {
+            "setId": "32600",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/jane-doe"
+    },
+    "1271": {
+      "name": "Seth",
+      "sets": [
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "31600",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31600",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "31900",
+            "pieces": 4
+          },
+          {
+            "setId": "31600",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/seth"
+    },
+    "1281": {
+      "name": "Piper",
+      "sets": [
+        [
+          {
+            "setId": "32600",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/piper"
+    },
+    "1291": {
+      "name": "Hugo",
+      "sets": [
+        [
+          {
+            "setId": "31400",
+            "pieces": 4
+          },
+          {
+            "setId": "32500",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31100",
+            "pieces": 4
+          },
+          {
+            "setId": "32500",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/hugo"
+    },
+    "1301": {
+      "name": "Orphie & Magus",
+      "sets": [
+        [
+          {
+            "setId": "32900",
+            "pieces": 4
+          },
+          {
+            "setId": "31600",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "31600",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/orphie-and-magus"
+    },
+    "1311": {
+      "name": "Astra Yao",
+      "sets": [
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "33400",
+            "pieces": 4
+          },
+          {
+            "setId": "31600",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/astra-yao"
+    },
+    "1321": {
+      "name": "Evelyn",
+      "sets": [
+        [
+          {
+            "setId": "31400",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "31100",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/evelyn"
+    },
+    "1331": {
+      "name": "Vivian",
+      "sets": [
+        [
+          {
+            "setId": "33000",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/vivian"
+    },
+    "1341": {
+      "name": "Zhao",
+      "sets": [
+        [
+          {
+            "setId": "33700",
+            "pieces": 4
+          },
+          {
+            "setId": "33100",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/zhao"
+    },
+    "1351": {
+      "name": "Pulchra",
+      "sets": [
+        [
+          {
+            "setId": "33200",
+            "pieces": 4
+          },
+          {
+            "setId": "31200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31900",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/pulchra"
+    },
+    "1361": {
+      "name": "Trigger",
+      "sets": [
+        [
+          {
+            "setId": "33200",
+            "pieces": 4
+          },
+          {
+            "setId": "31200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31900",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/trigger"
+    },
+    "1371": {
+      "name": "Yixuan",
+      "sets": [
+        [
+          {
+            "setId": "33100",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/yixuan"
+    },
+    "1381": {
+      "name": "Soldier 0 - Anby",
+      "sets": [
+        [
+          {
+            "setId": "32900",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/anby-demara-soldier-0"
+    },
+    "1391": {
+      "name": "Ju Fufu",
+      "sets": [
+        [
+          {
+            "setId": "33200",
+            "pieces": 4
+          },
+          {
+            "setId": "31200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31600",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31900",
+            "pieces": 4
+          },
+          {
+            "setId": "33200",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/ju-fufu"
+    },
+    "1401": {
+      "name": "Alice",
+      "sets": [
+        [
+          {
+            "setId": "32600",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31400",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/alice"
+    },
+    "1411": {
+      "name": "Yuzuha",
+      "sets": [
+        [
+          {
+            "setId": "33400",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/ukinami-yuzuha"
+    },
+    "1421": {
+      "name": "Pan Yinhu",
+      "sets": [
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          },
+          {
+            "setId": "31400",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31900",
+            "pieces": 4
+          },
+          {
+            "setId": "31400",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31600",
+            "pieces": 4
+          },
+          {
+            "setId": "31400",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/pan-yinhu"
+    },
+    "1431": {
+      "name": "Ye Shunguang",
+      "sets": [
+        [
+          {
+            "setId": "33500",
+            "pieces": 4
+          },
+          {
+            "setId": "32700",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/ye-shunguang"
+    },
+    "1441": {
+      "name": "Manato",
+      "sets": [
+        [
+          {
+            "setId": "33100",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/manato"
+    },
+    "1451": {
+      "name": "Lucia",
+      "sets": [
+        [
+          {
+            "setId": "33400",
+            "pieces": 4
+          },
+          {
+            "setId": "33100",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/lucia"
+    },
+    "1461": {
+      "name": "Seed",
+      "sets": [
+        [
+          {
+            "setId": "33300",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31000",
+            "pieces": 4
+          },
+          {
+            "setId": "32700",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31400",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/seed"
+    },
+    "1471": {
+      "name": "Banyue",
+      "sets": [
+        [
+          {
+            "setId": "33100",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/banyue"
+    },
+    "1481": {
+      "name": "Dialyn",
+      "sets": [
+        [
+          {
+            "setId": "33200",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/dialyn"
+    },
+    "1491": {
+      "name": "Sunna",
+      "sets": [
+        [
+          {
+            "setId": "33400",
+            "pieces": 4
+          },
+          {
+            "setId": "31600",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/sunna"
+    },
+    "1501": {
+      "name": "Aria",
+      "sets": [
+        [
+          {
+            "setId": "33000",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "33600",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/aria"
+    },
+    "1511": {
+      "name": "Nangong Yu",
+      "sets": [
+        [
+          {
+            "setId": "33000",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "31300",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/nangong-yu"
+    },
+    "1521": {
+      "name": "Cissia",
+      "sets": [
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "33300",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "32400",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/cissia"
+    },
+    "1531": {
+      "name": "Starlight - Billy",
+      "sets": [
+        [
+          {
+            "setId": "33100",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/billy-starlight"
+    },
+    "1541": {
+      "name": "Promeia",
+      "sets": [
+        [
+          {
+            "setId": "33800",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/promeia"
+    },
+    "1551": {
+      "name": "Pyrois",
+      "sets": [
+        [
+          {
+            "setId": "34000",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31100",
+            "pieces": 4
+          },
+          {
+            "setId": "32700",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/pyrois"
+    },
+    "1561": {
+      "name": "Velina",
+      "sets": [
+        [
+          {
+            "setId": "33900",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/velina"
+    },
+    "1571": {
+      "name": "Norma",
+      "sets": [
+        [
+          {
+            "setId": "33200",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/norma"
+    },
+    "1581": {
+      "name": "Remielle",
+      "sets": [
+        [
+          {
+            "setId": "34100",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/remielle"
+    },
+    "1591": {
+      "name": "Sigrid",
+      "sets": [
+        [
+          {
+            "setId": "31400",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31100",
+            "pieces": 4
+          },
+          {
+            "setId": "32700",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "33300",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/sigrid"
+    }
+  }
+}

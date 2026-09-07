@@ -14,6 +14,8 @@
 import type { SelectableZzzSlot, ZzzStatId } from "./types";
 import agents from "./data/agents.json";
 import scoringMetadata from "./data/scoring-metadata.json";
+import setsData from "./data/sets.json";
+import setRecommendations from "./data/set-recommendations.json";
 
 export type ZzzWeights = Record<number, number>;
 
@@ -26,6 +28,8 @@ export interface ZzzScoringMeta {
   thresholds: Record<number, number>;
   /** The guide's own wording, for the UI to quote. */
   priority: string | null;
+  /** Recommended disc loadouts, best first: a 4-piece with its 2-piece partner. */
+  sets: { setId: string; name: string; pieces: number }[][];
   source: "prydwen" | "profession";
 }
 
@@ -39,6 +43,16 @@ interface MetadataEntry {
   priority?: string;
 }
 const PRYDWEN = (scoringMetadata as { characters: Record<string, MetadataEntry> }).characters ?? {};
+
+const SET_NAMES = setsData as Record<string, { name: string }>;
+const PRYDWEN_SETS = (setRecommendations as { characters: Record<string, { sets?: { setId: string; pieces: number }[][] }> }).characters;
+
+/** Prydwen's disc lists, kept apart from the weights so a weights refresh cannot wipe them. */
+function setsFor(agentId: number): ZzzScoringMeta["sets"] {
+  return (PRYDWEN_SETS[String(agentId)]?.sets ?? []).map((parts) =>
+    parts.map((p) => ({ setId: p.setId, name: SET_NAMES[p.setId]?.name ?? p.setId, pieces: p.pieces })),
+  );
+}
 
 /** Below this, a roll is doing nothing useful and counts as waste. */
 export const WASTE_THRESHOLD = 0.2;
@@ -145,6 +159,7 @@ export function getScoringMeta(agentId: number): ZzzScoringMeta {
       },
       thresholds,
       priority: entry.priority ?? null,
+      sets: setsFor(agentId),
       source: "prydwen",
     };
   }
@@ -155,7 +170,8 @@ export function getScoringMeta(agentId: number): ZzzScoringMeta {
     parts: professionParts(info?.profession ?? "Attack", info?.element ?? "", profile),
     thresholds: {},
     priority: null,
-    source: "profession",
+    sets: setsFor(agentId),
+      source: "profession",
   };
 }
 

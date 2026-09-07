@@ -1,0 +1,3874 @@
+{
+  "source": "https://genshin.gg/characters/",
+  "fetchedAt": "2026-09-07T12:09:20.385Z",
+  "characters": {
+    "10000002": {
+      "name": "Kamisato Ayaka",
+      "sets": [
+        [
+          {
+            "setId": "14001",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15001",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15024",
+            "pieces": 2
+          },
+          {
+            "setId": "15023",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/ayaka/"
+    },
+    "10000003": {
+      "name": "Jean",
+      "sets": [
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15022",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15019",
+            "pieces": 2
+          },
+          {
+            "setId": "15002",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/jean/"
+    },
+    "10000006": {
+      "name": "Lisa",
+      "sets": [
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14002",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/lisa/"
+    },
+    "10000014": {
+      "name": "Barbara",
+      "sets": [
+        [
+          {
+            "setId": "14004",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14004",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "14004",
+            "pieces": 2
+          },
+          {
+            "setId": "15022",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15022",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/barbara/"
+    },
+    "10000015": {
+      "name": "Kaeya",
+      "sets": [
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 2
+          },
+          {
+            "setId": "15007",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15007",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/kaeya/"
+    },
+    "10000016": {
+      "name": "Diluc",
+      "sets": [
+        [
+          {
+            "setId": "15006",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15006",
+            "pieces": 2
+          },
+          {
+            "setId": "15026",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15006",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/diluc/"
+    },
+    "10000020": {
+      "name": "Razor",
+      "sets": [
+        [
+          {
+            "setId": "15044",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15024",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15001",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15005",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/razor/"
+    },
+    "10000021": {
+      "name": "Amber",
+      "sets": [
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "10009",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/amber/"
+    },
+    "10000022": {
+      "name": "Venti",
+      "sets": [
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15044",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/venti/"
+    },
+    "10000023": {
+      "name": "Xiangling",
+      "sets": [
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15006",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15006",
+            "pieces": 2
+          },
+          {
+            "setId": "15020",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15007",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/xiangling/"
+    },
+    "10000024": {
+      "name": "Beidou",
+      "sets": [
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15007",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15005",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 2
+          },
+          {
+            "setId": "15005",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/beidou/"
+    },
+    "10000025": {
+      "name": "Xingqiu",
+      "sets": [
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15007",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15016",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/xingqiu/"
+    },
+    "10000026": {
+      "name": "Xiao",
+      "sets": [
+        [
+          {
+            "setId": "15023",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15027",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15027",
+            "pieces": 2
+          },
+          {
+            "setId": "15023",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15019",
+            "pieces": 2
+          },
+          {
+            "setId": "15023",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/xiao/"
+    },
+    "10000027": {
+      "name": "Ningguang",
+      "sets": [
+        [
+          {
+            "setId": "15014",
+            "pieces": 2
+          },
+          {
+            "setId": "15020",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15014",
+            "pieces": 2
+          },
+          {
+            "setId": "15007",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15014",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15014",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/ningguang/"
+    },
+    "10000029": {
+      "name": "Klee",
+      "sets": [
+        [
+          {
+            "setId": "15044",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14003",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15024",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15027",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/klee/"
+    },
+    "10000030": {
+      "name": "Zhongli",
+      "sets": [
+        [
+          {
+            "setId": "15014",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15025",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/zhongli/"
+    },
+    "10000031": {
+      "name": "Fischl",
+      "sets": [
+        [
+          {
+            "setId": "15032",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15044",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15032",
+            "pieces": 2
+          },
+          {
+            "setId": "15005",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15032",
+            "pieces": 2
+          },
+          {
+            "setId": "14002",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/fischl/"
+    },
+    "10000032": {
+      "name": "Bennett",
+      "sets": [
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15006",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15007",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/bennett/"
+    },
+    "10000033": {
+      "name": "Tartaglia",
+      "sets": [
+        [
+          {
+            "setId": "15016",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15016",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15016",
+            "pieces": 2
+          },
+          {
+            "setId": "15007",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/childe/"
+    },
+    "10000034": {
+      "name": "Noelle",
+      "sets": [
+        [
+          {
+            "setId": "15021",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15015",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15001",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15014",
+            "pieces": 2
+          },
+          {
+            "setId": "15021",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/noelle/"
+    },
+    "10000035": {
+      "name": "Qiqi",
+      "sets": [
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15022",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15033",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/qiqi/"
+    },
+    "10000036": {
+      "name": "Chongyun",
+      "sets": [
+        [
+          {
+            "setId": "14001",
+            "pieces": 2
+          },
+          {
+            "setId": "15007",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/chongyun/"
+    },
+    "10000037": {
+      "name": "Ganyu",
+      "sets": [
+        [
+          {
+            "setId": "15019",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15003",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15019",
+            "pieces": 2
+          },
+          {
+            "setId": "15003",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/ganyu/"
+    },
+    "10000038": {
+      "name": "Albedo",
+      "sets": [
+        [
+          {
+            "setId": "15021",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15032",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15014",
+            "pieces": 2
+          },
+          {
+            "setId": "15021",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15032",
+            "pieces": 2
+          },
+          {
+            "setId": "15021",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/albedo/"
+    },
+    "10000039": {
+      "name": "Diona",
+      "sets": [
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "14004",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "14004",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/diona/"
+    },
+    "10000041": {
+      "name": "Mona",
+      "sets": [
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "10012",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/mona/"
+    },
+    "10000042": {
+      "name": "Keqing",
+      "sets": [
+        [
+          {
+            "setId": "15005",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 2
+          },
+          {
+            "setId": "15005",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/keqing/"
+    },
+    "10000043": {
+      "name": "Sucrose",
+      "sets": [
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 2
+          },
+          {
+            "setId": "15003",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/sucrose/"
+    },
+    "10000044": {
+      "name": "Xinyan",
+      "sets": [
+        [
+          {
+            "setId": "15008",
+            "pieces": 2
+          },
+          {
+            "setId": "15018",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15018",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15018",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15018",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/xinyan/"
+    },
+    "10000045": {
+      "name": "Rosaria",
+      "sets": [
+        [
+          {
+            "setId": "14001",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 2
+          },
+          {
+            "setId": "15007",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/rosaria/"
+    },
+    "10000046": {
+      "name": "Hu Tao",
+      "sets": [
+        [
+          {
+            "setId": "15006",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15019",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15006",
+            "pieces": 2
+          },
+          {
+            "setId": "15026",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/hutao/"
+    },
+    "10000047": {
+      "name": "Kaedehara Kazuha",
+      "sets": [
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15005",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 2
+          },
+          {
+            "setId": "15003",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/kazuha/"
+    },
+    "10000048": {
+      "name": "Yanfei",
+      "sets": [
+        [
+          {
+            "setId": "15006",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15003",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15006",
+            "pieces": 2
+          },
+          {
+            "setId": "15026",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/yanfei/"
+    },
+    "10000049": {
+      "name": "Yoimiya",
+      "sets": [
+        [
+          {
+            "setId": "15019",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15006",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15024",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15015",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/yoimiya/"
+    },
+    "10000050": {
+      "name": "Thoma",
+      "sets": [
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/thoma/"
+    },
+    "10000051": {
+      "name": "Eula",
+      "sets": [
+        [
+          {
+            "setId": "15018",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15008",
+            "pieces": 2
+          },
+          {
+            "setId": "15018",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15001",
+            "pieces": 2
+          },
+          {
+            "setId": "15018",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15008",
+            "pieces": 2
+          },
+          {
+            "setId": "15001",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/eula/"
+    },
+    "10000052": {
+      "name": "Raiden Shogun",
+      "sets": [
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15007",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15005",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 2
+          },
+          {
+            "setId": "15005",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/raiden/"
+    },
+    "10000053": {
+      "name": "Sayu",
+      "sets": [
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "14004",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "14004",
+            "pieces": 2
+          },
+          {
+            "setId": "15022",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/sayu/"
+    },
+    "10000054": {
+      "name": "Sangonomiya Kokomi",
+      "sets": [
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15022",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14004",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15022",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/kokomi/"
+    },
+    "10000055": {
+      "name": "Gorou",
+      "sets": [
+        [
+          {
+            "setId": "10009",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "10009",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15021",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/gorou/"
+    },
+    "10000056": {
+      "name": "Kujou Sara",
+      "sets": [
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 2
+          },
+          {
+            "setId": "15005",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/sara/"
+    },
+    "10000057": {
+      "name": "Arataki Itto",
+      "sets": [
+        [
+          {
+            "setId": "15021",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15027",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15015",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15014",
+            "pieces": 2
+          },
+          {
+            "setId": "15021",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/itto/"
+    },
+    "10000058": {
+      "name": "Yae Miko",
+      "sets": [
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15005",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "14002",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/yaemiko/"
+    },
+    "10000059": {
+      "name": "Shikanoin Heizou",
+      "sets": [
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 2
+          },
+          {
+            "setId": "15003",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/heizou/"
+    },
+    "10000060": {
+      "name": "Yelan",
+      "sets": [
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15016",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15007",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/yelan/"
+    },
+    "10000061": {
+      "name": "Kirara",
+      "sets": [
+        [
+          {
+            "setId": "15017",
+            "pieces": 2
+          },
+          {
+            "setId": "15030",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15025",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/kirara/"
+    },
+    "10000062": {
+      "name": "Aloy",
+      "sets": [
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 2
+          },
+          {
+            "setId": "15007",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 2
+          },
+          {
+            "setId": "15026",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/aloy/"
+    },
+    "10000063": {
+      "name": "Shenhe",
+      "sets": [
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15001",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "10009",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/shenhe/"
+    },
+    "10000064": {
+      "name": "Yun Jin",
+      "sets": [
+        [
+          {
+            "setId": "15021",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15021",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "10009",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/yunjin/"
+    },
+    "10000065": {
+      "name": "Kuki Shinobu",
+      "sets": [
+        [
+          {
+            "setId": "15028",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15028",
+            "pieces": 2
+          },
+          {
+            "setId": "15026",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15005",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/kukishinobu/"
+    },
+    "10000066": {
+      "name": "Kamisato Ayato",
+      "sets": [
+        [
+          {
+            "setId": "15016",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15001",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15029",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15001",
+            "pieces": 2
+          },
+          {
+            "setId": "15016",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/ayato/"
+    },
+    "10000067": {
+      "name": "Collei",
+      "sets": [
+        [
+          {
+            "setId": "15025",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/collei/"
+    },
+    "10000068": {
+      "name": "Dori",
+      "sets": [
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15025",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "10009",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/dori/"
+    },
+    "10000069": {
+      "name": "Tighnari",
+      "sets": [
+        [
+          {
+            "setId": "15003",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15025",
+            "pieces": 2
+          },
+          {
+            "setId": "15003",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15019",
+            "pieces": 2
+          },
+          {
+            "setId": "15003",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/tighnari/"
+    },
+    "10000070": {
+      "name": "Nilou",
+      "sets": [
+        [
+          {
+            "setId": "15016",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15025",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/nilou/"
+    },
+    "10000071": {
+      "name": "Cyno",
+      "sets": [
+        [
+          {
+            "setId": "15005",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15028",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15019",
+            "pieces": 2
+          },
+          {
+            "setId": "15005",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/cyno/"
+    },
+    "10000072": {
+      "name": "Candace",
+      "sets": [
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/candace/"
+    },
+    "10000073": {
+      "name": "Nahida",
+      "sets": [
+        [
+          {
+            "setId": "15025",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15032",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15028",
+            "pieces": 2
+          },
+          {
+            "setId": "15026",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/nahida/"
+    },
+    "10000074": {
+      "name": "Layla",
+      "sets": [
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/layla/"
+    },
+    "10000075": {
+      "name": "Wanderer",
+      "sets": [
+        [
+          {
+            "setId": "15027",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15019",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15024",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15027",
+            "pieces": 2
+          },
+          {
+            "setId": "15002",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/wanderer/"
+    },
+    "10000076": {
+      "name": "Faruzan",
+      "sets": [
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/faruzan/"
+    },
+    "10000077": {
+      "name": "Yaoyao",
+      "sets": [
+        [
+          {
+            "setId": "15025",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/yaoyao/"
+    },
+    "10000078": {
+      "name": "Alhaitham",
+      "sets": [
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15025",
+            "pieces": 2
+          },
+          {
+            "setId": "15020",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15025",
+            "pieces": 2
+          },
+          {
+            "setId": "15026",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15026",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/alhaitham/"
+    },
+    "10000079": {
+      "name": "Dehya",
+      "sets": [
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 2
+          },
+          {
+            "setId": "15030",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15022",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/dehya/"
+    },
+    "10000080": {
+      "name": "Mika",
+      "sets": [
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15022",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14004",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14004",
+            "pieces": 2
+          },
+          {
+            "setId": "15022",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/mika/"
+    },
+    "10000081": {
+      "name": "Kaveh",
+      "sets": [
+        [
+          {
+            "setId": "15025",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15022",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15028",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/kaveh/"
+    },
+    "10000082": {
+      "name": "Baizhu",
+      "sets": [
+        [
+          {
+            "setId": "15025",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15022",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/baizhu/"
+    },
+    "10000083": {
+      "name": "Lynette",
+      "sets": [
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 2
+          },
+          {
+            "setId": "15002",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/lynette/"
+    },
+    "10000084": {
+      "name": "Lyney",
+      "sets": [
+        [
+          {
+            "setId": "15031",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15023",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15019",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14003",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/lyney/"
+    },
+    "10000085": {
+      "name": "Freminet",
+      "sets": [
+        [
+          {
+            "setId": "15018",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15018",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15008",
+            "pieces": 2
+          },
+          {
+            "setId": "15018",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15032",
+            "pieces": 2
+          },
+          {
+            "setId": "15018",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/freminet/"
+    },
+    "10000086": {
+      "name": "Wriothesley",
+      "sets": [
+        [
+          {
+            "setId": "15031",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15019",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 2
+          },
+          {
+            "setId": "15031",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/wriothesley/"
+    },
+    "10000087": {
+      "name": "Neuvillette",
+      "sets": [
+        [
+          {
+            "setId": "15031",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15016",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15016",
+            "pieces": 2
+          },
+          {
+            "setId": "15031",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15031",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/neuvillette/"
+    },
+    "10000088": {
+      "name": "Charlotte",
+      "sets": [
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15022",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/charlotte/"
+    },
+    "10000089": {
+      "name": "Furina",
+      "sets": [
+        [
+          {
+            "setId": "15032",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15032",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15032",
+            "pieces": 2
+          },
+          {
+            "setId": "15016",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/furina/"
+    },
+    "10000090": {
+      "name": "Chevreuse",
+      "sets": [
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15022",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15033",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 2
+          },
+          {
+            "setId": "15030",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/chevreuse/"
+    },
+    "10000091": {
+      "name": "Navia",
+      "sets": [
+        [
+          {
+            "setId": "15034",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15031",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15032",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15014",
+            "pieces": 2
+          },
+          {
+            "setId": "15034",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/navia/"
+    },
+    "10000092": {
+      "name": "Gaming",
+      "sets": [
+        [
+          {
+            "setId": "15006",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15031",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15006",
+            "pieces": 2
+          },
+          {
+            "setId": "15020",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/gaming/"
+    },
+    "10000093": {
+      "name": "Xianyun",
+      "sets": [
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15033",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15022",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/xianyun/"
+    },
+    "10000094": {
+      "name": "Chiori",
+      "sets": [
+        [
+          {
+            "setId": "15032",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15021",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15014",
+            "pieces": 2
+          },
+          {
+            "setId": "15021",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15014",
+            "pieces": 2
+          },
+          {
+            "setId": "15032",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/chiori/"
+    },
+    "10000095": {
+      "name": "Sigewinne",
+      "sets": [
+        [
+          {
+            "setId": "15022",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15033",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 2
+          },
+          {
+            "setId": "15030",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15022",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/sigewinne/"
+    },
+    "10000096": {
+      "name": "Arlecchino",
+      "sets": [
+        [
+          {
+            "setId": "15035",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15001",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15027",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15006",
+            "pieces": 2
+          },
+          {
+            "setId": "15035",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/arlecchino/"
+    },
+    "10000097": {
+      "name": "Sethos",
+      "sets": [
+        [
+          {
+            "setId": "15003",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15027",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 2
+          },
+          {
+            "setId": "15005",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/sethos/"
+    },
+    "10000098": {
+      "name": "Clorinde",
+      "sets": [
+        [
+          {
+            "setId": "15035",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15005",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15001",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/clorinde/"
+    },
+    "10000099": {
+      "name": "Emilie",
+      "sets": [
+        [
+          {
+            "setId": "15036",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15025",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15032",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15025",
+            "pieces": 2
+          },
+          {
+            "setId": "15032",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/emilie/"
+    },
+    "10000100": {
+      "name": "Kachina",
+      "sets": [
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/kachina/"
+    },
+    "10000101": {
+      "name": "Kinich",
+      "sets": [
+        [
+          {
+            "setId": "15038",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15036",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15032",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15019",
+            "pieces": 2
+          },
+          {
+            "setId": "15036",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/kinich/"
+    },
+    "10000102": {
+      "name": "Mualani",
+      "sets": [
+        [
+          {
+            "setId": "15038",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15016",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15016",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15016",
+            "pieces": 2
+          },
+          {
+            "setId": "15029",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/mualani/"
+    },
+    "10000103": {
+      "name": "Xilonen",
+      "sets": [
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15014",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/xilonen/"
+    },
+    "10000104": {
+      "name": "Chasca",
+      "sets": [
+        [
+          {
+            "setId": "15038",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15003",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15019",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15031",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/chasca/"
+    },
+    "10000105": {
+      "name": "Ororon",
+      "sets": [
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/ororon/"
+    },
+    "10000106": {
+      "name": "Mavuika",
+      "sets": [
+        [
+          {
+            "setId": "15038",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15031",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/mavuika/"
+    },
+    "10000107": {
+      "name": "Citlali",
+      "sets": [
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/citlali/"
+    },
+    "10000108": {
+      "name": "Lan Yan",
+      "sets": [
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/lanyan/"
+    },
+    "10000109": {
+      "name": "Yumemizuki Mizuki",
+      "sets": [
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/yumemizukimizuki/"
+    },
+    "10000110": {
+      "name": "Iansan",
+      "sets": [
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/iansan/"
+    },
+    "10000111": {
+      "name": "Varesa",
+      "sets": [
+        [
+          {
+            "setId": "15038",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15039",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/varesa/"
+    },
+    "10000112": {
+      "name": "Escoffier",
+      "sets": [
+        [
+          {
+            "setId": "15032",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 2
+          },
+          {
+            "setId": "15032",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/escoffier/"
+    },
+    "10000113": {
+      "name": "Ifa",
+      "sets": [
+        [
+          {
+            "setId": "15038",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/ifa/"
+    },
+    "10000114": {
+      "name": "Skirk",
+      "sets": [
+        [
+          {
+            "setId": "15040",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15027",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15001",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15040",
+            "pieces": 2
+          },
+          {
+            "setId": "15001",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/skirk/"
+    },
+    "10000115": {
+      "name": "Dahlia",
+      "sets": [
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 2
+          },
+          {
+            "setId": "15030",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/dahlia/"
+    },
+    "10000116": {
+      "name": "Ineffa",
+      "sets": [
+        [
+          {
+            "setId": "15043",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15042",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15043",
+            "pieces": 2
+          },
+          {
+            "setId": "15026",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/ineffa/"
+    },
+    "10000119": {
+      "name": "Lauma",
+      "sets": [
+        [
+          {
+            "setId": "15042",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15025",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15041",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/lauma/"
+    },
+    "10000120": {
+      "name": "Flins",
+      "sets": [
+        [
+          {
+            "setId": "15041",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 2
+          },
+          {
+            "setId": "15041",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15041",
+            "pieces": 2
+          },
+          {
+            "setId": "15019",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/flins/"
+    },
+    "10000121": {
+      "name": "Aino",
+      "sets": [
+        [
+          {
+            "setId": "15042",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/aino/"
+    },
+    "10000122": {
+      "name": "Nefer",
+      "sets": [
+        [
+          {
+            "setId": "15041",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/nefer/"
+    },
+    "10000123": {
+      "name": "Durin",
+      "sets": [
+        [
+          {
+            "setId": "15044",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15006",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/durin/"
+    },
+    "10000124": {
+      "name": "Jahoda",
+      "sets": [
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15042",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/jahoda/"
+    },
+    "10000125": {
+      "name": "Columbina",
+      "sets": [
+        [
+          {
+            "setId": "15042",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15043",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15043",
+            "pieces": 2
+          },
+          {
+            "setId": "15042",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15043",
+            "pieces": 2
+          },
+          {
+            "setId": "15017",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/columbina/"
+    },
+    "10000126": {
+      "name": "Zibai",
+      "sets": [
+        [
+          {
+            "setId": "15041",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15021",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15021",
+            "pieces": 2
+          },
+          {
+            "setId": "15041",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/zibai/"
+    },
+    "10000127": {
+      "name": "Prune",
+      "sets": [
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15045",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/prune/"
+    },
+    "10000128": {
+      "name": "Linnea",
+      "sets": [
+        [
+          {
+            "setId": "15043",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15021",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15043",
+            "pieces": 2
+          },
+          {
+            "setId": "15021",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/linnea/"
+    },
+    "10000129": {
+      "name": "Lohen",
+      "sets": [
+        [
+          {
+            "setId": "15044",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15019",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15027",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/lohen/"
+    },
+    "10000130": {
+      "name": "Illuga",
+      "sets": [
+        [
+          {
+            "setId": "15042",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15043",
+            "pieces": 2
+          },
+          {
+            "setId": "15028",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/illuga/"
+    },
+    "10000131": {
+      "name": "Nicole",
+      "sets": [
+        [
+          {
+            "setId": "15045",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15037",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/nicole/"
+    },
+    "10000132": {
+      "name": "Varka",
+      "sets": [
+        [
+          {
+            "setId": "15044",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15019",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15027",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15001",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/varka/"
+    },
+    "10000133": {
+      "name": "Sandrone",
+      "sets": [
+        [
+          {
+            "setId": "15046",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15026",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15046",
+            "pieces": 2
+          },
+          {
+            "setId": "15026",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/sandrone/"
+    },
+    "10000148": {
+      "name": "Alyosha",
+      "sets": [
+        [
+          {
+            "setId": "15048",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15020",
+            "pieces": 2
+          },
+          {
+            "setId": "15048",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/alyosha/"
+    },
+    "10000150": {
+      "name": "Odette",
+      "sets": [
+        [
+          {
+            "setId": "15048",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15046",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "14001",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://genshin.gg/characters/odette/"
+    }
+  }
+}

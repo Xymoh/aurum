@@ -34,7 +34,13 @@ export function HsrLayout() {
           </Link>
           <nav className="flex items-center gap-1.5" aria-label="Site">
             <GameSwitcherCompact current="hsr" />
-            <LanguageSwitcher />
+            <Link
+            to="/hsr/builds"
+            className="rounded-lg px-2 py-1.5 text-sm text-hsr-muted no-underline transition-colors hover:bg-hsr-fill hover:text-hsr-text"
+          >
+            {t("builds", "navLabel")}
+          </Link>
+                      <LanguageSwitcher />
             <ThemeToggle className="text-hsr-muted hover:bg-hsr-fill hover:text-hsr-text" />
           </nav>
         </div>

@@ -1,0 +1,3942 @@
+{
+  "source": "https://www.prydwen.gg/star-rail/characters/",
+  "fetchedAt": "2026-09-07T12:17:49.451Z",
+  "characters": {
+    "1001": {
+      "name": "March 7th",
+      "relicSets": [
+        [
+          {
+            "setId": "128",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "103",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "103",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/march-7th"
+    },
+    "1002": {
+      "name": "Dan Heng",
+      "relicSets": [
+        [
+          {
+            "setId": "117",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "117",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "301",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/dan-heng"
+    },
+    "1003": {
+      "name": "Himeko",
+      "relicSets": [
+        [
+          {
+            "setId": "115",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "115",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "107",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "313",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "315",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/himeko"
+    },
+    "1004": {
+      "name": "Welt",
+      "relicSets": [
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "117",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/welt"
+    },
+    "1005": {
+      "name": "Kafka",
+      "relicSets": [
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "121",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "116",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/kafka"
+    },
+    "1006": {
+      "name": "Silver Wolf",
+      "relicSets": [
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "108",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/silver-wolf"
+    },
+    "1008": {
+      "name": "Arlan",
+      "relicSets": [
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "109",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "113",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "301",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/arlan"
+    },
+    "1009": {
+      "name": "Asta",
+      "relicSets": [
+        [
+          {
+            "setId": "114",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/asta"
+    },
+    "1013": {
+      "name": "Herta",
+      "relicSets": [
+        [
+          {
+            "setId": "115",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "104",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "313",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "315",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/herta"
+    },
+    "1014": {
+      "name": "Saber",
+      "relicSets": [
+        [
+          {
+            "setId": "126",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "328",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "314",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/saber"
+    },
+    "1015": {
+      "name": "Archer",
+      "relicSets": [
+        [
+          {
+            "setId": "131",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "108",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "124",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "324",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/archer"
+    },
+    "1101": {
+      "name": "Bronya",
+      "relicSets": [
+        [
+          {
+            "setId": "121",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/bronya"
+    },
+    "1102": {
+      "name": "Seele",
+      "relicSets": [
+        [
+          {
+            "setId": "131",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "108",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "318",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/seele"
+    },
+    "1103": {
+      "name": "Serval",
+      "relicSets": [
+        [
+          {
+            "setId": "117",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "109",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "301",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/serval"
+    },
+    "1104": {
+      "name": "Gepard",
+      "relicSets": [
+        [
+          {
+            "setId": "128",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "103",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "103",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/gepard"
+    },
+    "1105": {
+      "name": "Natasha",
+      "relicSets": [
+        [
+          {
+            "setId": "125",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/natasha"
+    },
+    "1106": {
+      "name": "Pela",
+      "relicSets": [
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/pela"
+    },
+    "1107": {
+      "name": "Clara",
+      "relicSets": [
+        [
+          {
+            "setId": "124",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "105",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "113",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "315",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/clara"
+    },
+    "1108": {
+      "name": "Sampo",
+      "relicSets": [
+        [
+          {
+            "setId": "116",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "110",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "322",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/sampo"
+    },
+    "1109": {
+      "name": "Hook",
+      "relicSets": [
+        [
+          {
+            "setId": "117",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "117",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "301",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/hook"
+    },
+    "1110": {
+      "name": "Lynx",
+      "relicSets": [
+        [
+          {
+            "setId": "125",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/lynx"
+    },
+    "1111": {
+      "name": "Luka",
+      "relicSets": [
+        [
+          {
+            "setId": "116",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "105",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "322",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "307",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/luka"
+    },
+    "1112": {
+      "name": "Topaz & Numby",
+      "relicSets": [
+        [
+          {
+            "setId": "115",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "117",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "115",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "315",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "318",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "314",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/topaz"
+    },
+    "1201": {
+      "name": "Qingque",
+      "relicSets": [
+        [
+          {
+            "setId": "124",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "108",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "324",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/qingque"
+    },
+    "1202": {
+      "name": "Tingyun",
+      "relicSets": [
+        [
+          {
+            "setId": "121",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/tingyun"
+    },
+    "1203": {
+      "name": "Luocha",
+      "relicSets": [
+        [
+          {
+            "setId": "125",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "102",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/luocha"
+    },
+    "1204": {
+      "name": "Jing Yuan",
+      "relicSets": [
+        [
+          {
+            "setId": "115",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "109",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "115",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "318",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/jing-yuan"
+    },
+    "1205": {
+      "name": "Blade",
+      "relicSets": [
+        [
+          {
+            "setId": "113",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "319",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/blade"
+    },
+    "1206": {
+      "name": "Sushang",
+      "relicSets": [
+        [
+          {
+            "setId": "105",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "307",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "301",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/sushang"
+    },
+    "1207": {
+      "name": "Yukong",
+      "relicSets": [
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/yukong"
+    },
+    "1208": {
+      "name": "Fu Xuan",
+      "relicSets": [
+        [
+          {
+            "setId": "125",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "113",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "113",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/fu-xuan"
+    },
+    "1209": {
+      "name": "Yanqing",
+      "relicSets": [
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "104",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "301",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/yanqing"
+    },
+    "1210": {
+      "name": "Guinaifen",
+      "relicSets": [
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "116",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "119",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/guinaifen"
+    },
+    "1211": {
+      "name": "Bailu",
+      "relicSets": [
+        [
+          {
+            "setId": "125",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/bailu"
+    },
+    "1212": {
+      "name": "Jingliu",
+      "relicSets": [
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "113",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "319",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/jingliu"
+    },
+    "1213": {
+      "name": "Dan Heng • Imbibitor Lunae",
+      "relicSets": [
+        [
+          {
+            "setId": "124",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "112",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "102",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "324",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/imbibitor-lunae"
+    },
+    "1214": {
+      "name": "Xueyi",
+      "relicSets": [
+        [
+          {
+            "setId": "108",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "307",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "301",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/xueyi"
+    },
+    "1215": {
+      "name": "Hanya",
+      "relicSets": [
+        [
+          {
+            "setId": "114",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "121",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/hanya"
+    },
+    "1217": {
+      "name": "Huohuo",
+      "relicSets": [
+        [
+          {
+            "setId": "125",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "101",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/huohuo"
+    },
+    "1218": {
+      "name": "Jiaoqiu",
+      "relicSets": [
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "116",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/jiaoqiu"
+    },
+    "1220": {
+      "name": "Feixiao",
+      "relicSets": [
+        [
+          {
+            "setId": "120",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "115",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "115",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "315",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "314",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/feixiao"
+    },
+    "1221": {
+      "name": "Yunli",
+      "relicSets": [
+        [
+          {
+            "setId": "120",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "124",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "115",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "315",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/yunli"
+    },
+    "1222": {
+      "name": "Lingsha",
+      "relicSets": [
+        [
+          {
+            "setId": "119",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "125",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "316",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "307",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/lingsha"
+    },
+    "1223": {
+      "name": "Moze",
+      "relicSets": [
+        [
+          {
+            "setId": "117",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "115",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "115",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "315",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "314",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/moze"
+    },
+    "1224": {
+      "name": "March 7th",
+      "relicSets": [
+        [
+          {
+            "setId": "102",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "112",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "112",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "314",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/march-7th-swordmaster"
+    },
+    "1225": {
+      "name": "Fugue",
+      "relicSets": [
+        [
+          {
+            "setId": "119",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "316",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "307",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/tingyun-fugue"
+    },
+    "1301": {
+      "name": "Gallagher",
+      "relicSets": [
+        [
+          {
+            "setId": "125",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "119",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "316",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "307",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/gallagher"
+    },
+    "1302": {
+      "name": "Argenti",
+      "relicSets": [
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "105",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "313",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/argenti"
+    },
+    "1303": {
+      "name": "Ruan Mei",
+      "relicSets": [
+        [
+          {
+            "setId": "118",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/ruan-mei"
+    },
+    "1304": {
+      "name": "Aventurine",
+      "relicSets": [
+        [
+          {
+            "setId": "128",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "103",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "103",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/aventurine"
+    },
+    "1305": {
+      "name": "Dr. Ratio",
+      "relicSets": [
+        [
+          {
+            "setId": "117",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "112",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "115",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "315",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "314",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/dr-ratio"
+    },
+    "1306": {
+      "name": "Sparkle",
+      "relicSets": [
+        [
+          {
+            "setId": "121",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/sparkle"
+    },
+    "1307": {
+      "name": "Black Swan",
+      "relicSets": [
+        [
+          {
+            "setId": "116",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "117",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "322",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "303",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/black-swan"
+    },
+    "1308": {
+      "name": "Acheron",
+      "relicSets": [
+        [
+          {
+            "setId": "117",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "109",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "314",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "301",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/acheron"
+    },
+    "1309": {
+      "name": "Robin",
+      "relicSets": [
+        [
+          {
+            "setId": "102",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/robin"
+    },
+    "1310": {
+      "name": "Firefly",
+      "relicSets": [
+        [
+          {
+            "setId": "119",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "316",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "307",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/firefly"
+    },
+    "1312": {
+      "name": "Misha",
+      "relicSets": [
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "104",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/misha"
+    },
+    "1313": {
+      "name": "Sunday",
+      "relicSets": [
+        [
+          {
+            "setId": "121",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/sunday"
+    },
+    "1314": {
+      "name": "Jade",
+      "relicSets": [
+        [
+          {
+            "setId": "124",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "108",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "115",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "314",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "313",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "315",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/jade"
+    },
+    "1315": {
+      "name": "Boothill",
+      "relicSets": [
+        [
+          {
+            "setId": "119",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "119",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "307",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "316",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/boothill"
+    },
+    "1317": {
+      "name": "Rappa",
+      "relicSets": [
+        [
+          {
+            "setId": "119",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "119",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "307",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "316",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/rappa"
+    },
+    "1321": {
+      "name": "The Dahlia",
+      "relicSets": [
+        [
+          {
+            "setId": "119",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "121",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "316",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "307",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/the-dahlia"
+    },
+    "1401": {
+      "name": "The Herta",
+      "relicSets": [
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "104",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "314",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/the-herta"
+    },
+    "1402": {
+      "name": "Aglaea",
+      "relicSets": [
+        [
+          {
+            "setId": "123",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "102",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "318",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/aglaea"
+    },
+    "1403": {
+      "name": "Tribbie",
+      "relicSets": [
+        [
+          {
+            "setId": "124",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "113",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "319",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/tribbie"
+    },
+    "1404": {
+      "name": "Mydei",
+      "relicSets": [
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "113",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "319",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/mydei"
+    },
+    "1405": {
+      "name": "Anaxa",
+      "relicSets": [
+        [
+          {
+            "setId": "131",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "126",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "108",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "314",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/anaxa"
+    },
+    "1406": {
+      "name": "Cipher",
+      "relicSets": [
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "117",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "108",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/cipher"
+    },
+    "1407": {
+      "name": "Castorice",
+      "relicSets": [
+        [
+          {
+            "setId": "124",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "319",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "321",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "318",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/castorice"
+    },
+    "1408": {
+      "name": "Phainon",
+      "relicSets": [
+        [
+          {
+            "setId": "131",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "126",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "321",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/phainon"
+    },
+    "1409": {
+      "name": "Hyacine",
+      "relicSets": [
+        [
+          {
+            "setId": "125",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "320",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "323",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/hyacine"
+    },
+    "1410": {
+      "name": "Hysilens",
+      "relicSets": [
+        [
+          {
+            "setId": "116",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "105",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "117",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "322",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "303",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/hysilens"
+    },
+    "1412": {
+      "name": "Cerydra",
+      "relicSets": [
+        [
+          {
+            "setId": "121",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "121",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/cerydra"
+    },
+    "1413": {
+      "name": "Evernight",
+      "relicSets": [
+        [
+          {
+            "setId": "127",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "127",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "319",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "321",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/march-7th-evernight"
+    },
+    "1414": {
+      "name": "Dan Heng • Permansor Terrae",
+      "relicSets": [
+        [
+          {
+            "setId": "128",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "128",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "125",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "326",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/dan-heng-permansor-terrae"
+    },
+    "1415": {
+      "name": "Cyrene",
+      "relicSets": [
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "127",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "323",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/cyrene"
+    },
+    "1501": {
+      "name": "Sparxie",
+      "relicSets": [
+        [
+          {
+            "setId": "129",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "324",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "318",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "314",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/sparxie"
+    },
+    "1502": {
+      "name": "Yao Guang",
+      "relicSets": [
+        [
+          {
+            "setId": "130",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/yao-guang"
+    },
+    "1504": {
+      "name": "Ashveil",
+      "relicSets": [
+        [
+          {
+            "setId": "115",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "117",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "326",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "315",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "318",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/ashveil"
+    },
+    "1505": {
+      "name": "Evanescia",
+      "relicSets": [
+        [
+          {
+            "setId": "129",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "325",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/evanescia"
+    },
+    "1506": {
+      "name": "Silver Wolf LV.999",
+      "relicSets": [
+        [
+          {
+            "setId": "129",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "130",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "325",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/silver-wolf-lv-999"
+    },
+    "1507": {
+      "name": "Mortenax Blade",
+      "relicSets": [
+        [
+          {
+            "setId": "132",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "113",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "319",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/blade-mortenax"
+    },
+    "1508": {
+      "name": "Rin Tohsaka",
+      "relicSets": [
+        [
+          {
+            "setId": "108",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "115",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "326",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/rin-tohsaka"
+    },
+    "1509": {
+      "name": "Gilgamesh",
+      "relicSets": [
+        [
+          {
+            "setId": "108",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "115",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "328",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "326",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "314",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/gilgamesh"
+    },
+    "1510": {
+      "name": "Himeko • Nova",
+      "relicSets": [
+        [
+          {
+            "setId": "131",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "126",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "327",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "318",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/himeko-nova"
+    },
+    "1512": {
+      "name": "Robin • Summeretto",
+      "relicSets": [
+        [
+          {
+            "setId": "127",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "323",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/robin-summeretto"
+    },
+    "8001": {
+      "name": "Trailblazer (Caelus)",
+      "relicSets": [
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "105",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "117",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-destruction"
+    },
+    "8002": {
+      "name": "Trailblazer (Stelle)",
+      "relicSets": [
+        [
+          {
+            "setId": "122",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "105",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "117",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "309",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "311",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "306",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-destruction"
+    },
+    "8003": {
+      "name": "Trailblazer (Caelus)",
+      "relicSets": [
+        [
+          {
+            "setId": "103",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "103",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-preservation"
+    },
+    "8004": {
+      "name": "Trailblazer (Stelle)",
+      "relicSets": [
+        [
+          {
+            "setId": "103",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "103",
+            "pieces": 2
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "312",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-preservation"
+    },
+    "8005": {
+      "name": "Trailblazer (Caelus)",
+      "relicSets": [
+        [
+          {
+            "setId": "118",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "307",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-harmony"
+    },
+    "8006": {
+      "name": "Trailblazer (Stelle)",
+      "relicSets": [
+        [
+          {
+            "setId": "118",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "111",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "307",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "302",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-harmony"
+    },
+    "8007": {
+      "name": "Trailblazer (Caelus)",
+      "relicSets": [
+        [
+          {
+            "setId": "127",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "323",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-remembrance"
+    },
+    "8008": {
+      "name": "Trailblazer (Stelle)",
+      "relicSets": [
+        [
+          {
+            "setId": "127",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "323",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "317",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-remembrance"
+    },
+    "8009": {
+      "name": "Trailblazer (Caelus)",
+      "relicSets": [
+        [
+          {
+            "setId": "130",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "326",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-elation"
+    },
+    "8010": {
+      "name": "Trailblazer (Stelle)",
+      "relicSets": [
+        [
+          {
+            "setId": "130",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "110",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "114",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "326",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-elation"
+    }
+  }
+}
