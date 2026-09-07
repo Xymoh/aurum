@@ -1,14 +1,17 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ScoreMethodologyModal } from "../ui/ScoreMethodologyModal";
-import { HelpIcon } from "../ui/icons";
 import { LanguageSwitcher } from "../ui/LanguageSwitcher";
 import { ThemeToggle } from "../ui/ThemeToggle";
 import { useI18n } from "../../i18n";
 import { GameSwitcherCompact } from "../../games/GameRail";
 
+/**
+ * The methodology used to sit here behind a "?" button, as a modal. It was
+ * the same ScoringExplainer the home page already expands, and only Genshin
+ * ever had the button - Star Rail and Zenless explain their own grading on
+ * their own home pages, and their reroll mechanics differ enough that the
+ * Genshin text would have been wrong on them. One place per game now.
+ */
 export function Header() {
-  const [showInfo, setShowInfo] = useState(false);
   const { t } = useI18n();
 
   return (
@@ -30,24 +33,13 @@ export function Header() {
           >
             {t("builds", "navLabel")}
           </Link>
-                    <LanguageSwitcher />
-          <button
-            type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-dark-muted transition-colors hover:bg-dark-border/40 hover:text-dark-text"
-            onClick={() => setShowInfo(true)}
-            aria-label={t("nav", "howScoringWorks")}
-            title={t("nav", "howScoringWorks")}
-          >
-            <HelpIcon className="h-4 w-4" />
-          </button>
+          <LanguageSwitcher />
           <ThemeToggle
             label={t("nav", "toggleTheme")}
             className="text-dark-muted hover:bg-dark-border/40 hover:text-dark-text"
           />
         </nav>
       </div>
-
-      {showInfo && <ScoreMethodologyModal onClose={() => setShowInfo(false)} />}
     </header>
   );
 }
