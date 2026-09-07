@@ -8,6 +8,10 @@ import { LANGUAGES, useI18n, isLanguageCode } from "../../i18n";
 export function LanguageSwitcher() {
   const { lang, setLang, t } = useI18n();
 
+  // A picker with one option is furniture. Hidden rather than disabled so it
+  // leaves no dead control in the header while the flag is off.
+  if (LANGUAGES.length < 2) return null;
+
   return (
     <select
       value={lang}

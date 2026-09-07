@@ -237,7 +237,7 @@ describe("localized names", () => {
     expect(zh.agents.find((a) => a.id === 1431)?.name).toBe("叶瞬光");
 
     const anyDisc = zh.agents.flatMap((a) => a.discs)[0];
-    expect(anyDisc.setName).not.toMatch(/^[\x00-\x7F]*$/);
+    expect(anyDisc.setName).toMatch(/[一-鿿]/);
   });
 
   it("falls back to English for anything the zh table is missing", () => {

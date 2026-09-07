@@ -2,17 +2,32 @@ import { createContext, useCallback, useContext } from "react";
 import { en, type Dictionary } from "./locales/en";
 
 /**
- * English + Chinese for now. The Dictionary type check makes adding a
- * language back mechanical (every missing key is a compile error), so this
- * list expands whenever demand justifies the ongoing translation upkeep -
- * see the other locale files' git history if resurrecting one.
+ * Every language that has a complete locale file. Chinese is finished and
+ * kept in step with English by the Dictionary type check, but it is not
+ * shipped yet - see MULTI_LANGUAGE below.
  */
-export const LANGUAGES = [
+const ALL_LANGUAGES = [
   { code: "en", label: "English" },
   { code: "zh", label: "简体中文" },
 ] as const;
 
-export type LanguageCode = (typeof LANGUAGES)[number]["code"];
+export type LanguageCode = (typeof ALL_LANGUAGES)[number]["code"];
+
+/**
+ * Whether the site offers more than English. Off by default: the audience is
+ * English-speaking today, and a language nobody asked for is a feature to
+ * maintain rather than one to use. Set VITE_I18N=on to ship the rest.
+ *
+ * The gate deliberately sits on the language list rather than on the picker.
+ * Hiding only the picker would leave detectLanguage() free to pick a locale
+ * out of navigator.languages, stranding that visitor in a language they have
+ * no control to leave.
+ */
+export const MULTI_LANGUAGE = import.meta.env.VITE_I18N === "on";
+
+/** The languages actually on offer. One entry means the picker hides itself. */
+export const LANGUAGES: readonly { code: LanguageCode; label: string }[] =
+  MULTI_LANGUAGE ? ALL_LANGUAGES : [ALL_LANGUAGES[0]];
 
 /** Where an explicit language choice is remembered between visits. */
 export const STORAGE_KEY = "language";
@@ -22,6 +37,11 @@ export const LOADERS: Record<Exclude<LanguageCode, "en">, () => Promise<{ defaul
   zh: () => import("./locales/zh"),
 };
 
+/**
+ * Tests against the enabled list, not every locale that exists, so a stored
+ * "zh" from an earlier visit is ignored while the flag is off instead of
+ * quietly outliving it.
+ */
 export function isLanguageCode(value: string): value is LanguageCode {
   return LANGUAGES.some((l) => l.code === value);
 }
