@@ -79,6 +79,7 @@ Opens at `http://localhost:3000`. Enter a Genshin UID (e.g., `707019355`) to vie
 | `npm run fetch-hsr-stats` | Re-import HSR stat curves, traces and set bonuses |
 | `npm run audit-genshin` | Cross-check Genshin substat weights against Prydwen, KQM and Game8 |
 | `npm run fetch-genshin-sets` | Re-import recommended artifact sets for every Genshin character from genshin.gg |
+| `npm run measure-zzz-art` | Measure where each new Zenless agent's head sits in their render, so the panel frames it (skips agents already measured) |
 | `npm run fetch-sets` | Re-import recommended relic and disc sets for Star Rail and Zenless from Prydwen (opens an Edge window) |
 
 ## Data Pipeline

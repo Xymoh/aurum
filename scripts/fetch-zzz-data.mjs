@@ -127,6 +127,13 @@ async function main() {
   for (const row of wStar.data ?? []) curves.star[`${row.rarity}-${row.star}`] = { star: row.star_rate, rand: row.rand_rate };
 
   write("agents.json", agents);
+  // A render nobody has measured falls back to a centred crop, which buries
+  // an off-centre agent under the panel's score block. Say so, rather than
+  // letting the next Claret ship with her face cut off.
+  const focusFile = path.join(OUT, "art-focus.json");
+  const measured = fs.existsSync(focusFile) ? JSON.parse(fs.readFileSync(focusFile, "utf8")).agents ?? {} : {};
+  const unmeasured = Object.entries(agents).filter(([id, a]) => a.image && !(id in measured)).map(([, a]) => a.name);
+  if (unmeasured.length) console.log(`  ⚠ ${unmeasured.length} render(s) not measured, run: npm run measure-zzz-art  (${unmeasured.join(", ")})`);
   write("weapon-curves.json", curves);
   write("sets.json", sets.suits);
   write("set-items.json", sets.items);

@@ -49,7 +49,7 @@ export function BuildPanel({ d, meta, tint }: { d: ZzzBuildDiagnostics; meta: Zz
 
       {meta.priority && (
         <div className="rounded-lg border border-zzz-border/70 bg-zzz-inset p-3">
-          <h3 className="mb-1 font-mono text-xs font-bold uppercase tracking-[0.18em] text-zzz-muted">{t("zzz", "prydwenPriority")}</h3>
+          <h3 className="mb-1 font-mono text-xs font-bold uppercase tracking-[0.18em] text-zzz-muted">{t("zzz", "statsPriority")}</h3>
           <p className="font-mono text-sm text-zzz-text">{meta.priority}</p>
         </div>
       )}

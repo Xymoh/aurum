@@ -10,7 +10,7 @@ import { useShareContext } from "../../lib/shareCard/context";
 import { ShareCardButton } from "../../lib/shareCard/ShareCardButton";
 import { zzzShareCard } from "../shareCard";
 import { zzzStatRow } from "../stats";
-import { agentImage } from "../images";
+import { agentArtOffsetY, agentArtShift, agentImage } from "../images";
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { formatScore } from "../../lib/format";
 import { gradeTextClass } from "../../lib/grade";
@@ -39,6 +39,8 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
   const d = agent.diagnostics;
   const tint = getAgentInfo(agent.id)?.accent ?? "#d4ff00";
   const art = agentImage(agent.id);
+  const artShift = agentArtShift(agent.id);
+  const artOffsetY = agentArtOffsetY(agent.id);
 
   return (
     <section
@@ -62,12 +64,14 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
       >
         {/* Full-body art, faded into the card from the right.
 
-            The crop is anchored near the top because these are full-body
-            renders: the head sits in the upper fifth, so the old 15% landed
-            on the chest. A single offset cannot suit every agent, since the
-            art is not framed consistently (Vivian's umbrella occupies the
-            space above her head, pushing her face lower than anyone
-            else's), so this is the value that frames the most agents well. */}
+            These are full-body renders and the banner shows about a fifth
+            of one, so the crop has to find the face. The renders are not
+            framed consistently: most faces sit around 15% from the top, but
+            Claret's scythe pole reaches the top edge with her face at 26%,
+            and a fixed crop cut it off at the banner's bottom. Sideways,
+            she leans right and Sigrid leans left. Each render is positioned
+            by its measured face (art-focus.json) so every face lands in the
+            same place. */}
         <div className="pointer-events-none absolute inset-0 flex justify-end" aria-hidden="true">
           <div
             className="relative h-full w-2/3 sm:w-1/2"
@@ -78,7 +82,11 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
                 src={art}
                 alt=""
                 loading="lazy"
-                className="h-full w-full object-cover object-[center_6%] opacity-60 transition-opacity duration-300 group-hover:opacity-80"
+                className="h-full w-full object-cover opacity-60 transition-opacity duration-300 group-hover:opacity-80"
+                style={{
+                  objectPosition: `center ${artOffsetY}%`,
+                  transform: artShift ? `translateX(${artShift}%)` : undefined,
+                }}
               />
             )}
             <div className="absolute inset-0 opacity-20 mix-blend-overlay" style={{ backgroundColor: tint }} />

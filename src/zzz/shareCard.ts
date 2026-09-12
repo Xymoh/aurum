@@ -1,7 +1,7 @@
 /** Flattens a Zenless agent into the shared share-card model. */
 
 import type { ShareCardModel, ShareContext } from "../lib/shareCard/model";
-import { agentImage, setIcon } from "./images";
+import { agentArtFocus, agentArtOffsetY, agentImage, setIcon } from "./images";
 import { SLOT_COUNT } from "./scoring";
 import { zzzStatRow } from "./stats";
 import type { ZzzAgent } from "./types";
@@ -20,9 +20,9 @@ export function zzzShareCard(agent: ZzzAgent, ctx: ShareContext): ShareCardModel
     rank: `M${agent.mindscape}`,
     tags: [t("zzzRoles", agent.profession as "Attack"), t("zzzElements", agent.element as "Fire")],
     portraitUrl: agentImage(agent.id),
-    // Matches the panel's object-[center_6%]: these are full-body renders,
-    // so anything lower crops the head off.
-    portraitFocus: { x: 0.5, y: 0.06 },
+    // The same measured face position the panel uses, so an agent framed
+    // well on the page is framed well on the card.
+    portraitFocus: { x: agentArtFocus(agent.id).x, y: agentArtOffsetY(agent.id) / 100 },
     accent: getAgentInfo(agent.id)?.accent ?? "#d4ff00",
     gear: agent.engine
       ? {

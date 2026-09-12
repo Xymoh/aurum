@@ -248,3 +248,41 @@ describe("localized names", () => {
     }
   });
 });
+
+describe("ZZZ render framing", () => {
+  it("moves the crop down for a face that sits low in the render", async () => {
+    const { agentArtFocus, agentArtOffsetY } = await import("../../src/zzz/images");
+    // Claret's scythe pole reaches the top edge; her face is a quarter down.
+    expect(agentArtFocus(1611).y).toBeGreaterThan(0.22);
+    expect(agentArtOffsetY(1611)).toBeGreaterThanOrEqual(18);
+    // A typical face around 15% gets the crop the panel always used.
+    expect(agentArtOffsetY(1431)).toBeGreaterThanOrEqual(4);
+    expect(agentArtOffsetY(1431)).toBeLessThanOrEqual(8);
+  });
+
+  it("shifts an off-centre render so the face lands in the middle", async () => {
+    const { agentArtFocus, agentArtShift } = await import("../../src/zzz/images");
+    // Claret leans right: shift left, clamped at the wash.
+    expect(agentArtFocus(1611).x).toBeGreaterThan(0.6);
+    expect(agentArtShift(1611)).toBe(-15);
+    // Sigrid leans left: shift right, uncapped on that side.
+    expect(agentArtShift(1591)).toBeGreaterThan(10);
+    // A centred render is left alone.
+    expect(Math.abs(agentArtShift(1431))).toBeLessThanOrEqual(3);
+  });
+
+  it("falls back to the typical framing for an agent nobody has measured", async () => {
+    const { agentArtFocus, agentArtOffsetY, agentArtShift } = await import("../../src/zzz/images");
+    expect(agentArtFocus(999999)).toEqual({ x: 0.5, y: 0.15 });
+    expect(agentArtShift(999999)).toBe(0);
+    expect(agentArtOffsetY(999999)).toBe(6);
+  });
+
+  it("has a measurement for every agent that has a render", async () => {
+    const agents = (await import("../../src/zzz/data/agents.json")).default as Record<string, { name: string; image?: string }>;
+    const focus = (await import("../../src/zzz/data/art-focus.json")).default.agents as Record<string, { x: number; y: number }>;
+    const missing = Object.entries(agents).filter(([id, a]) => a.image && !(id in focus)).map(([, a]) => a.name);
+    // A new patch adds agents; `npm run measure-zzz-art` adds their framing.
+    expect(missing).toEqual([]);
+  });
+});

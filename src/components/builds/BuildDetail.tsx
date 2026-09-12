@@ -184,29 +184,6 @@ export function BuildDetail({ target, basePath, skin, owned }: BuildDetailProps)
         ) : null}
       </Section>
 
-      <p className={`text-xs ${skin.muted}`}>
-        {t("builds", "source")}:{" "}
-        {target.source.url ? (
-          <a href={target.source.url} target="_blank" rel="noreferrer" className={skin.accent}>
-            {target.source.label}
-          </a>
-        ) : (
-          target.source.label
-        )}
-        {target.setsSource && (
-          <>
-            {" · "}
-            {t("builds", "setsSource")}:{" "}
-            {target.setsSource.url ? (
-              <a href={target.setsSource.url} target="_blank" rel="noreferrer" className={skin.accent}>
-                {target.setsSource.label}
-              </a>
-            ) : (
-              target.setsSource.label
-            )}
-          </>
-        )}
-      </p>
     </div>
   );
 }

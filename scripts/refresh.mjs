@@ -41,6 +41,7 @@ const STEPS = [
   { id: "hsr-stats", label: "Star Rail stat curves (StarRailRes)", script: "fetch-hsr-stats.mjs" },
   { id: "zzz", label: "Zenless game tables (Enka store)", script: "fetch-zzz-data.mjs" },
   { id: "zzz-weights", label: "Zenless per-agent weights (Prydwen guides)", script: "fetch-zzz-weights.mjs" },
+  { id: "zzz-art", label: "Zenless render framing for new agents", script: "measure-zzz-art.mjs" },
   { id: "genshin-sets", label: "Genshin recommended artifact sets (genshin.gg)", script: "fetch-genshin-sets.mjs" },
   { id: "sets", label: "Star Rail and Zenless recommended sets (Prydwen guides)", script: "fetch-prydwen-sets.mjs" },
 ];
