@@ -1,6 +1,6 @@
 {
   "source": "https://www.prydwen.gg/zenless/characters/",
-  "fetchedAt": "2026-09-07T15:34:11.939Z",
+  "fetchedAt": "2026-09-12T19:06:23.376Z",
   "characters": {
     "1011": {
       "name": "Anby",
@@ -1497,6 +1497,22 @@
         ]
       ],
       "source": "https://www.prydwen.gg/zenless/characters/sigrid"
+    },
+    "1611": {
+      "name": "Claret",
+      "sets": [
+        [
+          {
+            "setId": "34200",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/claret"
     }
   }
 }

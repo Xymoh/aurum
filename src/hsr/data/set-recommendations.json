@@ -1,6 +1,6 @@
 {
   "source": "https://www.prydwen.gg/star-rail/characters/",
-  "fetchedAt": "2026-09-07T15:32:23.627Z",
+  "fetchedAt": "2026-09-12T19:04:35.401Z",
   "characters": {
     "1001": {
       "name": "March 7th",
@@ -3509,6 +3509,44 @@
         ]
       ],
       "source": "https://www.prydwen.gg/star-rail/characters/robin-summeretto"
+    },
+    "1513": {
+      "name": "Aventurine • Waveflair",
+      "relicSets": [
+        [
+          {
+            "setId": "129",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "108",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "130",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "325",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "315",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/aventurine-waveflair"
     },
     "8001": {
       "name": "Trailblazer (Caelus)",
