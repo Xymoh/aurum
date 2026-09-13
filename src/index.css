@@ -658,3 +658,13 @@
     outline-color: var(--accent-strong);
   }
 }
+
+/* Legal pages: Tailwind's preflight strips list markers, and these two pages
+   are the only long-form prose on the site that needs them back. */
+.legal-prose ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+.legal-prose li {
+  margin-top: 0.35rem;
+}

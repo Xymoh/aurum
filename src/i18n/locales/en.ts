@@ -13,6 +13,12 @@ export const en = {
     language: "Language",
   },
 
+  /** Footer links to the legal pages. The pages themselves are English only. */
+  legal: {
+    privacy: "Privacy",
+    terms: "Terms",
+  },
+
   home: {
     tagline: "Score your artifacts like the pros",
     intro:

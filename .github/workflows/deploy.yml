@@ -28,8 +28,9 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          # Optional: URL of a self-hosted Enka proxy (see workers/enka-proxy.js).
-          # When unset the app falls back to public CORS proxies.
+          # Required: URL of the self-hosted Enka proxy (see workers/enka-proxy.js).
+          # There is no public-proxy fallback, so a build without it cannot
+          # look up showcases.
           VITE_ENKA_PROXY: ${{ vars.VITE_ENKA_PROXY }}
 
       - uses: actions/upload-pages-artifact@v3

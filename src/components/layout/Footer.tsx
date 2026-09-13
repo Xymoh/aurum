@@ -1,4 +1,5 @@
 import { useI18n } from "../../i18n";
+import { LegalLinks } from "../../legal/LegalLinks";
 
 const LINK = "text-accent underline hover:opacity-80";
 
@@ -30,6 +31,9 @@ export function Footer() {
           genshin.gg
         </a>
         .
+      </p>
+      <p className="mt-2 text-dark-muted text-sm">
+        <LegalLinks className={LINK} />
       </p>
     </footer>
   );

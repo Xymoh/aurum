@@ -4,9 +4,12 @@
  * Enka does NOT send CORS headers, so a browser cannot call it directly.
  * In development the Vite dev server proxies /api/proxy. In production
  * (GitHub Pages) requests go through the self-hosted Cloudflare Worker in
- * workers/enka-proxy.js, configured at build time via VITE_ENKA_PROXY. A
- * single public CORS proxy is kept as a last resort for builds without one;
- * it receives the user's UID, so it is only tried after the worker fails.
+ * workers/enka-proxy.js, configured at build time via VITE_ENKA_PROXY.
+ *
+ * There is deliberately no public CORS proxy fallback: a request carries the
+ * visitor's IP and the UID they typed, and the privacy policy promises those
+ * go to our own worker and Enka.Network only. A production build without
+ * VITE_ENKA_PROXY fails the lookup with a clear message instead.
  */
 
 export type EnkaGame = "gi" | "hsr" | "zzz";
@@ -56,19 +59,8 @@ function customProxy(uid: string, game: EnkaGame): CorsProxy | null {
 }
 
 /**
- * Last-resort fallback for builds without VITE_ENKA_PROXY. Public proxies come
- * and go without notice, so only one is kept and it is always tried last.
- */
-const PUBLIC_PROXIES: CorsProxy[] = [
-  {
-    url: (target) => `https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`,
-    extract: passthrough,
-  },
-];
-
-/**
- * Proxies occasionally answer 408/429 or time out on the Enka leg, so the
- * list gets a second pass before we give up.
+ * The worker occasionally answers 408/429 or times out on the Enka leg, so
+ * it gets a second attempt before we give up.
  */
 const PROXY_PASSES = 2;
 const PER_ATTEMPT_TIMEOUT = 10_000;
@@ -80,6 +72,8 @@ const MAINTENANCE_MESSAGE =
 const RATE_LIMIT_MESSAGE = "Too many requests. Please wait a moment and try again.";
 const UNAVAILABLE_MESSAGE =
   "Could not reach Enka.Network right now. Please try again in a moment.";
+const MISCONFIGURED_MESSAGE =
+  "This build has no showcase proxy configured, so lookups are unavailable. Set VITE_ENKA_PROXY at build time (see workers/enka-proxy.js).";
 
 /** Thrown when the upstream answer is final - retrying another proxy is pointless. */
 class TerminalError extends Error {}
@@ -169,21 +163,21 @@ export async function fetchFromEnka<T>(
     }
   }
 
-  const custom = customProxy(uid, game);
-  const proxies = custom ? [custom, ...PUBLIC_PROXIES] : PUBLIC_PROXIES;
+  const proxy = customProxy(uid, game);
+  if (!proxy) {
+    throw new Error(MISCONFIGURED_MESSAGE);
+  }
 
   let lastError: unknown;
   let rateLimited = false;
 
   for (let pass = 0; pass < PROXY_PASSES; pass++) {
-    for (const proxy of proxies) {
-      try {
-        return await viaCorsProxy<T>(proxy, uid, game, isValid);
-      } catch (err) {
-        if (err instanceof TerminalError) throw new Error(err.message);
-        if (err instanceof Error && /status 429/.test(err.message)) rateLimited = true;
-        lastError = err;
-      }
+    try {
+      return await viaCorsProxy<T>(proxy, uid, game, isValid);
+    } catch (err) {
+      if (err instanceof TerminalError) throw new Error(err.message);
+      if (err instanceof Error && /status 429/.test(err.message)) rateLimited = true;
+      lastError = err;
     }
   }
 

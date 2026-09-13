@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { GAMES } from "./registry";
 import { ThemeToggle } from "../components/ui/ThemeToggle";
+import { LegalLinks } from "../legal/LegalLinks";
 
 /**
  * The root landing page: pick a game, then that game's scorer takes over with
@@ -111,6 +112,9 @@ export function GamePickerPage() {
 
         <p className="mt-10 text-sm text-dark-muted">
           Fan-made and not affiliated with HoYoverse. Showcase data from Enka.Network.
+        </p>
+        <p className="mt-2 text-sm text-dark-muted">
+          <LegalLinks className="text-accent underline hover:opacity-80" />
         </p>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { GameRail, GameSwitcherCompact } from "../../games/GameRail";
 import { ThemeToggle } from "../../components/ui/ThemeToggle";
 import { LanguageSwitcher } from "../../components/ui/LanguageSwitcher";
 import { useI18n } from "../../i18n";
+import { LegalLinks } from "../../legal/LegalLinks";
 
 /**
  * Layout for the Zenless side.
@@ -73,6 +74,9 @@ export function ZzzLayout() {
               Prydwen
             </a>
             .
+          </p>
+          <p className="mt-2">
+            <LegalLinks className="text-zzz-accent underline underline-offset-2 hover:text-zzz-text" />
           </p>
         </div>
       </footer>

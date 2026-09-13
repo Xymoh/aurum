@@ -5,6 +5,7 @@ import { GameRail, GameSwitcherCompact } from "../../games/GameRail";
 import { ThemeToggle } from "../../components/ui/ThemeToggle";
 import { LanguageSwitcher } from "../../components/ui/LanguageSwitcher";
 import { useI18n } from "../../i18n";
+import { LegalLinks } from "../../legal/LegalLinks";
 
 /**
  * Layout for the Star Rail side.
@@ -96,6 +97,9 @@ export function HsrLayout() {
               Prydwen
             </a>
             .
+          </p>
+          <p className="mt-2">
+            <LegalLinks className="text-hsr-accent underline underline-offset-2 hover:text-hsr-text" />
           </p>
         </div>
       </footer>

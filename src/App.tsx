@@ -15,6 +15,9 @@ import { ZzzLayout } from "./zzz/pages/ZzzLayout";
 import { ZzzHomePage } from "./zzz/pages/ZzzHomePage";
 import { ZzzShowcasePage } from "./zzz/pages/ZzzShowcasePage";
 import { ZzzBuildsPage } from "./zzz/pages/ZzzBuildsPage";
+import { PrivacyPage } from "./legal/PrivacyPage";
+import { TermsPage } from "./legal/TermsPage";
+import { PRIVACY_PATH, TERMS_PATH } from "./legal/site";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -69,6 +72,10 @@ export function App() {
             </Route>
 
             <Route path="showcase/:uid" element={<LegacyShowcaseRedirect />} />
+
+            {/* Site-wide legal pages, outside any game's chrome. */}
+            <Route path={PRIVACY_PATH} element={<PrivacyPage />} />
+            <Route path={TERMS_PATH} element={<TermsPage />} />
 
             <Route element={<Layout />}>
               <Route path="*" element={<NotFoundPage />} />

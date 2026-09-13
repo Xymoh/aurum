@@ -8,6 +8,11 @@ const zh: Dictionary = {
     language: "语言",
   },
 
+  legal: {
+    privacy: "隐私政策",
+    terms: "使用条款",
+  },
+
   home: {
     tagline: "像高手一样评价你的圣遗物",
     intro: "输入 UID，立即评估你展示柜中每位角色、每一件圣遗物的品质。",
