@@ -1,6 +1,6 @@
 {
   "source": "https://www.prydwen.gg/zenless/characters/",
-  "fetchedAt": "2026-09-12T19:06:23.376Z",
+  "fetchedAt": "2026-09-21T00:59:38.022Z",
   "characters": {
     "1011": {
       "name": "Anby",
@@ -302,16 +302,6 @@
         [
           {
             "setId": "32800",
-            "pieces": 4
-          },
-          {
-            "setId": "33200",
-            "pieces": 2
-          }
-        ],
-        [
-          {
-            "setId": "31900",
             "pieces": 4
           },
           {
@@ -663,10 +653,18 @@
           {
             "setId": "31800",
             "pieces": 4
-          },
+          }
+        ],
+        [
+          {
+            "setId": "34100",
+            "pieces": 4
+          }
+        ],
+        [
           {
             "setId": "31300",
-            "pieces": 2
+            "pieces": 4
           }
         ]
       ],
@@ -1444,6 +1442,12 @@
         [
           {
             "setId": "33200",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "32800",
             "pieces": 4
           }
         ]
