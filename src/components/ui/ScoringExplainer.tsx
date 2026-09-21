@@ -22,7 +22,7 @@ export function ScoringExplainer() {
   const { t } = useI18n();
 
   // Coarsened to one row per 10% band - the full 18-grade table is too dense to skim.
-  const gradeRows = GRADE_THRESHOLDS.filter((_, i) => i % 2 === 0);
+  const gradeRows = GRADE_THRESHOLDS.filter((_, i) => i % 2 === 1);
 
   return (
     <div className="space-y-5 text-sm leading-relaxed text-dark-muted">

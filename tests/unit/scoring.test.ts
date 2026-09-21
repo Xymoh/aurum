@@ -201,6 +201,7 @@ describe("computeRerollAdvice", () => {
         isPercentage: true,
         isCorrect: true,
         isRecommended: true,
+        idealStats: [],
       },
       substats,
       score: {
@@ -228,6 +229,8 @@ describe("computeRerollAdvice", () => {
           medianGain: 0,
           realisticCeiling: 0,
           targetStats: [],
+          nextGrade: null,
+          nextGradeChance: 0,
           erRisk: false,
           erBreachChance: 0,
           erThreshold: 0,

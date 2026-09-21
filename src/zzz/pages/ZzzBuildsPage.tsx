@@ -37,7 +37,7 @@ export function ZzzBuildsPage() {
   );
 
   const uid = useMemo(() => readRecentUids(ZZZ_RECENT_UIDS_KEY)[0]?.uid ?? "", []);
-  const { data, isLoading } = useZzzShowcase(uid);
+  const { data, isLoading, isError } = useZzzShowcase(uid, { enabled: Boolean(id) });
 
   const owned = useMemo(() => {
     if (!id || !data) return null;
@@ -91,6 +91,7 @@ export function ZzzBuildsPage() {
             name={target.name}
             uid={uid || null}
             loading={isLoading}
+            failed={isError}
             owned={owned}
             homeHref="/zzz"
           />

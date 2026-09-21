@@ -20,6 +20,7 @@ function makeArtifact(setId: string, setName: string): Artifact {
       isPercentage: false,
       isCorrect: true,
       isRecommended: true,
+      idealStats: [],
     },
     substats: [],
     score: {
@@ -47,6 +48,8 @@ function makeArtifact(setId: string, setName: string): Artifact {
         medianGain: 0,
         realisticCeiling: 0,
         targetStats: [],
+        nextGrade: null,
+        nextGradeChance: 0,
         erRisk: false,
         erBreachChance: 0,
         erThreshold: 0,

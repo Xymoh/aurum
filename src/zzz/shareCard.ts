@@ -14,6 +14,7 @@ export function zzzShareCard(agent: ZzzAgent, ctx: ShareContext): ShareCardModel
   return {
     game: "zzz",
     uid: ctx.uid,
+    characterId: String(agent.id),
     playerName: ctx.playerName,
     name: agent.name,
     level: `Lv${agent.level}`,

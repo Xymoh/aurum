@@ -7,7 +7,7 @@
  * scoring engine.
  *
  * Usage: node scripts/fetch-go-data.js
- * Output: genshin_optimizer_processed_data.json (workspace root)
+ * Output: src/data/genshin-optimizer.json (workspace root)
  * ──────────────────────────────────────────────────────────────────
  */
 
@@ -24,7 +24,7 @@ const ROOT = path.resolve(__dirname, "..");
 const GO_STATS_URL =
   "https://raw.githubusercontent.com/frzyc/genshin-optimizer/master/libs/gi/stats/src/allStat_gen.json";
 
-const OUTPUT_FILE = path.join(ROOT, "genshin_optimizer_processed_data.json");
+const OUTPUT_FILE = path.join(ROOT, "src/data/genshin-optimizer.json");
 
 // ── Helpers ────────────────────────────────────────────────────────
 

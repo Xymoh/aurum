@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -15,6 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Every push and pull request is checked; only a push to main deploys.
   build:
     runs-on: ubuntu-latest
     steps:
@@ -22,10 +24,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: npm
 
       - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test:run
       - run: npm run build
         env:
           # Required: URL of the self-hosted Enka proxy (see workers/enka-proxy.js).
@@ -34,10 +39,12 @@ jobs:
           VITE_ENKA_PROXY: ${{ vars.VITE_ENKA_PROXY }}
 
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
         with:
           path: dist
 
   deploy:
+    if: github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

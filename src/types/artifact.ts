@@ -42,6 +42,12 @@ export interface ArtifactMainStat {
   isPercentage: boolean;
   isCorrect: boolean;
   isRecommended: boolean;
+  /**
+   * What the build wants in this slot, as weight keys (CRIT_RATE, PYRO_DMG,
+   * ELEMENTAL_MASTERY). Empty for Flower and Plume and for characters whose
+   * build accepts anything, which is a real answer rather than a gap.
+   */
+  idealStats: string[];
 }
 
 export interface ArtifactScore {
@@ -107,6 +113,10 @@ export interface RerollAdvice {
   realisticCeiling: number;
   /** The two substats to nominate in-game, highest value-per-roll first. */
   targetStats: string[];
+  /** The next grade band up from the current score, or null at the top. */
+  nextGrade: ScoreGrade | null;
+  /** Probability a single reshape lands in that band or higher. */
+  nextGradeChance: number;
   /**
    * True when this piece's Energy Recharge is load-bearing enough to warn about.
    *

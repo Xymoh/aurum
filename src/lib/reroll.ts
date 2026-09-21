@@ -29,8 +29,9 @@
  * We answer it by Monte-Carlo simulating the reshape and measuring the share of
  * outcomes that clear a meaningful margin over the current score.
  */
-import type { Artifact, ArtifactSubstat, RerollAdvice } from "../types/artifact";
+import type { Artifact, ArtifactSubstat, RerollAdvice, ScoreGrade } from "../types/artifact";
 import type { ScoringWeights } from "../types/scoring";
+import { GRADE_LADDER } from "./gradeLadder";
 
 /** The four possible values of any substat roll, as a fraction of its max roll. */
 const ROLL_TIERS = [0.7, 0.8, 0.9, 1.0];
@@ -167,6 +168,8 @@ const NO_ADVICE: RerollAdvice = {
   medianGain: 0,
   realisticCeiling: 0,
   targetStats: [],
+  nextGrade: null,
+  nextGradeChance: 0,
   erRisk: false,
   erBreachChance: 0,
   erThreshold: 0,
@@ -182,6 +185,19 @@ function mulberry32(seed: number): () => number {
     t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
+}
+
+/**
+ * The part of a substat's value a reshape cannot touch: the roll that created
+ * it. A stat that only appeared through an upgrade (the fourth line of a
+ * three-liner) has no such roll, and everything it carries is up for grabs.
+ */
+export function baseValueOf(s: ArtifactSubstat): number {
+  if (s.rolls.length > 0) {
+    const createdBySubstat = s.rolls.length > s.rollCount;
+    return createdBySubstat ? s.rolls[0] * s.maxRoll : 0;
+  }
+  return Math.max(0, s.value - s.rollCount * AVG_ROLL_TIER * s.maxRoll);
 }
 
 /**
@@ -261,15 +277,14 @@ export function computeRerollAdvice(
     };
   }
 
-  // Strip the estimated contribution of the current upgrades to isolate the
-  // base rolls, which a reshape leaves untouched and which therefore form the
-  // floor every simulated outcome is built on.
+  // Isolate the base rolls, which a reshape leaves untouched and which
+  // therefore form the floor every simulated outcome is built on. Enka names
+  // every roll's tier, so the floor is exact whenever the roll list is
+  // present; the 0.85 average is only the fallback for a payload without it.
   let baseWeighted = 0;
   for (let i = 0; i < subs.length; i++) {
     const s: ArtifactSubstat = subs[i];
-    const upgradeValue = s.rollCount * AVG_ROLL_TIER * s.maxRoll;
-    const baseValue = Math.max(0, s.value - upgradeValue);
-    baseWeighted += resolveWeight(s.statKey, weights) * potentialScale(s.statKey) * baseValue;
+    baseWeighted += resolveWeight(s.statKey, weights) * potentialScale(s.statKey) * baseValueOf(s);
   }
 
   // ── Energy Recharge floor ────────────────────────────────────────────────
@@ -283,7 +298,7 @@ export function computeRerollAdvice(
     ? Math.min(erContext.currentTotalER, erContext.threshold)
     : -Infinity;
   const erFromOthers = erContext && erSub ? erContext.currentTotalER - erSub.value : 0;
-  const erBase = erSub ? Math.max(0, erSub.value - erSub.rollCount * AVG_ROLL_TIER * erSub.maxRoll) : 0;
+  const erBase = erSub ? baseValueOf(erSub) : 0;
 
   // Seed from the artifact's *content*, never its `id` - ids embed Date.now()
   // and Math.random() at parse time, so seeding from one would re-roll the
@@ -351,6 +366,15 @@ export function computeRerollAdvice(
   const expectedDust = expectedReshapes * dustCost;
   const targetStats = targets.map((i) => subs[i].displayName);
 
+  // "Will this reach the next letter?" is the question a player actually
+  // asks, so the odds of clearing the next band are reported alongside the
+  // odds of a meaningful gain. The band is taken from the whole percent
+  // the card shows, so it agrees with the grade beside the number.
+  const shownPercent = Math.round(currentPercent);
+  const nextBand = [...GRADE_LADDER].reverse().find((band) => band.min > shownPercent) ?? null;
+  const nextGrade = nextBand ? (nextBand.grade as ScoreGrade) : null;
+  const nextGradeChance = nextBand ? outcomes.filter((p) => Math.round(p) >= nextBand.min).length / TRIALS : 0;
+
   // Surfaced alongside the odds so the player can weigh it themselves: this is
   // the one substat with a hard breakpoint, and only they know their team.
   const erBreachChance = erSub != null && erContext != null ? erBreaches / TRIALS : 0;
@@ -385,6 +409,8 @@ export function computeRerollAdvice(
       expectedDust,
       medianGain,
       targetStats,
+      nextGrade,
+      nextGradeChance,
       erRisk,
       erBreachChance,
       erThreshold,
@@ -407,6 +433,8 @@ export function computeRerollAdvice(
     medianGain,
     realisticCeiling,
     targetStats,
+    nextGrade,
+    nextGradeChance,
     erRisk,
     erBreachChance,
     erThreshold,

@@ -185,8 +185,8 @@ const ABUNDANCE: HsrWeights = {
 };
 
 /**
- * Internal Path names as they appear in the game data. The English names
- * players know are in PATH_LABELS. These mirror Fribbels' role defaults
+ * Internal Path names as they appear in the game data (the dictionary
+ * carries the English names players know). These mirror Fribbels' role defaults
  * (0.75 ATK, 1.0 SPD, 1.0 CR, 1.0 CD for crit damage dealers, 0.25 RES on
  * offensive supports, 0.5 RES on sustains) and only apply when a character
  * has no entry of their own.
@@ -201,18 +201,6 @@ const PATH_WEIGHTS: Record<string, HsrWeights> = {
   Warlock: NIHILITY, // Nihility
   Knight: PRESERVATION, // Preservation
   Priest: ABUNDANCE, // Abundance
-};
-
-export const PATH_LABELS: Record<string, string> = {
-  Warrior: "Destruction",
-  Rogue: "The Hunt",
-  Mage: "Erudition",
-  Memory: "Remembrance",
-  Elation: "Elation",
-  Shaman: "Harmony",
-  Warlock: "Nihility",
-  Knight: "Preservation",
-  Priest: "Abundance",
 };
 
 /**

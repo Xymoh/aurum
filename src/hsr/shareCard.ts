@@ -14,6 +14,7 @@ export function hsrShareCard(character: HsrCharacter, ctx: ShareContext): ShareC
   return {
     game: "hsr",
     uid: ctx.uid,
+    characterId: String(character.avatarId),
     playerName: ctx.playerName,
     name: character.name,
     level: `Lv${character.level}`,

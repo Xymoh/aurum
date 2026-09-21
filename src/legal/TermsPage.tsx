@@ -1,6 +1,16 @@
 import { Link } from "react-router-dom";
 import { Ext, LegalLayout, Section } from "./LegalLayout";
-import { CONTACT_LABEL, CONTACT_URL, OPERATOR, PRIVACY_PATH, REPO_URL, SITE_NAME, SITE_URL } from "./site";
+import {
+  CONTACT_LABEL,
+  CONTACT_URL,
+  LICENSE_URL,
+  NOTICES_URL,
+  OPERATOR,
+  PRIVACY_PATH,
+  REPO_URL,
+  SITE_NAME,
+  SITE_URL,
+} from "./site";
 
 /**
  * Terms for a free fan tool: what it is, whose work it builds on, and that
@@ -68,7 +78,15 @@ export function TermsPage() {
             <Ext href="https://www.prydwen.gg/">Prydwen</Ext> and{" "}
             <Ext href="https://genshin.gg/">genshin.gg</Ext> inform the build and set recommendations.
           </li>
+          <li>
+            <Ext href="https://gi.yatta.moe/">Project Amber</Ext> and community mirrors of the games'
+            data files supply localised names and item ids.
+          </li>
         </ul>
+        <p>
+          The full list, with each source's licence and the notices those licences require, is kept
+          in the repository as <Ext href={NOTICES_URL}>THIRD_PARTY_NOTICES.md</Ext>.
+        </p>
         <p>
           Those sites and services are independent of {SITE_NAME}, have their own terms, and are not
           responsible for anything here. Links to them are provided for convenience and attribution.
@@ -131,8 +149,10 @@ export function TermsPage() {
       <Section title="8. The site's own code">
         <p>
           The scoring code and this site's own text and design belong to {OPERATOR}. The source is
-          published at <Ext href={REPO_URL}>{REPO_URL}</Ext>, and any licence stated there governs its
-          reuse. Game assets and third-party data remain under their owners' rights as described above.
+          published at <Ext href={REPO_URL}>{REPO_URL}</Ext> under the{" "}
+          <Ext href={LICENSE_URL}>MIT License</Ext>, which governs its reuse. Game assets and
+          third-party data are not covered by that licence and remain under their owners' rights as
+          described above.
         </p>
       </Section>
 

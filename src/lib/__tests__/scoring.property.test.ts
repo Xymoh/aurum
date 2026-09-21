@@ -230,3 +230,128 @@ describe("getGrade", () => {
     );
   });
 });
+
+// ── Invariants every scorer must hold ──
+//
+// These are the three properties a Fribbels-style scorer is defined by, and
+// the ones a wrong constant or a stray sort would break first: a roll on a
+// wanted stat never lowers the score, the order substats arrive in does not
+// matter, and the 0-200 scale tops out exactly where the README says it does.
+
+const WEIGHT_KEY: Record<string, keyof ScoringWeights> = {
+  FIGHT_PROP_CRITICAL: "CRIT_RATE",
+  FIGHT_PROP_CRITICAL_HURT: "CRIT_DMG",
+  FIGHT_PROP_ATTACK_PERCENT: "ATK_PERCENT",
+  FIGHT_PROP_HP_PERCENT: "HP_PERCENT",
+  FIGHT_PROP_DEFENSE_PERCENT: "DEF_PERCENT",
+  FIGHT_PROP_ELEMENT_MASTERY: "ELEMENTAL_MASTERY",
+  FIGHT_PROP_CHARGE_EFFICIENCY: "ENERGY_RECHARGE",
+  FIGHT_PROP_ATTACK: "FLAT_ATK",
+  FIGHT_PROP_HP: "FLAT_HP",
+  FIGHT_PROP_DEFENSE: "FLAT_DEF",
+};
+
+/** The weight the scorer applies to a substat: flats derived, the main stat zeroed. */
+function effectiveWeight(weights: ScoringWeights, statKey: FightProp, mainStat: FightProp): number {
+  if (statKey === mainStat) return 0;
+  const key = WEIGHT_KEY[statKey];
+  if (key === "FLAT_ATK") return weights.ATK_PERCENT * 0.4;
+  if (key === "FLAT_HP") return weights.HP_PERCENT * 0.4;
+  if (key === "FLAT_DEF") return weights.DEF_PERCENT * 0.4;
+  return weights[key];
+}
+
+describe("scoring invariants", () => {
+  it("is monotone: more of a wanted stat never lowers the score", () => {
+    fc.assert(
+      fc.property(
+        arbSubstats,
+        arbNonZeroWeights,
+        arbMainStatKey,
+        fc.nat({ max: 3 }),
+        fc.double({ min: 0.01, max: 20, noNaN: true }),
+        (substats, weights, mainStat, which, extra) => {
+          const target = substats[which % substats.length];
+          // A weight the generator can shrink to a denormal contributes
+          // nothing representable; the property is about wanted stats.
+          fc.pre(effectiveWeight(weights, target.statKey, mainStat) >= 0.01);
+          const before = computeWeightedPotential(substats, weights, mainStat);
+          const bumped = substats.map((s) => (s === target ? { ...s, value: s.value + extra } : s));
+          expect(computeWeightedPotential(bumped, weights, mainStat)).toBeGreaterThan(before);
+        },
+      ),
+    );
+  });
+
+  it("is invariant under the order substats are listed in", () => {
+    fc.assert(
+      fc.property(arbSubstats, arbScoringWeights, arbMainStatKey, (substats, weights, mainStat) => {
+        const reversed = [...substats].reverse();
+        expect(computeWeightedPotential(reversed, weights, mainStat)).toBeCloseTo(
+          computeWeightedPotential(substats, weights, mainStat),
+          9,
+        );
+      }),
+    );
+  });
+
+  it("reaches exactly 200% for six max rolls on the best stat plus one on each of the next three", () => {
+    fc.assert(
+      fc.property(arbNonZeroWeights, arbMainStatKey, (weights, mainStat) => {
+        const ranked = SUBSTAT_KEYS.map((k) => [k, effectiveWeight(weights, k, mainStat)] as const)
+          .filter(([, w]) => w > 0)
+          .sort((a, b) => b[1] - a[1]);
+        fc.pre(ranked.length >= 4);
+        const perfect: ArtifactSubstat[] = ranked.slice(0, 4).map(([statKey], i) => ({
+          statKey,
+          displayName: statKey,
+          shortName: statKey,
+          value: MAX_ROLL_VALUES[statKey] * (i === 0 ? 6 : 1),
+          isPercentage: true,
+          maxRoll: MAX_ROLL_VALUES[statKey],
+          rollCount: i === 0 ? 5 : 0,
+          rollQuality: "high",
+          rolls: [],
+        }));
+        const ideal = computeIdealPotential(weights, mainStat);
+        const weighted = computeWeightedPotential(perfect, weights, mainStat);
+        expect(computePotentialPercent(weighted, ideal)).toBeCloseTo(200, 6);
+      }),
+    );
+  });
+
+  it("never exceeds 200% for any artifact the game can produce", () => {
+    // Four distinct substats, nine rolls between them, every roll at most a
+    // max roll: the ceiling is the perfect piece above, nothing beats it.
+    const arbRealSubstats = fc
+      .uniqueArray(fc.constantFrom(...SUBSTAT_KEYS), { minLength: 4, maxLength: 4 })
+      .chain((keys) =>
+        fc
+          .tuple(
+            ...keys.map(() => fc.array(fc.constantFrom(0.7, 0.8, 0.9, 1.0), { minLength: 1, maxLength: 6 })),
+          )
+          .filter((rolls) => rolls.reduce((n, r) => n + r.length, 0) <= 9)
+          .map((rolls) =>
+            keys.map((statKey, i): ArtifactSubstat => ({
+              statKey,
+              displayName: statKey,
+              shortName: statKey,
+              value: MAX_ROLL_VALUES[statKey] * rolls[i].reduce((a, b) => a + b, 0),
+              isPercentage: true,
+              maxRoll: MAX_ROLL_VALUES[statKey],
+              rollCount: rolls[i].length - 1,
+              rollQuality: "high",
+              rolls: rolls[i],
+            })),
+          ),
+      );
+    fc.assert(
+      fc.property(arbRealSubstats, arbNonZeroWeights, arbMainStatKey, (substats, weights, mainStat) => {
+        const ideal = computeIdealPotential(weights, mainStat);
+        fc.pre(ideal > 0);
+        const percent = computePotentialPercent(computeWeightedPotential(substats, weights, mainStat), ideal);
+        expect(percent).toBeLessThanOrEqual(200 + 1e-6);
+      }),
+    );
+  });
+});

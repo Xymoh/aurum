@@ -1,4 +1,5 @@
 import { useTheme } from "../../lib/theme";
+import { useI18n } from "../../i18n";
 
 interface ThemeToggleProps {
   /** Utility classes for the button shell, so each game can restyle it. */
@@ -24,15 +25,17 @@ function MoonIcon() {
 }
 
 /** Switches between light and dark, remembers the choice, shows the icon of the theme you would get. */
-export function ThemeToggle({ className = "", label = "Toggle theme" }: ThemeToggleProps) {
+export function ThemeToggle({ className = "", label }: ThemeToggleProps) {
   const { theme, toggle } = useTheme();
+  const { t } = useI18n();
+  const name = label ?? t("nav", "toggleTheme");
   return (
     <button
       type="button"
       onClick={toggle}
-      aria-label={label}
+      aria-label={name}
       aria-pressed={theme === "light"}
-      title={label}
+      title={name}
       className={`inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors ${className}`}
     >
       {theme === "light" ? <MoonIcon /> : <SunIcon />}

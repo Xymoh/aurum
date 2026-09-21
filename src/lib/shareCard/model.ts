@@ -49,6 +49,8 @@ export interface ShareCardModel {
   /** Where the showcase came from, drawn small in the footer. */
   uid: string;
   playerName: string;
+  /** The character's id in its game, so a shared link can open straight to them. */
+  characterId?: string;
 
   name: string;
   /** Pre-formatted, so each game keeps its own convention: "Lv90". */

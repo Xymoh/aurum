@@ -73,6 +73,7 @@ interface RawAvatar {
   skillTreeList?: RawSkillNode[];
 }
 export interface RawHsrResponse {
+  ttl?: number;
   detailInfo?: {
     uid?: number;
     nickname?: string;
@@ -275,6 +276,7 @@ export function parseHsrShowcase(raw: RawHsrResponse): ParsedShowcase {
   });
 
   return {
+    ttl: raw.ttl ?? 60,
     uid: String(info.uid ?? ""),
     nickname: info.nickname ?? "Unknown",
     level: info.level ?? 0,

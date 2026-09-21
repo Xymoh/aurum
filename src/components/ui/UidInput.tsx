@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { sanitizeUidInput, isValidUid } from "../../lib/uid";
+import { sanitizeUidInput, isValidUid, UID_MAX_LENGTH } from "../../lib/uid";
 import { useI18n } from "../../i18n";
 import { GENSHIN_RECENT_UIDS_KEY, rememberUid } from "../../hooks/useRecentUids";
 
@@ -14,7 +14,9 @@ export function UidInput() {
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const sanitized = sanitizeUidInput(e.target.value);
     setRawInput(sanitized);
-    if (sanitized.length > 0 && !isValidUid(sanitized) && sanitized.length === 9) {
+    // Complain only once the field is full and still wrong; a UID in
+    // progress is not an error.
+    if (sanitized.length === UID_MAX_LENGTH && !isValidUid(sanitized)) {
       setError(t("uid", "invalid"));
     } else {
       setError("");
@@ -25,7 +27,7 @@ export function UidInput() {
     (e: React.FormEvent) => {
       e.preventDefault();
       if (!isValidUid(rawInput)) {
-        setError("Please enter a valid 9-digit Genshin UID.");
+        setError(t("uid", "invalid"));
         return;
       }
 
@@ -33,7 +35,7 @@ export function UidInput() {
       rememberUid(GENSHIN_RECENT_UIDS_KEY, rawInput);
       navigate(`/genshin/showcase/${rawInput}`);
     },
-    [rawInput, navigate],
+    [rawInput, navigate, t],
   );
 
   return (
@@ -47,7 +49,7 @@ export function UidInput() {
             placeholder={t("uid", "placeholder")}
             value={rawInput}
             onChange={handleChange}
-            maxLength={9}
+            maxLength={UID_MAX_LENGTH}
             className={`game-panel-sm flex-1 h-12 px-4 text-lg font-mono tracking-wider
               bg-dark-card border outline-none transition-all duration-200
               text-dark-text placeholder:text-dark-muted/50
@@ -56,9 +58,9 @@ export function UidInput() {
                   ? "border-red-500/50 focus:border-red-500"
                   : "border-dark-border"
               }
-              ${rawInput.length === 9 && !error ? "animate-[pulse_2s_ease-in-out_1]" : ""}
+              ${isValidUid(rawInput) && !error ? "animate-[pulse_2s_ease-in-out_1]" : ""}
             `}
-            aria-label="Genshin Impact UID"
+            aria-label={t("uid", "placeholder")}
             aria-describedby={error ? "uid-error" : undefined}
           />
           <button

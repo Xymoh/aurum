@@ -39,7 +39,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // ── Our table ─────────────────────────────────────────────────────
 
-const GO = JSON.parse(fs.readFileSync(path.join(ROOT, "genshin_optimizer_processed_data.json"), "utf8"));
+const GO = JSON.parse(fs.readFileSync(path.join(ROOT, "src/data/genshin-optimizer.json"), "utf8"));
 
 /** Weight keys, and the many ways guides spell them. */
 const STAT_ALIASES = [

@@ -1,0 +1,41 @@
+name: Deploy Enka relay
+
+# The site deploys from deploy.yml. The worker only changes when this folder
+# does, so it gets its own, much smaller run. workflow_dispatch is there for
+# the first deploy and for re-deploying after rotating the token.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "workers/**"
+      - ".github/workflows/deploy-worker.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "worker"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the worker parses
+        run: node --check workers/enka-proxy.js
+
+      # Needs two repository secrets (Settings -> Secrets and variables ->
+      # Actions -> Secrets):
+      #   CLOUDFLARE_API_TOKEN  - an API token made from the "Edit Cloudflare
+      #                           Workers" template
+      #   CLOUDFLARE_ACCOUNT_ID - from the Workers & Pages overview page
+      - name: Deploy with wrangler
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: workers
+          command: deploy

@@ -1,7 +1,7 @@
 {
   "source": "https://www.prydwen.gg/zenless/characters/",
   "method": "Priority tiers mapped to 1 / 0.75 / 0.5 / 0.25; see scripts/fetch-zzz-weights.mjs",
-  "fetchedAt": "2026-09-21T00:52:46.078Z",
+  "fetchedAt": "2026-09-21T17:54:35.293Z",
   "characters": {
     "1011": {
       "name": "Anby",
@@ -22,7 +22,7 @@
           12102
         ],
         "6": [
-          12201
+          12202
         ]
       },
       "priority": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
@@ -181,7 +181,7 @@
           23103
         ],
         "6": [
-          12201
+          12202
         ]
       },
       "priority": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
@@ -261,7 +261,7 @@
           12102
         ],
         "6": [
-          12201
+          12202
         ]
       },
       "priority": "CRIT RATE > CRIT DMG > ATK% > PEN = ATK",
@@ -361,7 +361,7 @@
           12102
         ],
         "6": [
-          12201
+          12202
         ]
       },
       "priority": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
@@ -412,7 +412,7 @@
           23103
         ],
         "6": [
-          12201
+          12202
         ]
       },
       "priority": "CRIT RATE > CRIT DMG > ATK% > PEN = ATK",
@@ -615,7 +615,7 @@
           12102
         ],
         "6": [
-          12201
+          12202
         ]
       },
       "priority": "CRIT RATE > CRIT DMG > ATK% > PEN = ATK",
@@ -865,7 +865,7 @@
           31503
         ],
         "6": [
-          12201
+          12202
         ]
       },
       "priority": "Anomaly Profiency > ATK% > PEN > ATK",
@@ -889,7 +889,7 @@
           12102
         ],
         "6": [
-          12201
+          12202
         ]
       },
       "priority": "CRIT RATE >= CRIT DMG > ATK% > PEN = ATK",
@@ -962,7 +962,7 @@
           12102
         ],
         "6": [
-          12201,
+          12202,
           12102
         ]
       },
@@ -1427,7 +1427,7 @@
         ],
         "6": [
           30502,
-          12201
+          12202
         ]
       },
       "thresholds": {

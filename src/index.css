@@ -154,8 +154,8 @@
     /* Grade ramp. Reads like item rarity, which every gacha player already
        knows: grey, green, blue, purple, gold, then hotter above gold. One
        direction only, so a colour is enough to place a grade at a glance. */
-    --grade-f: #6b7280;
-    --grade-d: #9ca3af;
+    --grade-f: #8b95a5;
+    --grade-d: #b0b9c6;
     --grade-c: #34d399;
     --grade-b: #38bdf8;
     --grade-a: #a78bfa;
@@ -171,6 +171,11 @@
     --verdict-replace: #fb7185;
     --verdict-ok: #a3abc4;
     --warn: #fbbf24;
+
+    /* The picker wordmark's gradient, pastel on dark and deep on light. */
+    --wordmark-a: #fcd34d;
+    --wordmark-b: #99f6e4;
+    --wordmark-c: #38bdf8;
 
     /* Roll tiers: a max roll is green, the floor roll is rose. Same heat
        direction as the grade ramp, so the eye reads both the same way. */
@@ -235,7 +240,9 @@
     --grade-c: #065f46;
     --grade-b: #075985;
     --grade-a: #5b21b6;
-    --grade-s: #92400e;
+    /* S, SS and SSS keep three distinct hues (yellow, orange, rose) so
+       colour alone still places a grade, as it does in the dark ramp. */
+    --grade-s: #854d0e;
     --grade-ss: #9a3412;
     --grade-sss: #9f1239;
     --grade-wtf: #86198f;
@@ -247,6 +254,10 @@
     --verdict-replace: #9f1239;
     --verdict-ok: #545e78;
     --warn: #92400e;
+
+    --wordmark-a: #b45309;
+    --wordmark-b: #0f766e;
+    --wordmark-c: #0369a1;
 
     --roll-max: #047857;
     --roll-high: #4d7c0f;
@@ -599,6 +610,68 @@
   animation: popIn 0.12s ease-out forwards;
 }
 
+/* Share dialog. The backdrop fades; the panel rises a little and settles,
+   the same travel the cards use on arrival but with a touch of scale so it
+   reads as coming forward off the page rather than sliding up it. The out
+   pair is shorter: leaving should feel like a release, not an entrance run
+   backwards. Opacity starts at 0 only inside the keyframes, so the
+   reduced-motion rule below leaves both at their static, visible state. */
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes overlayOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes dialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes dialogOut {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+
+.animate-overlay-in {
+  animation: overlayIn 0.18s ease-out;
+}
+
+.animate-overlay-out {
+  animation: overlayOut 0.18s ease-in forwards;
+}
+
+.animate-dialog-in {
+  animation: dialogIn 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.animate-dialog-out {
+  animation: dialogOut 0.18s ease-in forwards;
+}
+
 /* Grow a progress bar from its left edge. Scaling rather than animating width
    keeps the inline width authoritative, so the bar cannot land on the wrong
    number if the animation is interrupted. */
@@ -656,6 +729,23 @@
 
   :root[data-theme="light"] *:focus-visible {
     outline-color: var(--accent-strong);
+  }
+
+  /* The Star Rail and Zenless controls are cut with clip-path, which clips
+     everything the element paints, an outline drawn outside the box
+     included. Their ring is drawn inside the edge instead so it survives. */
+  [data-game="hsr"] .game-panel-sm:focus-visible,
+  [data-game="zzz"] .game-panel-sm:focus-visible {
+    outline-offset: -3px;
+  }
+
+  /* Each game's ring in its own accent, so the focus colour matches the
+     chrome around it rather than always reading as Genshin gold. */
+  [data-game="hsr"] *:focus-visible {
+    outline-color: var(--hsr-accent);
+  }
+  [data-game="zzz"] *:focus-visible {
+    outline-color: var(--zzz-accent);
   }
 }
 

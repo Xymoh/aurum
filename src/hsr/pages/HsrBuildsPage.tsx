@@ -37,7 +37,7 @@ export function HsrBuildsPage() {
   );
 
   const uid = useMemo(() => readRecentUids(HSR_RECENT_UIDS_KEY)[0]?.uid ?? "", []);
-  const { data, isLoading } = useHsrShowcase(uid);
+  const { data, isLoading, isError } = useHsrShowcase(uid, { enabled: Boolean(id) });
 
   const owned = useMemo(() => {
     if (!id || !data) return null;
@@ -89,6 +89,7 @@ export function HsrBuildsPage() {
             name={target.name}
             uid={uid || null}
             loading={isLoading}
+            failed={isError}
             owned={owned}
             homeHref="/hsr"
           />

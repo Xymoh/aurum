@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { UserIcon, ClipboardIcon, CheckIcon } from "../ui/icons";
 import { useI18n } from "../../i18n";
+import { useFreshCountdown } from "../../hooks/useFreshCountdown";
+import { GradeBadge } from "../ui/GradeBadge";
+import { formatScore } from "../../lib/format";
+import { gradeVar } from "../../lib/grade";
+import type { ScoreGrade } from "../../types/artifact";
 
 interface PlayerHeaderProps {
   uid: string;
@@ -14,6 +19,17 @@ interface PlayerHeaderProps {
   characterCount: number;
   onRefresh: () => void;
   lastUpdated?: number;
+  /** True while a fetch is in flight, so the button can show it honestly. */
+  isFetching?: boolean;
+  /** When Enka would have new data; before then a refresh returns the same bytes. */
+  freshUntil?: number;
+  /**
+   * The account's mean build score over fully geared characters, so the
+   * whole showcase reads at a glance, as it does on the other two games.
+   */
+  account?: { score: number; grade: ScoreGrade; scored: number; total: number } | null;
+  /** Downloads the showcase as a GOOD file, when the game has that format. */
+  onExport?: () => void;
 }
 
 type Translate = ReturnType<typeof useI18n>["t"];
@@ -98,7 +114,7 @@ function ShareButton() {
     <button
       type="button"
       onClick={handleCopyUrl}
-      className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-dark-border px-3 text-sm font-medium text-dark-muted transition-colors hover:border-accent/50 hover:text-dark-text"
+      className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-dark-border px-3 text-sm font-medium text-dark-muted transition-colors hover:border-accent/50 hover:text-dark-text sm:flex-none"
       aria-live="polite"
     >
       {copied ? <CheckIcon className="h-3.5 w-3.5 text-verdict-high" /> : <ClipboardIcon className="h-3.5 w-3.5" />}
@@ -107,15 +123,22 @@ function ShareButton() {
   );
 }
 
-export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastUpdated }: PlayerHeaderProps) {
-  const [isRefreshing, setIsRefreshing] = useState(false);
+export function PlayerHeader({
+  uid,
+  playerInfo,
+  characterCount,
+  onRefresh,
+  lastUpdated,
+  isFetching = false,
+  freshUntil = 0,
+  account = null,
+  onExport,
+}: PlayerHeaderProps) {
   const { t } = useI18n();
-
-  const handleRefresh = useCallback(() => {
-    setIsRefreshing(true);
-    onRefresh();
-    setTimeout(() => setIsRefreshing(false), 2000);
-  }, [onRefresh]);
+  // The spinner follows the real fetch, and the button waits out Enka's
+  // ttl rather than pretending a click inside it did anything.
+  const secondsFresh = useFreshCountdown(freshUntil);
+  const waiting = secondsFresh > 0 && !isFetching;
 
   return (
     <div className="flex flex-wrap items-center gap-3 game-panel border border-dark-border bg-dark-card px-4 py-3 sm:gap-4 sm:px-5">
@@ -146,14 +169,41 @@ export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastU
         </div>
       </div>
 
-      <div className="flex w-full items-center gap-2 sm:w-auto">
+      {account && account.scored > 0 && (
+        <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end sm:text-right">
+          <div>
+            <p className="font-mono text-2xl font-bold leading-none tabular-nums" style={{ color: gradeVar(account.grade) }}>
+              {formatScore(account.score)}
+            </p>
+            <p className="mt-1 font-mono text-xs text-dark-muted">
+              {t("player", "buildsScored", { n: account.scored, total: account.total })}
+            </p>
+          </div>
+          <GradeBadge grade={account.grade} size="md" />
+        </div>
+      )}
+
+      <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:flex-nowrap">
         <ShareButton />
-        <div className="flex-1 sm:hidden" />
+        {onExport && (
+          <button
+            type="button"
+            onClick={onExport}
+            title={t("player", "exportHint")}
+            className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-dark-border px-3 text-sm font-medium text-dark-muted transition-colors hover:border-accent/50 hover:text-dark-text sm:flex-none"
+          >
+            {t("player", "export")}
+          </button>
+        )}
         <button
           type="button"
-          onClick={handleRefresh}
-          disabled={isRefreshing}
-          className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-accent px-3 text-sm font-semibold text-dark-bg transition-all hover:opacity-90 disabled:opacity-50"
+          onClick={onRefresh}
+          disabled={isFetching || waiting}
+          title={waiting ? t("player", "freshFor", { n: secondsFresh }) : undefined}
+          aria-label={waiting ? t("player", "freshFor", { n: secondsFresh }) : undefined}
+          // A fixed width, so the button does not breathe as the countdown ticks
+          // from two digits to one, and "Refreshing" fits the same box.
+          className="inline-flex h-9 w-full min-w-[9rem] items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-accent px-3 text-sm font-semibold text-dark-bg transition-opacity hover:opacity-90 disabled:opacity-50 sm:w-auto"
         >
           <svg
             width="13"
@@ -164,12 +214,15 @@ export function PlayerHeader({ uid, playerInfo, characterCount, onRefresh, lastU
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={isRefreshing ? "animate-spin" : ""}
+            className={isFetching ? "animate-spin" : ""}
             aria-hidden="true"
           >
             <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
           </svg>
-          {t("player", "refresh")}
+          {isFetching ? t("player", "refreshing") : t("player", "refresh")}
+          {waiting && (
+            <span className="font-mono tabular-nums">· {String(secondsFresh).padStart(2, "0")}s</span>
+          )}
         </button>
       </div>
     </div>

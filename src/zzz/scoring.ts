@@ -16,6 +16,7 @@ import type {
   ZzzDiscScore,
   ZzzSlot,
   ZzzStatId,
+  ZzzStats,
   SelectableZzzSlot,
 } from "./types";
 import type { ParsedAgent, ParsedDiscInput } from "./parsing";
@@ -63,11 +64,16 @@ export function substatScale(id: ZzzStatId): number {
 
 // ── Main stats ──────────────────────────────────────────────────────
 
-/** What each selectable slot can roll as its main stat. */
+/**
+ * What each selectable slot can roll as its main stat. Ids follow Enka's
+ * convention of xx01 for a base value, xx02 for a percentage and xx03 for a
+ * flat bonus, so the Impact main on disc 6 is 12202 (BreakStun as a percent),
+ * not 12201, which is the agent's own base Impact.
+ */
 export const SLOT_MAIN_STATS: Record<SelectableZzzSlot, ZzzStatId[]> = {
   4: [11102, 12102, 13102, 20103, 21103, 31203],
-  5: [11102, 12102, 13102, 23103, 31503, 31603, 31703, 31803, 31903, 32003, 32303],
-  6: [11102, 12102, 13102, 31402, 12201, 30502],
+  5: [11102, 12102, 13102, 23103, 31503, 31603, 31703, 31803, 31903, 32303],
+  6: [11102, 12102, 13102, 31402, 12202, 30502],
 };
 
 /** Fixed mains: HP on disc 1, ATK on disc 2, DEF on disc 3. */
@@ -202,7 +208,9 @@ export function scoreDisc(disc: ParsedDiscInput, meta: ZzzScoringMeta): ZzzDiscS
 
   return {
     potentialPercent: Math.round(potentialPercent * 10) / 10,
-    grade: gradable ? gradeFor(potentialPercent) : null,
+    // Graded from the whole percent the card shows, so number and letter
+    // cannot land on opposite sides of a band edge.
+    grade: gradable ? gradeFor(Math.round(potentialPercent)) : null,
     mainStatOk,
     weighted,
     ideal,
@@ -215,10 +223,65 @@ export function scoreDisc(disc: ParsedDiscInput, meta: ZzzScoringMeta): ZzzDiscS
 
 export const SLOT_COUNT = 6;
 
-function buildDiagnostics(discs: ZzzDisc[], meta: ZzzScoringMeta): ZzzBuildDiagnostics {
+/** Set pieces worn, largest set first, ignoring lone pieces. */
+export function countSets(discs: ZzzDisc[]): ZzzBuildDiagnostics["sets"] {
+  const setCounts = new Map<number, { name: string; pieces: number }>();
+  for (const disc of discs) {
+    const set = setCounts.get(disc.setId) ?? { name: disc.setName, pieces: 0 };
+    set.pieces += 1;
+    setCounts.set(disc.setId, set);
+  }
+  return [...setCounts.entries()]
+    .map(([setId, v]) => ({ setId, name: v.name, pieces: v.pieces }))
+    .filter((s) => s.pieces >= 2)
+    .sort((a, b) => b.pieces - a.pieces);
+}
+
+/**
+ * Which final stat a guide's "until N" cap is measured on. Prydwen states
+ * caps as stat-screen figures (CRIT Rate 80%, ATK 3000), never as sums of
+ * disc rolls, so the build's total is what gets compared.
+ */
+const THRESHOLD_STAT: Record<number, { key: keyof ZzzStats; percent: boolean }> = {
+  11101: { key: "hp", percent: false },
+  11102: { key: "hp", percent: false },
+  11103: { key: "hp", percent: false },
+  12101: { key: "atk", percent: false },
+  12102: { key: "atk", percent: false },
+  12103: { key: "atk", percent: false },
+  13101: { key: "def", percent: false },
+  13102: { key: "def", percent: false },
+  13103: { key: "def", percent: false },
+  20103: { key: "critRate", percent: true },
+  21103: { key: "critDmg", percent: true },
+  23103: { key: "penRatio", percent: true },
+  23203: { key: "pen", percent: false },
+  31203: { key: "anomalyProficiency", percent: false },
+  31402: { key: "anomalyMastery", percent: false },
+  12202: { key: "impact", percent: false },
+  30502: { key: "energyRegen", percent: false },
+};
+
+function thresholdsAgainst(meta: ZzzScoringMeta, stats: ZzzStats): ZzzBuildDiagnostics["thresholds"] {
+  const seen = new Set<keyof ZzzStats>();
+  const out: ZzzBuildDiagnostics["thresholds"] = [];
+  for (const [id, target] of Object.entries(meta.thresholds)) {
+    const stat = THRESHOLD_STAT[Number(id)];
+    if (!stat || seen.has(stat.key)) continue;
+    seen.add(stat.key);
+    out.push({
+      id: Number(id),
+      target,
+      current: Math.round(stats[stat.key] * 10) / 10,
+      percent: stat.percent,
+    });
+  }
+  return out;
+}
+
+function buildDiagnostics(discs: ZzzDisc[], meta: ZzzScoringMeta, stats: ZzzStats): ZzzBuildDiagnostics {
   const totals = new Map<ZzzStatId, { rolls: number; value: number }>();
   const waste: ZzzBuildDiagnostics["waste"] = [];
-  const setCounts = new Map<number, { name: string; pieces: number }>();
   let totalRolls = 0;
   let effectiveRolls = 0;
   let wastedRolls = 0;
@@ -230,10 +293,6 @@ function buildDiagnostics(discs: ZzzDisc[], meta: ZzzScoringMeta): ZzzBuildDiagn
     wastedRolls += disc.score.wastedRolls;
     percentSum += disc.score.potentialPercent;
 
-    const set = setCounts.get(disc.setId) ?? { name: disc.setName, pieces: 0 };
-    set.pieces += 1;
-    setCounts.set(disc.setId, set);
-
     for (const sub of disc.substats) {
       const entry = totals.get(sub.id) ?? { rolls: 0, value: 0 };
       entry.rolls += sub.rolls;
@@ -244,18 +303,11 @@ function buildDiagnostics(discs: ZzzDisc[], meta: ZzzScoringMeta): ZzzBuildDiagn
   }
   waste.sort((a, b) => b.rolls - a.rolls);
 
-  // Main stats count toward a threshold too: a CRIT Rate disc 4 is most of
-  // the way to "CRIT Rate until 80%" on its own.
-  const fromDiscs = (id: ZzzStatId) =>
-    (totals.get(id)?.value ?? 0) + discs.filter((d) => d.mainStat.id === id).reduce((n, d) => n + d.mainStat.value, 0);
-
-  const cr = totals.get(20103)?.value ?? 0;
-  const cd = totals.get(21103)?.value ?? 0;
   const score = percentSum / SLOT_COUNT;
 
   return {
     score: Math.round(score * 10) / 10,
-    grade: gradeFor(score),
+    grade: gradeFor(Math.round(score)),
     complete: discs.length === SLOT_COUNT,
     totalRolls,
     effectiveRolls,
@@ -264,16 +316,12 @@ function buildDiagnostics(discs: ZzzDisc[], meta: ZzzScoringMeta): ZzzBuildDiagn
     totals: [...totals.entries()]
       .map(([id, v]) => ({ id, rolls: v.rolls, value: Math.round(v.value * 10) / 10 }))
       .sort((a, b) => b.rolls - a.rolls),
-    critRatio: cr > 0 ? cd / cr : null,
-    sets: [...setCounts.entries()]
-      .map(([setId, v]) => ({ setId, name: v.name, pieces: v.pieces }))
-      .filter((s) => s.pieces >= 2)
-      .sort((a, b) => b.pieces - a.pieces),
-    thresholds: Object.entries(meta.thresholds).map(([id, target]) => ({
-      id: Number(id),
-      target,
-      current: Math.round(fromDiscs(Number(id)) * 10) / 10,
-    })),
+    // The build's real ratio, from the stat screen rather than the rolls
+    // alone: a CRIT Rate disc 4 or a crit W-Engine is exactly what a player
+    // balances their substats against.
+    critRatio: stats.critRate > 0 ? stats.critDmg / stats.critRate : null,
+    sets: countSets(discs),
+    thresholds: thresholdsAgainst(meta, stats),
   };
 }
 
@@ -281,22 +329,22 @@ function buildDiagnostics(discs: ZzzDisc[], meta: ZzzScoringMeta): ZzzBuildDiagn
 export function scoreAgent(parsed: ParsedAgent): ZzzAgent {
   const meta = getScoringMeta(parsed.id);
   const discs: ZzzDisc[] = parsed.discs.map((d) => ({ ...d, score: scoreDisc(d, meta) }));
-  const diagnostics = buildDiagnostics(discs, meta);
+  const stats = computeZzzStats({
+    agentId: parsed.id,
+    element: parsed.element,
+    level: parsed.level,
+    promotion: parsed.promotion,
+    coreSkill: parsed.coreSkill,
+    engine: parsed.engine
+      ? { id: parsed.engine.id, level: parsed.engine.level, rank: parsed.engine.breakLevel }
+      : null,
+    discs,
+    sets: countSets(discs),
+  });
   return {
     ...parsed,
     discs,
-    stats: computeZzzStats({
-      agentId: parsed.id,
-      element: parsed.element,
-      level: parsed.level,
-      promotion: parsed.promotion,
-      coreSkill: parsed.coreSkill,
-      engine: parsed.engine
-        ? { id: parsed.engine.id, level: parsed.engine.level, rank: parsed.engine.breakLevel }
-        : null,
-      discs,
-      sets: diagnostics.sets,
-    }),
-    diagnostics,
+    stats,
+    diagnostics: buildDiagnostics(discs, meta, stats),
   };
 }

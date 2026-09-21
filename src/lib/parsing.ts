@@ -102,16 +102,33 @@ function fpVal(fp: Record<string, number>, numKey: string, strKey: string): numb
   return fp[numKey] ?? fp[strKey] ?? 0;
 }
 
-/** Elemental DMG prop IDs → element mapping */
+/**
+ * Elemental DMG bonus keys in Enka's fightPropMap. The game numbers them
+ * 40 to 46 in its internal element order (Fire, Electric, Water, Grass, Wind,
+ * Rock, Ice), with Physical at 30. Checked against live showcases: an
+ * Arlecchino with a Pyro goblet carries her 46.6% under "40".
+ */
 const DMG_BONUS_PROP_IDS: Record<string, GenshinElement> = {
-  "41": "Pyro",
-  "42": "Electro",
-  "43": "Hydro",
-  "45": "Anemo",
-  "47": "Cryo",
-  "46": "Geo",
-  "44": "Dendro",
+  "40": "Pyro",
+  "41": "Electro",
+  "42": "Hydro",
+  "43": "Dendro",
+  "44": "Anemo",
+  "45": "Geo",
+  "46": "Cryo",
 };
+
+/** The fightPropMap key holding each element's DMG bonus, plus Physical. */
+const ELEMENT_DMG_KEY: Record<GenshinElement, string> = {
+  Pyro: "40",
+  Electro: "41",
+  Hydro: "42",
+  Dendro: "43",
+  Anemo: "44",
+  Geo: "45",
+  Cryo: "46",
+};
+const PHYSICAL_DMG_KEY = "30";
 
 function detectElement(fightPropMap: Record<string, number> | undefined, fallback: GenshinElement = "Pyro"): GenshinElement {
   if (!fightPropMap) return fallback;
@@ -196,7 +213,7 @@ const APPEND_PROP_STAT_MAP: Record<number, string> = {
  * Exception: if the artifact started with 3 substats, the 4th stat that appeared
  * at +4 has ALL its occurrences as enhancements (first appearance IS an enhancement).
  */
-function countEnhancementsFromAppendList(appendPropIdList: number[]): Map<string, number> {
+function countEnhancementsFromAppendList(appendPropIdList: number[], level: number = 20): Map<string, number> {
   // Count total occurrences of each stat
   const statCounts = new Map<string, number>();
 
@@ -211,9 +228,12 @@ function countEnhancementsFromAppendList(appendPropIdList: number[]): Map<string
     }
   }
 
-  // Determine if artifact started with 3 or 4 substats
-  // 5-star +20 artifacts: 9 entries = 4 initial, 8 entries = 3 initial
-  const numInitialStats = appendPropIdList.length >= 9 ? 4 : 3;
+  // Did the artifact start with 3 or 4 substats? An upgrade lands every four
+  // levels, so the list holds exactly level/4 upgrades on top of the initial
+  // rolls. That holds at any level and any rarity; the old "9 ids means 4
+  // initial" shortcut only worked for a +20 5-star.
+  const upgrades = Math.floor(level / 4);
+  const numInitialStats = appendPropIdList.length - upgrades >= 4 ? 4 : 3;
   const numDistinctStats = statCounts.size;
 
   // Calculate enhancements per stat
@@ -275,12 +295,17 @@ function rollTiersFromAppendList(appendPropIdList: number[]): Map<string, number
   return tiers;
 }
 
-function buildSubstats(raw: EnkaSubstat[] | undefined, appendPropIdList?: number[]): ArtifactSubstat[] {
+function buildSubstats(
+  raw: EnkaSubstat[] | undefined,
+  appendPropIdList?: number[],
+  rarity: number = 5,
+  level: number = 20,
+): ArtifactSubstat[] {
   if (!raw || raw.length === 0) return [];
 
   // If appendPropIdList is available, use exact roll counting
   const enhancementCounts = appendPropIdList && appendPropIdList.length > 0
-    ? countEnhancementsFromAppendList(appendPropIdList)
+    ? countEnhancementsFromAppendList(appendPropIdList, level)
     : null;
   const rollTiers = appendPropIdList && appendPropIdList.length > 0
     ? rollTiersFromAppendList(appendPropIdList)
@@ -289,7 +314,7 @@ function buildSubstats(raw: EnkaSubstat[] | undefined, appendPropIdList?: number
   return raw.map((s) => {
     const statKey = s.appendPropId as FightProp;
     const meta = resolveStatName(statKey);
-    const maxRoll = getMaxRoll(statKey);
+    const maxRoll = getMaxRoll(statKey, rarity);
 
     // Roll count: number of enhancements (upgrades) for this stat
     let rollCount: number;
@@ -333,6 +358,7 @@ function buildMainStat(flat: EnkaEquip["flat"]): ArtifactMainStat | null {
     isPercentage: meta.isPercentage,
     isCorrect: false,
     isRecommended: false,
+    idealStats: [],
   };
 }
 
@@ -468,7 +494,11 @@ function computeEMFromArtifacts(artifacts: Artifact[]): number {
   return Math.round(em);
 }
 
-function computeStats(fightPropMap: Record<string, number> | undefined, artifacts?: Artifact[]): CharacterStats {
+export function computeStats(
+  fightPropMap: Record<string, number> | undefined,
+  artifacts?: Artifact[],
+  element?: GenshinElement,
+): CharacterStats {
   const fp = fightPropMap ?? {};
 
   // ── HP: component formula ──
@@ -526,21 +556,17 @@ function computeStats(fightPropMap: Record<string, number> | undefined, artifact
   const er = parseFloat((erRaw * 100).toFixed(1));
 
   // ── Elemental DMG Bonus ──
-  const dmgKeys = [
-    { n: "31", s: "FIGHT_PROP_PHYSICAL_ADD_HURT" },
-    { n: "41", s: "FIGHT_PROP_FIRE_ADD_HURT" },
-    { n: "42", s: "FIGHT_PROP_ELEC_ADD_HURT" },
-    { n: "43", s: "FIGHT_PROP_WATER_ADD_HURT" },
-    { n: "44", s: "FIGHT_PROP_GRASS_ADD_HURT" },
-    { n: "45", s: "FIGHT_PROP_WIND_ADD_HURT" },
-    { n: "46", s: "FIGHT_PROP_ROCK_ADD_HURT" },
-    { n: "47", s: "FIGHT_PROP_ICE_ADD_HURT" },
-  ];
-  let elementalDmg = 0;
-  for (const { n, s } of dmgKeys) {
-    const v = fpVal(fp, n, s);
-    if (v > 0) { elementalDmg = parseFloat((v * 100).toFixed(1)); break; }
+  // The character's own element first: a weapon or set that grants every
+  // element a small bonus must not win over the goblet they actually wear.
+  // A Physical build (Eula on a Physical goblet) has no elemental bonus
+  // worth showing, so the largest of the rest stands in.
+  const ownKey = element ? ELEMENT_DMG_KEY[element] : undefined;
+  let elementalDmg = ownKey ? fpVal(fp, ownKey, "") : 0;
+  if (elementalDmg <= 0) {
+    const candidates = [PHYSICAL_DMG_KEY, ...Object.keys(DMG_BONUS_PROP_IDS)];
+    elementalDmg = Math.max(0, ...candidates.map((k) => fpVal(fp, k, "")));
   }
+  elementalDmg = parseFloat((elementalDmg * 100).toFixed(1));
 
   return { maxHp, atk, def, elementalMastery: em, critRate, critDmg, energyRecharge: er, elementalDmg, raw: fp };
 }
@@ -623,6 +649,7 @@ export function parseShowcaseData(raw: EnkaResponse): ShowcaseData {
     },
     characters,
     lastUpdated: Date.now(),
+    ttl: raw.ttl ?? 60,
   };
 }
 
@@ -708,11 +735,13 @@ function parseCharacter(
     if (count >= 2) activeSetBonuses.push(setId);
   }
 
+  const element = getCharacterElement(avatarId, avatar.fightPropMap, avatar.skillDepotId);
+
   return {
     id: String(avatarId),
     avatarId,
     name: getCharacterName(avatarId),
-    element: getCharacterElement(avatarId, avatar.fightPropMap, avatar.skillDepotId),
+    element,
     weaponType: getCharacterWeaponType(avatarId),
     level: charLevel,
     constellation,
@@ -721,8 +750,8 @@ function parseCharacter(
     icon: getCharacterIcon(avatarId),
     weapon,
     artifacts,
-    stats: computeStats(avatar.fightPropMap, artifacts),
-    buildScore: { total: 0, grade: "F", complete: false, artifactCount: artifacts.length, correctMainStats: 0, totalSelectableSlots: 0, setBonus: { activeSets: [], matchStatus: "no_recommendation" } },
+    stats: computeStats(avatar.fightPropMap, artifacts, element),
+    buildScore: { total: 0, grade: "F", complete: false, artifactCount: artifacts.length, correctMainStats: 0, totalSelectableSlots: 0, setBonus: { activeSets: [], matchStatus: "no_recommendation" }, cv: 0 },
     activeSetBonuses,
     usesGenericWeights: isTraveler(avatarId),
   };
@@ -738,13 +767,18 @@ function parseArtifact(equip: EnkaEquip): Artifact | null {
   const setId = extractSetId(flat);
   const setName = resolveSetName(flat);
 
+  // Enka reports reliquary.level one above the in-game "+N": a +20 piece
+  // arrives as 21 and a fresh drop as 1. Checked against a live showcase
+  // where every maxed artifact carried 21. Without the offset a +19 piece
+  // read as +20 and was handed reshape advice it cannot use yet.
+  const rarity = flat.rankLevel ?? 5;
+  const maxLevel = rarity * 4;
+  const rawLevel = (reliquary?.level ?? 1) - 1;
+  const clampedLevel = Math.min(Math.max(rawLevel, 0), maxLevel);
+
   // Use flat.reliquarySubstats directly (string appendPropId values)
   // Pass appendPropIdList for exact roll counting
-  const substats = buildSubstats(flat.reliquarySubstats, reliquary?.appendPropIdList);
-
-  // Clamp artifact level to valid range [0, 20]
-  const rawLevel = reliquary?.level ?? flat.rankLevel ?? 0;
-  const clampedLevel = Math.min(Math.max(rawLevel, 0), 20);
+  const substats = buildSubstats(flat.reliquarySubstats, reliquary?.appendPropIdList, rarity, clampedLevel);
 
   return {
     id: `${equip.itemId}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
@@ -753,7 +787,7 @@ function parseArtifact(equip: EnkaEquip): Artifact | null {
     slot,
     slotIndex: getSlotIndex(slot),
     level: clampedLevel,
-    rarity: flat.rankLevel,
+    rarity,
     icon: flat.icon,
     mainStat,
     substats,
@@ -782,6 +816,8 @@ function parseArtifact(equip: EnkaEquip): Artifact | null {
         medianGain: 0,
         realisticCeiling: 0,
         targetStats: [],
+        nextGrade: null,
+        nextGradeChance: 0,
         erRisk: false,
         erBreachChance: 0,
         erThreshold: 0,

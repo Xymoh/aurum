@@ -36,7 +36,6 @@ export type HsrStatKey =
 /** The six relic slots. NECK and OBJECT are the Planar Ornament pair. */
 export type HsrSlot = "HEAD" | "HAND" | "BODY" | "FOOT" | "NECK" | "OBJECT";
 
-export const HSR_SLOTS: HsrSlot[] = ["HEAD", "HAND", "BODY", "FOOT", "NECK", "OBJECT"];
 
 export interface HsrSubstat {
   key: HsrStatKey;
@@ -201,4 +200,6 @@ export interface HsrShowcase {
   signature: string;
   characters: HsrCharacter[];
   fetchedAt: number;
+  /** Seconds Enka says this answer stays valid. */
+  ttl: number;
 }

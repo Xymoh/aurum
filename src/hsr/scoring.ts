@@ -21,6 +21,7 @@ import type {
   HsrRelicScore,
   HsrSlot,
   HsrStatKey,
+  HsrStats,
 } from "./types";
 import type { ParsedCharacter, ParsedRelic } from "./parsing";
 import {
@@ -305,7 +306,9 @@ export function scoreRelic(relic: ParsedRelic, meta: ScoringMeta): HsrRelicScore
 
   return {
     potentialPercent: Math.round(potentialPercent * 10) / 10,
-    grade: gradable ? gradeFor(potentialPercent) : null,
+    // Graded from the whole percent the card shows, so number and letter
+    // cannot land on opposite sides of a band edge.
+    grade: gradable ? gradeFor(Math.round(potentialPercent)) : null,
     mainStatOk,
     weighted,
     ideal,
@@ -316,20 +319,35 @@ export function scoreRelic(relic: ParsedRelic, meta: ScoringMeta): HsrRelicScore
 
 // ── Build diagnostics ───────────────────────────────────────────────
 
-/** CRIT DMG per point of CRIT Rate. Roughly 2.0 is the balanced target. */
-function critRatio(totals: Map<HsrStatKey, { rolls: number; value: number }>): number | null {
-  const cr = totals.get("CriticalChanceBase")?.value ?? 0;
-  const cd = totals.get("CriticalDamageBase")?.value ?? 0;
-  if (cr <= 0) return null;
-  return cd / cr;
+/**
+ * CRIT DMG per point of CRIT Rate on the character screen, so a CRIT Rate
+ * body or a crit light cone counts the way a player balancing their
+ * substats would count it. Roughly 2.0 is the balanced target.
+ */
+function critRatio(stats: HsrStats): number | null {
+  if (stats.critRate <= 0) return null;
+  return stats.critDmg / stats.critRate;
 }
 
 export const SLOT_COUNT = 6;
 
-function buildDiagnostics(relics: HsrRelic[], meta: ScoringMeta): BuildDiagnostics {
+/** Set pieces worn, largest set first, ignoring lone pieces. */
+export function countSets(relics: HsrRelic[]): BuildDiagnostics["sets"] {
+  const setCounts = new Map<number, { name: string; pieces: number }>();
+  for (const relic of relics) {
+    const set = setCounts.get(relic.setId) ?? { name: relic.setName, pieces: 0 };
+    set.pieces += 1;
+    setCounts.set(relic.setId, set);
+  }
+  return [...setCounts.entries()]
+    .map(([setId, v]) => ({ setId, name: v.name, pieces: v.pieces }))
+    .filter((s) => s.pieces >= 2)
+    .sort((a, b) => b.pieces - a.pieces);
+}
+
+function buildDiagnostics(relics: HsrRelic[], meta: ScoringMeta, stats: HsrStats): BuildDiagnostics {
   const totals = new Map<HsrStatKey, { rolls: number; value: number }>();
   const waste: { slot: HsrSlot; key: HsrStatKey; rolls: number }[] = [];
-  const setCounts = new Map<number, { name: string; pieces: number }>();
 
   let totalRolls = 0;
   let effectiveRolls = 0;
@@ -341,10 +359,6 @@ function buildDiagnostics(relics: HsrRelic[], meta: ScoringMeta): BuildDiagnosti
     effectiveRolls += relic.score.effectiveRolls;
     wastedRolls += relic.score.wastedRolls;
     percentSum += relic.score.potentialPercent;
-
-    const set = setCounts.get(relic.setId) ?? { name: relic.setName, pieces: 0 };
-    set.pieces += 1;
-    setCounts.set(relic.setId, set);
 
     for (const sub of relic.substats) {
       const entry = totals.get(sub.key) ?? { rolls: 0, value: 0 };
@@ -366,7 +380,7 @@ function buildDiagnostics(relics: HsrRelic[], meta: ScoringMeta): BuildDiagnosti
 
   return {
     score: Math.round(score * 10) / 10,
-    grade: gradeFor(score),
+    grade: gradeFor(Math.round(score)),
     complete: relics.length === SLOT_COUNT,
     totalRolls,
     effectiveRolls,
@@ -376,11 +390,8 @@ function buildDiagnostics(relics: HsrRelic[], meta: ScoringMeta): BuildDiagnosti
     totals: [...totals.entries()]
       .map(([key, v]) => ({ key, rolls: v.rolls, value: Math.round(v.value * 10) / 10 }))
       .sort((a, b) => b.rolls - a.rolls),
-    critRatio: critRatio(totals),
-    sets: [...setCounts.entries()]
-      .map(([setId, v]) => ({ setId, name: v.name, pieces: v.pieces }))
-      .filter((s) => s.pieces >= 2)
-      .sort((a, b) => b.pieces - a.pieces),
+    critRatio: critRatio(stats),
+    sets: countSets(relics),
   };
 }
 
@@ -397,20 +408,20 @@ export function scoreCharacter(parsed: ParsedCharacter): HsrCharacter {
     return scored;
   });
 
-  const diagnostics = buildDiagnostics(relics, meta);
+  const stats = computeStats({
+    avatarId: parsed.avatarId,
+    element: parsed.element,
+    level: parsed.level,
+    promotion: parsed.promotion,
+    traceNodes: parsed.traceNodes,
+    lightCone: parsed.lightCone,
+    relics,
+    sets: countSets(relics),
+  });
   return {
     ...parsed,
     relics,
-    stats: computeStats({
-      avatarId: parsed.avatarId,
-      element: parsed.element,
-      level: parsed.level,
-      promotion: parsed.promotion,
-      traceNodes: parsed.traceNodes,
-      lightCone: parsed.lightCone,
-      relics,
-      sets: diagnostics.sets,
-    }),
-    diagnostics,
+    stats,
+    diagnostics: buildDiagnostics(relics, meta, stats),
   };
 }

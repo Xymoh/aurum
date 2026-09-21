@@ -42,7 +42,7 @@ function GameLink({
           current ? "" : "opacity-45 grayscale group-hover:opacity-90 group-hover:grayscale-0"
         }`}
         style={{
-          boxShadow: current ? `0 0 0 2px ${game.accent}` : undefined,
+          boxShadow: current ? `0 0 0 2px ${game.accentToken}` : undefined,
         }}
       />
       {/* Tooltip. Rendered on hover rather than as a title attribute so it

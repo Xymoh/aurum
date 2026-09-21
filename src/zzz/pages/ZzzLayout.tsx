@@ -27,7 +27,7 @@ export function ZzzLayout() {
             <span className="font-mono text-lg font-bold text-zzz-accent transition-transform group-hover:-skew-x-12">
               //
             </span>
-            <span className="text-sm font-black uppercase tracking-[0.22em] text-zzz-text">
+            <span className="hidden text-sm font-black uppercase tracking-[0.22em] text-zzz-text sm:inline">
               {t("zzz", "title")}
             </span>
           </Link>

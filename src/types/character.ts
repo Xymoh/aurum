@@ -88,6 +88,12 @@ export interface BuildScore {
   correctMainStats: number;
   totalSelectableSlots: number;
   setBonus: SetBonusResult;
+  /**
+   * Crit Value across the build: 2 x CRIT Rate + CRIT DMG from every
+   * substat, plus a CRIT circlet's main stat. The number players already
+   * compare, alongside the potential score.
+   */
+  cv: number;
 }
 
 export interface ShowcaseData {
@@ -100,4 +106,6 @@ export interface ShowcaseData {
   };
   characters: CharacterData[];
   lastUpdated: number;
+  /** Seconds Enka says this answer stays valid; refetching sooner returns the same bytes. */
+  ttl: number;
 }

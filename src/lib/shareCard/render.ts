@@ -22,7 +22,9 @@ import { CARD_THEME, gradeHex } from "./theme";
 const W = 1200;
 const H = 675;
 /** Drawn at 2x so the text survives a retina screen and Discord's resize. */
-const SCALE = 2;
+// 1.5x renders 1800x1012: still crisp on a phone screen, at roughly half the
+// bytes of the 2x card, which mattered on the mobile share sheet.
+const SCALE = 1.5;
 
 const PAD = 36;
 const ART_W = 430;
@@ -207,7 +209,7 @@ function drawScore(ctx: Ctx, model: ShareCardModel, theme: typeof CARD_THEME.gen
     const color = gradeHex(model.score.grade, theme.muted);
     ctx.font = `800 62px ${MONO}`;
     ctx.fillStyle = color;
-    ctx.fillText(model.score.value.toFixed(1), COL_R, 92);
+    ctx.fillText(`${Math.round(model.score.value)}%`, COL_R, 92);
 
     ctx.font = `800 22px ${SANS}`;
     const gw = ctx.measureText(model.score.grade).width + 22;

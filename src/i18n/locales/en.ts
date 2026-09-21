@@ -31,7 +31,7 @@ export const en = {
     howItWorks: "How it works",
     step1Title: "Enter a UID",
     step1Body:
-      "Your showcase is read from Enka.Network - the characters you've put on display in-game. Nothing is stored, and no login is needed.",
+      "Your showcase is read from Enka.Network - the characters you've put on display in-game. Nothing is stored on a server, and no login is needed.",
     step2Title: "Every piece is scored",
     step2Body:
       "Each artifact's substats are weighted for the character actually wearing it, so a CRIT roll counts for a DPS and an EM roll counts for a driver.",
@@ -57,12 +57,16 @@ export const en = {
   uid: {
     placeholder: "Enter Genshin UID",
     lookUp: "Look Up",
-    invalid: "UID must be exactly 9 digits.",
+    invalid: "UID must be 9 digits, or 10 starting with 18.",
   },
 
   player: {
-    share: "Share",
+    share: "Copy link",
     refresh: "Refresh",
+    accountScore: "Account",
+    export: "Export GOOD",
+    exportHint: "Download this showcase as a GOOD file for Genshin Optimizer and other tools that read it.",
+    buildsScored: "{n} of {total} builds scored",
     ar: "AR {level}",
     wl: "WL {level}",
     chars: "{count} chars",
@@ -70,6 +74,8 @@ export const en = {
     minutesAgo: "{n}m ago",
     hoursAgo: "{n}h ago",
     daysAgo: "{n}d ago",
+    freshFor: "Enka refreshes this profile in {n}s",
+    refreshing: "Refreshing…",
   },
 
   showcase: {
@@ -77,6 +83,16 @@ export const en = {
     roomToImproveSub: "Best next moves, cheapest first",
     jumpTo: "Jump to {name}",
     buildScore: "Build Score",
+    buildScoreHint:
+      "The mean of the five artifact scores. Each artifact is scored 0 to 200: its substat rolls, weighted for this character, against the best rolls the slot could hold. 100 is a solid piece, 200 is perfect.",
+    cv: "CV",
+    percentileTop: "top {pct}%",
+    percentileHint:
+      "Scores higher than {pct}% of random +20 pieces for this slot and main stat, simulated from the game's substat odds and weighted for {name}. Context for the number, not a second grade.",
+    newLabel: "new",
+    newSince: "Not on display when this browser last looked, on {date}",
+    deltaSince: "{delta} since this browser last looked, on {date}",
+    cvHint: "Crit Value: 2 x CRIT Rate + CRIT DMG from the substats, plus a CRIT circlet's main stat. The number most players compare; the score beside it also counts the stats this character wants that are not crit.",
     artifacts: "Artifacts",
     setBonuses: "Set Bonuses",
     statsOverview: "Stats Overview",
@@ -103,6 +119,8 @@ export const en = {
       "Already set it up? The game takes a moment to publish the change. Give it a minute and refresh again.",
     noArtifacts: "No artifacts equipped on this character.",
     incompleteScore: "Not scored: {count} of 5 artifact slots filled. The pieces below are still graded.",
+    notScoredSlots: "Not scored: {filled} of {total} slots equipped",
+    piecesOf: "{filled}/{total} pieces",
     mainStats: "{correct}/{total} main stats",
     noSetBonus: "No set bonuses active",
     fullMatch: "Full Match",
@@ -147,6 +165,10 @@ export const en = {
       "{chance} of reshapes would leave you under the {threshold}% Energy Recharge this character is expected to need - and dropping a burst costs more than the crit rolls you'd gain. Nominate Energy Recharge as one of your two stats to protect it. That requirement is a rough guide and depends on your team, constellation and weapon, so check it against your own rotation.",
     mainStatWarning:
       "Main stat doesn't match recommended. Consider farming for the ideal main stat.",
+    mainStatWarningIdeal: "This slot wants {ideal}. {stat} is not on the list.",
+    farmHint: "{slot} with {main} from {set}",
+    farmHintNoSet: "{slot} with {main}",
+    tipNextGrade: "{chance} chance to reach {grade} in one reshape",
   },
 
   explainer: {
@@ -185,11 +207,40 @@ export const en = {
       "This is a quick evaluation tool, not a definitive build guide - scores reflect general substat priorities and may not fit every team comp or playstyle.",
   },
 
+  /** Genshin build diagnostics: the roll-level view under the score bar. */
+  diag: {
+    usefulRolls: "Useful rolls",
+    ofTotal: "of {total}",
+    benchmarkTitle: "Benchmark: {n} useful rolls",
+    atBenchmark: "At or above the {benchmark}-roll benchmark for a strong build.",
+    pastBenchmark:
+      "This build carries {total} rolls, past the {benchmark}-roll benchmark, but {wasted} sit on stats this character never uses.",
+    shortOfBenchmark: "{wasted} rolls sit on stats this character never uses, leaving it short of the {benchmark}-roll benchmark.",
+    weakestLink: "The weakest piece is the {slot} at {score}.",
+    substatTotals: "Substat totals",
+    critRatio: "Crit ratio",
+    critRatioTarget: "target 1 : 2",
+    energyTarget: "Energy Recharge",
+    energyOf: "of {target}% needed",
+    deadRolls: "Where the dead rolls sit",
+    nothingWasted: "Nothing wasted: every roll lands on a stat this character uses.",
+    rollsCount: "{n} rolls",
+  },
+
   errors: {
     title: "Error Loading Showcase",
     tryAgain: "Try Again",
+    tryAnotherUid: "Try another UID",
     noUid: "No UID provided.",
     generic: "Failed to load showcase data.",
+    notFound: "This UID could not be found. The player may not exist, or their showcase is not public.",
+    maintenance: "Enka.Network is undergoing maintenance. Please try again later.",
+    rateLimited: "Too many requests right now. Please wait a moment and try again.",
+    unavailable: "Could not reach Enka.Network. Please try again in a moment.",
+    timeout: "The request timed out. Check your connection and try again.",
+    misconfigured: "This build has no showcase proxy configured, so lookups are unavailable.",
+    invalidUid: "That is not a valid UID for this game.",
+    refreshFailed: "Refresh failed. Showing the last showcase that loaded.",
   },
 
   elements: {
@@ -251,6 +302,7 @@ export const en = {
     yoursNone: "Compare this against your own gear.",
     yoursLoading: "Checking your showcase...",
     yoursMissing: "{name} is not on display in UID {uid}. Add them to your in-game showcase to compare.",
+    yoursUnavailable: "Could not load the showcase for UID {uid} just now.",
     yoursIncomplete: "Not every slot is filled yet.",
     viewInShowcase: "Open in showcase",
     lookUp: "Look up a UID",
@@ -259,10 +311,32 @@ export const en = {
   },
 
   shareCard: {
-    save: "Card",
-    working: "Rendering...",
-    failed: "Failed",
-    hint: "Download a shareable card for this character",
+    share: "Share",
+    hint: "Preview and share a card for this character",
+    title: "Share card",
+    close: "Close",
+    preview: "Share card for {name}",
+    rendering: "Rendering your card...",
+    renderFailed: "The card could not be rendered.",
+    retry: "Try again",
+    actionX: "X",
+    actionInstagram: "Instagram",
+    actionDiscord: "Discord",
+    actionSave: "Save image",
+    actionCopyLink: "Copy link",
+    actionMore: "More",
+    /** The post text X is opened with. `{site}` is the game's wordmark. */
+    postText: "{name} scored {score} ({grade}) on {site}",
+    postTextPartial: "{name} on {site}",
+    statusLinkCopied: "Link copied",
+    statusImageCopiedPost: "Image copied - paste it into your post",
+    statusImageCopiedDiscord: "Image copied - paste it into Discord",
+    statusImageSaved: "Image saved",
+    statusImageSavedPost: "Image saved - attach it to your post",
+    statusImageSavedDiscord: "Image saved - drop it into Discord",
+    statusImageSavedInstagram: "Image saved - upload it in the Instagram app",
+    statusCopyFailed: "Could not copy the link",
+    statusShareFailed: "Sharing was not available - image saved instead",
     pieces: "{filled}/{total} pieces",
     rolls: "{effective}/{total} effective rolls",
     mainStats: "{correct}/{total} ideal main stats",
@@ -277,11 +351,13 @@ export const en = {
     critDmg: "CRIT DMG",
     er: "En. Recharge",
     elemDmg: "El. DMG",
+    cv: "Crit Value",
   },
 
   /** Roll history behind a substat's pips. */
   rolls: {
     summary: "{n} rolls · average {avg}% of max",
+    summaryOne: "1 roll · {avg}% of max",
     unknown: "{n} upgrades · roll quality not reported for this artifact",
     initial: "Initial",
     upgrade: "Upgrade",
@@ -301,6 +377,7 @@ export const en = {
     critDmg: "CD",
     er: "ER",
     elemDmg: "DMG",
+    cv: "CV",
   },
 
   slots: {
@@ -503,7 +580,7 @@ export const en = {
     uidPlaceholder: "Enter ZZZ UID",
     uidLabel: "Zenless Zone Zero UID",
     scan: "Scan",
-    uidInvalid: "UID must be 9 or 10 digits.",
+    uidInvalid: "UID must be 8 to 10 digits.",
     step1Title: "Rolls are stated and fixed",
     step1Body:
       "Enka reports how many rolls each substat took. In Zenless every roll of a stat is worth the same, so a disc's value is exactly rolls times a known amount.",
@@ -565,6 +642,10 @@ export const en = {
     wrongMain: "wrong main",
     notGradedMain:
       "Not graded: this main stat does nothing for the agent, so the disc is not a candidate however well its substats rolled.",
+    deadRollsBadge: "no useful rolls",
+    notGradedDead:
+      "Not graded: every substat on this disc does nothing for the agent, so there is nothing to measure.",
+    levelUpFirst: "Level it to +{max} before judging it",
     whyNoGrade: "Why is there no grade?",
     usefulSuffix: "/{total} useful",
     farmReplacement: "Farm a replacement",
@@ -576,10 +657,10 @@ export const en = {
       "This build carries {total} rolls, past the {benchmark}-roll benchmark, but {wasted} sit on stats this agent never uses.",
     shortOfBenchmark:
       "{wasted} rolls sit on stats this agent never uses, leaving it short of the {benchmark}-roll benchmark.",
-    critRatio: "Crit ratio (substats)",
+    critRatio: "Crit ratio",
     critRatioTarget: "target 1 : 2",
-    fromDiscs: "{stat} from discs",
-    cap: "(cap {n}%)",
+    fromDiscs: "{stat} total",
+    cap: "(cap {n})",
     rowHp: "HP",
     rowAtk: "ATK",
     rowDef: "DEF",
@@ -601,6 +682,7 @@ export const en = {
     "12102": "ATK%",
     "12103": "ATK",
     "12201": "Impact",
+    "12202": "Impact",
     "13101": "DEF",
     "13102": "DEF%",
     "13103": "DEF",

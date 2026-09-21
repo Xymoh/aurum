@@ -7,3 +7,13 @@ playwright-report
 test-results
 .DS_Store
 .kiro/
+
+# Browser captures from local review sessions
+.playwright-mcp/
+
+# Local environment overrides
+.env*.local
+
+# Wrangler state and local worker secrets
+.wrangler/
+.dev.vars

@@ -1,6 +1,7 @@
 import type { ZzzDisc } from "../types";
 import { WASTE_THRESHOLD, weightOf, type ZzzWeights } from "../weights";
 import { formatStat } from "../labels";
+import { discMaxLevel } from "../parsing";
 import { useI18n } from "../../i18n";
 import { setIcon } from "../images";
 import { GradeBadge } from "../../components/ui/GradeBadge";
@@ -23,6 +24,8 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
   const { t } = useI18n();
   const { score } = disc;
   const icon = setIcon(disc.setId);
+  const maxLevel = discMaxLevel(disc.rarity);
+  const unlevelled = disc.level < maxLevel;
 
   return (
     <div className="rounded-lg border border-zzz-border/70 bg-zzz-card/60 p-2.5">
@@ -40,7 +43,7 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
         </div>
         {score.grade ? (
           <GradeBadge grade={score.grade} size="sm" />
-        ) : (
+        ) : !score.mainStatOk ? (
           <InfoTip
             panelClassName={ZZZ_PANEL}
             align="right"
@@ -50,12 +53,34 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
               {t("zzz", "wrongMain")}
             </span>
           </InfoTip>
+        ) : (
+          // The main is fine; it is the substats that are all dead. Discs
+          // 1 to 3 land here too, and their main can never be wrong.
+          <InfoTip
+            panelClassName={ZZZ_PANEL}
+            align="right"
+            content={t("zzz", "notGradedDead")}
+          >
+            <span className="rounded-md bg-zzz-muted/15 px-1.5 py-0.5 text-xs font-bold uppercase text-zzz-muted">
+              {t("zzz", "deadRollsBadge")}
+            </span>
+          </InfoTip>
         )}
       </div>
 
       <div className="mb-2 flex items-baseline justify-between rounded bg-zzz-inset px-2 py-1">
         <span className="text-sm font-medium text-zzz-text">{t("zzzStats", String(disc.mainStat.id) as "11101")}</span>
-        <span className="font-mono text-sm text-zzz-text">{formatStat(disc.mainStat.id, disc.mainStat.value)}</span>
+        <span className="flex items-baseline gap-2 font-mono text-sm text-zzz-text">
+          {unlevelled && (
+            <span
+              className="rounded bg-zzz-signal/15 px-1 text-[11px] font-bold text-zzz-signal"
+              title={t("zzz", "levelUpFirst", { max: maxLevel })}
+            >
+              +{disc.level}
+            </span>
+          )}
+          {formatStat(disc.mainStat.id, disc.mainStat.value)}
+        </span>
       </div>
 
       <ul className="space-y-1">

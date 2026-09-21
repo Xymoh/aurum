@@ -43,7 +43,7 @@ export function GenshinBuildsPage() {
   // convenience, and a UID typed on another tab should not retarget the page
   // underneath someone mid-read.
   const uid = useMemo(() => readRecentUids(GENSHIN_RECENT_UIDS_KEY)[0]?.uid ?? "", []);
-  const { data, isLoading } = useShowcase(uid);
+  const { data, isLoading, isError } = useShowcase(uid, { enabled: Boolean(id) });
 
   const owned = useMemo(() => {
     if (!id || !data) return null;
@@ -94,6 +94,7 @@ export function GenshinBuildsPage() {
             name={target.name}
             uid={uid || null}
             loading={isLoading}
+            failed={isError}
             owned={owned}
             homeHref="/genshin"
           />

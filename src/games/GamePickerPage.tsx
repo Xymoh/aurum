@@ -28,7 +28,7 @@ export function GamePickerPage() {
 
       <div className="relative w-full max-w-4xl text-center">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          <span className="bg-gradient-to-r from-amber-300 via-teal-200 to-sky-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[var(--wordmark-a)] via-[var(--wordmark-b)] to-[var(--wordmark-c)] bg-clip-text text-transparent">
             Aurum
           </span>
         </h1>

@@ -12,7 +12,6 @@ export type ZzzStatId = number;
 
 /** The six drive disc slots. 1 to 3 have fixed main stats, 4 to 6 are chosen. */
 export type ZzzSlot = 1 | 2 | 3 | 4 | 5 | 6;
-export const ZZZ_SLOTS: ZzzSlot[] = [1, 2, 3, 4, 5, 6];
 export type SelectableZzzSlot = 4 | 5 | 6;
 export const SELECTABLE_ZZZ_SLOTS: SelectableZzzSlot[] = [4, 5, 6];
 
@@ -121,8 +120,11 @@ export interface ZzzBuildDiagnostics {
   totals: { id: ZzzStatId; rolls: number; value: number }[];
   critRatio: number | null;
   sets: { setId: number; name: string; pieces: number }[];
-  /** Stats a guide caps ("CRIT Rate until 80%"), with the build's total for each. */
-  thresholds: { id: ZzzStatId; target: number; current: number }[];
+  /**
+   * Stats a guide caps ("CRIT Rate until 80%", "ATK until 3000"), with the
+   * build's stat-screen total for each. `percent` says how to print both.
+   */
+  thresholds: { id: ZzzStatId; target: number; current: number; percent: boolean }[];
 }
 
 export interface ZzzShowcase {
@@ -133,4 +135,6 @@ export interface ZzzShowcase {
   profilePicture: string | null;
   agents: ZzzAgent[];
   fetchedAt: number;
+  /** Seconds Enka says this answer stays valid. */
+  ttl: number;
 }

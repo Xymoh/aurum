@@ -1,0 +1,12 @@
+# Cloudflare Worker config for the Enka relay. Deployed by
+# .github/workflows/deploy-worker.yml on every push to main that touches
+# this folder, or by hand from the repo root:
+#
+#   npx wrangler deploy --config workers/wrangler.toml
+name = "enka-proxy"
+main = "enka-proxy.js"
+compatibility_date = "2024-01-01"
+
+# ALLOWED_ORIGINS is set in the Cloudflare dashboard, not here, so a deploy
+# never wipes it.
+keep_vars = true

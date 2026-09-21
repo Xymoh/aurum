@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { Artifact, ArtifactSubstat } from "../../types/artifact";
+import { scorePercentile } from "../../lib/percentile";
 import { RollPips } from "../ui/RollPips";
 import { ROLL_TIER_BG, rollTier } from "../../lib/rollTier";
 import { getRerollTier, chanceWithin, formatChance } from "../../lib/reroll";
@@ -10,6 +11,7 @@ import { DiceIcon, WarningIcon, RecycleIcon, CheckIcon } from "../ui/icons";
 import { GradeBadge } from "../ui/GradeBadge";
 import { InfoTip } from "../ui/InfoTip";
 import { useI18n } from "../../i18n";
+import { farmTargetFor, uniqueLabels } from "../../lib/buildTarget/genshin";
 
 const TIER_LABEL = { high: "rerollNow", medium: "worthRerolling", low: "lowPriority" } as const;
 const TIER_BLURB = { high: "blurbHigh", medium: "blurbMedium", low: "blurbLow" } as const;
@@ -18,23 +20,39 @@ const ENKA_UI_BASE = "https://enka.network/ui";
 
 interface ArtifactCardProps {
   artifact: Artifact;
+  /** The wearer, so a replacement verdict can name the set to farm. */
+  avatarId?: number;
+  /** The wearer's name, for the percentile note. */
+  characterName?: string;
 }
 
 /**
  * The roll history of one substat: every roll's value and tier, so "12.1%
  * CRIT Rate" can be read as "three good rolls" or "four poor ones".
  */
+type Translate = ReturnType<typeof useI18n>["t"];
+
+/**
+ * One line naming the roll count and average tier. The accessible name of
+ * the pip trigger and the popover heading say the same thing, so a screen
+ * reader hears the number sighted readers see.
+ */
+function rollSummaryLabel(sub: ArtifactSubstat, t: Translate): string {
+  if (sub.rolls.length === 0) return t("rolls", "unknown", { n: sub.rollCount + 1 });
+  const avg = Math.round((sub.rolls.reduce((a, b) => a + b, 0) / sub.rolls.length) * 100);
+  return sub.rolls.length === 1
+    ? t("rolls", "summaryOne", { avg })
+    : t("rolls", "summary", { n: sub.rolls.length, avg });
+}
+
 function RollBreakdown({ sub }: { sub: ArtifactSubstat }) {
   const { t } = useI18n();
   if (sub.rolls.length === 0) {
-    return <p>{t("rolls", "unknown", { n: sub.rollCount })}</p>;
+    return <p>{t("rolls", "unknown", { n: sub.rollCount + 1 })}</p>;
   }
-  const avg = sub.rolls.reduce((a, b) => a + b, 0) / sub.rolls.length;
   return (
     <div className="space-y-1">
-      <p className="font-medium">
-        {t("rolls", "summary", { n: sub.rolls.length, avg: Math.round(avg * 100) })}
-      </p>
+      <p className="font-medium">{rollSummaryLabel(sub, t)}</p>
       <ul className="space-y-0.5 font-mono text-dark-muted">
         {sub.rolls.map((share, i) => {
           const tier = rollTier(share);
@@ -97,14 +115,34 @@ function VerdictRow({
   );
 }
 
-export function ArtifactCard({ artifact }: ArtifactCardProps) {
+export function ArtifactCard({ artifact, avatarId, characterName }: ArtifactCardProps) {
   const { t } = useI18n();
+
+  // Where this piece sits among what the game would drop for the slot:
+  // the context a bare percent lacks. Simulated once per character and
+  // main stat, then cached, so this is a lookup after the first card.
+  const percentile = useMemo(
+    () => (avatarId != null ? scorePercentile(avatarId, artifact.mainStat.statKey, artifact.score.potentialPercent) : null),
+    [avatarId, artifact.mainStat.statKey, artifact.score.potentialPercent],
+  );
+  const topPct = percentile != null ? Math.max(1, Math.round((1 - percentile) * 100)) : null;
   const [iconError, setIconError] = useState(false);
   const gradeColor = gradeVar(artifact.score.grade);
   const artIconUrl = artifact.icon ? `${ENKA_UI_BASE}/${artifact.icon}.png` : null;
   const reroll = artifact.score.reroll;
   const reasonText = useReasonText(reroll);
   const rerollTier = reroll.action === "reroll" ? getRerollTier(reroll.expectedDust) : null;
+
+  // What the slot wants, so the warning and the "farm a replacement" verdict
+  // can both say it instead of leaving the reader to look it up.
+  const idealLabels = uniqueLabels(artifact.mainStat.idealStats, t);
+  const farm = avatarId != null ? farmTargetFor(avatarId, artifact.mainStat.idealStats, t) : null;
+  const farmMain = farm && farm.mains.length > 0 ? farm.mains.join(" / ") : artifact.mainStat.displayName;
+  const farmText = farm
+    ? farm.setName
+      ? t("verdict", "farmHint", { slot: t("slots", artifact.slot), main: farmMain, set: farm.setName })
+      : t("verdict", "farmHintNoSet", { slot: t("slots", artifact.slot), main: farmMain })
+    : undefined;
 
   return (
     <div className="flex w-full flex-col gap-1.5 rounded-lg border border-dark-border bg-dark-card p-3">
@@ -131,7 +169,15 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
       <div className="flex items-center justify-between gap-2">
         <span className="flex min-w-0 items-center gap-1 truncate text-sm text-dark-muted">
           {artifact.mainStat.isCorrect === false && (
-            <InfoTip content={t("verdict", "mainStatWarning")} label={t("verdict", "mainStatWarning")} className="shrink-0">
+            <InfoTip
+              content={
+                idealLabels.length > 0
+                  ? t("verdict", "mainStatWarningIdeal", { ideal: idealLabels.join(" / "), stat: artifact.mainStat.displayName })
+                  : t("verdict", "mainStatWarning")
+              }
+              label={t("verdict", "mainStatWarning")}
+              className="shrink-0"
+            >
               <WarningIcon className="h-3.5 w-3.5 text-warn" />
             </InfoTip>
           )}
@@ -156,7 +202,7 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
               <InfoTip
                 content={<RollBreakdown sub={sub} />}
                 align="right"
-                label={t("rolls", "summary", { n: sub.rolls.length || sub.rollCount + 1, avg: "?" })}
+                label={rollSummaryLabel(sub, t)}
               >
                 <RollPips
                   rolls={sub.rolls}
@@ -182,12 +228,40 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
           <span className="hidden truncate text-xs text-dark-muted sm:inline">{t("showcase", "score")}</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="font-mono text-sm font-bold tabular-nums" style={{ color: gradeColor }}>
-            {formatScore(artifact.score.potentialPercent)}
-          </span>
+          {/* Crit Value beside the score: the figure players already know,
+              so the 0-200 number has something familiar to sit next to. */}
+          {artifact.score.cv > 0 && (
+            <InfoTip content={t("showcase", "cvHint")} label={t("stats", "cv")} align="right">
+              <span className="font-mono text-[11px] tabular-nums text-dark-muted">
+                {t("showcase", "cv")} {artifact.score.cv.toFixed(1)}
+              </span>
+            </InfoTip>
+          )}
+          {topPct != null ? (
+            <InfoTip
+              align="right"
+              label={t("showcase", "percentileTop", { pct: topPct })}
+              content={t("showcase", "percentileHint", {
+                pct: Math.round((percentile ?? 0) * 100),
+                slot: t("slots", artifact.slot),
+                name: characterName ?? "",
+              })}
+            >
+              <span className="font-mono text-sm font-bold tabular-nums underline decoration-dotted underline-offset-4" style={{ color: gradeColor }}>
+                {formatScore(artifact.score.potentialPercent)}
+              </span>
+            </InfoTip>
+          ) : (
+            <span className="font-mono text-sm font-bold tabular-nums" style={{ color: gradeColor }}>
+              {formatScore(artifact.score.potentialPercent)}
+            </span>
+          )}
           <GradeBadge grade={artifact.score.grade} size="xs" />
         </div>
       </div>
+      {topPct != null && (
+        <p className="-mt-1 text-right font-mono text-[11px] text-dark-muted">{t("showcase", "percentileTop", { pct: topPct })}</p>
+      )}
 
       {/* Dust of Enlightenment advice - see lib/reroll.ts for the model. The
           two stats to nominate are visible; the odds for several tries live
@@ -213,6 +287,11 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
                 ))}
               </ul>
               <p className="text-dark-muted">{t("verdict", "tipMedianGain", { gain: reroll.medianGain.toFixed(0) })}</p>
+              {reroll.nextGrade && (
+                <p className="text-dark-muted">
+                  {t("verdict", "tipNextGrade", { chance: formatChance(reroll.nextGradeChance), grade: reroll.nextGrade })}
+                </p>
+              )}
               <p className="text-dark-muted">{t("verdict", "tipCeiling", { ceiling: reroll.realisticCeiling.toFixed(0) })}</p>
             </div>
           }
@@ -254,6 +333,7 @@ export function ArtifactCard({ artifact }: ArtifactCardProps) {
             color="var(--verdict-replace)"
             icon={<RecycleIcon className="h-3 w-3 flex-shrink-0" />}
             label={t("verdict", "farmReplacement")}
+            sub={farmText}
           />
         </InfoTip>
       )}

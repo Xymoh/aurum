@@ -1,13 +1,14 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { fetchShowcase } from "../lib/api";
-import { parseShowcaseData } from "../lib/parsing";
-import { scoreArtifact, scoreBuild } from "../lib/scoring";
+import { buildShowcase } from "../lib/showcase";
 import { loadGameLocale } from "../lib/gameLocale";
+import { isValidUid } from "../lib/uid";
+import { freshUntil, showcaseRetry, staleTimeFromTtl } from "../lib/showcaseQuery";
 import { useI18n } from "../i18n";
 import type { ShowcaseData } from "../types/character";
 
-export function useShowcase(uid: string) {
+export function useShowcase(uid: string, options: { enabled?: boolean } = {}) {
   const queryClient = useQueryClient();
   const { lang } = useI18n();
 
@@ -18,39 +19,25 @@ export function useShowcase(uid: string) {
     // has to be in place first.
     await loadGameLocale(lang);
 
-    // Parse raw Enka data into domain models
-    const parsed = parseShowcaseData(raw);
-
-    // Score all artifacts and builds
-    for (const character of parsed.characters) {
-      character.artifacts = character.artifacts.map((art) =>
-        // Pass the character's live ER so reroll advice can respect their
-        // rotation requirement rather than trading it away for crit.
-        // The element matters only for the Traveler, whose seven variants
-        // share one avatarId but want different main stats.
-        scoreArtifact(art, character.avatarId, character.stats.energyRecharge, character.element),
-      );
-      character.buildScore = scoreBuild(character);
-    }
-
-    // Re-sort after scoring (in case scores changed)
-    parsed.characters.sort((a, b) => b.buildScore.total - a.buildScore.total);
-
-    return parsed;
+    return buildShowcase(raw);
   }, [uid, lang]);
 
+  const queryKey = ["showcase", uid, lang];
   const query = useQuery<ShowcaseData, Error>({
-    queryKey: ["showcase", uid, lang],
+    queryKey,
     queryFn,
-    enabled: uid.length === 9 && /^[1-9]\d{8}$/.test(uid),
-    staleTime: 5 * 60 * 1000,
-    retry: 1,
+    enabled: (options.enabled ?? true) && isValidUid(uid),
+    staleTime: staleTimeFromTtl,
+    retry: showcaseRetry,
   });
 
-  // Force refresh: invalidate cache and refetch
-  const forceRefresh = useCallback(() => {
-    queryClient.invalidateQueries({ queryKey: ["showcase", uid, lang] });
-  }, [queryClient, uid, lang]);
+  const fresh = freshUntil(query.dataUpdatedAt, query.data);
 
-  return { ...query, forceRefresh };
+  // Refresh only once Enka would actually have something new to say.
+  const forceRefresh = useCallback(() => {
+    if (Date.now() < fresh) return;
+    queryClient.invalidateQueries({ queryKey: ["showcase", uid, lang] });
+  }, [queryClient, uid, lang, fresh]);
+
+  return { ...query, forceRefresh, freshUntil: fresh };
 }

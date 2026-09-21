@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import fixture from "../fixtures/zzz-showcase.json";
-import { parseZzzShowcase, mainStatAtLevel, type RawZzzResponse } from "../../src/zzz/parsing";
+import { parseZzzShowcase, mainStatAtLevel, discMaxLevel, type RawZzzResponse } from "../../src/zzz/parsing";
 import {
   BENCHMARK_ROLLS,
   MAX_ROLLS,
@@ -14,7 +14,7 @@ import {
   substatScale,
 } from "../../src/zzz/scoring";
 import { getScoringMeta, WASTE_THRESHOLD, weightOf } from "../../src/zzz/weights";
-import { engineStats } from "../../src/zzz/stats";
+import { computeZzzStats, engineStats } from "../../src/zzz/stats";
 import { isValidZzzUid } from "../../src/zzz/useZzzShowcase";
 import { displayValue, isPercentStat, statLabel } from "../../src/zzz/labels";
 
@@ -63,6 +63,8 @@ describe("ZZZ parsing", () => {
   it("accepts nine and ten digit UIDs", () => {
     expect(isValidZzzUid("1300064261")).toBe(true);
     expect(isValidZzzUid("130006426")).toBe(true);
+    expect(isValidZzzUid("10001234")).toBe(true); // 8-digit CN account, served by Enka
+    expect(isValidZzzUid("1000123")).toBe(false);
     expect(isValidZzzUid("0300064261")).toBe(false);
     expect(isValidZzzUid("13000642611")).toBe(false);
   });
@@ -115,8 +117,10 @@ describe("normalisation", () => {
     expect(substatScale(20103)).toBeCloseTo(2, 5);
   });
 
-  it("weights flat stats at 40% of their percent stat", () => {
-    const meta = getScoringMeta(first.id);
+  it("derives a flat weight at 40% of its percent stat when the guide left it out", () => {
+    // The role profiles state no flat weights, so the derivation shows here;
+    // a guide that names one keeps its own figure.
+    const meta = getScoringMeta(999999);
     expect(weightOf(meta.stats, 12103)).toBeCloseTo(0.4 * weightOf(meta.stats, 12102), 5);
   });
 });
@@ -284,5 +288,69 @@ describe("ZZZ render framing", () => {
     const missing = Object.entries(agents).filter(([id, a]) => a.image && !(id in focus)).map(([, a]) => a.name);
     // A new patch adds agents; `npm run measure-zzz-art` adds their framing.
     expect(missing).toEqual([]);
+  });
+});
+
+describe("engine corrections checked against Enka's tables", () => {
+  const meta = (id: number) => getScoringMeta(id);
+
+  it("keys the disc 6 Impact main as the percent id Enka sends", () => {
+    // 12201 is BreakStun_base, the agent's own Impact; a disc main is 12202.
+    expect(SLOT_MAIN_STATS[6]).toContain(12202);
+    expect(SLOT_MAIN_STATS[6]).not.toContain(12201);
+    // Anby's guide lists Impact on disc 6; the id has to line up.
+    expect(mainStatWeight(6, 12202, meta(1011))).toBe(1);
+  });
+
+  it("indexes the promotion table from Enka's 1-based advance id", () => {
+    // Row 0 carries no bonus, so a fresh agent (promotion 1) gains nothing
+    // and promotion 2 gets the first real row.
+    const at = (promotion: number) =>
+      computeZzzStats({ agentId: 1171, element: "Fire", level: 10, promotion, coreSkill: 0, engine: null, discs: [], sets: [] }).hp;
+    expect(at(2)).toBeGreaterThan(at(1));
+    expect(at(1)).toBe(computeZzzStats({ agentId: 1171, element: "Fire", level: 10, promotion: 0, coreSkill: 0, engine: null, discs: [], sets: [] }).hp);
+  });
+
+  it("applies a core skill's percentage bonus instead of burying it in the base map", () => {
+    // Zhao's core F grants HP +18% over an unenhanced core.
+    const zhao = (coreSkill: number) =>
+      computeZzzStats({ agentId: 1341, element: "Ice", level: 60, promotion: 6, coreSkill, engine: null, discs: [], sets: [] });
+    expect(zhao(6).hp / zhao(0).hp).toBeCloseTo(1.18, 2);
+  });
+
+  it("reads PEN Ratio from the 231xx ids, not Adrenaline recovery", () => {
+    const rina = computeZzzStats({ agentId: 1211, element: "Elec", level: 60, promotion: 6, coreSkill: 6, engine: null, discs: [], sets: [] });
+    expect(rina.penRatio).toBeCloseTo(14.4, 1);
+    const yixuan = computeZzzStats({ agentId: 1371, element: "AuricEther", level: 60, promotion: 6, coreSkill: 6, engine: null, discs: [], sets: [] });
+    expect(yixuan.penRatio).toBe(0);
+  });
+
+  it("keeps a flat weight the guide stated", () => {
+    // Ju Fufu's guide ranks flat ATK at 0.75 with no ATK% weight at all.
+    expect(weightOf(meta(1391).stats, 12103)).toBe(0.75);
+  });
+
+  it("accepts a damage dealer's own element DMG on disc 5", () => {
+    // Ye Shunguang's scrape listed PEN Ratio and ATK% but not Physical DMG.
+    expect(meta(1431).parts[5]).toContain(31503);
+    expect(mainStatWeight(5, 31503, meta(1431))).toBe(1);
+  });
+
+  it("grows lower-rarity disc mains faster so every rarity reaches 4x at its cap", () => {
+    expect(mainStatAtLevel(367, 12, 3)).toBeCloseTo(1468, 6);
+    expect(mainStatAtLevel(100, 9, 2)).toBeCloseTo(400, 6);
+    expect(discMaxLevel(4)).toBe(15);
+    expect(discMaxLevel(3)).toBe(12);
+  });
+
+  it("measures guide caps against the stat screen and says how to print them", () => {
+    const d = scoreAgent(parsed.agents.find((a) => a.id === 1171)!).diagnostics;
+    for (const th of d.thresholds) expect(typeof th.percent).toBe("boolean");
+    // A CRIT Rate cap is a percentage; an ATK cap is a flat figure.
+    const yuzuha = getScoringMeta(1421);
+    if (yuzuha.thresholds[12103]) {
+      const agent = parsed.agents.find((a) => a.id === 1421);
+      if (agent) expect(scoreAgent(agent).diagnostics.thresholds.find((t) => t.id === 12103)?.percent).toBe(false);
+    }
   });
 });

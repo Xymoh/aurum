@@ -50,6 +50,7 @@ interface RawAvatar {
   Weapon?: { Id: number; Level?: number; UpgradeLevel?: number; BreakLevel?: number } | null;
 }
 export interface RawZzzResponse {
+  ttl?: number;
   uid?: number | string;
   PlayerInfo?: {
     ShowcaseDetail?: { AvatarList?: RawAvatar[] };
@@ -61,12 +62,21 @@ export interface RawZzzResponse {
 }
 
 /**
- * Main stats grow by 20% of their base per disc level: a 550 HP main at +0
- * is 2200 at +15, a 6% CRIT Rate main is 24%. Substats do not scale with
- * disc level at all.
+ * A disc's main stat reaches four times its base at that rarity's level cap:
+ * S-rank (rarity 4) gains 20% of base per level to +15, A-rank 25% to +12,
+ * B-rank a third to +9. A 550 HP main at +0 is 2200 at +15 on an S-rank and
+ * 2200 at +12 on an A-rank. Substats do not scale with disc level at all.
  */
-export function mainStatAtLevel(base: number, level: number): number {
-  return base * (1 + 0.2 * level);
+const MAIN_GROWTH_PER_LEVEL: Record<number, number> = { 4: 0.2, 3: 0.25, 2: 1 / 3 };
+const MAX_DISC_LEVEL: Record<number, number> = { 4: 15, 3: 12, 2: 9 };
+
+export function mainStatAtLevel(base: number, level: number, rarity: number = 4): number {
+  return base * (1 + (MAIN_GROWTH_PER_LEVEL[rarity] ?? 0.2) * level);
+}
+
+/** The highest level a disc of this rarity can reach. */
+export function discMaxLevel(rarity: number): number {
+  return MAX_DISC_LEVEL[rarity] ?? 15;
 }
 
 function parseDisc(slot: number, raw: RawEquipment, lang: ZzzLang): Omit<ZzzDisc, "score"> | null {
@@ -85,15 +95,16 @@ function parseDisc(slot: number, raw: RawEquipment, lang: ZzzLang): Omit<ZzzDisc
     totalRolls += rolls;
   }
 
+  const rarity = item?.rarity ?? 4;
   return {
     id: `${raw.Id}-${main.PropertyId}-${substats.map((s) => `${s.id}x${s.rolls}`).join(".")}`,
     itemId: raw.Id,
     slot: slot as ZzzSlot,
     setId,
     setName: pickName(SETS[String(setId)], lang, `Set ${setId}`),
-    rarity: item?.rarity ?? 4,
+    rarity,
     level: raw.Level,
-    mainStat: { id: main.PropertyId, value: displayValue(main.PropertyId, mainStatAtLevel(main.PropertyValue, raw.Level)) },
+    mainStat: { id: main.PropertyId, value: displayValue(main.PropertyId, mainStatAtLevel(main.PropertyValue, raw.Level, rarity)) },
     substats,
     totalRolls,
   };
@@ -170,6 +181,7 @@ export function parseZzzShowcase(raw: RawZzzResponse, lang: ZzzLang = "en"): Par
   });
 
   return {
+    ttl: raw.ttl ?? 60,
     uid: String(raw.uid ?? profile?.Uid ?? ""),
     nickname: profile?.Nickname ?? "Unknown",
     level: profile?.Level ?? 0,

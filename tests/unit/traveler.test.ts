@@ -34,11 +34,11 @@ describe("Traveler element", () => {
 
   it("trusts the depot over the equipped goblet", () => {
     // A Cryo Traveler holding an off-element Pyro goblet still reads as Cryo.
-    expect(getCharacterElement(TRAVELER_A, { "41": 0.466 }, 505)).toBe("Cryo");
+    expect(getCharacterElement(TRAVELER_A, { "40": 0.466 }, 505)).toBe("Cryo");
   });
 
   it("falls back to sniffing the goblet when the depot is one shipped later", () => {
-    expect(getCharacterElement(TRAVELER_A, { "47": 0.466 }, 599)).toBe("Cryo");
+    expect(getCharacterElement(TRAVELER_A, { "46": 0.466 }, 599)).toBe("Cryo");
     expect(getCharacterElement(TRAVELER_A, NO_ELEMENTAL_DMG, 599)).toBe("Anemo");
   });
 

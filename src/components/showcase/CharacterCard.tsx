@@ -1,3 +1,9 @@
+import { useRef } from "react";
+import { useNearViewport } from "../../hooks/useNearViewport";
+import { InfoTip } from "../ui/InfoTip";
+import { uniqueLabels } from "../../lib/buildTarget/genshin";
+import { BuildDiagnostics } from "./BuildDiagnostics";
+import type { BuildDelta } from "../../lib/history";
 import type { CharacterData } from "../../types/character";
 import { ELEMENT_COLORS } from "../../types/character";
 import type { ArtifactSlot } from "../../types/artifact";
@@ -36,13 +42,39 @@ interface CharacterCardProps {
   index: number;
   isExpanded: boolean;
   onToggleExpand: () => void;
+  /** How the build moved since this browser last saw the showcase. */
+  delta?: BuildDelta;
+}
+
+/** A small "since last visit" marker: up or down by whole percents, or "new". */
+function DeltaBadge({ delta }: { delta: BuildDelta }) {
+  const { t } = useI18n();
+  const when = new Date(delta.since).toLocaleDateString();
+  if (delta.isNew) {
+    return (
+      <span className="rounded border border-accent/40 bg-accent/15 px-1.5 py-0.5 text-[11px] font-semibold uppercase text-accent" title={t("showcase", "newSince", { date: when })}>
+        {t("showcase", "newLabel")}
+      </span>
+    );
+  }
+  if (delta.build == null || Math.abs(delta.build) < 1) return null;
+  const up = delta.build > 0;
+  const text = `${up ? "▲" : "▼"} ${up ? "+" : ""}${Math.round(delta.build)}%`;
+  return (
+    <span
+      className={`font-mono text-[11px] font-semibold ${up ? "text-verdict-high" : "text-verdict-replace"}`}
+      title={t("showcase", "deltaSince", { delta: text, date: when })}
+    >
+      {text}
+    </span>
+  );
 }
 
 const ENKA_UI_BASE = "https://enka.network/ui";
 const TALENT_MAX = 15;
 
 // ── Stat icon map from local SVGs ──
-type StatKey = "maxHp" | "atk" | "def" | "em" | "critRate" | "critDmg" | "er" | "elemDmg";
+type StatKey = "maxHp" | "atk" | "def" | "em" | "critRate" | "critDmg" | "cv" | "er" | "elemDmg";
 
 const STAT_ICONS: Record<StatKey, string> = {
   maxHp: hpIcon,
@@ -51,6 +83,7 @@ const STAT_ICONS: Record<StatKey, string> = {
   em: emIcon,
   critRate: crIcon,
   critDmg: cdIcon,
+  cv: cdIcon,
   er: erIcon,
   elemDmg: elemIcon,
 };
@@ -60,6 +93,7 @@ const PCT_STATS = new Set<StatKey>(["critRate", "critDmg", "er", "elemDmg"]);
 
 function formatStatValue(key: StatKey, value: number): string {
   if (PCT_STATS.has(key)) return `${value.toFixed(1)}%`;
+  if (key === "cv") return value.toFixed(1);
   return value.toLocaleString();
 }
 
@@ -79,7 +113,7 @@ function RarityStars({ count }: { count: number }) {
  */
 function StatChip({ statKey, value }: { statKey: StatKey; value: number }) {
   const { t } = useI18n();
-  return (
+  const chip = (
     <div className="flex items-baseline gap-1.5 text-sm">
       <img src={STAT_ICONS[statKey]} alt="" className="h-3.5 w-3.5 flex-shrink-0 self-center opacity-70" />
       <span className="text-dark-muted">
@@ -89,6 +123,16 @@ function StatChip({ statKey, value }: { statKey: StatKey; value: number }) {
       <span className="font-mono font-semibold tabular-nums text-dark-text">{formatStatValue(statKey, value)}</span>
     </div>
   );
+  // Crit Value is the one figure here that is a convention rather than a
+  // stat the game prints, so it carries its definition.
+  if (statKey === "cv") {
+    return (
+      <InfoTip content={t("showcase", "cvHint")} label={t("stats", "cv")}>
+        {chip}
+      </InfoTip>
+    );
+  }
+  return chip;
 }
 
 /**
@@ -112,7 +156,13 @@ function SlotPill({ slot, character }: { slot: ArtifactSlot; character: Characte
     <span className="inline-flex items-center gap-1.5 rounded-md border border-dark-border/70 bg-dark-bg/40 px-2 py-0.5 text-xs">
       <span className="text-dark-muted">{t("slots", slot)}</span>
       {art.mainStat.isCorrect === false && (
-        <WarningIcon className="h-3 w-3 text-warn" aria-label={t("verdict", "mainStatWarning")} />
+        <WarningIcon
+          className="h-3 w-3 text-warn"
+          aria-label={t("verdict", "mainStatWarningIdeal", {
+            ideal: uniqueLabels(art.mainStat.idealStats, t).join(" / "),
+            stat: art.mainStat.displayName,
+          })}
+        />
       )}
       <span className="font-mono font-semibold tabular-nums" style={{ color: gradeVar(art.score.grade) }}>
         {formatScore(art.score.potentialPercent)}
@@ -122,7 +172,7 @@ function SlotPill({ slot, character }: { slot: ArtifactSlot; character: Characte
   );
 }
 
-export function CharacterCard({ character, index, isExpanded, onToggleExpand }: CharacterCardProps) {
+export function CharacterCard({ character, index, isExpanded, onToggleExpand, delta }: CharacterCardProps) {
   // Sticky: once opened, the body stays mounted so collapsing can animate.
   const [everExpanded, setEverExpanded] = useState(isExpanded);
   useEffect(() => {
@@ -157,12 +207,22 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
     { key: "em", value: character.stats.elementalMastery },
     { key: "critRate", value: character.stats.critRate },
     { key: "critDmg", value: character.stats.critDmg },
+    { key: "cv", value: character.buildScore.cv },
     { key: "er", value: character.stats.energyRecharge },
     { key: "elemDmg", value: character.stats.elementalDmg },
   ];
 
+  // The wish splash behind the banner is a 2048x1024 PNG from Enka, close to
+  // two megabytes each. It is only requested once the card is near the
+  // viewport or open, so a twelve-character showcase does not pull every
+  // splash on first paint.
+  const cardRef = useRef<HTMLDivElement>(null);
+  const nearViewport = useNearViewport(cardRef);
+  const showPortrait = nearViewport || isExpanded;
+
   return (
     <div
+      ref={cardRef}
       id={`character-${character.id}`}
       className="character-card game-panel animate-fade-in-up flex scroll-mt-20 flex-col transition-colors"
       // Staggered so the list assembles top-down rather than flashing in as a
@@ -194,12 +254,16 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
             }}
           >
             <div className="absolute inset-0 opacity-40 mix-blend-overlay" style={{ backgroundColor: elementColor }} />
-            {portraitUrl && !imgError && (
+            {portraitUrl && !imgError && showPortrait && (
               <img
                 src={portraitUrl}
                 alt=""
+                width={2048}
+                height={1024}
                 className="h-full w-full object-cover object-[center_22%] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
                 loading="lazy"
+                decoding="async"
+                fetchPriority="low"
                 onError={(e) => {
                   if (fallbackUrl && e.currentTarget.src !== fallbackUrl) {
                     e.currentTarget.src = fallbackUrl;
@@ -235,6 +299,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                 {character.buildScore.complete && (
                   <GradeBadge grade={character.buildScore.grade} size="sm" className="hidden sm:inline-flex" />
                 )}
+                {delta && <DeltaBadge delta={delta} />}
               </div>
               <div className="flex flex-wrap items-center gap-1.5 text-sm font-medium text-dark-muted">
                 <span className="rounded border border-dark-border/60 bg-dark-card px-1.5 py-0.5 text-dark-text/90">
@@ -334,7 +399,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
         className="grid transition-[grid-template-rows] duration-300 ease-out"
         style={{ gridTemplateRows: isExpanded ? "1fr" : "0fr" }}
       >
-        <div className="overflow-hidden">
+        <div className="overflow-hidden" inert={!isExpanded}>
           {everExpanded && (
             <div className="border-t border-dark-border/60 bg-dark-bg/30">
               <div className="flex flex-col gap-3 p-3 sm:gap-4 sm:p-4 lg:p-5">
@@ -355,6 +420,10 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                   correctMainStats={character.buildScore.correctMainStats}
                   totalSelectableSlots={character.buildScore.totalSelectableSlots}
                 />
+
+                {/* What the five grades cannot say between them: how many of
+                    the build's upgrades are working, and where the rest went. */}
+                <BuildDiagnostics character={character} />
 
                 {/* ── AVATAR PROFILE + WEAPON ROW ── */}
                 <div className="flex flex-col gap-3 sm:flex-row">
@@ -501,7 +570,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand }: 
                           </div>
                         );
                       }
-                      return <ArtifactCard key={art.id} artifact={art} />;
+                      return <ArtifactCard key={art.id} artifact={art} avatarId={character.avatarId} characterName={character.name} />;
                     })}
                   </div>
                 </div>

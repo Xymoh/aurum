@@ -6,7 +6,9 @@ import { useCallback, useState } from "react";
  * Each game passes its own storage key, so a Genshin UID never shows up as a
  * suggestion on the Star Rail page. Every access is wrapped: private windows
  * and blocked site data make localStorage throw rather than return null, and a
- * convenience feature must never take the page down with it.
+ * convenience feature must never take the page down with it. Every entry is
+ * checked on the way out for the same reason: a hand-edited or corrupted
+ * value must not crash the home page on every visit.
  */
 
 export interface RecentUid {
@@ -16,15 +18,38 @@ export interface RecentUid {
 
 const MAX_REMEMBERED = 10;
 
-export function readRecentUids(key: string): RecentUid[] {
+/**
+ * Keys carry a site prefix because github.io shares one origin across every
+ * project a user hosts there; a bare "recent-uids" could collide with
+ * someone else's app. Older visitors' lists under the bare key are read once
+ * as a fallback so nobody loses their history to the rename.
+ */
+const PREFIX = "aurum:";
+
+function isRecentUid(value: unknown): value is RecentUid {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    typeof (value as RecentUid).uid === "string" &&
+    /^\d{8,10}$/.test((value as RecentUid).uid) &&
+    typeof (value as RecentUid).timestamp === "number"
+  );
+}
+
+function readKey(key: string): RecentUid[] {
   try {
     const stored = window.localStorage.getItem(key);
     if (!stored) return [];
     const parsed: unknown = JSON.parse(stored);
-    return Array.isArray(parsed) ? (parsed as RecentUid[]) : [];
+    return Array.isArray(parsed) ? parsed.filter(isRecentUid) : [];
   } catch {
     return [];
   }
+}
+
+export function readRecentUids(key: string): RecentUid[] {
+  const current = readKey(PREFIX + key);
+  return current.length > 0 ? current : readKey(key);
 }
 
 /** Moves `uid` to the front, keeping the list unique and bounded. */
@@ -34,7 +59,7 @@ export function rememberUid(key: string, uid: string): RecentUid[] {
     ...readRecentUids(key).filter((entry) => entry.uid !== uid),
   ].slice(0, MAX_REMEMBERED);
   try {
-    window.localStorage.setItem(key, JSON.stringify(next));
+    window.localStorage.setItem(PREFIX + key, JSON.stringify(next));
   } catch {
     // Storage full or unavailable; the lookup still works, it just is not remembered.
   }

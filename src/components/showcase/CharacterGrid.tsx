@@ -1,5 +1,8 @@
+import { scrollBehavior } from "../../lib/motion";
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import type { CharacterData } from "../../types/character";
+import type { BuildDelta } from "../../lib/history";
 import type { GenshinElement } from "../../types/character";
 import { CharacterCard } from "./CharacterCard";
 import { ShowcaseHelp } from "../ui/ShowcaseHelp";
@@ -13,6 +16,8 @@ export interface FocusSignal {
 interface CharacterGridProps {
   characters: CharacterData[];
   focusSignal?: FocusSignal | null;
+  /** Per-character change since this browser last saw the showcase. */
+  deltas?: Map<string, BuildDelta>;
 }
 
 type SortKey = "score-desc" | "score-asc" | "level-desc" | "name-asc";
@@ -50,8 +55,20 @@ function sortCharacters(characters: CharacterData[], sortKey: SortKey): Characte
   }
 }
 
-export function CharacterGrid({ characters, focusSignal }: CharacterGridProps) {
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+export function CharacterGrid({ characters, focusSignal, deltas }: CharacterGridProps) {
+  // A shared link can name one character (?c=<id>); that card opens and
+  // scrolls into view once, on arrival.
+  const [params] = useSearchParams();
+  const linkedId = params.get("c");
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set(linkedId ? [linkedId] : []));
+  const [linkedHandled, setLinkedHandled] = useState(false);
+  useEffect(() => {
+    if (!linkedId || linkedHandled || characters.length === 0) return;
+    setLinkedHandled(true);
+    window.requestAnimationFrame(() => {
+      document.getElementById(`character-${linkedId}`)?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+    });
+  }, [linkedId, linkedHandled, characters.length]);
   const [search, setSearch] = useState("");
   const [elementFilter, setElementFilter] = useState<GenshinElement | "ALL">("ALL");
   const [sortKey, setSortKey] = useState<SortKey>("score-desc");
@@ -78,7 +95,7 @@ export function CharacterGrid({ characters, focusSignal }: CharacterGridProps) {
     if (!focusSignal) return;
     setExpandedIds((prev) => new Set(prev).add(focusSignal.characterId));
     const el = document.getElementById(`character-${focusSignal.characterId}`);
-    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    el?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusSignal?.characterId, focusSignal?.token]);
 
@@ -164,6 +181,7 @@ export function CharacterGrid({ characters, focusSignal }: CharacterGridProps) {
             index={index}
             isExpanded={expandedIds.has(character.id)}
             onToggleExpand={() => toggleExpand(character.id)}
+            delta={deltas?.get(character.id)}
           />
         ))
       )}

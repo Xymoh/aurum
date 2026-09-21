@@ -29,7 +29,7 @@ export function HsrLayout() {
             <span className="text-lg text-hsr-accent transition-transform group-hover:rotate-90">
               ✧
             </span>
-            <span className="text-sm font-semibold uppercase tracking-[0.2em] text-hsr-text">
+            <span className="hidden text-sm font-semibold uppercase tracking-[0.2em] text-hsr-text sm:inline">
               {t("hsr", "title")}
             </span>
           </Link>

@@ -1,3 +1,5 @@
+import { GRADE_LADDER } from "./gradeLadder";
+
 /**
  * Max roll values for 5-star artifact substats.
  * These represent the highest possible value for a single substat roll at level 0.
@@ -37,26 +39,8 @@ export const REFERENCE_HIGH_ROLL = 7.77;
 /** Score grade thresholds following the Fribbels 18-grade scale (0–200% range).
  *  Since ideal is now half the theoretical max, scores are doubled compared to 0–100% scale.
  *  100% = solid artifact (~4.5 useful max rolls), 200% = theoretically perfect. */
-export const GRADE_THRESHOLDS: Array<{ grade: import("../types/artifact").ScoreGrade; min: number }> = [
-  { grade: "WTF+", min: 170 },
-  { grade: "WTF",  min: 160 },
-  { grade: "SSS+", min: 150 },
-  { grade: "SSS",  min: 140 },
-  { grade: "SS+",  min: 130 },
-  { grade: "SS",   min: 120 },
-  { grade: "S+",   min: 110 },
-  { grade: "S",    min: 100 },
-  { grade: "A+",   min: 90 },
-  { grade: "A",    min: 80 },
-  { grade: "B+",   min: 70 },
-  { grade: "B",    min: 60 },
-  { grade: "C+",   min: 50 },
-  { grade: "C",    min: 40 },
-  { grade: "D+",   min: 30 },
-  { grade: "D",    min: 20 },
-  { grade: "F+",   min: 10 },
-  { grade: "F",    min: 0 },
-];
+export const GRADE_THRESHOLDS: Array<{ grade: import("../types/artifact").ScoreGrade; min: number }> =
+  GRADE_LADDER.map((band) => ({ grade: band.grade as import("../types/artifact").ScoreGrade, min: band.min }));
 
 /**
  * Potential scales: normalizing factor that converts substat values into comparable units.

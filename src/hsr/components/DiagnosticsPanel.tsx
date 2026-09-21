@@ -83,7 +83,7 @@ export function DiagnosticsPanel({
                   wasted: d.wastedRolls,
                   benchmark: BENCHMARK_ROLLS,
                 })}
-</p>
+</p>
       </div>
 
       {(nextMoves.length > 0 || toReplace.length > 0) && (

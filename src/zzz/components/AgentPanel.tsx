@@ -1,5 +1,6 @@
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import type { ZzzAgent } from "../types";
+import { useNearViewport } from "../../hooks/useNearViewport";
 import { getAgentInfo, getScoringMeta } from "../weights";
 import { SLOT_COUNT as DISC_SLOT_COUNT } from "../scoring";
 import { IncompleteScore } from "../../components/ui/IncompleteScore";
@@ -41,9 +42,14 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
   const art = agentImage(agent.id);
   const artShift = agentArtShift(agent.id);
   const artOffsetY = agentArtOffsetY(agent.id);
+  // The full-body render is over half a megabyte; it is requested once the
+  // panel is near the viewport or open rather than for every agent at once.
+  const panelRef = useRef<HTMLElement>(null);
+  const showArt = useNearViewport(panelRef) || open;
 
   return (
     <section
+      ref={panelRef}
       id={agentPanelId(agent.id)}
       className="animate-fade-in-up scroll-mt-20 overflow-hidden game-panel border border-zzz-border bg-zzz-panel/60 transition-colors"
       style={{
@@ -60,6 +66,7 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
         onClick={onToggle}
         aria-expanded={open}
         aria-controls={bodyId}
+        aria-label={open ? t("showcase", "collapse", { name: agent.name }) : t("showcase", "expand", { name: agent.name })}
         className="group relative flex w-full items-stretch gap-3 overflow-hidden p-3 text-left sm:gap-4 sm:p-4"
       >
         {/* Full-body art, faded into the card from the right.
@@ -77,11 +84,13 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
             className="relative h-full w-2/3 sm:w-1/2"
             style={{ maskImage: "linear-gradient(to right, transparent, black 55%)", WebkitMaskImage: "linear-gradient(to right, transparent, black 55%)" }}
           >
-            {art && (
+            {art && showArt && (
               <img
                 src={art}
                 alt=""
                 loading="lazy"
+                decoding="async"
+                fetchPriority="low"
                 className="h-full w-full object-cover opacity-60 transition-opacity duration-300 group-hover:opacity-80"
                 style={{
                   objectPosition: `center ${artOffsetY}%`,
@@ -130,7 +139,8 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
               </span>
             ))}
             <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 text-xs text-zzz-muted">
-              {t("zzz", "core")} <span className="font-mono text-zzz-text">{"ABCDEF"[Math.max(0, agent.coreSkill - 1)] ?? "-"}</span>
+              {t("zzz", "core")}{" "}
+              <span className="font-mono text-zzz-text">{agent.coreSkill > 0 ? ("ABCDEF"[agent.coreSkill - 1] ?? "F") : "-"}</span>
             </span>
           </div>
           {agent.engine && (
@@ -202,7 +212,7 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
           start from, and that first expand snapped open. The discs inside
           still wait for that first expand. */}
       <div id={bodyId} className="grid transition-[grid-template-rows] duration-300 ease-out" style={{ gridTemplateRows: open ? "1fr" : "0fr" }}>
-        <div className="overflow-hidden">
+        <div className="overflow-hidden" inert={!open}>
           {everOpened && (
             <div className="space-y-4 border-t p-3 sm:p-4" style={{ borderColor: `${tint}33` }}>
               <BuildPanel d={d} meta={meta} tint={tint} />

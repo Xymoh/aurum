@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Artifact } from "../../types/artifact";
 import type { SetBonusResult } from "../../types/character";
 import { tint } from "../../lib/grade";
@@ -45,6 +46,29 @@ function MatchStatusIndicator({ matchStatus }: { matchStatus: SetBonusResult["ma
   }
 }
 
+/**
+ * The game's own picture for a set is its flower, and Enka names every piece
+ * `UI_RelicIcon_<setId>_<slot>` with 4 for the flower, so the set id alone is
+ * enough to fetch it. A set that lacks the image (or a failed load) falls back
+ * to the text-only chip rather than a broken-image glyph.
+ */
+function SetIcon({ setId, setName }: { setId: string; setName: string }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) return null;
+  return (
+    <img
+      src={`https://enka.network/ui/UI_RelicIcon_${setId}_4.png`}
+      alt={setName}
+      width={24}
+      height={24}
+      loading="lazy"
+      decoding="async"
+      className="icon-dark-bg -ml-1.5 h-6 w-6 flex-shrink-0 rounded-full object-contain"
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
 export function SetBonusRow({ artifacts, setBonus }: SetBonusRowProps) {
   const { t } = useI18n();
   if (artifacts.length === 0) return null;
@@ -72,9 +96,10 @@ export function SetBonusRow({ artifacts, setBonus }: SetBonusRowProps) {
               return (
                 <span
                   key={activeSet.setId}
-                  className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium"
+                  className="inline-flex items-center gap-1.5 rounded-full border py-1 pl-3 pr-3 text-sm font-medium"
                   style={{ borderColor: tint(color, 50), color, backgroundColor: tint(color, 10) }}
                 >
+                  <SetIcon setId={activeSet.setId} setName={activeSet.setName} />
                   {activeSet.setName}
                   <span
                     className="rounded-full border px-1.5 py-[1px] font-mono text-xs font-bold"

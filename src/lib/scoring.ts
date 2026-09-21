@@ -13,9 +13,8 @@ import {
 } from "./constants";
 import { computeRerollAdvice } from "./reroll";
 import { travelerMainStats } from "./travelerBuilds";
-import characterBuildsData from "../data/character-builds.json";
 import setRecommendationsData from "../data/set-recommendations.json";
-import goProcessedData from "../../genshin_optimizer_processed_data.json";
+import goProcessedData from "../data/genshin-optimizer.json";
 
 // ── Character entry shape from the GO processed data ───────────────
 interface GOCharacterEntry {
@@ -69,9 +68,34 @@ const DEFAULT_WEIGHTS: ScoringWeights = {
 
 // ── Max roll lookup ──
 
-export function getMaxRoll(statKey: string): number {
-  return MAX_ROLL_VALUES[statKey] ?? 0;
+/**
+ * Lower rarities roll the same stats at a fixed fraction of the 5-star
+ * values (a 4-star CRIT Rate roll tops out at 3.1 against 3.9), so one table
+ * scaled by rarity covers every artifact a showcase can contain.
+ */
+const RARITY_ROLL_SCALE: Record<number, number> = { 5: 1, 4: 0.8, 3: 0.6, 2: 0.4, 1: 0.2 };
+
+export function getMaxRoll(statKey: string, rarity: number = 5): number {
+  return (MAX_ROLL_VALUES[statKey] ?? 0) * (RARITY_ROLL_SCALE[rarity] ?? 1);
 }
+
+/**
+ * The weights that can actually be earned by a substat roll. Healing Bonus
+ * and the elemental bonuses only ever appear as main stats, so a character
+ * who values them must not have an ideal that pretends a substat could.
+ */
+const SUBSTAT_WEIGHT_KEYS: ReadonlyArray<keyof ScoringWeights> = [
+  "CRIT_RATE",
+  "CRIT_DMG",
+  "ATK_PERCENT",
+  "HP_PERCENT",
+  "DEF_PERCENT",
+  "ELEMENTAL_MASTERY",
+  "ENERGY_RECHARGE",
+  "FLAT_ATK",
+  "FLAT_HP",
+  "FLAT_DEF",
+];
 
 // ── Potential scale lookup ──
 
@@ -232,8 +256,15 @@ function fetchedSetIds(idStr: string): string[] {
   return Array.from(new Set(sets.flat().map((p) => p.setId)));
 }
 
+/**
+ * Both Travelers share one build. Genshin Optimizer keys it under Aether
+ * (10000005); Lumine (10000007) reads the same entry.
+ */
+const TRAVELER_LUMINE = "10000007";
+const TRAVELER_AETHER = "10000005";
+
 export function getBuildConfig(avatarId: number): CharacterBuildConfig | null {
-  const idStr = String(avatarId);
+  const idStr = String(avatarId) === TRAVELER_LUMINE ? TRAVELER_AETHER : String(avatarId);
 
   // ── 1. Primary: GO processed data (authoritative + merged build configs) ──
   const goEntry = goByAvatarId.get(idStr);
@@ -262,9 +293,7 @@ export function getBuildConfig(avatarId: number): CharacterBuildConfig | null {
     };
   }
 
-  // ── 3. Legacy fallback: old character-builds.json ──
-  const builds = characterBuildsData as Record<string, CharacterBuildConfig>;
-  return builds[idStr] ?? null;
+  return null;
 }
 
 /**
@@ -272,7 +301,7 @@ export function getBuildConfig(avatarId: number): CharacterBuildConfig | null {
  * is available.  Uses the character's ascension scaling stat to bias
  * weights in the right direction.
  */
-function deriveWeightsFromScaling(entry: GOCharacterEntry): ScoringWeights {
+export function deriveWeightsFromScaling(entry: GOCharacterEntry): ScoringWeights {
   const weights = { ...DEFAULT_WEIGHTS };
 
   // Every character benefits from crit and some ER
@@ -280,11 +309,16 @@ function deriveWeightsFromScaling(entry: GOCharacterEntry): ScoringWeights {
   weights.CRIT_DMG = 1.0;
   weights.ENERGY_RECHARGE = 0.4; // Baseline ER value for all characters
 
+  // The pipeline writes Genshin Optimizer's own keys for the three
+  // percentage ascension stats ("HP_", "ATK_", "DEF_"); the longer spellings
+  // are kept so a hand-written entry still matches.
   switch (entry.scaling_stat) {
+    case "HP_":
     case "HP_PERCENT":
       weights.HP_PERCENT = 0.8;
       weights.FLAT_HP = 0.15;
       break;
+    case "DEF_":
     case "DEF_PERCENT":
       weights.DEF_PERCENT = 0.8;
       weights.FLAT_DEF = 0.15;
@@ -310,6 +344,35 @@ function deriveWeightsFromScaling(entry: GOCharacterEntry): ScoringWeights {
   }
 
   return weights;
+}
+
+/**
+ * The weight the scorer applies to one substat on one artifact: the
+ * character's table with flats derived and the main stat zeroed. What the
+ * build diagnostics use to call a roll useful or dead.
+ */
+export function substatWeightFor(avatarId: number, mainStatKey: string, statKey: string): number {
+  const config = getBuildConfig(avatarId);
+  const weights = config?.substat_weights ?? DEFAULT_WEIGHTS;
+  const key = resolveWeightKey(statKey);
+  return key ? (getAdjustedWeights(weights, mainStatKey)[key] ?? 0) : 0;
+}
+
+/**
+ * The substat weights the scorer actually grades against for a character:
+ * the curated table with flat stats derived from their percent partners
+ * and main-stat-only entries dropped. The build-target page reads this so
+ * it can never disagree with the score.
+ */
+export function scoringWeightsFor(avatarId: number): Partial<Record<keyof ScoringWeights, number>> {
+  const config = getBuildConfig(avatarId);
+  const weights = config?.substat_weights ?? DEFAULT_WEIGHTS;
+  const adjusted = getAdjustedWeights(weights, "");
+  const out: Partial<Record<keyof ScoringWeights, number>> = {};
+  for (const key of SUBSTAT_WEIGHT_KEYS) {
+    if (adjusted[key] > 0) out[key] = adjusted[key];
+  }
+  return out;
 }
 
 export function computeWSE(substats: ArtifactSubstat[], avatarId: number): number {
@@ -354,8 +417,10 @@ export function computeIdealPotential(
 ): number {
   const adjustedWeights = getAdjustedWeights(weights, mainStatKey);
 
-  // Get all non-zero weights, sorted descending
-  const nonZeroWeights = Object.values(adjustedWeights)
+  // Only stats a substat can roll count towards the ideal. A healer's
+  // Healing Bonus weight belongs to the circlet's main stat and would
+  // otherwise inflate the ideal, under-scoring every piece they wear.
+  const nonZeroWeights = SUBSTAT_WEIGHT_KEYS.map((key) => adjustedWeights[key])
     .filter(w => w > 0)
     .sort((a, b) => b - a);
 
@@ -378,6 +443,23 @@ export function computeIdealPotential(
 
 // ── Main Stat Correctness ──
 
+/**
+ * The main stats a character's build wants in a slot, as weight keys. Empty
+ * for Flower and Plume (fixed) and for a build that accepts anything.
+ */
+export function idealMainStatsFor(slot: string, avatarId: number, element?: GenshinElement): string[] {
+  if (slot === "FLOWER" || slot === "PLUME") return [];
+
+  // The Traveler's seven elements want different pieces and share one
+  // avatarId, so they cannot be told apart by the build table alone.
+  const travelerIdeal = travelerMainStats(avatarId, element);
+  if (travelerIdeal) return travelerIdeal[slot as keyof typeof travelerIdeal] ?? [];
+
+  const config = getBuildConfig(avatarId);
+  const idealSlot = (config?.main_stats_ideal ?? {}) as Record<string, string[] | undefined>;
+  return idealSlot[slot] ?? [];
+}
+
 export function checkMainStat(
   slot: string,
   mainStatKey: FightProp,
@@ -385,25 +467,7 @@ export function checkMainStat(
   /** The Traveler's active element, which decides which build applies. */
   element?: GenshinElement,
 ): { isCorrect: boolean; isRecommended: boolean } {
-  // Flower/Plume have fixed main stats - always correct
-  if (slot === "FLOWER" || slot === "PLUME") {
-    return { isCorrect: true, isRecommended: true };
-  }
-
-  // The Traveler's seven elements want different pieces and share one
-  // avatarId, so they cannot be told apart by the build table alone.
-  const travelerIdeal = travelerMainStats(avatarId, element);
-  if (travelerIdeal) {
-    return matchMainStat(mainStatKey, travelerIdeal[slot as keyof typeof travelerIdeal]);
-  }
-
-  const config = getBuildConfig(avatarId);
-  if (!config?.main_stats_ideal) return { isCorrect: true, isRecommended: true };
-
-  const idealSlot = config.main_stats_ideal as Record<string, string[] | undefined>;
-  const ideal = idealSlot[slot];
-
-  return matchMainStat(mainStatKey, ideal);
+  return matchMainStat(mainStatKey, idealMainStatsFor(slot, avatarId, element));
 }
 
 /** Does this main stat appear in the slot's ideal list, aliases included? */
@@ -430,15 +494,6 @@ function matchMainStat(
   }
 
   return { isCorrect: false, isRecommended: false };
-}
-
-// ── Set Bonus Multiplier ──
-
-export function computeSetBonusMultiplier(setId: string, slot: string): number {
-  // Only Goblet can be off-set without penalty in Genshin (common practice)
-  if (slot === "GOBLET") return 1.0;
-  // Flower, Plume, Sands, Circlet are penalized if off-set
-  return 1.0; // We don't penalize yet - set bonus detection is done at build level
 }
 
 // ── Set Bonus Evaluation ──
@@ -541,7 +596,9 @@ export function scoreArtifact(
   const weightedPotential = computeWeightedPotential(artifact.substats, weights, artifact.mainStat.statKey);
   const idealPotential = computeIdealPotential(weights, artifact.mainStat.statKey);
   const potentialPercent = computePotentialPercent(weightedPotential, idealPotential);
-  const grade = getGrade(potentialPercent);
+  // Grade the number the reader sees. The display rounds to a whole percent,
+  // and grading the raw value let a piece show "100%" next to an A+.
+  const grade = getGrade(Math.round(potentialPercent));
 
   // Main stat evaluation
   const mainStatResult = checkMainStat(artifact.slot, artifact.mainStat.statKey, avatarId, element);
@@ -576,6 +633,7 @@ export function scoreArtifact(
       ...artifact.mainStat,
       isCorrect: mainStatResult.isCorrect,
       isRecommended: mainStatResult.isRecommended,
+      idealStats: idealMainStatsFor(artifact.slot, avatarId, element),
     },
     score: {
       potentialPercent,
@@ -612,8 +670,18 @@ export function scoreBuild(character: CharacterData): BuildScore {
       correctMainStats: 0,
       totalSelectableSlots: 0,
       setBonus: { activeSets: [], matchStatus: "no_recommendation" },
+      cv: 0,
     };
   }
+
+  // Crit Value the way the community counts it: every crit substat, plus a
+  // CRIT circlet's main stat.
+  const cv = character.artifacts.reduce((sum, art) => {
+    const main = art.mainStat;
+    const mainCv =
+      main.statKey === "FIGHT_PROP_CRITICAL" ? main.value * 2 : main.statKey === "FIGHT_PROP_CRITICAL_HURT" ? main.value : 0;
+    return sum + art.score.cv + mainCv;
+  }, 0);
 
   // Average potentialPercent across all equipped artifacts
   const avgPotentialPercent = character.artifacts.reduce(
@@ -637,7 +705,7 @@ export function scoreBuild(character: CharacterData): BuildScore {
 
   return {
     total,
-    grade: getGrade(total),
+    grade: getGrade(Math.round(total)),
     // The average runs over equipped pieces only, so a two-piece build would
     // otherwise present as a finished one. Anything short of five slots is
     // reported as unscored rather than scored generously.
@@ -646,5 +714,6 @@ export function scoreBuild(character: CharacterData): BuildScore {
     correctMainStats,
     totalSelectableSlots,
     setBonus,
+    cv: Math.round(cv * 10) / 10,
   };
 }

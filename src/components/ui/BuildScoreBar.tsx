@@ -2,6 +2,7 @@ import type { ScoreGrade } from "../../types/artifact";
 import { gradeVar, tint } from "../../lib/grade";
 import { formatScore } from "../../lib/format";
 import { useI18n } from "../../i18n";
+import { InfoTip } from "./InfoTip";
 
 interface BuildScoreBarProps {
   score: number;
@@ -77,8 +78,14 @@ export function BuildScoreBar({
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline justify-between gap-2">
           <span className="text-sm font-medium text-dark-muted">
-            {t("showcase", "buildScore")}
-            {artifactCount < 5 && <span className="ml-1 opacity-70">({artifactCount}/5)</span>}
+            {/* The first place a reader can ask what the number means; the
+                home page explains it too, but not everyone arrives there. */}
+            <InfoTip content={t("showcase", "buildScoreHint")} label={t("showcase", "buildScore")} className="inline-block align-baseline">
+              <span className="inline-flex items-center gap-1 underline decoration-dotted underline-offset-4">
+                {t("showcase", "buildScore")}
+                <span aria-hidden="true" className="inline-flex h-3.5 w-3.5 items-center justify-center rounded-full border border-dark-muted/50 text-[9px] leading-none">?</span>
+              </span>
+            </InfoTip>
             <span className="mx-1.5 opacity-50" aria-hidden="true">·</span>
             {t("showcase", "mainStats", { correct: correctMainStats, total: totalSelectableSlots })}
           </span>

@@ -1,5 +1,6 @@
 import type { EnkaResponse } from "../types/enka";
-import { fetchFromEnka, NOT_FOUND_MESSAGE } from "./enkaProxy";
+import { fetchFromEnka } from "./enkaProxy";
+import { ShowcaseError } from "./showcaseError";
 
 /**
  * Fetches Genshin character showcase data.
@@ -15,6 +16,6 @@ export async function fetchShowcase(uid: string): Promise<EnkaResponse> {
     // error page that happened to parse as JSON.
     (d) => !!d && typeof d === "object" && "playerInfo" in d,
   );
-  if (!data.playerInfo) throw new Error(NOT_FOUND_MESSAGE);
+  if (!data.playerInfo) throw new ShowcaseError("notFound");
   return data;
 }

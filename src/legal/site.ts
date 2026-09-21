@@ -8,6 +8,8 @@ export const SITE_NAME = "Aurum";
 export const SITE_URL = "https://xymoh.github.io/aurum/";
 export const OPERATOR = "Xymoh";
 export const REPO_URL = "https://github.com/Xymoh/aurum";
+export const LICENSE_URL = `${REPO_URL}/blob/main/LICENSE`;
+export const NOTICES_URL = `${REPO_URL}/blob/main/THIRD_PARTY_NOTICES.md`;
 
 /**
  * Where privacy requests, takedown notices and questions go. GitHub issues
@@ -18,7 +20,7 @@ export const CONTACT_URL = "https://github.com/Xymoh/aurum/issues";
 export const CONTACT_LABEL = "the project's GitHub issues";
 
 /** Shown on both pages. Bump it whenever either page changes in substance. */
-export const EFFECTIVE_DATE = "13 September 2026";
+export const EFFECTIVE_DATE = "21 September 2026";
 
 export const PRIVACY_PATH = "/privacy";
 export const TERMS_PATH = "/terms";

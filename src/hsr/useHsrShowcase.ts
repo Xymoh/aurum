@@ -4,12 +4,14 @@ import { fetchHsrShowcase } from "./api";
 import { parseHsrShowcase } from "./parsing";
 import { scoreCharacter } from "./scoring";
 import type { HsrShowcase } from "./types";
+import { freshUntil, showcaseRetry, staleTimeFromTtl } from "../lib/showcaseQuery";
 
+/** Star Rail UIDs are nine digits on every server. */
 export function isValidHsrUid(uid: string): boolean {
   return /^[1-9]\d{8}$/.test(uid);
 }
 
-export function useHsrShowcase(uid: string) {
+export function useHsrShowcase(uid: string, options: { enabled?: boolean } = {}) {
   const queryClient = useQueryClient();
 
   const queryFn = useCallback(async (): Promise<HsrShowcase> => {
@@ -25,14 +27,17 @@ export function useHsrShowcase(uid: string) {
   const query = useQuery<HsrShowcase, Error>({
     queryKey: ["hsr-showcase", uid],
     queryFn,
-    enabled: isValidHsrUid(uid),
-    staleTime: 5 * 60 * 1000,
-    retry: 1,
+    enabled: (options.enabled ?? true) && isValidHsrUid(uid),
+    staleTime: staleTimeFromTtl,
+    retry: showcaseRetry,
   });
 
-  const forceRefresh = useCallback(() => {
-    queryClient.invalidateQueries({ queryKey: ["hsr-showcase", uid] });
-  }, [queryClient, uid]);
+  const fresh = freshUntil(query.dataUpdatedAt, query.data);
 
-  return { ...query, forceRefresh };
+  const forceRefresh = useCallback(() => {
+    if (Date.now() < fresh) return;
+    queryClient.invalidateQueries({ queryKey: ["hsr-showcase", uid] });
+  }, [queryClient, uid, fresh]);
+
+  return { ...query, forceRefresh, freshUntil: fresh };
 }

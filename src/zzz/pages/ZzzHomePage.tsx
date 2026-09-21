@@ -124,7 +124,7 @@ export function ZzzHomePage() {
           <p>{t("zzz", "gradedP1")}</p>
           <p>{t("zzz", "gradedP2")}</p>
           <div className="flex flex-wrap items-center gap-1.5">
-            {GRADE_LADDER.filter((_, i) => i % 2 === 0).map((band) => (
+            {GRADE_LADDER.filter((_, i) => i % 2 === 1).map((band) => (
               <span key={band.grade} className="inline-flex items-center gap-1 rounded-md border border-zzz-line bg-zzz-inset px-2 py-0.5 font-mono text-xs">
                 <GradeBadge grade={band.grade} size="xs" /> {band.min}%+
               </span>

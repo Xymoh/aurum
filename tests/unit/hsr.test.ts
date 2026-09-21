@@ -448,3 +448,12 @@ describe("incomplete builds", () => {
     expect(partial.relics[0].score.potentialPercent).toBeGreaterThan(0);
   });
 });
+
+describe("crit ratio", () => {
+  it("is the character screen's CRIT DMG per point of CRIT Rate, not the substats' alone", () => {
+    // A CRIT Rate body or a crit light cone changes what the substats should
+    // balance against, so the ratio has to come from the final stats.
+    const saber = scoreCharacter(parsed.characters.find((c) => c.avatarId === 1014)!);
+    expect(saber.diagnostics.critRatio).toBeCloseTo(saber.stats.critDmg / saber.stats.critRate, 6);
+  });
+});

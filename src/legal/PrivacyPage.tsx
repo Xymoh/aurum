@@ -88,17 +88,20 @@ export function PrivacyPage() {
         <p>
           The site uses your browser's local storage, not cookies, to remember three things: your
           theme choice, your language choice, and the last ten UIDs you looked up in each game so you
-          can pick them again. This data never leaves your device and is not sent to us or anyone
-          else. It exists only to provide features you asked for, which is why the site shows no
-          consent banner. You can clear it at any time by clearing site data for this site in your
+          can pick them again. The build pages reuse the most recent of those UIDs to fetch that
+          showcase again when you open a character, which sends the UID to our relay and
+          Enka.Network exactly as a lookup does; nothing else is ever sent. It exists only to provide
+          features you asked for, which is why the site shows no consent banner. You can clear it at any time by clearing site data for this site in your
           browser.
         </p>
       </Section>
 
       <Section title="7. Share cards">
         <p>
-          The downloadable character card is drawn entirely in your browser and saved to your device.
-          Nothing is uploaded and no copy is kept anywhere.
+          The character card is drawn entirely in your browser. Saving it writes a file to your
+          device and nothing is uploaded. Choosing X, Instagram, Discord or your phone's share sheet
+          hands the image, or a link to this page, to that app or service under its own privacy
+          policy; no copy passes through us.
         </p>
       </Section>
 

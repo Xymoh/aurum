@@ -55,7 +55,7 @@ const STAT_PATTERNS = [
   [/\bpen\b(?!\s*ratio)|penetration(?!\s*ratio)/i, 23203],
   [/pen\s*ratio/i, 23103],
   [/energy\s*regen|\benergy\b/i, 30502],
-  [/impact/i, 12201],
+  [/impact/i, 12202],
   [/hp\s*%|hp%|\bhp\s*percent/i, 11102],
   [/atk\s*%|atk%|attack\s*%/i, 12102],
   [/def\s*%|def%|defen[cs]e\s*%/i, 13102],

@@ -14,6 +14,7 @@ const STAT_LABELS: Record<number, string> = {
   12102: "ATK%",
   12103: "ATK",
   12201: "Impact",
+  12202: "Impact",
   13101: "DEF",
   13102: "DEF%",
   13103: "DEF",

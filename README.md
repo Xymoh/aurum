@@ -4,12 +4,13 @@ Gear scoring for gacha games. Enter a UID and find out which pieces are worth
 investing in, which are dead weight, and what a reroll is actually likely to buy
 you.
 
-Two scorers live under one roof, each with its own layout and palette:
+Three scorers live under one roof, each with its own layout and palette:
 
 | | | |
 |---|---|---|
 | **Artifact Aurum** | Genshin Impact | `/genshin` |
 | **Relic Aurum** | Honkai: Star Rail | `/hsr` |
+| **Disc Aurum** | Zenless Zone Zero | `/zzz` |
 
 **Live:** https://xymoh.github.io/aurum/
 
@@ -20,6 +21,12 @@ Two scorers live under one roof, each with its own layout and palette:
 - **Potential Percent (0–200%)** - Each artifact scored as a percentage of its realistic potential, where 100% = solid artifact, 200% = theoretically perfect
 - **18-Grade Scale** - F through WTF+ in 5% intervals with color-coded badges
 - **Character-Specific Weights** - Scoring tailored per character (e.g., DEF% valued for Albedo, HP% for Hu Tao)
+- **Build Diagnostics** - Useful vs dead rolls across the whole build, substat totals, crit ratio and the Energy Recharge target, next to the score
+- **Percentile Context** - Every piece says where it sits among what the game would drop for that slot ("top 12%"), simulated from the substat odds
+- **Crit Value** - CV beside every score, per piece and per build
+- **Since Last Visit** - Builds that moved since this browser last looked are marked up or down; new characters are flagged
+- **GOOD Export** - Download the showcase as a GOOD file for Genshin Optimizer
+- **Deep Links** - A shared card link opens straight to that character
 - **Main Stat & Set Evaluation** - Tracks correct main stats and recommended set bonuses (informational, no score penalty)
 - **Automated Data Pipeline** - Character stats auto-fetched from Genshin Optimizer repo with manual weight curation
 - **English + 简体中文** - Auto-detected from the browser and switchable in the header; character, weapon and artifact-set names use the game's own official translations. More languages can be added later — see `src/i18n/`
@@ -110,7 +117,7 @@ ids fall back to the player's initial and log a console warning naming the id.
 
 Character substat weights and ideal main stats are manually curated in
 `src/data/character-builds.json` and merged into
-`genshin_optimizer_processed_data.json` by `fetch-go-data.js`. The pipeline
+`src/data/genshin-optimizer.json` by `fetch-go-data.js`. The pipeline
 auto-generates default weights for new characters based on their ascension
 stat.
 
@@ -288,19 +295,35 @@ Hosted on GitHub Pages via GitHub Actions. On push to `main`, the workflow:
 
 Enka.Network does not send CORS headers, so the browser cannot call it directly.
 In development the Vite dev server proxies `/api/proxy`. In production the app
-calls a self-hosted Cloudflare Worker (free tier is plenty):
+calls a self-hosted Cloudflare Worker (free tier is plenty).
+
+The worker deploys from `.github/workflows/deploy-worker.yml` whenever a push
+to `main` touches `workers/`, and on demand from the Actions tab. It needs two
+repository secrets (Settings -> Secrets and variables -> Actions -> Secrets):
+
+| Secret | Where to get it |
+|---|---|
+| `CLOUDFLARE_API_TOKEN` | Cloudflare dashboard -> My Profile -> API Tokens -> Create Token -> "Edit Cloudflare Workers" template |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare dashboard -> Workers & Pages, in the right-hand column |
+
+The same deploy by hand, from the repo root:
 
 ```bash
-npx wrangler deploy workers/enka-proxy.js --name enka-proxy --compatibility-date 2024-01-01
+npx wrangler deploy --config workers/wrangler.toml
 ```
 
 Set the repository variable `VITE_ENKA_PROXY` (Settings -> Secrets and
 variables -> Actions -> Variables) to the worker URL, e.g.
 `https://enka-proxy.<subdomain>.workers.dev/`. The build picks it up.
 
-Without that variable the app falls back to a single public CORS proxy
-(allorigins.win). It is unreliable and it sees the user's UID, so treat it as
-a stopgap rather than a deployment target.
+Without that variable a production build refuses every lookup with a clear
+message. There is deliberately no public CORS-proxy fallback: a request
+carries the visitor's IP and the UID they typed, and the privacy policy
+promises those go to our own worker and Enka.Network only.
+
+The worker only answers the site's own origin (set `ALLOWED_ORIGINS` as a
+Worker variable to change that) and caps requests per client address, so it
+cannot be used as a free Enka relay by anyone who finds its URL.
 
 There is no other backend: every data source besides Enka (Genshin Optimizer,
 StarRailRes, Fribbels, Prydwen) is fetched by `scripts/` at build time and
@@ -308,6 +331,19 @@ committed as JSON.
 
 ## Acknowledgments
 
-- [Enka.Network](https://enka.network/) - Genshin Impact showcase API
-- [Fribbels HSR Optimizer](https://fribbels.github.io/hsr-optimizer/) - Scoring methodology inspiration
-- [Genshin Optimizer](https://github.com/frzyc/genshin-optimizer) - Character stat data
+- [Enka.Network](https://enka.network/) - showcase API and item artwork for all three games
+- [Fribbels HSR Optimizer](https://fribbels.github.io/hsr-optimizer/) - scoring methodology and Star Rail character weights (MIT)
+- [Genshin Optimizer](https://github.com/frzyc/genshin-optimizer) - Genshin character stat data (MIT)
+- [StarRailRes](https://github.com/Mar-7th/StarRailRes) - Star Rail artwork and game data tables
+- [Prydwen](https://www.prydwen.gg/) and [genshin.gg](https://genshin.gg/) - build and set recommendations
+- [Project Amber](https://gi.yatta.moe/) and Dimbreath's data mirrors - localised names and ids
+
+## License
+
+Aurum's code is released under the [MIT License](LICENSE). Game content
+belongs to HoYoverse; Aurum is an independent fan project and is not
+affiliated with or endorsed by them. Every imported dataset and asset source,
+with its licence and the notice it requires, is listed in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The site's own
+[Terms of Use](https://xymoh.github.io/aurum/terms) and
+[Privacy Policy](https://xymoh.github.io/aurum/privacy) live in `src/legal/`.

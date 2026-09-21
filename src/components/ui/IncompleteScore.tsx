@@ -1,3 +1,5 @@
+import { useI18n } from "../../i18n";
+
 /**
  * Stands in for the build score when a character is not fully geared.
  *
@@ -23,18 +25,19 @@ export function IncompleteScore({
   size = "lg",
   mutedClass = "text-dark-muted",
 }: IncompleteScoreProps) {
+  const { t } = useI18n();
   return (
     <>
       <p
         className={`font-mono font-bold leading-none tabular-nums ${mutedClass} ${
           size === "lg" ? "text-2xl sm:text-3xl" : "text-lg"
         }`}
-        title={`Not scored: ${filled} of ${total} slots equipped`}
+        title={t("showcase", "notScoredSlots", { filled, total })}
       >
         &mdash;
       </p>
       <p className={`mt-1 font-mono text-xs whitespace-nowrap ${mutedClass}`}>
-        {filled}/{total} pieces
+        {t("showcase", "piecesOf", { filled, total })}
       </p>
     </>
   );

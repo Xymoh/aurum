@@ -3,7 +3,7 @@
 import charactersData from "../../data/characters.json";
 import artifactsData from "../../data/artifacts.json";
 import { ELEMENT_COLORS, type GenshinElement } from "../../types/character";
-import { getBuildConfig, getSetRecommendations, getSetRecommendationSource } from "../scoring";
+import { getBuildConfig, getSetRecommendations, getSetRecommendationSource, scoringWeightsFor } from "../scoring";
 import { isTravelerId, travelerMainStats } from "../travelerBuilds";
 import type { BuildListing, BuildTarget, TargetSlot, TargetStat, Translate } from "./model";
 import { rankSubstats } from "./model";
@@ -56,7 +56,7 @@ const ELEMENT_OF: Record<string, GenshinElement> = {
   GEO_DMG: "Geo", ROCK_ADD_HURT: "Geo",
 };
 
-function statLabel(key: string, t: Translate): string {
+export function statLabel(key: string, t: Translate): string {
   const element = ELEMENT_OF[key];
   if (element) return t("buildStats", "elementDmg", { element: t("elements", element) });
   const mapped = STAT_KEY[key];
@@ -64,7 +64,7 @@ function statLabel(key: string, t: Translate): string {
 }
 
 /** Drops the duplicate spellings so a goblet lists Cryo DMG once, not twice. */
-function uniqueLabels(keys: string[], t: Translate): string[] {
+export function uniqueLabels(keys: string[], t: Translate): string[] {
   const seen = new Set<string>();
   const out: string[] = [];
   for (const key of keys) {
@@ -75,6 +75,23 @@ function uniqueLabels(keys: string[], t: Translate): string[] {
     }
   }
   return out;
+}
+
+/**
+ * What to farm for a slot on this character: the ideal main stats and the
+ * top recommended set, so "farm a replacement" can say which one.
+ */
+export function farmTargetFor(
+  avatarId: number,
+  idealStats: string[],
+  t: Translate,
+): { mains: string[]; setName: string | null } {
+  const top = getSetRecommendations(avatarId)[0];
+  const fourPiece = top?.find((p) => p.pieces === 4) ?? top?.[0];
+  return {
+    mains: uniqueLabels(idealStats, t),
+    setName: fourPiece ? (SETS[fourPiece.setId]?.name ?? null) : null,
+  };
 }
 
 function iconUrl(icon: string | undefined): string | null {
@@ -123,8 +140,10 @@ export function getGenshinBuild(id: string, t: Translate): BuildTarget | null {
     stats: uniqueLabels((mains as Record<string, string[]>)[slot] ?? [], t),
   }));
 
+  // The scorer's own view of the weights, flat stats derived and main-stat-only
+  // entries dropped, so the page and the grade can never disagree.
   const substats: TargetStat[] = rankSubstats(
-    Object.entries(config?.substat_weights ?? {}).map(([key, weight]) => ({
+    Object.entries(scoringWeightsFor(avatarId)).map(([key, weight]) => ({
       label: statLabel(key, t),
       weight: weight as number,
     })),

@@ -56,7 +56,7 @@ const readJSON = (rel) => {
 
 function snapshot() {
   const gi = readJSON("src/data/characters.json") ?? {};
-  const go = readJSON("genshin_optimizer_processed_data.json") ?? {};
+  const go = readJSON("src/data/genshin-optimizer.json") ?? {};
   const hsr = readJSON("src/hsr/data/characters.json") ?? {};
   const fribbels = readJSON("src/hsr/data/scoring-metadata.json")?.characters ?? {};
   const zzz = readJSON("src/zzz/data/agents.json") ?? {};
@@ -120,7 +120,7 @@ function main() {
     console.log(`  ${mark} ${r.step.label}${r.skipped ? " (skipped)" : ` ${r.seconds}s`}`);
   }
 
-  const changed = spawnSync("git", ["status", "--short", "--", "src/data", "src/hsr/data", "src/zzz/data", "genshin_optimizer_processed_data.json"], {
+  const changed = spawnSync("git", ["status", "--short", "--", "src/data", "src/hsr/data", "src/zzz/data", "src/data/genshin-optimizer.json"], {
     cwd: ROOT,
     encoding: "utf8",
   }).stdout.trim();

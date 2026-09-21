@@ -66,12 +66,18 @@ export const PERCENT_TO_FLAT: Record<number, number> = {
   13102: 13103,
 };
 
+/**
+ * Fills in a flat stat's weight from its percent partner where the guide
+ * said nothing about it. A weight the guide did state is kept as written:
+ * Ju Fufu's guide ranks flat ATK above CRIT DMG, and scaling it from an
+ * absent ATK% weight would have thrown that away.
+ */
 function withFlatScaling(stats: ZzzWeights): ZzzWeights {
   const out: ZzzWeights = { ...stats };
   for (const [pct, flat] of Object.entries(PERCENT_TO_FLAT)) {
+    if (out[Number(flat)] !== undefined) continue;
     const scaled = (out[Number(pct)] ?? 0) * FLAT_STAT_SCALING;
     if (scaled > 0) out[Number(flat)] = scaled;
-    else delete out[Number(flat)];
   }
   return out;
 }
@@ -106,11 +112,13 @@ const ELEMENT_DMG: Record<string, ZzzStatId> = {
   Elec: 31803,
   Ether: 31903,
   Wind: 32303,
-  AuricEther: 32003,
+  AuricEther: 31903,
   FireFrost: 31703,
   Lumen: 31903,
   ZhenZhenAssault: 31503,
 };
+
+const DAMAGE_ROLES = new Set(["Attack", "Rupture", "Anomaly"]);
 
 /**
  * Ideal main stats for an agent with no guide entry, derived from the role
@@ -124,7 +132,7 @@ function professionParts(profession: string, element: string, stats: ZzzWeights)
   const damageRole = profession === "Attack" || profession === "Rupture" || profession === "Anomaly";
   const disc6: Record<string, ZzzStatId[]> = {
     Anomaly: [31402],
-    Stun: [12201],
+    Stun: [12202],
     Support: [30502],
     Defense: [13102, 11102],
   };
@@ -150,11 +158,18 @@ export function getScoringMeta(agentId: number): ZzzScoringMeta {
     for (const [id, w] of Object.entries(entry.stats)) stats[Number(id)] = w;
     const thresholds: Record<number, number> = {};
     for (const [id, t] of Object.entries(entry.thresholds ?? {})) thresholds[Number(id)] = t;
+    // A damage dealer's own element DMG% is always an acceptable disc 5,
+    // whatever the guide happened to list first. Prydwen's scrape names
+    // PEN Ratio for some agents and leaves the element out, which had the
+    // scorer calling an on-element goblet "wrong main".
+    const info = getAgentInfo(agentId);
+    const ownDmg = info && DAMAGE_ROLES.has(info.profession) ? ELEMENT_DMG[info.element] : undefined;
+    const disc5 = entry.parts["5"] ?? [];
     return {
       stats: withFlatScaling(stats),
       parts: {
         4: entry.parts["4"] ?? [],
-        5: entry.parts["5"] ?? [],
+        5: ownDmg && disc5.length > 0 && !disc5.includes(ownDmg) ? [...disc5, ownDmg] : disc5,
         6: entry.parts["6"] ?? [],
       },
       thresholds,

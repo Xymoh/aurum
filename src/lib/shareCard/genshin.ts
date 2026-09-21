@@ -42,6 +42,7 @@ export function genshinShareCard(character: CharacterData, ctx: ShareContext): S
   return {
     game: "genshin",
     uid: ctx.uid,
+    characterId: character.id,
     playerName: ctx.playerName,
     name: character.name,
     level: `Lv${character.level}`,

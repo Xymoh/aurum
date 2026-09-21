@@ -98,6 +98,7 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
         className="group relative flex w-full items-stretch gap-3 overflow-hidden p-3 text-left sm:gap-4 sm:p-4"
         aria-expanded={open}
         aria-controls={bodyId}
+        aria-label={open ? t("showcase", "collapse", { name: character.name }) : t("showcase", "expand", { name: character.name })}
       >
         {/* Splash art, masked into the card so it reads as part of the surface
             rather than a picture pasted behind it.
@@ -270,7 +271,7 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
         className="grid transition-[grid-template-rows] duration-300 ease-out"
         style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
       >
-        <div className="overflow-hidden">
+        <div className="overflow-hidden" inert={!open}>
           {everOpened && (
             <div className="space-y-4 border-t p-3 sm:p-4" style={{ borderColor: `${tint}33` }}>
               <DiagnosticsPanel d={d} tint={tint} relics={character.relics} />

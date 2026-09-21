@@ -1,33 +1,18 @@
 /**
- * Validate a Genshin Impact UID.
- * - Must be exactly 9 digits
- * - First digit must be 1-9 (region-coded)
+ * Genshin Impact UID rules.
+ *
+ * Nine digits for every server, plus the ten-digit UIDs that new Asia
+ * accounts have carried since late 2023: those start with 18 and are served
+ * by Enka like any other. The first digit is never 0.
  */
 export function isValidUid(uid: string): boolean {
-  return /^[1-9]\d{8}$/.test(uid);
+  return /^[1-9]\d{8}$/.test(uid) || /^18\d{8}$/.test(uid);
 }
 
-/**
- * Parse the region from a Genshin UID's first digit.
- * 1 = Celestia (CN), 5 = Asia (TW/HK/MO old), 6 = America, 7 = Europe, 8 = Asia, 9 = TW/HK/MO
- */
-export function getUidRegion(uid: string): string {
-  const first = uid.charAt(0);
-  const regions: Record<string, string> = {
-    "1": "CN",
-    "2": "CN",
-    "5": "TW/HK/MO",
-    "6": "Americas",
-    "7": "Europe",
-    "8": "Asia",
-    "9": "TW/HK/MO",
-  };
-  return regions[first] ?? "Unknown";
-}
+/** The most digits a UID can have, so an input can cap its length. */
+export const UID_MAX_LENGTH = 10;
 
-/**
- * Sanitize a raw input string to only digits, max length 9.
- */
+/** Digits only, capped at the longest UID that exists. */
 export function sanitizeUidInput(input: string): string {
-  return input.replace(/\D/g, "").slice(0, 9);
+  return input.replace(/\D/g, "").slice(0, UID_MAX_LENGTH);
 }

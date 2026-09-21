@@ -1,6 +1,9 @@
+import { scrollBehavior } from "../../lib/motion";
 import { useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useHsrShowcase } from "../useHsrShowcase";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import { isValidHsrUid, useHsrShowcase } from "../useHsrShowcase";
+import { useFreshCountdown } from "../../hooks/useFreshCountdown";
+import { errorCode } from "../../lib/showcaseError";
 import { CharacterPanel } from "../components/CharacterPanel";
 import { ShareCardProvider } from "../../lib/shareCard/ShareCardProvider";
 import { characterPanelId } from "../panelId";
@@ -201,7 +204,10 @@ function ShareButton() {
 export function HsrShowcasePage() {
   const { uid = "" } = useParams();
   const { t } = useI18n();
-  const { data, isLoading, error, forceRefresh } = useHsrShowcase(uid);
+  const { data, isLoading, isError, isFetching, error, forceRefresh, freshUntil } = useHsrShowcase(uid);
+  const invalidUid = !isValidHsrUid(uid);
+  const secondsFresh = useFreshCountdown(freshUntil);
+  const waiting = secondsFresh > 0 && !isFetching;
 
   const [expanded, setExpanded] = useState<Set<number>>(new Set());
   const [search, setSearch] = useState("");
@@ -251,27 +257,41 @@ export function HsrShowcasePage() {
     setSearch("");
     setPathFilter("ALL");
     window.requestAnimationFrame(() => {
-      document.getElementById(characterPanelId(avatarId))?.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById(characterPanelId(avatarId))?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
     });
   };
 
-  if (isLoading) return <Skeleton />;
+  // A shared link can name one character (?c=<id>); it opens and scrolls
+  // into view once the showcase has arrived.
+  const [params] = useSearchParams();
+  const linkedId = params.get("c");
+  const [linkedHandled, setLinkedHandled] = useState(false);
+  useEffect(() => {
+    if (!data || !linkedId || linkedHandled) return;
+    setLinkedHandled(true);
+    jumpTo(Number(linkedId));
+  }, [data, linkedId, linkedHandled]);
 
-  if (error) {
+  if (isLoading && !invalidUid) return <Skeleton />;
+
+  // A loaded showcase stays up through a failed refresh; only a page with
+  // nothing to show gets the error panel. A UID Enka could never answer is
+  // refused before any request goes out.
+  if (!data) {
     return (
       <div className="mx-auto max-w-md game-panel border border-verdict-replace/30 bg-verdict-replace/10 p-5 text-center">
-        <p className="text-sm text-hsr-text">{error.message}</p>
+        <p className="text-sm text-hsr-text">
+          {invalidUid ? t("errors", "invalidUid") : t("errors", errorCode(error))}
+        </p>
         <Link
           to="/hsr"
           className="mt-3 inline-block text-sm text-hsr-accent underline underline-offset-2"
         >
-          Try another UID
+          {t("errors", "tryAnotherUid")}
         </Link>
       </div>
     );
   }
-
-  if (!data) return null;
 
   // Account-level view: the mean build score, on the same 0-200 scale as every
   // other number on the page. A player with one immaculate carry and five
@@ -303,7 +323,7 @@ export function HsrShowcasePage() {
             {t("hsr", "accountMeta", { uid: data.uid, level: data.level, count: characters.length })}
           </p>
         </div>
-        <div className="flex items-center gap-2 text-right">
+        <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end sm:text-right">
           <div>
             <p className={`font-mono text-2xl font-bold leading-none tabular-nums ${gradeColor(accountGrade)}`}>
               {formatScore(accountScore)}
@@ -320,12 +340,23 @@ export function HsrShowcasePage() {
           <button
             type="button"
             onClick={forceRefresh}
-            className="inline-flex h-9 items-center rounded-lg border border-hsr-accent/40 bg-hsr-accent/15 px-3 text-sm font-semibold text-hsr-accent transition-colors hover:bg-hsr-accent/25"
+            disabled={isFetching || waiting}
+            title={waiting ? t("player", "freshFor", { n: secondsFresh }) : undefined}
+            className="inline-flex h-9 min-w-[8.5rem] items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-hsr-accent/40 bg-hsr-accent/15 px-3 text-sm font-semibold text-hsr-accent transition-colors hover:bg-hsr-accent/25 disabled:opacity-50"
           >
-            {t("player", "refresh")}
+            {isFetching ? t("player", "refreshing") : t("player", "refresh")}
+            {waiting && (
+              <span className="font-mono tabular-nums">· {String(secondsFresh).padStart(2, "0")}s</span>
+            )}
           </button>
         </div>
       </header>
+
+      {isError && (
+        <p role="status" className="rounded-lg border border-verdict-replace/30 bg-verdict-replace/10 px-4 py-2 text-sm text-hsr-text">
+          {t("errors", "refreshFailed")} {t("errors", errorCode(error))}
+        </p>
+      )}
 
       <BestNextMoves moves={nextMoves} onSelect={jumpTo} />
 
@@ -378,7 +409,7 @@ export function HsrShowcasePage() {
             </select>
             {(search || pathFilter !== "ALL") && (
               <span className="whitespace-nowrap text-sm text-hsr-muted">
-                {visible.length}/{characters.length} shown
+                {t("showcase", "shown", { visible: visible.length, total: characters.length })}
               </span>
             )}
           </div>

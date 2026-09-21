@@ -1,6 +1,10 @@
+import { scrollBehavior } from "../../lib/motion";
 import { useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useZzzShowcase } from "../useZzzShowcase";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import { isValidZzzUid, useZzzShowcase } from "../useZzzShowcase";
+import { useFreshCountdown } from "../../hooks/useFreshCountdown";
+import { errorCode } from "../../lib/showcaseError";
+import { discMaxLevel } from "../parsing";
 import { AgentPanel } from "../components/AgentPanel";
 import { ShareCardProvider } from "../../lib/shareCard/ShareCardProvider";
 import { agentPanelId } from "../panelId";
@@ -132,9 +136,9 @@ function WeakestDiscs({ items, onSelect }: { items: WeakDisc[]; onSelect: (id: n
                 </span>
                 {disc.score.grade ? (
                   <GradeBadge grade={disc.score.grade} size="xs" />
-                ) : (
+                ) : !disc.score.mainStatOk ? (
                   <span className="rounded bg-zzz-signal/15 px-1 py-px text-[11px] font-bold uppercase text-zzz-signal">{t("zzz", "mainShort")}</span>
-                )}
+                ) : null}
               </div>
             </button>
           );
@@ -175,7 +179,10 @@ function ShareButton() {
 export function ZzzShowcasePage() {
   const { uid = "" } = useParams();
   const { t } = useI18n();
-  const { data, isLoading, error, forceRefresh } = useZzzShowcase(uid);
+  const { data, isLoading, isError, isFetching, error, forceRefresh, freshUntil } = useZzzShowcase(uid);
+  const invalidUid = !isValidZzzUid(uid);
+  const secondsFresh = useFreshCountdown(freshUntil);
+  const waiting = secondsFresh > 0 && !isFetching;
 
   const [expanded, setExpanded] = useState<Set<number>>(new Set());
   const [search, setSearch] = useState("");
@@ -194,14 +201,23 @@ export function ZzzShowcasePage() {
   }, [agents, search, roleFilter, sortKey]);
 
   // Worst discs first: wrong mains outrank everything, then lowest percent.
-  const weakest = useMemo<WeakDisc[]>(
-    () =>
-      agents
-        .flatMap((agent) => agent.discs.map((disc) => ({ agent, disc })))
-        .sort((a, b) => Number(a.disc.score.mainStatOk) - Number(b.disc.score.mainStatOk) || a.disc.score.potentialPercent - b.disc.score.potentialPercent)
-        .slice(0, 6),
-    [agents],
-  );
+  // A disc still being levelled has most of its rolls ahead of it and would
+  // otherwise always read as the account's worst piece, so it waits until
+  // it is finished before it can be called replaceable. Each agent gets at
+  // most two tiles, so one ungeared unit cannot fill the whole panel.
+  const weakest = useMemo<WeakDisc[]>(() => {
+    const perAgent = new Map<number, number>();
+    return agents
+      .flatMap((agent) => agent.discs.map((disc) => ({ agent, disc })))
+      .filter(({ disc }) => disc.level >= discMaxLevel(disc.rarity))
+      .sort((a, b) => Number(a.disc.score.mainStatOk) - Number(b.disc.score.mainStatOk) || a.disc.score.potentialPercent - b.disc.score.potentialPercent)
+      .filter(({ agent }) => {
+        const n = perAgent.get(agent.id) ?? 0;
+        perAgent.set(agent.id, n + 1);
+        return n < 2;
+      })
+      .slice(0, 6);
+  }, [agents]);
 
   const toggle = (id: number) =>
     setExpanded((prev) => {
@@ -216,23 +232,38 @@ export function ZzzShowcasePage() {
     setSearch("");
     setRoleFilter("ALL");
     window.requestAnimationFrame(() => {
-      document.getElementById(agentPanelId(id))?.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById(agentPanelId(id))?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
     });
   };
 
-  if (isLoading) return <Skeleton />;
+  // A shared link can name one character (?c=<id>); it opens and scrolls
+  // into view once the showcase has arrived.
+  const [params] = useSearchParams();
+  const linkedId = params.get("c");
+  const [linkedHandled, setLinkedHandled] = useState(false);
+  useEffect(() => {
+    if (!data || !linkedId || linkedHandled) return;
+    setLinkedHandled(true);
+    jumpTo(Number(linkedId));
+  }, [data, linkedId, linkedHandled]);
 
-  if (error) {
+  if (isLoading && !invalidUid) return <Skeleton />;
+
+  // A loaded showcase stays up through a failed refresh; only a page with
+  // nothing to show gets the error panel. A UID Enka could never answer is
+  // refused before any request goes out.
+  if (!data) {
     return (
       <div className="mx-auto max-w-md game-panel border border-zzz-signal/30 bg-zzz-signal/10 p-5 text-center">
-        <p className="text-sm text-zzz-text">{error.message}</p>
+        <p className="text-sm text-zzz-text">
+          {invalidUid ? t("errors", "invalidUid") : t("errors", errorCode(error))}
+        </p>
         <Link to="/zzz" className="mt-3 inline-block text-sm text-zzz-accent underline underline-offset-2">
-          Try another UID
+          {t("errors", "tryAnotherUid")}
         </Link>
       </div>
     );
   }
-  if (!data) return null;
 
   // Only fully geared agents count toward the mean: a half-built one would
   // drag the account number down for gear the player has not finished rather
@@ -262,7 +293,7 @@ export function ZzzShowcasePage() {
             {t("zzz", "accountMeta", { uid: data.uid, level: data.level, count: agents.length })}
           </p>
         </div>
-        <div className="flex items-center gap-2 text-right">
+        <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end sm:text-right">
           <div>
             <p className={`font-mono text-2xl font-black leading-none tabular-nums ${gradeTextClass(accountGrade)}`}>{formatScore(accountScore)}</p>
             <p className="mt-1 font-mono text-xs text-zzz-muted">
@@ -277,12 +308,23 @@ export function ZzzShowcasePage() {
           <button
             type="button"
             onClick={forceRefresh}
-            className="inline-flex h-9 items-center rounded-lg bg-zzz-accent px-3 text-sm font-black uppercase tracking-wider text-black transition-transform hover:-translate-y-0.5"
+            disabled={isFetching || waiting}
+            title={waiting ? t("player", "freshFor", { n: secondsFresh }) : undefined}
+            className="inline-flex h-9 min-w-[9.5rem] items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-zzz-accent px-3 text-sm font-black uppercase tracking-wider text-black transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0"
           >
-            {t("player", "refresh")}
+            {isFetching ? t("player", "refreshing") : t("player", "refresh")}
+            {waiting && (
+              <span className="font-mono tabular-nums">· {String(secondsFresh).padStart(2, "0")}s</span>
+            )}
           </button>
         </div>
       </header>
+
+      {isError && (
+        <p role="status" className="rounded-lg border border-zzz-signal/30 bg-zzz-signal/10 px-4 py-2 text-sm text-zzz-text">
+          {t("errors", "refreshFailed")} {t("errors", errorCode(error))}
+        </p>
+      )}
 
       <WeakestDiscs items={weakest} onSelect={jumpTo} />
 
@@ -319,7 +361,7 @@ export function ZzzShowcasePage() {
             </select>
             {(search || roleFilter !== "ALL") && (
               <span className="whitespace-nowrap text-sm text-zzz-muted">
-                {visible.length}/{agents.length} shown
+                {t("showcase", "shown", { visible: visible.length, total: agents.length })}
               </span>
             )}
           </div>

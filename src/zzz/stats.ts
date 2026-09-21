@@ -50,9 +50,15 @@ const CD = 21101, CD_B = 21103;
 const AM = 31401, AM_P = 31402;
 const AP = 31201, AP_F = 31203;
 const ER = 30501, ER_P = 30502;
-const PEN_RATIO = 32001, PEN_RATIO_B = 23103, PEN_F = 23203;
+// PEN Ratio lives at 231xx (23101 base, as Rina's core grants it); 320xx is
+// Adrenaline recovery, which Rupture agents carry as a base stat and which
+// must never be read as PEN.
+const PEN_RATIO = 23101, PEN_RATIO_B = 23103, PEN_F = 23203;
 
-/** Elemental damage bonus ids, one per element. */
+/**
+ * Elemental damage bonus ids, one per element. Auric Ether and Lumen are
+ * flavours of Ether and share its bonus; Enka has no separate id for them.
+ */
 const ELEMENT_DMG: Record<string, number> = {
   Physics: 31503,
   Fire: 31603,
@@ -60,11 +66,14 @@ const ELEMENT_DMG: Record<string, number> = {
   Elec: 31803,
   Ether: 31903,
   Wind: 32303,
-  AuricEther: 32003,
+  AuricEther: 31903,
   FireFrost: 31703,
   Lumen: 31903,
   ZhenZhenAssault: 31503,
 };
+
+/** Ids ending in 01 are base values; everything else is a bonus on top. */
+const isBaseId = (id: number) => id % 100 === 1;
 
 export interface ZzzStatInput {
   agentId: number;
@@ -109,28 +118,36 @@ export function engineStats(id: number, level: number, rank: number) {
 export function computeZzzStats(input: ZzzStatInput): ZzzStats {
   const agent = AGENTS[String(input.agentId)];
   const base = new Map<number, number>();
+  // Everything added on top, in Enka's raw units.
+  const bonus = new Map<number, number>();
+  const add = (id: number, value: number) => bonus.set(id, (bonus.get(id) ?? 0) + value);
+
   if (agent) {
     for (const [id, value] of Object.entries(agent.base)) base.set(Number(id), value);
     // Growth is per level beyond the first, scaled by 10000.
     for (const [id, g] of Object.entries(agent.growth)) {
       base.set(Number(id), (base.get(Number(id)) ?? 0) + (g * (input.level - 1)) / 10000);
     }
-    // Enka reports a fully ascended agent as promotion 6, while the table it
-    // publishes has six rows indexed 0 to 5, so the top rank has to clamp or
-    // the whole promotion bonus silently vanishes.
-    const step = (table: Record<string, number>[], rank: number) =>
-      table[Math.min(rank, table.length - 1)] ?? {};
-    for (const [id, v] of Object.entries(step(agent.promotion, input.promotion))) {
-      base.set(Number(id), (base.get(Number(id)) ?? 0) + v);
-    }
-    for (const [id, v] of Object.entries(step(agent.core, input.coreSkill))) {
-      base.set(Number(id), (base.get(Number(id)) ?? 0) + v);
-    }
+    // Enka's PromotionLevel is the game's 1-based advance id: a fresh agent
+    // reports 1, a fully ascended one 6, and the published table has six rows
+    // indexed 0 to 5. Checked against live showcases (a level 10 agent
+    // reports 1 or 2). Row 0 carries no bonus, so promotion 1 adds nothing.
+    const row = (table: Record<string, number>[], index: number) =>
+      table[Math.min(Math.max(index, 0), table.length - 1)] ?? {};
+    // A promotion or core row can carry either a base stat (12101, +75 base
+    // ATK) or a percentage bonus (11102, +18% HP). The percent ones belong in
+    // the bonus pool or they never apply.
+    const absorb = (entries: Record<string, number>) => {
+      for (const [id, v] of Object.entries(entries)) {
+        const n = Number(id);
+        if (isBaseId(n)) base.set(n, (base.get(n) ?? 0) + v);
+        else add(n, v);
+      }
+    };
+    absorb(row(agent.promotion, input.promotion - 1));
+    // The core table is 0-based already: seven rows for enhancements 0 to 6.
+    absorb(row(agent.core, input.coreSkill));
   }
-
-  // Everything added on top, in Enka's raw units.
-  const bonus = new Map<number, number>();
-  const add = (id: number, value: number) => bonus.set(id, (bonus.get(id) ?? 0) + value);
 
   const engine = input.engine ? engineStats(input.engine.id, input.engine.level, input.engine.rank) : null;
   if (engine?.secondary) add(engine.secondary.id, engine.secondary.value);
@@ -186,7 +203,7 @@ function rawOf(id: ZzzStatId, value: number): number {
  */
 const PERCENT_IDS = new Set<number>([
   HP_P, ATK_P, DEF_P, IMPACT_P, CR_B, CD_B, AM_P, ER_P, PEN_RATIO_B,
-  31503, 31603, 31703, 31803, 31903, 32003, 32303,
+  31503, 31603, 31703, 31803, 31903, 32303,
 ]);
 
 /** The stats worth showing in a summary row, in the order the game lists them. */

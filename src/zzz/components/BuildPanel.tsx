@@ -1,6 +1,8 @@
 import type { ZzzBuildDiagnostics } from "../types";
 import { BENCHMARK_ROLLS, MAX_ROLLS } from "../scoring";
 import { formatStat } from "../labels";
+// Threshold rows format their own values: the target is a stat-screen
+// figure, and formatStat would print an ATK cap as if it were a roll.
 import { useI18n } from "../../i18n";
 import type { ZzzScoringMeta } from "../weights";
 
@@ -44,7 +46,7 @@ export function BuildPanel({ d, meta, tint }: { d: ZzzBuildDiagnostics; meta: Zz
                   wasted: d.wastedRolls,
                   benchmark: BENCHMARK_ROLLS,
                 })}
-</p>
+</p>
       </div>
 
       {meta.priority && (
@@ -83,10 +85,12 @@ export function BuildPanel({ d, meta, tint }: { d: ZzzBuildDiagnostics; meta: Zz
                 <li key={th.id} className="flex items-baseline justify-between gap-2 text-sm">
                   <span className="text-zzz-muted">
                     {t("zzz", "fromDiscs", { stat: t("zzzStats", String(th.id) as "11101") })}{" "}
-                    <span className="text-zzz-text/70">{t("zzz", "cap", { n: th.target })}</span>
+                    <span className="text-zzz-text/70">
+                      {t("zzz", "cap", { n: th.percent ? `${th.target}%` : th.target.toLocaleString() })}
+                    </span>
                   </span>
                   <span className={`font-mono ${th.current >= th.target ? "text-zzz-accent" : "text-zzz-text"}`}>
-                    {formatStat(th.id, th.current)}
+                    {th.percent ? `${th.current.toFixed(1)}%` : Math.round(th.current).toLocaleString()}
                   </span>
                 </li>
               ))}

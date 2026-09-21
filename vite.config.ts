@@ -42,13 +42,14 @@ function enkaProxyPlugin(): Plugin {
           return;
         }
 
-        // Genshin and Star Rail UIDs are 9 digits; Zenless UIDs run to 10.
-        if (!uid || !/^[1-9]\d{8,9}$/.test(uid)) {
+        // Genshin and Star Rail UIDs are 9 digits (Genshin's newest Asia
+        // accounts 10); Zenless runs from 8 on CN to 10 on Asia.
+        if (!uid || !/^[1-9]\d{7,9}$/.test(uid)) {
           res.statusCode = 400;
           res.end(
             JSON.stringify({
               success: false,
-              error: "Invalid UID. Must be 9 or 10 digits starting with 1-9.",
+              error: "Invalid UID. Must be 8 to 10 digits starting with 1-9.",
             }),
           );
           return;
@@ -61,17 +62,21 @@ function enkaProxyPlugin(): Plugin {
             hostname: ENKA_API_HOST,
             path: enkaUrl,
             headers: {
-              "User-Agent": "GenshinArtScore/1.0",
+              "User-Agent": "Aurum/0.1 (+https://github.com/Xymoh/aurum)",
               Accept: "application/json",
             },
             timeout: 8000,
           },
           (enkaRes) => {
-            let body = "";
+            // Collected as bytes and decoded once: decoding each chunk on
+            // its own splits multi-byte characters (a CJK nickname) at
+            // chunk boundaries.
+            const chunks: Buffer[] = [];
             enkaRes.on("data", (chunk: Buffer) => {
-              body += chunk.toString();
+              chunks.push(chunk);
             });
             enkaRes.on("end", () => {
+              const body = Buffer.concat(chunks).toString("utf8");
               const status = enkaRes.statusCode ?? 502;
 
               if (status !== 200) {
@@ -180,9 +185,15 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ["react", "react-dom", "react-router-dom"],
-          query: ["@tanstack/react-query"],
+        // Long-lived libraries in their own chunks, so a deploy that only
+        // touches app code leaves the React runtime cached. The function form
+        // catches react-dom/client and scheduler, which the package-name list
+        // used to miss, leaving 177 KB of React inside the app chunk.
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return undefined;
+          if (/[\\/]node_modules[\\/](react|react-dom|scheduler|react-router|react-router-dom)[\\/]/.test(id)) return "vendor";
+          if (id.includes("@tanstack")) return "query";
+          return undefined;
         },
       },
     },
