@@ -37,6 +37,11 @@ jobs:
           # There is no public-proxy fallback, so a build without it cannot
           # look up showcases.
           VITE_ENKA_PROXY: ${{ vars.VITE_ENKA_PROXY }}
+          # Feature gates, off unless the repository variable is "on":
+          # extra languages, and the showcase help pages (which need their
+          # screenshots in public/help/ first).
+          VITE_I18N: ${{ vars.VITE_I18N }}
+          VITE_SHOWCASE_HELP: ${{ vars.VITE_SHOWCASE_HELP }}
 
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request'

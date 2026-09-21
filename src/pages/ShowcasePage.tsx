@@ -14,7 +14,7 @@ import { isValidUid } from "../lib/uid";
 import { errorCode } from "../lib/showcaseError";
 import { getGrade } from "../lib/scoring";
 import { HiddenGearBanner } from "../help/HiddenGearBanner";
-import { HELP_PATH } from "../help/content";
+import { HELP_PATH, SHOWCASE_HELP } from "../help/content";
 
 export function ShowcasePage() {
   const { uid } = useParams<{ uid: string }>();
@@ -78,9 +78,11 @@ export function ShowcasePage() {
             >
               {t("errors", "tryAgain")}
             </button>
-            <Link to={HELP_PATH.genshin} className="text-sm text-accent underline underline-offset-2 hover:opacity-80">
-              {t("help", "errorLink")}
-            </Link>
+            {SHOWCASE_HELP && (
+              <Link to={HELP_PATH.genshin} className="text-sm text-accent underline underline-offset-2 hover:opacity-80">
+                {t("help", "errorLink")}
+              </Link>
+            )}
           </>
         )}
       </div>

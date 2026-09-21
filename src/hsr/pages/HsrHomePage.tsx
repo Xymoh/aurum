@@ -6,7 +6,7 @@ import { isValidHsrUid } from "../useHsrShowcase";
 import { sanitizeUidInput } from "../../lib/uid";
 import { HSR_RECENT_UIDS_KEY, useRecentUids } from "../../hooks/useRecentUids";
 import { useI18n } from "../../i18n";
-import { HELP_PATH } from "../../help/content";
+import { HELP_PATH, SHOWCASE_HELP } from "../../help/content";
 
 export function HsrHomePage() {
   const [uid, setUid] = useState("");
@@ -68,11 +68,13 @@ export function HsrHomePage() {
           </button>
         </form>
         {error && <p className="mt-2 text-sm text-verdict-replace" role="alert">{error}</p>}
-        <p className="mt-3 text-sm">
-          <Link to={HELP_PATH.hsr} className="text-hsr-muted underline decoration-dotted underline-offset-4 hover:text-hsr-accent">
-            {t("help", "cantSee")}
-          </Link>
-        </p>
+        {SHOWCASE_HELP && (
+          <p className="mt-3 text-sm">
+            <Link to={HELP_PATH.hsr} className="text-hsr-muted underline decoration-dotted underline-offset-4 hover:text-hsr-accent">
+              {t("help", "cantSee")}
+            </Link>
+          </p>
+        )}
 
         {recent.length > 0 && (
           <div className="mt-5">

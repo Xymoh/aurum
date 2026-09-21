@@ -1,5 +1,5 @@
 import { UidInput } from "../components/ui/UidInput";
-import { HELP_PATH } from "../help/content";
+import { HELP_PATH, SHOWCASE_HELP } from "../help/content";
 import { ScoringExplainer } from "../components/ui/ScoringExplainer";
 import { GENSHIN_RECENT_UIDS_KEY, useRecentUids } from "../hooks/useRecentUids";
 import { Link } from "react-router-dom";
@@ -36,11 +36,13 @@ export function HomePage() {
       {/* UID Input */}
       <div className="w-full max-w-md">
         <UidInput />
-        <p className="mt-3 text-center text-sm">
-          <Link to={HELP_PATH.genshin} className="text-dark-muted underline decoration-dotted underline-offset-4 hover:text-accent">
-            {t("help", "cantSee")}
-          </Link>
-        </p>
+        {SHOWCASE_HELP && (
+          <p className="mt-3 text-center text-sm">
+            <Link to={HELP_PATH.genshin} className="text-dark-muted underline decoration-dotted underline-offset-4 hover:text-accent">
+              {t("help", "cantSee")}
+            </Link>
+          </p>
+        )}
       </div>
 
       {/* Recent lookups - kept close to the input, since it's a shortcut into the same action */}

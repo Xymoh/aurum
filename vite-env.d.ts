@@ -6,6 +6,10 @@ interface ImportMetaEnv {
    * Supports `{uid}` / `{url}` placeholders; without one, `?uid=<uid>` is appended.
    */
   readonly VITE_ENKA_PROXY?: string;
+  /** "on" ships the languages beyond English (see src/i18n/index.ts). */
+  readonly VITE_I18N?: string;
+  /** "on" ships the showcase help pages and their links (see src/help/content.ts). */
+  readonly VITE_SHOWCASE_HELP?: string;
 }
 
 interface ImportMeta {

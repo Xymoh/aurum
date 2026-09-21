@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useI18n } from "../i18n";
 import { PRIVACY_PATH, SUPPORT_URL, TERMS_PATH } from "./site";
+import { SHOWCASE_HELP } from "../help/content";
 
 interface LegalLinksProps {
   /** Utility classes for each link, so every game's footer keeps its own accent. */
@@ -17,7 +18,7 @@ export function LegalLinks({ className, helpTo }: LegalLinksProps) {
   const { t } = useI18n();
   return (
     <span className="inline-flex flex-wrap items-center justify-center gap-3">
-      {helpTo && (
+      {helpTo && SHOWCASE_HELP && (
         <>
           <Link to={helpTo} className={className}>
             {t("help", "navLabel")}

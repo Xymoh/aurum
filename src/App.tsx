@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-
 import { I18nProvider } from "./i18n/I18nProvider";
 import { GamePickerPage } from "./games/GamePickerPage";
 import { PRIVACY_PATH, TERMS_PATH } from "./legal/site";
+import { SHOWCASE_HELP } from "./help/content";
 
 // Each game is its own chunk. A visitor to the picker, or to one game,
 // should not download the other two games' data tables: together they were
@@ -79,7 +80,7 @@ export function App() {
                 <Route path="showcase/:uid" element={<ShowcasePage />} />
                 <Route path="builds" element={<GenshinBuildsPage />} />
                 <Route path="builds/:id" element={<GenshinBuildsPage />} />
-                <Route path="help/showcase" element={<ShowcaseHelpPage game="genshin" />} />
+                {SHOWCASE_HELP && <Route path="help/showcase" element={<ShowcaseHelpPage game="genshin" />} />}
               </Route>
 
               <Route path="hsr" element={<HsrLayout />}>
@@ -87,7 +88,7 @@ export function App() {
                 <Route path="showcase/:uid" element={<HsrShowcasePage />} />
                 <Route path="builds" element={<HsrBuildsPage />} />
                 <Route path="builds/:id" element={<HsrBuildsPage />} />
-                <Route path="help/showcase" element={<ShowcaseHelpPage game="hsr" />} />
+                {SHOWCASE_HELP && <Route path="help/showcase" element={<ShowcaseHelpPage game="hsr" />} />}
               </Route>
 
               <Route path="zzz" element={<ZzzLayout />}>
@@ -95,7 +96,7 @@ export function App() {
                 <Route path="showcase/:uid" element={<ZzzShowcasePage />} />
                 <Route path="builds" element={<ZzzBuildsPage />} />
                 <Route path="builds/:id" element={<ZzzBuildsPage />} />
-                <Route path="help/showcase" element={<ShowcaseHelpPage game="zzz" />} />
+                {SHOWCASE_HELP && <Route path="help/showcase" element={<ShowcaseHelpPage game="zzz" />} />}
               </Route>
 
               <Route path="showcase/:uid" element={<LegacyShowcaseRedirect />} />

@@ -17,7 +17,7 @@ import { CheckIcon, ClipboardIcon, TargetIcon } from "../../components/ui/icons"
 import { formatScore } from "../../lib/format";
 import { ShowcaseHelp } from "../../components/ui/ShowcaseHelp";
 import { HiddenGearBanner } from "../../help/HiddenGearBanner";
-import { HELP_PATH } from "../../help/content";
+import { HELP_PATH, SHOWCASE_HELP } from "../../help/content";
 import { gradeTextClass } from "../../lib/grade";
 
 /**
@@ -264,7 +264,7 @@ export function ZzzShowcasePage() {
           <Link to="/zzz" className="text-zzz-accent underline underline-offset-2">
             {t("errors", "tryAnotherUid")}
           </Link>
-          {!invalidUid && (
+          {!invalidUid && SHOWCASE_HELP && (
             <Link to={HELP_PATH.zzz} className="text-zzz-accent underline underline-offset-2">
               {t("help", "errorLink")}
             </Link>
@@ -349,7 +349,7 @@ export function ZzzShowcasePage() {
           lead={t("zzz", "emptyLead")}
           steps={[t("zzz", "emptyStep1"), t("zzz", "emptyStep2"), t("zzz", "emptyStep3")]}
           footer={t("zzz", "emptyRetry")}
-          guide={{ to: HELP_PATH.zzz, label: t("help", "emptyLink"), className: "text-zzz-accent underline underline-offset-2 hover:text-zzz-text" }}
+          guide={SHOWCASE_HELP ? { to: HELP_PATH.zzz, label: t("help", "emptyLink"), className: "text-zzz-accent underline underline-offset-2 hover:text-zzz-text" } : undefined}
           slots={6}
           panelClass="border-zzz-border bg-zzz-panel/40 text-zzz-text"
           accentClass="bg-zzz-accent/20 text-zzz-accent"

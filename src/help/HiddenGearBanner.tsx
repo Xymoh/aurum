@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useI18n } from "../i18n";
-import { HELP_CONTENT, type HelpGame } from "./content";
+import { HELP_CONTENT, SHOWCASE_HELP, type HelpGame } from "./content";
 
 interface HiddenGearBannerProps {
   game: HelpGame;
@@ -22,7 +22,7 @@ interface HiddenGearBannerProps {
  */
 export function HiddenGearBanner({ game, total, bare }: HiddenGearBannerProps) {
   const { t } = useI18n();
-  if (total === 0 || bare < total) return null;
+  if (!SHOWCASE_HELP || total === 0 || bare < total) return null;
   const { skin, bannerBody, path } = HELP_CONTENT[game];
 
   return (

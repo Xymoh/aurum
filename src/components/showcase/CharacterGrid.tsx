@@ -6,7 +6,7 @@ import type { BuildDelta } from "../../lib/history";
 import type { GenshinElement } from "../../types/character";
 import { CharacterCard } from "./CharacterCard";
 import { ShowcaseHelp } from "../ui/ShowcaseHelp";
-import { HELP_PATH } from "../../help/content";
+import { HELP_PATH, SHOWCASE_HELP } from "../../help/content";
 import { useI18n } from "../../i18n";
 
 export interface FocusSignal {
@@ -120,7 +120,7 @@ export function CharacterGrid({ characters, focusSignal, deltas }: CharacterGrid
           t("showcase", "showcaseStep3"),
         ]}
         footer={t("showcase", "showcaseRetry")}
-        guide={{ to: HELP_PATH.genshin, label: t("help", "emptyLink"), className: "text-accent underline underline-offset-2 hover:opacity-80" }}
+        guide={SHOWCASE_HELP ? { to: HELP_PATH.genshin, label: t("help", "emptyLink"), className: "text-accent underline underline-offset-2 hover:opacity-80" } : undefined}
         panelClass="border-dark-border bg-dark-card/40 text-dark-text"
         accentClass="bg-accent/15 text-accent"
         mutedClass="text-dark-muted"

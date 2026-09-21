@@ -316,7 +316,12 @@ Set the repository variable `VITE_ENKA_PROXY` (Settings -> Secrets and
 variables -> Actions -> Variables) to the worker URL, e.g.
 `https://enka-proxy.<subdomain>.workers.dev/`. The build picks it up.
 
-Without that variable a production build refuses every lookup with a clear
+Two more repository variables act as feature gates and are off unless set to
+`on`: `VITE_I18N` ships the languages beyond English, and `VITE_SHOWCASE_HELP`
+ships the showcase help pages once their screenshots are in `public/help/`.
+Locally, put either in `.env.local`.
+
+Without the proxy variable a production build refuses every lookup with a clear
 message. There is deliberately no public CORS-proxy fallback: a request
 carries the visitor's IP and the UID they typed, and the privacy policy
 promises those go to our own worker and Enka.Network only.

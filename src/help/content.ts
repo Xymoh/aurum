@@ -38,6 +38,14 @@ export interface HelpContent {
   skin: HelpSkin;
 }
 
+/**
+ * Whether the showcase guides ship. Off until their screenshots exist: a
+ * guide made of placeholder boxes reads as a broken page, not a guide. Set
+ * VITE_SHOWCASE_HELP=on to enable the routes, the banner and every link to
+ * them; with it off the routes fall through to the 404 page.
+ */
+export const SHOWCASE_HELP = import.meta.env.VITE_SHOWCASE_HELP === "on";
+
 export const HELP_PATH: Record<HelpGame, string> = {
   genshin: "/genshin/help/showcase",
   hsr: "/hsr/help/showcase",

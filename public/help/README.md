@@ -1,5 +1,9 @@
 # Help screenshots
 
+The guides are hidden until `VITE_SHOWCASE_HELP=on` is set at build time
+(a repository variable for the deploy, or a line in `.env.local` for dev).
+Add the screenshots first, then flip the flag.
+
 The showcase guides at `/genshin/help/showcase`, `/hsr/help/showcase` and
 `/zzz/help/showcase` look for one image per step in the folders below. A
 missing file shows a labelled placeholder on the page naming the file to add,

@@ -5,7 +5,7 @@ import { isValidZzzUid } from "../useZzzShowcase";
 import { ZZZ_RECENT_UIDS_KEY, useRecentUids } from "../../hooks/useRecentUids";
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { useI18n } from "../../i18n";
-import { HELP_PATH } from "../../help/content";
+import { HELP_PATH, SHOWCASE_HELP } from "../../help/content";
 
 /** Digits only, capped at ten. */
 function sanitize(value: string): string {
@@ -74,11 +74,13 @@ export function ZzzHomePage() {
           </button>
         </form>
         {error && <p className="mt-2 text-sm text-zzz-signal" role="alert">{error}</p>}
-        <p className="mt-3 text-sm">
-          <Link to={HELP_PATH.zzz} className="text-zzz-muted underline decoration-dotted underline-offset-4 hover:text-zzz-accent">
-            {t("help", "cantSee")}
-          </Link>
-        </p>
+        {SHOWCASE_HELP && (
+          <p className="mt-3 text-sm">
+            <Link to={HELP_PATH.zzz} className="text-zzz-muted underline decoration-dotted underline-offset-4 hover:text-zzz-accent">
+              {t("help", "cantSee")}
+            </Link>
+          </p>
+        )}
 
         {recent.length > 0 && (
           <div className="mt-5">

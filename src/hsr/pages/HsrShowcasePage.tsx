@@ -19,7 +19,7 @@ import { CheckIcon, ClipboardIcon, DiceIcon, TargetIcon } from "../../components
 import { formatScore } from "../../lib/format";
 import { ShowcaseHelp } from "../../components/ui/ShowcaseHelp";
 import { HiddenGearBanner } from "../../help/HiddenGearBanner";
-import { HELP_PATH } from "../../help/content";
+import { HELP_PATH, SHOWCASE_HELP } from "../../help/content";
 import { tint } from "../../lib/grade";
 
 /**
@@ -289,7 +289,7 @@ export function HsrShowcasePage() {
           <Link to="/hsr" className="text-hsr-accent underline underline-offset-2">
             {t("errors", "tryAnotherUid")}
           </Link>
-          {!invalidUid && (
+          {!invalidUid && SHOWCASE_HELP && (
             <Link to={HELP_PATH.hsr} className="text-hsr-accent underline underline-offset-2">
               {t("help", "errorLink")}
             </Link>
@@ -378,7 +378,7 @@ export function HsrShowcasePage() {
           lead={t("hsr", "emptyLead")}
           steps={[t("hsr", "emptyStep1"), t("hsr", "emptyStep2"), t("hsr", "emptyStep3")]}
           footer={t("hsr", "emptyRetry")}
-          guide={{ to: HELP_PATH.hsr, label: t("help", "emptyLink"), className: "text-hsr-accent underline underline-offset-2 hover:text-hsr-text" }}
+          guide={SHOWCASE_HELP ? { to: HELP_PATH.hsr, label: t("help", "emptyLink"), className: "text-hsr-accent underline underline-offset-2 hover:text-hsr-text" } : undefined}
           panelClass="border-hsr-border bg-hsr-panel/40 text-hsr-text"
           accentClass="bg-hsr-accent/15 text-hsr-accent"
           mutedClass="text-hsr-muted"
