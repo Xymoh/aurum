@@ -17,6 +17,84 @@ export const en = {
   legal: {
     privacy: "Privacy",
     terms: "Terms",
+    support: "Support on Ko-fi",
+    supportHint: "The site is free. Donations cover the hosting.",
+  },
+
+  /**
+   * The showcase guides at /<game>/help/showcase, and the places that point
+   * at them: home pages, empty states, "not found" errors and the hidden-gear
+   * banner. Per-game keys carry a gi/hsr/zzz prefix; the rest is shared.
+   */
+  help: {
+    navLabel: "Showcase help",
+    title: "Getting your characters to show up",
+    cantSee: "Can't see your characters? Read the showcase guide",
+    emptyLink: "Step-by-step guide with screenshots",
+    errorLink: "Why can't my showcase be found?",
+    stepsHeading: "Set up the showcase in game",
+    checksHeading: "Still not seeing them?",
+    placeholderTitle: "Screenshot coming soon",
+    backToLookup: "Back to the UID lookup",
+    bannerTitle: "Your characters loaded, but their gear is hidden",
+    bannerLink: "Show me where",
+
+    giIntro:
+      "Artifact Aurum reads the Character Showcase on your public profile, and nothing else. Whatever you put on display there, with details switched on, is what gets scored. Here is how to set it up and what to check if it still comes back empty.",
+    giStep1: "In game, open the Paimon menu and select your profile card at the top left.",
+    giStep2: "Choose Edit Profile, then Character Showcase, and add up to eight characters.",
+    giStep3:
+      "Turn on Show Character Details. Without it the profile still loads, but every character arrives with no artifacts to score.",
+    giStep4: "Save, wait a minute or two for the game to publish the change, then press Refresh here.",
+    giCapture1: "The Paimon menu with the profile card at the top left highlighted",
+    giCapture2: "Edit Profile, then Character Showcase, with the eight slots",
+    giCapture3: "The Show Character Details toggle, switched on",
+    giCapture4: "The Refresh button on a showcase page",
+    giCheckGear:
+      "Characters show up but have no artifacts: Show Character Details is off. Turn it on in the showcase settings and refresh.",
+    giBannerBody: "In game, turn on Show Character Details in the Character Showcase settings, then refresh.",
+
+    hsrIntro:
+      "Relic Aurum reads the character showcase on your public Trailblazer profile, and nothing else. Whatever you put on display there, with details visible to others, is what gets scored. Here is how to set it up and what to check if it still comes back empty.",
+    hsrStep1: "In game, open the phone menu and select your profile at the top left.",
+    hsrStep2: "Edit the profile and fill the character showcase, up to eight characters.",
+    hsrStep3:
+      "Make sure character details are set to display to other players. Without that the names arrive but the relics do not.",
+    hsrStep4: "Save, wait a minute or two for the game to publish the change, then press Refresh here.",
+    hsrCapture1: "The phone menu with the Trailblazer profile at the top left",
+    hsrCapture2: "The profile editor's character showcase with the eight slots",
+    hsrCapture3: "The switch that displays character details to other players, switched on",
+    hsrCapture4: "The Refresh button on a showcase page",
+    hsrCheckGear:
+      "Characters show up but have no relics: details are not displayed to other players. Switch that on in the profile settings and refresh.",
+    hsrBannerBody: "In game, set character details to display to other players in the profile settings, then refresh.",
+
+    zzzIntro:
+      "Disc Aurum reads the agent showcase on your public Inter-Knot profile, and nothing else. Whatever you put on display there, with details visible to others, is what gets scored. Here is how to set it up and what to check if it still comes back empty.",
+    zzzStep1: "In game, open the menu and select your Inter-Knot profile at the top left.",
+    zzzStep2: "Edit the profile and add agents to the showcase.",
+    zzzStep3:
+      "Make sure agent details are set to display to other players. Without that the names arrive but the drive discs do not.",
+    zzzStep4: "Save, wait a minute or two for the game to publish the change, then press Refresh here.",
+    zzzCapture1: "The main menu with the Inter-Knot profile at the top left",
+    zzzCapture2: "The profile editor's agent showcase",
+    zzzCapture3: "The switch that shows agent details to other players, switched on",
+    zzzCapture4: "The Refresh button on a showcase page",
+    zzzCheckGear:
+      "Agents show up but have no drive discs: details are not displayed to other players. Switch that on in the profile settings and refresh.",
+    zzzBannerBody: "In game, set agent details to display to other players in the Inter-Knot profile settings, then refresh.",
+
+    checkWait:
+      "Give it time. The game publishes profile changes with a delay of a few minutes, and Enka.Network keeps its last answer for a while on top of that. Refresh once the countdown on the button has run out, and try again a few minutes later if nothing changed.",
+    checkSwapped:
+      "Gear is captured as it is equipped while the character is on display. If you swapped pieces after adding the character, the update arrives on the same delay.",
+    checkUid: "Double-check the UID. It is the number on your profile card in game, not your account or login id.",
+    checkNew:
+      "A character or item from the current patch can take Enka.Network a few days to support. Until then it may be missing while the rest of the showcase scores normally.",
+    checkPrivacy:
+      "Only what the game makes public is readable. Nothing else on the account is visible to Enka.Network or to this site, and taking a character off the showcase removes it here on the next refresh.",
+    checkIssue: "None of that helped?",
+    checkIssueLink: "Open an issue with your UID and we will take a look.",
   },
 
   home: {

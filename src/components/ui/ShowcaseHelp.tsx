@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 interface ShowcaseHelpProps {
   /** Heading, e.g. "Nothing on display yet". */
   title: string;
@@ -7,6 +9,8 @@ interface ShowcaseHelpProps {
   steps: string[];
   /** Closing line, for the "I already did that" case. */
   footer: string;
+  /** The full guide with screenshots, for readers the steps did not satisfy. */
+  guide?: { to: string; label: string; className: string };
   /** How many slots to draw in the diagram, and how many read as filled. */
   slots?: number;
   /** Palette classes, so each game keeps its own surface. */
@@ -34,6 +38,7 @@ export function ShowcaseHelp({
   lead,
   steps,
   footer,
+  guide,
   slots = 8,
   panelClass,
   accentClass,
@@ -69,6 +74,11 @@ export function ShowcaseHelp({
         </ol>
 
         <p className={`mt-5 text-sm leading-relaxed ${mutedClass}`}>{footer}</p>
+        {guide && (
+          <Link to={guide.to} className={`mt-3 text-sm font-medium ${guide.className}`}>
+            {guide.label}
+          </Link>
+        )}
       </div>
     </div>
   );

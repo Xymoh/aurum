@@ -24,6 +24,8 @@ const ZzzHomePage = lazy(() => import("./zzz/pages/ZzzHomePage").then((m) => ({ 
 const ZzzShowcasePage = lazy(() => import("./zzz/pages/ZzzShowcasePage").then((m) => ({ default: m.ZzzShowcasePage })));
 const ZzzBuildsPage = lazy(() => import("./zzz/pages/ZzzBuildsPage").then((m) => ({ default: m.ZzzBuildsPage })));
 
+const ShowcaseHelpPage = lazy(() => import("./help/ShowcaseHelpPage").then((m) => ({ default: m.ShowcaseHelpPage })));
+
 const PrivacyPage = lazy(() => import("./legal/PrivacyPage").then((m) => ({ default: m.PrivacyPage })));
 const TermsPage = lazy(() => import("./legal/TermsPage").then((m) => ({ default: m.TermsPage })));
 
@@ -77,6 +79,7 @@ export function App() {
                 <Route path="showcase/:uid" element={<ShowcasePage />} />
                 <Route path="builds" element={<GenshinBuildsPage />} />
                 <Route path="builds/:id" element={<GenshinBuildsPage />} />
+                <Route path="help/showcase" element={<ShowcaseHelpPage game="genshin" />} />
               </Route>
 
               <Route path="hsr" element={<HsrLayout />}>
@@ -84,6 +87,7 @@ export function App() {
                 <Route path="showcase/:uid" element={<HsrShowcasePage />} />
                 <Route path="builds" element={<HsrBuildsPage />} />
                 <Route path="builds/:id" element={<HsrBuildsPage />} />
+                <Route path="help/showcase" element={<ShowcaseHelpPage game="hsr" />} />
               </Route>
 
               <Route path="zzz" element={<ZzzLayout />}>
@@ -91,6 +95,7 @@ export function App() {
                 <Route path="showcase/:uid" element={<ZzzShowcasePage />} />
                 <Route path="builds" element={<ZzzBuildsPage />} />
                 <Route path="builds/:id" element={<ZzzBuildsPage />} />
+                <Route path="help/showcase" element={<ShowcaseHelpPage game="zzz" />} />
               </Route>
 
               <Route path="showcase/:uid" element={<LegacyShowcaseRedirect />} />

@@ -338,6 +338,11 @@ committed as JSON.
 - [Prydwen](https://www.prydwen.gg/) and [genshin.gg](https://genshin.gg/) - build and set recommendations
 - [Project Amber](https://gi.yatta.moe/) and Dimbreath's data mirrors - localised names and ids
 
+## Support
+
+The site is free and has no paid tier. Hosting costs are covered by
+donations at [ko-fi.com/saekimon](https://ko-fi.com/saekimon).
+
 ## License
 
 Aurum's code is released under the [MIT License](LICENSE). Game content

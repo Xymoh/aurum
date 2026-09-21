@@ -6,6 +6,7 @@ import { ThemeToggle } from "../../components/ui/ThemeToggle";
 import { LanguageSwitcher } from "../../components/ui/LanguageSwitcher";
 import { useI18n } from "../../i18n";
 import { LegalLinks } from "../../legal/LegalLinks";
+import { HELP_PATH } from "../../help/content";
 
 /**
  * Layout for the Zenless side.
@@ -76,7 +77,7 @@ export function ZzzLayout() {
             .
           </p>
           <p className="mt-2">
-            <LegalLinks className="text-zzz-accent underline underline-offset-2 hover:text-zzz-text" />
+            <LegalLinks className="text-zzz-accent underline underline-offset-2 hover:text-zzz-text" helpTo={HELP_PATH.zzz} />
           </p>
         </div>
       </footer>

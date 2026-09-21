@@ -18,6 +18,8 @@ import { GradeBadge } from "../../components/ui/GradeBadge";
 import { CheckIcon, ClipboardIcon, DiceIcon, TargetIcon } from "../../components/ui/icons";
 import { formatScore } from "../../lib/format";
 import { ShowcaseHelp } from "../../components/ui/ShowcaseHelp";
+import { HiddenGearBanner } from "../../help/HiddenGearBanner";
+import { HELP_PATH } from "../../help/content";
 import { tint } from "../../lib/grade";
 
 /**
@@ -283,12 +285,16 @@ export function HsrShowcasePage() {
         <p className="text-sm text-hsr-text">
           {invalidUid ? t("errors", "invalidUid") : t("errors", errorCode(error))}
         </p>
-        <Link
-          to="/hsr"
-          className="mt-3 inline-block text-sm text-hsr-accent underline underline-offset-2"
-        >
-          {t("errors", "tryAnotherUid")}
-        </Link>
+        <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
+          <Link to="/hsr" className="text-hsr-accent underline underline-offset-2">
+            {t("errors", "tryAnotherUid")}
+          </Link>
+          {!invalidUid && (
+            <Link to={HELP_PATH.hsr} className="text-hsr-accent underline underline-offset-2">
+              {t("help", "errorLink")}
+            </Link>
+          )}
+        </div>
       </div>
     );
   }
@@ -358,6 +364,12 @@ export function HsrShowcasePage() {
         </p>
       )}
 
+      <HiddenGearBanner
+        game="hsr"
+        total={characters.length}
+        bare={characters.filter((c) => c.relics.length === 0).length}
+      />
+
       <BestNextMoves moves={nextMoves} onSelect={jumpTo} />
 
       {characters.length === 0 ? (
@@ -366,6 +378,7 @@ export function HsrShowcasePage() {
           lead={t("hsr", "emptyLead")}
           steps={[t("hsr", "emptyStep1"), t("hsr", "emptyStep2"), t("hsr", "emptyStep3")]}
           footer={t("hsr", "emptyRetry")}
+          guide={{ to: HELP_PATH.hsr, label: t("help", "emptyLink"), className: "text-hsr-accent underline underline-offset-2 hover:text-hsr-text" }}
           panelClass="border-hsr-border bg-hsr-panel/40 text-hsr-text"
           accentClass="bg-hsr-accent/15 text-hsr-accent"
           mutedClass="text-hsr-muted"

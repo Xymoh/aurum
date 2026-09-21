@@ -1,5 +1,6 @@
 import { useI18n } from "../../i18n";
 import { LegalLinks } from "../../legal/LegalLinks";
+import { HELP_PATH } from "../../help/content";
 
 const LINK = "text-accent underline hover:opacity-80";
 
@@ -33,7 +34,7 @@ export function Footer() {
         .
       </p>
       <p className="mt-2 text-dark-muted text-sm">
-        <LegalLinks className={LINK} />
+        <LegalLinks className={LINK} helpTo={HELP_PATH.genshin} />
       </p>
     </footer>
   );

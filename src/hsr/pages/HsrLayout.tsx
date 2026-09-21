@@ -6,6 +6,7 @@ import { ThemeToggle } from "../../components/ui/ThemeToggle";
 import { LanguageSwitcher } from "../../components/ui/LanguageSwitcher";
 import { useI18n } from "../../i18n";
 import { LegalLinks } from "../../legal/LegalLinks";
+import { HELP_PATH } from "../../help/content";
 
 /**
  * Layout for the Star Rail side.
@@ -99,7 +100,7 @@ export function HsrLayout() {
             .
           </p>
           <p className="mt-2">
-            <LegalLinks className="text-hsr-accent underline underline-offset-2 hover:text-hsr-text" />
+            <LegalLinks className="text-hsr-accent underline underline-offset-2 hover:text-hsr-text" helpTo={HELP_PATH.hsr} />
           </p>
         </div>
       </footer>

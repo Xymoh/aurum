@@ -16,6 +16,8 @@ import { GradeBadge } from "../../components/ui/GradeBadge";
 import { CheckIcon, ClipboardIcon, TargetIcon } from "../../components/ui/icons";
 import { formatScore } from "../../lib/format";
 import { ShowcaseHelp } from "../../components/ui/ShowcaseHelp";
+import { HiddenGearBanner } from "../../help/HiddenGearBanner";
+import { HELP_PATH } from "../../help/content";
 import { gradeTextClass } from "../../lib/grade";
 
 /**
@@ -258,9 +260,16 @@ export function ZzzShowcasePage() {
         <p className="text-sm text-zzz-text">
           {invalidUid ? t("errors", "invalidUid") : t("errors", errorCode(error))}
         </p>
-        <Link to="/zzz" className="mt-3 inline-block text-sm text-zzz-accent underline underline-offset-2">
-          {t("errors", "tryAnotherUid")}
-        </Link>
+        <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
+          <Link to="/zzz" className="text-zzz-accent underline underline-offset-2">
+            {t("errors", "tryAnotherUid")}
+          </Link>
+          {!invalidUid && (
+            <Link to={HELP_PATH.zzz} className="text-zzz-accent underline underline-offset-2">
+              {t("help", "errorLink")}
+            </Link>
+          )}
+        </div>
       </div>
     );
   }
@@ -326,6 +335,12 @@ export function ZzzShowcasePage() {
         </p>
       )}
 
+      <HiddenGearBanner
+        game="zzz"
+        total={agents.length}
+        bare={agents.filter((a) => a.discs.length === 0).length}
+      />
+
       <WeakestDiscs items={weakest} onSelect={jumpTo} />
 
       {agents.length === 0 ? (
@@ -334,6 +349,7 @@ export function ZzzShowcasePage() {
           lead={t("zzz", "emptyLead")}
           steps={[t("zzz", "emptyStep1"), t("zzz", "emptyStep2"), t("zzz", "emptyStep3")]}
           footer={t("zzz", "emptyRetry")}
+          guide={{ to: HELP_PATH.zzz, label: t("help", "emptyLink"), className: "text-zzz-accent underline underline-offset-2 hover:text-zzz-text" }}
           slots={6}
           panelClass="border-zzz-border bg-zzz-panel/40 text-zzz-text"
           accentClass="bg-zzz-accent/20 text-zzz-accent"

@@ -13,6 +13,8 @@ import { useI18n } from "../i18n";
 import { isValidUid } from "../lib/uid";
 import { errorCode } from "../lib/showcaseError";
 import { getGrade } from "../lib/scoring";
+import { HiddenGearBanner } from "../help/HiddenGearBanner";
+import { HELP_PATH } from "../help/content";
 
 export function ShowcasePage() {
   const { uid } = useParams<{ uid: string }>();
@@ -68,13 +70,18 @@ export function ShowcasePage() {
             {t("errors", "tryAnotherUid")}
           </Link>
         ) : (
-          <button
-            type="button"
-            onClick={() => refetch()}
-            className="rounded-lg bg-accent px-6 py-2 text-dark-bg font-medium hover:opacity-90 transition-opacity"
-          >
-            {t("errors", "tryAgain")}
-          </button>
+          <>
+            <button
+              type="button"
+              onClick={() => refetch()}
+              className="rounded-lg bg-accent px-6 py-2 text-dark-bg font-medium hover:opacity-90 transition-opacity"
+            >
+              {t("errors", "tryAgain")}
+            </button>
+            <Link to={HELP_PATH.genshin} className="text-sm text-accent underline underline-offset-2 hover:opacity-80">
+              {t("help", "errorLink")}
+            </Link>
+          </>
         )}
       </div>
     );
@@ -114,6 +121,12 @@ export function ShowcasePage() {
           {t("errors", "refreshFailed")} {t("errors", errorCode(error))}
         </p>
       )}
+
+      <HiddenGearBanner
+        game="genshin"
+        total={characters.length}
+        bare={characters.filter((c) => c.artifacts.length === 0).length}
+      />
 
       <WeakestArtifacts
         characters={characters}
