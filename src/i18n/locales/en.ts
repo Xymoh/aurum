@@ -35,54 +35,49 @@ export const en = {
     stepsHeading: "Set up the showcase in game",
     checksHeading: "Still not seeing them?",
     placeholderTitle: "Screenshot coming soon",
+    openFull: "Open the full-size screenshot",
     backToLookup: "Back to the UID lookup",
     bannerTitle: "Your characters loaded, but their gear is hidden",
     bannerLink: "Show me where",
 
     giIntro:
       "Artifact Aurum reads the Character Showcase on your public profile, and nothing else. Whatever you put on display there, with details switched on, is what gets scored. Here is how to set it up and what to check if it still comes back empty.",
-    giStep1: "In game, open the Paimon menu and select your profile card at the top left.",
-    giStep2: "Choose Edit Profile, then Character Showcase, and add up to eight characters.",
+    giStep1: "In game, open the Paimon menu, tap the pencil icon next to your name and choose Edit Profile.",
+    giStep2: "Under Character Showcase, fill the slots with the characters you want scored.",
     giStep3:
-      "Turn on Show Character Details. Without it the profile still loads, but every character arrives with no artifacts to score.",
-    giStep4: "Save, wait a minute or two for the game to publish the change, then press Refresh here.",
-    giCapture1: "The Paimon menu with the profile card at the top left highlighted",
-    giCapture2: "Edit Profile, then Character Showcase, with the eight slots",
+      "Turn on Show Character Details. Without it the profile still loads, but every character arrives with no artifacts. Then give the game a minute or two and press Refresh here.",
+    giCapture1: "The Paimon menu with the pencil icon and Edit Profile highlighted",
+    giCapture2: "Edit Profile with the Character Showcase slots highlighted",
     giCapture3: "The Show Character Details toggle, switched on",
-    giCapture4: "The Refresh button on a showcase page",
     giCheckGear:
       "Characters show up but have no artifacts: Show Character Details is off. Turn it on in the showcase settings and refresh.",
     giBannerBody: "In game, turn on Show Character Details in the Character Showcase settings, then refresh.",
 
     hsrIntro:
       "Relic Aurum reads the character showcase on your public Trailblazer profile, and nothing else. Whatever you put on display there, with details visible to others, is what gets scored. Here is how to set it up and what to check if it still comes back empty.",
-    hsrStep1: "In game, open the phone menu and select your profile at the top left.",
-    hsrStep2: "Edit the profile and fill the character showcase, up to eight characters.",
+    hsrStep1: "In game, open the phone menu, tap the menu next to your profile and choose Trailblazer Profile.",
+    hsrStep2: "Open the Character Showcase tab and fill the Support Character and Starfaring Companions slots.",
     hsrStep3:
-      "Make sure character details are set to display to other players. Without that the names arrive but the relics do not.",
-    hsrStep4: "Save, wait a minute or two for the game to publish the change, then press Refresh here.",
-    hsrCapture1: "The phone menu with the Trailblazer profile at the top left",
-    hsrCapture2: "The profile editor's character showcase with the eight slots",
-    hsrCapture3: "The switch that displays character details to other players, switched on",
-    hsrCapture4: "The Refresh button on a showcase page",
+      "In Settings, Social, set Make public your Trailblazer Profile's Collection to Yes. Then give the game a minute or two and press Refresh here.",
+    hsrCapture1: "The phone menu with Trailblazer Profile highlighted",
+    hsrCapture2: "The Character Showcase with its Support Character and Starfaring Companions slots highlighted",
+    hsrCapture3: "Settings, Social, with Make public your Trailblazer Profile's Collection set to Yes",
     hsrCheckGear:
-      "Characters show up but have no relics: details are not displayed to other players. Switch that on in the profile settings and refresh.",
-    hsrBannerBody: "In game, set character details to display to other players in the profile settings, then refresh.",
+      "Characters show up but have no relics: the profile collection is not public. In Settings, Social, set Make public your Trailblazer Profile's Collection to Yes and refresh.",
+    hsrBannerBody: "In game, go to Settings, Social and set Make public your Trailblazer Profile's Collection to Yes, then refresh.",
 
     zzzIntro:
       "Disc Aurum reads the agent showcase on your public Inter-Knot profile, and nothing else. Whatever you put on display there, with details visible to others, is what gets scored. Here is how to set it up and what to check if it still comes back empty.",
-    zzzStep1: "In game, open the menu and select your Inter-Knot profile at the top left.",
-    zzzStep2: "Edit the profile and add agents to the showcase.",
+    zzzStep1: "In game, open the menu and select your profile at the top left.",
+    zzzStep2: "On your Personal Homepage, fill the showcase row with the agents you want scored.",
     zzzStep3:
-      "Make sure agent details are set to display to other players. Without that the names arrive but the drive discs do not.",
-    zzzStep4: "Save, wait a minute or two for the game to publish the change, then press Refresh here.",
-    zzzCapture1: "The main menu with the Inter-Knot profile at the top left",
-    zzzCapture2: "The profile editor's agent showcase",
-    zzzCapture3: "The switch that shows agent details to other players, switched on",
-    zzzCapture4: "The Refresh button on a showcase page",
+      "Open Social Media Settings and turn on Make Info Public. Then give the game a minute or two and press Refresh here.",
+    zzzCapture1: "The main menu with the profile at the top left highlighted",
+    zzzCapture2: "The Personal Homepage with the agent showcase row highlighted",
+    zzzCapture3: "Social Media Settings with Make Info Public switched on",
     zzzCheckGear:
-      "Agents show up but have no drive discs: details are not displayed to other players. Switch that on in the profile settings and refresh.",
-    zzzBannerBody: "In game, set agent details to display to other players in the Inter-Knot profile settings, then refresh.",
+      "Agents show up but have no drive discs: your info is not public. Turn on Make Info Public in Social Media Settings and refresh.",
+    zzzBannerBody: "In game, turn on Make Info Public in Social Media Settings, then refresh.",
 
     checkWait:
       "Give it time. The game publishes profile changes with a delay of a few minutes, and Enka.Network keeps its last answer for a while on top of that. Refresh once the countdown on the button has run out, and try again a few minutes later if nothing changed.",
@@ -189,8 +184,8 @@ export const en = {
     noCharacters: "This showcase has no characters on display",
     noCharactersHint:
       "Artifact Aurum reads the characters you have made public in game, and nothing else. It never sees the rest of the account, so an empty showcase leaves it nothing to score.",
-    showcaseStep1: "In game, open the Paimon menu and select your profile card at the top left.",
-    showcaseStep2: "Choose Edit Profile, then Character Showcase, and add up to eight characters.",
+    showcaseStep1: "In game, open the Paimon menu and tap the pencil icon next to your name.",
+    showcaseStep2: "Choose Edit Profile, then fill the Character Showcase with the characters you want scored.",
     showcaseStep3:
       "Turn on Show Character Details. Without it the profile still loads, but every build comes back empty.",
     showcaseRetry:
@@ -530,8 +525,8 @@ export const en = {
     emptyLead:
       "Relic Aurum reads the characters you have made public in game, and nothing else. It never sees the rest of the account, so an empty showcase leaves it nothing to score.",
     emptyStep1: "In game, open the phone menu and select your profile at the top left.",
-    emptyStep2: "Edit the profile and fill the character showcase, up to eight characters.",
-    emptyStep3: "Save it, then come back here and hit Refresh.",
+    emptyStep2: "Open Trailblazer Profile and fill the Character Showcase.",
+    emptyStep3: "In Settings, Social, set Make public your Trailblazer Profile's Collection to Yes, then hit Refresh here.",
     emptyRetry:
       "Already set it up? The game takes a moment to publish the change. Give it a minute and refresh again.",
     traceBasic: "Basic",
@@ -693,8 +688,8 @@ export const en = {
     emptyLead:
       "Disc Aurum reads the agents you have made public in game, and nothing else. It never sees the rest of the account, so an empty showcase leaves it nothing to score.",
     emptyStep1: "In game, open the menu and select your Inter-Knot profile at the top left.",
-    emptyStep2: "Edit the profile and add agents to the showcase.",
-    emptyStep3: "Save it, then come back here and hit Refresh.",
+    emptyStep2: "On your Personal Homepage, add agents to the showcase row.",
+    emptyStep3: "Turn on Make Info Public in Social Media Settings, then hit Refresh here.",
     emptyRetry:
       "Already set it up? The game takes a moment to publish the change. Give it a minute and refresh again.",
     skillBasic: "Basic",

@@ -37,15 +37,21 @@ function StepImage({ game, step, skin }: { game: HelpGame; step: HelpStep; skin:
     );
   }
 
+  // Game UI text is small once a 16:9 capture shrinks to the column width,
+  // so the picture opens full size in a new tab. Contain rather than cover:
+  // cropping could cut off the very button the step points at.
+  const src = helpImageUrl(game, step.image);
   return (
-    <img
-      src={helpImageUrl(game, step.image)}
-      alt={t("help", step.capture)}
-      loading="lazy"
-      decoding="async"
-      className={`aspect-video w-full rounded-lg border object-cover ${skin.line}`}
-      onError={() => setMissing(true)}
-    />
+    <a href={src} target="_blank" rel="noopener noreferrer" className="block" title={t("help", "openFull")}>
+      <img
+        src={src}
+        alt={t("help", step.capture)}
+        loading="lazy"
+        decoding="async"
+        className={`aspect-video w-full rounded-lg border object-contain transition-opacity hover:opacity-90 ${skin.line} ${skin.inset}`}
+        onError={() => setMissing(true)}
+      />
+    </a>
   );
 }
 

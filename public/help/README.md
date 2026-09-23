@@ -1,42 +1,33 @@
 # Help screenshots
 
-The guides are hidden until `VITE_SHOWCASE_HELP=on` is set at build time
-(a repository variable for the deploy, or a line in `.env.local` for dev).
-Add the screenshots first, then flip the flag.
-
 The showcase guides at `/genshin/help/showcase`, `/hsr/help/showcase` and
-`/zzz/help/showcase` look for one image per step in the folders below. A
-missing file shows a labelled placeholder on the page naming the file to add,
-so nothing breaks while these are empty.
+`/zzz/help/showcase` show one screenshot per step, three steps per game. They
+ship only when `VITE_SHOWCASE_HELP=on` is set at build time (a repository
+variable for the deploy, or a line in `.env.local` for dev).
 
-Capture from the PC client in English at 1080p or higher, crop to the part of
-the screen the step is about, and save as PNG (or WebP with the same base name
-and update `src/help/content.ts`). Keep each under about 200 KB; the page
-lazy-loads them.
+The files are listed in `src/help/content.ts`. A missing file shows a
+labelled placeholder naming the file to add, so nothing breaks.
 
-## genshin/
+## Replacing a screenshot
 
-| File | Show |
-|---|---|
-| `01-profile-card.png` | The Paimon menu with the profile card at the top left highlighted |
-| `02-character-showcase.png` | Edit Profile -> Character Showcase, with the eight slots and the add button |
-| `03-show-details.png` | The Show Character Details toggle, switched on |
-| `04-refresh.png` | The site's Refresh button on a showcase page |
+Capture from the PC client in English, blur the UID and nickname, and convert
+to WebP at 1600px wide so each file stays near 100 KB:
 
-## hsr/
+```bash
+ffmpeg -i capture.png -vf "scale='min(1600,iw)':-2" -c:v libwebp -quality 82 public/help/<game>/<file>.webp
+```
 
-| File | Show |
-|---|---|
-| `01-profile.png` | The phone menu with the Trailblazer profile at the top left |
-| `02-character-showcase.png` | The profile editor's character showcase with the eight slots |
-| `03-display-details.png` | The switch that displays character details to other players, switched on |
-| `04-refresh.png` | The site's Refresh button on a showcase page |
+Full-size originals are kept locally in `.help-originals/`, which is
+gitignored and never deployed.
 
-## zzz/
-
-| File | Show |
-|---|---|
-| `01-inter-knot-profile.png` | The main menu with the Inter-Knot profile at the top left |
-| `02-agent-showcase.png` | The profile editor's agent showcase |
-| `03-display-details.png` | The switch that shows agent details to other players, switched on |
-| `04-refresh.png` | The site's Refresh button on a showcase page |
+| Game | File | Shows |
+|---|---|---|
+| genshin | `01-edit-profile.webp` | Paimon menu, pencil icon and Edit Profile |
+| genshin | `02-character-showcase.webp` | Edit Profile, Character Showcase slots |
+| genshin | `03-show-details.webp` | Show Character Details switched on |
+| hsr | `01-trailblazer-profile.webp` | Phone menu, Trailblazer Profile |
+| hsr | `02-character-showcase.webp` | Character Showcase, support and companion slots |
+| hsr | `03-make-public.webp` | Settings, Social, profile Collection set to public |
+| zzz | `01-profile.webp` | Main menu, profile at the top left |
+| zzz | `02-personal-homepage.webp` | Personal Homepage, agent showcase row |
+| zzz | `03-make-info-public.webp` | Social Media Settings, Make Info Public on |

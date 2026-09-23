@@ -17,3 +17,6 @@ test-results
 # Wrangler state and local worker secrets
 .wrangler/
 .dev.vars
+
+# Full-size originals of the help screenshots (public/help holds the shipped WebP)
+.help-originals/
