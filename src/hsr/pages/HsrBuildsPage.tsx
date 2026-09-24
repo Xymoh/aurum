@@ -7,9 +7,12 @@ import type { BuildSkin } from "../../components/builds/skin";
 import { NotFoundPage } from "../../pages/NotFoundPage";
 import { useI18n } from "../../i18n";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
-import { HSR_RECENT_UIDS_KEY, readRecentUids } from "../../hooks/useRecentUids";
-import { getHsrBuild, listHsrBuilds } from "../buildTarget";
-import { useHsrShowcase } from "../useHsrShowcase";
+import { HSR_RECENT_UIDS_KEY } from "../../hooks/useRecentUids";
+import { useComparisonUid } from "../../hooks/useComparisonUid";
+import { getHsrBuild, listHsrBuilds, sameHsrBuild } from "../buildTarget";
+import { HSR_GUIDES } from "../guide";
+import { useGuide } from "../../lib/buildTarget/guideSource";
+import { isValidHsrUid, useHsrShowcase } from "../useHsrShowcase";
 import { SELECTABLE_SLOTS } from "../weights";
 
 const SKIN: BuildSkin = {
@@ -21,6 +24,8 @@ const SKIN: BuildSkin = {
   accent: "text-hsr-accent",
   line: "ring-hsr-line",
   field: "border border-hsr-border bg-hsr-card text-hsr-text focus:border-hsr-accent/60",
+  active: "border-hsr-accent/50 bg-hsr-accent/15 text-hsr-accent",
+  bar: "border-hsr-border bg-hsr-bg/90",
 };
 
 export function HsrBuildsPage() {
@@ -28,7 +33,9 @@ export function HsrBuildsPage() {
   const { t } = useI18n();
 
   const listings = useMemo(() => listHsrBuilds(t), [t]);
+  const roster = useMemo(() => new Map(listings.map((l) => [l.id, l])), [listings]);
   const target = useMemo(() => (id ? getHsrBuild(id, t) : null), [id, t]);
+  const guide = useGuide(HSR_GUIDES, target ? id : undefined);
 
   useDocumentTitle(
     target
@@ -36,12 +43,14 @@ export function HsrBuildsPage() {
       : t("builds", "documentTitle"),
   );
 
-  const uid = useMemo(() => readRecentUids(HSR_RECENT_UIDS_KEY)[0]?.uid ?? "", []);
+  const uid = useComparisonUid(HSR_RECENT_UIDS_KEY, isValidHsrUid);
   const { data, isLoading, isError } = useHsrShowcase(uid, { enabled: Boolean(id) });
 
   const owned = useMemo(() => {
     if (!id || !data) return null;
-    const character = data.characters.find((c) => String(c.avatarId) === id);
+    // The Trailblazer's page is a Path's, and a player on that Path is on it
+    // whichever body they play.
+    const character = data.characters.find((c) => sameHsrBuild(c.avatarId, id));
     if (!character) return null;
 
     // Head and Hands have fixed main stats, so only the four choices matter.
@@ -59,7 +68,8 @@ export function HsrBuildsPage() {
       grade: character.diagnostics.grade,
       complete: character.diagnostics.complete,
       slots,
-      showcaseHref: `/hsr/showcase/${uid}`,
+      showcaseHref: `/hsr/showcase/${uid}?c=${character.avatarId}`,
+      weaponId: character.lightCone ? String(character.lightCone.id) : null,
     };
   }, [id, data, uid, t]);
 
@@ -83,6 +93,9 @@ export function HsrBuildsPage() {
         target={target}
         basePath="/hsr/builds"
         skin={SKIN}
+        guide={guide}
+        roster={roster}
+        equippedWeaponId={owned?.weaponId}
         owned={
           <OwnedStrip
             skin={SKIN}

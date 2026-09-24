@@ -52,18 +52,40 @@ export function readRecentUids(key: string): RecentUid[] {
   return current.length > 0 ? current : readKey(key);
 }
 
+/**
+ * Writes the list under the prefixed key and drops the legacy one. Leaving the
+ * legacy key behind would let an emptied list come back from it, since
+ * readRecentUids falls back to it whenever the current list is empty.
+ */
+function writeList(key: string, list: RecentUid[]): void {
+  try {
+    if (list.length > 0) window.localStorage.setItem(PREFIX + key, JSON.stringify(list));
+    else window.localStorage.removeItem(PREFIX + key);
+    window.localStorage.removeItem(key);
+  } catch {
+    // Storage full or unavailable; the lookup still works, it just is not remembered.
+  }
+}
+
 /** Moves `uid` to the front, keeping the list unique and bounded. */
 export function rememberUid(key: string, uid: string): RecentUid[] {
   const next = [
     { uid, timestamp: Date.now() },
     ...readRecentUids(key).filter((entry) => entry.uid !== uid),
   ].slice(0, MAX_REMEMBERED);
-  try {
-    window.localStorage.setItem(PREFIX + key, JSON.stringify(next));
-  } catch {
-    // Storage full or unavailable; the lookup still works, it just is not remembered.
-  }
+  writeList(key, next);
   return next;
+}
+
+/** Removes one UID, for someone who would rather it not be on show. */
+export function forgetUid(key: string, uid: string): RecentUid[] {
+  const next = readRecentUids(key).filter((entry) => entry.uid !== uid);
+  writeList(key, next);
+  return next;
+}
+
+export function forgetAllUids(key: string): void {
+  writeList(key, []);
 }
 
 export function useRecentUids(key: string) {
@@ -76,7 +98,19 @@ export function useRecentUids(key: string) {
     [key],
   );
 
-  return { recent, remember };
+  const forget = useCallback(
+    (uid: string) => {
+      setRecent(forgetUid(key, uid));
+    },
+    [key],
+  );
+
+  const forgetAll = useCallback(() => {
+    forgetAllUids(key);
+    setRecent([]);
+  }, [key]);
+
+  return { recent, remember, forget, forgetAll };
 }
 
 /** Storage keys, one per game, so suggestions never cross over. */

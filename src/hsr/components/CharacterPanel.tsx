@@ -15,6 +15,9 @@ import { characterPreview, elementIcon, lightConeIcon, pathIcon } from "../image
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { formatScore } from "../../lib/format";
 import { characterPanelId } from "../panelId";
+import { hasHsrBuild } from "../buildTarget";
+import { GuideLink } from "../../components/ui/GuideLink";
+import { RemoteImg } from "../../components/ui/RemoteImg";
 
 /** Trace levels, labelled the way the game labels them. */
 function Traces({ t: traces }: { t: NonNullable<HsrCharacter["traces"]> }) {
@@ -116,7 +119,7 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
               WebkitMaskImage: "linear-gradient(to right, transparent, black 55%)",
             }}
           >
-            <img
+            <RemoteImg
               src={characterPreview(character.avatarId)}
               alt=""
               loading="lazy"
@@ -148,8 +151,8 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
 
         <div className="relative min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
-            {path && <img src={path} alt="" width={20} height={20} className="h-5 w-5 opacity-80" />}
-            <img
+            {path && <RemoteImg src={path} alt="" width={20} height={20} className="h-5 w-5 opacity-80" />}
+            <RemoteImg
               src={elementIcon(character.element)}
               alt={character.element}
               width={20}
@@ -184,7 +187,7 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
 
           {character.lightCone && (
             <div className="mt-1.5 flex items-center gap-2">
-              <img
+              <RemoteImg
                 src={lightConeIcon(character.lightCone.id)}
                 alt=""
                 loading="lazy"
@@ -250,12 +253,21 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
             </span>
           ))}
         </div>
-        {share && (
-          <ShareCardButton
-            build={() => hsrShareCard(character, share)}
-            className="border border-hsr-line bg-hsr-fill text-hsr-muted hover:text-hsr-text"
-          />
-        )}
+        <div className="flex shrink-0 items-center gap-1.5">
+          {hasHsrBuild(character.avatarId) && (
+            <GuideLink
+              to={`/hsr/builds/${character.avatarId}`}
+              name={character.name}
+              className="border border-hsr-line bg-hsr-fill text-hsr-muted hover:text-hsr-text"
+            />
+          )}
+          {share && (
+            <ShareCardButton
+              build={() => hsrShareCard(character, share)}
+              className="border border-hsr-line bg-hsr-fill text-hsr-muted hover:text-hsr-text"
+            />
+          )}
+        </div>
       </div>
 
       {/* Expand and collapse both animate. The grid row runs 0fr to 1fr, which

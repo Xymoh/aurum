@@ -678,16 +678,16 @@
     "icon": "UI_AvatarIcon_Zibai"
   },
   "10000127": {
-    "name": "Prune",
-    "element": "Anemo",
-    "weapon": "Bow",
-    "icon": "UI_AvatarIcon_Prune"
+    "name": "Illuga",
+    "element": "Geo",
+    "weapon": "Polearm",
+    "icon": "UI_AvatarIcon_Illuga"
   },
   "10000128": {
-    "name": "Linnea",
-    "element": "Hydro",
-    "weapon": "Sword",
-    "icon": "UI_AvatarIcon_Linnea"
+    "name": "Varka",
+    "element": "Anemo",
+    "weapon": "Claymore",
+    "icon": "UI_AvatarIcon_Varka"
   },
   "10000129": {
     "name": "Lohen",
@@ -696,10 +696,10 @@
     "icon": "UI_AvatarIcon_Lohen"
   },
   "10000130": {
-    "name": "Illuga",
-    "element": "Cryo",
-    "weapon": "Polearm",
-    "icon": "UI_AvatarIcon_Illuga"
+    "name": "Linnea",
+    "element": "Geo",
+    "weapon": "Bow",
+    "icon": "UI_AvatarIcon_Linnea"
   },
   "10000131": {
     "name": "Nicole",
@@ -708,10 +708,10 @@
     "icon": "UI_AvatarIcon_Nicole"
   },
   "10000132": {
-    "name": "Varka",
+    "name": "Prune",
     "element": "Anemo",
-    "weapon": "Claymore",
-    "icon": "UI_AvatarIcon_Varka"
+    "weapon": "Catalyst",
+    "icon": "UI_AvatarIcon_Prune"
   },
   "10000133": {
     "name": "Sandrone",

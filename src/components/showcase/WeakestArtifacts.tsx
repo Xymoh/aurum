@@ -8,6 +8,7 @@ import { getRerollTier, formatChance } from "../../lib/reroll";
 import { TargetIcon, DiceIcon, RecycleIcon } from "../ui/icons";
 import { GradeBadge } from "../ui/GradeBadge";
 import { useI18n } from "../../i18n";
+import { RemoteImg } from "../ui/RemoteImg";
 
 const ENKA_UI_BASE = "https://enka.network/ui";
 const LIMIT = 6;
@@ -105,7 +106,7 @@ export function WeakestArtifacts({ characters, onSelectCharacter }: WeakestArtif
               <div className="flex items-center gap-2">
                 <div className="icon-dark-bg h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border border-dark-border/60 bg-dark-bg">
                   {avatarUrl ? (
-                    <img src={avatarUrl} alt="" className="h-full w-full object-cover" loading="lazy" />
+                    <RemoteImg src={avatarUrl} alt="" className="h-full w-full object-cover" loading="lazy" />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-xs text-dark-muted">
                       {characterName.charAt(0)}

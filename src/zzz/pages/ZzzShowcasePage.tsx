@@ -19,6 +19,7 @@ import { ShowcaseHelp } from "../../components/ui/ShowcaseHelp";
 import { HiddenGearBanner } from "../../help/HiddenGearBanner";
 import { HELP_PATH, SHOWCASE_HELP } from "../../help/content";
 import { gradeTextClass } from "../../lib/grade";
+import { RemoteImg } from "../../components/ui/RemoteImg";
 
 /**
  * Stands in for the real page while the showcase loads: the account bar, then
@@ -122,7 +123,7 @@ function WeakestDiscs({ items, onSelect }: { items: WeakDisc[]; onSelect: (id: n
               className="flex items-center gap-2 rounded-lg border border-zzz-border bg-zzz-card/60 px-3 py-2.5 text-left transition-colors hover:border-zzz-accent/60 hover:bg-zzz-card"
               aria-label={t("showcase", "jumpTo", { name: agent.name })}
             >
-              {icon && <img src={icon} alt="" loading="lazy" className="h-8 w-8 shrink-0 rounded-full bg-zzz-inset object-cover ring-1 ring-zzz-line" />}
+              {icon && <RemoteImg src={icon} alt="" loading="lazy" className="h-8 w-8 shrink-0 rounded-full bg-zzz-inset object-cover ring-1 ring-zzz-line" />}
               <div className="min-w-0 flex-1">
                 <div className="truncate text-sm font-semibold text-zzz-text">{agent.name}</div>
                 <div className="truncate text-xs text-zzz-muted">
@@ -294,7 +295,7 @@ export function ZzzShowcasePage() {
     <div className="space-y-4">
       <header className="flex flex-wrap items-center gap-3 game-panel border border-zzz-border bg-zzz-panel/60 px-4 py-3 sm:gap-4 sm:px-5">
         {data.profilePicture && (
-          <img src={data.profilePicture} alt="" className="h-12 w-12 shrink-0 rounded-full bg-zzz-inset object-cover ring-2 ring-zzz-accent/40" />
+          <RemoteImg src={data.profilePicture} alt="" className="h-12 w-12 shrink-0 rounded-full bg-zzz-inset object-cover ring-2 ring-zzz-accent/40" />
         )}
         <div className="min-w-0 flex-1">
           <h1 className="truncate text-lg font-black uppercase tracking-wide text-zzz-text">{data.nickname}</h1>

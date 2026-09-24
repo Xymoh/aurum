@@ -67,6 +67,29 @@ export function saveSnapshot(uid: string, data: ShowcaseData): void {
   }
 }
 
+/** Drops the stored snapshot, so a forgotten UID leaves nothing behind. */
+export function clearSnapshot(uid: string): void {
+  try {
+    window.localStorage.removeItem(PREFIX + uid);
+  } catch {
+    // Storage unavailable; there is nothing stored to clear.
+  }
+}
+
+/** Drops every stored snapshot, including those of UIDs no longer in the recent list. */
+export function clearAllSnapshots(): void {
+  try {
+    const keys: string[] = [];
+    for (let i = 0; i < window.localStorage.length; i++) {
+      const k = window.localStorage.key(i);
+      if (k?.startsWith(PREFIX)) keys.push(k);
+    }
+    for (const k of keys) window.localStorage.removeItem(k);
+  } catch {
+    // Storage unavailable; there is nothing stored to clear.
+  }
+}
+
 /** What changed for each character since `prev`, or an empty map without one. */
 export function diffShowcase(prev: ShowcaseSnapshot | null, data: ShowcaseData): Map<string, BuildDelta> {
   const out = new Map<string, BuildDelta>();

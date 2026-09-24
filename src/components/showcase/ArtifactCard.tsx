@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import type { Artifact, ArtifactSubstat } from "../../types/artifact";
+import type { GenshinElement } from "../../types/character";
 import { scorePercentile } from "../../lib/percentile";
 import { RollPips } from "../ui/RollPips";
 import { ROLL_TIER_BG, rollTier } from "../../lib/rollTier";
@@ -12,6 +13,7 @@ import { GradeBadge } from "../ui/GradeBadge";
 import { InfoTip } from "../ui/InfoTip";
 import { useI18n } from "../../i18n";
 import { farmTargetFor, uniqueLabels } from "../../lib/buildTarget/genshin";
+import { RemoteImg } from "../ui/RemoteImg";
 
 const TIER_LABEL = { high: "rerollNow", medium: "worthRerolling", low: "lowPriority" } as const;
 const TIER_BLURB = { high: "blurbHigh", medium: "blurbMedium", low: "blurbLow" } as const;
@@ -22,6 +24,8 @@ interface ArtifactCardProps {
   artifact: Artifact;
   /** The wearer, so a replacement verdict can name the set to farm. */
   avatarId?: number;
+  /** The wearer's element: the Traveler's decides which of their guides names the set. */
+  element?: GenshinElement;
   /** The wearer's name, for the percentile note. */
   characterName?: string;
 }
@@ -115,7 +119,7 @@ function VerdictRow({
   );
 }
 
-export function ArtifactCard({ artifact, avatarId, characterName }: ArtifactCardProps) {
+export function ArtifactCard({ artifact, avatarId, element, characterName }: ArtifactCardProps) {
   const { t } = useI18n();
 
   // Where this piece sits among what the game would drop for the slot:
@@ -136,7 +140,7 @@ export function ArtifactCard({ artifact, avatarId, characterName }: ArtifactCard
   // What the slot wants, so the warning and the "farm a replacement" verdict
   // can both say it instead of leaving the reader to look it up.
   const idealLabels = uniqueLabels(artifact.mainStat.idealStats, t);
-  const farm = avatarId != null ? farmTargetFor(avatarId, artifact.mainStat.idealStats, t) : null;
+  const farm = avatarId != null ? farmTargetFor(avatarId, artifact.mainStat.idealStats, t, element) : null;
   const farmMain = farm && farm.mains.length > 0 ? farm.mains.join(" / ") : artifact.mainStat.displayName;
   const farmText = farm
     ? farm.setName
@@ -150,7 +154,7 @@ export function ArtifactCard({ artifact, avatarId, characterName }: ArtifactCard
       <div className="flex items-center justify-between">
         <div className="icon-dark-bg h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border border-dark-border/40 bg-dark-bg">
           {artIconUrl && !iconError ? (
-            <img src={artIconUrl} alt={artifact.setName} className="h-full w-full object-cover" loading="lazy" onError={() => setIconError(true)} />
+            <RemoteImg src={artIconUrl} alt={artifact.setName} className="h-full w-full object-cover" loading="lazy" onError={() => setIconError(true)} />
           ) : (
             <div className="flex h-full w-full items-center justify-center font-mono text-xs text-dark-muted">
               {artifact.slot.slice(0, 2)}

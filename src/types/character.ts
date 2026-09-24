@@ -21,6 +21,8 @@ export const ELEMENT_COLORS: Record<GenshinElement, string> = {
 };
 
 export interface CharacterWeapon {
+  /** The game's item id, when Enka sent one. The build page matches on it. */
+  id?: number;
   name: string;
   icon: string;
   level: number;

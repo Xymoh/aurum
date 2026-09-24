@@ -18,6 +18,11 @@ function prydwenUrl(name: string): string {
   return `https://www.prydwen.gg/zenless/characters/${slug}`;
 }
 
+/** Whether a build page exists for this agent; see hasGenshinBuild. */
+export function hasZzzBuild(agentId: number | string): boolean {
+  return String(agentId) in AGENTS;
+}
+
 export function listZzzBuilds(t: Translate): BuildListing[] {
   return Object.entries(AGENTS)
     .map(([id, a]) => ({
@@ -64,7 +69,12 @@ export function getZzzBuild(id: string, t: Translate): BuildTarget | null {
     slots,
     substats,
     sets: meta.sets.map((parts) => ({
-      parts: parts.map((p) => ({ name: p.name, pieces: p.pieces, iconUrl: setIcon(Number(p.setId)) })),
+      parts: parts.map((p) => ({
+        setId: p.setId ? String(p.setId) : null,
+        name: p.name,
+        pieces: p.pieces,
+        iconUrl: setIcon(Number(p.setId)),
+      })),
     })),
     // Their own wording, quoted rather than paraphrased: the tiers behind the
     // weights are an interpretation, and the sentence is not.

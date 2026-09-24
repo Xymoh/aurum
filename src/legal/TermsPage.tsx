@@ -75,12 +75,16 @@ export function TermsPage() {
             Rail artwork.
           </li>
           <li>
-            <Ext href="https://www.prydwen.gg/">Prydwen</Ext> and{" "}
-            <Ext href="https://genshin.gg/">genshin.gg</Ext> inform the build and set recommendations.
+            <Ext href="https://game8.co/">Game8</Ext>, <Ext href="https://www.prydwen.gg/">Prydwen</Ext>{" "}
+            and <Ext href="https://genshin.gg/">genshin.gg</Ext> inform the build and set recommendations.
           </li>
           <li>
             <Ext href="https://gi.yatta.moe/">Project Amber</Ext> and community mirrors of the games'
             data files supply localised names and item ids.
+          </li>
+          <li>
+            <Ext href="https://zzz.nanoka.cc/">nanoka.cc</Ext> supplies the Zenless Zone Zero material
+            icons.
           </li>
         </ul>
         <p>

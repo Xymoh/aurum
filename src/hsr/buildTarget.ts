@@ -3,7 +3,7 @@
 import type { BuildListing, BuildTarget, TargetSlot, TargetStat, Translate } from "../lib/buildTarget/model";
 import { rankSubstats } from "../lib/buildTarget/model";
 import charactersData from "./data/characters.json";
-import { characterIcon, characterPreview, relicSetIcon } from "./images";
+import { characterIcon, characterPreview, pathIcon, relicSetIcon } from "./images";
 import { elementTint } from "./labels";
 import type { HsrStatKey } from "./types";
 import { getScoringMeta, prydwenSetsUrl, SELECTABLE_SLOTS } from "./weights";
@@ -13,16 +13,60 @@ const CHARACTERS = charactersData as Record<
   { name: string; path: string; element: string; rarity: number }
 >;
 
+/** Whether a build page exists for this character; see hasGenshinBuild. */
+export function hasHsrBuild(avatarId: number | string): boolean {
+  return String(avatarId) in CHARACTERS;
+}
+
+/**
+ * The Trailblazer is a character per Path, each with its own kit, Light
+ * Cones, relics and teams, and one id per body for each (8001/8002
+ * Destruction, 8005/8006 Harmony, Caelus odd and Stelle even). The Path is
+ * the build, so it names the page and badges the face; the body shows in
+ * the face itself.
+ */
+function isTrailblazer(avatarId: number): boolean {
+  return avatarId >= 8000 && avatarId < 9000;
+}
+
+/**
+ * Whether a showcase character is the one a build page is for: the same
+ * id, or the Trailblazer on the same Path, whichever body the account plays.
+ */
+export function sameHsrBuild(showcaseId: number | string, pageId: number | string): boolean {
+  if (String(showcaseId) === String(pageId)) return true;
+  const [a, b] = [Number(showcaseId), Number(pageId)];
+  return isTrailblazer(a) && isTrailblazer(b) && CHARACTERS[String(a)]?.path === CHARACTERS[String(b)]?.path;
+}
+
+/** "Trailblazer (Harmony)" for the Trailblazer, the plain name for everyone else. */
+function pageName(avatarId: number, c: { name: string; path: string }, t: Translate): string {
+  return isTrailblazer(avatarId) ? `${c.name.replace(/\s*\(.*\)$/, "")} (${t("hsrPaths", c.path as "Warrior")})` : c.name;
+}
+
+/** The Path's icon on the Trailblazer's face, which is the same face on every Path. */
+function pathBadge(avatarId: number, c: { path: string }, t: Translate): BuildListing["badge"] {
+  const icon = isTrailblazer(avatarId) ? pathIcon(c.path) : null;
+  return icon ? { iconUrl: icon, label: t("hsrPaths", c.path as "Warrior") } : undefined;
+}
+
 export function listHsrBuilds(t: Translate): BuildListing[] {
   return Object.entries(CHARACTERS)
-    .map(([id, c]) => ({
-      id,
-      name: c.name,
-      iconUrl: characterIcon(Number(id)),
-      tags: [t("hsrPaths", c.path as "Warrior"), c.element],
-      rarity: c.rarity,
-      generic: getScoringMeta(Number(id)).source !== "fribbels",
-    }))
+    .map(([id, c]): BuildListing => {
+      const avatarId = Number(id);
+      const badge = pathBadge(avatarId, c, t);
+      return {
+        id,
+        name: pageName(avatarId, c, t),
+        iconUrl: characterIcon(avatarId),
+        tags: [t("hsrPaths", c.path as "Warrior"), t("hsrElements", c.element as "Thunder")],
+        rarity: c.rarity,
+        generic: getScoringMeta(avatarId).source !== "fribbels",
+        ...(badge ? { badge } : {}),
+        // One row per Path: Stelle's page on it is the same build as Caelus's.
+        ...(isTrailblazer(avatarId) && avatarId % 2 === 0 ? { unlisted: true } : {}),
+      };
+    })
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
@@ -47,13 +91,16 @@ export function getHsrBuild(id: string, t: Translate): BuildTarget | null {
     })),
   );
 
+  const badge = pathBadge(avatarId, character, t);
+
   return {
     game: "hsr",
     id,
-    name: character.name,
+    name: pageName(avatarId, character, t),
+    ...(badge ? { badge } : {}),
     iconUrl: characterIcon(avatarId),
     portraitUrl: characterPreview(avatarId),
-    tags: [t("hsrPaths", character.path as "Warrior"), character.element],
+    tags: [t("hsrPaths", character.path as "Warrior"), t("hsrElements", character.element as "Thunder")],
     rarity: character.rarity,
     accent: elementTint(character.element),
     generic: meta.source !== "fribbels",
@@ -61,6 +108,7 @@ export function getHsrBuild(id: string, t: Translate): BuildTarget | null {
     substats,
     sets: [...meta.relicSets, ...meta.ornamentSets].map((parts) => ({
       parts: parts.map((p) => ({
+        setId: p.setId,
         name: p.name,
         pieces: p.pieces,
         iconUrl: p.setId ? relicSetIcon(p.setId) : null,

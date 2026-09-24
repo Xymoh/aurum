@@ -3,6 +3,7 @@ import type { Artifact } from "../../types/artifact";
 import type { SetBonusResult } from "../../types/character";
 import { tint } from "../../lib/grade";
 import { useI18n } from "../../i18n";
+import { RemoteImg } from "./RemoteImg";
 
 interface SetBonusRowProps {
   artifacts: Artifact[];
@@ -56,7 +57,7 @@ function SetIcon({ setId, setName }: { setId: string; setName: string }) {
   const [failed, setFailed] = useState(false);
   if (failed) return null;
   return (
-    <img
+    <RemoteImg
       src={`https://enka.network/ui/UI_RelicIcon_${setId}_4.png`}
       alt={setName}
       width={24}

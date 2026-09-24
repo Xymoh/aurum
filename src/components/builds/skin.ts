@@ -21,4 +21,8 @@ export interface BuildSkin {
   line: string;
   /** Search and select fields. */
   field: string;
+  /** The selected pill in the section nav: border, background and text. */
+  active: string;
+  /** The sticky section nav's own surface, opaque enough to read over content. */
+  bar: string;
 }

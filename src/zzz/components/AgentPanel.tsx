@@ -16,6 +16,9 @@ import { GradeBadge } from "../../components/ui/GradeBadge";
 import { formatScore } from "../../lib/format";
 import { gradeTextClass } from "../../lib/grade";
 import { agentPanelId } from "../panelId";
+import { hasZzzBuild } from "../buildTarget";
+import { GuideLink } from "../../components/ui/GuideLink";
+import { RemoteImg } from "../../components/ui/RemoteImg";
 
 interface AgentPanelProps {
   agent: ZzzAgent;
@@ -85,7 +88,7 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
             style={{ maskImage: "linear-gradient(to right, transparent, black 55%)", WebkitMaskImage: "linear-gradient(to right, transparent, black 55%)" }}
           >
             {art && showArt && (
-              <img
+              <RemoteImg
                 src={art}
                 alt=""
                 loading="lazy"
@@ -146,7 +149,7 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
           {agent.engine && (
             <div className="mt-1.5 flex items-center gap-2">
               {agent.engine.image && (
-                <img src={agent.engine.image} alt="" loading="lazy" width={44} height={44} className="h-8 w-8 shrink-0 rounded object-contain ring-1 ring-zzz-line sm:h-10 sm:w-10" />
+                <RemoteImg src={agent.engine.image} alt="" loading="lazy" width={44} height={44} className="h-8 w-8 shrink-0 rounded object-contain ring-1 ring-zzz-line sm:h-10 sm:w-10" />
               )}
               <p className="truncate text-sm text-zzz-muted">
                 {agent.engine.name}
@@ -198,12 +201,21 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
             </span>
           ))}
         </div>
-        {share && (
-          <ShareCardButton
-            build={() => zzzShareCard(agent, share)}
-            className="border border-zzz-line bg-zzz-fill text-zzz-muted hover:text-zzz-text"
-          />
-        )}
+        <div className="flex shrink-0 items-center gap-1.5">
+          {hasZzzBuild(agent.id) && (
+            <GuideLink
+              to={`/zzz/builds/${agent.id}`}
+              name={agent.name}
+              className="border border-zzz-line bg-zzz-fill text-zzz-muted hover:text-zzz-text"
+            />
+          )}
+          {share && (
+            <ShareCardButton
+              build={() => zzzShareCard(agent, share)}
+              className="border border-zzz-line bg-zzz-fill text-zzz-muted hover:text-zzz-text"
+            />
+          )}
+        </div>
       </div>
 
       {/* The row wrapper stays mounted even while collapsed, so 0fr is a value

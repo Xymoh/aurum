@@ -23,6 +23,8 @@
     "measure-zzz-art": "node scripts/measure-zzz-art.mjs",
     "fetch-genshin-sets": "node scripts/fetch-genshin-sets.mjs",
     "fetch-sets": "node scripts/fetch-prydwen-sets.mjs",
+    "build-guides": "node scripts/build-genshin-guides.mjs && node scripts/build-hsr-guides.mjs && node scripts/build-zzz-guides.mjs",
+    "sync-genshin-tables": "node scripts/sync-genshin-tables.mjs",
     "refresh": "node scripts/refresh.mjs",
     "audit-genshin": "node scripts/audit-genshin-weights.mjs",
     "typecheck": "tsc -b --noEmit && tsc -p tsconfig.node.json --noEmit"
@@ -53,6 +55,7 @@
     "pngjs": "^7.0.0",
     "postcss": "^8.4.49",
     "prettier": "^3.4.0",
+    "sharp": "^0.35.4",
     "tailwindcss": "^4.0.0",
     "typescript": "~5.7.0",
     "typescript-eslint": "^8.18.0",

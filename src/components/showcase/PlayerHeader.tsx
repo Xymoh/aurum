@@ -6,6 +6,7 @@ import { GradeBadge } from "../ui/GradeBadge";
 import { formatScore } from "../../lib/format";
 import { gradeVar } from "../../lib/grade";
 import type { ScoreGrade } from "../../types/artifact";
+import { RemoteImg } from "../ui/RemoteImg";
 
 interface PlayerHeaderProps {
   uid: string;
@@ -66,7 +67,7 @@ function PlayerAvatar({ iconName, nickname }: { iconName: string; nickname: stri
   return (
     <div className="icon-dark-bg flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-dark-border text-dark-muted ring-2 ring-accent/30 sm:h-14 sm:w-14">
       {url && !failed ? (
-        <img
+        <RemoteImg
           src={url}
           alt=""
           className="h-full w-full object-cover"
