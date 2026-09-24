@@ -27,7 +27,7 @@ export const SUPPORT_URL = "https://ko-fi.com/saekimon";
 export const CONTACT_LABEL = "the project's GitHub issues";
 
 /** Shown on both pages. Bump it whenever either page changes in substance. */
-export const EFFECTIVE_DATE = "21 September 2026";
+export const EFFECTIVE_DATE = "24 September 2026";
 
 export const PRIVACY_PATH = "/privacy";
 export const TERMS_PATH = "/terms";

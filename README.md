@@ -85,15 +85,55 @@ Opens at `http://localhost:3000`. Enter a Genshin UID (e.g., `707019355`) to vie
 | `npm run fetch-hsr-weights` | Re-import per-character HSR scoring weights from Fribbels |
 | `npm run fetch-hsr-stats` | Re-import HSR stat curves, traces and set bonuses |
 | `npm run audit-genshin` | Cross-check Genshin substat weights against Prydwen, KQM and Game8 |
-| `npm run fetch-genshin-sets` | Re-import recommended artifact sets for every Genshin character from genshin.gg |
+| `npm run fetch-genshin-sets` | Re-import recommended artifact sets and the build-guide picks (weapons, teams, main stats, talent priority) for every Genshin character from Game8, falling back to genshin.gg where Game8 has no build page |
 | `npm run measure-zzz-art` | Measure where each new Zenless agent's head sits in their render, so the panel frames it (skips agents already measured) |
-| `npm run fetch-sets` | Re-import recommended relic and disc sets for Star Rail and Zenless from Prydwen (opens an Edge window) |
+| `npm run fetch-sets` | Re-import recommended relic and disc sets and the build-guide picks (weapons, teams, priorities, stat targets) for Star Rail and Zenless from Prydwen (opens an Edge window) |
+| `npm run sync-genshin-tables` | Add new Genshin characters and artifact sets from Project Amber to `characters.json` and `artifacts.json`, and report where those tables disagree with it (`-- --check` writes nothing) |
+| `npm run build-guides` | Rebuild every build-guide page (kit, constellations, materials, weapon passives, set bonuses) from the picks above and the game data |
 
 ## Data Pipeline
 
 **Patch day:** one command runs every fetcher below in order, tolerates a
 failing source, and ends with what changed and which new characters still
 need curated weights.
+
+It updates the build guides too. New Genshin characters and artifact sets
+are added to the tables first (Star Rail and Zenless regenerate theirs), the
+guide sites are read again so changed weapon, team and set picks come
+through, and every guide page is rebuilt from those picks and the current
+game text. Characters a guide site has not covered yet are listed under
+"No guide yet"; their pages show game data only, and a later refresh fills
+them in once the site publishes.
+
+Guide sites lag behind buffs and reworks, so every guide page records a
+fingerprint of the character's kit. When a refresh sees the kit text change,
+it dates the change; a guide last updated before that date gets a warning on
+its page and a line in the summary, and both clear once the guide site
+updates. Run the refresh on patch day so a kit change is dated close to the
+patch.
+
+For Genshin the scorer accepts the guide's current main stats and sets
+alongside the hand-kept ones in `character-builds.json`, with the guide's
+listed first on the build page. A buff that changes what a character wants
+reaches the grades on the next refresh, and a player following the guide is
+never told their piece is wrong. The hand-kept substat weights are unchanged.
+Energy Recharge targets come only from a figure the guide states (the low
+end of its first range); a character whose guide gives none has no ER target,
+and ER counts through the weights alone.
+
+The Traveler has a build page per element on each body
+(`/genshin/builds/10000007-cryo`), built from that element's Game8 page and
+game data, and the index lists Aether's. A team naming "Traveler (Cryo)"
+links to that element, and the showcase grades a Traveler against the guide
+for the element they are on. Star Rail's Trailblazer has a page per Path the
+same way, named by the Path, with Caelus's in the index. In both games the
+element or Path is drawn as a badge on the character's face in every team.
+
+Zenless material icons are the one piece of game art the site ships itself,
+under `public/zzz/items/`. The Zenless guide build fetches any it lacks from
+nanoka.cc by the sprite names in the game's item table and shrinks them to
+96px with `sharp` (a boss drop's art is an animated 2048px sheet, cut down to
+its first frame). Icons no guide lists any more are removed.
 
 ```bash
 npm run refresh                       # everything
@@ -104,6 +144,7 @@ npm run refresh -- --skip=locale
 The individual steps:
 
 ```bash
+node scripts/sync-genshin-tables.mjs    # Add new Genshin characters and artifact sets (Project Amber)
 node scripts/fetch-go-data.js           # Fetch character stats from Genshin Optimizer
 node scripts/fetch-enka-locale.js       # Fetch localized weapon/set names (Enka) + character names (Project Amber), all languages
 node scripts/fetch-profile-pictures.js  # Fetch profile-picture id → icon mapping

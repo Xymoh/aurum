@@ -77,9 +77,11 @@ export function PrivacyPage() {
         <p>
           Character, weapon and equipment artwork is loaded directly by your browser from Enka.Network
           (enka.network) and, for Honkai: Star Rail, from the StarRailRes repository via jsDelivr
-          (cdn.jsdelivr.net). Those servers receive your IP address and browser type as part of any
-          image request, in the same way any website that embeds an image does. We do not control
-          their logging. See the{" "}
+          (cdn.jsdelivr.net, or fastly.jsdelivr.net if a request there fails). The Genshin Impact build
+          pages also load material and element icons from Project Amber (gi.yatta.moe); the Zenless
+          Zone Zero material icons come from this site itself. Those servers receive your IP address
+          and browser type as part of any image request, in the same way any website that embeds an
+          image does. We do not control their logging. See the{" "}
           <Ext href="https://www.jsdelivr.com/terms/privacy-policy">jsDelivr Privacy Policy</Ext>.
         </p>
       </Section>
@@ -88,11 +90,13 @@ export function PrivacyPage() {
         <p>
           The site uses your browser's local storage, not cookies, to remember three things: your
           theme choice, your language choice, and the last ten UIDs you looked up in each game so you
-          can pick them again. The build pages reuse the most recent of those UIDs to fetch that
-          showcase again when you open a character, which sends the UID to our relay and
-          Enka.Network exactly as a lookup does; nothing else is ever sent. It exists only to provide
-          features you asked for, which is why the site shows no consent banner. You can clear it at any time by clearing site data for this site in your
-          browser.
+          can pick them again. When you open a character's build page, the site fetches a showcase
+          again to compare against: the one you opened the page from, or otherwise the most recent
+          of those UIDs. That sends the UID to our relay and Enka.Network exactly as a lookup does;
+          nothing else is ever sent. It exists only to provide
+          features you asked for, which is why the site shows no consent banner. You can remove a
+          single UID, or clear the whole list, from the recent lookups on each game's home page, or
+          clear everything by clearing site data for this site in your browser.
         </p>
       </Section>
 
