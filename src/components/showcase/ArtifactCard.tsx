@@ -12,6 +12,7 @@ import { GradeBadge } from "../ui/GradeBadge";
 import { InfoTip } from "../ui/InfoTip";
 import { useI18n } from "../../i18n";
 import { farmTargetFor, uniqueLabels } from "../../lib/buildTarget/genshin";
+import { RemoteImg } from "../ui/RemoteImg";
 
 const TIER_LABEL = { high: "rerollNow", medium: "worthRerolling", low: "lowPriority" } as const;
 const TIER_BLURB = { high: "blurbHigh", medium: "blurbMedium", low: "blurbLow" } as const;
@@ -150,7 +151,7 @@ export function ArtifactCard({ artifact, avatarId, characterName }: ArtifactCard
       <div className="flex items-center justify-between">
         <div className="icon-dark-bg h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border border-dark-border/40 bg-dark-bg">
           {artIconUrl && !iconError ? (
-            <img src={artIconUrl} alt={artifact.setName} className="h-full w-full object-cover" loading="lazy" onError={() => setIconError(true)} />
+            <RemoteImg src={artIconUrl} alt={artifact.setName} className="h-full w-full object-cover" loading="lazy" onError={() => setIconError(true)} />
           ) : (
             <div className="flex h-full w-full items-center justify-center font-mono text-xs text-dark-muted">
               {artifact.slot.slice(0, 2)}

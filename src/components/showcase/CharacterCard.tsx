@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useNearViewport } from "../../hooks/useNearViewport";
 import { InfoTip } from "../ui/InfoTip";
 import { uniqueLabels } from "../../lib/buildTarget/genshin";
+import { RemoteImg } from "../ui/RemoteImg";
 import { BuildDiagnostics } from "./BuildDiagnostics";
 import type { BuildDelta } from "../../lib/history";
 import type { CharacterData } from "../../types/character";
@@ -255,8 +256,9 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
           >
             <div className="absolute inset-0 opacity-40 mix-blend-overlay" style={{ backgroundColor: elementColor }} />
             {portraitUrl && !imgError && showPortrait && (
-              <img
+              <RemoteImg
                 src={portraitUrl}
+                fallbacks={fallbackUrl ? [fallbackUrl] : undefined}
                 alt=""
                 width={2048}
                 height={1024}
@@ -264,13 +266,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
                 loading="lazy"
                 decoding="async"
                 fetchPriority="low"
-                onError={(e) => {
-                  if (fallbackUrl && e.currentTarget.src !== fallbackUrl) {
-                    e.currentTarget.src = fallbackUrl;
-                  } else {
-                    setImgError(true);
-                  }
-                }}
+                onError={() => setImgError(true)}
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-l from-dark-bg/40 to-transparent" />
@@ -440,8 +436,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
                       style={{ borderColor: `${elementColor}88`, background: `linear-gradient(rgb(144,105,72) 0%, rgb(191,133,81) 100%)` }}
                     >
                       {avatarIconUrl ? (
-                        <img src={avatarIconUrl} alt="" className="h-full w-full object-cover" loading="lazy"
-                          onError={(e) => { if (fallbackUrl && e.currentTarget.src !== fallbackUrl) { e.currentTarget.src = fallbackUrl; } }} />
+                        <RemoteImg src={avatarIconUrl} alt="" className="h-full w-full object-cover" loading="lazy" />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center text-2xl font-bold" style={{ color: elementColor }}>
                           {character.name.charAt(0)}
@@ -475,7 +470,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
                     <div className="flex min-w-0 flex-1 items-center gap-2.5 rounded-xl border border-dark-border bg-dark-card px-3 py-2.5">
                       <div className="icon-dark-bg relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg border border-dark-border/60 bg-dark-bg sm:h-16 sm:w-16">
                         {weaponIconUrl ? (
-                          <img src={weaponIconUrl} alt={character.weapon.name} className="h-full w-full object-cover" loading="lazy" />
+                          <RemoteImg src={weaponIconUrl} alt={character.weapon.name} className="h-full w-full object-cover" loading="lazy" />
                         ) : (
                           <div className="flex h-full w-full items-center justify-center text-xs text-dark-muted">W</div>
                         )}
@@ -516,8 +511,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
                         const fallbackIcon = useU ? `${ENKA_UI_BASE}/UI_Talent_S_${character.talentIconSuffix}_0${i + 1}.png` : `${ENKA_UI_BASE}/UI_Talent_U_${character.talentIconSuffix}_0${i + 1}.png`;
                         return (
                           <div key={i} className={`icon-dark-bg relative h-11 w-11 flex-shrink-0 overflow-hidden rounded-lg border-2 bg-dark-bg sm:h-14 sm:w-14 ${unlocked ? "border-accent/60" : "border-dark-border/50"}`} title={`C${i + 1}${unlocked ? "" : " (locked)"}`}>
-                            <img src={conIcon} alt={`C${i + 1}`} className="h-full w-full object-cover" loading="lazy"
-                              onError={(e) => { if (e.currentTarget.src !== fallbackIcon) e.currentTarget.src = fallbackIcon; }}
+                            <RemoteImg src={conIcon} alternates={[fallbackIcon]} alt={`C${i + 1}`} className="h-full w-full object-cover" loading="lazy"
                               style={{ filter: unlocked ? "none" : "brightness(0.4) saturate(0.3)" }} />
                             {!unlocked && (
                               <div className="absolute inset-0 flex items-center justify-center bg-black/30">
@@ -541,7 +535,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
                       ].map((talent, idx) => (
                         <div key={idx} className="flex flex-col items-center gap-1">
                           <div className="icon-dark-bg h-10 w-10 overflow-hidden rounded-full border-2 border-dark-border/40 bg-dark-bg sm:h-12 sm:w-12">
-                            <img src={`${ENKA_UI_BASE}/${talent.icon}`} alt={talent.label} className="h-full w-full object-cover" loading="lazy" />
+                            <RemoteImg src={`${ENKA_UI_BASE}/${talent.icon}`} alt={talent.label} className="h-full w-full object-cover" loading="lazy" />
                           </div>
                           <span className="font-mono text-sm font-semibold text-dark-text">
                             {character.talents[idx] && character.talents[idx] > 0

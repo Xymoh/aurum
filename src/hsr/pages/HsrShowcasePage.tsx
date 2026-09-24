@@ -21,6 +21,7 @@ import { ShowcaseHelp } from "../../components/ui/ShowcaseHelp";
 import { HiddenGearBanner } from "../../help/HiddenGearBanner";
 import { HELP_PATH, SHOWCASE_HELP } from "../../help/content";
 import { tint } from "../../lib/grade";
+import { RemoteImg } from "../../components/ui/RemoteImg";
 
 /**
  * Stands in for the real page while the showcase loads: the account bar, then
@@ -134,7 +135,7 @@ function BestNextMoves({ moves, onSelect }: { moves: NextMove[]; onSelect: (avat
               aria-label={t("showcase", "jumpTo", { name: character.name })}
             >
               <div className="flex items-center gap-2">
-                <img
+                <RemoteImg
                   src={characterIcon(character.avatarId)}
                   alt=""
                   loading="lazy"

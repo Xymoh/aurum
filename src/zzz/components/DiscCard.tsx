@@ -8,6 +8,7 @@ import { GradeBadge } from "../../components/ui/GradeBadge";
 import { InfoTip } from "../../components/ui/InfoTip";
 import { formatScore } from "../../lib/format";
 import { gradeTextClass } from "../../lib/grade";
+import { RemoteImg } from "../../components/ui/RemoteImg";
 
 const ZZZ_PANEL = "border-zzz-border bg-zzz-panel text-zzz-text";
 
@@ -31,7 +32,7 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
     <div className="rounded-lg border border-zzz-border/70 bg-zzz-card/60 p-2.5">
       <div className="mb-2 flex items-center gap-2">
         {icon && (
-          <img src={icon} alt="" loading="lazy" width={44} height={44} className="h-11 w-11 shrink-0 rounded bg-zzz-inset object-contain" />
+          <RemoteImg src={icon} alt="" loading="lazy" width={44} height={44} className="h-11 w-11 shrink-0 rounded bg-zzz-inset object-contain" />
         )}
         <div className="min-w-0 flex-1">
           <p className="font-mono text-sm font-bold uppercase tracking-wider text-zzz-accent">

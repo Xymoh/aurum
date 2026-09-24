@@ -12,6 +12,7 @@ import { WarningIcon } from "../../components/ui/icons";
 import { RollPips } from "../../components/ui/RollPips";
 import { ROLL_FLOOR } from "../../lib/rollTier";
 import { HIGH_ROLL } from "../scoring";
+import { RemoteImg } from "../../components/ui/RemoteImg";
 
 /** Colour per verdict, from the shared tokens so light mode gets its own set. */
 const VERDICT_COLOR: Record<string, string> = {
@@ -55,7 +56,7 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
     <div className="rounded-lg border border-hsr-border/70 bg-hsr-card/60 p-2.5">
       <div className="mb-2 flex items-center gap-2">
         {icon && (
-          <img
+          <RemoteImg
             src={icon}
             alt=""
             loading="lazy"
