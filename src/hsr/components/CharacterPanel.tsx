@@ -15,6 +15,8 @@ import { characterPreview, elementIcon, lightConeIcon, pathIcon } from "../image
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { formatScore } from "../../lib/format";
 import { characterPanelId } from "../panelId";
+import { hasHsrBuild } from "../buildTarget";
+import { GuideLink } from "../../components/ui/GuideLink";
 import { RemoteImg } from "../../components/ui/RemoteImg";
 
 /** Trace levels, labelled the way the game labels them. */
@@ -251,12 +253,21 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
             </span>
           ))}
         </div>
-        {share && (
-          <ShareCardButton
-            build={() => hsrShareCard(character, share)}
-            className="border border-hsr-line bg-hsr-fill text-hsr-muted hover:text-hsr-text"
-          />
-        )}
+        <div className="flex shrink-0 items-center gap-1.5">
+          {hasHsrBuild(character.avatarId) && (
+            <GuideLink
+              to={`/hsr/builds/${character.avatarId}`}
+              name={character.name}
+              className="border border-hsr-line bg-hsr-fill text-hsr-muted hover:text-hsr-text"
+            />
+          )}
+          {share && (
+            <ShareCardButton
+              build={() => hsrShareCard(character, share)}
+              className="border border-hsr-line bg-hsr-fill text-hsr-muted hover:text-hsr-text"
+            />
+          )}
+        </div>
       </div>
 
       {/* Expand and collapse both animate. The grid row runs 0fr to 1fr, which

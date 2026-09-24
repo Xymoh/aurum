@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { useNearViewport } from "../../hooks/useNearViewport";
 import { InfoTip } from "../ui/InfoTip";
-import { uniqueLabels } from "../../lib/buildTarget/genshin";
+import { genshinBuildId, hasGenshinBuild, uniqueLabels } from "../../lib/buildTarget/genshin";
+import { GuideLink } from "../ui/GuideLink";
 import { RemoteImg } from "../ui/RemoteImg";
 import { BuildDiagnostics } from "./BuildDiagnostics";
 import type { BuildDelta } from "../../lib/history";
@@ -370,12 +371,21 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
               <StatChip key={stat.key} statKey={stat.key} value={stat.value} />
             ))}
           </div>
-          {share && (
-            <ShareCardButton
-              build={() => genshinShareCard(character, share)}
-              className="border border-dark-border bg-dark-card text-dark-muted hover:text-dark-text"
-            />
-          )}
+          <div className="flex shrink-0 items-center gap-1.5">
+            {hasGenshinBuild(character.avatarId) && (
+              <GuideLink
+                to={`/genshin/builds/${genshinBuildId(character.avatarId, character.element)}`}
+                name={character.name}
+                className="border border-dark-border bg-dark-card text-dark-muted hover:text-dark-text"
+              />
+            )}
+            {share && (
+              <ShareCardButton
+                build={() => genshinShareCard(character, share)}
+                className="border border-dark-border bg-dark-card text-dark-muted hover:text-dark-text"
+              />
+            )}
+          </div>
         </div>
       </div>
 

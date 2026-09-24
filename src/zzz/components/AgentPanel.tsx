@@ -16,6 +16,8 @@ import { GradeBadge } from "../../components/ui/GradeBadge";
 import { formatScore } from "../../lib/format";
 import { gradeTextClass } from "../../lib/grade";
 import { agentPanelId } from "../panelId";
+import { hasZzzBuild } from "../buildTarget";
+import { GuideLink } from "../../components/ui/GuideLink";
 import { RemoteImg } from "../../components/ui/RemoteImg";
 
 interface AgentPanelProps {
@@ -199,12 +201,21 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
             </span>
           ))}
         </div>
-        {share && (
-          <ShareCardButton
-            build={() => zzzShareCard(agent, share)}
-            className="border border-zzz-line bg-zzz-fill text-zzz-muted hover:text-zzz-text"
-          />
-        )}
+        <div className="flex shrink-0 items-center gap-1.5">
+          {hasZzzBuild(agent.id) && (
+            <GuideLink
+              to={`/zzz/builds/${agent.id}`}
+              name={agent.name}
+              className="border border-zzz-line bg-zzz-fill text-zzz-muted hover:text-zzz-text"
+            />
+          )}
+          {share && (
+            <ShareCardButton
+              build={() => zzzShareCard(agent, share)}
+              className="border border-zzz-line bg-zzz-fill text-zzz-muted hover:text-zzz-text"
+            />
+          )}
+        </div>
       </div>
 
       {/* The row wrapper stays mounted even while collapsed, so 0fr is a value

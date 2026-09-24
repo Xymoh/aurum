@@ -157,6 +157,8 @@ const zh: Dictionary = {
     allElements: "全部元素",
     shown: "显示 {visible}/{total}",
     noMatch: "没有符合筛选条件的角色。",
+    buildGuide: "配装攻略",
+    buildGuideHint: "打开 {name} 的配装攻略",
     expand: "展开 {name} 的详情",
     collapse: "收起 {name} 的详情",
     methodologyHint: "阅读完整评分说明",

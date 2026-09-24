@@ -179,6 +179,8 @@ export const en = {
     allElements: "All elements",
     shown: "{visible}/{total} shown",
     noMatch: "No characters match your filters.",
+    buildGuide: "Build guide",
+    buildGuideHint: "Open the build guide for {name}",
     expand: "Show details for {name}",
     collapse: "Hide details for {name}",
     methodologyHint: "Read the full methodology",
