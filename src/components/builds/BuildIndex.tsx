@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useI18n } from "../../i18n";
+import { useUidQuery } from "../../hooks/useComparisonUid";
 import type { BuildListing } from "../../lib/buildTarget/model";
+import { CharacterFace } from "./CharacterFace";
 import type { BuildSkin } from "./skin";
 
 interface BuildIndexProps {
@@ -19,10 +21,15 @@ interface BuildIndexProps {
  * plain filtered list on purpose: the useful thing here is getting to one
  * character quickly, not browsing.
  */
-export function BuildIndex({ listings, basePath, skin }: BuildIndexProps) {
+export function BuildIndex({ listings: all, basePath, skin }: BuildIndexProps) {
   const { t } = useI18n();
+  const query = useUidQuery();
   const [search, setSearch] = useState("");
   const [tag, setTag] = useState("ALL");
+
+  // One row per build: a second body's copy of a page (Lumine, Stelle) is
+  // left out, and opened from that player's showcase or a team instead.
+  const listings = useMemo(() => all.filter((l) => !l.unlisted), [all]);
 
   const tags = useMemo(
     () => Array.from(new Set(listings.flatMap((l) => l.tags))).sort(),
@@ -71,19 +78,11 @@ export function BuildIndex({ listings, basePath, skin }: BuildIndexProps) {
           {visible.map((listing) => (
             <Link
               key={listing.id}
-              to={`${basePath}/${listing.id}`}
+              to={`${basePath}/${listing.id}${query}`}
+              title={listing.name}
               className={`game-panel-sm flex items-center gap-2.5 border px-2.5 py-2 no-underline transition-colors ${skin.card} ${skin.cardHover}`}
             >
-              {listing.iconUrl && (
-                <img
-                  src={listing.iconUrl}
-                  alt=""
-                  loading="lazy"
-                  width={40}
-                  height={40}
-                  className={`h-9 w-9 shrink-0 rounded-full object-cover ring-1 ${skin.line}`}
-                />
-              )}
+              {listing.iconUrl && <CharacterFace listing={listing} size="h-9 w-9" className={`ring-1 ${skin.line}`} />}
               <span className="min-w-0 flex-1">
                 <span className={`block truncate text-sm font-semibold ${skin.text}`}>
                   {listing.name}

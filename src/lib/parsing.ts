@@ -604,6 +604,7 @@ function extractWeapon(equips: EnkaEquip[]): CharacterWeapon | null {
       : 1;
 
     return {
+      id: equip.itemId,
       name: resolveWeaponName(flat, equip.itemId),
       icon,
       level: weapon?.level ?? 1,

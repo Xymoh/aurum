@@ -7,10 +7,13 @@ import type { BuildSkin } from "../../components/builds/skin";
 import { NotFoundPage } from "../../pages/NotFoundPage";
 import { useI18n } from "../../i18n";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
-import { readRecentUids, ZZZ_RECENT_UIDS_KEY } from "../../hooks/useRecentUids";
+import { ZZZ_RECENT_UIDS_KEY } from "../../hooks/useRecentUids";
+import { useComparisonUid } from "../../hooks/useComparisonUid";
 import { getZzzBuild, listZzzBuilds } from "../buildTarget";
+import { ZZZ_GUIDES } from "../guide";
+import { useGuide } from "../../lib/buildTarget/guideSource";
 import { SELECTABLE_ZZZ_SLOTS } from "../types";
-import { useZzzShowcase } from "../useZzzShowcase";
+import { isValidZzzUid, useZzzShowcase } from "../useZzzShowcase";
 
 const SKIN: BuildSkin = {
   panel: "border-zzz-border bg-zzz-panel/50",
@@ -21,6 +24,8 @@ const SKIN: BuildSkin = {
   accent: "text-zzz-accent",
   line: "ring-zzz-line",
   field: "border border-zzz-border bg-zzz-card text-zzz-text focus:border-zzz-accent/60",
+  active: "border-zzz-accent/50 bg-zzz-accent/15 text-zzz-accent",
+  bar: "border-zzz-border bg-zzz-bg/90",
 };
 
 export function ZzzBuildsPage() {
@@ -28,7 +33,9 @@ export function ZzzBuildsPage() {
   const { t } = useI18n();
 
   const listings = useMemo(() => listZzzBuilds(t), [t]);
+  const roster = useMemo(() => new Map(listings.map((l) => [l.id, l])), [listings]);
   const target = useMemo(() => (id ? getZzzBuild(id, t) : null), [id, t]);
+  const guide = useGuide(ZZZ_GUIDES, target ? id : undefined);
 
   useDocumentTitle(
     target
@@ -36,7 +43,7 @@ export function ZzzBuildsPage() {
       : t("builds", "documentTitle"),
   );
 
-  const uid = useMemo(() => readRecentUids(ZZZ_RECENT_UIDS_KEY)[0]?.uid ?? "", []);
+  const uid = useComparisonUid(ZZZ_RECENT_UIDS_KEY, isValidZzzUid);
   const { data, isLoading, isError } = useZzzShowcase(uid, { enabled: Boolean(id) });
 
   const owned = useMemo(() => {
@@ -59,7 +66,8 @@ export function ZzzBuildsPage() {
       grade: agent.diagnostics.grade,
       complete: agent.diagnostics.complete,
       slots,
-      showcaseHref: `/zzz/showcase/${uid}`,
+      showcaseHref: `/zzz/showcase/${uid}?c=${id}`,
+      weaponId: agent.engine ? String(agent.engine.id) : null,
     };
   }, [id, data, uid, t]);
 
@@ -85,6 +93,9 @@ export function ZzzBuildsPage() {
         target={target}
         basePath="/zzz/builds"
         skin={SKIN}
+        guide={guide}
+        roster={roster}
+        equippedWeaponId={owned?.weaponId}
         owned={
           <OwnedStrip
             skin={SKIN}

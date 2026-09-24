@@ -1,13 +1,18 @@
 import { useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useLocation, useParams } from "react-router-dom";
 import { BuildDetail } from "../components/builds/BuildDetail";
 import { BuildIndex } from "../components/builds/BuildIndex";
 import { OwnedStrip, type OwnedSlot } from "../components/builds/OwnedStrip";
 import type { BuildSkin } from "../components/builds/skin";
 import { NotFoundPage } from "./NotFoundPage";
 import { useI18n } from "../i18n";
-import { getGenshinBuild, listGenshinBuilds } from "../lib/buildTarget/genshin";
-import { GENSHIN_RECENT_UIDS_KEY, readRecentUids } from "../hooks/useRecentUids";
+import { getGenshinBuild, listGenshinBuilds, movedGenshinBuild } from "../lib/buildTarget/genshin";
+import { isTravelerId, parseTravelerBuildId } from "../lib/travelerBuilds";
+import { GENSHIN_GUIDES } from "../lib/buildTarget/genshinGuide";
+import { useGuide } from "../lib/buildTarget/guideSource";
+import { GENSHIN_RECENT_UIDS_KEY } from "../hooks/useRecentUids";
+import { useComparisonUid } from "../hooks/useComparisonUid";
+import { isValidUid } from "../lib/uid";
 import { useShowcase } from "../hooks/useShowcase";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import type { ArtifactSlot } from "../types/artifact";
@@ -21,6 +26,8 @@ const SKIN: BuildSkin = {
   accent: "text-accent",
   line: "ring-dark-border",
   field: "border border-dark-border bg-dark-card text-dark-text focus:border-accent/60",
+  active: "border-accent/50 bg-accent/15 text-accent",
+  bar: "border-dark-border bg-dark-bg/90",
 };
 
 /** The three slots whose main stat is a choice; Flower and Plume are fixed. */
@@ -28,10 +35,13 @@ const SELECTABLE: ArtifactSlot[] = ["SANDS", "GOBLET", "CIRCLET"];
 
 export function GenshinBuildsPage() {
   const { id } = useParams();
+  const { search } = useLocation();
   const { t } = useI18n();
 
   const listings = useMemo(() => listGenshinBuilds(t), [t]);
+  const roster = useMemo(() => new Map(listings.map((l) => [l.id, l])), [listings]);
   const target = useMemo(() => (id ? getGenshinBuild(id, t) : null), [id, t]);
+  const guide = useGuide(GENSHIN_GUIDES, target ? id : undefined);
 
   useDocumentTitle(
     target
@@ -39,15 +49,17 @@ export function GenshinBuildsPage() {
       : t("builds", "documentTitle"),
   );
 
-  // The last UID this visitor looked up. Read once: the comparison is a
-  // convenience, and a UID typed on another tab should not retarget the page
-  // underneath someone mid-read.
-  const uid = useMemo(() => readRecentUids(GENSHIN_RECENT_UIDS_KEY)[0]?.uid ?? "", []);
+  const uid = useComparisonUid(GENSHIN_RECENT_UIDS_KEY, isValidUid);
   const { data, isLoading, isError } = useShowcase(uid, { enabled: Boolean(id) });
 
   const owned = useMemo(() => {
     if (!id || !data) return null;
-    const character = data.characters.find((c) => String(c.avatarId) === id);
+    // A Traveler page is an element's, and a player on that element is on it
+    // whichever body they play.
+    const traveler = parseTravelerBuildId(id);
+    const character = data.characters.find((c) =>
+      traveler ? isTravelerId(c.avatarId) && c.element === traveler.element : String(c.avatarId) === id,
+    );
     if (!character) return null;
 
     const slots: OwnedSlot[] = SELECTABLE.map((slot) => {
@@ -64,7 +76,8 @@ export function GenshinBuildsPage() {
       grade: character.buildScore.grade,
       complete: character.buildScore.complete,
       slots,
-      showcaseHref: `/genshin/showcase/${uid}`,
+      showcaseHref: `/genshin/showcase/${uid}?c=${character.avatarId}`,
+      weaponId: character.weapon?.id != null ? String(character.weapon.id) : null,
     };
   }, [id, data, uid, t]);
 
@@ -80,6 +93,11 @@ export function GenshinBuildsPage() {
     );
   }
 
+  // The Traveler had one page per body before each element had its own;
+  // an old link opens the element the tables give them.
+  const moved = movedGenshinBuild(id);
+  if (moved) return <Navigate replace to={`/genshin/builds/${moved}${search}`} />;
+
   if (!target) return <NotFoundPage />;
 
   return (
@@ -88,6 +106,9 @@ export function GenshinBuildsPage() {
         target={target}
         basePath="/genshin/builds"
         skin={SKIN}
+        guide={guide}
+        roster={roster}
+        equippedWeaponId={owned?.weaponId}
         owned={
           <OwnedStrip
             skin={SKIN}
