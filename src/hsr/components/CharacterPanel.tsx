@@ -151,13 +151,15 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
 
         <div className="relative min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
-            {path && <RemoteImg src={path} alt="" width={20} height={20} className="h-5 w-5 opacity-80" />}
+            {path && <RemoteImg src={path} alt="" width={20} height={20} className="icon-white-glyph h-5 w-5 opacity-80" />}
             <RemoteImg
               src={elementIcon(character.element)}
               alt={character.element}
               width={20}
               height={20}
-              className="h-5 w-5"
+              /* The element icons are coloured, all but Physical's: a pale
+                 grey glyph that a light panel loses like the Path's. */
+              className={character.element === "Physical" ? "icon-white-glyph h-5 w-5" : "h-5 w-5"}
             />
             <h2 className="truncate text-base font-semibold text-hsr-text sm:text-lg">
               {character.name}

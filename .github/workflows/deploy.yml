@@ -38,10 +38,11 @@ jobs:
           # look up showcases.
           VITE_ENKA_PROXY: ${{ vars.VITE_ENKA_PROXY }}
           # Feature gates, off unless the repository variable is "on":
-          # extra languages, and the showcase help pages (which need their
-          # screenshots in public/help/ first).
+          # extra languages, the showcase help pages (which need their
+          # screenshots in public/help/ first), and the light theme.
           VITE_I18N: ${{ vars.VITE_I18N }}
           VITE_SHOWCASE_HELP: ${{ vars.VITE_SHOWCASE_HELP }}
+          VITE_LIGHT_THEME: ${{ vars.VITE_LIGHT_THEME }}
 
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request'

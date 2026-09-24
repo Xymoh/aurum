@@ -1,4 +1,4 @@
-import { useTheme } from "../../lib/theme";
+import { LIGHT_THEME, useTheme } from "../../lib/theme";
 import { useI18n } from "../../i18n";
 
 interface ThemeToggleProps {
@@ -24,10 +24,14 @@ function MoonIcon() {
   );
 }
 
-/** Switches between light and dark, remembers the choice, shows the icon of the theme you would get. */
+/**
+ * Switches between light and dark, remembers the choice, shows the icon of the theme you would get.
+ * Renders nothing while the light theme is parked (see LIGHT_THEME).
+ */
 export function ThemeToggle({ className = "", label }: ThemeToggleProps) {
   const { theme, toggle } = useTheme();
   const { t } = useI18n();
+  if (!LIGHT_THEME) return null;
   const name = label ?? t("nav", "toggleTheme");
   return (
     <button

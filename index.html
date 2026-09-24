@@ -20,7 +20,10 @@
     <script>
       // Apply the saved theme before first paint so light-mode visitors never
       // see a dark flash. src/lib/theme.ts owns every change after this.
+      // Parked: unless VITE_LIGHT_THEME is "on" (Vite fills it in) the page
+      // stays dark, whatever was saved or the OS prefers.
       (function() {
+        if ('%VITE_LIGHT_THEME%' !== 'on') return;
         try {
           var t = localStorage.getItem('theme');
           if (t !== 'light' && t !== 'dark') {

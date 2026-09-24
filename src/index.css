@@ -193,8 +193,9 @@
     --element-geo: #f59e0b;
   }
 
-  /* Light mode. Every text colour here clears 4.5:1 on its own surface, which
-     the dark values did not: a gold S on white was 1.3:1. */
+  /* Light mode, parked: applied only with VITE_LIGHT_THEME=on (see
+     src/lib/theme.ts). Every text colour here clears 4.5:1 on its own
+     surface, which the dark values did not: a gold S on white was 1.3:1. */
   :root[data-theme="light"] {
     color-scheme: light;
 
@@ -281,6 +282,15 @@
   /* Keep icon containers dark in light mode - Enka icons have white outlines */
   :root[data-theme="light"] .icon-dark-bg {
     background-color: #1a1d2e !important;
+  }
+
+  /* White glyphs on transparency (Star Rail's Path icons, its pale grey
+     Physical element) vanish on a light surface, so light mode inverts them
+     to dark. Invert rather than brightness(0): a shaded glyph keeps its inner
+     lines instead of going solid. Not for a glyph on a fixed dark chip, which
+     stays white. */
+  :root[data-theme="light"] .icon-white-glyph {
+    filter: invert(1);
   }
 
   *,

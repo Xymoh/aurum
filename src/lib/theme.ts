@@ -7,11 +7,18 @@ import { useCallback, useSyncExternalStore } from "react";
  * An inline script in index.html applies it before first paint so a light-mode
  * visitor never sees a dark flash; this module owns every change after that.
  * With no stored choice the OS preference wins.
+ *
+ * Parked for now: the light theme ships only with VITE_LIGHT_THEME=on. Off,
+ * the site is dark whatever was saved or the OS prefers, and the toggle is
+ * not shown. A saved "light" is left alone, for when the theme comes back.
  */
 
 export type Theme = "dark" | "light";
 
 export const THEME_STORAGE_KEY = "theme";
+
+/** Whether the light theme ships at all (see above). */
+export const LIGHT_THEME = import.meta.env.VITE_LIGHT_THEME === "on";
 
 function readStored(): Theme | null {
   try {
@@ -23,7 +30,7 @@ function readStored(): Theme | null {
 }
 
 export function currentTheme(): Theme {
-  if (typeof document === "undefined") return "dark";
+  if (typeof document === "undefined" || !LIGHT_THEME) return "dark";
   const attr = document.documentElement.getAttribute("data-theme");
   if (attr === "light" || attr === "dark") return attr;
   return readStored() ?? (window.matchMedia?.("(prefers-color-scheme: light)").matches ? "light" : "dark");
