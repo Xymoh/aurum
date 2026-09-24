@@ -1,5 +1,5 @@
 import { beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { readRecentUids, rememberUid } from "../../src/hooks/useRecentUids";
+import { forgetAllUids, forgetUid, readRecentUids, rememberUid } from "../../src/hooks/useRecentUids";
 
 const KEY = "test-recent";
 
@@ -40,5 +40,24 @@ describe("recent UIDs", () => {
   it("still reads a list saved under the old unprefixed key", () => {
     window.localStorage.setItem(KEY, JSON.stringify([{ uid: "700600838", timestamp: 1 }]));
     expect(readRecentUids(KEY)[0].uid).toBe("700600838");
+  });
+
+  it("forgets one UID and keeps the rest in order", () => {
+    rememberUid(KEY, "700000001");
+    rememberUid(KEY, "700000002");
+    rememberUid(KEY, "700000003");
+    forgetUid(KEY, "700000002");
+    expect(readRecentUids(KEY).map((e) => e.uid)).toEqual(["700000003", "700000001"]);
+  });
+
+  it("does not bring a cleared list back from the old unprefixed key", () => {
+    window.localStorage.setItem(KEY, JSON.stringify([{ uid: "700600838", timestamp: 1 }]));
+    forgetUid(KEY, "700600838");
+    expect(readRecentUids(KEY)).toEqual([]);
+
+    window.localStorage.setItem(KEY, JSON.stringify([{ uid: "700600838", timestamp: 1 }]));
+    rememberUid(KEY, "700000001");
+    forgetAllUids(KEY);
+    expect(readRecentUids(KEY)).toEqual([]);
   });
 });

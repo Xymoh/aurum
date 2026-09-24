@@ -97,6 +97,8 @@ export const en = {
     intro:
       "Enter a UID to instantly evaluate artifact quality across your entire showcase - per character, per piece.",
     recentLookups: "Recent lookups",
+    clearRecent: "Clear",
+    removeRecent: "Remove {uid} from recent lookups",
     footerDisclaimer: "Artifact Aurum is a fan-made tool and is not affiliated with HoYoverse.",
     footerDataPrefix: "Character data from ",
     footerBuildsPrefix: "Build priorities from ",

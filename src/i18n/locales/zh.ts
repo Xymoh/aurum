@@ -77,6 +77,8 @@ const zh: Dictionary = {
     tagline: "像高手一样评价你的圣遗物",
     intro: "输入 UID，立即评估你展示柜中每位角色、每一件圣遗物的品质。",
     recentLookups: "最近查询",
+    clearRecent: "清除",
+    removeRecent: "从最近查询中移除 {uid}",
     footerDisclaimer: "圣遗物 Aurum 是一个粉丝制作的工具，与米哈游没有任何关联。",
     footerDataPrefix: "角色数据来自 ",
     footerBuildsPrefix: "配装优先级来自 ",

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BENCHMARK_ROLLS, MAX_ROLLS, GRADE_LADDER, ROLL_VALUE } from "../scoring";
 import { isValidZzzUid } from "../useZzzShowcase";
 import { ZZZ_RECENT_UIDS_KEY, useRecentUids } from "../../hooks/useRecentUids";
+import { RecentLookups } from "../../components/ui/RecentLookups";
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { useI18n } from "../../i18n";
 import { HELP_PATH, SHOWCASE_HELP } from "../../help/content";
@@ -16,7 +17,7 @@ export function ZzzHomePage() {
   const [uid, setUid] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { recent, remember } = useRecentUids(ZZZ_RECENT_UIDS_KEY);
+  const { recent, remember, forget, forgetAll } = useRecentUids(ZZZ_RECENT_UIDS_KEY);
   const { t } = useI18n();
 
   const submit = (e: FormEvent) => {
@@ -82,22 +83,19 @@ export function ZzzHomePage() {
           </p>
         )}
 
-        {recent.length > 0 && (
-          <div className="mt-5">
-            <h2 className="text-xs font-medium uppercase tracking-wider text-zzz-muted">{t("home", "recentLookups")}</h2>
-            <div className="mt-2 flex flex-wrap justify-center gap-2">
-              {recent.slice(0, 6).map((entry) => (
-                <Link
-                  key={entry.uid}
-                  to={`/zzz/showcase/${entry.uid}`}
-                  className="game-panel-sm border border-zzz-border bg-zzz-card px-3 py-1.5 font-mono text-sm text-zzz-text no-underline transition-colors hover:border-zzz-accent/60 hover:[--panel-corner:color-mix(in_oklab,var(--zzz-accent)_60%,transparent)] hover:text-zzz-accent"
-                >
-                  {entry.uid}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
+        <RecentLookups
+          className="mt-5"
+          entries={recent}
+          hrefFor={(uid) => `/zzz/showcase/${uid}`}
+          onForget={forget}
+          onForgetAll={forgetAll}
+          centered
+          classes={{
+            heading: "text-xs font-medium uppercase tracking-wider text-zzz-muted",
+            chip: "game-panel-sm border border-zzz-border bg-zzz-card text-zzz-text transition-colors hover:border-zzz-accent/60 hover:[--panel-corner:color-mix(in_oklab,var(--zzz-accent)_60%,transparent)] hover:text-zzz-accent",
+            clear: "text-zzz-muted hover:text-zzz-accent",
+          }}
+        />
       </div>
 
       <div className="grid w-full max-w-4xl gap-3 sm:grid-cols-3">

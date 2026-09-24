@@ -5,6 +5,7 @@ import { GradeBadge } from "../../components/ui/GradeBadge";
 import { isValidHsrUid } from "../useHsrShowcase";
 import { sanitizeUidInput } from "../../lib/uid";
 import { HSR_RECENT_UIDS_KEY, useRecentUids } from "../../hooks/useRecentUids";
+import { RecentLookups } from "../../components/ui/RecentLookups";
 import { useI18n } from "../../i18n";
 import { HELP_PATH, SHOWCASE_HELP } from "../../help/content";
 
@@ -12,7 +13,7 @@ export function HsrHomePage() {
   const [uid, setUid] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { recent, remember } = useRecentUids(HSR_RECENT_UIDS_KEY);
+  const { recent, remember, forget, forgetAll } = useRecentUids(HSR_RECENT_UIDS_KEY);
   const { t } = useI18n();
 
   const submit = (e: FormEvent) => {
@@ -76,24 +77,19 @@ export function HsrHomePage() {
           </p>
         )}
 
-        {recent.length > 0 && (
-          <div className="mt-5">
-            <h2 className="text-xs font-medium uppercase tracking-wider text-hsr-muted">
-              {t("home", "recentLookups")}
-            </h2>
-            <div className="mt-2 flex flex-wrap justify-center gap-2">
-              {recent.slice(0, 6).map((entry) => (
-                <Link
-                  key={entry.uid}
-                  to={`/hsr/showcase/${entry.uid}`}
-                  className="game-panel-sm border border-hsr-border bg-hsr-card px-3 py-1.5 font-mono text-sm text-hsr-text no-underline transition-colors hover:border-hsr-accent/50 hover:[--panel-corner:color-mix(in_oklab,var(--hsr-accent)_50%,transparent)] hover:text-hsr-accent"
-                >
-                  {entry.uid}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
+        <RecentLookups
+          className="mt-5"
+          entries={recent}
+          hrefFor={(uid) => `/hsr/showcase/${uid}`}
+          onForget={forget}
+          onForgetAll={forgetAll}
+          centered
+          classes={{
+            heading: "text-xs font-medium uppercase tracking-wider text-hsr-muted",
+            chip: "game-panel-sm border border-hsr-border bg-hsr-card text-hsr-text transition-colors hover:border-hsr-accent/50 hover:[--panel-corner:color-mix(in_oklab,var(--hsr-accent)_50%,transparent)] hover:text-hsr-accent",
+            clear: "text-hsr-muted hover:text-hsr-accent",
+          }}
+        />
       </div>
 
       <div className="grid w-full max-w-4xl gap-3 sm:grid-cols-3">

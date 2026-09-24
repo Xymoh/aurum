@@ -3,13 +3,15 @@ import { HELP_PATH, SHOWCASE_HELP } from "../help/content";
 import { ScoringExplainer } from "../components/ui/ScoringExplainer";
 import { GENSHIN_RECENT_UIDS_KEY, useRecentUids } from "../hooks/useRecentUids";
 import { Link } from "react-router-dom";
+import { RecentLookups } from "../components/ui/RecentLookups";
+import { clearAllSnapshots, clearSnapshot } from "../lib/history";
 import { useI18n } from "../i18n";
 
 const LINK_CLASS =
   "text-accent hover:text-accent-strong underline underline-offset-2";
 
 export function HomePage() {
-  const { recent: recentUids } = useRecentUids(GENSHIN_RECENT_UIDS_KEY);
+  const { recent: recentUids, forget, forgetAll } = useRecentUids(GENSHIN_RECENT_UIDS_KEY);
   const { t } = useI18n();
 
   const steps = [
@@ -46,24 +48,24 @@ export function HomePage() {
       </div>
 
       {/* Recent lookups - kept close to the input, since it's a shortcut into the same action */}
-      {recentUids.length > 0 && (
-        <div className="w-full max-w-md space-y-3">
-          <h2 className="text-dark-muted text-sm font-medium uppercase tracking-wider">
-            {t("home", "recentLookups")}
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {recentUids.slice(0, 6).map((entry) => (
-              <Link
-                key={entry.uid}
-                to={`/genshin/showcase/${entry.uid}`}
-                className="game-panel-sm bg-dark-card border border-dark-border px-4 py-2 text-dark-text text-sm no-underline hover:border-accent hover:text-accent transition-colors"
-              >
-                {entry.uid}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
+      <RecentLookups
+        className="w-full max-w-md"
+        entries={recentUids}
+        hrefFor={(uid) => `/genshin/showcase/${uid}`}
+        onForget={(uid) => {
+          forget(uid);
+          clearSnapshot(uid);
+        }}
+        onForgetAll={() => {
+          forgetAll();
+          clearAllSnapshots();
+        }}
+        classes={{
+          heading: "text-dark-muted text-sm font-medium uppercase tracking-wider",
+          chip: "game-panel-sm bg-dark-card border border-dark-border text-dark-text hover:border-accent hover:text-accent transition-colors",
+          clear: "text-dark-muted hover:text-accent",
+        }}
+      />
 
       {/* ── How it works ── */}
       <div className="w-full max-w-2xl space-y-3">
