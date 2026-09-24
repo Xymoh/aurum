@@ -605,6 +605,16 @@ const zh: Dictionary = {
     Priest: "丰饶",
   },
 
+  hsrElements: {
+    Physical: "物理",
+    Fire: "火",
+    Ice: "冰",
+    Thunder: "雷",
+    Wind: "风",
+    Quantum: "量子",
+    Imaginary: "虚数",
+  },
+
   // ── 绝区零 ────────────────────────────────────────────────────────
   zzz: {
     title: "驱动盘 Aurum",

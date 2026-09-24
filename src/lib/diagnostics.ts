@@ -72,7 +72,7 @@ export function buildDiagnostics(character: CharacterData): GenshinBuildDiagnost
   waste.sort((a, b) => b.rolls - a.rolls);
 
   const { critRate, critDmg, energyRecharge } = character.stats;
-  const target = getBuildConfig(character.avatarId)?.er_threshold;
+  const target = getBuildConfig(character.avatarId, character.element)?.er_threshold;
 
   const weakestArt = [...character.artifacts].sort((a, b) => a.score.potentialPercent - b.score.potentialPercent)[0];
 

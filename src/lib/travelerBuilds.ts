@@ -73,6 +73,37 @@ export function isTravelerId(avatarId: number): boolean {
   return TRAVELER_AVATAR_IDS.has(avatarId);
 }
 
+/** In the order the game added them, which is the order the build index lists them. */
+export const TRAVELER_ELEMENTS: GenshinElement[] = ["Anemo", "Geo", "Electro", "Dendro", "Hydro", "Pyro", "Cryo"];
+
+/**
+ * The Traveler's build pages are per element, not per avatar id: each
+ * element has its own kit, materials, weapons, sets and teams. The ids are
+ * Project Amber's, the body's avatar id and the element: "10000007-cryo" is
+ * Lumine on Cryo. The guide data behind a page is the element's, keyed on
+ * Aether (see scripts/genshin-traveler.mjs); both bodies read it.
+ */
+export function travelerBuildId(avatarId: number | string, element: GenshinElement): string {
+  return `${avatarId}-${element.toLowerCase()}`;
+}
+
+/** "10000007-cryo" -> Lumine on Cryo; null for any id that is not one of the Traveler's pages. */
+export function parseTravelerBuildId(id: string): { avatarId: number; element: GenshinElement } | null {
+  const m = /^(\d+)-([a-z]+)$/.exec(id);
+  if (!m || !isTravelerId(Number(m[1]))) return null;
+  const element = TRAVELER_ELEMENTS.find((e) => e.toLowerCase() === m[2]);
+  return element ? { avatarId: Number(m[1]), element } : null;
+}
+
+/**
+ * The key the element's guide data is filed under: Aether's page id, since
+ * both bodies share one guide. Null for anyone who is not the Traveler, or
+ * a Traveler whose element is not known.
+ */
+export function travelerGuideKey(avatarId: number, element: GenshinElement | undefined): string | null {
+  return isTravelerId(avatarId) && element ? travelerBuildId(10000005, element) : null;
+}
+
 /** The ideals for this Traveler, or null when the element is not known. */
 export function travelerMainStats(
   avatarId: number,

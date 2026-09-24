@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import type { Artifact, ArtifactSubstat } from "../../types/artifact";
+import type { GenshinElement } from "../../types/character";
 import { scorePercentile } from "../../lib/percentile";
 import { RollPips } from "../ui/RollPips";
 import { ROLL_TIER_BG, rollTier } from "../../lib/rollTier";
@@ -23,6 +24,8 @@ interface ArtifactCardProps {
   artifact: Artifact;
   /** The wearer, so a replacement verdict can name the set to farm. */
   avatarId?: number;
+  /** The wearer's element: the Traveler's decides which of their guides names the set. */
+  element?: GenshinElement;
   /** The wearer's name, for the percentile note. */
   characterName?: string;
 }
@@ -116,7 +119,7 @@ function VerdictRow({
   );
 }
 
-export function ArtifactCard({ artifact, avatarId, characterName }: ArtifactCardProps) {
+export function ArtifactCard({ artifact, avatarId, element, characterName }: ArtifactCardProps) {
   const { t } = useI18n();
 
   // Where this piece sits among what the game would drop for the slot:
@@ -137,7 +140,7 @@ export function ArtifactCard({ artifact, avatarId, characterName }: ArtifactCard
   // What the slot wants, so the warning and the "farm a replacement" verdict
   // can both say it instead of leaving the reader to look it up.
   const idealLabels = uniqueLabels(artifact.mainStat.idealStats, t);
-  const farm = avatarId != null ? farmTargetFor(avatarId, artifact.mainStat.idealStats, t) : null;
+  const farm = avatarId != null ? farmTargetFor(avatarId, artifact.mainStat.idealStats, t, element) : null;
   const farmMain = farm && farm.mains.length > 0 ? farm.mains.join(" / ") : artifact.mainStat.displayName;
   const farmText = farm
     ? farm.setName

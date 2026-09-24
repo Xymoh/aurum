@@ -642,6 +642,17 @@ export const en = {
     Priest: "Abundance",
   },
 
+  /** The data's internal element names, as the game prints them. */
+  hsrElements: {
+    Physical: "Physical",
+    Fire: "Fire",
+    Ice: "Ice",
+    Thunder: "Lightning",
+    Wind: "Wind",
+    Quantum: "Quantum",
+    Imaginary: "Imaginary",
+  },
+
   // ── Zenless Zone Zero ────────────────────────────────────────────
   zzz: {
     title: "Disc Aurum",

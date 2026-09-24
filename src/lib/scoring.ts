@@ -12,7 +12,7 @@ import {
   REFERENCE_HIGH_ROLL,
 } from "./constants";
 import { computeRerollAdvice } from "./reroll";
-import { travelerMainStats } from "./travelerBuilds";
+import { isTravelerId, travelerGuideKey, travelerMainStats } from "./travelerBuilds";
 import setRecommendationsData from "../data/set-recommendations.json";
 import goProcessedData from "../data/genshin-optimizer.json";
 
@@ -229,31 +229,84 @@ export interface SetPick {
   pieces: number;
 }
 
-const SET_RECOMMENDATIONS = (setRecommendationsData as { characters: Record<string, { sets: SetPick[][]; source?: string }> }).characters;
+/** One character's entry in set-recommendations.json, as fetch-genshin-sets.mjs writes it. */
+interface FetchedRecommendation {
+  sets: SetPick[][];
+  /** The guide's short label per rank ("Best for Stellar"), in step with `sets`. */
+  labels?: Array<string | null>;
+  /** The guide's main stats per slot, best first, in weight keys. */
+  mainStats?: CharacterBuildConfig["main_stats_ideal"];
+  /** The Energy Recharge total the guide states, when it states one. */
+  erTarget?: number;
+  source?: string;
+  sourceLabel?: string;
+}
 
-/** The page the fetched recommendations were read from, or null if curated. */
-export function getSetRecommendationSource(avatarId: number): string | null {
-  const entry = SET_RECOMMENDATIONS[String(avatarId)];
-  return entry && entry.sets.length > 0 ? (entry.source ?? null) : null;
+const SET_RECOMMENDATIONS = (setRecommendationsData as { characters: Record<string, FetchedRecommendation> }).characters;
+
+/**
+ * A character's fetched guide entry. The Traveler's are per element, one
+ * guide page each; with no element known there is none to read, since one
+ * element's advice would judge the other six.
+ */
+function fetchedFor(avatarId: number, element?: GenshinElement): FetchedRecommendation | undefined {
+  const key = isTravelerId(avatarId) ? travelerGuideKey(avatarId, element) : String(avatarId);
+  return key ? SET_RECOMMENDATIONS[key] : undefined;
+}
+
+/** The label the guide gives each recommended rank, in step with getSetRecommendations. */
+export function getSetRecommendationLabels(avatarId: number, element?: GenshinElement): Array<string | null> {
+  const entry = fetchedFor(avatarId, element);
+  return entry && entry.sets.length > 0 ? (entry.labels ?? []) : [];
+}
+
+/**
+ * The curated main stats with the guide's added, the guide's first. The
+ * curated list was written by hand from older guides; the guide is read
+ * again on every refresh. Accepting both means a player who followed either
+ * is not told their piece is wrong, the build page never contradicts the
+ * guide it credits, and a buff that changes a character's best main stat
+ * reaches the scorer without anyone editing a file.
+ */
+function withGuideMainStats(
+  curated: CharacterBuildConfig["main_stats_ideal"] | undefined,
+  guide: CharacterBuildConfig["main_stats_ideal"] | undefined,
+): CharacterBuildConfig["main_stats_ideal"] {
+  const merged: CharacterBuildConfig["main_stats_ideal"] = {};
+  for (const slot of ["SANDS", "GOBLET", "CIRCLET"] as const) {
+    const stats = [...new Set([...(guide?.[slot] ?? []), ...(curated?.[slot] ?? [])])];
+    if (stats.length) merged[slot] = stats;
+  }
+  return merged;
+}
+
+/**
+ * The guide page the fetched recommendations were read from, and the site's
+ * name (Game8, or genshin.gg for a character Game8 has no page for). Null
+ * when the sets are the curated ones.
+ */
+export function getSetRecommendationSource(avatarId: number, element?: GenshinElement): { label: string; url: string } | null {
+  const entry = fetchedFor(avatarId, element);
+  if (!entry || entry.sets.length === 0 || !entry.source) return null;
+  return { label: entry.sourceLabel ?? "genshin.gg", url: entry.source };
 }
 
 /**
  * Recommended loadouts for a character, best first: each entry is one set
- * run as a 4-piece or two sets run as 2+2. From genshin.gg, which lists them
- * for the whole roster; a character it lacks falls back to the curated
- * `recommended_sets`, read as 4-pieces.
+ * run as a 4-piece or two sets run as 2+2. From Game8 (genshin.gg where it has
+ * no page), which lists them for the whole roster; a character neither
+ * covers falls back to the curated `recommended_sets`, read as 4-pieces.
  */
-export function getSetRecommendations(avatarId: number): SetPick[][] {
-  const fetched = SET_RECOMMENDATIONS[String(avatarId)]?.sets;
+export function getSetRecommendations(avatarId: number, element?: GenshinElement): SetPick[][] {
+  const fetched = fetchedFor(avatarId, element)?.sets;
   if (fetched && fetched.length > 0) return fetched;
-  const config = getBuildConfig(avatarId);
+  const config = getBuildConfig(avatarId, element);
   return (config?.recommended_sets ?? []).map((setId) => [{ setId, pieces: 4 }]);
 }
 
 /** Every set id named in the fetched recommendations, for the set-bonus check. */
-function fetchedSetIds(idStr: string): string[] {
-  const sets = SET_RECOMMENDATIONS[idStr]?.sets ?? [];
-  return Array.from(new Set(sets.flat().map((p) => p.setId)));
+function fetchedSetIds(entry: FetchedRecommendation | undefined): string[] {
+  return Array.from(new Set((entry?.sets ?? []).flat().map((p) => p.setId)));
 }
 
 /**
@@ -263,20 +316,32 @@ function fetchedSetIds(idStr: string): string[] {
 const TRAVELER_LUMINE = "10000007";
 const TRAVELER_AETHER = "10000005";
 
-export function getBuildConfig(avatarId: number): CharacterBuildConfig | null {
+export function getBuildConfig(
+  avatarId: number,
+  /** The Traveler's active element, whose guide page supplies the sets, main stats and ER target. */
+  element?: GenshinElement,
+): CharacterBuildConfig | null {
   const idStr = String(avatarId) === TRAVELER_LUMINE ? TRAVELER_AETHER : String(avatarId);
 
   // ── 1. Primary: GO processed data (authoritative + merged build configs) ──
   const goEntry = goByAvatarId.get(idStr);
+  const fetched = fetchedFor(avatarId, element);
+  const guideMainStats = fetched?.mainStats;
+  // Only a figure the guide states. The hand-kept thresholds were estimates
+  // that went stale with buffs (Mizuki's 160% outlived her needing ER), and a
+  // wrong target is worse than none: it tells players to chase or drop ER
+  // they should not. Without one, ER counts through the weights alone.
+  const erTarget = fetched?.erTarget;
   if (goEntry?.substat_weights) {
     return {
       name: goEntry.display_name,
       substat_weights: goEntry.substat_weights,
-      main_stats_ideal: goEntry.main_stats_ideal ?? {},
-      // The curated list wins where it exists; the fetched one covers the
-      // rest of the roster so the showcase's set check has something to say.
-      recommended_sets: goEntry.recommended_sets?.length ? goEntry.recommended_sets : fetchedSetIds(idStr),
-      er_threshold: goEntry.er_threshold ?? undefined,
+      main_stats_ideal: withGuideMainStats(goEntry.main_stats_ideal ?? {}, guideMainStats),
+      // Curated and fetched together, for the same reason as the main stats:
+      // a player on the guide's current best set should not be told it is
+      // not a recommended one.
+      recommended_sets: [...new Set([...(goEntry.recommended_sets ?? []), ...fetchedSetIds(fetched)])],
+      er_threshold: erTarget,
     };
   }
 
@@ -287,9 +352,10 @@ export function getBuildConfig(avatarId: number): CharacterBuildConfig | null {
     return {
       name: goEntry.display_name,
       substat_weights: deriveWeightsFromScaling(goEntry),
-      main_stats_ideal: {},
-      recommended_sets: fetchedSetIds(idStr),
-      er_threshold: undefined,
+      // No curated build yet, so the guide's main stats are the only ones known.
+      main_stats_ideal: withGuideMainStats({}, guideMainStats),
+      recommended_sets: fetchedSetIds(fetched),
+      er_threshold: erTarget,
     };
   }
 
@@ -451,9 +517,13 @@ export function idealMainStatsFor(slot: string, avatarId: number, element?: Gens
   if (slot === "FLOWER" || slot === "PLUME") return [];
 
   // The Traveler's seven elements want different pieces and share one
-  // avatarId, so they cannot be told apart by the build table alone.
+  // avatarId, so they cannot be told apart by the build table alone. Each
+  // element's guide page is read too, and its picks lead, as for everyone.
   const travelerIdeal = travelerMainStats(avatarId, element);
-  if (travelerIdeal) return travelerIdeal[slot as keyof typeof travelerIdeal] ?? [];
+  if (travelerIdeal) {
+    const merged = withGuideMainStats(travelerIdeal, fetchedFor(avatarId, element)?.mainStats) as Record<string, string[] | undefined>;
+    return merged[slot] ?? [];
+  }
 
   const config = getBuildConfig(avatarId);
   const idealSlot = (config?.main_stats_ideal ?? {}) as Record<string, string[] | undefined>;
@@ -589,7 +659,7 @@ export function scoreArtifact(
   /** The Traveler's active element; ignored for everyone else. */
   element?: GenshinElement,
 ): Artifact {
-  const config = getBuildConfig(avatarId);
+  const config = getBuildConfig(avatarId, element);
   const weights = config?.substat_weights ?? DEFAULT_WEIGHTS;
 
   // New Fribbels-style scoring
@@ -700,7 +770,7 @@ export function scoreBuild(character: CharacterData): BuildScore {
   ).length;
 
   // Evaluate set bonus (informational - no multiplier applied)
-  const config = getBuildConfig(character.avatarId);
+  const config = getBuildConfig(character.avatarId, character.element);
   const setBonus = evaluateSetBonus(character.artifacts, config?.recommended_sets ?? []);
 
   return {

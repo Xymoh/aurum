@@ -564,7 +564,7 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
                           </div>
                         );
                       }
-                      return <ArtifactCard key={art.id} artifact={art} avatarId={character.avatarId} characterName={character.name} />;
+                      return <ArtifactCard key={art.id} artifact={art} avatarId={character.avatarId} element={character.element} characterName={character.name} />;
                     })}
                   </div>
                 </div>

@@ -34,6 +34,8 @@ export interface TargetStat {
 
 /** One set within a recommendation, with the piece count it is run at. */
 export interface SetPart {
+  /** Key into the game's set tables and set-bonuses.json; null for a name no table knows. */
+  setId: string | null;
   name: string;
   pieces: number;
   /** The set's own artwork - a plume for Genshin, the set icon elsewhere. */
@@ -43,6 +45,8 @@ export interface SetPart {
 /** One recommended loadout: a 4-piece, a 2+2, or a lone planar 2-piece. */
 export interface SetRecommendation {
   parts: SetPart[];
+  /** The guide's own short label for the rank ("Best for Stellar", "Temporary/ F2P"), when it gives one. */
+  label?: string | null;
 }
 
 /** One row of the character picker. Cheap enough to build for every character. */
@@ -55,6 +59,18 @@ export interface BuildListing {
   rarity: number;
   /** True when this character has no curated entry and falls back to a profile. */
   generic: boolean;
+  /**
+   * What tells one build of a character from its others: the Traveler's
+   * element, the Trailblazer's Path. Drawn on their face wherever a team
+   * shows them, since the face alone is the same for every build.
+   */
+  badge?: { iconUrl: string; label: string };
+  /**
+   * A page the index leaves out: the second body of a character built per
+   * element or Path (Lumine, Stelle). Each build is listed once; the other
+   * body's page is still there for their showcase and their teams to open.
+   */
+  unlisted?: boolean;
 }
 
 export interface BuildTarget extends BuildListing {
@@ -65,7 +81,7 @@ export interface BuildTarget extends BuildListing {
   /** Substat priority, most valuable first. */
   substats: TargetStat[];
   /**
-   * Recommended sets, best first. Genshin's come from genshin.gg, Star
+   * Recommended sets, best first. Genshin's come from Game8 (genshin.gg for a character it lacks), Star
    * Rail's from Fribbels with Prydwen filling in the supports it does not
    * simulate, Zenless's from Prydwen. Empty only when no source lists any.
    */

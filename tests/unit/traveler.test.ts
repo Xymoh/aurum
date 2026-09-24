@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { checkMainStat } from "../../src/lib/scoring";
+import { checkMainStat, getBuildConfig, getSetRecommendations } from "../../src/lib/scoring";
 import { getCharacterElement } from "../../src/lib/parsing";
 import { TRAVELER_MAIN_STATS } from "../../src/lib/travelerBuilds";
 
@@ -133,5 +133,20 @@ describe("Ineffa main stats match Prydwen", () => {
 
   it("does not treat an Electro goblet as ideal, since it moves little of her damage", () => {
     expect(checkMainStat("GOBLET", "FIGHT_PROP_ELEC_ADD_HURT", INEFFA).isCorrect).toBe(false);
+  });
+});
+
+describe("Traveler guide data, per element", () => {
+  it("reads the sets for the element the Traveler is on, whichever body", () => {
+    const cryo = getSetRecommendations(TRAVELER_B, "Cryo");
+    expect(cryo.length).toBeGreaterThan(0);
+    expect(cryo).toEqual(getSetRecommendations(TRAVELER_A, "Cryo"));
+    expect(cryo).not.toEqual(getSetRecommendations(TRAVELER_A, "Dendro"));
+  });
+
+  it("judges a Traveler's sets against their own element's guide", () => {
+    const cryoSets = getSetRecommendations(TRAVELER_A, "Cryo").flat().map((p) => p.setId);
+    const config = getBuildConfig(TRAVELER_A, "Cryo")!;
+    for (const setId of cryoSets) expect(config.recommended_sets).toContain(setId);
   });
 });
