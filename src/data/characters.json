@@ -719,6 +719,18 @@
     "weapon": "Claymore",
     "icon": "UI_AvatarIcon_MarionetteNew"
   },
+  "10000140": {
+    "name": "Vodyanitsa",
+    "element": "Hydro",
+    "weapon": "Catalyst",
+    "icon": "UI_AvatarIcon_Vodyanitsa"
+  },
+  "10000143": {
+    "name": "Vesna",
+    "element": "Anemo",
+    "weapon": "Sword",
+    "icon": "UI_AvatarIcon_Vesna"
+  },
   "10000148": {
     "name": "Alyosha",
     "element": "Electro",

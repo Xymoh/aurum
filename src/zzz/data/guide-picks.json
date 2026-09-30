@@ -1,12 +1,12 @@
 {
   "source": "https://www.prydwen.gg/zenless/characters/",
-  "fetchedAt": "2026-09-24T12:21:19.526Z",
+  "fetchedAt": "2026-09-30T13:09:47.123Z",
   "characters": {
     "1011": {
       "name": "Anby",
       "source": "https://www.prydwen.gg/zenless/characters/anby-demara",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -71,7 +71,7 @@
       "name": "Nekomata",
       "source": "https://www.prydwen.gg/zenless/characters/nekomata",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -106,7 +106,7 @@
           "members": [
             "1021",
             "1481",
-            "1491"
+            "1311"
           ]
         },
         {
@@ -114,7 +114,7 @@
           "members": [
             "1021",
             "1481",
-            "1311"
+            "1491"
           ]
         },
         {
@@ -172,7 +172,7 @@
       "name": "Nicole",
       "source": "https://www.prydwen.gg/zenless/characters/nicole-demara",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -205,6 +205,14 @@
         {
           "name": null,
           "members": [
+            "1611",
+            "1361",
+            "1031"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1551",
             "1031",
             "1311"
@@ -213,16 +221,8 @@
         {
           "name": null,
           "members": [
-            "1091",
-            "1031",
-            "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1551",
-            "1481",
+            "1611",
+            "1571",
             "1031"
           ]
         },
@@ -265,7 +265,7 @@
       "name": "Soldier 11",
       "source": "https://www.prydwen.gg/zenless/characters/soldier-11",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -294,32 +294,7 @@
           "refinement": 5
         }
       ],
-      "teams": [
-        {
-          "name": null,
-          "members": [
-            "1041",
-            "1571",
-            "1491"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1041",
-            "1571",
-            "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1041",
-            "1391",
-            "1571"
-          ]
-        }
-      ],
+      "teams": [],
       "synergies": [
         "1161",
         "1101",
@@ -363,7 +338,7 @@
       "name": "Yidhari",
       "source": "https://www.prydwen.gg/zenless/characters/yidhari",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -413,14 +388,6 @@
           "name": null,
           "members": [
             "1051",
-            "1391",
-            "1451"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1051",
             "1571",
             "1451"
           ]
@@ -461,7 +428,7 @@
       "name": "Corin",
       "source": "https://www.prydwen.gg/zenless/characters/corin",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -491,6 +458,14 @@
         }
       ],
       "teams": [
+        {
+          "name": null,
+          "members": [
+            "1061",
+            "1481",
+            "1491"
+          ]
+        },
         {
           "name": null,
           "members": [
@@ -539,7 +514,7 @@
       "name": "Caesar",
       "source": "https://www.prydwen.gg/zenless/characters/caesar",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -572,16 +547,24 @@
         {
           "name": null,
           "members": [
-            "1091",
-            "1311",
+            "1611",
+            "1211",
             "1071"
           ]
         },
         {
           "name": null,
           "members": [
-            "1381",
-            "1361",
+            "1431",
+            "1481",
+            "1071"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1371",
+            "1451",
             "1071"
           ]
         }
@@ -621,7 +604,7 @@
       "name": "Billy",
       "source": "https://www.prydwen.gg/zenless/characters/billy-kid",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -705,7 +688,7 @@
       "name": "Miyabi",
       "source": "https://www.prydwen.gg/zenless/characters/miyabi",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -759,8 +742,8 @@
           "name": null,
           "members": [
             "1091",
-            "1221",
-            "1411"
+            "1511",
+            "1311"
           ]
         }
       ],
@@ -816,7 +799,7 @@
       "name": "Koleda",
       "source": "https://www.prydwen.gg/zenless/characters/koleda",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -860,6 +843,22 @@
             "1371",
             "1101",
             "1451"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1531",
+            "1101",
+            "1451"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1611",
+            "1101",
+            "1361"
           ]
         }
       ],
@@ -908,7 +907,7 @@
       "name": "Anton",
       "source": "https://www.prydwen.gg/zenless/characters/anton",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -987,7 +986,7 @@
       "name": "Ben",
       "source": "https://www.prydwen.gg/zenless/characters/ben",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -1060,7 +1059,7 @@
       "name": "Soukaku",
       "source": "https://www.prydwen.gg/zenless/characters/soukaku",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -1102,8 +1101,8 @@
           "name": null,
           "members": [
             "1091",
-            "1141",
-            "1131"
+            "1131",
+            "1311"
           ]
         }
       ],
@@ -1142,7 +1141,7 @@
       "name": "Lycaon",
       "source": "https://www.prydwen.gg/zenless/characters/lycaon",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -1171,9 +1170,9 @@
         {
           "name": null,
           "members": [
-            "1291",
-            "1161",
-            "1141"
+            "1611",
+            "1141",
+            "1211"
           ]
         },
         {
@@ -1189,7 +1188,7 @@
           "members": [
             "1591",
             "1141",
-            "1211"
+            "1311"
           ]
         },
         {
@@ -1197,7 +1196,7 @@
           "members": [
             "1591",
             "1141",
-            "1311"
+            "1211"
           ]
         }
       ],
@@ -1247,7 +1246,7 @@
       "name": "Lucy",
       "source": "https://www.prydwen.gg/zenless/characters/lucy",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -1279,14 +1278,6 @@
             "1431",
             "1151",
             "1341"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1521",
-            "1461",
-            "1151"
           ]
         }
       ],
@@ -1326,7 +1317,7 @@
       "name": "Lighter",
       "source": "https://www.prydwen.gg/zenless/characters/lighter",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -1355,9 +1346,9 @@
         {
           "name": null,
           "members": [
-            "1291",
+            "1591",
             "1161",
-            "1141"
+            "1311"
           ]
         },
         {
@@ -1373,15 +1364,15 @@
           "members": [
             "1591",
             "1161",
-            "1311"
+            "1571"
           ]
         },
         {
           "name": null,
           "members": [
-            "1291",
+            "1591",
             "1161",
-            "1571"
+            "1341"
           ]
         }
       ],
@@ -1430,7 +1421,7 @@
       "name": "Burnice",
       "source": "https://www.prydwen.gg/zenless/characters/burnice",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -1464,7 +1455,7 @@
           "name": null,
           "members": [
             "1581",
-            "1091",
+            "1261",
             "1171"
           ]
         },
@@ -1472,7 +1463,7 @@
           "name": null,
           "members": [
             "1581",
-            "1261",
+            "1091",
             "1171"
           ]
         },
@@ -1521,7 +1512,7 @@
       "name": "Grace",
       "source": "https://www.prydwen.gg/zenless/characters/grace-howard",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -1558,14 +1549,6 @@
         {
           "name": null,
           "members": [
-            "1581",
-            "1171",
-            "1181"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
             "1181",
             "1561",
             "1411"
@@ -1577,6 +1560,14 @@
             "1581",
             "1401",
             "1181"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1181",
+            "1561",
+            "1211"
           ]
         }
       ],
@@ -1616,7 +1607,7 @@
       "name": "Ellen",
       "source": "https://www.prydwen.gg/zenless/characters/ellen",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -1659,7 +1650,7 @@
           "members": [
             "1191",
             "1481",
-            "1491"
+            "1341"
           ]
         },
         {
@@ -1667,14 +1658,6 @@
           "members": [
             "1191",
             "1161",
-            "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1191",
-            "1141",
             "1311"
           ]
         }
@@ -1721,7 +1704,7 @@
       "name": "Harumasa",
       "source": "https://www.prydwen.gg/zenless/characters/harumasa",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -1755,16 +1738,16 @@
           "name": null,
           "members": [
             "1201",
-            "1481",
-            "1491"
+            "1361",
+            "1311"
           ]
         },
         {
           "name": null,
           "members": [
             "1201",
-            "1461",
-            "1361"
+            "1481",
+            "1491"
           ]
         },
         {
@@ -1779,7 +1762,7 @@
           "name": null,
           "members": [
             "1201",
-            "1481",
+            "1361",
             "1411"
           ]
         }
@@ -1826,7 +1809,7 @@
       "name": "Rina",
       "source": "https://www.prydwen.gg/zenless/characters/rina",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -1848,7 +1831,7 @@
           "name": null,
           "members": [
             "1611",
-            "1101",
+            "1571",
             "1211"
           ]
         },
@@ -1856,7 +1839,7 @@
           "name": null,
           "members": [
             "1611",
-            "1571",
+            "1101",
             "1211"
           ]
         },
@@ -1871,8 +1854,8 @@
         {
           "name": null,
           "members": [
-            "1591",
-            "1481",
+            "1611",
+            "1141",
             "1211"
           ]
         }
@@ -1912,7 +1895,7 @@
       "name": "Yanagi",
       "source": "https://www.prydwen.gg/zenless/characters/yanagi",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -1953,17 +1936,17 @@
         {
           "name": null,
           "members": [
-            "1581",
             "1091",
-            "1221"
+            "1221",
+            "1311"
           ]
         },
         {
           "name": null,
           "members": [
+            "1581",
             "1091",
-            "1221",
-            "1311"
+            "1221"
           ]
         }
       ],
@@ -2003,7 +1986,7 @@
       "name": "Zhu Yuan",
       "source": "https://www.prydwen.gg/zenless/characters/zhu-yuan",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -2028,32 +2011,7 @@
           "refinement": 5
         }
       ],
-      "teams": [
-        {
-          "name": null,
-          "members": [
-            "1241",
-            "1481",
-            "1031"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1241",
-            "1571",
-            "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1241",
-            "1031",
-            "1311"
-          ]
-        }
-      ],
+      "teams": [],
       "synergies": [
         "1481",
         "1251",
@@ -2095,7 +2053,7 @@
       "name": "Qingyi",
       "source": "https://www.prydwen.gg/zenless/characters/qingyi",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -2120,6 +2078,14 @@
         {
           "name": null,
           "members": [
+            "1611",
+            "1251",
+            "1211"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1521",
             "1251",
             "1311"
@@ -2128,23 +2094,15 @@
         {
           "name": null,
           "members": [
-            "1201",
+            "1371",
             "1251",
-            "1211"
+            "1451"
           ]
         },
         {
           "name": null,
           "members": [
             "1201",
-            "1251",
-            "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1551",
             "1251",
             "1311"
           ]
@@ -2195,7 +2153,7 @@
       "name": "Jane",
       "source": "https://www.prydwen.gg/zenless/characters/jane-doe",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -2233,6 +2191,14 @@
           "name": null,
           "members": [
             "1581",
+            "1261",
+            "1331"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1581",
             "1401",
             "1261"
           ]
@@ -2243,14 +2209,6 @@
             "1581",
             "1261",
             "1171"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1581",
-            "1261",
-            "1331"
           ]
         }
       ],
@@ -2297,7 +2255,7 @@
       "name": "Seth",
       "source": "https://www.prydwen.gg/zenless/characters/seth",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -2318,7 +2276,16 @@
           "refinement": 5
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1261",
+            "1411",
+            "1271"
+          ]
+        }
+      ],
       "synergies": [
         "1261",
         "1221"
@@ -2349,7 +2316,7 @@
       "name": "Piper",
       "source": "https://www.prydwen.gg/zenless/characters/piper",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -2387,14 +2354,6 @@
           "name": null,
           "members": [
             "1581",
-            "1091",
-            "1281"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1581",
             "1281",
             "1171"
           ]
@@ -2405,6 +2364,14 @@
             "1581",
             "1281",
             "1331"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1581",
+            "1091",
+            "1281"
           ]
         }
       ],
@@ -2449,7 +2416,7 @@
       "name": "Hugo",
       "source": "https://www.prydwen.gg/zenless/characters/hugo",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -2479,32 +2446,8 @@
           "name": null,
           "members": [
             "1291",
-            "1161",
-            "1141"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1291",
             "1481",
             "1161"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1291",
-            "1161",
-            "1571"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1291",
-            "1481",
-            "1141"
           ]
         }
       ],
@@ -2548,7 +2491,7 @@
       "name": "Orphie & Magus",
       "source": "https://www.prydwen.gg/zenless/characters/orphie-and-magus",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -2661,7 +2604,7 @@
       "name": "Astra Yao",
       "source": "https://www.prydwen.gg/zenless/characters/astra-yao",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -2702,16 +2645,16 @@
         {
           "name": null,
           "members": [
-            "1551",
-            "1571",
+            "1091",
+            "1511",
             "1311"
           ]
         },
         {
           "name": null,
           "members": [
-            "1591",
-            "1571",
+            "1381",
+            "1361",
             "1311"
           ]
         }
@@ -2757,7 +2700,7 @@
       "name": "Evelyn",
       "source": "https://www.prydwen.gg/zenless/characters/evelyn",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -2788,22 +2731,6 @@
           "members": [
             "1321",
             "1571",
-            "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1321",
-            "1481",
-            "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1321",
-            "1461",
             "1311"
           ]
         }
@@ -2850,7 +2777,7 @@
       "name": "Vivian",
       "source": "https://www.prydwen.gg/zenless/characters/vivian",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -2883,17 +2810,17 @@
         {
           "name": null,
           "members": [
-            "1581",
-            "1541",
-            "1331"
+            "1401",
+            "1331",
+            "1411"
           ]
         },
         {
           "name": null,
           "members": [
-            "1091",
-            "1331",
-            "1311"
+            "1581",
+            "1541",
+            "1331"
           ]
         }
       ],
@@ -2939,7 +2866,7 @@
       "name": "Zhao",
       "source": "https://www.prydwen.gg/zenless/characters/zhao",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -3028,7 +2955,7 @@
       "name": "Pulchra",
       "source": "https://www.prydwen.gg/zenless/characters/pulchra",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -3065,16 +2992,7 @@
           "refinement": 5
         }
       ],
-      "teams": [
-        {
-          "name": null,
-          "members": [
-            "1531",
-            "1351",
-            "1451"
-          ]
-        }
-      ],
+      "teams": [],
       "synergies": [
         "1441",
         "1381",
@@ -3112,7 +3030,7 @@
       "name": "Trigger",
       "source": "https://www.prydwen.gg/zenless/characters/trigger",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -3149,6 +3067,14 @@
         {
           "name": null,
           "members": [
+            "1611",
+            "1361",
+            "1211"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1381",
             "1301",
             "1361"
@@ -3168,14 +3094,6 @@
             "1381",
             "1361",
             "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1611",
-            "1361",
-            "1211"
           ]
         }
       ],
@@ -3224,7 +3142,7 @@
       "name": "Yixuan",
       "source": "https://www.prydwen.gg/zenless/characters/yixuan",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -3332,7 +3250,7 @@
       "name": "Soldier 0 - Anby",
       "source": "https://www.prydwen.gg/zenless/characters/anby-demara-soldier-0",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -3431,7 +3349,7 @@
       "name": "Ju Fufu",
       "source": "https://www.prydwen.gg/zenless/characters/ju-fufu",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -3464,14 +3382,6 @@
         {
           "name": null,
           "members": [
-            "1551",
-            "1391",
-            "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
             "1431",
             "1391",
             "1341"
@@ -3483,6 +3393,14 @@
             "1531",
             "1391",
             "1451"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1611",
+            "1391",
+            "1211"
           ]
         }
       ],
@@ -3530,7 +3448,7 @@
       "name": "Alice",
       "source": "https://www.prydwen.gg/zenless/characters/alice",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -3567,25 +3485,25 @@
         {
           "name": null,
           "members": [
+            "1401",
+            "1511",
+            "1411"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1401",
+            "1331",
+            "1411"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1581",
             "1401",
             "1261"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1581",
-            "1401",
-            "1171"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1581",
-            "1401",
-            "1331"
           ]
         }
       ],
@@ -3629,7 +3547,7 @@
       "name": "Yuzuha",
       "source": "https://www.prydwen.gg/zenless/characters/ukinami-yuzuha",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -3670,6 +3588,14 @@
         {
           "name": null,
           "members": [
+            "1501",
+            "1511",
+            "1411"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1091",
             "1331",
             "1411"
@@ -3678,17 +3604,9 @@
         {
           "name": null,
           "members": [
-            "1091",
-            "1221",
+            "1401",
+            "1511",
             "1411"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1091",
-            "1411",
-            "1131"
           ]
         }
       ],
@@ -3732,7 +3650,7 @@
       "name": "Pan Yinhu",
       "source": "https://www.prydwen.gg/zenless/characters/pan-yinhu",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -3765,14 +3683,6 @@
         {
           "name": null,
           "members": [
-            "1371",
-            "1391",
-            "1421"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
             "1531",
             "1481",
             "1421"
@@ -3781,8 +3691,8 @@
         {
           "name": null,
           "members": [
-            "1371",
-            "1481",
+            "1531",
+            "1391",
             "1421"
           ]
         }
@@ -3816,7 +3726,7 @@
       "name": "Ye Shunguang",
       "source": "https://www.prydwen.gg/zenless/characters/ye-shunguang",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -3855,7 +3765,7 @@
           "members": [
             "1431",
             "1481",
-            "1491"
+            "1341"
           ]
         },
         {
@@ -3863,7 +3773,7 @@
           "members": [
             "1431",
             "1481",
-            "1341"
+            "1491"
           ]
         },
         {
@@ -3909,7 +3819,7 @@
       "name": "Manato",
       "source": "https://www.prydwen.gg/zenless/characters/manato",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -3979,7 +3889,7 @@
       "name": "Lucia",
       "source": "https://www.prydwen.gg/zenless/characters/lucia",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -4028,9 +3938,9 @@
         {
           "name": null,
           "members": [
-            "1371",
-            "1451",
-            "1421"
+            "1531",
+            "1571",
+            "1451"
           ]
         }
       ],
@@ -4062,7 +3972,7 @@
       "name": "Seed",
       "source": "https://www.prydwen.gg/zenless/characters/seed",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -4116,7 +4026,7 @@
           "name": null,
           "members": [
             "1461",
-            "1381",
+            "1301",
             "1361"
           ]
         },
@@ -4124,7 +4034,7 @@
           "name": null,
           "members": [
             "1461",
-            "1301",
+            "1381",
             "1361"
           ]
         }
@@ -4171,7 +4081,7 @@
       "name": "Banyue",
       "source": "https://www.prydwen.gg/zenless/characters/banyue",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -4201,6 +4111,14 @@
         }
       ],
       "teams": [
+        {
+          "name": null,
+          "members": [
+            "1471",
+            "1481",
+            "1451"
+          ]
+        },
         {
           "name": null,
           "members": [
@@ -4251,7 +4169,7 @@
       "name": "Dialyn",
       "source": "https://www.prydwen.gg/zenless/characters/dialyn",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -4278,7 +4196,7 @@
           "members": [
             "1431",
             "1481",
-            "1491"
+            "1341"
           ]
         },
         {
@@ -4286,7 +4204,7 @@
           "members": [
             "1431",
             "1481",
-            "1341"
+            "1491"
           ]
         },
         {
@@ -4352,7 +4270,7 @@
       "name": "Sunna",
       "source": "https://www.prydwen.gg/zenless/characters/sunna",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -4401,8 +4319,8 @@
         {
           "name": null,
           "members": [
-            "1591",
-            "1571",
+            "1021",
+            "1481",
             "1491"
           ]
         }
@@ -4429,7 +4347,7 @@
       "name": "Aria",
       "source": "https://www.prydwen.gg/zenless/characters/aria",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -4458,17 +4376,17 @@
         {
           "name": null,
           "members": [
-            "1581",
             "1501",
-            "1561"
+            "1511",
+            "1491"
           ]
         },
         {
           "name": null,
           "members": [
+            "1581",
             "1501",
-            "1511",
-            "1491"
+            "1561"
           ]
         },
         {
@@ -4482,9 +4400,9 @@
         {
           "name": null,
           "members": [
-            "1581",
             "1501",
-            "1171"
+            "1561",
+            "1411"
           ]
         }
       ],
@@ -4526,7 +4444,7 @@
       "name": "Nangong Yu",
       "source": "https://www.prydwen.gg/zenless/characters/nangong-yu",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -4571,15 +4489,15 @@
         {
           "name": null,
           "members": [
-            "1091",
+            "1501",
             "1511",
-            "1311"
+            "1411"
           ]
         },
         {
           "name": null,
           "members": [
-            "1501",
+            "1401",
             "1511",
             "1411"
           ]
@@ -4628,7 +4546,7 @@
       "name": "Cissia",
       "source": "https://www.prydwen.gg/zenless/characters/cissia",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -4682,8 +4600,8 @@
           "name": null,
           "members": [
             "1521",
-            "1461",
-            "1491"
+            "1481",
+            "1311"
           ]
         }
       ],
@@ -4727,7 +4645,7 @@
       "name": "Starlight - Billy",
       "source": "https://www.prydwen.gg/zenless/characters/billy-starlight",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -4789,7 +4707,7 @@
           "name": null,
           "members": [
             "1531",
-            "1361",
+            "1101",
             "1451"
           ]
         }
@@ -4836,7 +4754,7 @@
       "name": "Promeia",
       "source": "https://www.prydwen.gg/zenless/characters/promeia",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-13",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -4886,7 +4804,7 @@
           "name": null,
           "members": [
             "1541",
-            "1561",
+            "1331",
             "1411"
           ]
         },
@@ -4894,7 +4812,7 @@
           "name": null,
           "members": [
             "1541",
-            "1331",
+            "1511",
             "1411"
           ]
         }
@@ -4938,7 +4856,7 @@
       "name": "Pyrois",
       "source": "https://www.prydwen.gg/zenless/characters/pyrois",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -4960,14 +4878,6 @@
           "name": null,
           "members": [
             "1551",
-            "1571",
-            "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1551",
             "1481",
             "1311"
           ]
@@ -4977,6 +4887,14 @@
           "members": [
             "1551",
             "1571",
+            "1311"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1551",
+            "1481",
             "1491"
           ]
         },
@@ -4984,7 +4902,7 @@
           "name": null,
           "members": [
             "1551",
-            "1481",
+            "1571",
             "1491"
           ]
         }
@@ -5030,7 +4948,7 @@
       "name": "Velina",
       "source": "https://www.prydwen.gg/zenless/characters/velina",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -5056,14 +4974,6 @@
           "name": null,
           "members": [
             "1581",
-            "1541",
-            "1561"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1581",
             "1261",
             "1561"
           ]
@@ -5072,7 +4982,7 @@
           "name": null,
           "members": [
             "1581",
-            "1171",
+            "1541",
             "1561"
           ]
         },
@@ -5081,6 +4991,14 @@
           "members": [
             "1581",
             "1501",
+            "1561"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1581",
+            "1401",
             "1561"
           ]
         }
@@ -5129,7 +5047,7 @@
       "name": "Norma",
       "source": "https://www.prydwen.gg/zenless/characters/norma",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -5166,33 +5084,33 @@
         {
           "name": null,
           "members": [
-            "1551",
-            "1571",
-            "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1591",
-            "1571",
-            "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1591",
-            "1571",
-            "1491"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
             "1611",
             "1571",
             "1211"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1531",
+            "1571",
+            "1451"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1371",
+            "1571",
+            "1451"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1551",
+            "1571",
+            "1311"
           ]
         }
       ],
@@ -5236,7 +5154,7 @@
       "name": "Remielle",
       "source": "https://www.prydwen.gg/zenless/characters/remielle",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -5258,14 +5176,6 @@
           "name": null,
           "members": [
             "1581",
-            "1541",
-            "1561"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1581",
             "1261",
             "1561"
           ]
@@ -5274,7 +5184,7 @@
           "name": null,
           "members": [
             "1581",
-            "1171",
+            "1541",
             "1561"
           ]
         },
@@ -5283,6 +5193,14 @@
           "members": [
             "1581",
             "1501",
+            "1561"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1581",
+            "1401",
             "1561"
           ]
         }
@@ -5326,7 +5244,7 @@
       "name": "Sigrid",
       "source": "https://www.prydwen.gg/zenless/characters/sigrid",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -5360,6 +5278,14 @@
           "name": null,
           "members": [
             "1591",
+            "1481",
+            "1311"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1591",
             "1571",
             "1311"
           ]
@@ -5369,7 +5295,7 @@
           "members": [
             "1591",
             "1571",
-            "1491"
+            "1211"
           ]
         },
         {
@@ -5377,15 +5303,7 @@
           "members": [
             "1591",
             "1481",
-            "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1591",
-            "1481",
-            "1491"
+            "1211"
           ]
         }
       ],
@@ -5429,7 +5347,7 @@
       "name": "Claret",
       "source": "https://www.prydwen.gg/zenless/characters/claret",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-09-30",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -5463,7 +5381,7 @@
           "name": null,
           "members": [
             "1611",
-            "1101",
+            "1571",
             "1211"
           ]
         },
@@ -5471,7 +5389,7 @@
           "name": null,
           "members": [
             "1611",
-            "1571",
+            "1101",
             "1211"
           ]
         },
@@ -5495,6 +5413,7 @@
       "synergies": [
         "1571",
         "1211",
+        "1101",
         "1141",
         "1361",
         "1031"
@@ -5515,6 +5434,70 @@
         }
       ],
       "skillPriority": "Special Attack > Chain Attack > Basic Attack > Assist > Dodge",
+      "tracePriority": null
+    },
+    "1621": {
+      "name": "Roxy",
+      "source": "https://www.prydwen.gg/zenless/characters/roxy",
+      "sourceLabel": "Prydwen",
+      "sourceUpdated": "2026-09-30",
+      "mainStats": null,
+      "role": "Support",
+      "weapons": [
+        {
+          "id": "14162",
+          "refinement": 5
+        },
+        {
+          "id": "14162",
+          "refinement": 1
+        },
+        {
+          "id": "13005",
+          "refinement": 5
+        },
+        {
+          "id": "14110",
+          "refinement": 1
+        }
+      ],
+      "teams": [],
+      "synergies": [
+        "1591",
+        "1551",
+        "1611",
+        "1491",
+        "1211",
+        "1451"
+      ],
+      "substatLine": "CRIT RATE > CRIT DMG > ATK % > PEN > ATK",
+      "endgameStats": [
+        {
+          "label": "ATK",
+          "value": "2200 - 2500+"
+        },
+        {
+          "label": "HP",
+          "value": "9500+"
+        },
+        {
+          "label": "DEF",
+          "value": "750+"
+        },
+        {
+          "label": "CRIT RATE",
+          "value": "74.6% - 100%"
+        },
+        {
+          "label": "CRIT DMG",
+          "value": "70% - 100%+"
+        },
+        {
+          "label": "Energy Regen",
+          "value": "2.88+"
+        }
+      ],
+      "skillPriority": "Special Attack > Chain Attack > Assist > Basic Attack > Dodge",
       "tracePriority": null
     }
   }

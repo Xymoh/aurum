@@ -1,6 +1,6 @@
 {
   "source": "https://www.prydwen.gg/star-rail/characters/",
-  "fetchedAt": "2026-09-24T12:19:27.896Z",
+  "fetchedAt": "2026-09-30T13:07:48.708Z",
   "characters": {
     "1001": {
       "name": "March 7th",
@@ -2922,7 +2922,7 @@
       "name": "Jingliu",
       "source": "https://www.prydwen.gg/star-rail/characters/jingliu",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sourceUpdated": "2026-09-29",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -7120,7 +7120,8 @@
         "1502",
         "1506",
         "8009",
-        "1306"
+        "1306",
+        "1503"
       ],
       "substatLine": "ATK until 3600 (after team buffs) > CRIT Rate >= CRIT DMG",
       "endgameStats": [
@@ -7217,6 +7218,95 @@
       ],
       "skillPriority": "Skill = Ultimate > Talent > Basic",
       "tracePriority": "Poised and Sated (A4) > Amaze-In Grace (A2) > Felicity Ensemble (A6)"
+    },
+    "1503": {
+      "name": "Pearl",
+      "source": "https://www.prydwen.gg/star-rail/characters/pearl",
+      "sourceLabel": "Prydwen",
+      "sourceUpdated": "2026-09-28",
+      "mainStats": null,
+      "role": "Sustain",
+      "weapons": [
+        {
+          "id": "23055",
+          "refinement": 1
+        },
+        {
+          "id": "23054",
+          "refinement": 1
+        },
+        {
+          "id": "23058",
+          "refinement": 1
+        },
+        {
+          "id": "21064",
+          "refinement": 5
+        }
+      ],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1506",
+            "1502",
+            "1513",
+            "1501",
+            "8009",
+            "1503"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1505",
+            "1502",
+            "8009",
+            "1503"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1513",
+            "1502",
+            "8009",
+            "1503"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1501",
+            "1502",
+            "8009",
+            "1503"
+          ]
+        }
+      ],
+      "synergies": [
+        "1506",
+        "1505",
+        "1513",
+        "1501"
+      ],
+      "substatLine": "SPD > DEF%",
+      "endgameStats": [
+        {
+          "label": "DEF",
+          "value": "3500-4500"
+        },
+        {
+          "label": "Speed",
+          "value": "160-180"
+        },
+        {
+          "label": "Effect RES",
+          "value": "50%"
+        }
+      ],
+      "skillPriority": "Elation Skill > Ultimate > Basic > Skill > Talent",
+      "tracePriority": "Aesthetic Firewall (A6) > Sensory Latitude (A4) > Panoptic Vision (A2)"
     },
     "1504": {
       "name": "Ashveil",
@@ -7400,7 +7490,8 @@
       "synergies": [
         "1502",
         "1217",
-        "8009"
+        "8009",
+        "1503"
       ],
       "substatLine": "CRIT Rate until 100% in combat > CRIT DMG",
       "endgameStats": [
@@ -7487,7 +7578,8 @@
         "1502",
         "1501",
         "8009",
-        "1009"
+        "1009",
+        "1503"
       ],
       "substatLine": "SPD > CRIT Rate = CRIT DMG",
       "endgameStats": [
@@ -7645,19 +7737,34 @@
             "1015",
             "1508",
             "1306",
-            "1217",
             "1414"
           ]
         },
         {
           "name": null,
           "members": [
+            "1015",
             "1508",
             "1306",
-            "1412",
-            "1217",
-            "1507",
-            "8007"
+            "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1015",
+            "1508",
+            "1306",
+            "1403"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1015",
+            "1508",
+            "1309",
+            "1306"
           ]
         }
       ],
@@ -7724,7 +7831,14 @@
             "1014",
             "1509",
             "1507",
-            "8007",
+            "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1014",
+            "1509",
             "1403",
             "1217"
           ]
@@ -7732,10 +7846,19 @@
         {
           "name": null,
           "members": [
+            "1014",
+            "1509",
+            "1512",
+            "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1504",
             "1509",
             "1507",
-            "1504",
-            "1414"
+            "1217"
           ]
         }
       ],
@@ -7804,19 +7927,9 @@
           "name": null,
           "members": [
             "1510",
-            "1507",
-            "1004",
-            "1217",
+            "1306",
+            "1313",
             "1414"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1510",
-            "1507",
-            "8007",
-            "1217"
           ]
         },
         {
@@ -7824,8 +7937,7 @@
           "members": [
             "1510",
             "1313",
-            "1306",
-            "1217",
+            "1004",
             "1414"
           ]
         },
@@ -7835,7 +7947,16 @@
             "1510",
             "1507",
             "1004",
-            "8007"
+            "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1510",
+            "1313",
+            "1403",
+            "1414"
           ]
         }
       ],
@@ -7870,7 +7991,7 @@
       "name": "Robin • Summeretto",
       "source": "https://www.prydwen.gg/star-rail/characters/robin-summeretto",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-12",
+      "sourceUpdated": "2026-09-29",
       "mainStats": null,
       "role": null,
       "weapons": [
@@ -7979,7 +8100,7 @@
       "name": "Aventurine • Waveflair",
       "source": "https://www.prydwen.gg/star-rail/characters/aventurine-waveflair",
       "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-12",
+      "sourceUpdated": "2026-09-28",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -8054,7 +8175,8 @@
         "1504",
         "1507",
         "1403",
-        "1502"
+        "1502",
+        "1503"
       ],
       "substatLine": "SPD > CRIT Rate > CRIT DMG",
       "endgameStats": [

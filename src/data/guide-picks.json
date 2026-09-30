@@ -1,12 +1,12 @@
 {
   "source": "https://game8.co/games/Genshin-Impact/archives/530535",
-  "fetchedAt": "2026-09-24T19:56:41.580Z",
+  "fetchedAt": "2026-09-30T13:04:52.703Z",
   "characters": {
     "10000002": {
       "name": "Kamisato Ayaka",
       "source": "https://game8.co/games/Genshin-Impact/archives/315215",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-23",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -43,6 +43,7 @@
           "members": [
             "10000002",
             "10000089",
+            "10000140",
             "10000112"
           ]
         },
@@ -75,7 +76,7 @@
       "name": "Jean",
       "source": "https://game8.co/games/Genshin-Impact/archives/297536",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -155,7 +156,7 @@
       "name": "Lisa",
       "source": "https://game8.co/games/Genshin-Impact/archives/Lisa-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY",
@@ -238,7 +239,7 @@
       "name": "Barbara",
       "source": "https://game8.co/games/Genshin-Impact/archives/297517",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT"
@@ -305,7 +306,7 @@
       "name": "Kaeya",
       "source": "https://game8.co/games/Genshin-Impact/archives/297516",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -384,7 +385,7 @@
       "name": "Diluc",
       "source": "https://game8.co/games/Genshin-Impact/archives/297518",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY",
@@ -473,7 +474,7 @@
       "name": "Razor",
       "source": "https://game8.co/games/Genshin-Impact/archives/297519",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -570,7 +571,7 @@
       "name": "Amber",
       "source": "https://game8.co/games/Genshin-Impact/archives/297535",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -647,7 +648,7 @@
       "name": "Venti",
       "source": "https://game8.co/games/Genshin-Impact/archives/Venti-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -727,7 +728,7 @@
       "name": "Xiangling",
       "source": "https://game8.co/games/Genshin-Impact/archives/297530",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -865,7 +866,7 @@
       "name": "Beidou",
       "source": "https://game8.co/games/Genshin-Impact/archives/297528",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -950,7 +951,7 @@
       "name": "Xingqiu",
       "source": "https://game8.co/games/Genshin-Impact/archives/297531",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -1048,7 +1049,7 @@
       "name": "Xiao",
       "source": "https://game8.co/games/Genshin-Impact/archives/297527",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -1132,7 +1133,7 @@
       "name": "Ningguang",
       "source": "https://game8.co/games/Genshin-Impact/archives/297529",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -1203,7 +1204,7 @@
       "name": "Klee",
       "source": "https://game8.co/games/Genshin-Impact/archives/297521",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -1299,7 +1300,7 @@
       "name": "Zhongli",
       "source": "https://game8.co/games/Genshin-Impact/archives/305858",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT"
@@ -1378,7 +1379,7 @@
       "name": "Fischl",
       "source": "https://game8.co/games/Genshin-Impact/archives/297524",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -1476,7 +1477,7 @@
       "name": "Bennett",
       "source": "https://game8.co/games/Genshin-Impact/archives/Bennett-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -1591,7 +1592,7 @@
       "name": "Tartaglia",
       "source": "https://game8.co/games/Genshin-Impact/archives/305862",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-20",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -1705,7 +1706,7 @@
       "name": "Noelle",
       "source": "https://game8.co/games/Genshin-Impact/archives/297523",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "DEF_PERCENT"
@@ -1781,7 +1782,7 @@
       "name": "Qiqi",
       "source": "https://game8.co/games/Genshin-Impact/archives/297533",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-17",
+      "sourceUpdated": "2026-09-28",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -1890,7 +1891,7 @@
       "name": "Chongyun",
       "source": "https://game8.co/games/Genshin-Impact/archives/297532",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-21",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -1975,7 +1976,7 @@
       "name": "Ganyu",
       "source": "https://game8.co/games/Genshin-Impact/archives/312173",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -2059,7 +2060,7 @@
       "name": "Albedo",
       "source": "https://game8.co/games/Genshin-Impact/archives/312182",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "DEF_PERCENT"
@@ -2162,7 +2163,7 @@
       "name": "Diona",
       "source": "https://game8.co/games/Genshin-Impact/archives/305872",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-21",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT"
@@ -2243,7 +2244,7 @@
       "name": "Mona",
       "source": "https://game8.co/games/Genshin-Impact/archives/Mona-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE"
@@ -2340,7 +2341,7 @@
       "name": "Keqing",
       "source": "https://game8.co/games/Genshin-Impact/archives/Keqing-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -2421,7 +2422,7 @@
       "name": "Sucrose",
       "source": "https://game8.co/games/Genshin-Impact/archives/297525",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-01",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -2507,7 +2508,7 @@
       "name": "Xinyan",
       "source": "https://game8.co/games/Genshin-Impact/archives/305873",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -2550,7 +2551,7 @@
       "name": "Rosaria",
       "source": "https://game8.co/games/Genshin-Impact/archives/314177",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY",
@@ -2631,7 +2632,7 @@
       "name": "Hu Tao",
       "source": "https://game8.co/games/Genshin-Impact/archives/314347",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT"
@@ -2711,7 +2712,7 @@
       "name": "Kaedehara Kazuha",
       "source": "https://game8.co/games/Genshin-Impact/archives/332826",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -2791,7 +2792,7 @@
       "name": "Yanfei",
       "source": "https://game8.co/games/Genshin-Impact/archives/328765",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -2871,7 +2872,7 @@
       "name": "Yoimiya",
       "source": "https://game8.co/games/Genshin-Impact/archives/333497",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -2951,7 +2952,7 @@
       "name": "Thoma",
       "source": "https://game8.co/games/Genshin-Impact/archives/337141",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -3031,7 +3032,7 @@
       "name": "Eula",
       "source": "https://game8.co/games/Genshin-Impact/archives/328764",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -3156,7 +3157,7 @@
       "name": "Raiden Shogun",
       "source": "https://game8.co/games/Genshin-Impact/archives/337161",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -3238,7 +3239,7 @@
       "name": "Sayu",
       "source": "https://game8.co/games/Genshin-Impact/archives/333496",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -3318,7 +3319,7 @@
       "name": "Sangonomiya Kokomi",
       "source": "https://game8.co/games/Genshin-Impact/archives/337140",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -3397,7 +3398,7 @@
       "name": "Gorou",
       "source": "https://game8.co/games/Genshin-Impact/archives/336726",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "DEF_PERCENT",
@@ -3474,7 +3475,7 @@
       "name": "Kujou Sara",
       "source": "https://game8.co/games/Genshin-Impact/archives/336727",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -3559,7 +3560,7 @@
       "name": "Arataki Itto",
       "source": "https://game8.co/games/Genshin-Impact/archives/345461",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "DEF_PERCENT"
@@ -3643,7 +3644,7 @@
       "name": "Yae Miko",
       "source": "https://game8.co/games/Genshin-Impact/archives/327533",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -3779,7 +3780,7 @@
       "name": "Shikanoin Heizou",
       "source": "https://game8.co/games/Genshin-Impact/archives/345516",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -3859,7 +3860,7 @@
       "name": "Yelan",
       "source": "https://game8.co/games/Genshin-Impact/archives/372781",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -3940,7 +3941,7 @@
       "name": "Kirara",
       "source": "https://game8.co/games/Genshin-Impact/archives/409556",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -4033,7 +4034,7 @@
       "name": "Aloy",
       "source": "https://game8.co/games/Genshin-Impact/archives/337957",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -4076,7 +4077,7 @@
       "name": "Shenhe",
       "source": "https://game8.co/games/Genshin-Impact/archives/346620",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -4152,7 +4153,7 @@
       "name": "Yun Jin",
       "source": "https://game8.co/games/Genshin-Impact/archives/314345",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "DEF_PERCENT",
@@ -4237,7 +4238,7 @@
       "name": "Kuki Shinobu",
       "source": "https://game8.co/games/Genshin-Impact/archives/346199",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -4316,7 +4317,7 @@
       "name": "Kamisato Ayato",
       "source": "https://game8.co/games/Genshin-Impact/archives/345514",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -4413,7 +4414,7 @@
       "name": "Collei",
       "source": "https://game8.co/games/Genshin-Impact/archives/382079",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -4486,7 +4487,7 @@
       "name": "Dori",
       "source": "https://game8.co/games/Genshin-Impact/archives/380569",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -4567,7 +4568,7 @@
       "name": "Tighnari",
       "source": "https://game8.co/games/Genshin-Impact/archives/382082",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -4630,7 +4631,7 @@
       "name": "Nilou",
       "source": "https://game8.co/games/Genshin-Impact/archives/383715",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-14",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -4732,7 +4733,7 @@
       "name": "Cyno",
       "source": "https://game8.co/games/Genshin-Impact/archives/315233",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-17",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -4859,7 +4860,7 @@
       "name": "Candace",
       "source": "https://game8.co/games/Genshin-Impact/archives/386384",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -4946,7 +4947,7 @@
       "name": "Nahida",
       "source": "https://game8.co/games/Genshin-Impact/archives/Nahida-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -5045,7 +5046,7 @@
       "name": "Layla",
       "source": "https://game8.co/games/Genshin-Impact/archives/386486",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT"
@@ -5136,7 +5137,7 @@
       "name": "Wanderer",
       "source": "https://game8.co/games/Genshin-Impact/archives/309656",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -5241,7 +5242,7 @@
       "name": "Faruzan",
       "source": "https://game8.co/games/Genshin-Impact/archives/391897",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-23",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -5255,10 +5256,10 @@
           "CRIT_DMG"
         ]
       },
-      "role": "Support",
+      "role": "C6 Stellar-Swirl Support",
       "weapons": [
         {
-          "id": "15401",
+          "id": "15503",
           "refinement": null
         },
         {
@@ -5266,19 +5267,11 @@
           "refinement": null
         },
         {
-          "id": "15503",
+          "id": "15401",
           "refinement": null
         },
         {
           "id": "15403",
-          "refinement": null
-        },
-        {
-          "id": "15411",
-          "refinement": null
-        },
-        {
-          "id": "15418",
           "refinement": null
         }
       ],
@@ -5287,7 +5280,9 @@
           "name": "Stellar-Swirl Team",
           "members": [
             "10000076",
-            "10000150"
+            "10000143",
+            "10000150",
+            "10000140"
           ]
         },
         {
@@ -5323,7 +5318,7 @@
       "endgameStats": [
         {
           "label": "Energy Recharge",
-          "value": "250~300% (Pre-C6)"
+          "value": "200%"
         }
       ],
       "skillPriority": "Elemental Burst > Elemental Skill > Normal Attack",
@@ -5333,7 +5328,7 @@
       "name": "Yaoyao",
       "source": "https://game8.co/games/Genshin-Impact/archives/314174",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -5423,7 +5418,7 @@
       "name": "Alhaitham",
       "source": "https://game8.co/games/Genshin-Impact/archives/383712",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -5512,7 +5507,7 @@
       "name": "Dehya",
       "source": "https://game8.co/games/Genshin-Impact/archives/Dehya-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -5595,7 +5590,7 @@
       "name": "Mika",
       "source": "https://game8.co/games/Genshin-Impact/archives/390096",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -5673,7 +5668,7 @@
       "name": "Kaveh",
       "source": "https://game8.co/games/Genshin-Impact/archives/Kaveh-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -5765,7 +5760,7 @@
       "name": "Baizhu",
       "source": "https://game8.co/games/Genshin-Impact/archives/314348",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-22",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -5921,7 +5916,7 @@
       "name": "Lynette",
       "source": "https://game8.co/games/Genshin-Impact/archives/345879",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-02",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -6026,7 +6021,7 @@
       "name": "Lyney",
       "source": "https://game8.co/games/Genshin-Impact/archives/345540",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -6126,7 +6121,7 @@
       "name": "Freminet",
       "source": "https://game8.co/games/Genshin-Impact/archives/417207",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -6211,7 +6206,7 @@
       "name": "Wriothesley",
       "source": "https://game8.co/games/Genshin-Impact/archives/Wriothesley-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-04",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -6347,7 +6342,7 @@
       "name": "Neuvillette",
       "source": "https://game8.co/games/Genshin-Impact/archives/Neuvillette-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-17",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT"
@@ -6415,7 +6410,7 @@
       "name": "Charlotte",
       "source": "https://game8.co/games/Genshin-Impact/archives/412428",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -6496,7 +6491,7 @@
       "name": "Furina",
       "source": "https://game8.co/games/Genshin-Impact/archives/Furina-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-04",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -6602,7 +6597,7 @@
       "name": "Chevreuse",
       "source": "https://game8.co/games/Genshin-Impact/archives/426201",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -6688,7 +6683,7 @@
       "name": "Navia",
       "source": "https://game8.co/games/Genshin-Impact/archives/417194",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -6789,7 +6784,7 @@
       "name": "Gaming",
       "source": "https://game8.co/games/Genshin-Impact/archives/Gaming-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY",
@@ -6902,7 +6897,7 @@
       "name": "Xianyun",
       "source": "https://game8.co/games/Genshin-Impact/archives/Xianyun-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -7001,7 +6996,7 @@
       "name": "Chiori",
       "source": "https://game8.co/games/Genshin-Impact/archives/382793",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-21",
+      "sourceUpdated": "2026-09-28",
       "mainStats": {
         "SANDS": [
           "DEF_PERCENT",
@@ -7130,7 +7125,7 @@
       "name": "Sigewinne",
       "source": "https://game8.co/games/Genshin-Impact/archives/352956",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT"
@@ -7227,7 +7222,7 @@
       "name": "Arlecchino",
       "source": "https://game8.co/games/Genshin-Impact/archives/382103",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-01",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -7350,7 +7345,7 @@
       "name": "Sethos",
       "source": "https://game8.co/games/Genshin-Impact/archives/451024",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -7455,7 +7450,7 @@
       "name": "Clorinde",
       "source": "https://game8.co/games/Genshin-Impact/archives/417218",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-18",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -7583,7 +7578,7 @@
       "name": "Emilie",
       "source": "https://game8.co/games/Genshin-Impact/archives/422493",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -7671,7 +7666,7 @@
       "name": "Kachina",
       "source": "https://game8.co/games/Genshin-Impact/archives/462004",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "DEF_PERCENT"
@@ -7768,7 +7763,7 @@
       "name": "Kinich",
       "source": "https://game8.co/games/Genshin-Impact/archives/461991",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -7861,7 +7856,7 @@
       "name": "Mualani",
       "source": "https://game8.co/games/Genshin-Impact/archives/461994",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -7959,7 +7954,7 @@
       "name": "Xilonen",
       "source": "https://game8.co/games/Genshin-Impact/archives/461997",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE"
@@ -8048,7 +8043,7 @@
       "name": "Chasca",
       "source": "https://game8.co/games/Genshin-Impact/archives/462001",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -8145,7 +8140,7 @@
       "name": "Ororon",
       "source": "https://game8.co/games/Genshin-Impact/archives/461993",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -8247,7 +8242,7 @@
       "name": "Mavuika",
       "source": "https://game8.co/games/Genshin-Impact/archives/461999",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-22",
+      "sourceUpdated": "2026-09-28",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -8398,7 +8393,7 @@
       "name": "Citlali",
       "source": "https://game8.co/games/Genshin-Impact/archives/461989",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -8498,7 +8493,7 @@
       "name": "Lan Yan",
       "source": "https://game8.co/games/Genshin-Impact/archives/486709",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-23",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -8591,7 +8586,7 @@
       "name": "Yumemizuki Mizuki",
       "source": "https://game8.co/games/Genshin-Impact/archives/492414",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-23",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -8634,7 +8629,7 @@
           "members": [
             "10000109",
             "10000150",
-            "10000039",
+            "10000140",
             "10000043"
           ],
           "alternates": [
@@ -8643,6 +8638,7 @@
               "10000005-cryo"
             ],
             [
+              "10000039",
               "10000035"
             ],
             [
@@ -8670,7 +8666,7 @@
       "name": "Iansan",
       "source": "https://game8.co/games/Genshin-Impact/archives/345881",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-23",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -8755,7 +8751,7 @@
       "name": "Varesa",
       "source": "https://game8.co/games/Genshin-Impact/archives/500244",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-15",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -8865,7 +8861,7 @@
       "name": "Escoffier",
       "source": "https://game8.co/games/Genshin-Impact/archives/385307",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -8976,7 +8972,7 @@
       "name": "Ifa",
       "source": "https://game8.co/games/Genshin-Impact/archives/472693",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -9059,7 +9055,7 @@
       "name": "Skirk",
       "source": "https://game8.co/games/Genshin-Impact/archives/333140",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-23",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -9105,6 +9101,7 @@
           "members": [
             "10000114",
             "10000089",
+            "10000140",
             "10000112"
           ]
         },
@@ -9159,7 +9156,7 @@
       "name": "Dahlia",
       "source": "https://game8.co/games/Genshin-Impact/archives/516026",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -9257,7 +9254,7 @@
       "name": "Ineffa",
       "source": "https://game8.co/games/Genshin-Impact/archives/531360",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-23",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -9337,7 +9334,7 @@
       "name": "Lauma",
       "source": "https://game8.co/games/Genshin-Impact/archives/538066",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -9447,7 +9444,7 @@
       "name": "Flins",
       "source": "https://game8.co/games/Genshin-Impact/archives/538451",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-23",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -9539,7 +9536,7 @@
       "name": "Aino",
       "source": "https://game8.co/games/Genshin-Impact/archives/537903",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-23",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -9637,7 +9634,7 @@
       "name": "Nefer",
       "source": "https://game8.co/games/Genshin-Impact/archives/538448",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -9738,7 +9735,7 @@
       "name": "Durin",
       "source": "https://game8.co/games/Genshin-Impact/archives/462478",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -9852,7 +9849,7 @@
       "name": "Jahoda",
       "source": "https://game8.co/games/Genshin-Impact/archives/538446",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -9963,7 +9960,7 @@
       "name": "Columbina",
       "source": "https://game8.co/games/Genshin-Impact/archives/382106",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -10074,7 +10071,7 @@
       "name": "Zibai",
       "source": "https://game8.co/games/Genshin-Impact/archives/570263",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-25",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "DEF_PERCENT"
@@ -10195,7 +10192,7 @@
       "name": "Illuga",
       "source": "https://game8.co/games/Genshin-Impact/archives/555902",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -10283,7 +10280,7 @@
       "name": "Varka",
       "source": "https://game8.co/games/Genshin-Impact/archives/314346",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-26",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -10437,7 +10434,7 @@
       "name": "Lohen",
       "source": "https://game8.co/games/Genshin-Impact/archives/580697",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-23",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -10540,7 +10537,7 @@
       "name": "Linnea",
       "source": "https://game8.co/games/Genshin-Impact/archives/551088",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "DEF_PERCENT"
@@ -10640,7 +10637,7 @@
       "name": "Nicole",
       "source": "https://game8.co/games/Genshin-Impact/archives/406932",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-22",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -10755,7 +10752,7 @@
       "name": "Prune",
       "source": "https://game8.co/games/Genshin-Impact/archives/590328",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-12",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -10852,7 +10849,7 @@
       "name": "Sandrone",
       "source": "https://game8.co/games/Genshin-Impact/archives/382107",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-08-18",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -10942,11 +10939,167 @@
       "skillPriority": "Normal Attack > Elemental Burst > Elemental Skill",
       "tracePriority": null
     },
+    "10000140": {
+      "name": "Vodyanitsa",
+      "source": "https://game8.co/games/Genshin-Impact/archives/606400",
+      "sourceLabel": "Game8",
+      "sourceUpdated": "2026-09-28",
+      "mainStats": {
+        "SANDS": [
+          "HP_PERCENT"
+        ],
+        "GOBLET": [
+          "HP_PERCENT"
+        ],
+        "CIRCLET": [
+          "HP_PERCENT"
+        ]
+      },
+      "role": "Hydro Support",
+      "weapons": [
+        {
+          "id": "14302",
+          "refinement": null
+        },
+        {
+          "id": "14505",
+          "refinement": null
+        },
+        {
+          "id": "14506",
+          "refinement": null
+        },
+        {
+          "id": "14406",
+          "refinement": null
+        }
+      ],
+      "teams": [
+        {
+          "name": "Freeze Team",
+          "members": [
+            "10000140",
+            "10000114",
+            "10000112",
+            "10000089"
+          ]
+        },
+        {
+          "name": "Stellar-Swirl Team",
+          "members": [
+            "10000140",
+            "10000143",
+            "10000005-cryo",
+            "10000150"
+          ],
+          "alternates": [
+            [],
+            [
+              "10000109"
+            ],
+            [],
+            []
+          ]
+        }
+      ],
+      "synergies": [],
+      "substatLine": "HP% > Flat HP > Energy Recharge",
+      "endgameStats": [
+        {
+          "label": "HP",
+          "value": "65,000+"
+        }
+      ],
+      "skillPriority": "Elemental Skill > Elemental Burst > Normal Attack",
+      "tracePriority": null
+    },
+    "10000143": {
+      "name": "Vesna",
+      "source": "https://game8.co/games/Genshin-Impact/archives/606901",
+      "sourceLabel": "Game8",
+      "sourceUpdated": "2026-09-25",
+      "mainStats": {
+        "SANDS": [
+          "ATK_PERCENT"
+        ],
+        "GOBLET": [
+          "ATK_PERCENT"
+        ],
+        "CIRCLET": [
+          "CRIT_DMG",
+          "CRIT_RATE"
+        ]
+      },
+      "role": "Stellar-Swirl DPS",
+      "weapons": [
+        {
+          "id": "11520",
+          "refinement": null
+        },
+        {
+          "id": "11517",
+          "refinement": null
+        },
+        {
+          "id": "11436",
+          "refinement": null
+        },
+        {
+          "id": "11435",
+          "refinement": null
+        }
+      ],
+      "teams": [
+        {
+          "name": "Stellar-Swirl Team",
+          "members": [
+            "10000143",
+            "10000150",
+            "10000005-cryo",
+            "10000076"
+          ],
+          "alternates": [
+            [],
+            [],
+            [],
+            [
+              "10000140"
+            ]
+          ]
+        }
+      ],
+      "synergies": [],
+      "substatLine": "Energy Recharge (until requirement) > CRIT DMG >= CRIT Rate >= ATK > Elemental Mastery",
+      "endgameStats": [
+        {
+          "label": "ATK",
+          "value": "2,000~3,000"
+        },
+        {
+          "label": "Energy Recharge",
+          "value": "100%~135%"
+        },
+        {
+          "label": "CRIT Rate",
+          "value": "50%~60%"
+        },
+        {
+          "label": "CRIT DMG",
+          "value": "180%+"
+        },
+        {
+          "label": "Elemental Mastery",
+          "value": "120 - 180"
+        }
+      ],
+      "skillPriority": "Elemental Skill > Elemental Burst > Normal Attack",
+      "tracePriority": null
+    },
     "10000148": {
       "name": "Alyosha",
       "source": "https://game8.co/games/Genshin-Impact/archives/606884",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-07",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -11050,7 +11203,7 @@
       "name": "Odette",
       "source": "https://game8.co/games/Genshin-Impact/archives/606893",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-01",
+      "sourceUpdated": "2026-09-25",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"

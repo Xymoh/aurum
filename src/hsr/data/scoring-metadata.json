@@ -1,8 +1,8 @@
 {
   "source": "https://github.com/fribbels/hsr-optimizer",
   "license": "MIT",
-  "commit": "74101e54b46b1f6370b715451c64c0cb19578f09",
-  "fetchedAt": "2026-09-24T12:20:47.888Z",
+  "commit": "bd427fa36e056a905d53d0338e518c146501ea9c",
+  "fetchedAt": "2026-09-30T13:00:10.905Z",
   "characters": {
     "1001": {
       "name": "March 7th",
@@ -3495,7 +3495,6 @@
       "stats": {
         "AttackDelta": 0.75,
         "AttackAddedRatio": 0.75,
-        "SpeedDelta": 1,
         "CriticalChanceBase": 1,
         "CriticalDamageBase": 1
       },

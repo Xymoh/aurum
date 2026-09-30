@@ -1,6 +1,6 @@
 {
   "source": "https://www.prydwen.gg/star-rail/characters/",
-  "fetchedAt": "2026-09-24T12:19:27.896Z",
+  "fetchedAt": "2026-09-30T13:07:48.708Z",
   "characters": {
     "1001": {
       "name": "March 7th",
@@ -1001,8 +1001,8 @@
         ],
         [
           {
-            "setId": "122",
-            "pieces": 2
+            "setId": "134",
+            "pieces": 4
           }
         ]
       ],
@@ -1481,6 +1481,12 @@
       "relicSets": [
         [
           {
+            "setId": "134",
+            "pieces": 4
+          }
+        ],
+        [
+          {
             "setId": "124",
             "pieces": 4
           }
@@ -1488,12 +1494,6 @@
         [
           {
             "setId": "112",
-            "pieces": 4
-          }
-        ],
-        [
-          {
-            "setId": "102",
             "pieces": 4
           }
         ]
@@ -3212,6 +3212,50 @@
       ],
       "source": "https://www.prydwen.gg/star-rail/characters/yao-guang"
     },
+    "1503": {
+      "name": "Pearl",
+      "relicSets": [
+        [
+          {
+            "setId": "133",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "130",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "125",
+            "pieces": 4
+          }
+        ]
+      ],
+      "ornamentSets": [
+        [
+          {
+            "setId": "310",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "308",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "326",
+            "pieces": 2
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/star-rail/characters/pearl"
+    },
     "1504": {
       "name": "Ashveil",
       "relicSets": [
@@ -3224,6 +3268,12 @@
         [
           {
             "setId": "117",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "110",
             "pieces": 4
           }
         ]
@@ -3893,6 +3943,12 @@
       "relicSets": [
         [
           {
+            "setId": "133",
+            "pieces": 4
+          }
+        ],
+        [
+          {
             "setId": "130",
             "pieces": 4
           }
@@ -3900,12 +3956,6 @@
         [
           {
             "setId": "110",
-            "pieces": 4
-          }
-        ],
-        [
-          {
-            "setId": "114",
             "pieces": 4
           }
         ]
@@ -3937,6 +3987,12 @@
       "relicSets": [
         [
           {
+            "setId": "133",
+            "pieces": 4
+          }
+        ],
+        [
+          {
             "setId": "130",
             "pieces": 4
           }
@@ -3944,12 +4000,6 @@
         [
           {
             "setId": "110",
-            "pieces": 4
-          }
-        ],
-        [
-          {
-            "setId": "114",
             "pieces": 4
           }
         ]

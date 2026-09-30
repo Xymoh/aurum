@@ -1,6 +1,6 @@
 {
   "source": "https://www.prydwen.gg/zenless/characters/",
-  "fetchedAt": "2026-09-24T12:21:19.526Z",
+  "fetchedAt": "2026-09-30T13:09:47.123Z",
   "characters": {
     "1011": {
       "name": "Anby",
@@ -1517,6 +1517,24 @@
         ]
       ],
       "source": "https://www.prydwen.gg/zenless/characters/claret"
+    },
+    "1621": {
+      "name": "Roxy",
+      "sets": [
+        [
+          {
+            "setId": "33200",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "32800",
+            "pieces": 4
+          }
+        ]
+      ],
+      "source": "https://www.prydwen.gg/zenless/characters/roxy"
     }
   }
 }

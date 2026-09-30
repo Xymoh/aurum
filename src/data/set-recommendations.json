@@ -1,6 +1,6 @@
 {
   "source": "https://game8.co/games/Genshin-Impact/archives/530535",
-  "fetchedAt": "2026-09-24T19:56:41.580Z",
+  "fetchedAt": "2026-09-30T13:04:52.703Z",
   "characters": {
     "10000002": {
       "name": "Kamisato Ayaka",
@@ -2514,7 +2514,7 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 250,
+      "erTarget": 200,
       "source": "https://game8.co/games/Genshin-Impact/archives/391897",
       "sourceLabel": "Game8"
     },
@@ -4848,6 +4848,97 @@
       },
       "erTarget": 125,
       "source": "https://game8.co/games/Genshin-Impact/archives/382107",
+      "sourceLabel": "Game8"
+    },
+    "10000140": {
+      "name": "Vodyanitsa",
+      "sets": [
+        [
+          {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15017",
+            "pieces": 2
+          },
+          {
+            "setId": "15030",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "15033",
+            "pieces": 4
+          }
+        ]
+      ],
+      "labels": [
+        "Best Option",
+        "Alt. Best Option",
+        "Alternative"
+      ],
+      "mainStats": {
+        "SANDS": [
+          "HP_PERCENT"
+        ],
+        "GOBLET": [
+          "HP_PERCENT"
+        ],
+        "CIRCLET": [
+          "HP_PERCENT"
+        ]
+      },
+      "source": "https://game8.co/games/Genshin-Impact/archives/606400",
+      "sourceLabel": "Game8"
+    },
+    "10000143": {
+      "name": "Vesna",
+      "sets": [
+        [
+          {
+            "setId": "15047",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15002",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15001",
+            "pieces": 2
+          },
+          {
+            "setId": "15044",
+            "pieces": 2
+          }
+        ]
+      ],
+      "labels": [
+        "Best-in-Slot",
+        "Alternative",
+        "Temporary/ F2P"
+      ],
+      "mainStats": {
+        "SANDS": [
+          "ATK_PERCENT"
+        ],
+        "GOBLET": [
+          "ATK_PERCENT"
+        ],
+        "CIRCLET": [
+          "CRIT_DMG",
+          "CRIT_RATE"
+        ]
+      },
+      "source": "https://game8.co/games/Genshin-Impact/archives/606901",
       "sourceLabel": "Game8"
     },
     "10000148": {
