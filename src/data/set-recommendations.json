@@ -1,6 +1,6 @@
 {
   "source": "https://game8.co/games/Genshin-Impact/archives/530535",
-  "fetchedAt": "2026-09-30T13:04:52.703Z",
+  "fetchedAt": "2026-10-05T18:27:06.718Z",
   "characters": {
     "10000002": {
       "name": "Kamisato Ayaka",
@@ -1082,10 +1082,12 @@
       ],
       "mainStats": {
         "SANDS": [
-          "ENERGY_RECHARGE"
+          "ENERGY_RECHARGE",
+          "ATK_PERCENT"
         ],
         "GOBLET": [
-          "ATK_PERCENT"
+          "ATK_PERCENT",
+          "HYDRO_DMG"
         ],
         "CIRCLET": [
           "CRIT_RATE",

@@ -1,6 +1,6 @@
 {
   "source": "https://www.prydwen.gg/zenless/characters/",
-  "fetchedAt": "2026-09-30T13:09:47.123Z",
+  "fetchedAt": "2026-10-05T18:32:11.130Z",
   "characters": {
     "1011": {
       "name": "Anby",
@@ -4631,7 +4631,7 @@
         },
         {
           "label": "CRIT RATE",
-          "value": "50% - 57% (with Signature W-Engine)"
+          "value": "50% - 57% (with Signature W-Engine, pre-combat)"
         },
         {
           "label": "CRIT DMG",

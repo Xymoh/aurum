@@ -1,6 +1,6 @@
 {
   "source": "https://game8.co/games/Genshin-Impact/archives/530535",
-  "fetchedAt": "2026-09-30T13:04:52.703Z",
+  "fetchedAt": "2026-10-05T18:27:06.718Z",
   "characters": {
     "10000002": {
       "name": "Kamisato Ayaka",
@@ -385,7 +385,7 @@
       "name": "Diluc",
       "source": "https://game8.co/games/Genshin-Impact/archives/297518",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-25",
+      "sourceUpdated": "2026-10-05",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY",
@@ -2244,13 +2244,15 @@
       "name": "Mona",
       "source": "https://game8.co/games/Genshin-Impact/archives/Mona-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-25",
+      "sourceUpdated": "2026-10-02",
       "mainStats": {
         "SANDS": [
-          "ENERGY_RECHARGE"
+          "ENERGY_RECHARGE",
+          "ATK_PERCENT"
         ],
         "GOBLET": [
-          "ATK_PERCENT"
+          "ATK_PERCENT",
+          "HYDRO_DMG"
         ],
         "CIRCLET": [
           "CRIT_RATE",
@@ -2290,6 +2292,15 @@
           "name": "Hexerei Team",
           "members": [
             "10000041",
+            "10000128",
+            "10000132",
+            "10000140"
+          ]
+        },
+        {
+          "name": "Hexerei Team",
+          "members": [
+            "10000041",
             "10000123",
             "10000032",
             "10000047"
@@ -2302,15 +2313,6 @@
             "10000037",
             "10000074",
             "10000022"
-          ]
-        },
-        {
-          "name": "Freeze Team",
-          "members": [
-            "10000041",
-            "10000002",
-            "10000063",
-            "10000047"
           ]
         }
       ],
@@ -4631,7 +4633,7 @@
       "name": "Nilou",
       "source": "https://game8.co/games/Genshin-Impact/archives/383715",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-25",
+      "sourceUpdated": "2026-10-02",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -5258,6 +5260,10 @@
       },
       "role": "C6 Stellar-Swirl Support",
       "weapons": [
+        {
+          "id": "15437",
+          "refinement": null
+        },
         {
           "id": "15503",
           "refinement": null
@@ -6342,7 +6348,7 @@
       "name": "Neuvillette",
       "source": "https://game8.co/games/Genshin-Impact/archives/Neuvillette-Best-Builds",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-25",
+      "sourceUpdated": "2026-10-02",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT"
@@ -6385,9 +6391,9 @@
           "name": "Hypercarry Neuvillette Team",
           "members": [
             "10000087",
-            "10000103",
-            "10000047",
-            "10000089"
+            "10000140",
+            "10000089",
+            "10000112"
           ]
         },
         {
@@ -10849,7 +10855,7 @@
       "name": "Sandrone",
       "source": "https://game8.co/games/Genshin-Impact/archives/382107",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-25",
+      "sourceUpdated": "2026-10-04",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -10898,7 +10904,7 @@
             "10000133",
             "10000058",
             "10000150",
-            "10000131"
+            "10000148"
           ],
           "alternates": [
             [],
@@ -10908,7 +10914,9 @@
             [
               "10000112"
             ],
-            []
+            [
+              "10000131"
+            ]
           ]
         }
       ],
@@ -10943,7 +10951,7 @@
       "name": "Vodyanitsa",
       "source": "https://game8.co/games/Genshin-Impact/archives/606400",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-28",
+      "sourceUpdated": "2026-10-02",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT"
@@ -10957,6 +10965,10 @@
       },
       "role": "Hydro Support",
       "weapons": [
+        {
+          "id": "14524",
+          "refinement": null
+        },
         {
           "id": "14302",
           "refinement": null
@@ -11017,7 +11029,7 @@
       "name": "Vesna",
       "source": "https://game8.co/games/Genshin-Impact/archives/606901",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-25",
+      "sourceUpdated": "2026-10-02",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -11032,6 +11044,10 @@
       },
       "role": "Stellar-Swirl DPS",
       "weapons": [
+        {
+          "id": "11522",
+          "refinement": null
+        },
         {
           "id": "11520",
           "refinement": null
@@ -11099,7 +11115,7 @@
       "name": "Alyosha",
       "source": "https://game8.co/games/Genshin-Impact/archives/606884",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-25",
+      "sourceUpdated": "2026-10-01",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -11154,7 +11170,8 @@
               "10000005-cryo"
             ],
             [
-              "10000031"
+              "10000031",
+              "10000043"
             ]
           ]
         },
@@ -11349,7 +11366,7 @@
       "name": "Traveler (Cryo)",
       "source": "https://game8.co/games/Genshin-Impact/archives/613906",
       "sourceLabel": "Game8",
-      "sourceUpdated": "2026-09-09",
+      "sourceUpdated": "2026-10-01",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -11364,10 +11381,6 @@
       },
       "role": "Stellar Glimmer DPS",
       "weapons": [
-        {
-          "id": "11521",
-          "refinement": null
-        },
         {
           "id": "11505",
           "refinement": null
@@ -11392,12 +11405,14 @@
           ],
           "alternates": [
             [],
-            [],
             [
-              "10000024"
+              "10000035"
             ],
             [
-              "10000035",
+              "10000024",
+              "10000043"
+            ],
+            [
               "10000039"
             ]
           ]
