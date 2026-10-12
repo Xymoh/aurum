@@ -132,7 +132,7 @@ export const HELP_CONTENT: Record<HelpGame, HelpContent> = {
   },
 };
 
-/** Public URL of a help screenshot, honouring the GitHub Pages base path. */
+/** Public URL of a help screenshot, honouring the deploy base path. */
 export function helpImageUrl(game: HelpGame, file: string): string {
   return `${import.meta.env.BASE_URL}help/${game}/${file}`;
 }

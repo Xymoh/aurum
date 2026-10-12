@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Aurum has moved to aurumgg.com</title>
+    <!--
+      What GitHub Pages serves at xymoh.github.io/aurum/ since the site moved
+      to its own domain. The deploy workflow publishes this file as both
+      index.html and 404.html, so every old link, deep ones included, lands
+      on the same page on the new domain.
+    -->
+    <link rel="canonical" href="https://aurumgg.com/" />
+    <meta name="robots" content="noindex" />
+    <script>
+      (function (l) {
+        var path = l.pathname.replace(/^\/aurum(\/|$)/, "/");
+        l.replace("https://aurumgg.com" + path + l.search + l.hash);
+      })(window.location);
+    </script>
+    <meta http-equiv="refresh" content="0; url=https://aurumgg.com/" />
+  </head>
+  <body style="background:#0f1117;color:#e4e4e7;font-family:system-ui,sans-serif;text-align:center;padding:4rem 1rem">
+    <p>Aurum has moved to <a href="https://aurumgg.com/" style="color:#d4a853">aurumgg.com</a>.</p>
+  </body>
+</html>

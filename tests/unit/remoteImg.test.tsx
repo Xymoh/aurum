@@ -16,7 +16,7 @@ describe("retryUrls", () => {
 
   it("asks any other host again, with a query so the browser makes a real request", () => {
     expect(retryUrls("https://enka.network/ui/UI_AvatarIcon_Hutao.png")).toEqual(["https://enka.network/ui/UI_AvatarIcon_Hutao.png?retry=1"]);
-    expect(retryUrls("/aurum/zzz/items/IconCoin.webp?v=2")).toEqual(["/aurum/zzz/items/IconCoin.webp?v=2&retry=1"]);
+    expect(retryUrls("/zzz/items/IconCoin.webp?v=2")).toEqual(["/zzz/items/IconCoin.webp?v=2&retry=1"]);
   });
 
   it("does not retry a picture that is already in memory", () => {

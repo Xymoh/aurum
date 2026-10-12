@@ -15,7 +15,7 @@
  * Enka relay for whoever found the URL, spending both the Workers quota and
  * the rate budget Enka extends to this user agent. Set ALLOWED_ORIGINS (a
  * comma-separated list) as a Worker variable to change the list; it defaults
- * to the GitHub Pages origin.
+ * to the site's own domain.
  *
  * Requests are also capped per client address. The counter lives in the
  * isolate's memory, so it resets whenever Cloudflare recycles the Worker and
@@ -30,10 +30,11 @@ const ENKA_BASE = {
   zzz: "https://enka.network/api/zzz/uid",
 };
 
-const DEFAULT_ORIGINS = ["https://xymoh.github.io"];
+// The old GitHub Pages origin stays until its visitors have been redirected over.
+const DEFAULT_ORIGINS = ["https://aurumgg.com", "https://www.aurumgg.com", "https://xymoh.github.io"];
 
 /** Enka asks every client to identify itself and say where to complain. */
-const USER_AGENT = "Aurum/0.1 (+https://github.com/Xymoh/aurum)";
+const USER_AGENT = "Aurum/0.1 (+https://aurumgg.com)";
 
 /** How long Enka's answer is cached at the edge. Matches its own ttl for a profile. */
 const CACHE_SECONDS = 60;

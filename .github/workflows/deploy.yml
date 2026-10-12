@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy
 
 on:
   push:
@@ -8,11 +8,9 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: "pages"
+  group: "deploy"
   cancel-in-progress: true
 
 jobs:
@@ -44,18 +42,49 @@ jobs:
           VITE_SHOWCASE_HELP: ${{ vars.VITE_SHOWCASE_HELP }}
           VITE_LIGHT_THEME: ${{ vars.VITE_LIGHT_THEME }}
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: github.event_name != 'pull_request'
         with:
+          name: site
           path: dist
 
+  # The site itself: Cloudflare Pages, served at aurumgg.com.
   deploy:
     if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: dist
+
+      # Same two repository secrets as the Enka relay's deploy; the API token
+      # needs the "Cloudflare Pages: Edit" permission as well.
+      - uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=aurum --branch=main --commit-dirty=true
+
+  # The old xymoh.github.io/aurum/ address: one page that forwards every
+  # path to the same path on aurumgg.com.
+  # Runs only once the new site deployed, so the old address never forwards to nothing.
+  legacy-redirect:
+    if: github.event_name != 'pull_request'
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
+      - uses: actions/checkout@v4
+      - run: mkdir out && cp legacy-redirect/index.html out/index.html && cp legacy-redirect/index.html out/404.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
       - id: deployment
         uses: actions/deploy-pages@v4

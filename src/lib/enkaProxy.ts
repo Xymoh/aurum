@@ -3,7 +3,7 @@
  *
  * Enka does NOT send CORS headers, so a browser cannot call it directly.
  * In development the Vite dev server proxies /api/proxy. In production
- * (GitHub Pages) requests go through the self-hosted Cloudflare Worker in
+ * requests go through the self-hosted Cloudflare Worker in
  * workers/enka-proxy.js, configured at build time via VITE_ENKA_PROXY.
  *
  * There is deliberately no public CORS proxy fallback: a request carries the

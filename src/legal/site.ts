@@ -5,7 +5,7 @@
  */
 
 export const SITE_NAME = "Aurum";
-export const SITE_URL = "https://xymoh.github.io/aurum/";
+export const SITE_URL = "https://aurumgg.com/";
 export const OPERATOR = "Xymoh";
 export const REPO_URL = "https://github.com/Xymoh/aurum";
 export const LICENSE_URL = `${REPO_URL}/blob/main/LICENSE`;
@@ -27,7 +27,7 @@ export const SUPPORT_URL = "https://ko-fi.com/saekimon";
 export const CONTACT_LABEL = "the project's GitHub issues";
 
 /** Shown on both pages. Bump it whenever either page changes in substance. */
-export const EFFECTIVE_DATE = "24 September 2026";
+export const EFFECTIVE_DATE = "12 October 2026";
 
 export const PRIVACY_PATH = "/privacy";
 export const TERMS_PATH = "/terms";

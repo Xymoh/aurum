@@ -62,7 +62,7 @@ function enkaProxyPlugin(): Plugin {
             hostname: ENKA_API_HOST,
             path: enkaUrl,
             headers: {
-              "User-Agent": "Aurum/0.1 (+https://github.com/Xymoh/aurum)",
+              "User-Agent": "Aurum/0.1 (+https://aurumgg.com)",
               Accept: "application/json",
             },
             timeout: 8000,
@@ -169,7 +169,7 @@ function enkaProxyPlugin(): Plugin {
 }
 
 export default defineConfig({
-  base: "/aurum/",
+  base: "/",
   plugins: [react(), enkaProxyPlugin()],
   resolve: {
     alias: {

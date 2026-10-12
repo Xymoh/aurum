@@ -12,7 +12,7 @@ Three scorers live under one roof, each with its own layout and palette:
 | **Relic Aurum** | Honkai: Star Rail | `/hsr` |
 | **Disc Aurum** | Zenless Zone Zero | `/zzz` |
 
-**Live:** https://xymoh.github.io/aurum/
+**Live:** https://aurumgg.com/
 
 ## Features
 
@@ -341,19 +341,24 @@ GITHUB_TOKEN=$(gh auth token) node scripts/fetch-fribbels-weights.mjs
 
 ## Deployment
 
-Hosted on GitHub Pages via GitHub Actions. On push to `main`, the workflow:
-1. Installs dependencies
-2. Builds with Vite, then `scripts/prerender.mjs` writes an HTML file per
-   game page, build guide and legal page (own title, description and
-   canonical URL) plus `sitemap.xml` and `robots.txt`
-3. Deploys to GitHub Pages
+Hosted on Cloudflare Pages at https://aurumgg.com/, deployed by GitHub
+Actions (`.github/workflows/deploy.yml`). Every push and pull request is
+linted, type-checked, tested and built; a push to `main` then:
 
-The prerender step exists because GitHub Pages answers any path without a
-file of its own with a 404 before `404.html` redirects into the app, and
-search engines drop 404s. Showcase pages are deliberately left to that
-redirect: they are other players' profiles. After a deploy, submit
-`sitemap.xml` in Google Search Console; `robots.txt` only takes effect once
-the site sits at a domain root. The social preview image is `public/og.png`.
+1. Builds with Vite, then `scripts/prerender.mjs` writes an HTML file per
+   game page, build guide and legal page (own title, description and
+   canonical URL) plus `sitemap.xml` and `robots.txt`, so crawlers and link
+   previews see each page's own title rather than the home page's.
+2. Uploads `dist/` to the Cloudflare Pages project `aurum` with wrangler.
+   There is no `404.html`, so Pages serves `index.html` for every other
+   path (showcases) and the app routes it.
+3. Republishes the old GitHub Pages address (`xymoh.github.io/aurum/`) as
+   `legacy-redirect/index.html`, which forwards every path to the same path
+   on aurumgg.com.
+
+The deploy uses the same `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`
+secrets as the Enka relay below; the token needs the "Cloudflare Pages:
+Edit" permission too. The social preview image is `public/og.png`.
 
 Enka.Network does not send CORS headers, so the browser cannot call it directly.
 In development the Vite dev server proxies `/api/proxy`. In production the app
@@ -418,5 +423,5 @@ belongs to HoYoverse; Aurum is an independent fan project and is not
 affiliated with or endorsed by them. Every imported dataset and asset source,
 with its licence and the notice it requires, is listed in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The site's own
-[Terms of Use](https://xymoh.github.io/aurum/terms) and
-[Privacy Policy](https://xymoh.github.io/aurum/privacy) live in `src/legal/`.
+[Terms of Use](https://aurumgg.com/terms) and
+[Privacy Policy](https://aurumgg.com/privacy) live in `src/legal/`.

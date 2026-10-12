@@ -2,11 +2,11 @@
  * Gives every page a search engine should find its own HTML file, then writes
  * sitemap.xml and robots.txt. Runs after `vite build` (see the build script).
  *
- * GitHub Pages answers a path with no file behind it with a 404 and only then
- * runs the SPA redirect in 404.html. Google drops 404s without rendering them,
- * so before this only the site root could be indexed. Each copy is the built
- * index.html with that page's title, description and canonical URL; the app
- * takes over as usual once it loads.
+ * The host answers any other path with the bare index.html, whose title and
+ * description are the home page's: fine for people, since the app retitles
+ * the page, but crawlers and link previews read only the HTML. Each copy is
+ * the built index.html with that page's title, description and canonical
+ * URL; the app takes over as usual once it loads.
  *
  * Showcase pages are left out on purpose: they are other players' profiles,
  * not content, and there is one per UID.
@@ -116,12 +116,12 @@ function render(page, url) {
 }
 
 // The root keeps its own title; it only gains a canonical link. Showcase
-// links land on it through 404.html, so they all count as the home page.
+// pages are served this same file, so they all count as the home page.
 await writeFile(path.join(DIST, "index.html"), template.replace("</head>", `  <link rel="canonical" href="${siteUrl}" />\n  </head>`));
 
 const urls = [siteUrl];
 for (const page of pages) {
-  // GitHub Pages serves dir/index.html at dir/ (redirecting dir there), so the trailing slash is the real URL.
+  // The host serves dir/index.html at dir/ (redirecting dir there), so the trailing slash is the real URL.
   const url = `${siteUrl}${page.route}/`;
   const dir = path.join(DIST, page.route);
   await mkdir(dir, { recursive: true });

@@ -3,7 +3,7 @@
  *
  * StarRailRes publishes every character, light cone, relic, element and path
  * image the game uses. Serving them from jsDelivr rather than bundling keeps
- * ~200 MB of art out of the repo and off the GitHub Pages build, at the cost
+ * ~200 MB of art out of the repo and off the site build, at the cost
  * of a third-party dependency for decoration only: every image here is
  * cosmetic, and the scorer reads correctly with all of them missing.
  */

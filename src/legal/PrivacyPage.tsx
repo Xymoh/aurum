@@ -41,13 +41,11 @@ export function PrivacyPage() {
 
       <Section title="3. Data processed when you load a page">
         <p>
-          The site is static files served by GitHub Pages, operated by GitHub, Inc. Like every web
-          server, GitHub receives your IP address, browser type and the page requested in order to
-          deliver it, and may keep server logs for security. We have no access to those logs. See the{" "}
-          <Ext href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">
-            GitHub General Privacy Statement
-          </Ext>
-          .
+          The site is static files served by Cloudflare Pages, operated by Cloudflare, Inc. Like
+          every web server, Cloudflare receives your IP address, browser type and the page requested
+          in order to deliver it, and may keep operational logs for security. The site uses no
+          analytics on top of that. See the{" "}
+          <Ext href="https://www.cloudflare.com/privacypolicy/">Cloudflare Privacy Policy</Ext>.
         </p>
         <p>
           Fonts, scripts and stylesheets are bundled with the site and served from the same origin. No
@@ -135,9 +133,9 @@ export function PrivacyPage() {
 
       <Section title="10. International transfers">
         <p>
-          GitHub and Cloudflare are based in the United States and may process data outside the
-          European Economic Area. Both participate in the EU-US Data Privacy Framework and offer EU
-          standard contractual clauses, which are the safeguards the GDPR requires for such transfers.
+          Cloudflare is based in the United States and may process data outside the European
+          Economic Area. It participates in the EU-US Data Privacy Framework and offers EU standard
+          contractual clauses, which are the safeguards the GDPR requires for such transfers.
         </p>
       </Section>
 
