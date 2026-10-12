@@ -9,6 +9,7 @@ import { ShareCardProvider } from "../../lib/shareCard/ShareCardProvider";
 import { characterPanelId } from "../panelId";
 import { gradeColor } from "../labels";
 import { useI18n } from "../../i18n";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useHsrVerdict } from "../verdict";
 import { gradeFor } from "../scoring";
 
@@ -207,6 +208,7 @@ function ShareButton() {
 export function HsrShowcasePage() {
   const { uid = "" } = useParams();
   const { t } = useI18n();
+  useDocumentTitle(t("hsr", "documentTitle"));
   const { data, isLoading, isError, isFetching, error, forceRefresh, freshUntil } = useHsrShowcase(uid);
   const invalidUid = !isValidHsrUid(uid);
   const secondsFresh = useFreshCountdown(freshUntil);

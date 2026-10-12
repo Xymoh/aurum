@@ -40,7 +40,7 @@ export function ZzzBuildsPage() {
   useDocumentTitle(
     target
       ? t("builds", "documentTitleCharacter", { name: target.name, game: "Zenless Zone Zero" })
-      : t("builds", "documentTitle"),
+      : t("builds", "documentTitle", { game: "Zenless Zone Zero" }),
   );
 
   const uid = useComparisonUid(ZZZ_RECENT_UIDS_KEY, isValidZzzUid);

@@ -19,6 +19,8 @@ export const en = {
     terms: "Terms",
     support: "Support on Ko-fi",
     supportHint: "The site is free. Donations cover the hosting.",
+    copyright:
+      "Game content and materials are trademarks and copyrights of COGNOSPHERE and miHoYo. All rights reserved by miHoYo. Other properties belong to their respective owners.",
   },
 
   /**
@@ -353,7 +355,7 @@ export const en = {
   builds: {
     title: "Build guides",
     lead: "Weapons, sets, stats, teams, skills and materials for every character, with your own build alongside.",
-    documentTitle: "Build guides - Aurum",
+    documentTitle: "{game} build guides - Aurum",
     documentTitleCharacter: "{name} build - {game} - Aurum",
     navLabel: "Builds",
     search: "Search characters",

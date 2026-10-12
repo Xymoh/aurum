@@ -6,6 +6,7 @@ import { ZZZ_RECENT_UIDS_KEY, useRecentUids } from "../../hooks/useRecentUids";
 import { RecentLookups } from "../../components/ui/RecentLookups";
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { useI18n } from "../../i18n";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { HELP_PATH, SHOWCASE_HELP } from "../../help/content";
 
 /** Digits only, capped at ten. */
@@ -19,6 +20,7 @@ export function ZzzHomePage() {
   const navigate = useNavigate();
   const { recent, remember, forget, forgetAll } = useRecentUids(ZZZ_RECENT_UIDS_KEY);
   const { t } = useI18n();
+  useDocumentTitle(t("zzz", "documentTitle"));
 
   const submit = (e: FormEvent) => {
     e.preventDefault();

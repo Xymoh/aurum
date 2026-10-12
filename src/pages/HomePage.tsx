@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { RecentLookups } from "../components/ui/RecentLookups";
 import { clearAllSnapshots, clearSnapshot } from "../lib/history";
 import { useI18n } from "../i18n";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 const LINK_CLASS =
   "text-accent hover:text-accent-strong underline underline-offset-2";
@@ -13,6 +14,7 @@ const LINK_CLASS =
 export function HomePage() {
   const { recent: recentUids, forget, forgetAll } = useRecentUids(GENSHIN_RECENT_UIDS_KEY);
   const { t } = useI18n();
+  useDocumentTitle("Artifact Aurum - Genshin Impact artifact scorer");
 
   const steps = [
     { title: t("home", "step1Title"), body: t("home", "step1Body") },

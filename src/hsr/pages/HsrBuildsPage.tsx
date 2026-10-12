@@ -40,7 +40,7 @@ export function HsrBuildsPage() {
   useDocumentTitle(
     target
       ? t("builds", "documentTitleCharacter", { name: target.name, game: "Honkai: Star Rail" })
-      : t("builds", "documentTitle"),
+      : t("builds", "documentTitle", { game: "Honkai: Star Rail" }),
   );
 
   const uid = useComparisonUid(HSR_RECENT_UIDS_KEY, isValidHsrUid);

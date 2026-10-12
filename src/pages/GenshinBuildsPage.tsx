@@ -46,7 +46,7 @@ export function GenshinBuildsPage() {
   useDocumentTitle(
     target
       ? t("builds", "documentTitleCharacter", { name: target.name, game: "Genshin Impact" })
-      : t("builds", "documentTitle"),
+      : t("builds", "documentTitle", { game: "Genshin Impact" }),
   );
 
   const uid = useComparisonUid(GENSHIN_RECENT_UIDS_KEY, isValidUid);

@@ -7,6 +7,7 @@ import { sanitizeUidInput } from "../../lib/uid";
 import { HSR_RECENT_UIDS_KEY, useRecentUids } from "../../hooks/useRecentUids";
 import { RecentLookups } from "../../components/ui/RecentLookups";
 import { useI18n } from "../../i18n";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { HELP_PATH, SHOWCASE_HELP } from "../../help/content";
 
 export function HsrHomePage() {
@@ -15,6 +16,7 @@ export function HsrHomePage() {
   const navigate = useNavigate();
   const { recent, remember, forget, forgetAll } = useRecentUids(HSR_RECENT_UIDS_KEY);
   const { t } = useI18n();
+  useDocumentTitle(t("hsr", "documentTitle"));
 
   const submit = (e: FormEvent) => {
     e.preventDefault();

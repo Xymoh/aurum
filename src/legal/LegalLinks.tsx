@@ -17,33 +17,37 @@ interface LegalLinksProps {
 export function LegalLinks({ className, helpTo }: LegalLinksProps) {
   const { t } = useI18n();
   return (
-    <span className="inline-flex flex-wrap items-center justify-center gap-3">
-      {helpTo && SHOWCASE_HELP && (
-        <>
-          <Link to={helpTo} className={className}>
-            {t("help", "navLabel")}
-          </Link>
-          <span aria-hidden="true">·</span>
-        </>
-      )}
-      <Link to={PRIVACY_PATH} className={className}>
-        {t("legal", "privacy")}
-      </Link>
-      <span aria-hidden="true">·</span>
-      <Link to={TERMS_PATH} className={className}>
-        {t("legal", "terms")}
-      </Link>
-      <span aria-hidden="true">·</span>
-      {/* Donations keep the relay paid for; the link says so in its title. */}
-      <a
-        href={SUPPORT_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        title={t("legal", "supportHint")}
-        className={className}
-      >
-        {t("legal", "support")}
-      </a>
-    </span>
+    <>
+      <span className="inline-flex flex-wrap items-center justify-center gap-3">
+        {helpTo && SHOWCASE_HELP && (
+          <>
+            <Link to={helpTo} className={className}>
+              {t("help", "navLabel")}
+            </Link>
+            <span aria-hidden="true">·</span>
+          </>
+        )}
+        <Link to={PRIVACY_PATH} className={className}>
+          {t("legal", "privacy")}
+        </Link>
+        <span aria-hidden="true">·</span>
+        <Link to={TERMS_PATH} className={className}>
+          {t("legal", "terms")}
+        </Link>
+        <span aria-hidden="true">·</span>
+        {/* Donations keep the relay paid for; the link says so in its title. */}
+        <a
+          href={SUPPORT_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={t("legal", "supportHint")}
+          className={className}
+        >
+          {t("legal", "support")}
+        </a>
+      </span>
+      {/* HoYoverse's fan-content rules ask every fan work to carry their copyright notice. */}
+      <span className="mt-2 block text-xs opacity-80">{t("legal", "copyright")}</span>
+    </>
   );
 }

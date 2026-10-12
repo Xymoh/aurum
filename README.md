@@ -30,7 +30,7 @@ Three scorers live under one roof, each with its own layout and palette:
 - **Main Stat & Set Evaluation** - Tracks correct main stats and recommended set bonuses (informational, no score penalty)
 - **Automated Data Pipeline** - Character stats auto-fetched from Genshin Optimizer repo with manual weight curation
 - **English + 简体中文** - Auto-detected from the browser and switchable in the header; character, weapon and artifact-set names use the game's own official translations. More languages can be added later — see `src/i18n/`
-- **Dark/Light Theme** - Toggle between themes
+- **Dark Theme** - A light theme is built but parked behind `VITE_LIGHT_THEME` (off in production)
 - **Responsive** - Mobile-friendly expandable character cards
 
 ## Scoring Methodology
@@ -331,8 +331,17 @@ GITHUB_TOKEN=$(gh auth token) node scripts/fetch-fribbels-weights.mjs
 
 Hosted on GitHub Pages via GitHub Actions. On push to `main`, the workflow:
 1. Installs dependencies
-2. Builds with Vite
+2. Builds with Vite, then `scripts/prerender.mjs` writes an HTML file per
+   game page, build guide and legal page (own title, description and
+   canonical URL) plus `sitemap.xml` and `robots.txt`
 3. Deploys to GitHub Pages
+
+The prerender step exists because GitHub Pages answers any path without a
+file of its own with a 404 before `404.html` redirects into the app, and
+search engines drop 404s. Showcase pages are deliberately left to that
+redirect: they are other players' profiles. After a deploy, submit
+`sitemap.xml` in Google Search Console; `robots.txt` only takes effect once
+the site sits at a domain root. The social preview image is `public/og.png`.
 
 Enka.Network does not send CORS headers, so the browser cannot call it directly.
 In development the Vite dev server proxies `/api/proxy`. In production the app

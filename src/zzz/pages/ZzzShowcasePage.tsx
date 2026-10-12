@@ -9,6 +9,7 @@ import { AgentPanel } from "../components/AgentPanel";
 import { ShareCardProvider } from "../../lib/shareCard/ShareCardProvider";
 import { agentPanelId } from "../panelId";
 import { useI18n } from "../../i18n";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { gradeFor } from "../scoring";
 import { agentIcon } from "../images";
 import type { ZzzAgent, ZzzDisc } from "../types";
@@ -182,6 +183,7 @@ function ShareButton() {
 export function ZzzShowcasePage() {
   const { uid = "" } = useParams();
   const { t } = useI18n();
+  useDocumentTitle(t("zzz", "documentTitle"));
   const { data, isLoading, isError, isFetching, error, forceRefresh, freshUntil } = useZzzShowcase(uid);
   const invalidUid = !isValidZzzUid(uid);
   const secondsFresh = useFreshCountdown(freshUntil);

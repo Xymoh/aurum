@@ -1,6 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
 import { PageTransition } from "../../components/ui/PageTransition";
-import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { GameRail, GameSwitcherCompact } from "../../games/GameRail";
 import { ThemeToggle } from "../../components/ui/ThemeToggle";
 import { LanguageSwitcher } from "../../components/ui/LanguageSwitcher";
@@ -19,7 +18,6 @@ import { HELP_PATH } from "../../help/content";
  */
 export function HsrLayout() {
   const { t } = useI18n();
-  useDocumentTitle(t("hsr", "documentTitle"));
 
   return (
     <div className="flex min-h-screen flex-col bg-hsr-bg text-hsr-text lg:pl-14" data-game="hsr">

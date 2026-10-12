@@ -10,6 +10,7 @@ import { WeakestArtifacts } from "../components/showcase/WeakestArtifacts";
 import { LoadingSkeleton } from "../components/ui/LoadingSkeleton";
 import { WarningIcon } from "../components/ui/icons";
 import { useI18n } from "../i18n";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { isValidUid } from "../lib/uid";
 import { errorCode } from "../lib/showcaseError";
 import { getGrade } from "../lib/scoring";
@@ -22,6 +23,7 @@ export function ShowcasePage() {
     useShowcase(uid ?? "");
   const [focusSignal, setFocusSignal] = useState<FocusSignal | null>(null);
   const { t } = useI18n();
+  useDocumentTitle("Artifact Aurum - Genshin Impact artifact scorer");
 
   const characters = data?.characters ?? [];
 

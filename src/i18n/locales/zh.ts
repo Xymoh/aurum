@@ -13,6 +13,7 @@ const zh: Dictionary = {
     terms: "使用条款",
     support: "在 Ko-fi 上支持",
     supportHint: "本站免费使用，捐赠用于支付托管费用。",
+    copyright: "游戏内容与素材的商标及版权归 COGNOSPHERE 与米哈游所有，米哈游保留所有权利。其他内容归其各自所有者所有。",
   },
 
   help: {
@@ -321,7 +322,7 @@ const zh: Dictionary = {
   builds: {
     title: "配装攻略",
     lead: "每位角色的武器、套装、属性、配队、技能与材料，并可与你自己的配装对照。",
-    documentTitle: "配装攻略 - Aurum",
+    documentTitle: "{game} 配装攻略 - Aurum",
     documentTitleCharacter: "{name} 配装 - {game} - Aurum",
     navLabel: "配装",
     search: "搜索角色",
