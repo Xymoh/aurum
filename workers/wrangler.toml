@@ -7,6 +7,10 @@ name = "enka-proxy"
 main = "enka-proxy.js"
 compatibility_date = "2024-01-01"
 
+# The site calls the relay at enka-proxy.<subdomain>.workers.dev (VITE_ENKA_PROXY),
+# so that address must stay on whatever domains or routes the Worker gains.
+workers_dev = true
+
 # ALLOWED_ORIGINS is set in the Cloudflare dashboard, not here, so a deploy
 # never wipes it.
 keep_vars = true
