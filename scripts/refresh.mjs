@@ -60,10 +60,15 @@ const STEPS = [
   { id: "hsr-weights", label: "Star Rail per-character weights (Fribbels)", script: "fetch-fribbels-weights.mjs" },
   { id: "hsr-stats", label: "Star Rail stat curves (StarRailRes)", script: "fetch-hsr-stats.mjs" },
   { id: "zzz", label: "Zenless game tables (Enka store)", script: "fetch-zzz-data.mjs" },
-  { id: "zzz-weights", label: "Zenless per-agent weights (Prydwen guides)", script: "fetch-zzz-weights.mjs" },
+  { id: "zzz-weights", label: "Zenless substat priorities (Prydwen, needs a browser window)", script: "fetch-zzz-weights.mjs" },
   { id: "zzz-art", label: "Zenless render framing for new agents", script: "measure-zzz-art.mjs" },
-  { id: "genshin-sets", label: "Genshin recommended artifact sets and guide picks (Game8, genshin.gg fallback)", script: "fetch-genshin-sets.mjs" },
-  { id: "sets", label: "Star Rail and Zenless recommended sets and guide picks (Prydwen guides)", script: "fetch-prydwen-sets.mjs" },
+  // The guide importers each leave their site's picks in .sources/ (local,
+  // git-ignored); the consensus step publishes the vote across all of them.
+  { id: "genshin-sets", label: "Genshin guide picks (Game8, genshin.gg)", script: "fetch-genshin-sets.mjs" },
+  { id: "kqm", label: "Genshin guide picks (KQM)", script: "fetch-kqm-guides.mjs" },
+  { id: "game8", label: "Star Rail and Zenless guide picks (Game8)", script: "fetch-game8-guides.mjs" },
+  { id: "sets", label: "Star Rail and Zenless guide picks (Prydwen, needs a browser window)", script: "fetch-prydwen-sets.mjs" },
+  { id: "consensus", label: "Combine every guide's picks into the published ones", script: "consensus.mjs" },
   // The guide pages merge the picks above with game text, so they run last.
   // Genshin's builder keeps Amber's answers for a day, which would carry
   // yesterday's text into a patch-day run; the other two builders check
@@ -92,7 +97,7 @@ function snapshot() {
   const hsr = readJSON("src/hsr/data/characters.json") ?? {};
   const fribbels = readJSON("src/hsr/data/scoring-metadata.json")?.characters ?? {};
   const zzz = readJSON("src/zzz/data/agents.json") ?? {};
-  const prydwenZzz = readJSON("src/zzz/data/scoring-metadata.json")?.characters ?? {};
+  const guideZzz = readJSON("src/zzz/data/scoring-metadata.json")?.characters ?? {};
   // The build picker lists the Genshin characters with a build config, which
   // leaves out placeholders no guide site will ever cover. Both Travelers
   // read Aether's entry.
@@ -123,7 +128,7 @@ function snapshot() {
     }),
     zzz: new Set(Object.keys(zzz)),
     zzzNames: Object.fromEntries(Object.entries(zzz).map(([id, c]) => [id, c.name])),
-    zzzUnweighted: Object.keys(zzz).filter((id) => !prydwenZzz[id]),
+    zzzUnweighted: Object.keys(zzz).filter((id) => !guideZzz[id]),
     giListed: Object.keys(gi)
       .filter((id) => goIds.has(id))
       .flatMap((id) => (TRAVELER_IDS.includes(id) ? (id === TRAVELER_IDS[0] ? TRAVELER_ELEMENTS.map((element) => travelerId(element)) : []) : [id])),
@@ -217,7 +222,7 @@ function main() {
   if (after.giUnweighted.length) {
     todo.push(
       `Genshin characters scoring on default weights (derived from their ascension stat): ${after.giUnweighted.join(", ")}.\n` +
-        `    Once Prydwen or KQM has a guide, run: node scripts/audit-genshin-weights.mjs --only=<Name>\n` +
+        `    Once the guide sites cover them, run: node scripts/audit-genshin-weights.mjs --only=<Name>\n` +
         `    then add their weights and ideal main stats to src/data/character-builds.json and re-run fetch-go-data.js.`,
     );
   }
@@ -225,14 +230,14 @@ function main() {
     const names = after.hsrUnweighted.map((id) => `${after.hsrNames[id]} (${id})`);
     todo.push(
       `Star Rail characters on a Path fallback (no Fribbels entry yet): ${names.join(", ")}.\n` +
-        `    Re-run npm run fetch-hsr-weights in a few days, or add a CHARACTER_OVERRIDES entry in src/hsr/weights.ts from Prydwen's guide.`,
+        `    Re-run npm run fetch-hsr-weights in a few days, or add a CHARACTER_OVERRIDES entry in src/hsr/weights.ts from the guides' consensus.`,
     );
   }
   if (after.zzzUnweighted.length) {
     const names = after.zzzUnweighted.map((id) => `${after.zzzNames[id]} (${id})`);
     todo.push(
-      `Zenless agents on a role fallback (no Prydwen guide parsed yet): ${names.join(", ")}.\n` +
-        `    Re-run npm run fetch-zzz-weights once Prydwen publishes their build page.`,
+      `Zenless agents on a role fallback (no guide's substat priority parsed yet): ${names.join(", ")}.\n` +
+        `    Re-run npm run refresh -- --only=zzz-weights,game8,consensus once the guide sites publish their build pages.`,
     );
   }
   const tables = readTableReport();
@@ -244,9 +249,9 @@ function main() {
   }
   if (after.giUnmatchedSets.length) {
     todo.push(
-      `genshin.gg recommends sets src/data/artifacts.json does not know, so those recommendations were left out: ${after.giUnmatchedSets.join(", ")}.\n` +
-        `    Usually genshin.gg spelling a set differently from the game: match the name in scripts/fetch-genshin-sets.mjs,\n` +
-        `    then re-run it and scripts/build-genshin-guides.mjs.`,
+      `A guide recommends sets src/data/artifacts.json does not know, so those recommendations were left out: ${after.giUnmatchedSets.join(", ")}.\n` +
+        `    Usually a site spelling a set differently from the game: match the name in scripts/fetch-genshin-sets.mjs,\n` +
+        `    then re-run the refresh.`,
     );
   }
   if (todo.length) {
@@ -268,9 +273,9 @@ function main() {
   // and the next refresh picks the guide up by itself.
   const uncovered = (listed, picks, names) => (picks ? listed.filter((id) => !picks.has(id)).map((id) => `${names[id]} (${id})`) : []);
   const waiting = [
-    ["Genshin, Game8", uncovered(after.giListed, after.giPicks, after.giNames)],
-    ["Star Rail, Prydwen", uncovered([...after.hsr], after.hsrPicks, after.hsrNames)],
-    ["Zenless, Prydwen", uncovered([...after.zzz], after.zzzPicks, after.zzzNames)],
+    ["Genshin", uncovered(after.giListed, after.giPicks, after.giNames)],
+    ["Star Rail", uncovered([...after.hsr], after.hsrPicks, after.hsrNames)],
+    ["Zenless", uncovered([...after.zzz], after.zzzPicks, after.zzzNames)],
   ].filter(([, names]) => names.length > 0);
   if (waiting.length) {
     console.log("\nNo guide yet (their build pages show game data only until a later refresh finds one):");

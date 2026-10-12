@@ -10,8 +10,8 @@
  * Fallback: Path-level profiles, so a character released after the table was
  * last refreshed still scores sensibly the moment Enka knows their Path.
  *
- * Patch layer: CHARACTER_OVERRIDES, for the rare case where a guide site we
- * trust (Prydwen) disagrees with Fribbels and we side with the guide.
+ * Patch layer: CHARACTER_OVERRIDES, for the rare case where the community
+ * guides disagree with Fribbels and we side with the guides.
  */
 
 import type { HsrSlot, HsrStatKey } from "./types";
@@ -44,8 +44,8 @@ export interface ScoringMeta {
   relicSets: SetPick[][];
   /** Recommended planar ornament sets, best first. */
   ornamentSets: SetPick[][];
-  /** Who answered for the sets: Prydwen fills in where Fribbels lists none. */
-  setsSource: "fribbels" | "prydwen" | null;
+  /** Who answered for the sets: the guides' consensus, Fribbels where no guide covers the character. */
+  setsSource: "guides" | "fribbels" | null;
   source: "fribbels" | "path";
 }
 
@@ -77,10 +77,9 @@ const SET_ID_BY_NAME = new Map(Object.entries(SET_NAMES).map(([id, name]) => [na
 interface FetchedSets {
   relicSets?: { setId: string; pieces: number }[][];
   ornamentSets?: { setId: string; pieces: number }[][];
-  source?: string;
 }
-/** Prydwen's lists, for the characters Fribbels does not simulate. */
-const PRYDWEN_SETS = (setRecommendations as { characters: Record<string, FetchedSets> }).characters;
+/** The community guides' consensus (scripts/consensus.mjs), which counts Fribbels' lists as one vote. */
+const GUIDE_SETS = (setRecommendations as { characters: Record<string, FetchedSets> }).characters;
 
 /** Fribbels states names; the same name twice is a 4-piece, two names a 2+2. */
 function fromFribbelsPair(pair: string[]): SetPick[] {
@@ -93,23 +92,16 @@ function fromFetched(picks: { setId: string; pieces: number }[][] | undefined): 
 }
 
 /**
- * Fribbels first, Prydwen where Fribbels has nothing: Fribbels only lists
- * sets for characters it runs damage simulations on, which leaves the
- * supports blank, and Prydwen covers everyone.
+ * The guides' consensus first, which already weighs Fribbels' lists in;
+ * Fribbels alone for a character no guide covers yet.
  */
 function setsFor(avatarId: number, entry: MetadataEntry | undefined): Pick<ScoringMeta, "relicSets" | "ornamentSets" | "setsSource"> {
+  const fetched = GUIDE_SETS[String(avatarId)];
+  const fromGuides = { relicSets: fromFetched(fetched?.relicSets), ornamentSets: fromFetched(fetched?.ornamentSets) };
+  if (fromGuides.relicSets.length || fromGuides.ornamentSets.length) return { ...fromGuides, setsSource: "guides" };
   const relicSets = (entry?.relicSets ?? []).map(fromFribbelsPair);
   const ornamentSets = (entry?.ornamentSets ?? []).map((name) => [{ setId: SET_ID_BY_NAME.get(name) ?? null, name, pieces: 2 }]);
-  if (relicSets.length || ornamentSets.length) return { relicSets, ornamentSets, setsSource: "fribbels" };
-  const fetched = PRYDWEN_SETS[String(avatarId)];
-  const fromPrydwen = { relicSets: fromFetched(fetched?.relicSets), ornamentSets: fromFetched(fetched?.ornamentSets) };
-  const any = fromPrydwen.relicSets.length || fromPrydwen.ornamentSets.length;
-  return { ...fromPrydwen, setsSource: any ? "prydwen" : null };
-}
-
-/** The Prydwen page a character's sets were read from, when they were. */
-export function prydwenSetsUrl(avatarId: number): string | null {
-  return PRYDWEN_SETS[String(avatarId)]?.source ?? null;
+  return { relicSets, ornamentSets, setsSource: relicSets.length || ornamentSets.length ? "fribbels" : null };
 }
 
 /** Below this, a roll is doing nothing useful and counts as waste. */

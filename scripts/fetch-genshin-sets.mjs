@@ -1,19 +1,15 @@
 /**
  * fetch-genshin-sets.mjs
  * ──────────────────────────────────────────────────────────────────
- * Recommended artifact sets per Genshin character, written to
- * src/data/set-recommendations.json, and the rest of each guide's picks
- * (role, weapons, teams, main stats, substat line, talent priority) written
- * to src/data/guide-picks.json. Game8 first; genshin.gg for a character
- * Game8 has no usable page for.
+ * Game8's and genshin.gg's picks for every Genshin character: recommended
+ * artifact sets, main stats, the Energy Recharge target, role, weapons,
+ * teams and talent priority. Each site's answers go to its own file in the
+ * local cache (.sources/genshin/game8.json and genshin-gg.json, see
+ * sources.mjs); scripts/consensus.mjs combines them with the other sources
+ * into the published src/data/guide-picks.json and set-recommendations.json.
  *
- * Why Game8: it covers the whole roster, dates every page, and keeps up
- * with buffs. genshin.gg lagged behind them (Yumemizuki Mizuki still read
- * Viridescent Venerer and ER sands months after her Stellar-Swirl sets had
- * changed everyone else's advice). Both serve plain HTML, so no browser is
- * needed. The hand-maintained character-builds.json only names sets for
- * about 40% of the roster, Prydwen has no Genshin section, and KQM's guides
- * are prose with no fixed shape.
+ * Both serve plain HTML, so no browser is needed. Prydwen has no Genshin
+ * section; KQM is read by fetch-kqm-guides.mjs.
  *
  * Only facts are taken: names, ranks, stat lines, dates and a short
  * team/build title. Never the guides' prose, notes, tooltips or ratings. The
@@ -39,16 +35,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { emptyEntry, writeSource } from "./sources.mjs";
 import { endgameFigure, energyTarget } from "./guide-figures.mjs";
 import { TRAVELER_ELEMENTS, TRAVELER_IDS, travelerId, travelerName } from "./genshin-traveler.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, "..");
-const OUTPUT = path.join(ROOT, "src", "data", "set-recommendations.json");
-const PICKS_OUTPUT = path.join(ROOT, "src", "data", "guide-picks.json");
-const CHARACTERS = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "data", "characters.json"), "utf8"));
-const SETS = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "data", "artifacts.json"), "utf8"));
-const WEAPONS = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "data", "weapon-ids.json"), "utf8"));
+export const ROOT = path.resolve(__dirname, "..");
+export const CHARACTERS = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "data", "characters.json"), "utf8"));
+export const SETS = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "data", "artifacts.json"), "utf8"));
+export const WEAPONS = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "data", "weapon-ids.json"), "utf8"));
 
 const GAME8 = "https://game8.co";
 /**
@@ -57,12 +52,12 @@ const GAME8 = "https://game8.co";
  * the "All Character Builds" page also has a table that still lists the few
  * characters the menu has dropped (Lan Yan). Both are read.
  */
-const GAME8_INDEXES = [`${GAME8}/games/Genshin-Impact/archives/296707`, `${GAME8}/games/Genshin-Impact/archives/530535`];
-const GG = "https://genshin.gg";
+export const GAME8_INDEXES = [`${GAME8}/games/Genshin-Impact/archives/296707`, `${GAME8}/games/Genshin-Impact/archives/530535`];
+export const GG = "https://genshin.gg";
 // Only used to tell a real weapon from the game's internal duplicates that
 // share its name (see buildWeaponIndex).
 const AMBER_WEAPONS = "https://gi.yatta.moe/api/v2/en/weapon";
-const USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) aurum-fetcher/1.0";
+export const USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) aurum-fetcher/1.0";
 const ONLY = new Set(
   (process.argv.find((a) => a.startsWith("--only=")) ?? "")
     .slice(7)
@@ -71,7 +66,7 @@ const ONLY = new Set(
     .filter(Boolean),
 );
 /** One page at a time, a second apart. */
-const DELAY_MS = 1000;
+export const DELAY_MS = 1000;
 /** Ranks past this are "if you have nothing else" filler on most pages. */
 const MAX_RANKS = 4;
 /** Pages list three or four teams; past that they repeat themselves. */
@@ -81,10 +76,10 @@ const MAX_TEAMS = 4;
  * Manekin and Manekina are Miliastra Wonderland avatars: they exist only in
  * that mode, no guide covers them, and the site has no build page for them.
  */
-const NEVER_BUILT = new Set(["10000117", "10000118"]);
+export const NEVER_BUILT = new Set(["10000117", "10000118"]);
 
 /** The guides' short names where they are not simply a word of Enka's. */
-const NAME_ALIASES = {
+export const NAME_ALIASES = {
   childe: "tartaglia",
 };
 
@@ -93,15 +88,20 @@ const NAME_ALIASES = {
  * valued in normalise() form. Checked against the set list, not guessed:
  * each one names a single set.
  */
-const SET_ALIASES = {
+export const SET_ALIASES = {
   "nighttime whispers": "nighttime whispers in the echoing woods",
   "disenchantment in deep shadows": "disenchantment in deep shadow",
+  // KQM's spellings.
+  "desert pavillion chronicle": "desert pavilion chronicle",
+  "silkens moon serenade": "silken moons serenade",
+  "flower of the paradise lost": "flower of paradise lost",
+  "shimenawa reminiscence": "shimenawas reminiscence",
 };
 
 /** A labelled figure's slot on the page -> the scorer's slot key. */
-const SLOT_OF = { sands: "SANDS", hourglass: "SANDS", goblet: "GOBLET", circlet: "CIRCLET" };
+export const SLOT_OF = { sands: "SANDS", hourglass: "SANDS", goblet: "GOBLET", circlet: "CIRCLET" };
 
-function normalise(s) {
+export function normalise(s) {
   return s
     .toLowerCase()
     .replace(/[’']/g, "")
@@ -112,18 +112,18 @@ function normalise(s) {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /** The page's HTML and the URL it ended up at (Game8 redirects old ids to slugs). */
-async function getPage(url) {
+export async function getPage(url) {
   const res = await fetch(url, { headers: { "User-Agent": USER_AGENT } });
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
   return { html: await res.text(), url: res.url || url };
 }
 
-async function getText(url) {
+export async function getText(url) {
   return (await getPage(url)).html;
 }
 
 /** Tags out, headings marked, entities decoded - enough to read the lists. */
-function toText(html) {
+export function toText(html) {
   return html
     .replace(/<(script|style)[\s\S]*?<\/\1>/g, " ")
     .replace(/<h([1-6])[^>]*>/g, "\n## H$1: ")
@@ -136,7 +136,7 @@ function toText(html) {
     .replace(/\n\s*\n+/g, "\n");
 }
 
-function decode(s) {
+export function decode(s) {
   return s
     .replace(/&gt;/g, ">")
     .replace(/&lt;/g, "<")
@@ -150,14 +150,14 @@ function decode(s) {
 }
 
 /** One element's inner HTML as a single line of text. */
-function inlineText(html) {
+export function inlineText(html) {
   return decode(html.replace(/<[^>]+>/g, " "))
     .replace(/\s+/g, " ")
     .trim();
 }
 
 /** One element's inner HTML as its visible lines ("<br>", "<hr>" and blocks break). */
-function textLines(html) {
+export function textLines(html) {
   return decode(html.replace(/<br\s*\/?>|<hr\b[^>]*>|<\/(div|p|li)>/g, "\n").replace(/<[^>]+>/g, " "))
     .split("\n")
     .map((l) => l.replace(/\s+/g, " ").trim())
@@ -172,7 +172,7 @@ function textLines(html) {
  * A rank is a bare integer followed by (name, pieces) pairs until the next
  * bare integer that is itself followed by a name rather than a count.
  */
-function parseArtifacts(text) {
+export function parseArtifacts(text) {
   const start = text.search(/## H2: [^\n]*Best Artifacts/);
   if (start < 0) return null;
   const end = text.indexOf("## H2:", start + 8);
@@ -208,7 +208,7 @@ function parseArtifacts(text) {
  * section title tells them apart, so the markup is the reliable anchor.
  * Names come back as the page prints them; matching happens in main().
  */
-function parseGgPicks(html) {
+export function parseGgPicks(html) {
   const role = html.match(/<div class="character-role">([\s\S]*?)<\/div>/);
 
   // "Best Weapons" runs from its section title to the next section.
@@ -261,7 +261,7 @@ function parseGgPicks(html) {
 // ── Game8 ───────────────────────────────────────────────────────────
 
 /** Tooltips (weapon passives, set bonuses), scripts and comments out: none of it is read. */
-function stripNoise(html) {
+export function stripNoise(html) {
   return html
     .replace(/<template\b[\s\S]*?<\/template>/g, "")
     .replace(/<(script|style)\b[\s\S]*?<\/\1>/g, "")
@@ -269,7 +269,7 @@ function stripNoise(html) {
 }
 
 /** The page split at each h2: [{ title, html }], html running to the next h2. */
-function h2Sections(html) {
+export function h2Sections(html) {
   const marks = [...html.matchAll(/<h2\b[^>]*>([\s\S]*?)<\/h2>/g)];
   return marks.map((m, i) => ({
     title: inlineText(m[1]),
@@ -278,7 +278,7 @@ function h2Sections(html) {
 }
 
 /** A table as rows of cells: { tag: "th" | "td", attrs, html }. */
-function tableRows(table) {
+export function tableRows(table) {
   return table
     .split(/<tr\b[^>]*>/)
     .slice(1)
@@ -287,12 +287,12 @@ function tableRows(table) {
 }
 
 /** Every table in a stretch of HTML, with where it starts. */
-function tablesIn(html) {
+export function tablesIn(html) {
   return [...html.matchAll(/<table\b[\s\S]*?<\/table>/g)].map((m) => ({ at: m.index, html: m[0] }));
 }
 
 /** The last h3/h4 before a point in a section: the title the table sits under. */
-function headingsBefore(html, at) {
+export function headingsBefore(html, at) {
   return [...html.slice(0, at).matchAll(/<h([34])\b[^>]*>([\s\S]*?)<\/h\1>/g)].map((m) => ({ level: Number(m[1]), text: inlineText(m[2]) }));
 }
 
@@ -302,7 +302,7 @@ function headingsBefore(html, at) {
  * are headings, not items. Each comes back with the text that follows it up
  * to the next link, where a refinement or piece count sits ("(R5)", "x2").
  */
-function linksIn(html) {
+export function linksIn(html) {
   const found = [...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)].filter(
     (m) => /\ba-link\b/.test(m[1]) && !/href=['"]?#/.test(m[1]) && inlineText(m[2]),
   );
@@ -319,7 +319,7 @@ function linksIn(html) {
  *   older  one row per field: "Best Weapon" | cell, with "Artifact Main
  *          Stats" spanning three rows (Sands, Goblet, Circlet)
  */
-function labelledCells(rows) {
+export function labelledCells(rows) {
   const fields = [];
   let pending = null;
   for (const row of rows) {
@@ -344,7 +344,7 @@ function labelledCells(rows) {
 }
 
 /** "Sands: Elemental Mastery" lines anywhere in the given cells -> { SANDS: label }. */
-function slotLabels(cells) {
+export function slotLabels(cells) {
   const out = {};
   for (const cell of cells) {
     for (const line of textLines(cell)) {
@@ -359,7 +359,7 @@ function slotLabels(cells) {
  * A substat list as one ranked line. Newer pages number it ("1. CRIT",
  * "2. Elemental Mastery"), older ones write "CRIT Rate, CRIT DMG, HP%".
  */
-function substatList(lines) {
+export function substatList(lines) {
   const text = lines.join(" ");
   const items = /(^|\s)\d+\.\s*/.test(text)
     ? text.split(/(?:^|\s)\d+\.\s*/)
@@ -373,7 +373,7 @@ function substatList(lines) {
  * substats. Pages with several builds (Hu Tao's three sets, Raiden's
  * Main DPS and Hyperbloom) list their headline build first.
  */
-function parseGame8Build(section) {
+export function parseGame8Build(section) {
   const table = tablesIn(section.html).find((t) => /Best\s*(?:<[^>]+>\s*)*Weapon/.test(t.html));
   if (!table) return null;
   const fields = labelledCells(tableRows(table.html));
@@ -438,7 +438,7 @@ function parseGame8Build(section) {
  * is kept up to date where the build table is not (Neuvillette's build table
  * still lists ATK% substats).
  */
-function parseStatPriority(html) {
+export function parseStatPriority(html) {
   const table = tablesIn(html).find((t) => /<th\b[^>]*>\s*Stat Priority\s*<\/th>/.test(t.html));
   if (!table) return null;
   const mainStatLabels = {};
@@ -462,7 +462,7 @@ function parseStatPriority(html) {
 }
 
 /** 1 for "Best" / "1st", 2 for "2nd" / "Second Best", null for "Alternative". */
-function ordinal(label) {
+export function ordinal(label) {
   const s = label.toLowerCase().trim();
   if (/^(best|1st|first best)$/.test(s)) return 1;
   const n = s.match(/^(\d+)(st|nd|rd|th)$/);
@@ -477,7 +477,7 @@ function ordinal(label) {
  * the rank number already says, and anything longer than a few words is the
  * guide explaining itself, which stays on its page.
  */
-function rankLabel(label) {
+export function rankLabel(label) {
   const text = label.replace(/[:：]\s*$/, "").trim();
   if (!text || ordinal(text) !== null) return null;
   // Star ratings, letter grades ("SS", "A+") and scores ("4.5/5").
@@ -495,7 +495,7 @@ function rankLabel(label) {
  * Rows that name no set (prose such as "2-PC EM combinations") are skipped.
  * Returns the ranks as set parts, and each rank's label (see rankLabel).
  */
-function parseGame8Ranks(section, report) {
+export function parseGame8Ranks(section, report) {
   for (const table of tablesIn(section.html)) {
     const ranks = [];
     for (const row of tableRows(table.html)) {
@@ -593,7 +593,7 @@ export function parseGame8Teams(section) {
  * "Talent Priority": either 1st | 2nd | 3rd over one row of talents, or a
  * column per role with a row per rank, where the first role is read.
  */
-function parseTalentPriority(html) {
+export function parseTalentPriority(html) {
   const heading = html.match(/<h[234]\b[^>]*>(?:(?!<\/h[234]>)[\s\S])*Talent Priority(?:(?!<\/h[234]>)[\s\S])*<\/h[234]>/);
   if (!heading) return null;
   const table = tablesIn(html.slice(heading.index + heading[0].length))[0];
@@ -616,7 +616,7 @@ function parseTalentPriority(html) {
  * ±130% Total Energy Recharge"). Values are as printed, alternatives joined
  * with " / "; guide-figures.mjs reduces them to figures.
  */
-function parseGoalStats(html) {
+export function parseGoalStats(html) {
   const goals = [];
   const header = html.search(/<th\b[^>]*>\s*Stat\s*<\/th>\s*<th\b[^>]*>\s*Goal Value\s*<\/th>/i);
   if (header >= 0) {
@@ -671,14 +671,14 @@ export function teamLabel(name, stripNames) {
  * -> "Yumemizuki Mizuki", and "Pyro Traveler How to Unlock and Best Builds"
  * -> "Pyro Traveler".
  */
-function game8TitleName(html) {
+export function game8TitleName(html) {
   const title = html.match(/<title>([\s\S]*?)<\/title>/);
   if (!title) return null;
   const m = inlineText(title[1]).match(/^(.+?)\s+(?:How to (?:Unlock|Get)(?: and)?\s+)?(?:Ratings?|Best Builds?|Builds?)\b/);
   return m ? m[1] : null;
 }
 
-function parseGame8Page(html) {
+export function parseGame8Page(html) {
   const clean = stripNoise(html);
   const sections = h2Sections(clean);
   const builds = sections.find((s) => /\bBuilds?\b/.test(s.title) && !/Team/.test(s.title));
@@ -703,7 +703,7 @@ function parseGame8Page(html) {
 }
 
 /** The Game8 menu and build-table links: [{ label, url, fromTable }]. */
-function game8IndexLinks(html) {
+export function game8IndexLinks(html) {
   const links = [];
   for (const m of html.matchAll(/<a class="menuItem-link[^"]*"[^>]*data-track-nier-value="([^"]*)"[^>]*href="([^"]*)"/g)) {
     if (/\/archives\//.test(m[2])) links.push({ label: decode(m[1]), url: new URL(m[2], GAME8).href, fromTable: false });
@@ -717,13 +717,13 @@ function game8IndexLinks(html) {
 
 // ── Matching ────────────────────────────────────────────────────────
 
-function buildSetIndex() {
+export function buildSetIndex() {
   const byName = new Map();
   for (const [id, s] of Object.entries(SETS)) byName.set(normalise(s.name), id);
   return byName;
 }
 
-function matchSet(name, setByName) {
+export function matchSet(name, setByName) {
   const key = normalise(name);
   return setByName.get(SET_ALIASES[key] ?? key) ?? null;
 }
@@ -735,7 +735,7 @@ function matchSet(name, setByName) {
  * Amber lists is the weapon a player can hold; if Amber cannot be reached or
  * does not settle it, the name is reported rather than guessed.
  */
-async function buildWeaponIndex() {
+export async function buildWeaponIndex() {
   const byName = new Map();
   for (const [id, name] of Object.entries(WEAPONS)) {
     const key = normalise(name);
@@ -764,13 +764,13 @@ async function buildWeaponIndex() {
 }
 
 /** "Traveler (Cryo)", "Cryo Traveler" -> "Cryo"; null for everyone else. */
-function travelerElementOf(name) {
+export function travelerElementOf(name) {
   const m = name.match(/^Traveler\s*\((\w+)\)$/i) ?? name.match(/^(\w+)\s+Traveler$/i);
   if (!m) return null;
   return TRAVELER_ELEMENTS.find((e) => e.toLowerCase() === m[1].toLowerCase()) ?? null;
 }
 
-function matchCharacter(pageName, byName) {
+export function matchCharacter(pageName, byName) {
   // "Traveler (Anemo)", "Tartaglia (Childe)", "Wanderer (Scaramouche)": the
   // bracket is the page's business, the id is not.
   const bare = pageName.replace(/\s*\([^)]*\)\s*$/, "");
@@ -786,7 +786,7 @@ function matchCharacter(pageName, byName) {
 }
 
 /** "traveler(anemo)" -> "Anemo"; null for every other slug. */
-function travelerSlugElement(slug) {
+export function travelerSlugElement(slug) {
   const m = slug.match(/^traveler\(([a-z]+)\)$/);
   return m ? m[1][0].toUpperCase() + m[1].slice(1) : null;
 }
@@ -795,7 +795,7 @@ function travelerSlugElement(slug) {
  * Everyone a guide is read for, by id: each character in characters.json,
  * except that the Traveler is seven, one per element, and never one per body.
  */
-function subjects() {
+export function subjects() {
   const out = new Map();
   for (const [id, c] of Object.entries(CHARACTERS)) {
     if (NEVER_BUILT.has(id) || TRAVELER_IDS.includes(id)) continue;
@@ -807,7 +807,7 @@ function subjects() {
   return out;
 }
 
-function wanted(id, subject) {
+export function wanted(id, subject) {
   if (!ONLY.size) return true;
   const name = normalise(subject.name);
   return ONLY.has(id) || ONLY.has(name) || ONLY.has(name.replace(/ /g, "")) || name.split(" ").some((w) => ONLY.has(w));
@@ -820,7 +820,7 @@ function wanted(id, subject) {
  * or "DEF" is the percentage (flat stats never roll on sands, goblet or
  * circlet). "CRIT" is both crit stats.
  */
-function mainStatKeys(part) {
+export function mainStatKeys(part) {
   const s = part.toLowerCase().replace(/[%.]/g, "").replace(/\s+/g, " ").trim();
   if (s === "crit") return ["CRIT_RATE", "CRIT_DMG"];
   if (s === "crit rate") return ["CRIT_RATE"];
@@ -844,7 +844,7 @@ function mainStatKeys(part) {
  * "ATK_PERCENT"], ... }, best first. Notes in brackets ("CRIT Rate (if
  * Favonius)") are dropped; a part that names no stat is reported.
  */
-function mainStatsFrom(labels, unmapped) {
+export function mainStatsFrom(labels, unmapped) {
   const out = {};
   for (const slot of ["SANDS", "GOBLET", "CIRCLET"]) {
     const label = labels?.[slot];
@@ -864,7 +864,7 @@ function mainStatsFrom(labels, unmapped) {
 /** First two words of every set name, lowercased: a build titled by its set starts with one. */
 const SET_PREFIXES = Object.values(SETS).map((s) => normalise(s.name).split(" ").slice(0, 2).join(" "));
 
-function escapeRegExp(s) {
+export function escapeRegExp(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
@@ -875,7 +875,7 @@ function escapeRegExp(s) {
  * ("Crimson Witch of Flames DPS") is the build's name, not a role, and the
  * heading above it ("Hu Tao Main DPS Builds") is used instead.
  */
-function roleFrom(build, names) {
+export function roleFrom(build, names) {
   const clean = (title) => {
     if (!title) return null;
     let t = ` ${title} `;
@@ -935,14 +935,6 @@ async function main() {
   }
   console.log(`  ${game8.size} characters with a Game8 page`);
 
-  const readExisting = (file) => (ONLY.size && fs.existsSync(file) ? (JSON.parse(fs.readFileSync(file, "utf8")).characters ?? {}) : {});
-  const characters = readExisting(OUTPUT);
-  const picks = readExisting(PICKS_OUTPUT);
-  // The Traveler is keyed per element; a per-body entry is from before that.
-  for (const id of TRAVELER_IDS) {
-    delete characters[id];
-    delete picks[id];
-  }
   const unmatched = [];
   const unknownSets = new Set();
   const unknownWeapons = new Set();
@@ -1147,79 +1139,44 @@ async function main() {
     };
   }
 
+  // Both sites for every character: the published picks are their consensus
+  // (scripts/consensus.mjs), so neither is a fallback for the other.
+  const bySite = { game8: {}, "genshin-gg": {} };
   for (const [id, subject] of who) {
     if (!wanted(id, subject)) continue;
-
-    let result = await fromGame8(id);
-    if (!result.sourceLabel) {
-      fallbackWhy.push(`${subject.name} (${result.why})`);
-      result = await fromGenshinGg(id);
-    }
-    if (!result.sourceLabel) {
-      unmatched.push(`${subject.name} (${result.why})`);
-      continue;
-    }
-    bySource[result.sourceLabel].push(subject.name);
-
-    picks[id] = {
-      name: subject.name,
-      source: result.source,
-      sourceLabel: result.sourceLabel,
-      sourceUpdated: result.sourceUpdated,
-      mainStats: result.mainStats,
-      role: result.role,
-      weapons: result.weapons,
-      teams: result.teams,
-      synergies: [],
-      substatLine: result.substatLine,
-      endgameStats: result.endgameStats,
-      skillPriority: result.skillPriority,
-      tracePriority: null,
-    };
-    // These feed the scorer's set-bonus verdict and "farm this set" advice.
-    // The Traveler's are per element, and the scorer reads the entry for the
-    // element the player's Traveler is on.
-    if (result.sets.length) {
-      characters[id] = {
-        name: subject.name,
+    const results = { game8: await fromGame8(id), "genshin-gg": await fromGenshinGg(id) };
+    const line = [];
+    for (const [site, result] of Object.entries(results)) {
+      if (!result.sourceLabel) {
+        (site === "game8" ? fallbackWhy : unmatched).push(`${subject.name} (${result.why})`);
+        continue;
+      }
+      bySource[result.sourceLabel].push(subject.name);
+      bySite[site][id] = {
+        ...emptyEntry(subject.name, result.source),
+        updated: result.sourceUpdated,
+        role: result.role,
+        weapons: result.weapons,
+        teams: result.teams,
+        mainStats: result.mainStats,
+        endgameStats: result.endgameStats,
+        skillPriority: result.skillPriority,
+        erTarget: result.erTarget,
         sets: result.sets,
-        // The guide's short label per rank ("Best for Stellar"), in step with `sets`.
-        ...(result.setLabels.some(Boolean) ? { labels: result.setLabels } : {}),
-        // The guide's main stats, which the scorer accepts alongside the curated ones.
-        ...(result.mainStats ? { mainStats: result.mainStats } : {}),
-        // The Energy Recharge the page states, the scorer's only ER target.
-        ...(result.erTarget ? { erTarget: result.erTarget } : {}),
-        source: result.source,
-        sourceLabel: result.sourceLabel,
       };
+      line.push(`${result.sourceLabel} ${result.sets.length} sets, ${result.weapons.length} weapons, ${result.teams.length} teams`);
     }
-    console.log(
-      `  ${subject.name.padEnd(22)} ${result.sourceLabel.padEnd(10)} ${result.sets.length} sets, ${result.weapons.length} weapons, ${result.teams.length} teams${result.sourceUpdated ? `, updated ${result.sourceUpdated}` : ""}`,
-    );
+    console.log(`  ${subject.name.padEnd(22)} ${line.join(" | ") || "no page"}`);
   }
 
-  // By avatar id, the Traveler's elements after the body they are keyed on.
-  const byId = (obj) => Object.fromEntries(Object.entries(obj).sort(([a], [b]) => parseInt(a) - parseInt(b) || a.localeCompare(b)));
-  const missing = [...who].filter(([id]) => !picks[id]).map(([, subject]) => subject.name);
-  const fetchedAt = new Date().toISOString();
-  const indexUrl = GAME8_INDEXES.at(-1);
-  const output = {
-    source: indexUrl,
-    fetchedAt,
-    // Kept with the data, not just printed: a recommendation naming one of
-    // these was dropped whole, and refresh.mjs lists them for a person.
-    ...(unknownSets.size ? { unmatchedSets: [...unknownSets].sort() } : {}),
-    characters: byId(characters),
-  };
-  fs.writeFileSync(OUTPUT, JSON.stringify(output, null, 2) + "\n");
-  console.log(`\n  ✔ wrote ${Object.keys(characters).length} characters to ${path.relative(ROOT, OUTPUT)}`);
+  for (const [site, entries] of Object.entries(bySite)) {
+    const file = writeSource("genshin", site, entries, { merge: ONLY.size > 0 });
+    console.log(`  ✔ wrote ${Object.keys(entries).length} characters to ${path.relative(ROOT, file)}`);
+  }
+  const missing = [...who].filter(([id]) => !bySite.game8[id] && !bySite["genshin-gg"][id]).map(([, subject]) => subject.name);
+  console.log(`  Game8: ${bySource.Game8.length}, genshin.gg: ${bySource["genshin.gg"].length}`);
 
-  const picksOutput = { source: indexUrl, fetchedAt, characters: byId(picks) };
-  fs.writeFileSync(PICKS_OUTPUT, JSON.stringify(picksOutput, null, 2) + "\n");
-  console.log(`  ✔ wrote ${Object.keys(picks).length} characters to ${path.relative(ROOT, PICKS_OUTPUT)}`);
-  console.log(`  Game8: ${bySource.Game8.length}, genshin.gg: ${bySource["genshin.gg"].length}${bySource["genshin.gg"].length ? ` (${bySource["genshin.gg"].join(", ")})` : ""}`);
-
-  if (fallbackWhy.length) console.log(`  ⚠ fell back to genshin.gg: ${fallbackWhy.join(", ")}`);
+  if (fallbackWhy.length) console.log(`  ⚠ no Game8 picks: ${fallbackWhy.join(", ")}`);
   if (unknownSets.size) console.log(`  ⚠ set names not in artifacts.json: ${[...unknownSets].join(", ")}`);
   if (unknownWeapons.size) console.log(`  ⚠ weapon names not matched in weapon-ids.json: ${[...unknownWeapons].join(", ")}`);
   if (unknownMembers.size) console.log(`  ⚠ team members not matched to a character: ${[...unknownMembers].join(", ")}`);

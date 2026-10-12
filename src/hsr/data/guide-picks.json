@@ -1,17 +1,19 @@
 {
-  "source": "https://www.prydwen.gg/star-rail/characters/",
-  "fetchedAt": "2026-10-05T18:30:12.120Z",
+  "fetchedAt": "2026-10-12T19:01:49.998Z",
   "characters": {
     "1001": {
       "name": "March 7th",
-      "source": "https://www.prydwen.gg/star-rail/characters/march-7th",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-07-15",
       "mainStats": null,
-      "role": null,
+      "role": "Shield",
       "weapons": [
         {
           "id": "23023",
+          "refinement": 1
+        },
+        {
+          "id": "23005",
           "refinement": 1
         },
         {
@@ -19,24 +21,24 @@
           "refinement": 5
         },
         {
+          "id": "21009",
+          "refinement": 5
+        },
+        {
           "id": "21002",
           "refinement": 5
+        },
+        {
+          "id": "21016",
+          "refinement": 1
         },
         {
           "id": "24002",
           "refinement": 5
         },
         {
-          "id": "23005",
-          "refinement": 1
-        },
-        {
-          "id": "21009",
-          "refinement": 5
-        },
-        {
-          "id": "21016",
-          "refinement": 1
+          "id": "21030",
+          "refinement": null
         }
       ],
       "teams": [
@@ -47,6 +49,15 @@
             "1507",
             "1207",
             "1001"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1001",
+            "1312",
+            "1104",
+            "1203"
           ]
         },
         {
@@ -66,21 +77,12 @@
             "1004",
             "1001"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1308",
-            "1507",
-            "1306",
-            "1001"
-          ]
         }
       ],
       "synergies": [
         "1308"
       ],
-      "substatLine": "Effect Hit Rate = SPD (Breakpoint) > DEF% > HP% = Effect RES",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -108,11 +110,10 @@
     },
     "1002": {
       "name": "Dan Heng",
-      "source": "https://www.prydwen.gg/star-rail/characters/dan-heng",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-12",
       "mainStats": null,
-      "role": null,
+      "role": "Main DPS",
       "weapons": [
         {
           "id": "23001",
@@ -123,20 +124,24 @@
           "refinement": 5
         },
         {
-          "id": "21003",
-          "refinement": 5
+          "id": "23012",
+          "refinement": 1
         },
         {
           "id": "24001",
           "refinement": 5
         },
         {
-          "id": "23012",
-          "refinement": 1
+          "id": "21003",
+          "refinement": 5
         },
         {
           "id": "21031",
           "refinement": 5
+        },
+        {
+          "id": "21024",
+          "refinement": null
         }
       ],
       "teams": [
@@ -148,13 +153,40 @@
             "1313",
             "1414"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1002",
+            "1207",
+            "8003",
+            "1105"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1002",
+            "1004",
+            "1313",
+            "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1002",
+            "1101",
+            "1006",
+            "1217"
+          ]
         }
       ],
       "synergies": [
         "1313",
         "1101"
       ],
-      "substatLine": "SPD (breakpoint) = CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -186,9 +218,8 @@
     },
     "1003": {
       "name": "Himeko",
-      "source": "https://www.prydwen.gg/star-rail/characters/himeko",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -201,11 +232,11 @@
           "refinement": 1
         },
         {
-          "id": "21020",
+          "id": "24004",
           "refinement": 5
         },
         {
-          "id": "24004",
+          "id": "21020",
           "refinement": 5
         },
         {
@@ -217,22 +248,59 @@
           "refinement": 5
         },
         {
-          "id": "21027",
-          "refinement": 5
+          "id": "23028",
+          "refinement": null
         },
         {
-          "id": "21045",
+          "id": "21027",
           "refinement": 5
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1003",
+            "1009",
+            "8003",
+            "1110"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1003",
+            "1112",
+            "1309",
+            "1304"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1003",
+            "1013",
+            "1309",
+            "1304"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1003",
+            "1225",
+            "1303",
+            "1222"
+          ]
+        }
+      ],
       "synergies": [
         "1225",
         "1309",
         "1303",
         "1013"
       ],
-      "substatLine": "SPD (breakpoint) = CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -264,11 +332,10 @@
     },
     "1004": {
       "name": "Welt",
-      "source": "https://www.prydwen.gg/star-rail/characters/welt",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Support",
       "weapons": [
         {
           "id": "23043",
@@ -301,10 +368,6 @@
         {
           "id": "23004",
           "refinement": 1
-        },
-        {
-          "id": "21001",
-          "refinement": 5
         }
       ],
       "teams": [
@@ -314,6 +377,15 @@
             "1510",
             "1512",
             "1004",
+            "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1004",
+            "8007",
+            "1009",
             "1414"
           ]
         },
@@ -334,15 +406,6 @@
             "1004",
             "1414"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1510",
-            "1306",
-            "1004",
-            "1414"
-          ]
         }
       ],
       "synergies": [
@@ -350,16 +413,36 @@
         "1504",
         "1510"
       ],
-      "substatLine": "SPD (breakpoint) = EHR% (Until recommended) > CRIT RATE = CRIT DMG > ATK%",
-      "endgameStats": [],
+      "substatLine": null,
+      "endgameStats": [
+        {
+          "label": "SPD",
+          "value": "135 - 160+"
+        },
+        {
+          "label": "Effect Hit Rate",
+          "value": "75%+"
+        },
+        {
+          "label": "ATK%",
+          "value": "2500+"
+        },
+        {
+          "label": "CRIT Rate",
+          "value": "90%+ (In Combat)"
+        },
+        {
+          "label": "CRIT DMG",
+          "value": "120%+ (Before Combat)"
+        }
+      ],
       "skillPriority": "Skill > Talent > Ultimate > Basic",
       "tracePriority": "Retribution (A2) > Judgment (A4) > Punishment (A6)"
     },
     "1005": {
       "name": "Kafka",
-      "source": "https://www.prydwen.gg/star-rail/characters/kafka",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Support DPS",
       "weapons": [
@@ -368,11 +451,11 @@
           "refinement": 1
         },
         {
-          "id": "23006",
+          "id": "23043",
           "refinement": 1
         },
         {
-          "id": "23043",
+          "id": "23006",
           "refinement": 1
         },
         {
@@ -390,6 +473,10 @@
         {
           "id": "21008",
           "refinement": 5
+        },
+        {
+          "id": "21061",
+          "refinement": null
         }
       ],
       "teams": [
@@ -400,6 +487,14 @@
             "1307",
             "1005",
             "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1005",
+            "1009",
+            "1105"
           ]
         },
         {
@@ -419,15 +514,6 @@
             "1005",
             "1409"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1410",
-            "1307",
-            "1005",
-            "1304"
-          ]
         }
       ],
       "synergies": [
@@ -436,10 +522,9 @@
         "1218",
         "1303",
         "1309",
-        "1406",
-        "1403"
+        "1406"
       ],
-      "substatLine": "Effect Hit Rate (Until 75%) > SPD > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -460,6 +545,10 @@
         {
           "label": "SPD",
           "value": "160+"
+        },
+        {
+          "label": "ATK%",
+          "value": "2500+"
         }
       ],
       "skillPriority": "Ultimate = Skill > Talent > Basic",
@@ -467,11 +556,10 @@
     },
     "1006": {
       "name": "Silver Wolf",
-      "source": "https://www.prydwen.gg/star-rail/characters/silver-wolf",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Offensive Debuffer",
       "weapons": [
         {
           "id": "23043",
@@ -486,12 +574,12 @@
           "refinement": 1
         },
         {
-          "id": "23007",
-          "refinement": 1
-        },
-        {
           "id": "22000",
           "refinement": 5
+        },
+        {
+          "id": "23007",
+          "refinement": 1
         },
         {
           "id": "23024",
@@ -519,6 +607,14 @@
         {
           "name": null,
           "members": [
+            "1006",
+            "8007",
+            "1110"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1308",
             "1507",
             "1006",
@@ -533,22 +629,17 @@
             "1006",
             "1217"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1015",
-            "1508",
-            "1006",
-            "1306"
-          ]
         }
       ],
       "synergies": [
         "1308",
-        "1305"
+        "1406",
+        "1305",
+        "1106",
+        "1210",
+        "1111"
       ],
-      "substatLine": "Effect Hit Rate (Until 50-67%) > SPD > CRIT = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -565,6 +656,10 @@
         {
           "label": "SPD",
           "value": "160+"
+        },
+        {
+          "label": "Speed",
+          "value": "160+"
         }
       ],
       "skillPriority": "Ultimate > Skill > Talent > Basic",
@@ -572,11 +667,10 @@
     },
     "1008": {
       "name": "Arlan",
-      "source": "https://www.prydwen.gg/star-rail/characters/arlan",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-07-15",
       "mainStats": null,
-      "role": null,
+      "role": "Lightning Main DPS",
       "weapons": [
         {
           "id": "24000",
@@ -587,11 +681,42 @@
           "refinement": 1
         },
         {
+          "id": "23002",
+          "refinement": null
+        },
+        {
           "id": "21012",
           "refinement": 5
+        },
+        {
+          "id": "22003",
+          "refinement": null
+        },
+        {
+          "id": "21005",
+          "refinement": null
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1008",
+            "1207",
+            "1009",
+            "8003"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1008",
+            "1101",
+            "1202",
+            "1304"
+          ]
+        }
+      ],
       "synergies": [
         "1414",
         "1304",
@@ -600,7 +725,7 @@
         "1306",
         "1101"
       ],
-      "substatLine": "SPD (Breakpoint) > CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -632,18 +757,13 @@
     },
     "1009": {
       "name": "Asta",
-      "source": "https://www.prydwen.gg/star-rail/characters/asta",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Offensive Support",
       "weapons": [
         {
           "id": "21018",
-          "refinement": 5
-        },
-        {
-          "id": "20012",
           "refinement": 5
         },
         {
@@ -651,8 +771,24 @@
           "refinement": 1
         },
         {
+          "id": "20012",
+          "refinement": 5
+        },
+        {
+          "id": "21004",
+          "refinement": null
+        },
+        {
           "id": "21011",
           "refinement": 5
+        },
+        {
+          "id": "21032",
+          "refinement": null
+        },
+        {
+          "id": "20005",
+          "refinement": null
         }
       ],
       "teams": [
@@ -663,6 +799,15 @@
             "1009",
             "8009",
             "1503"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1009",
+            "1003",
+            "1112",
+            "1208"
           ]
         },
         {
@@ -682,15 +827,6 @@
             "1009",
             "1503"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1506",
-            "1009",
-            "1502",
-            "1301"
-          ]
         }
       ],
       "synergies": [
@@ -698,7 +834,7 @@
         "1005",
         "1307"
       ],
-      "substatLine": "SPD (Until breakpoint) > HP = DEF > EFF RES%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -722,11 +858,10 @@
     },
     "1013": {
       "name": "Herta",
-      "source": "https://www.prydwen.gg/star-rail/characters/herta",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "AoE Sub DPS",
       "weapons": [
         {
           "id": "23010",
@@ -745,6 +880,10 @@
           "refinement": 5
         },
         {
+          "id": "23028",
+          "refinement": null
+        },
+        {
           "id": "21034",
           "refinement": 5
         },
@@ -753,8 +892,8 @@
           "refinement": 5
         },
         {
-          "id": "21006",
-          "refinement": 5
+          "id": "21060",
+          "refinement": null
         }
       ],
       "teams": [
@@ -765,6 +904,15 @@
             "1013",
             "1403",
             "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1013",
+            "1103",
+            "8007",
+            "1110"
           ]
         },
         {
@@ -784,23 +932,17 @@
             "1512",
             "1414"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1401",
-            "1013",
-            "1403",
-            "1217"
-          ]
         }
       ],
       "synergies": [
         "1401",
+        "1003",
         "1309",
-        "1003"
+        "1314",
+        "1214",
+        "1303"
       ],
-      "substatLine": "SPD (breakpoint) = CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -832,9 +974,8 @@
     },
     "1014": {
       "name": "Saber",
-      "source": "https://www.prydwen.gg/star-rail/characters/saber",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-08-26",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -843,7 +984,7 @@
           "refinement": 1
         },
         {
-          "id": "23062",
+          "id": "23044",
           "refinement": 1
         },
         {
@@ -851,7 +992,7 @@
           "refinement": 5
         },
         {
-          "id": "23044",
+          "id": "23062",
           "refinement": 1
         },
         {
@@ -861,6 +1002,14 @@
         {
           "id": "21012",
           "refinement": 5
+        },
+        {
+          "id": "23015",
+          "refinement": null
+        },
+        {
+          "id": "21019",
+          "refinement": null
         }
       ],
       "teams": [
@@ -871,6 +1020,15 @@
             "1509",
             "1512",
             "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1014",
+            "8007",
+            "1202",
+            "1110"
           ]
         },
         {
@@ -890,24 +1048,17 @@
             "1403",
             "1217"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1014",
-            "1509",
-            "8007",
-            "1217"
-          ]
         }
       ],
       "synergies": [
         "1509",
+        "1313",
         "1217",
         "1403",
-        "8007"
+        "8007",
+        "1306"
       ],
-      "substatLine": "SPD (Until Desired Breakpoint) > CRIT Rate = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -939,18 +1090,17 @@
     },
     "1015": {
       "name": "Archer",
-      "source": "https://www.prydwen.gg/star-rail/characters/archer",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-13",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
         {
-          "id": "23056",
+          "id": "23046",
           "refinement": 1
         },
         {
-          "id": "23046",
+          "id": "23056",
           "refinement": 1
         },
         {
@@ -966,8 +1116,16 @@
           "refinement": 5
         },
         {
+          "id": "23016",
+          "refinement": null
+        },
+        {
           "id": "21003",
           "refinement": 5
+        },
+        {
+          "id": "21010",
+          "refinement": null
         }
       ],
       "teams": [
@@ -977,6 +1135,15 @@
             "1015",
             "1508",
             "1306",
+            "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1015",
+            "1306",
+            "8007",
             "1414"
           ]
         },
@@ -997,27 +1164,17 @@
             "1306",
             "1208"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1015",
-            "1306",
-            "1403",
-            "1414"
-          ]
         }
       ],
       "synergies": [
         "1414",
+        "1507",
         "1301",
-        "1306",
-        "1303",
-        "1006",
         "1406",
-        "1508"
+        "1006",
+        "1306"
       ],
-      "substatLine": "CRIT Rate (Until 100% with buffs) > CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -1049,11 +1206,10 @@
     },
     "1101": {
       "name": "Bronya",
-      "source": "https://www.prydwen.gg/star-rail/characters/bronya",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Support",
       "weapons": [
         {
           "id": "23034",
@@ -1070,6 +1226,14 @@
         {
           "id": "21018",
           "refinement": 5
+        },
+        {
+          "id": "23021",
+          "refinement": null
+        },
+        {
+          "id": "21032",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1080,6 +1244,15 @@
             "1101",
             "1412",
             "1313"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1101",
+            "1002",
+            "1207",
+            "1105"
           ]
         },
         {
@@ -1099,23 +1272,17 @@
             "1313",
             "1414"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1408",
-            "1101",
-            "1412",
-            "1415"
-          ]
         }
       ],
       "synergies": [
         "1205",
         "1212",
-        "1315"
+        "1315",
+        "1102",
+        "1202",
+        "1009"
       ],
-      "substatLine": "SPD (Until breakpoint) > CRIT DMG > HP = DEF > Effect RES% (30% If Keel)",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -1143,23 +1310,38 @@
     },
     "1102": {
       "name": "Seele",
-      "source": "https://www.prydwen.gg/star-rail/characters/seele",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
-        {
-          "id": "23046",
-          "refinement": 1
-        },
         {
           "id": "23001",
           "refinement": 1
         },
         {
+          "id": "23046",
+          "refinement": 1
+        },
+        {
           "id": "24001",
           "refinement": 5
+        },
+        {
+          "id": "23012",
+          "refinement": null
+        },
+        {
+          "id": "21010",
+          "refinement": null
+        },
+        {
+          "id": "21003",
+          "refinement": null
+        },
+        {
+          "id": "21024",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1170,6 +1352,15 @@
             "1512",
             "1306",
             "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1102",
+            "1009",
+            "8007",
+            "1105"
           ]
         },
         {
@@ -1189,15 +1380,6 @@
             "1512",
             "1414"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1102",
-            "1306",
-            "1313",
-            "1414"
-          ]
         }
       ],
       "synergies": [
@@ -1205,7 +1387,7 @@
         "1412",
         "1414"
       ],
-      "substatLine": "CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -1237,11 +1419,10 @@
     },
     "1103": {
       "name": "Serval",
-      "source": "https://www.prydwen.gg/star-rail/characters/serval",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-08-26",
       "mainStats": null,
-      "role": null,
+      "role": "DPS",
       "weapons": [
         {
           "id": "23000",
@@ -1252,12 +1433,16 @@
           "refinement": 5
         },
         {
-          "id": "21020",
-          "refinement": 5
+          "id": "23018",
+          "refinement": null
         },
         {
           "id": "23010",
           "refinement": 1
+        },
+        {
+          "id": "21020",
+          "refinement": 5
         },
         {
           "id": "21034",
@@ -1285,21 +1470,40 @@
         {
           "name": null,
           "members": [
+            "1103",
+            "1002",
+            "8003",
+            "1105"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1401",
             "1103",
             "1403",
             "1409"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1103",
+            "1401",
+            "1403",
+            "1222"
           ]
         }
       ],
       "synergies": [
         "1401",
         "1313",
+        "1309",
         "1306",
         "1101",
-        "8005"
+        "1303"
       ],
-      "substatLine": "SPD (breakpoint) > CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -1331,9 +1535,8 @@
     },
     "1104": {
       "name": "Gepard",
-      "source": "https://www.prydwen.gg/star-rail/characters/gepard",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Sustain",
       "weapons": [
@@ -1354,12 +1557,16 @@
           "refinement": 5
         },
         {
+          "id": "21016",
+          "refinement": 1
+        },
+        {
           "id": "24002",
           "refinement": 5
         },
         {
-          "id": "21016",
-          "refinement": 1
+          "id": "21023",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1375,6 +1582,15 @@
         {
           "name": null,
           "members": [
+            "1104",
+            "1002",
+            "1103",
+            "1110"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1505",
             "8009",
             "1502",
@@ -1385,7 +1601,7 @@
       "synergies": [
         "1308"
       ],
-      "substatLine": "SPD (breakpoint) = DEF% > HP% = EFF RES%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -1402,6 +1618,10 @@
         {
           "label": "ENERGY REGEN",
           "value": "19.44%+"
+        },
+        {
+          "label": "Effect Hit Rate",
+          "value": "50%"
         }
       ],
       "skillPriority": "Ultimate > Skill = Talent = Basic",
@@ -1409,11 +1629,10 @@
     },
     "1105": {
       "name": "Natasha",
-      "source": "https://www.prydwen.gg/star-rail/characters/natasha",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Healer",
       "weapons": [
         {
           "id": "23017",
@@ -1428,16 +1647,24 @@
           "refinement": 5
         },
         {
-          "id": "21014",
-          "refinement": 5
-        },
-        {
           "id": "21021",
           "refinement": 1
         },
         {
+          "id": "21014",
+          "refinement": 5
+        },
+        {
+          "id": "21028",
+          "refinement": null
+        },
+        {
           "id": "20015",
           "refinement": 5
+        },
+        {
+          "id": "21007",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1461,7 +1688,7 @@
         }
       ],
       "synergies": [],
-      "substatLine": "SPD (breakpoint) > HP% > Effect RES = DEF%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -1478,6 +1705,10 @@
         {
           "label": "ENERGY REGEN",
           "value": "19.44%+"
+        },
+        {
+          "label": "HP%",
+          "value": "5000+"
         }
       ],
       "skillPriority": "Ultimate > Skill > Talent > Basic",
@@ -1485,23 +1716,38 @@
     },
     "1106": {
       "name": "Pela",
-      "source": "https://www.prydwen.gg/star-rail/characters/pela",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Debuffer Support",
       "weapons": [
         {
           "id": "23043",
           "refinement": 1
         },
         {
+          "id": "22000",
+          "refinement": 5
+        },
+        {
           "id": "21015",
           "refinement": 1
         },
         {
-          "id": "22000",
-          "refinement": 5
+          "id": "23007",
+          "refinement": null
+        },
+        {
+          "id": "23029",
+          "refinement": null
+        },
+        {
+          "id": "23004",
+          "refinement": null
+        },
+        {
+          "id": "21001",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1512,6 +1758,15 @@
             "1509",
             "1106",
             "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1106",
+            "1002",
+            "1103",
+            "1105"
           ]
         },
         {
@@ -1531,23 +1786,17 @@
             "1106",
             "1414"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1413",
-            "1415",
-            "8007",
-            "1106"
-          ]
         }
       ],
       "synergies": [
         "1308",
+        "1006",
         "1212",
-        "1213"
+        "1213",
+        "1004",
+        "1210"
       ],
-      "substatLine": "Effect Hit Rate (Until 67%) = SPD (Until Breakpoint) > HP = DEF > Effect RES (30% with Broken Keel)",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -1564,6 +1813,10 @@
         {
           "label": "ENERGY REGEN",
           "value": "19.44%+"
+        },
+        {
+          "label": "Effect Hit Rate",
+          "value": "67%+"
         }
       ],
       "skillPriority": "Ultimate >= Talent > Skill = Basic",
@@ -1571,22 +1824,17 @@
     },
     "1107": {
       "name": "Clara",
-      "source": "https://www.prydwen.gg/star-rail/characters/clara",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
-        {
-          "id": "23044",
-          "refinement": 1
-        },
         {
           "id": "23030",
           "refinement": 1
         },
         {
-          "id": "23002",
+          "id": "23044",
           "refinement": 1
         },
         {
@@ -1594,8 +1842,20 @@
           "refinement": 1
         },
         {
+          "id": "23002",
+          "refinement": 1
+        },
+        {
           "id": "24000",
           "refinement": 5
+        },
+        {
+          "id": "21019",
+          "refinement": null
+        },
+        {
+          "id": "21012",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1606,6 +1866,15 @@
             "1512",
             "1306",
             "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1107",
+            "8007",
+            "1009",
+            "1110"
           ]
         },
         {
@@ -1625,15 +1894,6 @@
             "1403",
             "1414"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1107",
-            "1306",
-            "1403",
-            "1409"
-          ]
         }
       ],
       "synergies": [
@@ -1643,7 +1903,7 @@
         "1414",
         "1217"
       ],
-      "substatLine": "SPD (breakpoint if desired) = CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -1675,34 +1935,68 @@
     },
     "1108": {
       "name": "Sampo",
-      "source": "https://www.prydwen.gg/star-rail/characters/sampo",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-28",
       "mainStats": null,
-      "role": null,
+      "role": "DoT Sub DPS",
       "weapons": [
-        {
-          "id": "23043",
-          "refinement": 1
-        },
         {
           "id": "21001",
           "refinement": 5
+        },
+        {
+          "id": "23043",
+          "refinement": 1
         },
         {
           "id": "21008",
           "refinement": 5
         },
         {
+          "id": "23004",
+          "refinement": null
+        },
+        {
           "id": "21015",
           "refinement": 5
+        },
+        {
+          "id": "23029",
+          "refinement": null
+        },
+        {
+          "id": "24003",
+          "refinement": null
+        },
+        {
+          "id": "21022",
+          "refinement": null
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1108",
+            "1103",
+            "1009",
+            "1105"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1108",
+            "1005",
+            "1303",
+            "1217"
+          ]
+        }
+      ],
       "synergies": [
         "1005"
       ],
-      "substatLine": "SPD (breakpoint) = EHR (Until recommended) > ATK% > Break Effect",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -1730,11 +2024,10 @@
     },
     "1109": {
       "name": "Hook",
-      "source": "https://www.prydwen.gg/star-rail/characters/hook",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-28",
       "mainStats": null,
-      "role": null,
+      "role": "Fire DPS",
       "weapons": [
         {
           "id": "24000",
@@ -1747,13 +2040,57 @@
         {
           "id": "21012",
           "refinement": 5
+        },
+        {
+          "id": "23002",
+          "refinement": null
+        },
+        {
+          "id": "21005",
+          "refinement": null
+        },
+        {
+          "id": "21019",
+          "refinement": null
+        },
+        {
+          "id": "20002",
+          "refinement": null
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1109",
+            "1009",
+            "1207",
+            "1105"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1109",
+            "1306",
+            "1202",
+            "1304"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1109",
+            "1210",
+            "1303",
+            "1217"
+          ]
+        }
+      ],
       "synergies": [
         "1202"
       ],
-      "substatLine": "SPD (breakpoint) > CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -1785,11 +2122,10 @@
     },
     "1110": {
       "name": "Lynx",
-      "source": "https://www.prydwen.gg/star-rail/characters/lynx",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Support",
       "weapons": [
         {
           "id": "23017",
@@ -1814,6 +2150,14 @@
         {
           "id": "20015",
           "refinement": 5
+        },
+        {
+          "id": "21028",
+          "refinement": null
+        },
+        {
+          "id": "21007",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1825,13 +2169,44 @@
             "1403",
             "1110"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1110",
+            "1002",
+            "8003",
+            "1009"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1110",
+            "1221",
+            "1202",
+            "1309"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1110",
+            "1404",
+            "1313",
+            "1403"
+          ]
         }
       ],
       "synergies": [
         "1205",
-        "1107"
+        "1107",
+        "1407",
+        "1208",
+        "1201",
+        "1101"
       ],
-      "substatLine": "SPD (breakpoint) > HP% > Effect RES > DEF%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -1855,18 +2230,13 @@
     },
     "1111": {
       "name": "Luka",
-      "source": "https://www.prydwen.gg/star-rail/characters/luka",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-24",
       "mainStats": null,
-      "role": null,
+      "role": "Bleed Debuffer",
       "weapons": [
         {
           "id": "23043",
-          "refinement": 1
-        },
-        {
-          "id": "23006",
           "refinement": 1
         },
         {
@@ -1874,22 +2244,68 @@
           "refinement": 5
         },
         {
+          "id": "23006",
+          "refinement": 1
+        },
+        {
           "id": "21008",
           "refinement": 5
         },
         {
+          "id": "23004",
+          "refinement": null
+        },
+        {
+          "id": "23029",
+          "refinement": null
+        },
+        {
           "id": "21015",
           "refinement": 5
+        },
+        {
+          "id": "24003",
+          "refinement": null
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1111",
+            "1103",
+            "1009",
+            "1105"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1111",
+            "1005",
+            "1303",
+            "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1111",
+            "1206",
+            "1006",
+            "1105"
+          ]
+        }
+      ],
       "synergies": [
         "1225",
+        "1109",
         "1005",
         "1315",
+        "1218",
         "1006"
       ],
-      "substatLine": "SPD (breakpoint) = EHR (until cap) > Break Effect >= ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -1921,9 +2337,8 @@
     },
     "1112": {
       "name": "Topaz & Numby",
-      "source": "https://www.prydwen.gg/star-rail/characters/topaz",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Support DPS",
       "weapons": [
@@ -1944,8 +2359,16 @@
           "refinement": 5
         },
         {
+          "id": "21062",
+          "refinement": null
+        },
+        {
           "id": "21037",
           "refinement": 5
+        },
+        {
+          "id": "23012",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1956,6 +2379,15 @@
             "1112",
             "1507",
             "1409"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1112",
+            "1224",
+            "1009",
+            "1105"
           ]
         },
         {
@@ -1975,23 +2407,17 @@
             "1507",
             "1217"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1513",
-            "1112",
-            "1507",
-            "1203"
-          ]
         }
       ],
       "synergies": [
         "1309",
+        "1221",
         "1220",
-        "1305"
+        "1305",
+        "1107",
+        "1003"
       ],
-      "substatLine": "SPD (breakpoint) > CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -2023,14 +2449,17 @@
     },
     "1201": {
       "name": "Qingque",
-      "source": "https://www.prydwen.gg/star-rail/characters/qingque",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-29",
       "mainStats": null,
-      "role": null,
+      "role": "Basic ATK Main DPS",
       "weapons": [
         {
           "id": "23028",
+          "refinement": 1
+        },
+        {
+          "id": "23010",
           "refinement": 1
         },
         {
@@ -2046,16 +2475,16 @@
           "refinement": 5
         },
         {
-          "id": "23010",
-          "refinement": 1
-        },
-        {
           "id": "21034",
           "refinement": 5
         },
         {
           "id": "21027",
           "refinement": 5
+        },
+        {
+          "id": "21040",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2067,6 +2496,33 @@
             "1306",
             "1414"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1201",
+            "1002",
+            "8003",
+            "1110"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1201",
+            "1306",
+            "1202",
+            "1208"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1201",
+            "1306",
+            "1006",
+            "1208"
+          ]
         }
       ],
       "synergies": [
@@ -2075,7 +2531,7 @@
         "1414",
         "1208"
       ],
-      "substatLine": "SPD (breakpoint) > CRIT Rate = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -2107,31 +2563,38 @@
     },
     "1202": {
       "name": "Tingyun",
-      "source": "https://www.prydwen.gg/star-rail/characters/tingyun",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-24",
       "mainStats": null,
-      "role": null,
+      "role": "Support",
       "weapons": [
-        {
-          "id": "23034",
-          "refinement": 1
-        },
         {
           "id": "21018",
           "refinement": 5
         },
         {
-          "id": "20012",
-          "refinement": 5
+          "id": "23034",
+          "refinement": 1
         },
         {
           "id": "23003",
           "refinement": 1
         },
         {
+          "id": "20012",
+          "refinement": 5
+        },
+        {
+          "id": "23026",
+          "refinement": null
+        },
+        {
           "id": "21011",
           "refinement": 5
+        },
+        {
+          "id": "23021",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2142,6 +2605,15 @@
             "1412",
             "1313",
             "1202"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1202",
+            "1207",
+            "1002",
+            "1105"
           ]
         },
         {
@@ -2161,15 +2633,6 @@
             "1202",
             "1301"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1507",
-            "1202",
-            "1403",
-            "1409"
-          ]
         }
       ],
       "synergies": [
@@ -2177,7 +2640,7 @@
         "1221",
         "1107"
       ],
-      "substatLine": "SPD (Until Breakpoint) = ATK% (Until Recommended) > HP = DEF > EFF RES%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -2205,9 +2668,8 @@
     },
     "1203": {
       "name": "Luocha",
-      "source": "https://www.prydwen.gg/star-rail/characters/luocha",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Sustain",
       "weapons": [
@@ -2224,12 +2686,20 @@
           "refinement": 1
         },
         {
+          "id": "21007",
+          "refinement": 5
+        },
+        {
+          "id": "23017",
+          "refinement": null
+        },
+        {
           "id": "21055",
           "refinement": 5
         },
         {
-          "id": "21007",
-          "refinement": 5
+          "id": "23013",
+          "refinement": null
         },
         {
           "id": "20015",
@@ -2249,6 +2719,15 @@
         {
           "name": null,
           "members": [
+            "1203",
+            "1002",
+            "1103",
+            "1009"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1504",
             "1507",
             "1403",
@@ -2263,23 +2742,17 @@
             "1502",
             "1203"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1510",
-            "1507",
-            "1004",
-            "1203"
-          ]
         }
       ],
       "synergies": [
         "1407",
+        "1205",
         "1404",
-        "1205"
+        "8007",
+        "1101",
+        "1306"
       ],
-      "substatLine": "SPD (breakpoint) > ATK% > DEF% = HP% > EFF RES%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -2307,9 +2780,8 @@
     },
     "1204": {
       "name": "Jing Yuan",
-      "source": "https://www.prydwen.gg/star-rail/characters/jing-yuan",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -2326,12 +2798,20 @@
           "refinement": 5
         },
         {
-          "id": "21020",
-          "refinement": 5
+          "id": "23000",
+          "refinement": null
         },
         {
           "id": "21027",
           "refinement": 5
+        },
+        {
+          "id": "21020",
+          "refinement": 5
+        },
+        {
+          "id": "24004",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2342,6 +2822,15 @@
             "1313",
             "1403",
             "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1204",
+            "1009",
+            "8003",
+            "1105"
           ]
         },
         {
@@ -2369,12 +2858,9 @@
         "1218",
         "1303",
         "1202",
-        "1306",
-        "1215",
-        "1217",
-        "1304"
+        "1306"
       ],
-      "substatLine": "Speed > CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -2395,6 +2881,10 @@
         {
           "label": "CRIT DMG",
           "value": "140% - 160%+"
+        },
+        {
+          "label": "SPD",
+          "value": "135 SPD / Base SPD"
         }
       ],
       "skillPriority": "Talent > Skill = Ultimate > Basic",
@@ -2402,9 +2892,8 @@
     },
     "1205": {
       "name": "Blade",
-      "source": "https://www.prydwen.gg/star-rail/characters/blade",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Support DPS",
       "weapons": [
@@ -2413,11 +2902,23 @@
           "refinement": 1
         },
         {
+          "id": "21012",
+          "refinement": 5
+        },
+        {
           "id": "23039",
           "refinement": 1
         },
         {
-          "id": "21012",
+          "id": "22003",
+          "refinement": 5
+        },
+        {
+          "id": "23030",
+          "refinement": null
+        },
+        {
+          "id": "21038",
           "refinement": 5
         },
         {
@@ -2425,12 +2926,8 @@
           "refinement": 5
         },
         {
-          "id": "22003",
-          "refinement": 5
-        },
-        {
-          "id": "21038",
-          "refinement": 5
+          "id": "24000",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2442,18 +2939,35 @@
             "1403",
             "1409"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1205",
+            "1002",
+            "8007",
+            "1110"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1205",
+            "1407",
+            "1403",
+            "1301"
+          ]
         }
       ],
       "synergies": [
         "1409",
-        "1313",
         "1101",
-        "1406",
-        "1403",
+        "1313",
         "1303",
+        "1106",
         "1006"
       ],
-      "substatLine": "SPD (Until Desired Breakpoint) > CRIT Rate = CRIT DMG > HP%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -2481,11 +2995,10 @@
     },
     "1206": {
       "name": "Sushang",
-      "source": "https://www.prydwen.gg/star-rail/characters/sushang",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Physical Main DPS",
       "weapons": [
         {
           "id": "23027",
@@ -2500,18 +3013,49 @@
           "refinement": 5
         },
         {
+          "id": "23001",
+          "refinement": null
+        },
+        {
           "id": "21003",
           "refinement": 5
+        },
+        {
+          "id": "20014",
+          "refinement": null
+        },
+        {
+          "id": "20007",
+          "refinement": null
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1206",
+            "1103",
+            "8003",
+            "1105"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1206",
+            "1306",
+            "1202",
+            "1208"
+          ]
+        }
+      ],
       "synergies": [
         "1225",
         "8005",
         "1303",
         "1006"
       ],
-      "substatLine": "SPD (breakpoint) > BREAK EFFECT% (If Break Build) >= CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -2536,10 +3080,6 @@
         {
           "label": "SPD",
           "value": "Base Speed (Hyperspeed Sparkle/Bronya) / 134 (Recommended) / 143 / 160"
-        },
-        {
-          "label": "BREAK EFFECT",
-          "value": "0% - 120%+"
         }
       ],
       "skillPriority": "Skill > Ultimate > Talent > Basic",
@@ -2547,11 +3087,10 @@
     },
     "1207": {
       "name": "Yukong",
-      "source": "https://www.prydwen.gg/star-rail/characters/yukong",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-07-15",
       "mainStats": null,
-      "role": null,
+      "role": "CRIT Support",
       "weapons": [
         {
           "id": "21004",
@@ -2568,6 +3107,18 @@
         {
           "id": "21011",
           "refinement": 5
+        },
+        {
+          "id": "21018",
+          "refinement": null
+        },
+        {
+          "id": "21032",
+          "refinement": null
+        },
+        {
+          "id": "21025",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2583,17 +3134,37 @@
         {
           "name": null,
           "members": [
+            "1207",
+            "1002",
+            "1103",
+            "1105"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1408",
             "1412",
             "1415",
             "1207"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1207",
+            "1102",
+            "1202",
+            "1203"
+          ]
         }
       ],
       "synergies": [
-        "1213"
+        "1213",
+        "1004",
+        "1106"
       ],
-      "substatLine": "SPD > HP = DEF > EFF RES%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -2606,6 +3177,10 @@
         {
           "label": "ENERGY REGEN",
           "value": "19.44%+"
+        },
+        {
+          "label": "SPD",
+          "value": "1"
         }
       ],
       "skillPriority": "Skill > Ultimate > Talent = Basic",
@@ -2613,9 +3188,8 @@
     },
     "1208": {
       "name": "Fu Xuan",
-      "source": "https://www.prydwen.gg/star-rail/characters/fu-xuan",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Sustain",
       "weapons": [
@@ -2642,6 +3216,10 @@
         {
           "id": "21016",
           "refinement": 1
+        },
+        {
+          "id": "20010",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2652,6 +3230,15 @@
             "1508",
             "1306",
             "1208"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1208",
+            "1002",
+            "1009",
+            "1207"
           ]
         },
         {
@@ -2671,22 +3258,17 @@
             "1502",
             "1208"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1506",
-            "8009",
-            "1502",
-            "1208"
-          ]
         }
       ],
       "synergies": [
         "1308",
-        "1102"
+        "1206",
+        "1102",
+        "1213",
+        "1101",
+        "1207"
       ],
-      "substatLine": "SPD (breakpoint) = HP% >= DEF% > EFF RES%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -2703,6 +3285,14 @@
         {
           "label": "ENERGY REGEN",
           "value": "19.44%+"
+        },
+        {
+          "label": "SPD",
+          "value": "134"
+        },
+        {
+          "label": "Effect RES",
+          "value": "30%+"
         }
       ],
       "skillPriority": "Talent > Skill > Ultimate = Basic",
@@ -2710,15 +3300,18 @@
     },
     "1209": {
       "name": "Yanqing",
-      "source": "https://www.prydwen.gg/star-rail/characters/yanqing",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
         {
           "id": "23001",
           "refinement": 1
+        },
+        {
+          "id": "23012",
+          "refinement": 5
         },
         {
           "id": "21010",
@@ -2733,8 +3326,12 @@
           "refinement": 5
         },
         {
-          "id": "23012",
-          "refinement": 5
+          "id": "23031",
+          "refinement": null
+        },
+        {
+          "id": "21062",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2746,6 +3343,33 @@
             "1512",
             "1217"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1209",
+            "1207",
+            "8003",
+            "1110"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1209",
+            "1202",
+            "1306",
+            "1304"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1209",
+            "1303",
+            "1306",
+            "1104"
+          ]
         }
       ],
       "synergies": [
@@ -2754,7 +3378,7 @@
         "1313",
         "1101"
       ],
-      "substatLine": "SPD (breakpoint) > CRIT RATE (Until soft cap) = CRIT DMG > ATK% > CRIT RATE (After soft cap)",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -2786,11 +3410,10 @@
     },
     "1210": {
       "name": "Guinaifen",
-      "source": "https://www.prydwen.gg/star-rail/characters/guinaifen",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-28",
       "mainStats": null,
-      "role": null,
+      "role": "DPS",
       "weapons": [
         {
           "id": "23043",
@@ -2801,24 +3424,59 @@
           "refinement": 1
         },
         {
-          "id": "21015",
-          "refinement": 1
+          "id": "21001",
+          "refinement": null
         },
         {
           "id": "21008",
           "refinement": 5
         },
         {
+          "id": "21015",
+          "refinement": 1
+        },
+        {
+          "id": "23006",
+          "refinement": null
+        },
+        {
+          "id": "23022",
+          "refinement": null
+        },
+        {
           "id": "24003",
           "refinement": 5
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1210",
+            "1103",
+            "1009",
+            "1105"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1210",
+            "1005",
+            "1303",
+            "1217"
+          ]
+        }
+      ],
       "synergies": [
         "1005",
-        "1308"
+        "1108",
+        "1308",
+        "1103",
+        "1111",
+        "1218"
       ],
-      "substatLine": "EHR (67%) > SPD (breakpoint) > ATK% > HP% = DEF% = Break Effect %",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -2846,9 +3504,8 @@
     },
     "1211": {
       "name": "Bailu",
-      "source": "https://www.prydwen.gg/star-rail/characters/bailu",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Sustain",
       "weapons": [
@@ -2865,16 +3522,20 @@
           "refinement": 5
         },
         {
+          "id": "21021",
+          "refinement": 1
+        },
+        {
           "id": "21055",
           "refinement": 5
         },
         {
-          "id": "21014",
-          "refinement": 5
+          "id": "21007",
+          "refinement": null
         },
         {
-          "id": "21021",
-          "refinement": 1
+          "id": "21014",
+          "refinement": 5
         },
         {
           "id": "20015",
@@ -2922,7 +3583,7 @@
       "synergies": [
         "1205"
       ],
-      "substatLine": "SPD (breakpoint) > HP% > EFF RES% = DEF%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -2946,9 +3607,8 @@
     },
     "1212": {
       "name": "Jingliu",
-      "source": "https://www.prydwen.gg/star-rail/characters/jingliu",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-29",
+      "sources": 2,
+      "updated": "2026-09-29",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -2971,6 +3631,10 @@
         {
           "id": "22003",
           "refinement": 5
+        },
+        {
+          "id": "23009",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2981,6 +3645,15 @@
             "1507",
             "1512",
             "1409"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1212",
+            "1009",
+            "8007",
+            "1110"
           ]
         },
         {
@@ -3004,15 +3677,13 @@
       ],
       "synergies": [
         "1409",
-        "1313",
         "1101",
-        "8007",
-        "1303",
+        "1313",
         "1006",
-        "1406",
-        "1403"
+        "1106",
+        "8007"
       ],
-      "substatLine": "SPD (Until Desired Breakpoint) > CRIT Rate (Until 100% Buffed) > HP% > CRIT DMG",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -3040,18 +3711,17 @@
     },
     "1213": {
       "name": "Dan Heng • Imbibitor Lunae",
-      "source": "https://www.prydwen.gg/star-rail/characters/imbibitor-lunae",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-29",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
         {
-          "id": "23044",
+          "id": "23015",
           "refinement": 1
         },
         {
-          "id": "23015",
+          "id": "23044",
           "refinement": 1
         },
         {
@@ -3061,6 +3731,22 @@
         {
           "id": "23002",
           "refinement": 1
+        },
+        {
+          "id": "21019",
+          "refinement": null
+        },
+        {
+          "id": "21005",
+          "refinement": null
+        },
+        {
+          "id": "21033",
+          "refinement": null
+        },
+        {
+          "id": "20002",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3071,6 +3757,15 @@
             "1306",
             "1313",
             "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1213",
+            "1207",
+            "1009",
+            "1105"
           ]
         },
         {
@@ -3090,24 +3785,17 @@
             "1512",
             "1306"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1213",
-            "1309",
-            "1306",
-            "1414"
-          ]
         }
       ],
       "synergies": [
-        "1306",
         "1313",
+        "1306",
         "1202",
-        "1414"
+        "1215",
+        "1414",
+        "1207"
       ],
-      "substatLine": "CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -3139,11 +3827,10 @@
     },
     "1214": {
       "name": "Xueyi",
-      "source": "https://www.prydwen.gg/star-rail/characters/xueyi",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-28",
       "mainStats": null,
-      "role": null,
+      "role": "Break Effect",
       "weapons": [
         {
           "id": "21042",
@@ -3152,6 +3839,22 @@
         {
           "id": "24000",
           "refinement": 5
+        },
+        {
+          "id": "23025",
+          "refinement": null
+        },
+        {
+          "id": "21058",
+          "refinement": null
+        },
+        {
+          "id": "21019",
+          "refinement": null
+        },
+        {
+          "id": "21005",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3168,19 +3871,39 @@
           "name": null,
           "members": [
             "1214",
+            "8005",
+            "1009",
+            "1105"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1214",
             "1225",
             "1303",
             "1321"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1214",
+            "1225",
+            "1303",
+            "1222"
+          ]
         }
       ],
       "synergies": [
-        "1225",
         "8005",
+        "1225",
+        "1306",
         "1303",
-        "1306"
+        "1301",
+        "1304"
       ],
-      "substatLine": "SPD (breakpoint) > BREAK EFFECT% >= CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -3205,10 +3928,6 @@
         {
           "label": "SPD",
           "value": "Base Speed (Hyperspeed Sparkle/Bronya) / 134 (Recommended) / 143 / 160"
-        },
-        {
-          "label": "BREAK EFFECT",
-          "value": "100% - 150%"
         }
       ],
       "skillPriority": "Skill = Talent > Ultimate > Basic",
@@ -3216,18 +3935,13 @@
     },
     "1215": {
       "name": "Hanya",
-      "source": "https://www.prydwen.gg/star-rail/characters/hanya",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-08-26",
       "mainStats": null,
-      "role": null,
+      "role": "SPD Buffer",
       "weapons": [
         {
           "id": "21018",
-          "refinement": 5
-        },
-        {
-          "id": "20012",
           "refinement": 5
         },
         {
@@ -3235,8 +3949,28 @@
           "refinement": 1
         },
         {
+          "id": "23021",
+          "refinement": null
+        },
+        {
+          "id": "20012",
+          "refinement": 5
+        },
+        {
           "id": "21011",
           "refinement": 5
+        },
+        {
+          "id": "21004",
+          "refinement": null
+        },
+        {
+          "id": "21036",
+          "refinement": null
+        },
+        {
+          "id": "21025",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3248,13 +3982,44 @@
             "1306",
             "1304"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1215",
+            "1002",
+            "1207",
+            "1105"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1215",
+            "1302",
+            "1202",
+            "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1215",
+            "1107",
+            "1006",
+            "1110"
+          ]
         }
       ],
       "synergies": [
+        "1213",
         "1302",
-        "1213"
+        "1107",
+        "1206",
+        "1101",
+        "1207"
       ],
-      "substatLine": "SPD > HP = DEF > Break Effect = EFF RES%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -3278,9 +4043,8 @@
     },
     "1217": {
       "name": "Huohuo",
-      "source": "https://www.prydwen.gg/star-rail/characters/huohuo",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Sustain",
       "weapons": [
@@ -3301,8 +4065,20 @@
           "refinement": 5
         },
         {
+          "id": "23013",
+          "refinement": null
+        },
+        {
           "id": "21055",
           "refinement": 5
+        },
+        {
+          "id": "22001",
+          "refinement": null
+        },
+        {
+          "id": "20001",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3313,6 +4089,15 @@
             "1501",
             "1502",
             "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1217",
+            "1002",
+            "1207",
+            "8003"
           ]
         },
         {
@@ -3332,24 +4117,17 @@
             "1502",
             "1217"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1410",
-            "1307",
-            "1005",
-            "1217"
-          ]
         }
       ],
       "synergies": [
         "1402",
+        "1307",
         "1014",
         "1221",
+        "1108",
         "1302"
       ],
-      "substatLine": "SPD (breakpoint) > HP% > EFF RES% = DEF%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -3366,6 +4144,10 @@
         {
           "label": "ENERGY REGEN",
           "value": "119.44%+"
+        },
+        {
+          "label": "HP%",
+          "value": "6000+"
         }
       ],
       "skillPriority": "Ultimate >= Skill = Talent > Basic",
@@ -3373,11 +4155,10 @@
     },
     "1218": {
       "name": "Jiaoqiu",
-      "source": "https://www.prydwen.gg/star-rail/characters/jiaoqiu",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Debuffer Support",
       "weapons": [
         {
           "id": "23029",
@@ -3388,12 +4169,12 @@
           "refinement": 1
         },
         {
-          "id": "21008",
-          "refinement": 5
-        },
-        {
           "id": "21015",
           "refinement": 1
+        },
+        {
+          "id": "21008",
+          "refinement": 5
         },
         {
           "id": "22000",
@@ -3402,6 +4183,10 @@
         {
           "id": "24003",
           "refinement": 5
+        },
+        {
+          "id": "23007",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3412,6 +4197,14 @@
             "1218",
             "1507",
             "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1218",
+            "1308",
+            "1414"
           ]
         },
         {
@@ -3431,22 +4224,17 @@
             "1502",
             "1414"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1410",
-            "1005",
-            "1218",
-            "1414"
-          ]
         }
       ],
       "synergies": [
         "1308",
-        "1305"
+        "1313",
+        "1305",
+        "1306",
+        "1106",
+        "1006"
       ],
-      "substatLine": "EHR (Until 140%) > SPD > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -3470,9 +4258,8 @@
     },
     "1220": {
       "name": "Feixiao",
-      "source": "https://www.prydwen.gg/star-rail/characters/feixiao",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -3489,12 +4276,16 @@
           "refinement": 1
         },
         {
+          "id": "24001",
+          "refinement": 5
+        },
+        {
           "id": "21010",
           "refinement": 5
         },
         {
-          "id": "24001",
-          "refinement": 5
+          "id": "21062",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3520,9 +4311,9 @@
           "name": null,
           "members": [
             "1220",
-            "1504",
-            "1507",
-            "1217"
+            "1224",
+            "8007",
+            "1105"
           ]
         },
         {
@@ -3530,25 +4321,20 @@
           "members": [
             "1220",
             "1504",
-            "1403",
-            "1414"
+            "1507",
+            "1217"
           ]
         }
       ],
       "synergies": [
         "1309",
-        "1403",
         "1406",
+        "1403",
         "1112",
         "1223",
-        "1224",
-        "1313",
-        "1101",
-        "1414",
-        "1304",
-        "1504"
+        "1224"
       ],
-      "substatLine": "SPD (Until Desired Breakpoint) = CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -3569,6 +4355,10 @@
         {
           "label": "CRIT DMG",
           "value": "134-154%"
+        },
+        {
+          "label": "SPD",
+          "value": "134 / 143 / 160+"
         }
       ],
       "skillPriority": "Ultimate > Talent > Skill > Basic",
@@ -3576,9 +4366,8 @@
     },
     "1221": {
       "name": "Yunli",
-      "source": "https://www.prydwen.gg/star-rail/characters/yunli",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -3587,19 +4376,11 @@
           "refinement": 1
         },
         {
-          "id": "23044",
-          "refinement": 1
-        },
-        {
           "id": "23009",
           "refinement": 1
         },
         {
-          "id": "23015",
-          "refinement": 1
-        },
-        {
-          "id": "23002",
+          "id": "23044",
           "refinement": 1
         },
         {
@@ -3607,8 +4388,20 @@
           "refinement": 5
         },
         {
+          "id": "23002",
+          "refinement": 1
+        },
+        {
           "id": "21019",
           "refinement": 5
+        },
+        {
+          "id": "23015",
+          "refinement": 1
+        },
+        {
+          "id": "21058",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3625,21 +4418,39 @@
           "name": null,
           "members": [
             "1221",
+            "8007",
+            "1202",
+            "1110"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1221",
             "1504",
             "1507",
+            "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1221",
+            "1309",
+            "1202",
             "1217"
           ]
         }
       ],
       "synergies": [
         "1309",
+        "1110",
         "1403",
         "1313",
-        "1202",
-        "1414",
-        "1217"
+        "1303",
+        "1202"
       ],
-      "substatLine": "CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -3671,9 +4482,8 @@
     },
     "1222": {
       "name": "Lingsha",
-      "source": "https://www.prydwen.gg/star-rail/characters/lingsha",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Sustain",
       "weapons": [
@@ -3694,8 +4504,20 @@
           "refinement": 5
         },
         {
+          "id": "23008",
+          "refinement": null
+        },
+        {
+          "id": "23017",
+          "refinement": null
+        },
+        {
           "id": "21055",
           "refinement": 5
+        },
+        {
+          "id": "21048",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3706,6 +4528,15 @@
             "1225",
             "1321",
             "1222"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1222",
+            "1224",
+            "8005",
+            "1009"
           ]
         },
         {
@@ -3725,23 +4556,17 @@
             "1507",
             "1222"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1504",
-            "1507",
-            "1403",
-            "1222"
-          ]
         }
       ],
       "synergies": [
         "1310",
+        "1317",
         "1225",
-        "8005"
+        "8005",
+        "1214",
+        "1224"
       ],
-      "substatLine": "SPD (until the desired breakpoint) > BREAK% >= ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -3762,6 +4587,10 @@
         {
           "label": "SPD",
           "value": "151 (Minimum) - 160+"
+        },
+        {
+          "label": "Break Effect (During Combat)",
+          "value": "200%"
         }
       ],
       "skillPriority": "Ultimate > Talent > Skill > Basic",
@@ -3769,11 +4598,10 @@
     },
     "1223": {
       "name": "Moze",
-      "source": "https://www.prydwen.gg/star-rail/characters/moze",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-08-26",
       "mainStats": null,
-      "role": null,
+      "role": "DPS",
       "weapons": [
         {
           "id": "23016",
@@ -3784,12 +4612,20 @@
           "refinement": 1
         },
         {
+          "id": "24001",
+          "refinement": 5
+        },
+        {
           "id": "21010",
           "refinement": 5
         },
         {
-          "id": "24001",
-          "refinement": 5
+          "id": "21062",
+          "refinement": null
+        },
+        {
+          "id": "21037",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3800,6 +4636,15 @@
             "1504",
             "1223",
             "1304"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1223",
+            "1224",
+            "1207",
+            "1110"
           ]
         },
         {
@@ -3819,23 +4664,17 @@
             "1512",
             "1004"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1513",
-            "1504",
-            "1223",
-            "1507"
-          ]
         }
       ],
       "synergies": [
-        "1220",
         "1305",
-        "1304"
+        "1220",
+        "1304",
+        "1221",
+        "1107",
+        "1224"
       ],
-      "substatLine": "SPD = CRIT RATE >= CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -3855,9 +4694,8 @@
     },
     "1224": {
       "name": "March 7th",
-      "source": "https://www.prydwen.gg/star-rail/characters/march-7th-swordmaster",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Support DPS",
       "weapons": [
@@ -3870,12 +4708,16 @@
           "refinement": 5
         },
         {
+          "id": "24001",
+          "refinement": 5
+        },
+        {
           "id": "23016",
           "refinement": 1
         },
         {
-          "id": "24001",
-          "refinement": 5
+          "id": "23020",
+          "refinement": null
         },
         {
           "id": "23027",
@@ -3884,6 +4726,10 @@
         {
           "id": "21047",
           "refinement": 5
+        },
+        {
+          "id": "23031",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3894,6 +4740,15 @@
             "1224",
             "1512",
             "1004"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1224",
+            "1214",
+            "1009",
+            "1110"
           ]
         },
         {
@@ -3913,25 +4768,17 @@
             "1512",
             "1306"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1513",
-            "1224",
-            "8007",
-            "1502"
-          ]
         }
       ],
       "synergies": [
         "1321",
         "1112",
+        "1305",
         "1301",
         "8005",
-        "1309"
+        "1314"
       ],
-      "substatLine": "SPD (Until breakpoint) > CRIT RATE% = CRIT DMG% > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -3963,23 +4810,22 @@
     },
     "1225": {
       "name": "Fugue",
-      "source": "https://www.prydwen.gg/star-rail/characters/tingyun-fugue",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Break Support",
       "weapons": [
         {
           "id": "23035",
           "refinement": 1
         },
         {
-          "id": "23043",
-          "refinement": 1
-        },
-        {
           "id": "21015",
           "refinement": 5
+        },
+        {
+          "id": "23043",
+          "refinement": 1
         },
         {
           "id": "24003",
@@ -3988,6 +4834,14 @@
         {
           "id": "22000",
           "refinement": 5
+        },
+        {
+          "id": "23050",
+          "refinement": null
+        },
+        {
+          "id": "21008",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3998,6 +4852,15 @@
             "1225",
             "1321",
             "1222"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1225",
+            "1214",
+            "1009",
+            "1301"
           ]
         },
         {
@@ -4017,29 +4880,17 @@
             "8005",
             "1321"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1310",
-            "1225",
-            "1321",
-            "1301"
-          ]
         }
       ],
       "synergies": [
         "1317",
-        "1310",
         "1315",
+        "1310",
         "1003",
-        "1308",
-        "1222",
         "1214",
-        "1206",
-        "1111"
+        "1224"
       ],
-      "substatLine": "Effect Hit Rate (Until 67%) > Break Effect > SPD > HP% = DEF%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -4071,11 +4922,10 @@
     },
     "1301": {
       "name": "Gallagher",
-      "source": "https://www.prydwen.gg/star-rail/characters/gallagher",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-12",
       "mainStats": null,
-      "role": null,
+      "role": "Break Effect Healer",
       "weapons": [
         {
           "id": "23032",
@@ -4090,6 +4940,14 @@
           "refinement": 5
         },
         {
+          "id": "23017",
+          "refinement": null
+        },
+        {
+          "id": "20015",
+          "refinement": 5
+        },
+        {
           "id": "21035",
           "refinement": 5
         },
@@ -4099,14 +4957,6 @@
         },
         {
           "id": "21007",
-          "refinement": 5
-        },
-        {
-          "id": "21028",
-          "refinement": 5
-        },
-        {
-          "id": "20015",
           "refinement": 5
         }
       ],
@@ -4118,6 +4968,15 @@
             "1225",
             "1321",
             "1301"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1301",
+            "1224",
+            "8005",
+            "1009"
           ]
         },
         {
@@ -4137,25 +4996,17 @@
             "1507",
             "1301"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1504",
-            "1507",
-            "1403",
-            "1301"
-          ]
         }
       ],
       "synergies": [
         "1407",
+        "1315",
         "1404",
         "8005",
         "1303",
-        "1308"
+        "1317"
       ],
-      "substatLine": "SPD (as much as possible) > Break Effect % (up to 150%) > Effect RES% > HP% = DEF%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -4172,6 +5023,10 @@
         {
           "label": "Break Effect%",
           "value": "60% (no more than 150%)"
+        },
+        {
+          "label": "Break Effect",
+          "value": "150%"
         }
       ],
       "skillPriority": "Talent > Skill > Basic > Ultimate",
@@ -4179,9 +5034,8 @@
     },
     "1302": {
       "name": "Argenti",
-      "source": "https://www.prydwen.gg/star-rail/characters/argenti",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -4219,17 +5073,44 @@
             "1512",
             "1409"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1302",
+            "1207",
+            "8007",
+            "1105"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1302",
+            "1313",
+            "1403",
+            "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1302",
+            "1401",
+            "1403",
+            "1217"
+          ]
         }
       ],
       "synergies": [
         "1401",
+        "1202",
         "1313",
         "1403",
-        "1202",
-        "1309",
-        "1217"
+        "1215",
+        "1306"
       ],
-      "substatLine": "SPD (Breakpoint) > CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -4261,11 +5142,10 @@
     },
     "1303": {
       "name": "Ruan Mei",
-      "source": "https://www.prydwen.gg/star-rail/characters/ruan-mei",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Break DMG Support",
       "weapons": [
         {
           "id": "23019",
@@ -4286,6 +5166,10 @@
         {
           "id": "21018",
           "refinement": 5
+        },
+        {
+          "id": "23003",
+          "refinement": null
         }
       ],
       "teams": [
@@ -4296,6 +5180,15 @@
             "1225",
             "1303",
             "1321"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1303",
+            "1224",
+            "8005",
+            "1301"
           ]
         },
         {
@@ -4315,24 +5208,17 @@
             "1321",
             "1222"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1310",
-            "1303",
-            "1321",
-            "1301"
-          ]
         }
       ],
       "synergies": [
         "1310",
+        "8005",
         "1315",
         "1317",
-        "8005"
+        "1214",
+        "1321"
       ],
-      "substatLine": "Break Effect (Until 180%) > SPD (Until Breakpoint) > HP% = DEF% > Effect RES",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -4353,6 +5239,10 @@
         {
           "label": "Break Effect",
           "value": "180%+ (with A2 active)"
+        },
+        {
+          "label": "HP%",
+          "value": "3800+"
         }
       ],
       "skillPriority": "Ultimate = Talent = Skill > Basic",
@@ -4360,9 +5250,8 @@
     },
     "1304": {
       "name": "Aventurine",
-      "source": "https://www.prydwen.gg/star-rail/characters/aventurine",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-08-26",
       "mainStats": null,
       "role": "Sustain",
       "weapons": [
@@ -4371,15 +5260,11 @@
           "refinement": 1
         },
         {
-          "id": "21053",
-          "refinement": 5
-        },
-        {
           "id": "23005",
           "refinement": 1
         },
         {
-          "id": "21002",
+          "id": "21053",
           "refinement": 5
         },
         {
@@ -4389,6 +5274,14 @@
         {
           "id": "21016",
           "refinement": 1
+        },
+        {
+          "id": "21002",
+          "refinement": 5
+        },
+        {
+          "id": "21030",
+          "refinement": null
         },
         {
           "id": "21009",
@@ -4408,6 +5301,15 @@
         {
           "name": null,
           "members": [
+            "1304",
+            "1013",
+            "1009",
+            "1207"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1410",
             "1307",
             "1005",
@@ -4422,25 +5324,17 @@
             "1306",
             "1304"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1505",
-            "8009",
-            "1502",
-            "1304"
-          ]
         }
       ],
       "synergies": [
         "1220",
+        "1223",
         "1305",
         "1112",
-        "1309",
-        "1308"
+        "1221",
+        "1309"
       ],
-      "substatLine": "DEF% (aim for 4k) >= SPD > CRIT DMG > CRIT Rate > Effect RES",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -4461,6 +5355,10 @@
         {
           "label": "SPD",
           "value": "106 / 134+"
+        },
+        {
+          "label": "Speed",
+          "value": "134+"
         }
       ],
       "skillPriority": "Skill > Talent > Ultimate > Basic",
@@ -4468,9 +5366,8 @@
     },
     "1305": {
       "name": "Dr. Ratio",
-      "source": "https://www.prydwen.gg/star-rail/characters/dr-ratio",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -4483,16 +5380,24 @@
           "refinement": 1
         },
         {
-          "id": "21003",
-          "refinement": 5
+          "id": "23001",
+          "refinement": 1
         },
         {
           "id": "24001",
           "refinement": 5
         },
         {
-          "id": "23001",
-          "refinement": 1
+          "id": "21003",
+          "refinement": 5
+        },
+        {
+          "id": "21062",
+          "refinement": null
+        },
+        {
+          "id": "23012",
+          "refinement": null
         }
       ],
       "teams": [
@@ -4503,6 +5408,15 @@
             "1507",
             "1512",
             "1409"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1305",
+            "1224",
+            "1009",
+            "1105"
           ]
         },
         {
@@ -4526,15 +5440,13 @@
       ],
       "synergies": [
         "1309",
-        "1112",
         "1223",
+        "1112",
+        "1224",
         "1218",
-        "1006",
-        "1106",
-        "1414",
-        "1304"
+        "1106"
       ],
-      "substatLine": "SPD (breakpoint) > CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -4551,6 +5463,14 @@
         {
           "label": "SPD",
           "value": "Base Speed / 134 (Recommended) / 143 / 161"
+        },
+        {
+          "label": "CRIT Rate",
+          "value": "70%+ (Outside of combat)"
+        },
+        {
+          "label": "CRIT DMG",
+          "value": "150%+ (Outside of combat)"
         }
       ],
       "skillPriority": "Talent > Skill > Ultimate > Basic",
@@ -4558,11 +5478,10 @@
     },
     "1306": {
       "name": "Sparkle",
-      "source": "https://www.prydwen.gg/star-rail/characters/sparkle",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "CRIT DMG Buffer",
       "weapons": [
         {
           "id": "23034",
@@ -4573,12 +5492,20 @@
           "refinement": 1
         },
         {
+          "id": "23003",
+          "refinement": 1
+        },
+        {
           "id": "21018",
           "refinement": 5
         },
         {
-          "id": "23003",
-          "refinement": 1
+          "id": "21025",
+          "refinement": null
+        },
+        {
+          "id": "21011",
+          "refinement": null
         }
       ],
       "teams": [
@@ -4589,6 +5516,15 @@
             "1508",
             "1306",
             "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1306",
+            "1201",
+            "8007",
+            "1110"
           ]
         },
         {
@@ -4608,23 +5544,17 @@
             "1306",
             "1217"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1408",
-            "1412",
-            "1306",
-            "1313"
-          ]
         }
       ],
       "synergies": [
         "1015",
+        "1102",
         "1213",
-        "1501"
+        "1501",
+        "1214",
+        "1110"
       ],
-      "substatLine": "SPD > CRIT DMG% > HP = DEF = EFF RES%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -4641,6 +5571,14 @@
         {
           "label": "Energy Regen",
           "value": "119.44%+"
+        },
+        {
+          "label": "Effect RES",
+          "value": "30%+"
+        },
+        {
+          "label": "SPD",
+          "value": "200 / 184"
         }
       ],
       "skillPriority": "Skill > Ultimate = Talent > Basic",
@@ -4648,9 +5586,8 @@
     },
     "1307": {
       "name": "Black Swan",
-      "source": "https://www.prydwen.gg/star-rail/characters/black-swan",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Support DPS",
       "weapons": [
@@ -4671,8 +5608,20 @@
           "refinement": 5
         },
         {
+          "id": "23006",
+          "refinement": null
+        },
+        {
           "id": "23047",
           "refinement": 1
+        },
+        {
+          "id": "21001",
+          "refinement": null
+        },
+        {
+          "id": "22000",
+          "refinement": null
         }
       ],
       "teams": [
@@ -4683,6 +5632,15 @@
             "1307",
             "1005",
             "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1307",
+            "1103",
+            "1009",
+            "1105"
           ]
         },
         {
@@ -4702,24 +5660,17 @@
             "1005",
             "1409"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1410",
-            "1307",
-            "1005",
-            "1304"
-          ]
         }
       ],
       "synergies": [
         "1005",
+        "1108",
         "1410",
         "1303",
+        "1210",
         "1217"
       ],
-      "substatLine": "EHR (Until 120%) > SPD (Until breakpoint) > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -4740,6 +5691,10 @@
         {
           "label": "SPD",
           "value": "134/160"
+        },
+        {
+          "label": "Effect Hit Rate",
+          "value": "120%"
         }
       ],
       "skillPriority": "Talent > Ultimate = Skill = Basic",
@@ -4747,9 +5702,8 @@
     },
     "1308": {
       "name": "Acheron",
-      "source": "https://www.prydwen.gg/star-rail/characters/acheron",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -4762,12 +5716,20 @@
           "refinement": 1
         },
         {
+          "id": "21044",
+          "refinement": 5
+        },
+        {
           "id": "21001",
           "refinement": 5
         },
         {
-          "id": "21044",
-          "refinement": 5
+          "id": "23004",
+          "refinement": null
+        },
+        {
+          "id": "23006",
+          "refinement": null
         }
       ],
       "teams": [
@@ -4778,6 +5740,15 @@
             "1507",
             "1403",
             "1409"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1308",
+            "1507",
+            "1004",
+            "1414"
           ]
         },
         {
@@ -4797,34 +5768,17 @@
             "1507",
             "1409"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1308",
-            "1507",
-            "1403",
-            "1222"
-          ]
         }
       ],
       "synergies": [
         "1507",
-        "1406",
         "1218",
-        "1004",
-        "1006",
+        "1301",
+        "1406",
         "1106",
-        "1403",
-        "1313",
-        "1306",
-        "1101",
-        "1409",
-        "1414",
-        "1208",
-        "1304"
+        "1006"
       ],
-      "substatLine": "SPD > CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -4856,11 +5810,10 @@
     },
     "1309": {
       "name": "Robin",
-      "source": "https://www.prydwen.gg/star-rail/characters/robin",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Support",
       "weapons": [
         {
           "id": "23026",
@@ -4875,10 +5828,6 @@
           "refinement": 5
         },
         {
-          "id": "23038",
-          "refinement": 1
-        },
-        {
           "id": "23019",
           "refinement": 1
         },
@@ -4889,6 +5838,10 @@
         {
           "id": "20012",
           "refinement": 5
+        },
+        {
+          "id": "23038",
+          "refinement": 1
         }
       ],
       "teams": [
@@ -4899,6 +5852,15 @@
             "1508",
             "1309",
             "1306"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1309",
+            "1013",
+            "1009",
+            "1105"
           ]
         },
         {
@@ -4918,28 +5880,17 @@
             "1309",
             "1217"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1408",
-            "1412",
-            "1309",
-            "1313"
-          ]
         }
       ],
       "synergies": [
         "1313",
+        "1305",
         "1220",
-        "1402",
         "1112",
-        "1217",
-        "1304",
-        "1414",
-        "1504"
+        "1402",
+        "1221"
       ],
-      "substatLine": "ATK% >= SPD > HP% = DEF%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -4960,6 +5911,10 @@
         {
           "label": "Energy Regeneration Rate",
           "value": "19.44%+"
+        },
+        {
+          "label": "Speed",
+          "value": "121+"
         }
       ],
       "skillPriority": "Ultimate > Skill > Talent > Basic",
@@ -4967,9 +5922,8 @@
     },
     "1310": {
       "name": "Firefly",
-      "source": "https://www.prydwen.gg/star-rail/characters/firefly",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -4978,16 +5932,28 @@
           "refinement": 1
         },
         {
-          "id": "23044",
-          "refinement": 1
-        },
-        {
           "id": "24000",
           "refinement": 5
         },
         {
+          "id": "23044",
+          "refinement": 1
+        },
+        {
           "id": "21042",
           "refinement": 5
+        },
+        {
+          "id": "21033",
+          "refinement": null
+        },
+        {
+          "id": "23002",
+          "refinement": null
+        },
+        {
+          "id": "21005",
+          "refinement": null
         }
       ],
       "teams": [
@@ -4998,6 +5964,15 @@
             "1225",
             "1321",
             "1222"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1310",
+            "8005",
+            "1009",
+            "1110"
           ]
         },
         {
@@ -5017,26 +5992,17 @@
             "8005",
             "1321"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1310",
-            "1225",
-            "1321",
-            "1301"
-          ]
         }
       ],
       "synergies": [
-        "1321",
         "1303",
-        "1225",
+        "1321",
         "8005",
-        "1222",
-        "1301"
+        "1225",
+        "1301",
+        "1009"
       ],
-      "substatLine": "SPD (Until Breakpoint) > Break Effect% > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -5049,6 +6015,14 @@
         {
           "label": "Break Effect",
           "value": "300%"
+        },
+        {
+          "label": "ATK",
+          "value": "2600+"
+        },
+        {
+          "label": "Speed",
+          "value": "150 / 164 (with Ruan Mei) / 178-188 (with The Dahlia)"
         }
       ],
       "skillPriority": "Ultimate > Skill = Talent > Basic",
@@ -5056,32 +6030,87 @@
     },
     "1312": {
       "name": "Misha",
-      "source": "https://www.prydwen.gg/star-rail/characters/misha",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-28",
       "mainStats": null,
-      "role": null,
+      "role": "Ice DPS",
       "weapons": [
-        {
-          "id": "23044",
-          "refinement": 1
-        },
         {
           "id": "24000",
           "refinement": 5
         },
         {
+          "id": "23044",
+          "refinement": 1
+        },
+        {
           "id": "21012",
           "refinement": 5
+        },
+        {
+          "id": "21058",
+          "refinement": null
+        },
+        {
+          "id": "21019",
+          "refinement": null
+        },
+        {
+          "id": "21005",
+          "refinement": null
+        },
+        {
+          "id": "21033",
+          "refinement": null
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1312",
+            "1009",
+            "1207",
+            "1110"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1312",
+            "1306",
+            "1202",
+            "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1312",
+            "1001",
+            "1104",
+            "1203"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1312",
+            "1303",
+            "1006",
+            "1104"
+          ]
+        }
+      ],
       "synergies": [
         "1313",
+        "1303",
+        "1101",
         "1306",
-        "1101"
+        "1009",
+        "1215"
       ],
-      "substatLine": "SPD (Breakpoint) > CRIT Rate = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -5113,11 +6142,10 @@
     },
     "1313": {
       "name": "Sunday",
-      "source": "https://www.prydwen.gg/star-rail/characters/sunday",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "CRIT Buffer",
       "weapons": [
         {
           "id": "23034",
@@ -5134,6 +6162,18 @@
         {
           "id": "21018",
           "refinement": 5
+        },
+        {
+          "id": "23021",
+          "refinement": null
+        },
+        {
+          "id": "21011",
+          "refinement": null
+        },
+        {
+          "id": "21032",
+          "refinement": null
         }
       ],
       "teams": [
@@ -5144,6 +6184,14 @@
             "1306",
             "1313",
             "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1313",
+            "1009",
+            "1110"
           ]
         },
         {
@@ -5163,25 +6211,17 @@
             "1306",
             "1313"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1408",
-            "1412",
-            "1313",
-            "1414"
-          ]
         }
       ],
       "synergies": [
         "1204",
         "1221",
         "1408",
+        "1407",
         "1414",
-        "1510"
+        "1301"
       ],
-      "substatLine": "SPD (Until desired speed build) > CRIT DMG > EFF RES% > DEF% = HP%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -5213,9 +6253,8 @@
     },
     "1314": {
       "name": "Jade",
-      "source": "https://www.prydwen.gg/star-rail/characters/jade",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Support DPS",
       "weapons": [
@@ -5228,12 +6267,12 @@
           "refinement": 1
         },
         {
-          "id": "21034",
-          "refinement": 5
-        },
-        {
           "id": "23000",
           "refinement": 1
+        },
+        {
+          "id": "21034",
+          "refinement": 5
         },
         {
           "id": "21020",
@@ -5244,11 +6283,11 @@
           "refinement": 5
         },
         {
-          "id": "21027",
-          "refinement": 5
+          "id": "21060",
+          "refinement": null
         },
         {
-          "id": "21006",
+          "id": "21027",
           "refinement": 5
         }
       ],
@@ -5260,6 +6299,15 @@
             "1314",
             "1403",
             "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1314",
+            "1013",
+            "8007",
+            "1110"
           ]
         },
         {
@@ -5279,27 +6327,17 @@
             "1403",
             "1304"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1401",
-            "1314",
-            "1512",
-            "1414"
-          ]
         }
       ],
       "synergies": [
         "1401",
-        "1222",
-        "1205",
+        "1302",
         "1013",
+        "1222",
         "1003",
-        "1303",
-        "1309"
+        "1205"
       ],
-      "substatLine": "CRIT RATE >= CRIT DMG > ATK% > SPD",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -5331,9 +6369,8 @@
     },
     "1315": {
       "name": "Boothill",
-      "source": "https://www.prydwen.gg/star-rail/characters/boothill",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -5350,7 +6387,7 @@
           "refinement": 5
         },
         {
-          "id": "21024",
+          "id": "24001",
           "refinement": 5
         },
         {
@@ -5358,8 +6395,12 @@
           "refinement": 5
         },
         {
-          "id": "24001",
+          "id": "21024",
           "refinement": 5
+        },
+        {
+          "id": "23012",
+          "refinement": null
         }
       ],
       "teams": [
@@ -5385,30 +6426,30 @@
           "name": null,
           "members": [
             "1315",
-            "1225",
-            "1321",
-            "1301"
+            "8005",
+            "1009",
+            "1105"
           ]
         },
         {
           "name": null,
           "members": [
             "1315",
-            "1406",
             "1225",
-            "1321"
+            "1321",
+            "1301"
           ]
         }
       ],
       "synergies": [
         "1321",
+        "1101",
         "1225",
         "1313",
-        "1101",
-        "1303",
-        "8005"
+        "1106",
+        "1303"
       ],
-      "substatLine": "SPD >= Break Effect",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -5421,6 +6462,14 @@
         {
           "label": "SPD",
           "value": "145/160/200"
+        },
+        {
+          "label": "Speed",
+          "value": "135 / 145 / 160"
+        },
+        {
+          "label": "CRIT DMG",
+          "value": "50%+ (Out of combat)"
         }
       ],
       "skillPriority": "Talent > Skill > Ultimate > Basic",
@@ -5428,9 +6477,8 @@
     },
     "1317": {
       "name": "Rappa",
-      "source": "https://www.prydwen.gg/star-rail/characters/rappa",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -5449,6 +6497,14 @@
         {
           "id": "21013",
           "refinement": 5
+        },
+        {
+          "id": "23000",
+          "refinement": null
+        },
+        {
+          "id": "21027",
+          "refinement": null
         }
       ],
       "teams": [
@@ -5474,9 +6530,9 @@
           "name": null,
           "members": [
             "1317",
-            "1225",
-            "1321",
-            "1301"
+            "8005",
+            "1009",
+            "1110"
           ]
         },
         {
@@ -5485,18 +6541,19 @@
             "1317",
             "1225",
             "1321",
-            "1304"
+            "1301"
           ]
         }
       ],
       "synergies": [
         "1321",
-        "1225",
-        "8005",
         "1303",
+        "8005",
+        "1225",
+        "1101",
         "1222"
       ],
-      "substatLine": "SPD (Until Desired Breakpoint) > Break Effect > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -5524,11 +6581,10 @@
     },
     "1321": {
       "name": "The Dahlia",
-      "source": "https://www.prydwen.gg/star-rail/characters/the-dahlia",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Break Support",
       "weapons": [
         {
           "id": "23050",
@@ -5539,19 +6595,19 @@
           "refinement": 1
         },
         {
-          "id": "23043",
-          "refinement": 1
-        },
-        {
           "id": "21015",
           "refinement": 5
         },
         {
-          "id": "21061",
-          "refinement": 5
+          "id": "23043",
+          "refinement": 1
         },
         {
           "id": "22000",
+          "refinement": 5
+        },
+        {
+          "id": "21061",
           "refinement": 5
         }
       ],
@@ -5563,6 +6619,15 @@
             "1225",
             "1321",
             "1222"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1214",
+            "1321",
+            "1009",
+            "1301"
           ]
         },
         {
@@ -5582,24 +6647,17 @@
             "8005",
             "1321"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1310",
-            "1225",
-            "1321",
-            "1301"
-          ]
         }
       ],
       "synergies": [
         "1310",
-        "1317",
         "1315",
-        "1224"
+        "1317",
+        "1224",
+        "1214",
+        "1003"
       ],
-      "substatLine": "SPD > Break Effect > HP%/DEF% > Effect RES",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -5627,9 +6685,8 @@
     },
     "1401": {
       "name": "The Herta",
-      "source": "https://www.prydwen.gg/star-rail/characters/the-herta",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -5646,10 +6703,6 @@
           "refinement": 1
         },
         {
-          "id": "23010",
-          "refinement": 1
-        },
-        {
           "id": "21020",
           "refinement": 5
         },
@@ -5658,7 +6711,7 @@
           "refinement": 5
         },
         {
-          "id": "21034",
+          "id": "23010",
           "refinement": 1
         },
         {
@@ -5681,6 +6734,15 @@
           "members": [
             "1401",
             "1405",
+            "1306",
+            "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1401",
+            "1405",
             "1403",
             "1409"
           ]
@@ -5693,32 +6755,17 @@
             "1403",
             "1217"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1401",
-            "1405",
-            "1403",
-            "1304"
-          ]
         }
       ],
       "synergies": [
         "1405",
+        "1507",
         "1314",
-        "1013",
-        "1103",
-        "1302",
-        "1403",
-        "8007",
-        "1313",
         "1309",
-        "1414",
-        "1304",
-        "1222"
+        "1313",
+        "1013"
       ],
-      "substatLine": "SPD (Until Desired Breakpoint) > CRIT RATE > CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -5739,6 +6786,10 @@
         {
           "label": "CRIT DMG",
           "value": "100 - 120%+"
+        },
+        {
+          "label": "SPD",
+          "value": "134"
         }
       ],
       "skillPriority": "Talent >= Skill = Ultimate > Basic",
@@ -5746,9 +6797,8 @@
     },
     "1402": {
       "name": "Aglaea",
-      "source": "https://www.prydwen.gg/star-rail/characters/aglaea",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-29",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -5765,12 +6815,16 @@
           "refinement": 5
         },
         {
-          "id": "21052",
-          "refinement": 1
-        },
-        {
           "id": "21051",
           "refinement": 5
+        },
+        {
+          "id": "21050",
+          "refinement": null
+        },
+        {
+          "id": "20021",
+          "refinement": null
         }
       ],
       "teams": [
@@ -5796,32 +6850,30 @@
           "name": null,
           "members": [
             "1402",
-            "1512",
-            "1313",
-            "1414"
+            "8007",
+            "1009",
+            "1110"
           ]
         },
         {
           "name": null,
           "members": [
             "1402",
-            "1415",
             "1512",
-            "1217"
+            "1313",
+            "1414"
           ]
         }
       ],
       "synergies": [
         "1313",
-        "1415",
         "1309",
-        "1403",
         "8007",
-        "1217",
-        "1414",
-        "1512"
+        "1415",
+        "1403",
+        "1217"
       ],
-      "substatLine": "SPD (Until Desired Breakpoint) > CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -5853,9 +6905,8 @@
     },
     "1403": {
       "name": "Tribbie",
-      "source": "https://www.prydwen.gg/star-rail/characters/tribbie",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": null,
       "weapons": [
@@ -5874,6 +6925,10 @@
         {
           "id": "20012",
           "refinement": 5
+        },
+        {
+          "id": "21046",
+          "refinement": null
         }
       ],
       "teams": [
@@ -5884,6 +6939,15 @@
             "1413",
             "1403",
             "1409"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1403",
+            "1103",
+            "1013",
+            "1110"
           ]
         },
         {
@@ -5903,23 +6967,17 @@
             "1403",
             "1217"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1407",
-            "1415",
-            "1403",
-            "1409"
-          ]
         }
       ],
       "synergies": [
         "1401",
+        "1314",
         "1402",
-        "1504"
+        "1504",
+        "1302",
+        "1103"
       ],
-      "substatLine": "SPD > CRIT RATE = CRIT DMG > HP%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -5951,9 +7009,8 @@
     },
     "1404": {
       "name": "Mydei",
-      "source": "https://www.prydwen.gg/star-rail/characters/mydei",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-08-26",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -5966,16 +7023,20 @@
           "refinement": 1
         },
         {
-          "id": "21012",
+          "id": "22003",
           "refinement": 5
         },
         {
-          "id": "22003",
+          "id": "21012",
           "refinement": 5
         },
         {
           "id": "21038",
           "refinement": 5
+        },
+        {
+          "id": "21058",
+          "refinement": null
         }
       ],
       "teams": [
@@ -5986,6 +7047,15 @@
             "1415",
             "1512",
             "1409"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1404",
+            "8007",
+            "1106",
+            "1110"
           ]
         },
         {
@@ -6005,29 +7075,17 @@
             "8007",
             "1409"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1404",
-            "1415",
-            "1507",
-            "1409"
-          ]
         }
       ],
       "synergies": [
-        "1415",
         "1313",
-        "1403",
-        "1306",
+        "1415",
         "8007",
-        "1409",
-        "1217",
-        "1301",
+        "1306",
+        "1403",
         "1203"
       ],
-      "substatLine": "HP% >= CRIT Rate/CRIT DMG",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -6051,9 +7109,8 @@
     },
     "1405": {
       "name": "Anaxa",
-      "source": "https://www.prydwen.gg/star-rail/characters/anaxa",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-08-26",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -6076,6 +7133,14 @@
         {
           "id": "23010",
           "refinement": 1
+        },
+        {
+          "id": "21040",
+          "refinement": null
+        },
+        {
+          "id": "20013",
+          "refinement": null
         }
       ],
       "teams": [
@@ -6100,32 +7165,31 @@
         {
           "name": null,
           "members": [
-            "1401",
             "1405",
-            "1403",
-            "1409"
+            "8007",
+            "1009",
+            "1110"
           ]
         },
         {
           "name": null,
           "members": [
+            "1401",
             "1405",
-            "1415",
-            "1512",
-            "1414"
+            "1403",
+            "1409"
           ]
         }
       ],
       "synergies": [
         "1401",
+        "1313",
         "1403",
         "1309",
-        "1313",
         "1412",
-        "1414",
         "1415"
       ],
-      "substatLine": "SPD (Until Desired Breakpoint) > CRIT RATE > CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -6157,11 +7221,10 @@
     },
     "1406": {
       "name": "Cipher",
-      "source": "https://www.prydwen.gg/star-rail/characters/cipher",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Sub-DPS",
       "weapons": [
         {
           "id": "23043",
@@ -6170,6 +7233,18 @@
         {
           "id": "21015",
           "refinement": 5
+        },
+        {
+          "id": "21061",
+          "refinement": null
+        },
+        {
+          "id": "21044",
+          "refinement": null
+        },
+        {
+          "id": "21001",
+          "refinement": null
         }
       ],
       "teams": [
@@ -6185,18 +7260,17 @@
         {
           "name": null,
           "members": [
-            "1407",
-            "1413",
             "1406",
-            "1409"
+            "1009",
+            "1110"
           ]
         },
         {
           "name": null,
           "members": [
             "1407",
+            "1413",
             "1406",
-            "1403",
             "1409"
           ]
         },
@@ -6212,12 +7286,13 @@
       ],
       "synergies": [
         "1220",
+        "1006",
         "1308",
         "1407",
-        "1402",
-        "1504"
+        "1106",
+        "1402"
       ],
-      "substatLine": "[SPD (Until Desired Breakpoint) > EHR (If Desired) > CRIT RATE = CRIT DMG > ATK%] or [SPD (Until Desired Breakpoint) > EHR (If Desired) > HP% >= DEF%]",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -6230,6 +7305,10 @@
         {
           "label": "SPD",
           "value": "170+ (In Combat)"
+        },
+        {
+          "label": "Effect Hit Rate",
+          "value": "38% / 67%"
         }
       ],
       "skillPriority": "Talent = Skill > Ultimate > Basic",
@@ -6237,9 +7316,8 @@
     },
     "1407": {
       "name": "Castorice",
-      "source": "https://www.prydwen.gg/star-rail/characters/castorice",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-08-26",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -6254,6 +7332,10 @@
         {
           "id": "21052",
           "refinement": 5
+        },
+        {
+          "id": "23049",
+          "refinement": null
         },
         {
           "id": "23013",
@@ -6286,6 +7368,15 @@
           "name": null,
           "members": [
             "1407",
+            "8007",
+            "1106",
+            "1110"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1407",
             "1413",
             "1512",
             "1409"
@@ -6299,32 +7390,17 @@
             "1403",
             "1409"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1407",
-            "1415",
-            "1403",
-            "1409"
-          ]
         }
       ],
       "synergies": [
         "1409",
-        "1413",
-        "1415",
-        "1507",
         "1403",
+        "1413",
         "8007",
         "1313",
-        "1303",
-        "1301",
-        "1203",
-        "1404",
-        "1512"
+        "1415"
       ],
-      "substatLine": "CRIT DMG = CRIT Rate > HP% > SPD (Less than 95)",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -6345,6 +7421,10 @@
         {
           "label": "SPD",
           "value": "Base Speed / <95"
+        },
+        {
+          "label": "HP%",
+          "value": "7000+"
         }
       ],
       "skillPriority": "Memo Skill = Memo Talent > Ultimate = Talent > Skill > Basic",
@@ -6352,9 +7432,8 @@
     },
     "1408": {
       "name": "Phainon",
-      "source": "https://www.prydwen.gg/star-rail/characters/phainon",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-08-26",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -6373,6 +7452,10 @@
         {
           "id": "21058",
           "refinement": 5
+        },
+        {
+          "id": "21019",
+          "refinement": null
         }
       ],
       "teams": [
@@ -6389,9 +7472,9 @@
           "name": null,
           "members": [
             "1408",
-            "1412",
-            "1313",
-            "1414"
+            "8007",
+            "1202",
+            "1110"
           ]
         },
         {
@@ -6408,26 +7491,20 @@
           "members": [
             "1408",
             "1412",
-            "1415",
+            "1313",
             "1414"
           ]
         }
       ],
       "synergies": [
-        "1412",
         "1415",
-        "1313",
+        "1412",
         "1101",
+        "1313",
         "1202",
-        "8007",
-        "1303",
-        "1406",
-        "1403",
-        "1217",
-        "1414",
-        "1512"
+        "8007"
       ],
-      "substatLine": "SPD (if needed) > CRIT RATE > CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -6448,6 +7525,10 @@
         {
           "label": "CRIT DMG",
           "value": "160-180%+ (Before Trace)"
+        },
+        {
+          "label": "SPD",
+          "value": "Base SPD"
         }
       ],
       "skillPriority": "Skill > Ultimate = Talent = Basic",
@@ -6455,9 +7536,8 @@
     },
     "1409": {
       "name": "Hyacine",
-      "source": "https://www.prydwen.gg/star-rail/characters/hyacine",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-12",
       "mainStats": null,
       "role": "Sustain",
       "weapons": [
@@ -6472,6 +7552,14 @@
         {
           "id": "21054",
           "refinement": 5
+        },
+        {
+          "id": "23052",
+          "refinement": null
+        },
+        {
+          "id": "21050",
+          "refinement": null
         }
       ],
       "teams": [
@@ -6487,6 +7575,14 @@
         {
           "name": null,
           "members": [
+            "1409",
+            "8007",
+            "1106"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1407",
             "1413",
             "1512",
@@ -6501,28 +7597,17 @@
             "1512",
             "1409"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1407",
-            "1413",
-            "1403",
-            "1409"
-          ]
         }
       ],
       "synergies": [
         "1407",
+        "1205",
         "1413",
         "1507",
-        "1205",
-        "1401",
-        "1220",
-        "1308",
-        "1512"
+        "1212",
+        "1401"
       ],
-      "substatLine": "SPD to 200 or more > HP% > CRIT DMG >= Effect RES",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -6550,9 +7635,8 @@
     },
     "1410": {
       "name": "Hysilens",
-      "source": "https://www.prydwen.gg/star-rail/characters/hysilens",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -6569,10 +7653,6 @@
           "refinement": 1
         },
         {
-          "id": "23006",
-          "refinement": 1
-        },
-        {
           "id": "21008",
           "refinement": 5
         },
@@ -6583,6 +7663,10 @@
         {
           "id": "21041",
           "refinement": 5
+        },
+        {
+          "id": "23006",
+          "refinement": 1
         }
       ],
       "teams": [
@@ -6608,9 +7692,9 @@
           "name": null,
           "members": [
             "1410",
-            "1307",
-            "1005",
-            "1409"
+            "1103",
+            "1009",
+            "1110"
           ]
         },
         {
@@ -6619,25 +7703,19 @@
             "1410",
             "1307",
             "1005",
-            "1304"
+            "1409"
           ]
         }
       ],
       "synergies": [
         "1005",
-        "1307",
         "1415",
-        "1218",
-        "1108",
+        "1307",
         "1309",
-        "1303",
-        "1406",
         "1403",
-        "1006",
-        "1414",
-        "1217"
+        "1218"
       ],
-      "substatLine": "Effect Hit Rate to 120% = SPD (Until Desired Breakpoint) > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -6658,6 +7736,10 @@
         {
           "label": "EHR",
           "value": "120%"
+        },
+        {
+          "label": "Effect Hit Rate",
+          "value": "120%"
         }
       ],
       "skillPriority": "Ultimate > Talent = Skill > Basic",
@@ -6665,11 +7747,10 @@
     },
     "1412": {
       "name": "Cerydra",
-      "source": "https://www.prydwen.gg/star-rail/characters/cerydra",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-06-04",
+      "sources": 2,
+      "updated": "2026-08-26",
       "mainStats": null,
-      "role": null,
+      "role": "Skill Support",
       "weapons": [
         {
           "id": "23048",
@@ -6684,12 +7765,20 @@
           "refinement": 5
         },
         {
+          "id": "21011",
+          "refinement": 5
+        },
+        {
           "id": "23021",
           "refinement": 1
         },
         {
-          "id": "21011",
-          "refinement": 5
+          "id": "23034",
+          "refinement": null
+        },
+        {
+          "id": "21018",
+          "refinement": null
         }
       ],
       "teams": [
@@ -6700,6 +7789,15 @@
             "1412",
             "1306",
             "1313"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1412",
+            "1002",
+            "8007",
+            "1110"
           ]
         },
         {
@@ -6719,23 +7817,17 @@
             "1415",
             "1512"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1408",
-            "1412",
-            "1415",
-            "1414"
-          ]
         }
       ],
       "synergies": [
-        "1408",
         "1405",
-        "1015"
+        "1408",
+        "1015",
+        "1404",
+        "1220",
+        "1415"
       ],
-      "substatLine": "SPD (Until Desired Speed Build) > ATK% > ATK > Defensive Stats",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -6759,9 +7851,8 @@
     },
     "1413": {
       "name": "Evernight",
-      "source": "https://www.prydwen.gg/star-rail/characters/march-7th-evernight",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-08-26",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -6782,10 +7873,6 @@
           "refinement": 1
         },
         {
-          "id": "21052",
-          "refinement": 1
-        },
-        {
           "id": "21054",
           "refinement": 5
         },
@@ -6796,6 +7883,10 @@
         {
           "id": "24005",
           "refinement": 5
+        },
+        {
+          "id": "21050",
+          "refinement": null
         }
       ],
       "teams": [
@@ -6811,10 +7902,9 @@
         {
           "name": null,
           "members": [
-            "1407",
             "1413",
-            "1512",
-            "1409"
+            "8007",
+            "1110"
           ]
         },
         {
@@ -6831,19 +7921,20 @@
           "members": [
             "1407",
             "1413",
-            "1403",
+            "1512",
             "1409"
           ]
         }
       ],
       "synergies": [
         "1407",
+        "8007",
         "1415",
         "1409",
-        "8007",
+        "1403",
         "1512"
       ],
-      "substatLine": "CRIT Rate (Until cap) = CRIT DMG > HP% > SPD",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -6863,9 +7954,8 @@
     },
     "1414": {
       "name": "Dan Heng • Permansor Terrae",
-      "source": "https://www.prydwen.gg/star-rail/characters/dan-heng-permansor-terrae",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-08-05",
       "mainStats": null,
       "role": "Sustain",
       "weapons": [
@@ -6886,8 +7976,20 @@
           "refinement": 5
         },
         {
+          "id": "23011",
+          "refinement": null
+        },
+        {
           "id": "21016",
           "refinement": 5
+        },
+        {
+          "id": "23005",
+          "refinement": null
+        },
+        {
+          "id": "21009",
+          "refinement": null
         }
       ],
       "teams": [
@@ -6897,6 +7999,15 @@
             "1015",
             "1508",
             "1306",
+            "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1002",
+            "1207",
+            "1009",
             "1414"
           ]
         },
@@ -6917,30 +8028,17 @@
             "1005",
             "1414"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1510",
-            "1512",
-            "1313",
-            "1414"
-          ]
         }
       ],
       "synergies": [
         "1313",
         "1408",
-        "1220",
+        "1401",
         "1309",
-        "1213",
-        "1015",
-        "1201",
         "1415",
-        "1504",
-        "1510"
+        "1220"
       ],
-      "substatLine": "SPD (until desired breakpoint) > ATK% > ATK > Effect RES",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -6964,11 +8062,10 @@
     },
     "1415": {
       "name": "Cyrene",
-      "source": "https://www.prydwen.gg/star-rail/characters/cyrene",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-07-15",
       "mainStats": null,
-      "role": null,
+      "role": "Support",
       "weapons": [
         {
           "id": "23052",
@@ -6981,6 +8078,18 @@
         {
           "id": "24005",
           "refinement": 5
+        },
+        {
+          "id": "21050",
+          "refinement": null
+        },
+        {
+          "id": "21052",
+          "refinement": null
+        },
+        {
+          "id": "20022",
+          "refinement": null
         }
       ],
       "teams": [
@@ -6991,6 +8100,14 @@
             "1413",
             "1415",
             "1409"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1415",
+            "8007",
+            "1414"
           ]
         },
         {
@@ -7010,32 +8127,17 @@
             "1415",
             "1512"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1413",
-            "1415",
-            "8007",
-            "1409"
-          ]
         }
       ],
       "synergies": [
         "1409",
-        "1402",
-        "1404",
         "1403",
-        "1407",
-        "1405",
-        "1406",
+        "1402",
         "1408",
-        "1410",
-        "1412",
-        "1413",
-        "1414"
+        "1406",
+        "1404"
       ],
-      "substatLine": "SPD (until 180/200) > Crit Rate > Crit DMG > HP%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -7063,9 +8165,8 @@
     },
     "1501": {
       "name": "Sparxie",
-      "source": "https://www.prydwen.gg/star-rail/characters/sparxie",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-28",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -7078,12 +8179,16 @@
           "refinement": 5
         },
         {
-          "id": "21065",
-          "refinement": 1
-        },
-        {
           "id": "21064",
           "refinement": 5
+        },
+        {
+          "id": "21066",
+          "refinement": null
+        },
+        {
+          "id": "22007",
+          "refinement": null
         }
       ],
       "teams": [
@@ -7094,6 +8199,15 @@
             "1501",
             "1502",
             "1503"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1501",
+            "1009",
+            "8009",
+            "1105"
           ]
         },
         {
@@ -7113,29 +8227,29 @@
             "1502",
             "1414"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1506",
-            "1501",
-            "8009",
-            "1503"
-          ]
         }
       ],
       "synergies": [
         "1502",
-        "1506",
         "8009",
+        "1506",
+        "1403",
         "1306",
-        "1503"
+        "1406"
       ],
-      "substatLine": "ATK until 3600 (after team buffs) > CRIT Rate >= CRIT DMG",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "SPD",
           "value": "Base SPD"
+        },
+        {
+          "label": "ATK",
+          "value": "3600+"
+        },
+        {
+          "label": "CRIT DMG",
+          "value": "150%+ (prior to combat)"
         }
       ],
       "skillPriority": "Elation Skill / Talent >>> Basic = Skill = Ultimate",
@@ -7143,11 +8257,10 @@
     },
     "1502": {
       "name": "Yao Guang",
-      "source": "https://www.prydwen.gg/star-rail/characters/yao-guang",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-06-15",
+      "sources": 2,
+      "updated": "2026-09-29",
       "mainStats": null,
-      "role": null,
+      "role": "Elation Support",
       "weapons": [
         {
           "id": "23054",
@@ -7156,6 +8269,14 @@
         {
           "id": "21064",
           "refinement": 5
+        },
+        {
+          "id": "21065",
+          "refinement": null
+        },
+        {
+          "id": "20023",
+          "refinement": null
         }
       ],
       "teams": [
@@ -7171,6 +8292,15 @@
         {
           "name": null,
           "members": [
+            "1505",
+            "8009",
+            "1502",
+            "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1506",
             "1501",
             "1502",
@@ -7185,23 +8315,17 @@
             "1502",
             "1503"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1505",
-            "8009",
-            "1502",
-            "1217"
-          ]
         }
       ],
       "synergies": [
         "1506",
+        "1513",
+        "1505",
         "1501",
-        "1513"
+        "8009",
+        "1403"
       ],
-      "substatLine": "SPD (as much as possible) > CRIT Rate > CRIT DMG",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -7229,9 +8353,8 @@
     },
     "1503": {
       "name": "Pearl",
-      "source": "https://www.prydwen.gg/star-rail/characters/pearl",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-10-01",
+      "sources": 2,
+      "updated": "2026-10-01",
       "mainStats": null,
       "role": "Sustain",
       "weapons": [
@@ -7240,16 +8363,20 @@
           "refinement": 1
         },
         {
-          "id": "23054",
+          "id": "23058",
           "refinement": 1
         },
         {
-          "id": "23058",
+          "id": "23054",
           "refinement": 1
         },
         {
           "id": "21064",
           "refinement": 5
+        },
+        {
+          "id": "24006",
+          "refinement": null
         }
       ],
       "teams": [
@@ -7276,16 +8403,16 @@
         {
           "name": null,
           "members": [
-            "1513",
-            "1502",
+            "1503",
+            "1506",
             "8009",
-            "1503"
+            "1009"
           ]
         },
         {
           "name": null,
           "members": [
-            "1501",
+            "1513",
             "1502",
             "8009",
             "1503"
@@ -7293,12 +8420,12 @@
         }
       ],
       "synergies": [
-        "1506",
         "1505",
+        "1506",
         "1513",
         "1501"
       ],
-      "substatLine": "SPD > DEF%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "DEF",
@@ -7311,6 +8438,10 @@
         {
           "label": "Effect RES",
           "value": "50%"
+        },
+        {
+          "label": "SPD",
+          "value": "160 SPD+"
         }
       ],
       "skillPriority": "Elation Skill > Ultimate > Basic > Skill > Talent",
@@ -7318,9 +8449,8 @@
     },
     "1504": {
       "name": "Ashveil",
-      "source": "https://www.prydwen.gg/star-rail/characters/ashveil",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-10",
+      "sources": 2,
+      "updated": "2026-09-28",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -7347,6 +8477,10 @@
         {
           "id": "23046",
           "refinement": 1
+        },
+        {
+          "id": "21037",
+          "refinement": null
         }
       ],
       "teams": [
@@ -7356,6 +8490,15 @@
             "1513",
             "1504",
             "1507",
+            "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1504",
+            "1507",
+            "1309",
             "1217"
           ]
         },
@@ -7376,29 +8519,17 @@
             "1403",
             "1409"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1504",
-            "1507",
-            "1512",
-            "1409"
-          ]
         }
       ],
       "synergies": [
         "1220",
-        "1507",
         "1403",
-        "1004",
-        "1406",
-        "1006",
+        "8007",
+        "1507",
         "1309",
-        "1414",
-        "1513"
+        "1406"
       ],
-      "substatLine": "CRIT Rate = CRIT DMG > ATK% > SPD",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -7426,9 +8557,8 @@
     },
     "1505": {
       "name": "Evanescia",
-      "source": "https://www.prydwen.gg/star-rail/characters/evanescia",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-06-24",
+      "sources": 2,
+      "updated": "2026-09-29",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -7441,16 +8571,16 @@
           "refinement": 5
         },
         {
+          "id": "21064",
+          "refinement": 5
+        },
+        {
           "id": "23053",
           "refinement": 1
         },
         {
-          "id": "21065",
-          "refinement": 1
-        },
-        {
-          "id": "21064",
-          "refinement": 5
+          "id": "21066",
+          "refinement": null
         },
         {
           "id": "22007",
@@ -7472,6 +8602,15 @@
           "members": [
             "1505",
             "8009",
+            "1009",
+            "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1505",
+            "8009",
             "1502",
             "1217"
           ]
@@ -7484,24 +8623,17 @@
             "1502",
             "1414"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1505",
-            "1501",
-            "1502",
-            "1503"
-          ]
         }
       ],
       "synergies": [
         "1502",
+        "1306",
         "1217",
         "8009",
+        "1313",
         "1503"
       ],
-      "substatLine": "CRIT Rate until 100% in combat > CRIT DMG",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "SPD",
@@ -7521,9 +8653,8 @@
     },
     "1506": {
       "name": "Silver Wolf LV.999",
-      "source": "https://www.prydwen.gg/star-rail/characters/silver-wolf-lv-999",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-29",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -7536,12 +8667,16 @@
           "refinement": 5
         },
         {
-          "id": "21065",
-          "refinement": 1
-        },
-        {
           "id": "21064",
           "refinement": 5
+        },
+        {
+          "id": "21066",
+          "refinement": null
+        },
+        {
+          "id": "22007",
+          "refinement": null
         }
       ],
       "teams": [
@@ -7558,6 +8693,15 @@
           "name": null,
           "members": [
             "1506",
+            "8009",
+            "1009",
+            "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1506",
             "1501",
             "1502",
             "1217"
@@ -7571,25 +8715,17 @@
             "1502",
             "1503"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1506",
-            "8009",
-            "1502",
-            "1217"
-          ]
         }
       ],
       "synergies": [
         "1502",
-        "1501",
         "8009",
+        "1501",
         "1009",
-        "1503"
+        "1306",
+        "1403"
       ],
-      "substatLine": "SPD > CRIT Rate = CRIT DMG",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "CRIT Rate",
@@ -7602,6 +8738,10 @@
         {
           "label": "Speed",
           "value": "160-200+"
+        },
+        {
+          "label": "SPD (during combat)",
+          "value": "160 - 200+ SPD"
         }
       ],
       "skillPriority": "Basic > Ult / Talent / Elation Skill >>> Skill",
@@ -7609,11 +8749,10 @@
     },
     "1507": {
       "name": "Mortenax Blade",
-      "source": "https://www.prydwen.gg/star-rail/characters/blade-mortenax",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-07-15",
+      "sources": 2,
+      "updated": "2026-09-20",
       "mainStats": null,
-      "role": null,
+      "role": "Debuffer",
       "weapons": [
         {
           "id": "23059",
@@ -7634,6 +8773,10 @@
         {
           "id": "21061",
           "refinement": 5
+        },
+        {
+          "id": "21001",
+          "refinement": null
         }
       ],
       "teams": [
@@ -7644,6 +8787,15 @@
             "1504",
             "1507",
             "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1507",
+            "1308",
+            "1004",
+            "1414"
           ]
         },
         {
@@ -7663,27 +8815,17 @@
             "1004",
             "1217"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1014",
-            "1509",
-            "1507",
-            "1217"
-          ]
         }
       ],
       "synergies": [
         "1308",
-        "1504",
+        "8007",
         "1403",
+        "1504",
         "1220",
-        "1407",
-        "1409",
-        "1512"
+        "1218"
       ],
-      "substatLine": "CRIT Rate = CRIT DMG > SPD > HP%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "Effect Hit Rate",
@@ -7707,9 +8849,8 @@
     },
     "1508": {
       "name": "Rin Tohsaka",
-      "source": "https://www.prydwen.gg/star-rail/characters/rin-tohsaka",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-08-26",
+      "sources": 2,
+      "updated": "2026-08-26",
       "mainStats": null,
       "role": "Support DPS",
       "weapons": [
@@ -7736,6 +8877,10 @@
         {
           "id": "21013",
           "refinement": 5
+        },
+        {
+          "id": "21040",
+          "refinement": null
         }
       ],
       "teams": [
@@ -7769,19 +8914,22 @@
         {
           "name": null,
           "members": [
-            "1015",
             "1508",
-            "1306",
-            "1409"
+            "1015",
+            "8007",
+            "1105"
           ]
         }
       ],
       "synergies": [
         "1015",
+        "1217",
         "1306",
-        "1412"
+        "1412",
+        "1301",
+        "1512"
       ],
-      "substatLine": "SPD until desired goal > CRIT Rate / CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -7794,6 +8942,14 @@
         {
           "label": "CRIT DMG",
           "value": "120% (Pre-Combat)"
+        },
+        {
+          "label": "SPD (Sub-DPS)",
+          "value": "140+ SPD (Before Combat)"
+        },
+        {
+          "label": "SPD (Main DPS)",
+          "value": "120+ SPD (Before Combat)"
         }
       ],
       "skillPriority": "Talent > Ultimate > Skill > Basic",
@@ -7801,9 +8957,8 @@
     },
     "1509": {
       "name": "Gilgamesh",
-      "source": "https://www.prydwen.gg/star-rail/characters/gilgamesh",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-08-26",
+      "sources": 2,
+      "updated": "2026-08-26",
       "mainStats": null,
       "role": "Support DPS",
       "weapons": [
@@ -7830,6 +8985,10 @@
         {
           "id": "21012",
           "refinement": 5
+        },
+        {
+          "id": "21019",
+          "refinement": null
         }
       ],
       "teams": [
@@ -7839,6 +8998,15 @@
             "1014",
             "1509",
             "1512",
+            "1217"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1014",
+            "1509",
+            "8007",
             "1217"
           ]
         },
@@ -7859,23 +9027,17 @@
             "1403",
             "1217"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1014",
-            "1509",
-            "8007",
-            "1217"
-          ]
         }
       ],
       "synergies": [
         "1014",
+        "8007",
         "1507",
-        "8007"
+        "1403",
+        "1309",
+        "1313"
       ],
-      "substatLine": "CRIT Rate untill 100% in combat > CRIT DMG > ATK% > SPD",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -7899,9 +9061,8 @@
     },
     "1510": {
       "name": "Himeko • Nova",
-      "source": "https://www.prydwen.gg/star-rail/characters/himeko-nova",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-07-24",
+      "sources": 2,
+      "updated": "2026-09-11",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -7928,6 +9089,14 @@
         {
           "id": "21027",
           "refinement": 5
+        },
+        {
+          "id": "23041",
+          "refinement": null
+        },
+        {
+          "id": "21020",
+          "refinement": null
         }
       ],
       "teams": [
@@ -7944,9 +9113,9 @@
           "name": null,
           "members": [
             "1510",
-            "1512",
-            "1313",
-            "1414"
+            "8007",
+            "1004",
+            "1217"
           ]
         },
         {
@@ -7954,7 +9123,7 @@
           "members": [
             "1510",
             "1512",
-            "1004",
+            "1313",
             "1414"
           ]
         },
@@ -7970,14 +9139,13 @@
       ],
       "synergies": [
         "1004",
-        "1507",
-        "1412",
-        "1313",
-        "8007",
         "1414",
-        "1512"
+        "1507",
+        "1313",
+        "1412",
+        "8007"
       ],
-      "substatLine": "CRIT Rate = CRIT DMG > ATK% > SPD",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -7997,23 +9165,22 @@
     },
     "1512": {
       "name": "Robin • Summeretto",
-      "source": "https://www.prydwen.gg/star-rail/characters/robin-summeretto",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-29",
+      "sources": 2,
+      "updated": "2026-09-29",
       "mainStats": null,
-      "role": null,
+      "role": "Support",
       "weapons": [
         {
           "id": "23063",
           "refinement": 1
         },
         {
-          "id": "23042",
-          "refinement": 1
-        },
-        {
           "id": "24005",
           "refinement": 5
+        },
+        {
+          "id": "23042",
+          "refinement": 1
         },
         {
           "id": "21054",
@@ -8026,6 +9193,10 @@
         {
           "id": "20021",
           "refinement": 5
+        },
+        {
+          "id": "23049",
+          "refinement": null
         }
       ],
       "teams": [
@@ -8038,6 +9209,13 @@
             "1415",
             "1507",
             "1409"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1512",
+            "1507"
           ]
         },
         {
@@ -8060,29 +9238,17 @@
             "1414",
             "1403"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1506",
-            "1512",
-            "1502",
-            "1217",
-            "8007",
-            "1501"
-          ]
         }
       ],
       "synergies": [
         "1409",
+        "1414",
         "1413",
         "1407",
-        "1510",
-        "1507",
-        "1402",
-        "1408"
+        "1217",
+        "1507"
       ],
-      "substatLine": "SPD > HP% > CRIT Rate / CRIT DMG",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -8106,9 +9272,8 @@
     },
     "1513": {
       "name": "Aventurine • Waveflair",
-      "source": "https://www.prydwen.gg/star-rail/characters/aventurine-waveflair",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-28",
+      "sources": 2,
+      "updated": "2026-09-29",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -8133,16 +9298,8 @@
           "refinement": 5
         },
         {
-          "id": "21065",
-          "refinement": 1
-        },
-        {
           "id": "21064",
           "refinement": 5
-        },
-        {
-          "id": "21066",
-          "refinement": 1
         }
       ],
       "teams": [
@@ -8156,6 +9313,15 @@
             "1217",
             "1403",
             "1512"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1513",
+            "8009",
+            "1502",
+            "1217"
           ]
         },
         {
@@ -8181,12 +9347,13 @@
       ],
       "synergies": [
         "1504",
+        "1414",
         "1507",
         "1403",
-        "1502",
+        "1301",
         "1503"
       ],
-      "substatLine": "SPD > CRIT Rate > CRIT DMG",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "CRIT Rate",
@@ -8195,6 +9362,10 @@
         {
           "label": "CRIT DMG",
           "value": "120% (pre-combat)"
+        },
+        {
+          "label": "SPD",
+          "value": "160 SPD+"
         }
       ],
       "skillPriority": "Elation Skill > Talent > Ultimate > Skill > Basic",
@@ -8202,9 +9373,8 @@
     },
     "8001": {
       "name": "Trailblazer (Caelus)",
-      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-destruction",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -8219,6 +9389,26 @@
         {
           "id": "21042",
           "refinement": 5
+        },
+        {
+          "id": "23002",
+          "refinement": null
+        },
+        {
+          "id": "21019",
+          "refinement": null
+        },
+        {
+          "id": "21005",
+          "refinement": null
+        },
+        {
+          "id": "21033",
+          "refinement": null
+        },
+        {
+          "id": "20002",
+          "refinement": null
         }
       ],
       "teams": [
@@ -8230,10 +9420,27 @@
             "1225",
             "1321"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "8001",
+            "1009",
+            "1001",
+            "1105"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "8001",
+            "1101",
+            "1202"
+          ]
         }
       ],
       "synergies": [],
-      "substatLine": "SPD (breakpoint) > BREAK EFFECT% (If Break Build) >= CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -8258,10 +9465,6 @@
         {
           "label": "SPD",
           "value": "Base Speed (Hyperspeed Sparkle) / 134 (Recommended) / 143"
-        },
-        {
-          "label": "BREAK EFFECT",
-          "value": "0% - 120%+"
         }
       ],
       "skillPriority": "Skill > Ultimate > Talent > Basic",
@@ -8269,9 +9472,8 @@
     },
     "8002": {
       "name": "Trailblazer (Stelle)",
-      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-destruction",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Damage dealer",
       "weapons": [
@@ -8286,6 +9488,26 @@
         {
           "id": "21042",
           "refinement": 5
+        },
+        {
+          "id": "23002",
+          "refinement": null
+        },
+        {
+          "id": "21019",
+          "refinement": null
+        },
+        {
+          "id": "21005",
+          "refinement": null
+        },
+        {
+          "id": "21033",
+          "refinement": null
+        },
+        {
+          "id": "20002",
+          "refinement": null
         }
       ],
       "teams": [
@@ -8297,10 +9519,27 @@
             "1225",
             "1321"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "8002",
+            "1009",
+            "1001",
+            "1105"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "8002",
+            "1101",
+            "1202"
+          ]
         }
       ],
       "synergies": [],
-      "substatLine": "SPD (breakpoint) > BREAK EFFECT% (If Break Build) >= CRIT RATE = CRIT DMG > ATK%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -8325,10 +9564,6 @@
         {
           "label": "SPD",
           "value": "Base Speed (Hyperspeed Sparkle) / 134 (Recommended) / 143"
-        },
-        {
-          "label": "BREAK EFFECT",
-          "value": "0% - 120%+"
         }
       ],
       "skillPriority": "Skill > Ultimate > Talent > Basic",
@@ -8336,9 +9571,8 @@
     },
     "8003": {
       "name": "Trailblazer (Caelus)",
-      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-preservation",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Sustain",
       "weapons": [
@@ -8351,32 +9585,62 @@
           "refinement": 5
         },
         {
-          "id": "24002",
+          "id": "21002",
           "refinement": 5
         },
         {
-          "id": "21002",
+          "id": "24002",
           "refinement": 5
         },
         {
           "id": "21016",
           "refinement": 1
+        },
+        {
+          "id": "23011",
+          "refinement": null
+        },
+        {
+          "id": "21053",
+          "refinement": null
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "8003",
+            "1002",
+            "1009",
+            "1110"
+          ]
+        }
+      ],
       "synergies": [
         "1308"
       ],
-      "substatLine": "Effect RES until 30% (if running Broken Keel) > Speed > DEF% > HP% > Effect Hit Rate",
-      "endgameStats": [],
+      "substatLine": null,
+      "endgameStats": [
+        {
+          "label": "SPD",
+          "value": "134+"
+        },
+        {
+          "label": "Effect RES",
+          "value": "30%+"
+        },
+        {
+          "label": "Effect Hit Rate",
+          "value": "30%+"
+        }
+      ],
       "skillPriority": "Ultimate > Talent > Basic > Skill",
       "tracePriority": "The Strong Defend the Weak > Action Beats Overthinking > Unwavering Gallantry"
     },
     "8004": {
       "name": "Trailblazer (Stelle)",
-      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-preservation",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
       "role": "Sustain",
       "weapons": [
@@ -8389,45 +9653,75 @@
           "refinement": 5
         },
         {
-          "id": "24002",
+          "id": "21002",
           "refinement": 5
         },
         {
-          "id": "21002",
+          "id": "24002",
           "refinement": 5
         },
         {
           "id": "21016",
           "refinement": 1
+        },
+        {
+          "id": "23011",
+          "refinement": null
+        },
+        {
+          "id": "21053",
+          "refinement": null
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "8004",
+            "1002",
+            "1009",
+            "1110"
+          ]
+        }
+      ],
       "synergies": [
         "1308"
       ],
-      "substatLine": "Effect RES until 30% (if running Broken Keel) > Speed > DEF% > HP% > Effect Hit Rate",
-      "endgameStats": [],
+      "substatLine": null,
+      "endgameStats": [
+        {
+          "label": "SPD",
+          "value": "134+"
+        },
+        {
+          "label": "Effect RES",
+          "value": "30%+"
+        },
+        {
+          "label": "Effect Hit Rate",
+          "value": "30%+"
+        }
+      ],
       "skillPriority": "Ultimate > Talent > Basic > Skill",
       "tracePriority": "The Strong Defend the Weak > Action Beats Overthinking > Unwavering Gallantry"
     },
     "8005": {
       "name": "Trailblazer (Caelus)",
-      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-harmony",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Break Support",
       "weapons": [
         {
           "id": "23019",
           "refinement": 1
         },
         {
-          "id": "21018",
+          "id": "21056",
           "refinement": 5
         },
         {
-          "id": "21056",
+          "id": "21018",
           "refinement": 5
         },
         {
@@ -8437,6 +9731,10 @@
         {
           "id": "20012",
           "refinement": 5
+        },
+        {
+          "id": "23003",
+          "refinement": null
         }
       ],
       "teams": [
@@ -8447,6 +9745,15 @@
             "1225",
             "8005",
             "1321"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "8005",
+            "1224",
+            "1009",
+            "1301"
           ]
         },
         {
@@ -8466,24 +9773,17 @@
             "1321",
             "1222"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1310",
-            "8005",
-            "1321",
-            "1301"
-          ]
         }
       ],
       "synergies": [
         "1303",
-        "1310",
         "1315",
-        "1317"
+        "1317",
+        "1310",
+        "1224",
+        "1214"
       ],
-      "substatLine": "SPD = Break Effect% > HP% = DEF%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -8511,22 +9811,21 @@
     },
     "8006": {
       "name": "Trailblazer (Stelle)",
-      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-harmony",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Break Support",
       "weapons": [
         {
           "id": "23019",
           "refinement": 1
         },
         {
-          "id": "21018",
+          "id": "21056",
           "refinement": 5
         },
         {
-          "id": "21056",
+          "id": "21018",
           "refinement": 5
         },
         {
@@ -8536,6 +9835,10 @@
         {
           "id": "20012",
           "refinement": 5
+        },
+        {
+          "id": "23003",
+          "refinement": null
         }
       ],
       "teams": [
@@ -8546,6 +9849,15 @@
             "1225",
             "8006",
             "1321"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "8006",
+            "1224",
+            "1009",
+            "1301"
           ]
         },
         {
@@ -8565,24 +9877,17 @@
             "1321",
             "1222"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1310",
-            "8006",
-            "1321",
-            "1301"
-          ]
         }
       ],
       "synergies": [
         "1303",
-        "1310",
         "1315",
-        "1317"
+        "1317",
+        "1310",
+        "1224",
+        "1214"
       ],
-      "substatLine": "SPD = Break Effect% > HP% = DEF%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -8610,11 +9915,10 @@
     },
     "8007": {
       "name": "Trailblazer (Caelus)",
-      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-remembrance",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Summon Support",
       "weapons": [
         {
           "id": "23052",
@@ -8649,6 +9953,15 @@
             "1415",
             "8007",
             "1409"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "8007",
+            "1013",
+            "1009",
+            "1110"
           ]
         },
         {
@@ -8668,26 +9981,17 @@
             "8007",
             "1409"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1510",
-            "8007",
-            "1306",
-            "1414"
-          ]
         }
       ],
       "synergies": [
         "1407",
+        "1404",
         "1415",
         "1413",
-        "1401",
-        "1402",
-        "1510"
+        "1314",
+        "1402"
       ],
-      "substatLine": "SPD > CRIT DMG > Effect RES",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -8708,6 +10012,10 @@
         {
           "label": "SPD (Hyperspeed)",
           "value": "160+"
+        },
+        {
+          "label": "Speed",
+          "value": "160 SPD"
         }
       ],
       "skillPriority": "Memosprite Skill > Memosprite Talent > Talent > Ult = Skill = Basic",
@@ -8715,11 +10023,10 @@
     },
     "8008": {
       "name": "Trailblazer (Stelle)",
-      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-remembrance",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-06-19",
       "mainStats": null,
-      "role": null,
+      "role": "Summon Support",
       "weapons": [
         {
           "id": "23052",
@@ -8759,6 +10066,15 @@
         {
           "name": null,
           "members": [
+            "8008",
+            "1013",
+            "1009",
+            "1110"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1408",
             "1412",
             "1415",
@@ -8773,26 +10089,17 @@
             "8008",
             "1409"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1510",
-            "8008",
-            "1306",
-            "1414"
-          ]
         }
       ],
       "synergies": [
         "1407",
+        "1404",
         "1415",
         "1413",
-        "1401",
-        "1402",
-        "1510"
+        "1314",
+        "1402"
       ],
-      "substatLine": "SPD > CRIT DMG > Effect RES",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "HP",
@@ -8813,6 +10120,10 @@
         {
           "label": "SPD (Hyperspeed)",
           "value": "160+"
+        },
+        {
+          "label": "Speed",
+          "value": "160 SPD"
         }
       ],
       "skillPriority": "Memosprite Skill > Memosprite Talent > Talent > Ult = Skill = Basic",
@@ -8820,11 +10131,10 @@
     },
     "8009": {
       "name": "Trailblazer (Caelus)",
-      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-elation",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-16",
       "mainStats": null,
-      "role": null,
+      "role": "Support",
       "weapons": [
         {
           "id": "23054",
@@ -8841,6 +10151,10 @@
         {
           "id": "22007",
           "refinement": 5
+        },
+        {
+          "id": "21065",
+          "refinement": null
         }
       ],
       "teams": [
@@ -8856,6 +10170,15 @@
         {
           "name": null,
           "members": [
+            "1013",
+            "8009",
+            "1009",
+            "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1505",
             "8009",
             "1502",
@@ -8870,22 +10193,17 @@
             "1502",
             "1503"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1506",
-            "8009",
-            "1502",
-            "1217"
-          ]
         }
       ],
       "synergies": [
         "1506",
-        "1501"
+        "1501",
+        "1505",
+        "1513",
+        "1306",
+        "1403"
       ],
-      "substatLine": "SPD > CRIT Rate = CRIT DMG = HP%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -8902,6 +10220,10 @@
         {
           "label": "CRIT DMG",
           "value": "100%"
+        },
+        {
+          "label": "Speed",
+          "value": "160+ SPD"
         }
       ],
       "skillPriority": "Ultimate > Elation Skill = Talent > Basic = Skill",
@@ -8909,11 +10231,10 @@
     },
     "8010": {
       "name": "Trailblazer (Stelle)",
-      "source": "https://www.prydwen.gg/star-rail/characters/trailblazer-elation",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-05-31",
+      "sources": 2,
+      "updated": "2026-09-16",
       "mainStats": null,
-      "role": null,
+      "role": "Support",
       "weapons": [
         {
           "id": "23054",
@@ -8930,6 +10251,10 @@
         {
           "id": "22007",
           "refinement": 5
+        },
+        {
+          "id": "21065",
+          "refinement": null
         }
       ],
       "teams": [
@@ -8945,6 +10270,15 @@
         {
           "name": null,
           "members": [
+            "1013",
+            "8010",
+            "1009",
+            "1414"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1505",
             "8010",
             "1502",
@@ -8959,22 +10293,17 @@
             "1502",
             "1503"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1506",
-            "8010",
-            "1502",
-            "1217"
-          ]
         }
       ],
       "synergies": [
         "1506",
-        "1501"
+        "1501",
+        "1505",
+        "1513",
+        "1306",
+        "1403"
       ],
-      "substatLine": "SPD > CRIT Rate = CRIT DMG = HP%",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -8991,6 +10320,10 @@
         {
           "label": "CRIT DMG",
           "value": "100%"
+        },
+        {
+          "label": "Speed",
+          "value": "160+ SPD"
         }
       ],
       "skillPriority": "Ultimate > Elation Skill = Talent > Basic = Skill",

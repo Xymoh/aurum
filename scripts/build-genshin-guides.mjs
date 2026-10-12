@@ -11,10 +11,9 @@
  *
  * Two inputs, kept apart as the contract asks:
  *
- *   Picks (role, weapons, teams, substat line, talent priority, the guide's
- *   own last-updated date) come from src/data/guide-picks.json, which
- *   fetch-genshin-sets.mjs reads from Game8, or genshin.gg where Game8 has
- *   no build page. Nothing here reads a guide site.
+ *   Picks (role, weapons, teams, talent priority, how many guides agree and
+ *   the newest one's date) come from src/data/guide-picks.json, the
+ *   consensus scripts/consensus.mjs writes. Nothing here reads a guide site.
  *
  * Every guide also carries a fingerprint of its kit text; see guide-kit.mjs
  * for how a change to it is dated and flagged.
@@ -672,7 +671,7 @@ async function main() {
       endgameStats: pick?.endgameStats ?? [],
       skillPriority: pick?.skillPriority ?? null,
       tracePriority: pick?.tracePriority ?? null,
-      source: pick?.source ? { label: pick.sourceLabel ?? "genshin.gg", url: pick.source, updated: pick.sourceUpdated ?? null } : null,
+      source: pick?.sources ? { count: pick.sources, updated: pick.updated ?? null } : null,
       baseStats,
       bonusStats,
       kit,

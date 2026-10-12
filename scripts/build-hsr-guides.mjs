@@ -7,9 +7,9 @@
  *
  * Two inputs, kept apart the way the contract describes:
  *
- *   Picks      src/hsr/data/guide-picks.json, written by
- *              scripts/fetch-prydwen-sets.mjs. Copied across as facts; a
- *              character the scraper has not covered gets empty picks and
+ *   Picks      src/hsr/data/guide-picks.json, the consensus
+ *              scripts/consensus.mjs writes. Copied across as facts; a
+ *              character no guide covers yet gets empty picks and
  *              `source: null`, never a guess.
  *   Game data  Mar-7th/StarRailRes index_min/en, the same mirror
  *              fetch-hsr-data.js and fetch-hsr-stats.mjs read, so ids, names
@@ -575,7 +575,7 @@ function buildGuide(id, tables, picks) {
     endgameStats: (pick?.endgameStats ?? []).map((s) => ({ label: s.label, value: s.value })),
     skillPriority: pick?.skillPriority ?? null,
     tracePriority: pick?.tracePriority ?? null,
-    source: pick?.source ? { label: pick.sourceLabel ?? "Prydwen", url: pick.source, updated: pick.sourceUpdated ?? null } : null,
+    source: pick?.sources ? { count: pick.sources, updated: pick.updated ?? null } : null,
     baseStats,
     bonusStats,
     kit: buildKit(ch, tables),
@@ -658,7 +658,7 @@ function loadPicks() {
   }
   const file = readJSON(PICKS);
   const count = Object.keys(file.characters ?? {}).length;
-  console.log(`  picks: ${count} characters from ${path.relative(ROOT, PICKS)} (${file.source ?? "?"}, ${file.fetchedAt ?? "?"})`);
+  console.log(`  picks: ${count} characters from ${path.relative(ROOT, PICKS)} (${file.fetchedAt ?? "?"})`);
   return file.characters ?? {};
 }
 

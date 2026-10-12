@@ -165,23 +165,16 @@ SOFTWARE.
 - The icons are HoYoverse's game art, as above; nanoka.cc hosts copies
   extracted from the game.
 
-## Prydwen, Game8 and genshin.gg
+## Community build guides
 
-- Sources: https://www.prydwen.gg/ (Star Rail, Zenless), https://game8.co/
-  (Genshin) and https://genshin.gg/ (Genshin characters Game8 has no build
-  page for). Game8 serves its pages to ordinary clients under its
-  robots.txt; the import reads one page at a time at a polite pace.
-- What we use: the recommended main stats, substat priorities and sets that
-  each guide lists per character, and for the build pages the ranked weapons
-  (with the refinement a guide ranks them at), recommended teams and partners,
-  role label, substat line, endgame stat targets, skill and trace level-up
-  order, and the date each page says it was last updated. Only those facts
-  are imported, as tables in `src/*/data/scoring-metadata.json`,
-  `set-recommendations.json` and `guide-picks.json`; no guide text,
-  commentary, calculated damage figures, usage statistics, artwork or layout
-  is copied. Each imported entry records the guide URL it came from, and
-  each build page credits and links its guide, with that date, under its
-  header and under "Sources".
+- What we use: the build pages' weapon, set, team and stat picks, and the
+  Zenless Zone Zero substat weights, are a weighted vote across several
+  public community build guide sites, computed by `scripts/consensus.mjs`.
+  Only facts are read (which weapons, sets and teams, in what order, and
+  short stat targets); no guide text, commentary, damage figures, ratings,
+  artwork or layout is copied, and no single site's ranking is published.
+  The per-site readings stay on the maintainer's machine and are not part
+  of this repository.
 
 ## Fonts
 

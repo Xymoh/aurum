@@ -1,6 +1,5 @@
 {
-  "source": "https://game8.co/games/Genshin-Impact/archives/530535",
-  "fetchedAt": "2026-10-05T18:27:06.718Z",
+  "fetchedAt": "2026-10-12T19:01:49.989Z",
   "characters": {
     "10000002": {
       "name": "Kamisato Ayaka",
@@ -43,8 +42,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/315215",
-      "sourceLabel": "Game8"
+      "erTarget": 125
     },
     "10000003": {
       "name": "Jean",
@@ -83,9 +81,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/297536",
-      "sourceLabel": "Game8"
+      }
     },
     "10000006": {
       "name": "Lisa",
@@ -104,41 +100,38 @@
         ],
         [
           {
-            "setId": "15007",
+            "setId": "15005",
             "pieces": 4
           }
         ]
       ],
       "mainStats": {
         "SANDS": [
-          "ELEMENTAL_MASTERY",
-          "ATK_PERCENT"
+          "ATK_PERCENT",
+          "ELEMENTAL_MASTERY"
         ],
         "GOBLET": [
-          "ELECTRO_DMG",
-          "ELEMENTAL_MASTERY"
+          "ELECTRO_DMG"
         ],
         "CIRCLET": [
           "CRIT_RATE",
-          "CRIT_DMG",
-          "ELEMENTAL_MASTERY"
+          "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/Lisa-Best-Builds",
-      "sourceLabel": "Game8"
+      "erTarget": 150
     },
     "10000014": {
       "name": "Barbara",
       "sets": [
         [
           {
-            "setId": "15022",
+            "setId": "14004",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "14004",
+            "setId": "15022",
             "pieces": 4
           }
         ],
@@ -158,11 +151,10 @@
         ],
         "CIRCLET": [
           "HP_PERCENT",
-          "HEALING_BONUS"
+          "HEALING_BONUS",
+          "CRIT_RATE"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/297517",
-      "sourceLabel": "Game8"
+      }
     },
     "10000015": {
       "name": "Kaeya",
@@ -185,24 +177,25 @@
         ],
         [
           {
-            "setId": "15007",
+            "setId": "15020",
             "pieces": 4
           }
         ]
       ],
       "mainStats": {
         "SANDS": [
-          "ATK_PERCENT"
+          "ATK_PERCENT",
+          "ENERGY_RECHARGE"
         ],
         "GOBLET": [
           "CRYO_DMG"
         ],
         "CIRCLET": [
-          "CRIT_DMG"
+          "CRIT_DMG",
+          "CRIT_RATE"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/297516",
-      "sourceLabel": "Game8"
+      "erTarget": 140
     },
     "10000016": {
       "name": "Diluc",
@@ -215,13 +208,13 @@
         ],
         [
           {
-            "setId": "15031",
+            "setId": "15026",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15026",
+            "setId": "15031",
             "pieces": 4
           }
         ]
@@ -238,9 +231,7 @@
           "CRIT_DMG",
           "CRIT_RATE"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/297518",
-      "sourceLabel": "Game8"
+      }
     },
     "10000020": {
       "name": "Razor",
@@ -276,9 +267,7 @@
           "CRIT_RATE"
         ]
       },
-      "erTarget": 130,
-      "source": "https://game8.co/games/Genshin-Impact/archives/297519",
-      "sourceLabel": "Game8"
+      "erTarget": 130
     },
     "10000021": {
       "name": "Amber",
@@ -297,12 +286,8 @@
         ],
         [
           {
-            "setId": "15020",
-            "pieces": 2
-          },
-          {
-            "setId": "15007",
-            "pieces": 2
+            "setId": "15019",
+            "pieces": 4
           }
         ]
       ],
@@ -318,19 +303,11 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/297535",
-      "sourceLabel": "Game8"
+      }
     },
     "10000022": {
       "name": "Venti",
       "sets": [
-        [
-          {
-            "setId": "15044",
-            "pieces": 4
-          }
-        ],
         [
           {
             "setId": "15002",
@@ -339,7 +316,13 @@
         ],
         [
           {
-            "setId": "15027",
+            "setId": "15044",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15037",
             "pieces": 4
           }
         ]
@@ -355,9 +338,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/Venti-Best-Builds",
-      "sourceLabel": "Game8"
+      }
     },
     "10000023": {
       "name": "Xiangling",
@@ -379,25 +360,12 @@
             "setId": "15007",
             "pieces": 4
           }
-        ],
-        [
-          {
-            "setId": "10009",
-            "pieces": 4
-          }
         ]
-      ],
-      "labels": [
-        "Best-in-Slot",
-        "Overload",
-        "Niche",
-        "4-Star Alt"
       ],
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
-          "ATK_PERCENT",
-          "ELEMENTAL_MASTERY"
+          "ATK_PERCENT"
         ],
         "GOBLET": [
           "PYRO_DMG"
@@ -407,9 +375,7 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 180,
-      "source": "https://game8.co/games/Genshin-Impact/archives/297530",
-      "sourceLabel": "Game8"
+      "erTarget": 190
     },
     "10000024": {
       "name": "Beidou",
@@ -454,8 +420,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/297528",
-      "sourceLabel": "Game8"
+      "erTarget": 140
     },
     "10000025": {
       "name": "Xingqiu",
@@ -469,24 +434,24 @@
         [
           {
             "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15007",
             "pieces": 2
           },
           {
             "setId": "15016",
             "pieces": 2
           }
-        ],
-        [
-          {
-            "setId": "15007",
-            "pieces": 4
-          }
         ]
       ],
       "mainStats": {
         "SANDS": [
-          "ATK_PERCENT",
-          "ENERGY_RECHARGE"
+          "ENERGY_RECHARGE",
+          "ATK_PERCENT"
         ],
         "GOBLET": [
           "HYDRO_DMG"
@@ -496,22 +461,20 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 180,
-      "source": "https://game8.co/games/Genshin-Impact/archives/297531",
-      "sourceLabel": "Game8"
+      "erTarget": 175
     },
     "10000026": {
       "name": "Xiao",
       "sets": [
         [
           {
-            "setId": "15039",
+            "setId": "15023",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15023",
+            "setId": "15039",
             "pieces": 4
           }
         ],
@@ -524,8 +487,7 @@
       ],
       "mainStats": {
         "SANDS": [
-          "ATK_PERCENT",
-          "ENERGY_RECHARGE"
+          "ATK_PERCENT"
         ],
         "GOBLET": [
           "ANEMO_DMG"
@@ -535,8 +497,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/297527",
-      "sourceLabel": "Game8"
+      "erTarget": 120
     },
     "10000027": {
       "name": "Ningguang",
@@ -553,7 +514,7 @@
             "pieces": 2
           },
           {
-            "setId": "15001",
+            "setId": "15007",
             "pieces": 2
           }
         ],
@@ -563,7 +524,7 @@
             "pieces": 2
           },
           {
-            "setId": "15007",
+            "setId": "15001",
             "pieces": 2
           }
         ]
@@ -580,8 +541,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/297529",
-      "sourceLabel": "Game8"
+      "erTarget": 110
     },
     "10000029": {
       "name": "Klee",
@@ -617,8 +577,7 @@
           "CRIT_RATE"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/297521",
-      "sourceLabel": "Game8"
+      "erTarget": 115
     },
     "10000030": {
       "name": "Zhongli",
@@ -631,18 +590,18 @@
         ],
         [
           {
+            "setId": "15014",
+            "pieces": 4
+          }
+        ],
+        [
+          {
             "setId": "15017",
             "pieces": 2
           },
           {
             "setId": "15030",
             "pieces": 2
-          }
-        ],
-        [
-          {
-            "setId": "15007",
-            "pieces": 4
           }
         ]
       ],
@@ -657,8 +616,7 @@
           "HP_PERCENT"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/305858",
-      "sourceLabel": "Game8"
+      "erTarget": 120
     },
     "10000031": {
       "name": "Fischl",
@@ -699,9 +657,7 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 110,
-      "source": "https://game8.co/games/Genshin-Impact/archives/297524",
-      "sourceLabel": "Game8"
+      "erTarget": 110
     },
     "10000032": {
       "name": "Bennett",
@@ -723,19 +679,7 @@
             "setId": "15037",
             "pieces": 4
           }
-        ],
-        [
-          {
-            "setId": "10007",
-            "pieces": 4
-          }
         ]
-      ],
-      "labels": [
-        "Best-in-Slot",
-        "Alt",
-        "Niche",
-        "4-Star Alt"
       ],
       "mainStats": {
         "SANDS": [
@@ -750,9 +694,7 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 200,
-      "source": "https://game8.co/games/Genshin-Impact/archives/Bennett-Best-Builds",
-      "sourceLabel": "Game8"
+      "erTarget": 180
     },
     "10000033": {
       "name": "Tartaglia",
@@ -776,11 +718,6 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Hydro Alt",
-        "Lunar Teams"
-      ],
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -793,9 +730,7 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 110,
-      "source": "https://game8.co/games/Genshin-Impact/archives/305862",
-      "sourceLabel": "Game8"
+      "erTarget": 110
     },
     "10000034": {
       "name": "Noelle",
@@ -831,18 +766,11 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/297523",
-      "sourceLabel": "Game8"
+      "erTarget": 125
     },
     "10000035": {
       "name": "Qiqi",
       "sets": [
-        [
-          {
-            "setId": "15022",
-            "pieces": 4
-          }
-        ],
         [
           {
             "setId": "15017",
@@ -851,27 +779,20 @@
         ],
         [
           {
-            "setId": "15048",
+            "setId": "15022",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15033",
+            "setId": "15037",
             "pieces": 4
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Stellar",
-        "Alternative for Stellar",
-        "Alternative"
-      ],
       "mainStats": {
         "SANDS": [
-          "ATK_PERCENT",
-          "ENERGY_RECHARGE"
+          "ATK_PERCENT"
         ],
         "GOBLET": [
           "ATK_PERCENT"
@@ -882,9 +803,7 @@
           "CRIT_RATE"
         ]
       },
-      "erTarget": 180,
-      "source": "https://game8.co/games/Genshin-Impact/archives/297533",
-      "sourceLabel": "Game8"
+      "erTarget": 180
     },
     "10000036": {
       "name": "Chongyun",
@@ -907,7 +826,7 @@
             "pieces": 2
           },
           {
-            "setId": "15001",
+            "setId": "15007",
             "pieces": 2
           }
         ]
@@ -925,8 +844,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/297532",
-      "sourceLabel": "Game8"
+      "erTarget": 125
     },
     "10000037": {
       "name": "Ganyu",
@@ -939,13 +857,13 @@
         ],
         [
           {
-            "setId": "15031",
+            "setId": "15019",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15019",
+            "setId": "15031",
             "pieces": 4
           }
         ]
@@ -962,8 +880,7 @@
           "CRIT_RATE"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/312173",
-      "sourceLabel": "Game8"
+      "erTarget": 115
     },
     "10000038": {
       "name": "Albedo",
@@ -1000,13 +917,11 @@
           "GEO_DMG"
         ],
         "CIRCLET": [
-          "DEF_PERCENT",
           "CRIT_RATE",
+          "DEF_PERCENT",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/312182",
-      "sourceLabel": "Game8"
+      }
     },
     "10000039": {
       "name": "Diona",
@@ -1040,19 +955,18 @@
       ],
       "mainStats": {
         "SANDS": [
-          "HP_PERCENT"
+          "HP_PERCENT",
+          "ENERGY_RECHARGE"
         ],
         "GOBLET": [
           "HP_PERCENT"
         ],
         "CIRCLET": [
           "HP_PERCENT",
-          "HEALING_BONUS",
-          "CRIT_RATE"
+          "HEALING_BONUS"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/305872",
-      "sourceLabel": "Game8"
+      "erTarget": 160
     },
     "10000041": {
       "name": "Mona",
@@ -1071,12 +985,8 @@
         ],
         [
           {
-            "setId": "15016",
-            "pieces": 2
-          },
-          {
-            "setId": "15007",
-            "pieces": 2
+            "setId": "15045",
+            "pieces": 4
           }
         ]
       ],
@@ -1086,17 +996,14 @@
           "ATK_PERCENT"
         ],
         "GOBLET": [
-          "ATK_PERCENT",
-          "HYDRO_DMG"
+          "HYDRO_DMG",
+          "ATK_PERCENT"
         ],
         "CIRCLET": [
-          "CRIT_RATE",
-          "CRIT_DMG"
+          "CRIT_RATE"
         ]
       },
-      "erTarget": 200,
-      "source": "https://game8.co/games/Genshin-Impact/archives/Mona-Best-Builds",
-      "sourceLabel": "Game8"
+      "erTarget": 190
     },
     "10000042": {
       "name": "Keqing",
@@ -1115,19 +1022,14 @@
         ],
         [
           {
-            "setId": "15005",
-            "pieces": 2
-          },
-          {
-            "setId": "15001",
-            "pieces": 2
+            "setId": "14002",
+            "pieces": 4
           }
         ]
       ],
       "mainStats": {
         "SANDS": [
-          "ATK_PERCENT",
-          "ELEMENTAL_MASTERY"
+          "ATK_PERCENT"
         ],
         "GOBLET": [
           "ELECTRO_DMG"
@@ -1136,9 +1038,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/Keqing-Best-Builds",
-      "sourceLabel": "Game8"
+      }
     },
     "10000043": {
       "name": "Sucrose",
@@ -1162,11 +1062,6 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Alternative",
-        "For Buffs"
-      ],
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -1178,9 +1073,7 @@
           "ELEMENTAL_MASTERY"
         ]
       },
-      "erTarget": 130,
-      "source": "https://game8.co/games/Genshin-Impact/archives/297525",
-      "sourceLabel": "Game8"
+      "erTarget": 130
     },
     "10000044": {
       "name": "Xinyan",
@@ -1219,9 +1112,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/305873",
-      "sourceLabel": "Game8"
+      }
     },
     "10000045": {
       "name": "Rosaria",
@@ -1240,7 +1131,7 @@
         ],
         [
           {
-            "setId": "15020",
+            "setId": "15026",
             "pieces": 4
           }
         ]
@@ -1257,9 +1148,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/314177",
-      "sourceLabel": "Game8"
+      }
     },
     "10000046": {
       "name": "Hu Tao",
@@ -1285,7 +1174,8 @@
       ],
       "mainStats": {
         "SANDS": [
-          "HP_PERCENT"
+          "HP_PERCENT",
+          "ELEMENTAL_MASTERY"
         ],
         "GOBLET": [
           "PYRO_DMG"
@@ -1294,9 +1184,7 @@
           "CRIT_DMG",
           "CRIT_RATE"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/314347",
-      "sourceLabel": "Game8"
+      }
     },
     "10000047": {
       "name": "Kaedehara Kazuha",
@@ -1322,8 +1210,8 @@
       ],
       "mainStats": {
         "SANDS": [
-          "ENERGY_RECHARGE",
-          "ELEMENTAL_MASTERY"
+          "ELEMENTAL_MASTERY",
+          "ENERGY_RECHARGE"
         ],
         "GOBLET": [
           "ELEMENTAL_MASTERY"
@@ -1332,8 +1220,7 @@
           "ELEMENTAL_MASTERY"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/332826",
-      "sourceLabel": "Game8"
+      "erTarget": 145
     },
     "10000048": {
       "name": "Yanfei",
@@ -1346,13 +1233,13 @@
         ],
         [
           {
-            "setId": "15019",
+            "setId": "15003",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15003",
+            "setId": "15019",
             "pieces": 4
           }
         ]
@@ -1368,9 +1255,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/328765",
-      "sourceLabel": "Game8"
+      }
     },
     "10000049": {
       "name": "Yoimiya",
@@ -1389,12 +1274,8 @@
         ],
         [
           {
-            "setId": "15006",
-            "pieces": 2
-          },
-          {
-            "setId": "15019",
-            "pieces": 2
+            "setId": "15024",
+            "pieces": 4
           }
         ]
       ],
@@ -1409,9 +1290,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/333497",
-      "sourceLabel": "Game8"
+      }
     },
     "10000050": {
       "name": "Thoma",
@@ -1430,19 +1309,16 @@
         ],
         [
           {
-            "setId": "15026",
-            "pieces": 2
-          },
-          {
-            "setId": "15003",
-            "pieces": 2
+            "setId": "15007",
+            "pieces": 4
           }
         ]
       ],
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
-          "ENERGY_RECHARGE"
+          "ENERGY_RECHARGE",
+          "ELEMENTAL_MASTERY"
         ],
         "GOBLET": [
           "HP_PERCENT"
@@ -1450,9 +1326,7 @@
         "CIRCLET": [
           "HP_PERCENT"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/337141",
-      "sourceLabel": "Game8"
+      }
     },
     "10000051": {
       "name": "Eula",
@@ -1476,11 +1350,6 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "2-Pc. Alternative",
-        "CRIT Rate Alternative"
-      ],
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -1493,8 +1362,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/328764",
-      "sourceLabel": "Game8"
+      "erTarget": 125
     },
     "10000052": {
       "name": "Raiden Shogun",
@@ -1540,8 +1408,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/337161",
-      "sourceLabel": "Game8"
+      "erTarget": 165
     },
     "10000053": {
       "name": "Sayu",
@@ -1554,18 +1421,18 @@
         ],
         [
           {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
             "setId": "15002",
             "pieces": 2
           },
           {
             "setId": "15001",
             "pieces": 2
-          }
-        ],
-        [
-          {
-            "setId": "15007",
-            "pieces": 4
           }
         ]
       ],
@@ -1575,14 +1442,14 @@
           "ELEMENTAL_MASTERY"
         ],
         "GOBLET": [
-          "ELEMENTAL_MASTERY"
+          "ELEMENTAL_MASTERY",
+          "ATK_PERCENT"
         ],
         "CIRCLET": [
-          "ELEMENTAL_MASTERY"
+          "ELEMENTAL_MASTERY",
+          "HEALING_BONUS"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/333496",
-      "sourceLabel": "Game8"
+      }
     },
     "10000054": {
       "name": "Sangonomiya Kokomi",
@@ -1608,17 +1475,21 @@
       ],
       "mainStats": {
         "SANDS": [
-          "ELEMENTAL_MASTERY"
+          "ELEMENTAL_MASTERY",
+          "HP_PERCENT",
+          "ENERGY_RECHARGE"
         ],
         "GOBLET": [
-          "ELEMENTAL_MASTERY"
+          "ELEMENTAL_MASTERY",
+          "HP_PERCENT",
+          "HYDRO_DMG"
         ],
         "CIRCLET": [
-          "ELEMENTAL_MASTERY"
+          "ELEMENTAL_MASTERY",
+          "HEALING_BONUS",
+          "HP_PERCENT"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/337140",
-      "sourceLabel": "Game8"
+      }
     },
     "10000055": {
       "name": "Gorou",
@@ -1631,32 +1502,31 @@
         ],
         [
           {
-            "setId": "15020",
+            "setId": "15007",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15007",
+            "setId": "10009",
             "pieces": 4
           }
         ]
       ],
       "mainStats": {
         "SANDS": [
-          "DEF_PERCENT",
-          "ENERGY_RECHARGE"
-        ],
-        "GOBLET": [
+          "ENERGY_RECHARGE",
           "DEF_PERCENT"
         ],
-        "CIRCLET": [
+        "GOBLET": [
           "DEF_PERCENT",
-          "CRIT_RATE"
+          "GEO_DMG"
+        ],
+        "CIRCLET": [
+          "CRIT_RATE",
+          "DEF_PERCENT"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/336726",
-      "sourceLabel": "Game8"
+      }
     },
     "10000056": {
       "name": "Kujou Sara",
@@ -1696,9 +1566,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/336727",
-      "sourceLabel": "Game8"
+      }
     },
     "10000057": {
       "name": "Arataki Itto",
@@ -1738,18 +1606,11 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/345461",
-      "sourceLabel": "Game8"
+      "erTarget": 120
     },
     "10000058": {
       "name": "Yae Miko",
       "sets": [
-        [
-          {
-            "setId": "15032",
-            "pieces": 4
-          }
-        ],
         [
           {
             "setId": "15046",
@@ -1758,19 +1619,16 @@
         ],
         [
           {
-            "setId": "15026",
-            "pieces": 2
-          },
+            "setId": "15032",
+            "pieces": 4
+          }
+        ],
+        [
           {
-            "setId": "15001",
-            "pieces": 2
+            "setId": "15026",
+            "pieces": 4
           }
         ]
-      ],
-      "labels": [
-        "Best-in-Slot",
-        "Stellar",
-        "Substitute"
       ],
       "mainStats": {
         "SANDS": [
@@ -1778,16 +1636,16 @@
           "ELEMENTAL_MASTERY"
         ],
         "GOBLET": [
-          "ELECTRO_DMG"
+          "ELECTRO_DMG",
+          "ATK_PERCENT",
+          "ELEMENTAL_MASTERY"
         ],
         "CIRCLET": [
           "CRIT_DMG",
           "CRIT_RATE"
         ]
       },
-      "erTarget": 130,
-      "source": "https://game8.co/games/Genshin-Impact/archives/327533",
-      "sourceLabel": "Game8"
+      "erTarget": 130
     },
     "10000059": {
       "name": "Shikanoin Heizou",
@@ -1800,18 +1658,18 @@
         ],
         [
           {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
             "setId": "15002",
             "pieces": 2
           },
           {
             "setId": "15001",
             "pieces": 2
-          }
-        ],
-        [
-          {
-            "setId": "15007",
-            "pieces": 4
           }
         ]
       ],
@@ -1827,8 +1685,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/345516",
-      "sourceLabel": "Game8"
+      "erTarget": 125
     },
     "10000060": {
       "name": "Yelan",
@@ -1872,9 +1729,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/372781",
-      "sourceLabel": "Game8"
+      }
     },
     "10000061": {
       "name": "Kirara",
@@ -1897,15 +1752,14 @@
         ],
         [
           {
-            "setId": "15007",
+            "setId": "10007",
             "pieces": 4
           }
         ]
       ],
       "mainStats": {
         "SANDS": [
-          "HP_PERCENT",
-          "ENERGY_RECHARGE"
+          "HP_PERCENT"
         ],
         "GOBLET": [
           "HP_PERCENT"
@@ -1914,9 +1768,7 @@
           "HP_PERCENT"
         ]
       },
-      "erTarget": 160,
-      "source": "https://game8.co/games/Genshin-Impact/archives/409556",
-      "sourceLabel": "Game8"
+      "erTarget": 160
     },
     "10000062": {
       "name": "Aloy",
@@ -1933,6 +1785,12 @@
         ],
         [
           {
+            "setId": "15020",
+            "pieces": 4
+          }
+        ],
+        [
+          {
             "setId": "14001",
             "pieces": 2
           },
@@ -1940,17 +1798,12 @@
             "setId": "15001",
             "pieces": 2
           }
-        ],
-        [
-          {
-            "setId": "15020",
-            "pieces": 4
-          }
         ]
       ],
       "mainStats": {
         "SANDS": [
-          "ATK_PERCENT"
+          "ATK_PERCENT",
+          "ELEMENTAL_MASTERY"
         ],
         "GOBLET": [
           "CRYO_DMG"
@@ -1959,9 +1812,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/337957",
-      "sourceLabel": "Game8"
+      }
     },
     "10000063": {
       "name": "Shenhe",
@@ -2001,8 +1852,7 @@
           "ATK_PERCENT"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/346620",
-      "sourceLabel": "Game8"
+      "erTarget": 165
     },
     "10000064": {
       "name": "Yun Jin",
@@ -2035,12 +1885,10 @@
           "DEF_PERCENT"
         ],
         "CIRCLET": [
-          "DEF_PERCENT",
-          "CRIT_RATE"
+          "DEF_PERCENT"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/314345",
-      "sourceLabel": "Game8"
+      "erTarget": 175
     },
     "10000065": {
       "name": "Kuki Shinobu",
@@ -2075,21 +1923,20 @@
           "ELEMENTAL_MASTERY"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/346199",
-      "sourceLabel": "Game8"
+      "erTarget": 125
     },
     "10000066": {
       "name": "Kamisato Ayato",
       "sets": [
         [
           {
-            "setId": "15024",
+            "setId": "15016",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15016",
+            "setId": "15024",
             "pieces": 4
           }
         ],
@@ -2112,8 +1959,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/345514",
-      "sourceLabel": "Game8"
+      "erTarget": 125
     },
     "10000067": {
       "name": "Collei",
@@ -2126,13 +1972,13 @@
         ],
         [
           {
-            "setId": "15020",
+            "setId": "15007",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15007",
+            "setId": "15020",
             "pieces": 4
           }
         ]
@@ -2140,8 +1986,7 @@
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
-          "ATK_PERCENT",
-          "ELEMENTAL_MASTERY"
+          "ATK_PERCENT"
         ],
         "GOBLET": [
           "DENDRO_DMG"
@@ -2151,8 +1996,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/382079",
-      "sourceLabel": "Game8"
+      "erTarget": 170
     },
     "10000068": {
       "name": "Dori",
@@ -2190,11 +2034,11 @@
         ],
         "CIRCLET": [
           "HP_PERCENT",
-          "HEALING_BONUS"
+          "HEALING_BONUS",
+          "CRIT_RATE"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/380569",
-      "sourceLabel": "Game8"
+      "erTarget": 160
     },
     "10000069": {
       "name": "Tighnari",
@@ -2231,8 +2075,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/382082",
-      "sourceLabel": "Game8"
+      "erTarget": 130
     },
     "10000070": {
       "name": "Nilou",
@@ -2249,26 +2092,20 @@
         ],
         [
           {
-            "setId": "15042",
+            "setId": "15028",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15028",
+            "setId": "15042",
             "pieces": 4
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Lunar-Bloom",
-        "Alternative"
-      ],
       "mainStats": {
         "SANDS": [
-          "HP_PERCENT",
-          "ENERGY_RECHARGE"
+          "HP_PERCENT"
         ],
         "GOBLET": [
           "HP_PERCENT"
@@ -2277,9 +2114,7 @@
           "HP_PERCENT"
         ]
       },
-      "erTarget": 170,
-      "source": "https://game8.co/games/Genshin-Impact/archives/383715",
-      "sourceLabel": "Game8"
+      "erTarget": 170
     },
     "10000071": {
       "name": "Cyno",
@@ -2303,14 +2138,10 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Generalist",
-        "Electro-Charged"
-      ],
       "mainStats": {
         "SANDS": [
-          "ELEMENTAL_MASTERY"
+          "ELEMENTAL_MASTERY",
+          "ATK_PERCENT"
         ],
         "GOBLET": [
           "ELECTRO_DMG"
@@ -2320,9 +2151,7 @@
           "CRIT_RATE"
         ]
       },
-      "erTarget": 130,
-      "source": "https://game8.co/games/Genshin-Impact/archives/315233",
-      "sourceLabel": "Game8"
+      "erTarget": 130
     },
     "10000072": {
       "name": "Candace",
@@ -2341,7 +2170,7 @@
         ],
         [
           {
-            "setId": "15016",
+            "setId": "15037",
             "pieces": 4
           }
         ]
@@ -2352,17 +2181,13 @@
           "HP_PERCENT"
         ],
         "GOBLET": [
-          "HP_PERCENT",
-          "HYDRO_DMG"
+          "HP_PERCENT"
         ],
         "CIRCLET": [
-          "HP_PERCENT",
-          "CRIT_RATE",
-          "CRIT_DMG"
+          "HP_PERCENT"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/386384",
-      "sourceLabel": "Game8"
+      "erTarget": 200
     },
     "10000073": {
       "name": "Nahida",
@@ -2391,18 +2216,13 @@
           "ELEMENTAL_MASTERY"
         ],
         "GOBLET": [
-          "ELEMENTAL_MASTERY",
-          "DENDRO_DMG"
+          "ELEMENTAL_MASTERY"
         ],
         "CIRCLET": [
-          "ELEMENTAL_MASTERY",
-          "CRIT_RATE",
-          "CRIT_DMG"
+          "ELEMENTAL_MASTERY"
         ]
       },
-      "erTarget": 130,
-      "source": "https://game8.co/games/Genshin-Impact/archives/Nahida-Best-Builds",
-      "sourceLabel": "Game8"
+      "erTarget": 125
     },
     "10000074": {
       "name": "Layla",
@@ -2431,18 +2251,13 @@
           "HP_PERCENT"
         ],
         "GOBLET": [
-          "HP_PERCENT",
-          "CRYO_DMG"
+          "HP_PERCENT"
         ],
         "CIRCLET": [
-          "HP_PERCENT",
-          "CRIT_RATE",
-          "CRIT_DMG"
+          "HP_PERCENT"
         ]
       },
-      "erTarget": 130,
-      "source": "https://game8.co/games/Genshin-Impact/archives/386486",
-      "sourceLabel": "Game8"
+      "erTarget": 120
     },
     "10000075": {
       "name": "Wanderer",
@@ -2478,8 +2293,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/309656",
-      "sourceLabel": "Game8"
+      "erTarget": 105
     },
     "10000076": {
       "name": "Faruzan",
@@ -2505,8 +2319,7 @@
       ],
       "mainStats": {
         "SANDS": [
-          "ENERGY_RECHARGE",
-          "ATK_PERCENT"
+          "ENERGY_RECHARGE"
         ],
         "GOBLET": [
           "ANEMO_DMG"
@@ -2516,9 +2329,7 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 200,
-      "source": "https://game8.co/games/Genshin-Impact/archives/391897",
-      "sourceLabel": "Game8"
+      "erTarget": 200
     },
     "10000077": {
       "name": "Yaoyao",
@@ -2551,13 +2362,12 @@
           "HP_PERCENT"
         ],
         "CIRCLET": [
+          "HEALING_BONUS",
           "CRIT_RATE",
-          "HEALING_BONUS"
+          "HP_PERCENT"
         ]
       },
-      "erTarget": 200,
-      "source": "https://game8.co/games/Genshin-Impact/archives/314174",
-      "sourceLabel": "Game8"
+      "erTarget": 205
     },
     "10000078": {
       "name": "Alhaitham",
@@ -2597,9 +2407,7 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 130,
-      "source": "https://game8.co/games/Genshin-Impact/archives/383712",
-      "sourceLabel": "Game8"
+      "erTarget": 130
     },
     "10000079": {
       "name": "Dehya",
@@ -2612,13 +2420,13 @@
         ],
         [
           {
-            "setId": "15030",
+            "setId": "15017",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15031",
+            "setId": "15030",
             "pieces": 4
           }
         ]
@@ -2634,12 +2442,10 @@
         ],
         "CIRCLET": [
           "HP_PERCENT",
-          "ELEMENTAL_MASTERY",
-          "CRIT_RATE"
+          "CRIT_RATE",
+          "ELEMENTAL_MASTERY"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/Dehya-Best-Builds",
-      "sourceLabel": "Game8"
+      }
     },
     "10000080": {
       "name": "Mika",
@@ -2673,23 +2479,14 @@
         ],
         "CIRCLET": [
           "HP_PERCENT",
-          "HEALING_BONUS",
-          "CRIT_RATE"
+          "HEALING_BONUS"
         ]
       },
-      "erTarget": 200,
-      "source": "https://game8.co/games/Genshin-Impact/archives/390096",
-      "sourceLabel": "Game8"
+      "erTarget": 185
     },
     "10000081": {
       "name": "Kaveh",
       "sets": [
-        [
-          {
-            "setId": "15028",
-            "pieces": 4
-          }
-        ],
         [
           {
             "setId": "15025",
@@ -2698,14 +2495,21 @@
         ],
         [
           {
-            "setId": "15026",
+            "setId": "15028",
+            "pieces": 4
+          }
+        ],
+        [
+          {
+            "setId": "15022",
             "pieces": 4
           }
         ]
       ],
       "mainStats": {
         "SANDS": [
-          "ELEMENTAL_MASTERY"
+          "ELEMENTAL_MASTERY",
+          "ENERGY_RECHARGE"
         ],
         "GOBLET": [
           "ELEMENTAL_MASTERY"
@@ -2714,9 +2518,7 @@
           "ELEMENTAL_MASTERY"
         ]
       },
-      "erTarget": 210,
-      "source": "https://game8.co/games/Genshin-Impact/archives/Kaveh-Best-Builds",
-      "sourceLabel": "Game8"
+      "erTarget": 185
     },
     "10000082": {
       "name": "Baizhu",
@@ -2729,41 +2531,30 @@
         ],
         [
           {
-            "setId": "15033",
+            "setId": "15022",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15022",
+            "setId": "15033",
             "pieces": 4
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Healer",
-        "Healer Alt"
-      ],
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
-          "ENERGY_RECHARGE",
-          "ELEMENTAL_MASTERY"
+          "ENERGY_RECHARGE"
         ],
         "GOBLET": [
-          "HP_PERCENT",
-          "ELEMENTAL_MASTERY"
+          "HP_PERCENT"
         ],
         "CIRCLET": [
-          "HP_PERCENT",
-          "HEALING_BONUS",
-          "ELEMENTAL_MASTERY"
+          "HP_PERCENT"
         ]
       },
-      "erTarget": 170,
-      "source": "https://game8.co/games/Genshin-Impact/archives/314348",
-      "sourceLabel": "Game8"
+      "erTarget": 165
     },
     "10000083": {
       "name": "Lynette",
@@ -2787,29 +2578,20 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Personal DMG",
-        "For ATK Buffs"
-      ],
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
-          "ELEMENTAL_MASTERY"
+          "ENERGY_RECHARGE"
         ],
         "GOBLET": [
-          "ANEMO_DMG",
-          "ELEMENTAL_MASTERY"
+          "ANEMO_DMG"
         ],
         "CIRCLET": [
           "CRIT_RATE",
-          "CRIT_DMG",
-          "ELEMENTAL_MASTERY"
+          "CRIT_DMG"
         ]
       },
-      "erTarget": 160,
-      "source": "https://game8.co/games/Genshin-Impact/archives/345879",
-      "sourceLabel": "Game8"
+      "erTarget": 160
     },
     "10000084": {
       "name": "Lyney",
@@ -2841,12 +2623,11 @@
           "PYRO_DMG"
         ],
         "CIRCLET": [
-          "CRIT_DMG"
+          "CRIT_DMG",
+          "CRIT_RATE"
         ]
       },
-      "erTarget": 120,
-      "source": "https://game8.co/games/Genshin-Impact/archives/345540",
-      "sourceLabel": "Game8"
+      "erTarget": 120
     },
     "10000085": {
       "name": "Freminet",
@@ -2872,23 +2653,7 @@
             "setId": "15018",
             "pieces": 2
           }
-        ],
-        [
-          {
-            "setId": "15032",
-            "pieces": 2
-          },
-          {
-            "setId": "15018",
-            "pieces": 2
-          }
         ]
-      ],
-      "labels": [
-        "Best (Phys)",
-        "Best (Cryo)",
-        null,
-        null
       ],
       "mainStats": {
         "SANDS": [
@@ -2903,8 +2668,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/417207",
-      "sourceLabel": "Game8"
+      "erTarget": 120
     },
     "10000086": {
       "name": "Wriothesley",
@@ -2932,25 +2696,19 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Non-Stellar",
-        "Alternative"
-      ],
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
         ],
         "GOBLET": [
-          "CRYO_DMG"
+          "CRYO_DMG",
+          "ATK_PERCENT"
         ],
         "CIRCLET": [
           "CRIT_DMG",
           "CRIT_RATE"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/Wriothesley-Best-Builds",
-      "sourceLabel": "Game8"
+      }
     },
     "10000087": {
       "name": "Neuvillette",
@@ -2966,28 +2724,30 @@
             "setId": "15016",
             "pieces": 4
           }
+        ],
+        [
+          {
+            "setId": "15016",
+            "pieces": 2
+          },
+          {
+            "setId": "15031",
+            "pieces": 2
+          }
         ]
-      ],
-      "labels": [
-        "Best-in-Slot",
-        "Alternative"
       ],
       "mainStats": {
         "SANDS": [
           "HP_PERCENT"
         ],
         "GOBLET": [
-          "HYDRO_DMG",
-          "HP_PERCENT"
+          "HYDRO_DMG"
         ],
         "CIRCLET": [
           "CRIT_RATE",
-          "CRIT_DMG",
-          "HP_PERCENT"
+          "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/Neuvillette-Best-Builds",
-      "sourceLabel": "Game8"
+      }
     },
     "10000088": {
       "name": "Charlotte",
@@ -3000,18 +2760,18 @@
         ],
         [
           {
+            "setId": "15017",
+            "pieces": 4
+          }
+        ],
+        [
+          {
             "setId": "15001",
             "pieces": 2
           },
           {
             "setId": "15022",
             "pieces": 2
-          }
-        ],
-        [
-          {
-            "setId": "15017",
-            "pieces": 4
           }
         ]
       ],
@@ -3024,12 +2784,9 @@
           "ATK_PERCENT"
         ],
         "CIRCLET": [
-          "HEALING_BONUS",
-          "ATK_PERCENT"
+          "HEALING_BONUS"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/412428",
-      "sourceLabel": "Game8"
+      }
     },
     "10000089": {
       "name": "Furina",
@@ -3053,11 +2810,6 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "For ATK Buffs",
-        "Alternative"
-      ],
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -3072,9 +2824,7 @@
           "CRIT_RATE"
         ]
       },
-      "erTarget": 180,
-      "source": "https://game8.co/games/Genshin-Impact/archives/Furina-Best-Builds",
-      "sourceLabel": "Game8"
+      "erTarget": 165
     },
     "10000090": {
       "name": "Chevreuse",
@@ -3104,20 +2854,16 @@
       ],
       "mainStats": {
         "SANDS": [
-          "HP_PERCENT",
-          "ENERGY_RECHARGE"
+          "HP_PERCENT"
         ],
         "GOBLET": [
           "HP_PERCENT"
         ],
         "CIRCLET": [
-          "HP_PERCENT",
-          "HEALING_BONUS"
+          "HP_PERCENT"
         ]
       },
-      "erTarget": 160,
-      "source": "https://game8.co/games/Genshin-Impact/archives/426201",
-      "sourceLabel": "Game8"
+      "erTarget": 135
     },
     "10000091": {
       "name": "Navia",
@@ -3136,12 +2882,8 @@
         ],
         [
           {
-            "setId": "15014",
-            "pieces": 2
-          },
-          {
-            "setId": "15001",
-            "pieces": 2
+            "setId": "15032",
+            "pieces": 4
           }
         ]
       ],
@@ -3157,22 +2899,20 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 130,
-      "source": "https://game8.co/games/Genshin-Impact/archives/417194",
-      "sourceLabel": "Game8"
+      "erTarget": 125
     },
     "10000092": {
       "name": "Gaming",
       "sets": [
         [
           {
-            "setId": "15031",
+            "setId": "15006",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15006",
+            "setId": "15031",
             "pieces": 4
           }
         ],
@@ -3185,19 +2925,17 @@
       ],
       "mainStats": {
         "SANDS": [
-          "ELEMENTAL_MASTERY",
-          "ATK_PERCENT"
+          "ELEMENTAL_MASTERY"
         ],
         "GOBLET": [
           "PYRO_DMG"
         ],
         "CIRCLET": [
-          "CRIT_DMG"
+          "CRIT_DMG",
+          "CRIT_RATE"
         ]
       },
-      "erTarget": 150,
-      "source": "https://game8.co/games/Genshin-Impact/archives/Gaming-Best-Builds",
-      "sourceLabel": "Game8"
+      "erTarget": 135
     },
     "10000093": {
       "name": "Xianyun",
@@ -3234,9 +2972,7 @@
           "HEALING_BONUS"
         ]
       },
-      "erTarget": 200,
-      "source": "https://game8.co/games/Genshin-Impact/archives/Xianyun-Best-Builds",
-      "sourceLabel": "Game8"
+      "erTarget": 185
     },
     "10000094": {
       "name": "Chiori",
@@ -3264,15 +3000,9 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "DEF Alt.",
-        "Temporary"
-      ],
       "mainStats": {
         "SANDS": [
-          "DEF_PERCENT",
-          "ATK_PERCENT"
+          "DEF_PERCENT"
         ],
         "GOBLET": [
           "GEO_DMG"
@@ -3282,8 +3012,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/382793",
-      "sourceLabel": "Game8"
+      "erTarget": 165
     },
     "10000095": {
       "name": "Sigewinne",
@@ -3309,19 +3038,7 @@
             "setId": "15030",
             "pieces": 2
           }
-        ],
-        [
-          {
-            "setId": "15020",
-            "pieces": 4
-          }
         ]
-      ],
-      "labels": [
-        null,
-        null,
-        null,
-        "Burst"
       ],
       "mainStats": {
         "SANDS": [
@@ -3331,13 +3048,10 @@
           "HP_PERCENT"
         ],
         "CIRCLET": [
-          "HP_PERCENT",
-          "HEALING_BONUS"
+          "HP_PERCENT"
         ]
       },
-      "erTarget": 130,
-      "source": "https://game8.co/games/Genshin-Impact/archives/352956",
-      "sourceLabel": "Game8"
+      "erTarget": 135
     },
     "10000096": {
       "name": "Arlecchino",
@@ -3350,28 +3064,16 @@
         ],
         [
           {
-            "setId": "15024",
-            "pieces": 4
-          }
-        ],
-        [
-          {
             "setId": "15001",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "10006",
+            "setId": "15024",
             "pieces": 4
           }
         ]
-      ],
-      "labels": [
-        "Best-in-Slot",
-        "1st Alt",
-        "2nd Alt",
-        "4-Star Alt"
       ],
       "mainStats": {
         "SANDS": [
@@ -3385,8 +3087,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/382103",
-      "sourceLabel": "Game8"
+      "erTarget": 140
     },
     "10000097": {
       "name": "Sethos",
@@ -3422,9 +3123,7 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 130,
-      "source": "https://game8.co/games/Genshin-Impact/archives/451024",
-      "sourceLabel": "Game8"
+      "erTarget": 130
     },
     "10000098": {
       "name": "Clorinde",
@@ -3448,15 +3147,9 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Skill Cooldown-Based",
-        "Lunar Teams"
-      ],
       "mainStats": {
         "SANDS": [
-          "ATK_PERCENT",
-          "ELEMENTAL_MASTERY"
+          "ATK_PERCENT"
         ],
         "GOBLET": [
           "ELECTRO_DMG"
@@ -3466,9 +3159,7 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 110,
-      "source": "https://game8.co/games/Genshin-Impact/archives/417218",
-      "sourceLabel": "Game8"
+      "erTarget": 115
     },
     "10000099": {
       "name": "Emilie",
@@ -3504,8 +3195,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/422493",
-      "sourceLabel": "Game8"
+      "erTarget": 120
     },
     "10000100": {
       "name": "Kachina",
@@ -3541,9 +3231,7 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 130,
-      "source": "https://game8.co/games/Genshin-Impact/archives/462004",
-      "sourceLabel": "Game8"
+      "erTarget": 155
     },
     "10000101": {
       "name": "Kinich",
@@ -3583,8 +3271,7 @@
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/461991",
-      "sourceLabel": "Game8"
+      "erTarget": 140
     },
     "10000102": {
       "name": "Mualani",
@@ -3618,15 +3305,12 @@
           "ELEMENTAL_MASTERY"
         ],
         "GOBLET": [
-          "HYDRO_DMG",
-          "HP_PERCENT"
+          "HYDRO_DMG"
         ],
         "CIRCLET": [
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/461994",
-      "sourceLabel": "Game8"
+      }
     },
     "10000103": {
       "name": "Xilonen",
@@ -3645,30 +3329,25 @@
         ],
         [
           {
-            "setId": "15021",
-            "pieces": 2
-          },
-          {
-            "setId": "15020",
-            "pieces": 2
+            "setId": "15014",
+            "pieces": 4
           }
         ]
       ],
       "mainStats": {
         "SANDS": [
-          "ENERGY_RECHARGE"
+          "ENERGY_RECHARGE",
+          "DEF_PERCENT"
         ],
         "GOBLET": [
           "DEF_PERCENT"
         ],
         "CIRCLET": [
-          "HEALING_BONUS",
-          "DEF_PERCENT"
+          "DEF_PERCENT",
+          "HEALING_BONUS"
         ]
       },
-      "erTarget": 190,
-      "source": "https://game8.co/games/Genshin-Impact/archives/461997",
-      "sourceLabel": "Game8"
+      "erTarget": 165
     },
     "10000104": {
       "name": "Chasca",
@@ -3681,13 +3360,13 @@
         ],
         [
           {
-            "setId": "15002",
+            "setId": "15019",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15019",
+            "setId": "15002",
             "pieces": 4
           }
         ]
@@ -3704,8 +3383,7 @@
           "CRIT_RATE"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/462001",
-      "sourceLabel": "Game8"
+      "erTarget": 135
     },
     "10000105": {
       "name": "Ororon",
@@ -3742,9 +3420,7 @@
           "CRIT_RATE"
         ]
       },
-      "erTarget": 110,
-      "source": "https://game8.co/games/Genshin-Impact/archives/461993",
-      "sourceLabel": "Game8"
+      "erTarget": 110
     },
     "10000106": {
       "name": "Mavuika",
@@ -3763,23 +3439,15 @@
         ],
         [
           {
-            "setId": "15001",
-            "pieces": 2
-          },
-          {
-            "setId": "15006",
-            "pieces": 2
+            "setId": "15031",
+            "pieces": 4
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Pyro Sub-DPS",
-        "Temporary/ F2P"
-      ],
       "mainStats": {
         "SANDS": [
-          "ATK_PERCENT"
+          "ATK_PERCENT",
+          "ELEMENTAL_MASTERY"
         ],
         "GOBLET": [
           "PYRO_DMG"
@@ -3788,9 +3456,7 @@
           "CRIT_DMG",
           "CRIT_RATE"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/461999",
-      "sourceLabel": "Game8"
+      }
     },
     "10000107": {
       "name": "Citlali",
@@ -3825,9 +3491,7 @@
           "ELEMENTAL_MASTERY"
         ]
       },
-      "erTarget": 170,
-      "source": "https://game8.co/games/Genshin-Impact/archives/461989",
-      "sourceLabel": "Game8"
+      "erTarget": 160
     },
     "10000108": {
       "name": "Lan Yan",
@@ -3867,9 +3531,7 @@
           "ATK_PERCENT"
         ]
       },
-      "erTarget": 200,
-      "source": "https://game8.co/games/Genshin-Impact/archives/486709",
-      "sourceLabel": "Game8"
+      "erTarget": 175
     },
     "10000109": {
       "name": "Yumemizuki Mizuki",
@@ -3882,21 +3544,16 @@
         ],
         [
           {
-            "setId": "15002",
+            "setId": "15047",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15047",
+            "setId": "15002",
             "pieces": 4
           }
         ]
-      ],
-      "labels": [
-        "Best for Stellar",
-        "Best in General",
-        "Alt. for Stellar"
       ],
       "mainStats": {
         "SANDS": [
@@ -3907,12 +3564,10 @@
         ],
         "CIRCLET": [
           "CRIT_RATE",
-          "CRIT_DMG",
-          "ELEMENTAL_MASTERY"
+          "ELEMENTAL_MASTERY",
+          "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/492414",
-      "sourceLabel": "Game8"
+      }
     },
     "10000110": {
       "name": "Iansan",
@@ -3942,8 +3597,7 @@
       ],
       "mainStats": {
         "SANDS": [
-          "ATK_PERCENT",
-          "ENERGY_RECHARGE"
+          "ATK_PERCENT"
         ],
         "GOBLET": [
           "ATK_PERCENT"
@@ -3952,9 +3606,7 @@
           "ATK_PERCENT"
         ]
       },
-      "erTarget": 180,
-      "source": "https://game8.co/games/Genshin-Impact/archives/345881",
-      "sourceLabel": "Game8"
+      "erTarget": 155
     },
     "10000111": {
       "name": "Varesa",
@@ -3982,27 +3634,19 @@
           }
         ]
       ],
-      "labels": [
-        "Best in DMG",
-        "Resin-Efficient",
-        "Temporary/ F2P"
-      ],
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
         ],
         "GOBLET": [
-          "ELECTRO_DMG",
-          "ATK_PERCENT"
+          "ELECTRO_DMG"
         ],
         "CIRCLET": [
           "CRIT_DMG",
           "CRIT_RATE"
         ]
       },
-      "erTarget": 120,
-      "source": "https://game8.co/games/Genshin-Impact/archives/500244",
-      "sourceLabel": "Game8"
+      "erTarget": 115
     },
     "10000112": {
       "name": "Escoffier",
@@ -4021,7 +3665,7 @@
         ],
         [
           {
-            "setId": "15017",
+            "setId": "14001",
             "pieces": 4
           }
         ]
@@ -4032,17 +3676,14 @@
           "ENERGY_RECHARGE"
         ],
         "GOBLET": [
-          "CRYO_DMG",
-          "ATK_PERCENT"
+          "CRYO_DMG"
         ],
         "CIRCLET": [
           "CRIT_RATE",
           "CRIT_DMG"
         ]
       },
-      "erTarget": 160,
-      "source": "https://game8.co/games/Genshin-Impact/archives/385307",
-      "sourceLabel": "Game8"
+      "erTarget": 145
     },
     "10000113": {
       "name": "Ifa",
@@ -4061,12 +3702,8 @@
         ],
         [
           {
-            "setId": "15026",
-            "pieces": 2
-          },
-          {
-            "setId": "15003",
-            "pieces": 2
+            "setId": "15038",
+            "pieces": 4
           }
         ]
       ],
@@ -4080,9 +3717,7 @@
         "CIRCLET": [
           "ELEMENTAL_MASTERY"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/472693",
-      "sourceLabel": "Game8"
+      }
     },
     "10000114": {
       "name": "Skirk",
@@ -4117,9 +3752,7 @@
           "CRIT_DMG",
           "CRIT_RATE"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/333140",
-      "sourceLabel": "Game8"
+      }
     },
     "10000115": {
       "name": "Dahlia",
@@ -4132,7 +3765,7 @@
         ],
         [
           {
-            "setId": "15020",
+            "setId": "15030",
             "pieces": 2
           },
           {
@@ -4142,7 +3775,7 @@
         ],
         [
           {
-            "setId": "15030",
+            "setId": "15020",
             "pieces": 2
           },
           {
@@ -4160,13 +3793,10 @@
           "HP_PERCENT"
         ],
         "CIRCLET": [
-          "HP_PERCENT",
-          "CRIT_RATE"
+          "HP_PERCENT"
         ]
       },
-      "erTarget": 200,
-      "source": "https://game8.co/games/Genshin-Impact/archives/516026",
-      "sourceLabel": "Game8"
+      "erTarget": 180
     },
     "10000116": {
       "name": "Ineffa",
@@ -4190,28 +3820,19 @@
           }
         ]
       ],
-      "labels": [
-        "Best for Personal DMG",
-        "Best for Lunar Support",
-        "Alternative"
-      ],
       "mainStats": {
         "SANDS": [
-          "ATK_PERCENT",
-          "ELEMENTAL_MASTERY"
+          "ATK_PERCENT"
         ],
         "GOBLET": [
-          "ATK_PERCENT",
-          "ELEMENTAL_MASTERY"
+          "ATK_PERCENT"
         ],
         "CIRCLET": [
           "CRIT_DMG",
           "CRIT_RATE"
         ]
       },
-      "erTarget": 110,
-      "source": "https://game8.co/games/Genshin-Impact/archives/531360",
-      "sourceLabel": "Game8"
+      "erTarget": 110
     },
     "10000119": {
       "name": "Lauma",
@@ -4237,20 +3858,17 @@
       ],
       "mainStats": {
         "SANDS": [
-          "ELEMENTAL_MASTERY"
+          "ELEMENTAL_MASTERY",
+          "ENERGY_RECHARGE"
         ],
         "GOBLET": [
           "ELEMENTAL_MASTERY"
         ],
         "CIRCLET": [
-          "ELEMENTAL_MASTERY",
-          "CRIT_RATE",
-          "CRIT_DMG"
+          "ELEMENTAL_MASTERY"
         ]
       },
-      "erTarget": 160,
-      "source": "https://game8.co/games/Genshin-Impact/archives/538066",
-      "sourceLabel": "Game8"
+      "erTarget": 155
     },
     "10000120": {
       "name": "Flins",
@@ -4263,6 +3881,12 @@
         ],
         [
           {
+            "setId": "15031",
+            "pieces": 4
+          }
+        ],
+        [
+          {
             "setId": "15026",
             "pieces": 2
           },
@@ -4270,18 +3894,7 @@
             "setId": "15001",
             "pieces": 2
           }
-        ],
-        [
-          {
-            "setId": "15031",
-            "pieces": 4
-          }
         ]
-      ],
-      "labels": [
-        "Best-in-Slot",
-        "Generalist",
-        "With Furina"
       ],
       "mainStats": {
         "SANDS": [
@@ -4295,9 +3908,7 @@
           "CRIT_RATE"
         ]
       },
-      "erTarget": 130,
-      "source": "https://game8.co/games/Genshin-Impact/archives/538451",
-      "sourceLabel": "Game8"
+      "erTarget": 125
     },
     "10000121": {
       "name": "Aino",
@@ -4316,27 +3927,26 @@
         ],
         [
           {
-            "setId": "15043",
+            "setId": "10007",
             "pieces": 4
           }
         ]
       ],
       "mainStats": {
         "SANDS": [
-          "ELEMENTAL_MASTERY"
+          "ELEMENTAL_MASTERY",
+          "ENERGY_RECHARGE"
         ],
         "GOBLET": [
           "ELEMENTAL_MASTERY"
         ],
         "CIRCLET": [
+          "ELEMENTAL_MASTERY",
           "CRIT_RATE",
-          "CRIT_DMG",
-          "ELEMENTAL_MASTERY"
+          "CRIT_DMG"
         ]
       },
-      "erTarget": 150,
-      "source": "https://game8.co/games/Genshin-Impact/archives/537903",
-      "sourceLabel": "Game8"
+      "erTarget": 145
     },
     "10000122": {
       "name": "Nefer",
@@ -4372,8 +3982,7 @@
           "CRIT_RATE"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/538448",
-      "sourceLabel": "Game8"
+      "erTarget": 105
     },
     "10000123": {
       "name": "Durin",
@@ -4392,7 +4001,7 @@
         ],
         [
           {
-            "setId": "15020",
+            "setId": "15045",
             "pieces": 4
           }
         ]
@@ -4409,9 +4018,7 @@
           "CRIT_DMG",
           "CRIT_RATE"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/462478",
-      "sourceLabel": "Game8"
+      }
     },
     "10000124": {
       "name": "Jahoda",
@@ -4449,9 +4056,7 @@
           "CRIT_RATE"
         ]
       },
-      "erTarget": 180,
-      "source": "https://game8.co/games/Genshin-Impact/archives/538446",
-      "sourceLabel": "Game8"
+      "erTarget": 180
     },
     "10000125": {
       "name": "Columbina",
@@ -4485,13 +4090,10 @@
         ],
         "CIRCLET": [
           "CRIT_RATE",
-          "CRIT_DMG",
-          "HP_PERCENT"
+          "CRIT_DMG"
         ]
       },
-      "erTarget": 160,
-      "source": "https://game8.co/games/Genshin-Impact/archives/382106",
-      "sourceLabel": "Game8"
+      "erTarget": 160
     },
     "10000126": {
       "name": "Zibai",
@@ -4519,11 +4121,6 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Alternative Set",
-        "Temporary/ F2P"
-      ],
       "mainStats": {
         "SANDS": [
           "DEF_PERCENT"
@@ -4535,9 +4132,7 @@
           "CRIT_RATE"
         ]
       },
-      "erTarget": 110,
-      "source": "https://game8.co/games/Genshin-Impact/archives/570263",
-      "sourceLabel": "Game8"
+      "erTarget": 110
     },
     "10000127": {
       "name": "Illuga",
@@ -4550,18 +4145,18 @@
         ],
         [
           {
+            "setId": "10007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
             "setId": "15026",
             "pieces": 2
           },
           {
             "setId": "15003",
             "pieces": 2
-          }
-        ],
-        [
-          {
-            "setId": "10007",
-            "pieces": 4
           }
         ]
       ],
@@ -4576,9 +4171,7 @@
           "ELEMENTAL_MASTERY"
         ]
       },
-      "erTarget": 160,
-      "source": "https://game8.co/games/Genshin-Impact/archives/555902",
-      "sourceLabel": "Game8"
+      "erTarget": 155
     },
     "10000128": {
       "name": "Varka",
@@ -4601,35 +4194,23 @@
         ],
         [
           {
-            "setId": "15001",
-            "pieces": 2
-          },
-          {
             "setId": "15019",
-            "pieces": 2
+            "pieces": 4
           }
         ]
-      ],
-      "labels": [
-        "Best-in-Slot",
-        "Element-Focused",
-        "General"
       ],
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
         ],
         "GOBLET": [
-          "ATK_PERCENT",
-          "ELEMENTAL_DMG"
+          "ATK_PERCENT"
         ],
         "CIRCLET": [
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/314346",
-      "sourceLabel": "Game8"
+      }
     },
     "10000129": {
       "name": "Lohen",
@@ -4651,35 +4232,21 @@
             "setId": "15019",
             "pieces": 4
           }
-        ],
-        [
-          {
-            "setId": "10006",
-            "pieces": 4
-          }
         ]
-      ],
-      "labels": [
-        "Best-in-Slot",
-        "Freeze",
-        "Alt",
-        "4-Star Alt"
       ],
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
         ],
         "GOBLET": [
-          "CRYO_DMG",
-          "ATK_PERCENT"
+          "CRYO_DMG"
         ],
         "CIRCLET": [
           "CRIT_DMG",
           "CRIT_RATE"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/580697",
-      "sourceLabel": "Game8"
+      "erTarget": 120
     },
     "10000130": {
       "name": "Linnea",
@@ -4715,9 +4282,7 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 110,
-      "source": "https://game8.co/games/Genshin-Impact/archives/551088",
-      "sourceLabel": "Game8"
+      "erTarget": 125
     },
     "10000131": {
       "name": "Nicole",
@@ -4741,11 +4306,6 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Hexerei",
-        "Niche"
-      ],
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -4758,8 +4318,7 @@
           "ATK_PERCENT"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/406932",
-      "sourceLabel": "Game8"
+      "erTarget": 125
     },
     "10000132": {
       "name": "Prune",
@@ -4772,21 +4331,16 @@
         ],
         [
           {
-            "setId": "15044",
+            "setId": "15007",
             "pieces": 4
           }
         ],
         [
           {
-            "setId": "15007",
+            "setId": "15044",
             "pieces": 4
           }
         ]
-      ],
-      "labels": [
-        "Best-in-Slot",
-        "Alternative",
-        "More ATK"
       ],
       "mainStats": {
         "SANDS": [
@@ -4800,8 +4354,7 @@
           "ATK_PERCENT"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/590328",
-      "sourceLabel": "Game8"
+      "erTarget": 190
     },
     "10000133": {
       "name": "Sandrone",
@@ -4829,28 +4382,19 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Alternative",
-        "Temporary/ F2P"
-      ],
       "mainStats": {
         "SANDS": [
-          "ATK_PERCENT",
-          "ELEMENTAL_MASTERY"
+          "ATK_PERCENT"
         ],
         "GOBLET": [
-          "ATK_PERCENT",
-          "ELEMENTAL_MASTERY"
+          "ATK_PERCENT"
         ],
         "CIRCLET": [
           "CRIT_DMG",
           "CRIT_RATE"
         ]
       },
-      "erTarget": 125,
-      "source": "https://game8.co/games/Genshin-Impact/archives/382107",
-      "sourceLabel": "Game8"
+      "erTarget": 120
     },
     "10000140": {
       "name": "Vodyanitsa",
@@ -4878,11 +4422,6 @@
           }
         ]
       ],
-      "labels": [
-        "Best Option",
-        "Alt. Best Option",
-        "Alternative"
-      ],
       "mainStats": {
         "SANDS": [
           "HP_PERCENT"
@@ -4894,8 +4433,7 @@
           "HP_PERCENT"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/606400",
-      "sourceLabel": "Game8"
+      "erTarget": 145
     },
     "10000143": {
       "name": "Vesna",
@@ -4923,11 +4461,6 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Alternative",
-        "Temporary/ F2P"
-      ],
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -4939,9 +4472,7 @@
           "CRIT_DMG",
           "CRIT_RATE"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/606901",
-      "sourceLabel": "Game8"
+      }
     },
     "10000148": {
       "name": "Alyosha",
@@ -4969,11 +4500,6 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Alternative",
-        "Temporary/ F2P"
-      ],
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -4983,13 +4509,10 @@
           "ATK_PERCENT"
         ],
         "CIRCLET": [
-          "ATK_PERCENT",
-          "CRIT_RATE"
+          "ATK_PERCENT"
         ]
       },
-      "erTarget": 180,
-      "source": "https://game8.co/games/Genshin-Impact/archives/606884",
-      "sourceLabel": "Game8"
+      "erTarget": 155
     },
     "10000150": {
       "name": "Odette",
@@ -5017,11 +4540,6 @@
           }
         ]
       ],
-      "labels": [
-        "Best-in-Slot",
-        "Stellar-Conduct",
-        "Temporary/ F2P"
-      ],
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -5034,9 +4552,7 @@
           "CRIT_RATE"
         ]
       },
-      "erTarget": 125,
-      "source": "https://game8.co/games/Genshin-Impact/archives/606893",
-      "sourceLabel": "Game8"
+      "erTarget": 135
     },
     "10000005-anemo": {
       "name": "Traveler (Anemo)",
@@ -5049,6 +4565,12 @@
         ],
         [
           {
+            "setId": "15007",
+            "pieces": 4
+          }
+        ],
+        [
+          {
             "setId": "15001",
             "pieces": 2
           },
@@ -5056,17 +4578,12 @@
             "setId": "15002",
             "pieces": 2
           }
-        ],
-        [
-          {
-            "setId": "15007",
-            "pieces": 4
-          }
         ]
       ],
       "mainStats": {
         "SANDS": [
-          "ENERGY_RECHARGE"
+          "ENERGY_RECHARGE",
+          "ATK_PERCENT"
         ],
         "GOBLET": [
           "ANEMO_DMG"
@@ -5075,9 +4592,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/297537",
-      "sourceLabel": "Game8"
+      }
     },
     "10000005-cryo": {
       "name": "Traveler (Cryo)",
@@ -5101,11 +4616,6 @@
           }
         ]
       ],
-      "labels": [
-        "Stellar-Conduct",
-        "Stellar-Swirl/Sub-DPS",
-        "Alternative"
-      ],
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -5118,9 +4628,7 @@
           "CRIT_RATE"
         ]
       },
-      "erTarget": 125,
-      "source": "https://game8.co/games/Genshin-Impact/archives/613906",
-      "sourceLabel": "Game8"
+      "erTarget": 125
     },
     "10000005-dendro": {
       "name": "Traveler (Dendro)",
@@ -5139,19 +4647,14 @@
         ],
         [
           {
-            "setId": "15025",
-            "pieces": 2
-          },
-          {
-            "setId": "15020",
-            "pieces": 2
+            "setId": "15007",
+            "pieces": 4
           }
         ]
       ],
       "mainStats": {
         "SANDS": [
-          "ENERGY_RECHARGE",
-          "ELEMENTAL_MASTERY"
+          "ENERGY_RECHARGE"
         ],
         "GOBLET": [
           "DENDRO_DMG"
@@ -5160,9 +4663,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/381807",
-      "sourceLabel": "Game8"
+      }
     },
     "10000005-electro": {
       "name": "Traveler (Electro)",
@@ -5198,9 +4699,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/336865",
-      "sourceLabel": "Game8"
+      }
     },
     "10000005-geo": {
       "name": "Traveler (Geo)",
@@ -5236,9 +4735,7 @@
           "CRIT_RATE",
           "CRIT_DMG"
         ]
-      },
-      "source": "https://game8.co/games/Genshin-Impact/archives/297538",
-      "sourceLabel": "Game8"
+      }
     },
     "10000005-hydro": {
       "name": "Traveler (Hydro)",
@@ -5265,15 +4762,14 @@
         ],
         [
           {
-            "setId": "15028",
+            "setId": "10007",
             "pieces": 4
           }
         ]
       ],
       "mainStats": {
         "SANDS": [
-          "ATK_PERCENT",
-          "HP_PERCENT"
+          "ATK_PERCENT"
         ],
         "GOBLET": [
           "HYDRO_DMG"
@@ -5283,9 +4779,7 @@
           "CRIT_DMG"
         ]
       },
-      "erTarget": 180,
-      "source": "https://game8.co/games/Genshin-Impact/archives/416602",
-      "sourceLabel": "Game8"
+      "erTarget": 180
     },
     "10000005-pyro": {
       "name": "Traveler (Pyro)",
@@ -5304,7 +4798,7 @@
         ],
         [
           {
-            "setId": "15028",
+            "setId": "10007",
             "pieces": 4
           }
         ]
@@ -5315,16 +4809,14 @@
           "ENERGY_RECHARGE"
         ],
         "GOBLET": [
-          "PYRO_DMG",
-          "ATK_PERCENT"
+          "PYRO_DMG"
         ],
         "CIRCLET": [
           "CRIT_RATE",
           "CRIT_DMG"
         ]
       },
-      "source": "https://game8.co/games/Genshin-Impact/archives/470309",
-      "sourceLabel": "Game8"
+      "erTarget": 180
     }
   }
 }

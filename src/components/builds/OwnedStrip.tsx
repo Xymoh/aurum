@@ -40,7 +40,7 @@ interface OwnedStripProps {
  * one to show.
  *
  * This is the whole reason the build pages are worth having over a static
- * guide: the target on its own is something Prydwen already publishes, but
+ * guide: the target on its own is something every guide site already publishes, but
  * the target next to your own goblet is not. It reuses the last UID the
  * visitor looked up, so nothing has to be typed twice.
  */

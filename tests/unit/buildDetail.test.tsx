@@ -46,7 +46,7 @@ const GUIDE: GuideFile = {
   endgameStats: [],
   skillPriority: null,
   tracePriority: null,
-  source: { label: "Game8", url: "https://game8.co/games/Genshin-Impact/archives/314347", updated: "2026-09-20" },
+  source: { count: 3, updated: "2026-09-20" },
   kitChangedAt: null,
   kitHash: "0000000000000000",
   baseStats: [{ label: "HP", value: "15,552" }],
@@ -152,7 +152,8 @@ describe("BuildDetail", () => {
 
   it("credits the guide with the date the guide itself gives", () => {
     const page = render(loaded);
-    expect(page.querySelector("header")?.textContent).toMatch(/Picks from Game8, updated .*2026/);
+    expect(page.querySelector("header")?.textContent).toMatch(/Updated .*2026/);
+    expect(page.querySelector("header")?.textContent).not.toMatch(/community guides/i);
     expect(page.textContent).not.toContain("may not reflect the change");
   });
 

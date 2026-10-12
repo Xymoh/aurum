@@ -229,7 +229,7 @@ export interface SetPick {
   pieces: number;
 }
 
-/** One character's entry in set-recommendations.json, as fetch-genshin-sets.mjs writes it. */
+/** One character's entry in set-recommendations.json, as scripts/consensus.mjs writes it. */
 interface FetchedRecommendation {
   sets: SetPick[][];
   /** The guide's short label per rank ("Best for Stellar"), in step with `sets`. */
@@ -238,8 +238,6 @@ interface FetchedRecommendation {
   mainStats?: CharacterBuildConfig["main_stats_ideal"];
   /** The Energy Recharge total the guide states, when it states one. */
   erTarget?: number;
-  source?: string;
-  sourceLabel?: string;
 }
 
 const SET_RECOMMENDATIONS = (setRecommendationsData as { characters: Record<string, FetchedRecommendation> }).characters;
@@ -281,21 +279,11 @@ function withGuideMainStats(
 }
 
 /**
- * The guide page the fetched recommendations were read from, and the site's
- * name (Game8, or genshin.gg for a character Game8 has no page for). Null
- * when the sets are the curated ones.
- */
-export function getSetRecommendationSource(avatarId: number, element?: GenshinElement): { label: string; url: string } | null {
-  const entry = fetchedFor(avatarId, element);
-  if (!entry || entry.sets.length === 0 || !entry.source) return null;
-  return { label: entry.sourceLabel ?? "genshin.gg", url: entry.source };
-}
-
-/**
  * Recommended loadouts for a character, best first: each entry is one set
- * run as a 4-piece or two sets run as 2+2. From Game8 (genshin.gg where it has
- * no page), which lists them for the whole roster; a character neither
- * covers falls back to the curated `recommended_sets`, read as 4-pieces.
+ * run as a 4-piece or two sets run as 2+2. From the community guides'
+ * consensus (scripts/consensus.mjs), which covers the whole roster; a
+ * character none covers falls back to the curated `recommended_sets`, read
+ * as 4-pieces.
  */
 export function getSetRecommendations(avatarId: number, element?: GenshinElement): SetPick[][] {
   const fetched = fetchedFor(avatarId, element)?.sets;

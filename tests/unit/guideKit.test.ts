@@ -54,7 +54,7 @@ describe("kit change tracking", () => {
 });
 
 describe("guideBehindKit", () => {
-  const source = (updated: string | null) => ({ label: "Game8", url: "https://game8.co/", updated });
+  const source = (updated: string | null) => ({ count: 2, updated });
 
   it("flags a guide last updated before the kit changed", () => {
     expect(guideBehindKit({ kitChangedAt: "2026-09-24", source: source("2026-09-17") })).toBe(true);

@@ -81,9 +81,9 @@ export interface BuildTarget extends BuildListing {
   /** Substat priority, most valuable first. */
   substats: TargetStat[];
   /**
-   * Recommended sets, best first. Genshin's come from Game8 (genshin.gg for a character it lacks), Star
-   * Rail's from Fribbels with Prydwen filling in the supports it does not
-   * simulate, Zenless's from Prydwen. Empty only when no source lists any.
+   * Recommended sets, best first: the community guides' consensus
+   * (scripts/consensus.mjs), with Fribbels for a Star Rail character no
+   * guide covers yet. Empty only when no source lists any.
    */
   sets: SetRecommendation[];
   /** The guide's own phrasing, when it published one worth quoting. */

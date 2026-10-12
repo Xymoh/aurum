@@ -20,3 +20,6 @@ test-results
 
 # Full-size originals of the help screenshots (public/help holds the shipped WebP)
 .help-originals/
+
+# Per-site guide imports; only their consensus is published (scripts/sources.mjs)
+.sources/

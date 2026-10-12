@@ -1,28 +1,17 @@
 /**
  * fetch-prydwen-sets.mjs
  * ──────────────────────────────────────────────────────────────────
- * Recommended relic / disc sets from Prydwen's build guides, for Star Rail
- * and Zenless, written to:
+ * Recommended relic / disc sets and the rest of each guide's picks
+ * (weapons, teams, synergies, endgame stats, skill and trace priority, the
+ * page's last-updated date) from Prydwen's Star Rail and Zenless guides,
+ * into the local cache:
  *
- *   src/hsr/data/set-recommendations.json   relicSets + ornamentSets
- *   src/zzz/data/set-recommendations.json   sets
+ *   .sources/hsr/prydwen.json, .sources/zzz/prydwen.json   (see sources.mjs)
  *
- * The same visit also reads the rest of the guide's picks (weapons, teams,
- * synergies, substat line, endgame stats, skill and trace priority) and the
- * date the guide says it was last updated, into the shape
- * src/lib/buildTarget/guide.ts calls GuidePicksFile:
- *
- *   src/hsr/data/guide-picks.json
- *   src/zzz/data/guide-picks.json
- *
- * Only facts are kept: names mapped to ids, ranks as order, stat lines and
- * priorities. Prydwen's commentary, relative DPS figures, usage and
- * appearance rates and tier ratings are read past, never stored.
- *
- * Fribbels publishes sets for the characters it simulates, which leaves the
- * supports out; Prydwen lists sets for everyone, so this fills the gaps and
- * covers Zenless entirely. The runtime prefers Fribbels where it has an
- * answer and falls back to this file.
+ * scripts/consensus.mjs publishes the vote across every site; nothing here
+ * is published as read. Only facts are kept: names mapped to ids, ranks as
+ * order, stat lines and priorities. Commentary, relative DPS figures, usage
+ * and appearance rates and tier ratings are read past, never stored.
  *
  * Every guide's build tab renders the same blocks:
  *
@@ -33,9 +22,9 @@
  * Set names are matched against each game's sets table; anything that does
  * not match is reported rather than guessed.
  *
- * Prydwen sits behind a Cloudflare check that a headless browser fails, so
- * this runs a visible Edge window (same as fetch-zzz-weights.mjs). Expect it
- * to open and close on its own; PRYDWEN_BROWSER=chrome switches browsers.
+ * Prydwen turns away scripts, so this runs a visible Edge or Chrome window
+ * (launchBrowser in sources.mjs). Expect it to open and close on its own;
+ * PRYDWEN_BROWSER=chrome tries Chrome first.
  *
  * Usage: node scripts/fetch-prydwen-sets.mjs [hsr|zzz] [--only=slug,slug]
  * ──────────────────────────────────────────────────────────────────
@@ -44,8 +33,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { chromium } from "playwright";
 import { endgameFigure, trimQualifiers } from "./guide-figures.mjs";
+import { emptyEntry, launchBrowser, writeSource } from "./sources.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -78,8 +67,6 @@ function demojibake(s) {
 
 const HSR = {
   section: "star-rail",
-  output: path.join(ROOT, "src", "hsr", "data", "set-recommendations.json"),
-  picksOutput: path.join(ROOT, "src", "hsr", "data", "guide-picks.json"),
   characters: JSON.parse(fs.readFileSync(path.join(ROOT, "src", "hsr", "data", "characters.json"), "utf8")),
   weapons: JSON.parse(fs.readFileSync(path.join(ROOT, "src", "hsr", "data", "light-cones.json"), "utf8")),
   /** Guide headings, matched against each `.content-header`'s text. */
@@ -123,8 +110,6 @@ const HSR = {
 
 const ZZZ = {
   section: "zenless",
-  output: path.join(ROOT, "src", "zzz", "data", "set-recommendations.json"),
-  picksOutput: path.join(ROOT, "src", "zzz", "data", "guide-picks.json"),
   characters: JSON.parse(fs.readFileSync(path.join(ROOT, "src", "zzz", "data", "agents.json"), "utf8")),
   sets: JSON.parse(fs.readFileSync(path.join(ROOT, "src", "zzz", "data", "sets.json"), "utf8")),
   weapons: JSON.parse(fs.readFileSync(path.join(ROOT, "src", "zzz", "data", "weapons.json"), "utf8")),
@@ -490,9 +475,8 @@ async function run(game, page) {
   const nameBySlug = new Map(links);
   const memberId = (link) => idsFor(nameBySlug.get(link.slug) ?? link.name)[0] ?? null;
 
-  const characters = ONLY.size && fs.existsSync(game.output) ? (JSON.parse(fs.readFileSync(game.output, "utf8")).characters ?? {}) : {};
-  const picksById =
-    ONLY.size && fs.existsSync(game.picksOutput) ? (JSON.parse(fs.readFileSync(game.picksOutput, "utf8")).characters ?? {}) : {};
+  const characters = {};
+  const picksById = {};
   const unmatched = [];
   const unknownSets = new Set();
   const noPicks = [];
@@ -579,22 +563,42 @@ async function run(game, page) {
     console.log(`${counts.join("/")} | ${picksLine}`);
   }
 
-  const byId = (obj) => Object.fromEntries(Object.entries(obj).sort(([a], [b]) => Number(a) - Number(b)));
-  const missing = Object.keys(game.characters).filter((id) => !characters[id]).map((id) => `${game.characters[id].name} (${id})`);
-  const output = {
-    source: `${BASE}/${game.section}/characters/`,
-    fetchedAt: new Date().toISOString(),
-    characters: byId(characters),
-  };
-  fs.writeFileSync(game.output, JSON.stringify(output, null, 2) + "\n");
-  console.log(`\n  ✔ wrote ${Object.keys(characters).length} characters to ${path.relative(ROOT, game.output)}`);
+  const missing = Object.keys(game.characters).filter((id) => !characters[id] && !picksById[id]).map((id) => `${game.characters[id].name} (${id})`);
+  // One entry per character in the local cache; scripts/consensus.mjs
+  // publishes the vote across every site, never this file as it is.
+  const entries = {};
+  for (const id of new Set([...Object.keys(picksById), ...Object.keys(characters)])) {
+    const p = picksById[id];
+    const { source, ...sets } = characters[id] ?? {};
+    entries[id] = {
+      ...emptyEntry(game.characters[id].name, p?.source ?? source),
+      ...(p
+        ? {
+            updated: p.sourceUpdated,
+            role: p.role,
+            weapons: p.weapons,
+            teams: p.teams,
+            synergies: p.synergies,
+            endgameStats: p.endgameStats,
+            skillPriority: p.skillPriority,
+            tracePriority: p.tracePriority,
+          }
+        : {}),
+      ...sets,
+    };
+    // Zenless weights and main stats are fetch-zzz-weights.mjs's part of this site.
+    if (game === ZZZ) {
+      delete entries[id].substats;
+      delete entries[id].mainStats;
+    }
+  }
+  const file = writeSource(game === HSR ? "hsr" : "zzz", "prydwen", entries, { merge: ONLY.size > 0 });
+  console.log(`
+  ✔ wrote ${Object.keys(entries).length} characters to ${path.relative(ROOT, file)}`);
   if (unknownSets.size) console.log(`  ⚠ set names not in the sets table: ${[...unknownSets].join(", ")}`);
   if (unmatched.length) console.log(`  ⚠ on Prydwen but not matched: ${unmatched.join(", ")}`);
   if (missing.length) console.log(`  ⚠ no guide found for: ${missing.join(", ")}`);
 
-  const picksOutput = { source: output.source, fetchedAt: output.fetchedAt, characters: byId(picksById) };
-  fs.writeFileSync(game.picksOutput, JSON.stringify(picksOutput, null, 2) + "\n");
-  console.log(`  ✔ wrote picks for ${Object.keys(picksById).length} characters to ${path.relative(ROOT, game.picksOutput)}`);
   console.log(
     `    of ${coverage.read} guides read this run: ` +
       Object.entries(coverage)
@@ -615,8 +619,7 @@ async function run(game, page) {
 }
 
 async function main() {
-  const channel = process.env.PRYDWEN_BROWSER === "chrome" ? "chrome" : "msedge";
-  const browser = await chromium.launch({ channel, headless: process.env.PRYDWEN_HEADLESS === "1" });
+  const browser = await launchBrowser({ prefer: process.env.PRYDWEN_BROWSER, headless: process.env.PRYDWEN_HEADLESS === "1" });
   const context = await browser.newContext({ locale: "en-US", viewport: { width: 1280, height: 900 } });
   const page = await context.newPage();
   page.setDefaultTimeout(25_000);

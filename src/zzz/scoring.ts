@@ -238,7 +238,7 @@ export function countSets(discs: ZzzDisc[]): ZzzBuildDiagnostics["sets"] {
 }
 
 /**
- * Which final stat a guide's "until N" cap is measured on. Prydwen states
+ * Which final stat a guide's "until N" cap is measured on. Guides state
  * caps as stat-screen figures (CRIT Rate 80%, ATK 3000), never as sums of
  * disc rolls, so the build's total is what gets compared.
  */

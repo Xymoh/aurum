@@ -75,8 +75,8 @@ export function TermsPage() {
             Rail artwork.
           </li>
           <li>
-            <Ext href="https://game8.co/">Game8</Ext>, <Ext href="https://www.prydwen.gg/">Prydwen</Ext>{" "}
-            and <Ext href="https://genshin.gg/">genshin.gg</Ext> inform the build and set recommendations.
+            Build and set recommendations are combined from several public community build guides,
+            weighed against one another; no single guide's picks are reproduced.
           </li>
           <li>
             <Ext href="https://gi.yatta.moe/">Project Amber</Ext> and community mirrors of the games'

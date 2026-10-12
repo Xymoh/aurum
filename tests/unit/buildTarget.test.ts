@@ -64,10 +64,10 @@ describe("Genshin build targets", () => {
     expect(circlet.stats).toContain("Elemental Mastery");
   });
 
-  it("takes an Energy Recharge target only where the guide states one", () => {
-    // Bennett's page says "200 ~ 250%": the low end is enough.
-    expect(getGenshinBuild("10000032", t)!.energyTarget).toBe(200);
-    // Mizuki's hand-kept 160% predated her buff; Game8 gives no figure.
+  it("takes an Energy Recharge target only where a guide states one", () => {
+    // Two guides state one for Bennett; the published target is their median.
+    expect(getGenshinBuild("10000032", t)!.energyTarget).toBeGreaterThanOrEqual(150);
+    // Mizuki's hand-kept 160% predated her buff, and no guide gives a figure.
     expect(getGenshinBuild("10000109", t)!.energyTarget).toBeNull();
   });
 
@@ -89,8 +89,7 @@ describe("Genshin build targets", () => {
     expect(lumine.name).toBe("Traveler (Cryo)");
     expect(lumine.tags[0]).toBe("Cryo");
     expect(lumine.sets).toEqual(aether.sets);
-    expect(lumine.setsSource).toEqual(aether.setsSource);
-    expect(lumine.setsSource).not.toEqual(getGenshinBuild("10000005-dendro", t)!.setsSource);
+    expect(lumine.sets).not.toEqual(getGenshinBuild("10000005-dendro", t)!.sets);
   });
 
   it("opens a Traveler's own element from the showcase, and moves the old per-body pages", () => {
@@ -101,10 +100,10 @@ describe("Genshin build targets", () => {
     expect(movedGenshinBuild("10000109")).toBeNull();
   });
 
-  it("carries the guide's own label for a set rank", () => {
+  it("publishes no guide's own label for a set rank", () => {
     const sets = getGenshinBuild("10000109", t)!.sets;
-    expect(sets.map((r) => r.parts[0].name)).toEqual(["Gilded Dreams", "Viridescent Venerer", "Scarlet Proof"]);
-    expect(sets.map((r) => r.label)).toEqual(["Best for Stellar", "Best in General", "Alt. for Stellar"]);
+    expect(sets[0].parts[0].name).toBe("Gilded Dreams");
+    expect(sets.every((r) => !r.label)).toBe(true);
   });
 });
 
@@ -176,12 +175,12 @@ describe("Zenless build targets", () => {
     expect(generic.length, `uncovered: ${generic.join(", ")}`).toBeLessThanOrEqual(2);
   });
 
-  it("advises only discs 4 to 6 and quotes the guide", () => {
+  it("advises only discs 4 to 6 and words the consensus weights", () => {
     const target = getZzzBuild("1011", t)!;
     expect(target.name).toBe("Anby");
     expect(target.slots.map((s) => s.slot)).toEqual(["Disc 4", "Disc 5", "Disc 6"]);
     expect(target.priority).toContain("CRIT");
-    expect(target.source.url).toContain("prydwen.gg");
+    expect(target.source.url).toBeNull();
   });
 });
 

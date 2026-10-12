@@ -6,7 +6,7 @@ import charactersData from "./data/characters.json";
 import { characterIcon, characterPreview, pathIcon, relicSetIcon } from "./images";
 import { elementTint } from "./labels";
 import type { HsrStatKey } from "./types";
-import { getScoringMeta, prydwenSetsUrl, SELECTABLE_SLOTS } from "./weights";
+import { getScoringMeta, SELECTABLE_SLOTS } from "./weights";
 
 const CHARACTERS = charactersData as Record<
   string,
@@ -118,6 +118,7 @@ export function getHsrBuild(id: string, t: Translate): BuildTarget | null {
     thresholds: [],
     energyTarget: null,
     source: { label: "Fribbels HSR Optimizer", url: "https://github.com/fribbels/hsr-optimizer" },
-    setsSource: meta.setsSource === "prydwen" ? { label: "Prydwen", url: prydwenSetsUrl(avatarId) } : null,
+    // Consensus sets are credited with the rest of the picks; Fribbels' own get a line.
+    setsSource: meta.setsSource === "fribbels" ? { label: "Fribbels HSR Optimizer", url: "https://github.com/fribbels/hsr-optimizer" } : null,
   };
 }

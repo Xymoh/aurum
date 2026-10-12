@@ -1,11 +1,11 @@
 /**
  * Substat weights and ideal main stats for Zenless Zone Zero.
  *
- * Primary source: ./data/scoring-metadata.json, generated from Prydwen's
- * per-agent build guides by scripts/fetch-zzz-weights.mjs. ZZZ has no open
- * weight table of the kind Fribbels maintains for Star Rail, but Prydwen's
- * ZZZ guides list an ideal main stat per disc and a ranked substat priority
- * for every agent, which is the same information.
+ * Primary source: ./data/scoring-metadata.json, the consensus of several
+ * community build guides (scripts/consensus.mjs). ZZZ has no open weight
+ * table of the kind Fribbels maintains for Star Rail, but the guides list
+ * an ideal main stat per disc and a ranked substat priority for every
+ * agent, which is the same information.
  *
  * Fallback: a profile per Profession, so an agent released after the last
  * import still scores sensibly the moment Enka knows their role.
@@ -26,11 +26,11 @@ export interface ZzzScoringMeta {
   parts: Record<SelectableZzzSlot, ZzzStatId[]>;
   /** Stats a guide caps, as "build this until X%": CRIT Rate until 80, for instance. */
   thresholds: Record<number, number>;
-  /** The guide's own wording, for the UI to quote. */
+  /** The consensus weights in words ("CRIT Rate = CRIT DMG > ATK%"), for the UI. */
   priority: string | null;
   /** Recommended disc loadouts, best first: a 4-piece with its 2-piece partner. */
   sets: { setId: string; name: string; pieces: number }[][];
-  source: "prydwen" | "profession";
+  source: "guides" | "profession";
 }
 
 const AGENTS = agents as Record<string, { name: string; profession: string; element: string; rarity: number; accent: string }>;
@@ -42,14 +42,14 @@ interface MetadataEntry {
   thresholds?: Record<string, number>;
   priority?: string;
 }
-const PRYDWEN = (scoringMetadata as { characters: Record<string, MetadataEntry> }).characters ?? {};
+const GUIDES = (scoringMetadata as { characters: Record<string, MetadataEntry> }).characters ?? {};
 
 const SET_NAMES = setsData as Record<string, { name: string }>;
-const PRYDWEN_SETS = (setRecommendations as { characters: Record<string, { sets?: { setId: string; pieces: number }[][] }> }).characters;
+const GUIDE_SETS = (setRecommendations as { characters: Record<string, { sets?: { setId: string; pieces: number }[][] }> }).characters;
 
-/** Prydwen's disc lists, kept apart from the weights so a weights refresh cannot wipe them. */
+/** The guides' disc lists, kept apart from the weights. */
 function setsFor(agentId: number): ZzzScoringMeta["sets"] {
-  return (PRYDWEN_SETS[String(agentId)]?.sets ?? []).map((parts) =>
+  return (GUIDE_SETS[String(agentId)]?.sets ?? []).map((parts) =>
     parts.map((p) => ({ setId: p.setId, name: SET_NAMES[p.setId]?.name ?? p.setId, pieces: p.pieces })),
   );
 }
@@ -149,19 +149,19 @@ export function getAgentInfo(id: number) {
 
 /**
  * Everything the scorer needs to know about an agent. Falls through
- * Prydwen -> Profession -> Attack, so an unknown id still scores.
+ * Guides -> Profession -> Attack, so an unknown id still scores.
  */
 export function getScoringMeta(agentId: number): ZzzScoringMeta {
-  const entry = PRYDWEN[String(agentId)];
+  const entry = GUIDES[String(agentId)];
   if (entry) {
     const stats: ZzzWeights = {};
     for (const [id, w] of Object.entries(entry.stats)) stats[Number(id)] = w;
     const thresholds: Record<number, number> = {};
     for (const [id, t] of Object.entries(entry.thresholds ?? {})) thresholds[Number(id)] = t;
     // A damage dealer's own element DMG% is always an acceptable disc 5,
-    // whatever the guide happened to list first. Prydwen's scrape names
-    // PEN Ratio for some agents and leaves the element out, which had the
-    // scorer calling an on-element goblet "wrong main".
+    // whatever the guides happened to list first. Some name PEN Ratio and
+    // leave the element out, which had the scorer calling an on-element
+    // disc "wrong main".
     const info = getAgentInfo(agentId);
     const ownDmg = info && DAMAGE_ROLES.has(info.profession) ? ELEMENT_DMG[info.element] : undefined;
     const disc5 = entry.parts["5"] ?? [];
@@ -175,7 +175,7 @@ export function getScoringMeta(agentId: number): ZzzScoringMeta {
       thresholds,
       priority: entry.priority ?? null,
       sets: setsFor(agentId),
-      source: "prydwen",
+      source: "guides",
     };
   }
   const info = getAgentInfo(agentId);

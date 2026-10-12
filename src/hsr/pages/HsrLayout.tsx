@@ -87,14 +87,6 @@ export function HsrLayout() {
               Fribbels HSR Optimizer
             </a>
             {t("hsr", "footerBuildsMiddle")}
-            <a
-              href="https://www.prydwen.gg/star-rail/characters/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-hsr-accent underline underline-offset-2 hover:text-hsr-text"
-            >
-              Prydwen
-            </a>
             .
           </p>
           <p className="mt-2">

@@ -325,9 +325,10 @@ describe("engine corrections checked against Enka's tables", () => {
     expect(yixuan.penRatio).toBe(0);
   });
 
-  it("keeps a flat weight the guide stated", () => {
-    // Ju Fufu's guide ranks flat ATK at 0.75 with no ATK% weight at all.
-    expect(weightOf(meta(1391).stats, 12103)).toBe(0.75);
+  it("keeps a flat weight the guides state", () => {
+    // Ju Fufu's guides rank flat ATK on a par with ATK%, so flat ATK keeps its own
+    // weight rather than the 40% share a flat stat gets from its percent twin.
+    expect(weightOf(meta(1391).stats, 12103)).toBe(0.5);
   });
 
   it("accepts a damage dealer's own element DMG on disc 5", () => {

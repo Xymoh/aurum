@@ -7,7 +7,6 @@ import {
   getBuildConfig,
   getSetRecommendationLabels,
   getSetRecommendations,
-  getSetRecommendationSource,
   idealMainStatsFor,
   scoringWeightsFor,
 } from "../scoring";
@@ -251,6 +250,7 @@ export function getGenshinBuild(id: string, t: Translate): BuildTarget | null {
     thresholds: [],
     energyTarget: config?.er_threshold ?? null,
     source: { label: "Genshin Optimizer", url: "https://github.com/frzyc/genshin-optimizer" },
-    setsSource: getSetRecommendationSource(avatarId, element),
+    // The sets are the guides' consensus, credited with the rest of the picks.
+    setsSource: null,
   };
 }

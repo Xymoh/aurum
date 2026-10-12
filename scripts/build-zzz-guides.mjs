@@ -11,9 +11,9 @@
  *
  * Two inputs meet here:
  *
- *   Picks        src/zzz/data/guide-picks.json, written by the Prydwen
- *                scraper (scripts/fetch-prydwen-sets.mjs). Optional: an agent
- *                the scraper has not covered gets empty picks, and a missing
+ *   Picks        src/zzz/data/guide-picks.json, the consensus
+ *                scripts/consensus.mjs writes. Optional: an agent no
+ *                guide covers yet gets empty picks, and a missing
  *                file just means every agent does. --picks=<path> reads
  *                another file, for testing against a small fixture.
  *
@@ -1069,7 +1069,7 @@ async function main() {
       endgameStats: (p?.endgameStats ?? []).map((s) => ({ label: s.label, value: s.value })),
       skillPriority: p?.skillPriority ?? null,
       tracePriority: null,
-      source: p?.source ? { label: p.sourceLabel ?? "Prydwen", url: p.source, updated: p.sourceUpdated ?? null } : null,
+      source: p?.sources ? { count: p.sources, updated: p.updated ?? null } : null,
       baseStats,
       bonusStats,
       kit: [

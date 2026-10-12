@@ -1,8 +1,10 @@
 /**
  * fetch-zzz-weights.mjs
  * ──────────────────────────────────────────────────────────────────
- * Builds the per-agent scoring table for Zenless Zone Zero from Prydwen's
- * build guides and writes src/zzz/data/scoring-metadata.json.
+ * Reads each agent's ideal disc main stats and substat priority from
+ * Prydwen's build guides into the local cache (.sources/zzz/prydwen.weights.json).
+ * scripts/consensus.mjs turns every source's priorities into the published
+ * src/zzz/data/scoring-metadata.json.
  *
  * There is no Fribbels-style open weight table for ZZZ, but Prydwen's ZZZ
  * pages are structured enough to generate one: every agent's Build tab lists
@@ -11,25 +13,23 @@
  *   Disk 4: CRIT Rate% >= ATK%   Disk 5: Ice DMG% = ATK%   Disk 6: ATK%
  *   Substats: CRIT RATE (Until 80%) >= CRIT DMG = ATK% > Anomaly Proficiency = ATK = PEN
  *
- * Priority tiers become weights on the discrete scale Fribbels uses for
- * Star Rail: 1.0 for the first tier, then 0.75, 0.5, 0.25. Two stats joined
- * by "=" share a tier; ">=" counts as a step. A "(Until X%)" qualifier is
- * recorded as a threshold and does not lower the stat's weight.
+ * The priority is stored as tiers: two stats joined by "=" share a tier,
+ * ">=" counts as a step. A "(Until X%)" qualifier is recorded as a
+ * threshold. consensus.mjs maps tiers onto 1 / 0.75 / 0.5 / 0.25.
  *
- * Prydwen refuses plain HTTP clients, so this drives the Edge that ships
- * with Windows through Playwright (channel "msedge"). Set ZZZ_BROWSER=chrome
- * to use Chrome instead. Pass --only=miyabi,ellen to limit the run.
+ * Prydwen refuses plain HTTP clients, so this drives a visible Edge or
+ * Chrome window through Playwright (see launchBrowser in sources.mjs). Set
+ * ZZZ_BROWSER=chrome to try Chrome first. Pass --only=miyabi,ellen to limit the run.
  * ──────────────────────────────────────────────────────────────────
  */
 
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { chromium } from "playwright";
+import { launchBrowser, writeSource } from "./sources.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
-const OUTPUT = path.join(ROOT, "src", "zzz", "data", "scoring-metadata.json");
 const AGENTS = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "zzz", "data", "agents.json"), "utf8"));
 
 const BASE = "https://www.prydwen.gg";
@@ -70,8 +70,6 @@ const STAT_PATTERNS = [
   [/wind\s*dmg/i, 32303],
   [/auric\s*ether\s*dmg/i, 32003],
 ];
-
-const TIER_WEIGHTS = [1, 0.75, 0.5, 0.25, 0.25];
 
 function statId(text) {
   const clean = text.replace(/\([^)]*\)/g, "").trim();
@@ -157,8 +155,7 @@ async function main() {
   // browser fails ("Just a moment..."). A visible window passes it, so this
   // runs headed unless ZZZ_HEADLESS=1 is set; expect an Edge window to open
   // and close on its own.
-  const channel = process.env.ZZZ_BROWSER === "chrome" ? "chrome" : "msedge";
-  const browser = await chromium.launch({ channel, headless: process.env.ZZZ_HEADLESS === "1" });
+  const browser = await launchBrowser({ prefer: process.env.ZZZ_BROWSER, headless: process.env.ZZZ_HEADLESS === "1" });
   const context = await browser.newContext({ locale: "en-US", viewport: { width: 1280, height: 900 } });
   const page = await context.newPage();
   page.setDefaultTimeout(25_000);
@@ -191,7 +188,7 @@ async function main() {
   console.log(`  ${links.length} agents to read`);
 
   // A partial run (--only) updates the agents it visited and keeps the rest.
-  const characters = ONLY.size && fs.existsSync(OUTPUT) ? (JSON.parse(fs.readFileSync(OUTPUT, "utf8")).characters ?? {}) : {};
+  const characters = {};
   const unmatched = [];
   for (const [slug, prydwenName] of links) {
     if (ONLY.size && !ONLY.has(slug)) continue;
@@ -224,32 +221,24 @@ async function main() {
     }
 
     const { tiers, thresholds, unknown } = parsePriority(subsLine[1]);
-    const stats = {};
-    tiers.forEach((tier, i) => tier.forEach((pid) => (stats[pid] = Math.max(stats[pid] ?? 0, TIER_WEIGHTS[Math.min(i, TIER_WEIGHTS.length - 1)]))));
     const parts = mainsBlock ? parseMains(mainsBlock[1]) : { 4: [], 5: [], 6: [] };
+    const stats = tiers.flat();
 
+    // Only this importer's part of Prydwen's entry; the picks are fetch-prydwen-sets.mjs's.
     characters[id] = {
-      name: AGENTS[id].name,
-      stats,
-      parts,
-      ...(Object.keys(thresholds).length ? { thresholds } : {}),
-      priority: subsLine[1].trim(),
-      source: `${BASE}/zenless/characters/${slug}`,
+      substats: tiers.map((tier) => tier.map(String)),
+      mainStats: Object.fromEntries(Object.entries(parts).map(([slot, ids]) => [slot, ids.map(String)])),
+      thresholds,
     };
-    console.log(`${Object.keys(stats).length} stats, mains ${[4, 5, 6].map((s) => parts[s].length).join("/")}${unknown.length ? `  ? ${unknown.join(", ")}` : ""}`);
+    console.log(`${stats.length} stats, mains ${[4, 5, 6].map((s) => parts[s].length).join("/")}${unknown.length ? `  ? ${unknown.join(", ")}` : ""}`);
   }
 
   await browser.close();
 
   const missing = Object.keys(AGENTS).filter((id) => !characters[id]).map((id) => `${AGENTS[id].name} (${id})`);
-  const output = {
-    source: `${BASE}/zenless/characters/`,
-    method: "Priority tiers mapped to 1 / 0.75 / 0.5 / 0.25; see scripts/fetch-zzz-weights.mjs",
-    fetchedAt: new Date().toISOString(),
-    characters: Object.fromEntries(Object.entries(characters).sort(([a], [b]) => Number(a) - Number(b))),
-  };
-  fs.writeFileSync(OUTPUT, JSON.stringify(output, null, 2) + "\n");
-  console.log(`\n  ✔ wrote ${Object.keys(characters).length} agents to ${path.relative(ROOT, OUTPUT)}`);
+  const file = writeSource("zzz", "prydwen", characters, { merge: ONLY.size > 0, part: "weights" });
+  console.log(`
+  ✔ wrote ${Object.keys(characters).length} agents to ${path.relative(ROOT, file)}`);
   if (unmatched.length) console.log(`  ⚠ on Prydwen but not in Enka's tables yet: ${unmatched.join(", ")}`);
   if (missing.length) console.log(`  ⚠ in Enka's tables with no guide (profession fallback applies): ${missing.join(", ")}`);
 }

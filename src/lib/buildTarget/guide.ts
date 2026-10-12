@@ -6,11 +6,10 @@
  *
  * Two kinds of data meet here, and they are kept apart on purpose:
  *
- *   Picks - which weapons, which teams, what order to level skills in. These
- *   are the guide sites' recommendations (Game8 for Genshin, genshin.gg for
- *   a character Game8 has no page for, Prydwen for Star Rail and Zenless),
- *   imported as facts: names, ranks and stat targets, never their prose.
- *   Written by the scrapers to guide-picks.json.
+ *   Picks - which weapons, which teams, what order to level skills in. A
+ *   weighted vote across several community guide sites, imported as facts
+ *   (names, ranks and stat targets, never their prose) and combined by
+ *   scripts/consensus.mjs into guide-picks.json.
  *
  *   Game data - skill text, constellations, materials, weapon passives, set
  *   bonuses. HoYoverse's own text, from the same game-data mirrors the rest
@@ -159,7 +158,7 @@ export interface GuideFile {
   teams: GuideTeam[];
   /** Characters the guide names as strong partners, ids, best first. */
   synergies: string[];
-  /** The guide's own substat line, verbatim ("CRIT Rate = CRIT DMG > ATK%"). */
+  /** A substat line in words ("CRIT Rate = CRIT DMG > ATK%"), when one is published. */
   substatLine: string | null;
   /** Stat targets for endgame, as the guide states them. */
   endgameStats: GuideStat[];
@@ -168,11 +167,11 @@ export interface GuideFile {
   /** Star Rail only: the order to unlock major traces. */
   tracePriority: string | null;
   /**
-   * Where the picks came from, and the date that page says it was last
-   * updated (YYYY-MM-DD), which is the guide's own and not when we read it.
-   * Null when no guide covers this character.
+   * How many guides the picks were combined from, and the newest of their
+   * last-updated dates (YYYY-MM-DD), which is the guides' own and not when
+   * we read them. Null when no guide covers this character.
    */
-  source: { label: string; url: string; updated: string | null } | null;
+  source: { count: number; updated: string | null } | null;
   /**
    * When a refresh first saw the kit text as it is now (YYYY-MM-DD), if it
    * had seen a different one before. Null when the kit has not changed since
@@ -215,29 +214,24 @@ export interface SetBonusEntry {
 export type SetBonusFile = Record<string, SetBonusEntry>;
 
 /**
- * guide-picks.json, the scrapers' output and the build scripts' input. Kept
- * separate from the guide files because the scrapers are slow (Prydwen needs
- * a real browser) and the game data is not: a patch that only changes
- * skill text should not mean re-reading every guide.
- *
- *   src/data/guide-picks.json       scripts/fetch-genshin-sets.mjs
- *   src/hsr/data/guide-picks.json   scripts/fetch-prydwen-sets.mjs
- *   src/zzz/data/guide-picks.json   scripts/fetch-prydwen-sets.mjs
+ * guide-picks.json, the consensus of the guide importers and the build
+ * scripts' input, one per game (src/data, src/hsr/data, src/zzz/data),
+ * written by scripts/consensus.mjs. Kept separate from the guide files
+ * because the importers are slow (one site needs a real browser) and the
+ * game data is not: a patch that only changes skill text should not mean
+ * re-reading every guide.
  */
 export interface GuidePicksFile {
-  source: string;
   fetchedAt: string;
   characters: Record<string, GuidePicks>;
 }
 
 export interface GuidePicks {
   name: string;
-  /** The guide page these picks were read from. */
-  source: string;
-  /** The site's name as the page credits it: "Game8", "genshin.gg", "Prydwen". */
-  sourceLabel: string;
-  /** The date the page says it was last updated (YYYY-MM-DD), or null when it prints none. */
-  sourceUpdated: string | null;
+  /** How many guide sites these picks were combined from. */
+  sources: number;
+  /** The newest date those pages say they were last updated (YYYY-MM-DD), or null when none prints one. */
+  updated: string | null;
   /**
    * Main stats per slot as the guide ranks them, in the scorer's own stat
    * keys (Genshin: SANDS / GOBLET / CIRCLET -> "ELEMENTAL_MASTERY",

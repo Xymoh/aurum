@@ -12,12 +12,6 @@ const AGENTS = agentsData as unknown as Record<
   { name: string; nameZh?: string; profession: string; element: string; rarity: number; accent: string }
 >;
 
-/** Prydwen keys its guides by a slug of the agent's name. */
-function prydwenUrl(name: string): string {
-  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-  return `https://www.prydwen.gg/zenless/characters/${slug}`;
-}
-
 /** Whether a build page exists for this agent; see hasGenshinBuild. */
 export function hasZzzBuild(agentId: number | string): boolean {
   return String(agentId) in AGENTS;
@@ -31,7 +25,7 @@ export function listZzzBuilds(t: Translate): BuildListing[] {
       iconUrl: agentIcon(Number(id)),
       tags: [t("zzzRoles", a.profession as "Attack"), t("zzzElements", a.element as "Fire")],
       rarity: a.rarity,
-      generic: getScoringMeta(Number(id)).source !== "prydwen",
+      generic: getScoringMeta(Number(id)).source !== "guides",
     }))
     .sort((a, b) => a.name.localeCompare(b.name));
 }
@@ -65,7 +59,7 @@ export function getZzzBuild(id: string, t: Translate): BuildTarget | null {
     tags: [t("zzzRoles", agent.profession as "Attack"), t("zzzElements", agent.element as "Fire")],
     rarity: agent.rarity,
     accent: agent.accent || "#d4ff00",
-    generic: meta.source !== "prydwen",
+    generic: meta.source !== "guides",
     slots,
     substats,
     sets: meta.sets.map((parts) => ({
@@ -76,18 +70,14 @@ export function getZzzBuild(id: string, t: Translate): BuildTarget | null {
         iconUrl: setIcon(Number(p.setId)),
       })),
     })),
-    // Their own wording, quoted rather than paraphrased: the tiers behind the
-    // weights are an interpretation, and the sentence is not.
+    // The consensus weights in words, so the line and the numbers always agree.
     priority: meta.priority,
     thresholds: Object.entries(meta.thresholds).map(([id, target]) => ({
       label: t("zzzStats", id as "11101"),
       target,
     })),
     energyTarget: null,
-    source: {
-      label: "Prydwen",
-      url: meta.source === "prydwen" ? prydwenUrl(agent.name) : "https://www.prydwen.gg/zenless/characters/",
-    },
+    source: { label: meta.source === "guides" ? "Community build guides, combined" : "Role profile", url: null },
     setsSource: null,
   };
 }

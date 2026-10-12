@@ -85,9 +85,10 @@ Opens at `http://localhost:3000`. Enter a Genshin UID (e.g., `707019355`) to vie
 | `npm run fetch-hsr-weights` | Re-import per-character HSR scoring weights from Fribbels |
 | `npm run fetch-hsr-stats` | Re-import HSR stat curves, traces and set bonuses |
 | `npm run audit-genshin` | Cross-check Genshin substat weights against Prydwen, KQM and Game8 |
-| `npm run fetch-genshin-sets` | Re-import recommended artifact sets and the build-guide picks (weapons, teams, main stats, talent priority) for every Genshin character from Game8, falling back to genshin.gg where Game8 has no build page |
+| `npm run fetch-genshin-sets`, `fetch-kqm` | Read the Genshin guide sites' picks (sets, weapons, teams, main stats, ER targets, talent priority) into the local `.sources/` cache |
 | `npm run measure-zzz-art` | Measure where each new Zenless agent's head sits in their render, so the panel frames it (skips agents already measured) |
-| `npm run fetch-sets` | Re-import recommended relic and disc sets and the build-guide picks (weapons, teams, priorities, stat targets) for Star Rail and Zenless from Prydwen (opens an Edge window) |
+| `npm run fetch-sets`, `fetch-game8` | Read the Star Rail and Zenless guide sites' picks into `.sources/` (`fetch-sets` opens a browser window) |
+| `npm run consensus` | Combine every source in `.sources/` into the published picks, sets and Zenless weights |
 | `npm run sync-genshin-tables` | Add new Genshin characters and artifact sets from Project Amber to `characters.json` and `artifacts.json`, and report where those tables disagree with it (`-- --check` writes nothing) |
 | `npm run build-guides` | Rebuild every build-guide page (kit, constellations, materials, weapon passives, set bonuses) from the picks above and the game data |
 
@@ -101,7 +102,19 @@ It updates the build guides too. New Genshin characters and artifact sets
 are added to the tables first (Star Rail and Zenless regenerate theirs), the
 guide sites are read again so changed weapon, team and set picks come
 through, and every guide page is rebuilt from those picks and the current
-game text. Characters a guide site has not covered yet are listed under
+game text.
+
+**Picks are a consensus, not one site's.** Each guide importer writes what
+it read to `.sources/<game>/<site>.json`, a git-ignored cache on the machine
+that ran the refresh (format in `scripts/sources.mjs`). `scripts/consensus.mjs`
+then publishes a weighted vote across them: every ranked list scores
+`weight / (rank + 1)` per site, with the sites weighted 3 / 2 / 1 as set in
+`SOURCE_WEIGHTS`. Team labels and a site's own substat wording are never
+published, and the build pages credit "community guides" with how many
+agreed. Consensus refuses to publish a game while one of its expected sites
+is missing from the cache (`--allow-missing` overrides), so a fresh clone
+cannot republish a thinner vote; a first refresh on a new machine reads
+every site. The refresh works on Windows (Edge) and macOS (Chrome) alike. Characters a guide site has not covered yet are listed under
 "No guide yet"; their pages show game data only, and a later refresh fills
 them in once the site publishes.
 
@@ -122,7 +135,7 @@ end of its first range); a character whose guide gives none has no ER target,
 and ER counts through the weights alone.
 
 The Traveler has a build page per element on each body
-(`/genshin/builds/10000007-cryo`), built from that element's Game8 page and
+(`/genshin/builds/10000007-cryo`), built from that element's guide picks and
 game data, and the index lists Aether's. A team naming "Traveler (Cryo)"
 links to that element, and the showcase grades a Traveler against the guide
 for the element they are on. Star Rail's Trailblazer has a page per Path the
@@ -204,18 +217,17 @@ or 6 whose main the agent cannot use gets a percent but no letter. The build
 is the mean of the six slots. ZZZ has no reroll mechanic, so the account
 panel is "replace first" rather than reroll advice.
 
-**Weights** come from Prydwen's per-agent build guides, which list an ideal
-main stat per disc and a ranked substat priority for every agent.
-`scripts/fetch-zzz-weights.mjs` reads them and maps priority tiers onto the
-discrete scale Fribbels uses (1 / 0.75 / 0.5 / 0.25); a "(Until 80%)"
-qualifier becomes a threshold the build panel reports against. Prydwen's
-Zenless pages sit behind a Cloudflare check that headless browsers fail, so
-the script opens a visible Edge window (`ZZZ_HEADLESS=1` to try without).
-Agents with no guide fall back to a role profile.
+**Weights** come from the community guides, which list an ideal main stat
+per disc and a ranked substat priority for every agent. The importers store
+each site's priority as tiers; `scripts/consensus.mjs` gives each tier a
+weight on the discrete scale Fribbels uses (1 / 0.75 / 0.5 / 0.25), averages
+the sites by trust and snaps the result back onto the scale. A "(Until 80%)"
+qualifier becomes a threshold the build panel reports against. Agents with
+no guide fall back to a role profile.
 
 ```bash
 npm run fetch-zzz            # game tables
-npm run fetch-zzz-weights    # Prydwen priorities -> src/zzz/data/scoring-metadata.json
+npm run refresh -- --only=zzz-weights,game8,consensus   # priorities -> src/zzz/data/scoring-metadata.json
 ```
 
 ## Character stats
@@ -382,7 +394,7 @@ Worker variable to change that) and caps requests per client address, so it
 cannot be used as a free Enka relay by anyone who finds its URL.
 
 There is no other backend: every data source besides Enka (Genshin Optimizer,
-StarRailRes, Fribbels, Prydwen) is fetched by `scripts/` at build time and
+StarRailRes, Fribbels, the community guides) is fetched by `scripts/` at build time and
 committed as JSON.
 
 ## Acknowledgments
@@ -391,7 +403,7 @@ committed as JSON.
 - [Fribbels HSR Optimizer](https://fribbels.github.io/hsr-optimizer/) - scoring methodology and Star Rail character weights (MIT)
 - [Genshin Optimizer](https://github.com/frzyc/genshin-optimizer) - Genshin character stat data (MIT)
 - [StarRailRes](https://github.com/Mar-7th/StarRailRes) - Star Rail artwork and game data tables
-- [Prydwen](https://www.prydwen.gg/) and [genshin.gg](https://genshin.gg/) - build and set recommendations
+- The community build guides whose consensus the build pages show
 - [Project Amber](https://gi.yatta.moe/) and Dimbreath's data mirrors - localised names and ids
 
 ## Support

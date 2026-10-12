@@ -64,14 +64,6 @@ export function ZzzLayout() {
               Enka.Network
             </a>
             {t("zzz", "footerDataMiddle")}
-            <a
-              href="https://www.prydwen.gg/zenless/characters/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-zzz-accent underline underline-offset-2 hover:text-zzz-text"
-            >
-              Prydwen
-            </a>
             .
           </p>
           <p className="mt-2">

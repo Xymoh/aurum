@@ -159,8 +159,8 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
   if (duplicates) nav.push({ id: SECTION.constellations, label: kitTitle(duplicates.id) });
   if (guide?.materials.length) nav.push({ id: SECTION.materials, label: t("guide", "materials") });
 
-  // ZZZ's substat weights are read from the guide's own line, so the line is
-  // the source and the note says so; elsewhere it is a second opinion.
+  // ZZZ's line is written from its consensus weights, so it is the weights in
+  // words; a guide's own line (none is published now) would be a second opinion.
   const priorityLine = target.priority ?? guide?.substatLine ?? null;
   const priorityNote = target.priority ? t("builds", "priorityNote") : t("guide", "substatLineNote");
 
@@ -238,14 +238,9 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
             </div>
           </div>
         )}
-        {guide?.source && (
+        {guide?.source?.updated && (
           <p className={`relative mt-3 text-xs ${skin.muted}`}>
-            {withLink(
-              guide.source.updated
-                ? t("guide", "pickedFrom", { site: SLOT, date: formatDay(guide.source.updated, lang) })
-                : t("guide", "pickedFromUndated", { site: SLOT }),
-              <SourceLink source={guide.source} skin={skin} />,
-            )}
+            {t("guide", "pickedFrom", { date: formatDay(guide.source.updated, lang) })}
           </p>
         )}
         {target.generic && (
@@ -498,8 +493,8 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
           <dd>
             <SourceLink source={target.source} skin={skin} />
           </dd>
-          {/* Game8 gives the sets and the rest of the picks on one page; one line credits both. */}
-          {target.setsSource && target.setsSource.url !== guide?.source?.url && (
+          {/* Sets from the guides' consensus are credited with the rest of the picks below. */}
+          {target.setsSource && (
             <>
               <dt>{t("guide", "sourceSets")}</dt>
               <dd>
@@ -509,9 +504,9 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
           )}
           {guide?.source && (
             <>
-              <dt>{t("guide", target.setsSource && target.setsSource.url === guide.source.url ? "sourcePicksWithSets" : "sourcePicks")}</dt>
+              <dt>{t("guide", target.setsSource ? "sourcePicks" : "sourcePicksWithSets")}</dt>
               <dd>
-                <SourceLink source={guide.source} skin={skin} />
+                {t("guide", "guidesLabel")}
                 {guide.source.updated && `, ${t("guide", "updatedOn", { date: formatDay(guide.source.updated, lang) })}`}
               </dd>
             </>

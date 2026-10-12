@@ -1,17 +1,19 @@
 {
-  "source": "https://www.prydwen.gg/zenless/characters/",
-  "fetchedAt": "2026-10-05T18:32:11.130Z",
+  "fetchedAt": "2026-10-12T19:01:50.004Z",
   "characters": {
     "1011": {
       "name": "Anby",
-      "source": "https://www.prydwen.gg/zenless/characters/anby-demara",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
         {
           "id": "14110",
+          "refinement": 1
+        },
+        {
+          "id": "14114",
           "refinement": 1
         },
         {
@@ -23,21 +25,38 @@
           "refinement": 5
         },
         {
-          "id": "14114",
-          "refinement": 1
-        },
-        {
           "id": "13101",
           "refinement": 5
+        },
+        {
+          "id": "12008",
+          "refinement": null
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1011",
+            "1031",
+            "1081"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1011",
+            "1311",
+            "1201"
+          ]
+        }
+      ],
       "synergies": [
         "1201",
         "1241",
         "1031"
       ],
-      "substatLine": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "Impact",
@@ -69,9 +88,8 @@
     },
     "1021": {
       "name": "Nekomata",
-      "source": "https://www.prydwen.gg/zenless/characters/nekomata",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -80,24 +98,32 @@
           "refinement": 5
         },
         {
-          "id": "14102",
+          "id": "14132",
           "refinement": 1
         },
         {
-          "id": "14132",
-          "refinement": 1
+          "id": "13004",
+          "refinement": 5
+        },
+        {
+          "id": "14143",
+          "refinement": null
         },
         {
           "id": "14146",
           "refinement": 1
         },
         {
+          "id": "14104",
+          "refinement": null
+        },
+        {
           "id": "14138",
           "refinement": 1
         },
         {
-          "id": "13004",
-          "refinement": 5
+          "id": "14001",
+          "refinement": null
         }
       ],
       "teams": [
@@ -121,8 +147,8 @@
           "name": null,
           "members": [
             "1021",
-            "1571",
-            "1491"
+            "1011",
+            "1031"
           ]
         },
         {
@@ -130,19 +156,19 @@
           "members": [
             "1021",
             "1571",
-            "1311"
+            "1491"
           ]
         }
       ],
       "synergies": [
         "1481",
-        "1461",
-        "1491",
-        "1211",
         "1311",
-        "1031"
+        "1461",
+        "1211",
+        "1491",
+        "1361"
       ],
-      "substatLine": "CRIT RATE (Until 100%) >= CRIT DMG = ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -170,9 +196,8 @@
     },
     "1031": {
       "name": "Nicole",
-      "source": "https://www.prydwen.gg/zenless/characters/nicole-demara",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -185,7 +210,7 @@
           "refinement": 1
         },
         {
-          "id": "13115",
+          "id": "14002",
           "refinement": 5
         },
         {
@@ -197,8 +222,12 @@
           "refinement": 5
         },
         {
-          "id": "14002",
+          "id": "13115",
           "refinement": 5
+        },
+        {
+          "id": "12006",
+          "refinement": null
         }
       ],
       "teams": [
@@ -208,6 +237,14 @@
             "1611",
             "1361",
             "1031"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1031",
+            "1011",
+            "1081"
           ]
         },
         {
@@ -225,21 +262,13 @@
             "1571",
             "1031"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1551",
-            "1571",
-            "1031"
-          ]
         }
       ],
       "synergies": [
         "1241",
         "1201"
       ],
-      "substatLine": "Anomaly Proficiency = ATK% > PEN = FLAT ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -263,9 +292,8 @@
     },
     "1041": {
       "name": "Soldier 11",
-      "source": "https://www.prydwen.gg/zenless/characters/soldier-11",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -274,41 +302,61 @@
           "refinement": 1
         },
         {
+          "id": "14104",
+          "refinement": 1
+        },
+        {
           "id": "14146",
           "refinement": 1
+        },
+        {
+          "id": "13004",
+          "refinement": 5
         },
         {
           "id": "14129",
           "refinement": 1
         },
         {
+          "id": "14001",
+          "refinement": null
+        },
+        {
           "id": "14138",
           "refinement": 1
         },
         {
-          "id": "14104",
-          "refinement": 1
-        },
-        {
-          "id": "13004",
-          "refinement": 5
+          "id": "12003",
+          "refinement": null
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1041",
+            "1121",
+            "1031"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1041",
+            "1571",
+            "1311"
+          ]
+        }
+      ],
       "synergies": [
         "1161",
+        "1481",
         "1101",
-        "1361",
         "1391",
-        "1351",
-        "1301",
-        "1461",
-        "1411",
-        "1311",
-        "1151",
-        "1481"
+        "1361",
+        "1301"
       ],
-      "substatLine": "CRIT RATE = CRIT DMG > ATK% > Anomaly Proficiency > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -336,9 +384,8 @@
     },
     "1051": {
       "name": "Yidhari",
-      "source": "https://www.prydwen.gg/zenless/characters/yidhari",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -351,20 +398,20 @@
           "refinement": 5
         },
         {
-          "id": "13019",
+          "id": "13012",
           "refinement": 5
-        },
-        {
-          "id": "14137",
-          "refinement": 1
         },
         {
           "id": "13014",
           "refinement": 5
         },
         {
-          "id": "13012",
+          "id": "13019",
           "refinement": 5
+        },
+        {
+          "id": "14137",
+          "refinement": 1
         }
       ],
       "teams": [
@@ -395,14 +442,13 @@
       ],
       "synergies": [
         "1451",
-        "1421",
-        "1481",
         "1141",
+        "1421",
         "1391",
-        "1361",
-        "1101"
+        "1481",
+        "1571"
       ],
-      "substatLine": "CRIT Rate = CRIT DMG > HP% > ATK% = Flat HP",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "SHEER FORCE",
@@ -426,9 +472,8 @@
     },
     "1061": {
       "name": "Corin",
-      "source": "https://www.prydwen.gg/zenless/characters/corin",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -437,11 +482,15 @@
           "refinement": 1
         },
         {
-          "id": "14132",
-          "refinement": 1
+          "id": "13106",
+          "refinement": 5
         },
         {
           "id": "14102",
+          "refinement": 1
+        },
+        {
+          "id": "14132",
           "refinement": 1
         },
         {
@@ -449,12 +498,16 @@
           "refinement": 1
         },
         {
-          "id": "13106",
-          "refinement": 5
+          "id": "14001",
+          "refinement": null
         },
         {
           "id": "13004",
           "refinement": 5
+        },
+        {
+          "id": "12003",
+          "refinement": null
         }
       ],
       "teams": [
@@ -471,7 +524,23 @@
           "members": [
             "1061",
             "1481",
+            "1071"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1061",
+            "1481",
             "1311"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1061",
+            "1081",
+            "1011"
           ]
         }
       ],
@@ -481,10 +550,9 @@
         "1391",
         "1461",
         "1311",
-        "1031",
-        "1411"
+        "1031"
       ],
-      "substatLine": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -512,9 +580,8 @@
     },
     "1071": {
       "name": "Caesar",
-      "source": "https://www.prydwen.gg/zenless/characters/caesar",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -533,6 +600,10 @@
         {
           "id": "13127",
           "refinement": 5
+        },
+        {
+          "id": "13016",
+          "refinement": null
         }
       ],
       "teams": [
@@ -542,6 +613,14 @@
             "1431",
             "1071",
             "1341"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1071",
+            "1081",
+            "1031"
           ]
         },
         {
@@ -559,26 +638,17 @@
             "1481",
             "1071"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1371",
-            "1451",
-            "1071"
-          ]
         }
       ],
       "synergies": [
         "1381",
         "1061",
+        "1151",
         "1081",
-        "1311",
-        "1361",
-        "1031",
-        "1151"
+        "1041",
+        "1311"
       ],
-      "substatLine": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -602,9 +672,8 @@
     },
     "1081": {
       "name": "Billy",
-      "source": "https://www.prydwen.gg/zenless/characters/billy-kid",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -613,15 +682,11 @@
           "refinement": 5
         },
         {
+          "id": "13108",
+          "refinement": 5
+        },
+        {
           "id": "14143",
-          "refinement": 1
-        },
-        {
-          "id": "14132",
-          "refinement": 1
-        },
-        {
-          "id": "14104",
           "refinement": 1
         },
         {
@@ -629,8 +694,8 @@
           "refinement": 1
         },
         {
-          "id": "13108",
-          "refinement": 5
+          "id": "14132",
+          "refinement": 1
         },
         {
           "id": "13004",
@@ -643,13 +708,26 @@
         {
           "id": "14001",
           "refinement": 5
-        },
-        {
-          "id": "13013",
-          "refinement": 5
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1081",
+            "1031",
+            "1011"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1081",
+            "1031",
+            "1481"
+          ]
+        }
+      ],
       "synergies": [
         "1481",
         "1071",
@@ -658,7 +736,7 @@
         "1361",
         "1491"
       ],
-      "substatLine": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -686,9 +764,8 @@
     },
     "1091": {
       "name": "Miyabi",
-      "source": "https://www.prydwen.gg/zenless/characters/miyabi",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -705,12 +782,16 @@
           "refinement": 5
         },
         {
+          "id": "13008",
+          "refinement": 5
+        },
+        {
           "id": "13003",
           "refinement": 5
         },
         {
-          "id": "13008",
-          "refinement": 5
+          "id": "13128",
+          "refinement": null
         }
       ],
       "teams": [
@@ -720,6 +801,14 @@
             "1091",
             "1511",
             "1411"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1091",
+            "1011",
+            "1131"
           ]
         },
         {
@@ -737,31 +826,17 @@
             "1331",
             "1411"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1091",
-            "1511",
-            "1311"
-          ]
         }
       ],
       "synergies": [
         "1221",
+        "1511",
         "1331",
-        "1171",
-        "1281",
-        "1361",
-        "1161",
-        "1141",
         "1311",
-        "1411",
-        "1031",
-        "1151",
-        "1131"
+        "1171",
+        "1281"
       ],
-      "substatLine": "CRIT RATE (Until 80%) >= CRIT DMG = ATK% > Anomaly Proficiency = ATK = PEN",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -786,10 +861,6 @@
         {
           "label": "CRIT RATE",
           "value": "75-95%"
-        },
-        {
-          "label": "CRIT DMG",
-          "value": "150-190%"
         }
       ],
       "skillPriority": "Basic Attack > Chain Attack > Special Attack > Assist > Dodge",
@@ -797,9 +868,8 @@
     },
     "1101": {
       "name": "Koleda",
-      "source": "https://www.prydwen.gg/zenless/characters/koleda",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -816,7 +886,7 @@
           "refinement": 1
         },
         {
-          "id": "14110",
+          "id": "14157",
           "refinement": 1
         },
         {
@@ -824,8 +894,8 @@
           "refinement": 5
         },
         {
-          "id": "14157",
-          "refinement": 1
+          "id": "14125",
+          "refinement": null
         }
       ],
       "teams": [
@@ -856,24 +926,21 @@
         {
           "name": null,
           "members": [
-            "1611",
             "1101",
-            "1361"
+            "1451",
+            "1471"
           ]
         }
       ],
       "synergies": [
         "1321",
+        "1311",
         "1041",
         "1371",
-        "1311",
-        "1411",
-        "1031",
         "1151",
-        "1441",
-        "1051"
+        "1411"
       ],
-      "substatLine": "CRIT RATE > CRIT DMG > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "Impact",
@@ -905,15 +972,18 @@
     },
     "1111": {
       "name": "Anton",
-      "source": "https://www.prydwen.gg/zenless/characters/anton",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
         {
           "id": "14132",
           "refinement": 1
+        },
+        {
+          "id": "14138",
+          "refinement": null
         },
         {
           "id": "14120",
@@ -932,23 +1002,40 @@
           "refinement": 5
         },
         {
-          "id": "13015",
-          "refinement": 5
-        },
-        {
-          "id": "14001",
-          "refinement": 5
-        },
-        {
-          "id": "13013",
-          "refinement": 5
-        },
-        {
           "id": "13111",
           "refinement": 5
+        },
+        {
+          "id": "14146",
+          "refinement": null
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1111",
+            "1011",
+            "1031"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1111",
+            "1181",
+            "1211"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1111",
+            "1251",
+            "1181"
+          ]
+        }
+      ],
       "synergies": [
         "1361",
         "1251",
@@ -956,7 +1043,7 @@
         "1311",
         "1031"
       ],
-      "substatLine": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -984,15 +1071,18 @@
     },
     "1121": {
       "name": "Ben",
-      "source": "https://www.prydwen.gg/zenless/characters/ben",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
         {
           "id": "13142",
           "refinement": 5
+        },
+        {
+          "id": "13011",
+          "refinement": null
         },
         {
           "id": "14143",
@@ -1003,33 +1093,41 @@
           "refinement": 1
         },
         {
+          "id": "13007",
+          "refinement": null
+        },
+        {
           "id": "14138",
           "refinement": 1
         },
         {
-          "id": "14132",
-          "refinement": 1
+          "id": "13112",
+          "refinement": null
         },
         {
-          "id": "13142",
+          "id": "14132",
           "refinement": 1
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1121",
+            "1101",
+            "1041"
+          ]
+        }
+      ],
       "synergies": [
         "1301",
         "1481",
         "1391",
         "1361",
         "1161",
-        "1101",
-        "1351",
-        "1151",
-        "1031",
-        "1411",
-        "1171"
+        "1101"
       ],
-      "substatLine": "CRIT RATE% (aim for 70%+) = CRIT DMG% > ATK% > Flat PEN = Flat ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -1057,9 +1155,8 @@
     },
     "1131": {
       "name": "Soukaku",
-      "source": "https://www.prydwen.gg/zenless/characters/soukaku",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -1068,15 +1165,19 @@
           "refinement": 5
         },
         {
+          "id": "13002",
+          "refinement": 5
+        },
+        {
           "id": "14121",
           "refinement": 1
         },
         {
-          "id": "13115",
+          "id": "14002",
           "refinement": 5
         },
         {
-          "id": "13002",
+          "id": "13115",
           "refinement": 5
         },
         {
@@ -1084,8 +1185,8 @@
           "refinement": 5
         },
         {
-          "id": "14002",
-          "refinement": 5
+          "id": "12006",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1100,18 +1201,36 @@
         {
           "name": null,
           "members": [
+            "1131",
+            "1091",
+            "1221"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1091",
             "1131",
             "1311"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1131",
+            "1191",
+            "1161"
           ]
         }
       ],
       "synergies": [
         "1091",
+        "1141",
+        "1291",
         "1191",
-        "1141"
+        "1251"
       ],
-      "substatLine": "ATK% = CRIT RATE = CRIT DMG > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -1139,14 +1258,17 @@
     },
     "1141": {
       "name": "Lycaon",
-      "source": "https://www.prydwen.gg/zenless/characters/lycaon",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
         {
           "id": "14116",
+          "refinement": 1
+        },
+        {
+          "id": "14114",
           "refinement": 1
         },
         {
@@ -1162,8 +1284,8 @@
           "refinement": 1
         },
         {
-          "id": "14114",
-          "refinement": 1
+          "id": "14125",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1186,9 +1308,9 @@
         {
           "name": null,
           "members": [
-            "1591",
             "1141",
-            "1311"
+            "1061",
+            "1131"
           ]
         },
         {
@@ -1196,7 +1318,7 @@
           "members": [
             "1591",
             "1141",
-            "1211"
+            "1311"
           ]
         }
       ],
@@ -1206,13 +1328,9 @@
         "1191",
         "1061",
         "1311",
-        "1411",
-        "1031",
-        "1131",
-        "1291",
-        "1051"
+        "1411"
       ],
-      "substatLine": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "Impact",
@@ -1244,9 +1362,8 @@
     },
     "1151": {
       "name": "Lucy",
-      "source": "https://www.prydwen.gg/zenless/characters/lucy",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -1259,16 +1376,24 @@
           "refinement": 1
         },
         {
+          "id": "14002",
+          "refinement": 5
+        },
+        {
           "id": "13002",
           "refinement": 5
+        },
+        {
+          "id": "14131",
+          "refinement": null
         },
         {
           "id": "12005",
           "refinement": 5
         },
         {
-          "id": "14002",
-          "refinement": 5
+          "id": "13113",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1279,15 +1404,33 @@
             "1151",
             "1341"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1151",
+            "1171",
+            "1261"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1151",
+            "1571",
+            "1321"
+          ]
         }
       ],
       "synergies": [
         "1321",
+        "1511",
         "1161",
         "1171",
+        "1211",
         "1281"
       ],
-      "substatLine": "ATK% = CRIT RATE = CRIT DMG > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -1315,9 +1458,8 @@
     },
     "1161": {
       "name": "Lighter",
-      "source": "https://www.prydwen.gg/zenless/characters/lighter",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -1330,6 +1472,10 @@
           "refinement": 1
         },
         {
+          "id": "14114",
+          "refinement": 1
+        },
+        {
           "id": "14110",
           "refinement": 1
         },
@@ -1338,8 +1484,8 @@
           "refinement": 5
         },
         {
-          "id": "14114",
-          "refinement": 1
+          "id": "13005",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1349,6 +1495,14 @@
             "1591",
             "1161",
             "1311"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1161",
+            "1031",
+            "1081"
           ]
         },
         {
@@ -1366,28 +1520,17 @@
             "1161",
             "1571"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1591",
-            "1161",
-            "1341"
-          ]
         }
       ],
       "synergies": [
         "1321",
+        "1041",
         "1091",
         "1191",
-        "1041",
-        "1311",
-        "1411",
-        "1151",
-        "1301",
-        "1051"
+        "1341",
+        "1151"
       ],
-      "substatLine": "CRIT RATE > CRIT DMG > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "Impact",
@@ -1419,9 +1562,8 @@
     },
     "1171": {
       "name": "Burnice",
-      "source": "https://www.prydwen.gg/zenless/characters/burnice",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -1430,16 +1572,24 @@
           "refinement": 1
         },
         {
-          "id": "14140",
-          "refinement": 1
-        },
-        {
           "id": "13009",
           "refinement": 5
         },
         {
+          "id": "14140",
+          "refinement": 1
+        },
+        {
           "id": "13008",
           "refinement": 5
+        },
+        {
+          "id": "13128",
+          "refinement": null
+        },
+        {
+          "id": "13003",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1449,6 +1599,14 @@
             "1581",
             "1171",
             "1561"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1091",
+            "1171",
+            "1411"
           ]
         },
         {
@@ -1466,23 +1624,17 @@
             "1091",
             "1171"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1091",
-            "1171",
-            "1411"
-          ]
         }
       ],
       "synergies": [
         "1561",
+        "1311",
         "1581",
         "1411",
+        "1341",
         "1511"
       ],
-      "substatLine": "Anomaly Proficiency > ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -1510,9 +1662,8 @@
     },
     "1181": {
       "name": "Grace",
-      "source": "https://www.prydwen.gg/zenless/characters/grace-howard",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -1521,11 +1672,11 @@
           "refinement": 1
         },
         {
-          "id": "14140",
+          "id": "14118",
           "refinement": 1
         },
         {
-          "id": "14118",
+          "id": "14140",
           "refinement": 1
         },
         {
@@ -1535,6 +1686,10 @@
         {
           "id": "13008",
           "refinement": 5
+        },
+        {
+          "id": "12010",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1544,6 +1699,14 @@
             "1581",
             "1181",
             "1561"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1181",
+            "1011",
+            "1131"
           ]
         },
         {
@@ -1561,23 +1724,17 @@
             "1401",
             "1181"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1181",
-            "1561",
-            "1211"
-          ]
         }
       ],
       "synergies": [
-        "1581",
         "1561",
+        "1581",
         "1511",
-        "1411"
+        "1311",
+        "1411",
+        "1271"
       ],
-      "substatLine": "Anomaly Proficiency > ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -1605,9 +1762,8 @@
     },
     "1191": {
       "name": "Ellen",
-      "source": "https://www.prydwen.gg/zenless/characters/ellen",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -1624,16 +1780,24 @@
           "refinement": 1
         },
         {
-          "id": "14132",
-          "refinement": 1
-        },
-        {
-          "id": "14102",
-          "refinement": 1
+          "id": "14104",
+          "refinement": null
         },
         {
           "id": "13004",
           "refinement": 5
+        },
+        {
+          "id": "14132",
+          "refinement": 1
+        },
+        {
+          "id": "14001",
+          "refinement": null
+        },
+        {
+          "id": "14102",
+          "refinement": 1
         }
       ],
       "teams": [
@@ -1649,32 +1813,36 @@
           "name": null,
           "members": [
             "1191",
-            "1481",
-            "1341"
+            "1161",
+            "1311"
           ]
         },
         {
           "name": null,
           "members": [
             "1191",
-            "1161",
-            "1311"
+            "1011",
+            "1131"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1191",
+            "1481",
+            "1341"
           ]
         }
       ],
       "synergies": [
         "1481",
-        "1161",
         "1361",
-        "1391",
+        "1161",
         "1141",
-        "1311",
-        "1411",
-        "1031",
-        "1131",
-        "1491"
+        "1571",
+        "1391"
       ],
-      "substatLine": "CRIT DMG >= CRIT Rate > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -1702,26 +1870,21 @@
     },
     "1201": {
       "name": "Harumasa",
-      "source": "https://www.prydwen.gg/zenless/characters/harumasa",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
-        {
-          "id": "14146",
-          "refinement": 1
-        },
         {
           "id": "14120",
           "refinement": 1
         },
         {
-          "id": "14104",
+          "id": "14146",
           "refinement": 1
         },
         {
-          "id": "14132",
+          "id": "14104",
           "refinement": 1
         },
         {
@@ -1731,6 +1894,18 @@
         {
           "id": "13004",
           "refinement": 5
+        },
+        {
+          "id": "14132",
+          "refinement": 1
+        },
+        {
+          "id": "14001",
+          "refinement": null
+        },
+        {
+          "id": "13111",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1747,14 +1922,6 @@
           "members": [
             "1201",
             "1481",
-            "1491"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1201",
-            "1481",
             "1311"
           ]
         },
@@ -1762,24 +1929,28 @@
           "name": null,
           "members": [
             "1201",
-            "1361",
-            "1411"
+            "1011",
+            "1031"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1201",
+            "1481",
+            "1491"
           ]
         }
       ],
       "synergies": [
         "1481",
         "1251",
-        "1361",
+        "1521",
         "1011",
-        "1411",
-        "1031",
-        "1311",
-        "1461",
-        "1211",
-        "1491"
+        "1361",
+        "1571"
       ],
-      "substatLine": "Crit Rate > ATK% > Crit DMG% > Flat PEN > Flat ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -1807,9 +1978,8 @@
     },
     "1211": {
       "name": "Rina",
-      "source": "https://www.prydwen.gg/zenless/characters/rina",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -1818,12 +1988,24 @@
           "refinement": 5
         },
         {
-          "id": "14121",
-          "refinement": 1
-        },
-        {
           "id": "13115",
           "refinement": 5
+        },
+        {
+          "id": "14002",
+          "refinement": null
+        },
+        {
+          "id": "13002",
+          "refinement": null
+        },
+        {
+          "id": "12005",
+          "refinement": null
+        },
+        {
+          "id": "12006",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1833,6 +2015,14 @@
             "1611",
             "1571",
             "1211"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1211",
+            "1011",
+            "1081"
           ]
         },
         {
@@ -1850,22 +2040,15 @@
             "1361",
             "1211"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1611",
-            "1141",
-            "1211"
-          ]
         }
       ],
       "synergies": [
         "1221",
+        "1621",
         "1261",
         "1201"
       ],
-      "substatLine": "Anomaly Proficiency = CRIT Rate = ATK% > CRIT DMG > PEN > FLAT ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -1893,9 +2076,8 @@
     },
     "1221": {
       "name": "Yanagi",
-      "source": "https://www.prydwen.gg/zenless/characters/yanagi",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -1904,16 +2086,20 @@
           "refinement": 5
         },
         {
-          "id": "14122",
-          "refinement": 1
-        },
-        {
           "id": "13008",
           "refinement": 5
         },
         {
           "id": "13009",
           "refinement": 5
+        },
+        {
+          "id": "14118",
+          "refinement": null
+        },
+        {
+          "id": "13003",
+          "refinement": null
         }
       ],
       "teams": [
@@ -1923,6 +2109,14 @@
             "1091",
             "1221",
             "1411"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1221",
+            "1011",
+            "1121"
           ]
         },
         {
@@ -1940,23 +2134,17 @@
             "1221",
             "1311"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1581",
-            "1091",
-            "1221"
-          ]
         }
       ],
       "synergies": [
         "1511",
+        "1311",
         "1411",
         "1211",
+        "1341",
         "1581"
       ],
-      "substatLine": "Anomaly Proficiency > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -1984,9 +2172,8 @@
     },
     "1241": {
       "name": "Zhu Yuan",
-      "source": "https://www.prydwen.gg/zenless/characters/zhu-yuan",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -1995,35 +2182,65 @@
           "refinement": 1
         },
         {
+          "id": "14124",
+          "refinement": 1
+        },
+        {
           "id": "14104",
           "refinement": 1
         },
         {
-          "id": "14124",
-          "refinement": 1
+          "id": "13004",
+          "refinement": 5
         },
         {
           "id": "13015",
           "refinement": 5
         },
         {
-          "id": "13004",
-          "refinement": 5
+          "id": "14001",
+          "refinement": null
+        },
+        {
+          "id": "13001",
+          "refinement": null
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1241",
+            "1011",
+            "1031"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1241",
+            "1251",
+            "1311"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1241",
+            "1141",
+            "1211"
+          ]
+        }
+      ],
       "synergies": [
         "1481",
         "1251",
         "1011",
-        "1351",
-        "1361",
-        "1461",
+        "1571",
         "1031",
-        "1411",
-        "1311"
+        "1351"
       ],
-      "substatLine": "CRIT RATE = CRIT DMG = ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -2051,9 +2268,8 @@
     },
     "1251": {
       "name": "Qingyi",
-      "source": "https://www.prydwen.gg/zenless/characters/qingyi",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -2072,6 +2288,14 @@
         {
           "id": "13006",
           "refinement": 5
+        },
+        {
+          "id": "14110",
+          "refinement": null
+        },
+        {
+          "id": "14003",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2086,17 +2310,17 @@
         {
           "name": null,
           "members": [
-            "1521",
             "1251",
-            "1311"
+            "1031",
+            "1081"
           ]
         },
         {
           "name": null,
           "members": [
-            "1371",
+            "1521",
             "1251",
-            "1451"
+            "1311"
           ]
         },
         {
@@ -2110,16 +2334,13 @@
       ],
       "synergies": [
         "1241",
+        "1111",
         "1201",
         "1291",
-        "1381",
-        "1311",
-        "1411",
-        "1031",
-        "1371",
-        "1441"
+        "1211",
+        "1381"
       ],
-      "substatLine": "CRIT RATE > CRIT DMG > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "Impact",
@@ -2151,9 +2372,8 @@
     },
     "1261": {
       "name": "Jane",
-      "source": "https://www.prydwen.gg/zenless/characters/jane-doe",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -2166,16 +2386,20 @@
           "refinement": 1
         },
         {
-          "id": "14126",
-          "refinement": 1
-        },
-        {
           "id": "14118",
           "refinement": 1
         },
         {
           "id": "13008",
           "refinement": 5
+        },
+        {
+          "id": "13009",
+          "refinement": null
+        },
+        {
+          "id": "13003",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2185,6 +2409,14 @@
             "1581",
             "1261",
             "1561"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1261",
+            "1011",
+            "1031"
           ]
         },
         {
@@ -2202,30 +2434,17 @@
             "1401",
             "1261"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1581",
-            "1261",
-            "1171"
-          ]
         }
       ],
       "synergies": [
         "1581",
+        "1511",
+        "1171",
         "1561",
         "1401",
-        "1171",
-        "1331",
-        "1411",
-        "1511",
-        "1311",
-        "1361",
-        "1151",
-        "1031"
+        "1151"
       ],
-      "substatLine": "Anomaly Proficiency >= ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -2253,9 +2472,8 @@
     },
     "1271": {
       "name": "Seth",
-      "source": "https://www.prydwen.gg/zenless/characters/seth",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -2284,13 +2502,31 @@
             "1411",
             "1271"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1271",
+            "1011",
+            "1081"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1271",
+            "1331",
+            "1261"
+          ]
         }
       ],
       "synergies": [
         "1261",
-        "1221"
+        "1171",
+        "1221",
+        "1561"
       ],
-      "substatLine": "ATK% > Anomaly Proficiency > ATK > PEN",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -2314,9 +2550,8 @@
     },
     "1281": {
       "name": "Piper",
-      "source": "https://www.prydwen.gg/zenless/characters/piper",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -2325,20 +2560,28 @@
           "refinement": 1
         },
         {
+          "id": "13128",
+          "refinement": 5
+        },
+        {
           "id": "14126",
           "refinement": 1
+        },
+        {
+          "id": "13009",
+          "refinement": 5
         },
         {
           "id": "13008",
           "refinement": 5
         },
         {
-          "id": "13128",
-          "refinement": 5
+          "id": "14118",
+          "refinement": null
         },
         {
-          "id": "13009",
-          "refinement": 5
+          "id": "13003",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2348,6 +2591,14 @@
             "1581",
             "1281",
             "1561"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1281",
+            "1011",
+            "1031"
           ]
         },
         {
@@ -2365,28 +2616,17 @@
             "1281",
             "1331"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1581",
-            "1091",
-            "1281"
-          ]
         }
       ],
       "synergies": [
         "1561",
         "1581",
+        "1171",
         "1511",
         "1411",
-        "1331",
-        "1171",
-        "1311",
-        "1031",
-        "1151"
+        "1021"
       ],
-      "substatLine": "Anomaly Proficiency > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -2414,9 +2654,8 @@
     },
     "1291": {
       "name": "Hugo",
-      "source": "https://www.prydwen.gg/zenless/characters/hugo",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -2429,16 +2668,28 @@
           "refinement": 1
         },
         {
+          "id": "13015",
+          "refinement": 5
+        },
+        {
           "id": "14132",
           "refinement": 1
+        },
+        {
+          "id": "14119",
+          "refinement": null
         },
         {
           "id": "14102",
           "refinement": 1
         },
         {
-          "id": "13015",
-          "refinement": 5
+          "id": "14138",
+          "refinement": null
+        },
+        {
+          "id": "14001",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2449,6 +2700,22 @@
             "1481",
             "1161"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1291",
+            "1011",
+            "1031"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1291",
+            "1571",
+            "1481"
+          ]
         }
       ],
       "synergies": [
@@ -2457,11 +2724,9 @@
         "1361",
         "1251",
         "1351",
-        "1481",
-        "1131",
-        "1311"
+        "1481"
       ],
-      "substatLine": "CRIT Rate > CRIT DMG > ATK% > Flat ATK > PEN",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -2489,9 +2754,8 @@
     },
     "1301": {
       "name": "Orphie & Magus",
-      "source": "https://www.prydwen.gg/zenless/characters/orphie-and-magus",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -2500,12 +2764,20 @@
           "refinement": 1
         },
         {
+          "id": "14138",
+          "refinement": 1
+        },
+        {
           "id": "14132",
           "refinement": 1
         },
         {
-          "id": "14138",
-          "refinement": 1
+          "id": "13013",
+          "refinement": 5
+        },
+        {
+          "id": "13015",
+          "refinement": 5
         },
         {
           "id": "14129",
@@ -2516,12 +2788,8 @@
           "refinement": 1
         },
         {
-          "id": "13013",
-          "refinement": 5
-        },
-        {
-          "id": "13015",
-          "refinement": 5
+          "id": "12003",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2560,17 +2828,13 @@
       ],
       "synergies": [
         "1461",
+        "1591",
         "1381",
-        "1361",
         "1391",
-        "1311",
-        "1411",
-        "1031",
-        "1161",
-        "1441",
-        "1051"
+        "1361",
+        "1551"
       ],
-      "substatLine": "CRIT DMG = CRIT Rate > ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -2602,9 +2866,8 @@
     },
     "1311": {
       "name": "Astra Yao",
-      "source": "https://www.prydwen.gg/zenless/characters/astra-yao",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -2637,6 +2900,14 @@
         {
           "name": null,
           "members": [
+            "1311",
+            "1081",
+            "1011"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1431",
             "1311",
             "1341"
@@ -2649,32 +2920,17 @@
             "1511",
             "1311"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1381",
-            "1361",
-            "1311"
-          ]
         }
       ],
       "synergies": [
         "1321",
-        "1431",
+        "1551",
         "1381",
-        "1461",
-        "1041",
+        "1431",
         "1241",
-        "1021",
-        "1091",
-        "1221",
-        "1261",
-        "1171",
-        "1031",
-        "1361"
+        "1591"
       ],
-      "substatLine": "ATK% > Flat ATK > Anomaly Proficiency > PEN",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -2698,9 +2954,8 @@
     },
     "1321": {
       "name": "Evelyn",
-      "source": "https://www.prydwen.gg/zenless/characters/evelyn",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -2713,16 +2968,28 @@
           "refinement": 1
         },
         {
+          "id": "14102",
+          "refinement": 1
+        },
+        {
           "id": "14146",
           "refinement": 1
+        },
+        {
+          "id": "13015",
+          "refinement": null
         },
         {
           "id": "13004",
           "refinement": 5
         },
         {
-          "id": "14102",
-          "refinement": 1
+          "id": "14001",
+          "refinement": null
+        },
+        {
+          "id": "13001",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2733,21 +3000,25 @@
             "1571",
             "1311"
           ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1321",
+            "1011",
+            "1031"
+          ]
         }
       ],
       "synergies": [
-        "1481",
         "1161",
-        "1361",
+        "1481",
         "1391",
         "1101",
-        "1571",
-        "1461",
-        "1311",
-        "1411",
+        "1361",
         "1151"
       ],
-      "substatLine": "CRIT RATE > CRIT DMG = ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -2775,9 +3046,8 @@
     },
     "1331": {
       "name": "Vivian",
-      "source": "https://www.prydwen.gg/zenless/characters/vivian",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -2788,6 +3058,22 @@
         {
           "id": "13008",
           "refinement": 5
+        },
+        {
+          "id": "13009",
+          "refinement": null
+        },
+        {
+          "id": "14118",
+          "refinement": null
+        },
+        {
+          "id": "14117",
+          "refinement": null
+        },
+        {
+          "id": "13128",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2797,6 +3083,14 @@
             "1091",
             "1331",
             "1411"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1331",
+            "1081",
+            "1031"
           ]
         },
         {
@@ -2814,29 +3108,17 @@
             "1331",
             "1411"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1581",
-            "1541",
-            "1331"
-          ]
         }
       ],
       "synergies": [
         "1091",
         "1221",
-        "1401",
+        "1561",
         "1261",
-        "1281",
-        "1181",
-        "1311",
-        "1411",
-        "1031",
-        "1151"
+        "1401",
+        "1541"
       ],
-      "substatLine": "Anomaly Proficiency >>> ATK% > ATK = PEN",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -2864,9 +3146,8 @@
     },
     "1341": {
       "name": "Zhao",
-      "source": "https://www.prydwen.gg/zenless/characters/zhao",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -2875,12 +3156,16 @@
           "refinement": 1
         },
         {
+          "id": "13007",
+          "refinement": 5
+        },
+        {
           "id": "14107",
           "refinement": 1
         },
         {
-          "id": "13007",
-          "refinement": 5
+          "id": "13010",
+          "refinement": null
         }
       ],
       "teams": [
@@ -2903,29 +3188,29 @@
         {
           "name": null,
           "members": [
-            "1431",
-            "1311",
-            "1341"
+            "1341",
+            "1081",
+            "1011"
           ]
         },
         {
           "name": null,
           "members": [
             "1431",
-            "1361",
+            "1311",
             "1341"
           ]
         }
       ],
       "synergies": [
         "1431",
+        "1461",
         "1021",
         "1191",
-        "1461",
-        "1221",
-        "1401"
+        "1491",
+        "1391"
       ],
-      "substatLine": "HP% (Until 27000 Initial HP) > Flat HP (Until 27000 Initial HP) > Crit Rate = Crit DMG",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -2953,31 +3238,30 @@
     },
     "1351": {
       "name": "Pulchra",
-      "source": "https://www.prydwen.gg/zenless/characters/pulchra",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
-        {
-          "id": "14116",
-          "refinement": 1
-        },
         {
           "id": "13135",
           "refinement": 5
         },
         {
-          "id": "13005",
-          "refinement": 5
+          "id": "14116",
+          "refinement": 1
         },
         {
           "id": "14110",
           "refinement": 1
         },
         {
-          "id": "13135",
-          "refinement": 1
+          "id": "14003",
+          "refinement": 5
+        },
+        {
+          "id": "13005",
+          "refinement": 5
         },
         {
           "id": "13006",
@@ -2986,25 +3270,43 @@
         {
           "id": "12008",
           "refinement": 5
-        },
-        {
-          "id": "14003",
-          "refinement": 5
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1351",
+            "1031",
+            "1061"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1351",
+            "1371",
+            "1451"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1351",
+            "1311",
+            "1381"
+          ]
+        }
+      ],
       "synergies": [
         "1441",
         "1381",
         "1371",
-        "1021",
-        "1041",
-        "1061",
+        "1421",
         "1311",
-        "1031",
-        "1151"
+        "1021"
       ],
-      "substatLine": "Anomaly Profiency > ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -3028,9 +3330,8 @@
     },
     "1361": {
       "name": "Trigger",
-      "source": "https://www.prydwen.gg/zenless/characters/trigger",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -3039,7 +3340,7 @@
           "refinement": 1
         },
         {
-          "id": "14116",
+          "id": "14114",
           "refinement": 1
         },
         {
@@ -3047,7 +3348,7 @@
           "refinement": 1
         },
         {
-          "id": "14114",
+          "id": "14116",
           "refinement": 1
         },
         {
@@ -3055,12 +3356,16 @@
           "refinement": 5
         },
         {
+          "id": "14110",
+          "refinement": 1
+        },
+        {
           "id": "13005",
           "refinement": 5
         },
         {
-          "id": "14110",
-          "refinement": 1
+          "id": "14003",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3083,32 +3388,29 @@
         {
           "name": null,
           "members": [
-            "1521",
-            "1461",
-            "1361"
+            "1361",
+            "1031",
+            "1081"
           ]
         },
         {
           "name": null,
           "members": [
-            "1381",
-            "1361",
-            "1311"
+            "1521",
+            "1461",
+            "1361"
           ]
         }
       ],
       "synergies": [
         "1381",
+        "1341",
         "1311",
         "1031",
-        "1151",
-        "1411",
-        "1221",
-        "1371",
-        "1441",
-        "1051"
+        "1071",
+        "1151"
       ],
-      "substatLine": "CRIT RATE >= CRIT DMG > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -3140,9 +3442,8 @@
     },
     "1371": {
       "name": "Yixuan",
-      "source": "https://www.prydwen.gg/zenless/characters/yixuan",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -3151,11 +3452,11 @@
           "refinement": 1
         },
         {
-          "id": "13019",
+          "id": "13014",
           "refinement": 5
         },
         {
-          "id": "13014",
+          "id": "13019",
           "refinement": 5
         },
         {
@@ -3169,6 +3470,10 @@
         {
           "id": "13144",
           "refinement": 5
+        },
+        {
+          "id": "12015",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3178,6 +3483,14 @@
             "1371",
             "1481",
             "1451"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1371",
+            "1011",
+            "1131"
           ]
         },
         {
@@ -3195,28 +3508,17 @@
             "1451",
             "1421"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1371",
-            "1571",
-            "1451"
-          ]
         }
       ],
       "synergies": [
-        "1451",
         "1421",
-        "1481",
+        "1451",
         "1391",
-        "1361",
-        "1251",
-        "1351",
-        "1311",
-        "1411"
+        "1481",
+        "1101",
+        "1311"
       ],
-      "substatLine": "CRIT Rate = CRIT DMG > HP% > ATK% > Flat HP",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "SHEER FORCE",
@@ -3248,9 +3550,8 @@
     },
     "1381": {
       "name": "Soldier 0 - Anby",
-      "source": "https://www.prydwen.gg/zenless/characters/anby-demara-soldier-0",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -3263,16 +3564,28 @@
           "refinement": 1
         },
         {
-          "id": "14132",
-          "refinement": 1
-        },
-        {
           "id": "13015",
           "refinement": 5
         },
         {
+          "id": "14132",
+          "refinement": 1
+        },
+        {
+          "id": "14120",
+          "refinement": null
+        },
+        {
           "id": "13004",
           "refinement": 5
+        },
+        {
+          "id": "14001",
+          "refinement": null
+        },
+        {
+          "id": "13111",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3282,6 +3595,14 @@
             "1381",
             "1301",
             "1361"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1381",
+            "1011",
+            "1031"
           ]
         },
         {
@@ -3299,27 +3620,17 @@
             "1381",
             "1361"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1461",
-            "1381",
-            "1311"
-          ]
         }
       ],
       "synergies": [
         "1361",
-        "1391",
         "1351",
+        "1391",
+        "1481",
         "1461",
-        "1301",
-        "1311",
-        "1031",
-        "1151"
+        "1571"
       ],
-      "substatLine": "CRIT RATE = CRIT DMG > ATK% > PEN = ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -3347,9 +3658,8 @@
     },
     "1391": {
       "name": "Ju Fufu",
-      "source": "https://www.prydwen.gg/zenless/characters/ju-fufu",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -3368,6 +3678,10 @@
         {
           "id": "13006",
           "refinement": 5
+        },
+        {
+          "id": "13005",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3377,6 +3691,14 @@
             "1371",
             "1391",
             "1451"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1391",
+            "1081",
+            "1031"
           ]
         },
         {
@@ -3394,31 +3716,17 @@
             "1391",
             "1451"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1611",
-            "1391",
-            "1211"
-          ]
         }
       ],
       "synergies": [
         "1371",
-        "1321",
-        "1291",
-        "1041",
-        "1381",
-        "1361",
-        "1161",
         "1471",
-        "1301",
-        "1451",
-        "1441",
-        "1051"
+        "1321",
+        "1051",
+        "1291",
+        "1441"
       ],
-      "substatLine": "CRIT Rate > ATK/Flat ATK (until max. 3400) > CRIT DMG > PEN",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "IMPACT",
@@ -3446,9 +3754,8 @@
     },
     "1401": {
       "name": "Alice",
-      "source": "https://www.prydwen.gg/zenless/characters/alice",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -3457,19 +3764,19 @@
           "refinement": 1
         },
         {
-          "id": "14126",
-          "refinement": 1
-        },
-        {
           "id": "14118",
           "refinement": 1
         },
         {
-          "id": "13008",
-          "refinement": 5
+          "id": "14126",
+          "refinement": 1
         },
         {
           "id": "13009",
+          "refinement": 5
+        },
+        {
+          "id": "13008",
           "refinement": 5
         }
       ],
@@ -3480,6 +3787,14 @@
             "1581",
             "1401",
             "1561"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1401",
+            "1061",
+            "1031"
           ]
         },
         {
@@ -3497,27 +3812,17 @@
             "1331",
             "1411"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1581",
-            "1401",
-            "1261"
-          ]
         }
       ],
       "synergies": [
         "1331",
+        "1511",
         "1221",
-        "1171",
-        "1181",
-        "1411",
         "1311",
-        "1031",
+        "1171",
         "1151"
       ],
-      "substatLine": "Anomaly Proficiency > ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -3545,9 +3850,8 @@
     },
     "1411": {
       "name": "Yuzuha",
-      "source": "https://www.prydwen.gg/zenless/characters/ukinami-yuzuha",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -3556,15 +3860,11 @@
           "refinement": 5
         },
         {
-          "id": "14149",
-          "refinement": 1
-        },
-        {
           "id": "14141",
           "refinement": 1
         },
         {
-          "id": "14121",
+          "id": "14149",
           "refinement": 1
         },
         {
@@ -3574,6 +3874,14 @@
         {
           "id": "14002",
           "refinement": 5
+        },
+        {
+          "id": "13113",
+          "refinement": null
+        },
+        {
+          "id": "12005",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3581,14 +3889,6 @@
           "name": null,
           "members": [
             "1091",
-            "1511",
-            "1411"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1501",
             "1511",
             "1411"
           ]
@@ -3604,9 +3904,17 @@
         {
           "name": null,
           "members": [
-            "1401",
+            "1501",
             "1511",
             "1411"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1411",
+            "1091",
+            "1401"
           ]
         }
       ],
@@ -3616,11 +3924,9 @@
         "1261",
         "1281",
         "1541",
-        "1091",
-        "1331",
-        "1171"
+        "1091"
       ],
-      "substatLine": "ATK% > ATK (until 3000) > Anomaly Proficiency > PEN",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -3648,19 +3954,18 @@
     },
     "1421": {
       "name": "Pan Yinhu",
-      "source": "https://www.prydwen.gg/zenless/characters/pan-yinhu",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
         {
-          "id": "14107",
-          "refinement": 1
-        },
-        {
           "id": "13142",
           "refinement": 5
+        },
+        {
+          "id": "14107",
+          "refinement": 1
         },
         {
           "id": "13011",
@@ -3669,6 +3974,10 @@
         {
           "id": "13127",
           "refinement": 5
+        },
+        {
+          "id": "13016",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3678,6 +3987,14 @@
             "1371",
             "1451",
             "1421"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1421",
+            "1391",
+            "1371"
           ]
         },
         {
@@ -3699,12 +4016,13 @@
       ],
       "synergies": [
         "1371",
+        "1531",
         "1441",
         "1051",
-        "1471",
-        "1451"
+        "1391",
+        "1471"
       ],
-      "substatLine": "ATK%/Flat ATK (until 3000 ATK) > CRIT Rate = CRIT DMG > PEN",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -3724,9 +4042,8 @@
     },
     "1431": {
       "name": "Ye Shunguang",
-      "source": "https://www.prydwen.gg/zenless/characters/ye-shunguang",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -3743,12 +4060,24 @@
           "refinement": 1
         },
         {
-          "id": "14104",
-          "refinement": 1
+          "id": "14102",
+          "refinement": null
         },
         {
           "id": "13004",
           "refinement": 5
+        },
+        {
+          "id": "13013",
+          "refinement": null
+        },
+        {
+          "id": "13015",
+          "refinement": null
+        },
+        {
+          "id": "13001",
+          "refinement": null
         }
       ],
       "teams": [
@@ -3765,14 +4094,6 @@
           "members": [
             "1431",
             "1481",
-            "1341"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1431",
-            "1481",
             "1491"
           ]
         },
@@ -3780,20 +4101,28 @@
           "name": null,
           "members": [
             "1431",
-            "1311",
+            "1011",
+            "1031"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1431",
+            "1481",
             "1341"
           ]
         }
       ],
       "synergies": [
         "1481",
+        "1461",
+        "1391",
         "1341",
         "1361",
-        "1391",
-        "1461",
-        "1491"
+        "1571"
       ],
-      "substatLine": "CRIT DMG = CRIT Rate > ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -3817,9 +4146,8 @@
     },
     "1441": {
       "name": "Manato",
-      "source": "https://www.prydwen.gg/zenless/characters/manato",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -3828,34 +4156,41 @@
           "refinement": 5
         },
         {
-          "id": "14147",
-          "refinement": 1
-        },
-        {
-          "id": "13144",
-          "refinement": 1
-        },
-        {
-          "id": "14137",
-          "refinement": 1
-        },
-        {
           "id": "13014",
           "refinement": 5
         },
         {
+          "id": "14147",
+          "refinement": 1
+        },
+        {
           "id": "13012",
           "refinement": 5
+        },
+        {
+          "id": "14137",
+          "refinement": 1
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1441",
+            "1481",
+            "1451"
+          ]
+        }
+      ],
       "synergies": [
         "1421",
+        "1391",
         "1451",
         "1481",
-        "1391"
+        "1571",
+        "1351"
       ],
-      "substatLine": "CRIT Rate = CRIT DMG > HP% > HP > ATK% > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "SHEER FORCE",
@@ -3887,9 +4222,8 @@
     },
     "1451": {
       "name": "Lucia",
-      "source": "https://www.prydwen.gg/zenless/characters/lucia",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -3902,23 +4236,19 @@
           "refinement": 1
         },
         {
+          "id": "14002",
+          "refinement": 5
+        },
+        {
           "id": "13115",
           "refinement": 5
         },
         {
-          "id": "14002",
-          "refinement": 5
+          "id": "12006",
+          "refinement": null
         }
       ],
       "teams": [
-        {
-          "name": null,
-          "members": [
-            "1371",
-            "1481",
-            "1451"
-          ]
-        },
         {
           "name": null,
           "members": [
@@ -3930,7 +4260,7 @@
         {
           "name": null,
           "members": [
-            "1531",
+            "1371",
             "1481",
             "1451"
           ]
@@ -3939,18 +4269,28 @@
           "name": null,
           "members": [
             "1531",
-            "1571",
+            "1481",
             "1451"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1451",
+            "1441",
+            "1351"
           ]
         }
       ],
       "synergies": [
         "1371",
-        "1441",
         "1471",
-        "1051"
+        "1531",
+        "1441",
+        "1051",
+        "1481"
       ],
-      "substatLine": "HP% > HP > CRIT Rate >= CRIT DMG",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -3970,9 +4310,8 @@
     },
     "1461": {
       "name": "Seed",
-      "source": "https://www.prydwen.gg/zenless/characters/seed",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -3985,8 +4324,20 @@
           "refinement": 1
         },
         {
+          "id": "14104",
+          "refinement": 1
+        },
+        {
           "id": "14129",
           "refinement": 1
+        },
+        {
+          "id": "14138",
+          "refinement": null
+        },
+        {
+          "id": "13015",
+          "refinement": 5
         },
         {
           "id": "14120",
@@ -3995,14 +4346,6 @@
         {
           "id": "14124",
           "refinement": 1
-        },
-        {
-          "id": "14104",
-          "refinement": 1
-        },
-        {
-          "id": "13015",
-          "refinement": 5
         }
       ],
       "teams": [
@@ -4026,32 +4369,28 @@
           "name": null,
           "members": [
             "1461",
-            "1301",
-            "1361"
+            "1081",
+            "1031"
           ]
         },
         {
           "name": null,
           "members": [
             "1461",
-            "1381",
+            "1301",
             "1361"
           ]
         }
       ],
       "synergies": [
         "1301",
+        "1481",
         "1381",
         "1321",
-        "1021",
-        "1041",
-        "1081",
-        "1431",
-        "1311",
-        "1361",
-        "1031"
+        "1391",
+        "1311"
       ],
-      "substatLine": "CRIT DMG = CRIT Rate > ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -4079,9 +4418,8 @@
     },
     "1471": {
       "name": "Banyue",
-      "source": "https://www.prydwen.gg/zenless/characters/banyue",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -4090,15 +4428,15 @@
           "refinement": 1
         },
         {
+          "id": "13144",
+          "refinement": 5
+        },
+        {
           "id": "14137",
           "refinement": 1
         },
         {
-          "id": "13019",
-          "refinement": 5
-        },
-        {
-          "id": "13144",
+          "id": "13014",
           "refinement": 5
         },
         {
@@ -4106,8 +4444,12 @@
           "refinement": 5
         },
         {
-          "id": "13014",
+          "id": "13019",
           "refinement": 5
+        },
+        {
+          "id": "12015",
+          "refinement": null
         }
       ],
       "teams": [
@@ -4129,13 +4471,14 @@
         }
       ],
       "synergies": [
-        "1481",
         "1391",
+        "1481",
         "1361",
-        "1451",
-        "1421"
+        "1421",
+        "1161",
+        "1451"
       ],
-      "substatLine": "CRIT Rate = CRIT DMG > HP% > ATK% > Flat HP",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "SHEER FORCE",
@@ -4167,9 +4510,8 @@
     },
     "1481": {
       "name": "Dialyn",
-      "source": "https://www.prydwen.gg/zenless/characters/dialyn",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -4210,15 +4552,15 @@
         {
           "name": null,
           "members": [
-            "1371",
             "1481",
-            "1451"
+            "1081",
+            "1031"
           ]
         },
         {
           "name": null,
           "members": [
-            "1531",
+            "1371",
             "1481",
             "1451"
           ]
@@ -4226,21 +4568,13 @@
       ],
       "synergies": [
         "1431",
+        "1341",
         "1371",
         "1051",
-        "1441",
-        "1471",
-        "1291",
-        "1321",
-        "1061",
-        "1081",
-        "1021",
-        "1111",
-        "1191",
-        "1201",
-        "1241"
+        "1311",
+        "1441"
       ],
-      "substatLine": "CRIT RATE (until 100%) > CRIT DMG = ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -4268,9 +4602,8 @@
     },
     "1491": {
       "name": "Sunna",
-      "source": "https://www.prydwen.gg/zenless/characters/sunna",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -4311,29 +4644,29 @@
         {
           "name": null,
           "members": [
-            "1501",
-            "1511",
-            "1491"
+            "1491",
+            "1081",
+            "1011"
           ]
         },
         {
           "name": null,
           "members": [
-            "1021",
-            "1481",
+            "1501",
+            "1511",
             "1491"
           ]
         }
       ],
       "synergies": [
-        "1431",
         "1341",
+        "1431",
         "1481",
+        "1391",
         "1081",
-        "1191",
-        "1201"
+        "1361"
       ],
-      "substatLine": "ATK% > ATK (until 3500) > Anomaly Proficiency > Flat PEN",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -4345,9 +4678,8 @@
     },
     "1501": {
       "name": "Aria",
-      "source": "https://www.prydwen.gg/zenless/characters/aria",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -4384,6 +4716,14 @@
         {
           "name": null,
           "members": [
+            "1501",
+            "1011",
+            "1031"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1581",
             "1501",
             "1561"
@@ -4396,25 +4736,17 @@
             "1511",
             "1411"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1501",
-            "1561",
-            "1411"
-          ]
         }
       ],
       "synergies": [
         "1411",
-        "1491",
         "1141",
-        "1481",
         "1361",
+        "1491",
+        "1481",
         "1341"
       ],
-      "substatLine": "Anomaly Proficiency > ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -4442,9 +4774,8 @@
     },
     "1511": {
       "name": "Nangong Yu",
-      "source": "https://www.prydwen.gg/zenless/characters/nangong-yu",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -4467,6 +4798,14 @@
         {
           "id": "14139",
           "refinement": 1
+        },
+        {
+          "id": "13005",
+          "refinement": null
+        },
+        {
+          "id": "14114",
+          "refinement": null
         }
       ],
       "teams": [
@@ -4489,15 +4828,15 @@
         {
           "name": null,
           "members": [
-            "1501",
             "1511",
-            "1411"
+            "1281",
+            "1031"
           ]
         },
         {
           "name": null,
           "members": [
-            "1401",
+            "1501",
             "1511",
             "1411"
           ]
@@ -4509,14 +4848,9 @@
         "1261",
         "1281",
         "1181",
-        "1171",
-        "1091",
-        "1221",
-        "1491",
-        "1411",
-        "1031"
+        "1171"
       ],
-      "substatLine": "Anomaly Proficiency > ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -4544,9 +4878,8 @@
     },
     "1521": {
       "name": "Cissia",
-      "source": "https://www.prydwen.gg/zenless/characters/cissia",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -4555,7 +4888,7 @@
           "refinement": 1
         },
         {
-          "id": "14130",
+          "id": "14146",
           "refinement": 1
         },
         {
@@ -4563,12 +4896,20 @@
           "refinement": 5
         },
         {
-          "id": "14146",
+          "id": "14130",
           "refinement": 1
         },
         {
           "id": "14138",
           "refinement": 1
+        },
+        {
+          "id": "13015",
+          "refinement": null
+        },
+        {
+          "id": "14001",
+          "refinement": null
         }
       ],
       "teams": [
@@ -4577,7 +4918,7 @@
           "members": [
             "1521",
             "1461",
-            "1311"
+            "1361"
           ]
         },
         {
@@ -4585,7 +4926,7 @@
           "members": [
             "1521",
             "1461",
-            "1361"
+            "1311"
           ]
         },
         {
@@ -4599,23 +4940,21 @@
         {
           "name": null,
           "members": [
-            "1521",
-            "1481",
-            "1311"
+            "1011",
+            "1031",
+            "1521"
           ]
         }
       ],
       "synergies": [
         "1491",
         "1311",
-        "1461",
+        "1591",
         "1481",
-        "1391",
-        "1251",
-        "1361",
-        "1031"
+        "1461",
+        "1251"
       ],
-      "substatLine": "CRIT RATE = CRIT DMG = ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -4643,9 +4982,8 @@
     },
     "1531": {
       "name": "Starlight - Billy",
-      "source": "https://www.prydwen.gg/zenless/characters/billy-starlight",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -4654,11 +4992,19 @@
           "refinement": 1
         },
         {
+          "id": "13019",
+          "refinement": 5
+        },
+        {
           "id": "14137",
           "refinement": 1
         },
         {
-          "id": "13019",
+          "id": "13014",
+          "refinement": 5
+        },
+        {
+          "id": "13012",
           "refinement": 5
         },
         {
@@ -4668,14 +5014,6 @@
         {
           "id": "13144",
           "refinement": 5
-        },
-        {
-          "id": "13012",
-          "refinement": 5
-        },
-        {
-          "id": "13014",
-          "refinement": 5
         }
       ],
       "teams": [
@@ -4683,7 +5021,7 @@
           "name": null,
           "members": [
             "1531",
-            "1481",
+            "1571",
             "1451"
           ]
         },
@@ -4691,7 +5029,7 @@
           "name": null,
           "members": [
             "1531",
-            "1571",
+            "1481",
             "1451"
           ]
         },
@@ -4707,20 +5045,20 @@
           "name": null,
           "members": [
             "1531",
-            "1101",
-            "1451"
+            "1011",
+            "1031"
           ]
         }
       ],
       "synergies": [
         "1481",
-        "1451",
         "1391",
-        "1361",
-        "1251",
-        "1421"
+        "1451",
+        "1421",
+        "1311",
+        "1361"
       ],
-      "substatLine": "CRIT RATE > CRIT DMG = HP% > Flat HP > Flat ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "SHEER FORCE",
@@ -4752,9 +5090,8 @@
     },
     "1541": {
       "name": "Promeia",
-      "source": "https://www.prydwen.gg/zenless/characters/promeia",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -4767,16 +5104,12 @@
           "refinement": 5
         },
         {
-          "id": "14150",
-          "refinement": 1
-        },
-        {
-          "id": "14118",
-          "refinement": 1
-        },
-        {
           "id": "13009",
           "refinement": 5
+        },
+        {
+          "id": "14150",
+          "refinement": 1
         },
         {
           "id": "13008",
@@ -4795,6 +5128,14 @@
         {
           "name": null,
           "members": [
+            "1541",
+            "1561",
+            "1411"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
             "1581",
             "1541",
             "1331"
@@ -4807,26 +5148,17 @@
             "1331",
             "1411"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1541",
-            "1511",
-            "1411"
-          ]
         }
       ],
       "synergies": [
-        "1511",
         "1331",
-        "1411",
+        "1511",
         "1491",
-        "1141",
-        "1311",
-        "1031"
+        "1411",
+        "1501",
+        "1171"
       ],
-      "substatLine": "Anomaly Proficiency > ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -4854,9 +5186,8 @@
     },
     "1551": {
       "name": "Pyrois",
-      "source": "https://www.prydwen.gg/zenless/characters/pyrois",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -4865,12 +5196,24 @@
           "refinement": 5
         },
         {
-          "id": "14155",
+          "id": "14146",
           "refinement": 1
         },
         {
-          "id": "14146",
-          "refinement": 1
+          "id": "14124",
+          "refinement": null
+        },
+        {
+          "id": "14132",
+          "refinement": null
+        },
+        {
+          "id": "13015",
+          "refinement": null
+        },
+        {
+          "id": "14001",
+          "refinement": null
         }
       ],
       "teams": [
@@ -4886,39 +5229,36 @@
           "name": null,
           "members": [
             "1551",
+            "1031",
+            "1011"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1551",
+            "1571",
+            "1491"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1551",
             "1571",
             "1311"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1551",
-            "1481",
-            "1491"
-          ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1551",
-            "1571",
-            "1491"
           ]
         }
       ],
       "synergies": [
         "1491",
+        "1391",
         "1031",
         "1481",
-        "1391",
-        "1511",
-        "1311",
-        "1341",
-        "1141",
-        "1211"
+        "1251",
+        "1301"
       ],
-      "substatLine": "CRIT RATE (until 100% in combat) > CRIT DMG = ATK% > Flat PEN > Flat ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -4946,9 +5286,8 @@
     },
     "1561": {
       "name": "Velina",
-      "source": "https://www.prydwen.gg/zenless/characters/velina",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -4957,16 +5296,28 @@
           "refinement": 1
         },
         {
-          "id": "14152",
+          "id": "14117",
           "refinement": 1
         },
         {
-          "id": "14117",
+          "id": "14152",
           "refinement": 1
         },
         {
           "id": "13115",
           "refinement": 1
+        },
+        {
+          "id": "14118",
+          "refinement": null
+        },
+        {
+          "id": "13003",
+          "refinement": null
+        },
+        {
+          "id": "13009",
+          "refinement": null
         }
       ],
       "teams": [
@@ -4976,6 +5327,14 @@
             "1581",
             "1261",
             "1561"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1561",
+            "1411",
+            "1541"
           ]
         },
         {
@@ -4993,31 +5352,17 @@
             "1501",
             "1561"
           ]
-        },
-        {
-          "name": null,
-          "members": [
-            "1581",
-            "1401",
-            "1561"
-          ]
         }
       ],
       "synergies": [
         "1501",
         "1261",
-        "1171",
         "1181",
-        "1281",
-        "1331",
-        "1541",
+        "1171",
         "1511",
-        "1411",
-        "1221",
-        "1401",
-        "1091"
+        "1281"
       ],
-      "substatLine": "Anomaly Proficiency = ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -5045,19 +5390,14 @@
     },
     "1571": {
       "name": "Norma",
-      "source": "https://www.prydwen.gg/zenless/characters/norma",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
         {
           "id": "14157",
           "refinement": 5
-        },
-        {
-          "id": "14157",
-          "refinement": 1
         },
         {
           "id": "14110",
@@ -5068,11 +5408,11 @@
           "refinement": 5
         },
         {
-          "id": "14116",
-          "refinement": 1
+          "id": "14139",
+          "refinement": null
         },
         {
-          "id": "14110",
+          "id": "14116",
           "refinement": 1
         },
         {
@@ -5100,31 +5440,29 @@
         {
           "name": null,
           "members": [
-            "1371",
             "1571",
-            "1451"
+            "1321",
+            "1311"
           ]
         },
         {
           "name": null,
           "members": [
-            "1551",
+            "1371",
             "1571",
-            "1311"
+            "1451"
           ]
         }
       ],
       "synergies": [
         "1491",
-        "1551",
+        "1591",
         "1041",
-        "1521",
-        "1301",
+        "1551",
         "1291",
-        "1441",
-        "1531"
+        "1521"
       ],
-      "substatLine": "CRIT RATE (until 100% in combat) > CRIT DMG = ATK% > Flat PEN > Flat ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -5152,9 +5490,8 @@
     },
     "1581": {
       "name": "Remielle",
-      "source": "https://www.prydwen.gg/zenless/characters/remielle",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Anomaly DPS",
       "weapons": [
@@ -5163,12 +5500,16 @@
           "refinement": 5
         },
         {
-          "id": "14158",
-          "refinement": 1
-        },
-        {
           "id": "13008",
           "refinement": 5
+        },
+        {
+          "id": "14117",
+          "refinement": null
+        },
+        {
+          "id": "14118",
+          "refinement": null
         }
       ],
       "teams": [
@@ -5176,7 +5517,7 @@
           "name": null,
           "members": [
             "1581",
-            "1261",
+            "1541",
             "1561"
           ]
         },
@@ -5184,7 +5525,7 @@
           "name": null,
           "members": [
             "1581",
-            "1541",
+            "1261",
             "1561"
           ]
         },
@@ -5207,18 +5548,13 @@
       ],
       "synergies": [
         "1561",
-        "1501",
-        "1541",
-        "1171",
         "1261",
+        "1501",
         "1401",
-        "1181",
-        "1281",
-        "1331",
-        "1221",
-        "1091"
+        "1171",
+        "1541"
       ],
-      "substatLine": "ATK% (until 4000 in statscreen) > Anomaly Proficiency > PEN",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -5242,9 +5578,8 @@
     },
     "1591": {
       "name": "Sigrid",
-      "source": "https://www.prydwen.gg/zenless/characters/sigrid",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -5253,24 +5588,32 @@
           "refinement": 5
         },
         {
-          "id": "14159",
-          "refinement": 1
-        },
-        {
           "id": "14104",
           "refinement": 5
+        },
+        {
+          "id": "14129",
+          "refinement": null
         },
         {
           "id": "14138",
           "refinement": 1
         },
         {
-          "id": "14104",
-          "refinement": 1
+          "id": "14119",
+          "refinement": null
         },
         {
           "id": "13004",
           "refinement": 5
+        },
+        {
+          "id": "13015",
+          "refinement": null
+        },
+        {
+          "id": "14001",
+          "refinement": null
         }
       ],
       "teams": [
@@ -5278,7 +5621,7 @@
           "name": null,
           "members": [
             "1591",
-            "1481",
+            "1571",
             "1311"
           ]
         },
@@ -5286,7 +5629,7 @@
           "name": null,
           "members": [
             "1591",
-            "1571",
+            "1481",
             "1311"
           ]
         },
@@ -5302,22 +5645,20 @@
           "name": null,
           "members": [
             "1591",
-            "1481",
-            "1211"
+            "1011",
+            "1131"
           ]
         }
       ],
       "synergies": [
-        "1571",
         "1481",
-        "1141",
+        "1571",
+        "1391",
         "1491",
-        "1211",
-        "1311",
-        "1161",
-        "1391"
+        "1141",
+        "1621"
       ],
-      "substatLine": "CRIT RATE (until 33.8% in statscreen) > CRIT DMG = ATK% > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
@@ -5345,9 +5686,8 @@
     },
     "1611": {
       "name": "Claret",
-      "source": "https://www.prydwen.gg/zenless/characters/claret",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Crit DPS",
       "weapons": [
@@ -5356,10 +5696,6 @@
           "refinement": 5
         },
         {
-          "id": "14161",
-          "refinement": 1
-        },
-        {
           "id": "13021",
           "refinement": 5
         },
@@ -5368,12 +5704,8 @@
           "refinement": 5
         },
         {
-          "id": "13021",
-          "refinement": 1
-        },
-        {
-          "id": "13017",
-          "refinement": 1
+          "id": "12016",
+          "refinement": null
         }
       ],
       "teams": [
@@ -5405,20 +5737,20 @@
           "name": null,
           "members": [
             "1611",
-            "1141",
-            "1211"
+            "1011",
+            "1031"
           ]
         }
       ],
       "synergies": [
         "1571",
-        "1211",
         "1101",
-        "1141",
+        "1621",
+        "1211",
         "1361",
-        "1031"
+        "1141"
       ],
-      "substatLine": "CRIT RATE > DEF% > CRIT DMG > PEN > DEF",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "DEF",
@@ -5438,9 +5770,8 @@
     },
     "1621": {
       "name": "Roxy",
-      "source": "https://www.prydwen.gg/zenless/characters/roxy",
-      "sourceLabel": "Prydwen",
-      "sourceUpdated": "2026-09-30",
+      "sources": 2,
+      "updated": "2026-10-09",
       "mainStats": null,
       "role": "Support",
       "weapons": [
@@ -5449,28 +5780,41 @@
           "refinement": 5
         },
         {
-          "id": "14162",
+          "id": "14110",
           "refinement": 1
         },
         {
           "id": "13005",
           "refinement": 5
-        },
-        {
-          "id": "14110",
-          "refinement": 1
         }
       ],
-      "teams": [],
+      "teams": [
+        {
+          "name": null,
+          "members": [
+            "1621",
+            "1611",
+            "1211"
+          ]
+        },
+        {
+          "name": null,
+          "members": [
+            "1621",
+            "1551",
+            "1031"
+          ]
+        }
+      ],
       "synergies": [
         "1591",
         "1551",
-        "1611",
         "1491",
-        "1211",
-        "1451"
+        "1611",
+        "1311",
+        "1211"
       ],
-      "substatLine": "CRIT RATE > CRIT DMG > ATK % > PEN > ATK",
+      "substatLine": null,
       "endgameStats": [
         {
           "label": "ATK",
