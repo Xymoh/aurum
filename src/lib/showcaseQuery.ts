@@ -13,7 +13,7 @@ import type { Query } from "@tanstack/react-query";
 export { showcaseRetry } from "./showcaseError";
 
 /** Enka's default when a payload carries no ttl. */
-export const DEFAULT_TTL_SECONDS = 60;
+const DEFAULT_TTL_SECONDS = 60;
 
 interface WithTtl {
   ttl?: number;

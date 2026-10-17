@@ -10,7 +10,12 @@ import {
   idealMainStatsFor,
   scoringWeightsFor,
 } from "../scoring";
-import { isTravelerId, parseTravelerBuildId, TRAVELER_ELEMENTS, travelerBuildId } from "../travelerBuilds";
+import {
+  isTravelerId,
+  parseTravelerBuildId,
+  TRAVELER_ELEMENTS,
+  travelerBuildId,
+} from "../travelerBuilds";
 import type { BuildListing, BuildTarget, TargetSlot, TargetStat, Translate } from "./model";
 import { rankSubstats } from "./model";
 
@@ -44,7 +49,22 @@ const SLOTS = ["SANDS", "GOBLET", "CIRCLET"] as const;
  * need their own labels. Elemental damage is handled separately: it is one
  * label per element and the element names are already translated.
  */
-const STAT_KEY: Record<string, "critRate" | "critDmg" | "atkPct" | "hpPct" | "defPct" | "em" | "er" | "healing" | "physicalDmg" | "elementalDmg" | "flatAtk" | "flatHp" | "flatDef"> = {
+const STAT_KEY: Record<
+  string,
+  | "critRate"
+  | "critDmg"
+  | "atkPct"
+  | "hpPct"
+  | "defPct"
+  | "em"
+  | "er"
+  | "healing"
+  | "physicalDmg"
+  | "elementalDmg"
+  | "flatAtk"
+  | "flatHp"
+  | "flatDef"
+> = {
   CRIT_RATE: "critRate",
   CRIT_DMG: "critDmg",
   ATK_PERCENT: "atkPct",
@@ -67,16 +87,23 @@ const STAT_KEY: Record<string, "critRate" | "critDmg" | "atkPct" | "hpPct" | "de
  * half the roster.
  */
 const ELEMENT_OF: Record<string, GenshinElement> = {
-  PYRO_DMG: "Pyro", FIRE_ADD_HURT: "Pyro",
-  HYDRO_DMG: "Hydro", WATER_ADD_HURT: "Hydro",
-  ANEMO_DMG: "Anemo", WIND_ADD_HURT: "Anemo",
-  ELECTRO_DMG: "Electro", ELEC_ADD_HURT: "Electro",
-  DENDRO_DMG: "Dendro", GRASS_ADD_HURT: "Dendro",
-  CRYO_DMG: "Cryo", ICE_ADD_HURT: "Cryo",
-  GEO_DMG: "Geo", ROCK_ADD_HURT: "Geo",
+  PYRO_DMG: "Pyro",
+  FIRE_ADD_HURT: "Pyro",
+  HYDRO_DMG: "Hydro",
+  WATER_ADD_HURT: "Hydro",
+  ANEMO_DMG: "Anemo",
+  WIND_ADD_HURT: "Anemo",
+  ELECTRO_DMG: "Electro",
+  ELEC_ADD_HURT: "Electro",
+  DENDRO_DMG: "Dendro",
+  GRASS_ADD_HURT: "Dendro",
+  CRYO_DMG: "Cryo",
+  ICE_ADD_HURT: "Cryo",
+  GEO_DMG: "Geo",
+  ROCK_ADD_HURT: "Geo",
 };
 
-export function statLabel(key: string, t: Translate): string {
+function statLabel(key: string, t: Translate): string {
   const element = ELEMENT_OF[key];
   if (element) return t("buildStats", "elementDmg", { element: t("elements", element) });
   const mapped = STAT_KEY[key];
@@ -122,7 +149,10 @@ function iconUrl(icon: string | undefined): string | null {
 
 /** The element's badge, which is what tells the Traveler's pages apart. */
 function elementBadge(element: GenshinElement, t: Translate): { iconUrl: string; label: string } {
-  return { iconUrl: `${AMBER_UI}/UI_Buff_Element_${ELEMENT_ICON[element]}.png`, label: t("elements", element) };
+  return {
+    iconUrl: `${AMBER_UI}/UI_Buff_Element_${ELEMENT_ICON[element]}.png`,
+    label: t("elements", element),
+  };
 }
 
 /** Whether the entry is a real curated build or the scaling-derived fallback. */
@@ -147,7 +177,9 @@ export function hasGenshinBuild(avatarId: number | string): boolean {
  */
 export function movedGenshinBuild(id: string): string | null {
   const character = CHARACTERS[id];
-  return character && isTravelerId(Number(id)) ? travelerBuildId(id, character.element as GenshinElement) : null;
+  return character && isTravelerId(Number(id))
+    ? travelerBuildId(id, character.element as GenshinElement)
+    : null;
 }
 
 /**
@@ -162,36 +194,43 @@ export function genshinBuildId(avatarId: number, element: GenshinElement): strin
  * The name a page goes by: the character's, and for the Traveler the
  * element as well, since each element is its own build.
  */
-function pageName(name: string, traveler: { element: GenshinElement } | null, t: Translate): string {
+function pageName(
+  name: string,
+  traveler: { element: GenshinElement } | null,
+  t: Translate,
+): string {
   return traveler ? `${name} (${t("elements", traveler.element)})` : name;
 }
 
 export function listGenshinBuilds(t: Translate): BuildListing[] {
-  return Object.entries(CHARACTERS)
-    // The table includes Manekin and Manekina, the Miliastra Wonderland
-    // avatars, which exist only in that mode and have no build, no art and
-    // no icon. A picker row for either is a broken tile.
-    .filter(([id]) => getBuildConfig(Number(id)) !== null)
-    .flatMap(([id, c]): BuildListing[] => {
-      const base = {
-        name: c.name,
-        iconUrl: iconUrl(c.icon),
-        // Enka does not publish rarity in this table; the picker sorts by name.
-        rarity: 0,
-        generic: !isCurated(id),
-      };
-      if (!isTravelerId(Number(id))) return [{ ...base, id, tags: [t("elements", c.element as GenshinElement), c.weapon] }];
-      // One page per element, for each body; the index lists Aether's.
-      return TRAVELER_ELEMENTS.map((element) => ({
-        ...base,
-        id: travelerBuildId(id, element),
-        name: pageName(c.name, { element }, t),
-        tags: [t("elements", element), c.weapon],
-        badge: elementBadge(element, t),
-        ...(id === LISTED_TRAVELER ? {} : { unlisted: true }),
-      }));
-    })
-    .sort((a, b) => a.name.localeCompare(b.name));
+  return (
+    Object.entries(CHARACTERS)
+      // The table includes Manekin and Manekina, the Miliastra Wonderland
+      // avatars, which exist only in that mode and have no build, no art and
+      // no icon. A picker row for either is a broken tile.
+      .filter(([id]) => getBuildConfig(Number(id)) !== null)
+      .flatMap(([id, c]): BuildListing[] => {
+        const base = {
+          name: c.name,
+          iconUrl: iconUrl(c.icon),
+          // Enka does not publish rarity in this table; the picker sorts by name.
+          rarity: 0,
+          generic: !isCurated(id),
+        };
+        if (!isTravelerId(Number(id)))
+          return [{ ...base, id, tags: [t("elements", c.element as GenshinElement), c.weapon] }];
+        // One page per element, for each body; the index lists Aether's.
+        return TRAVELER_ELEMENTS.map((element) => ({
+          ...base,
+          id: travelerBuildId(id, element),
+          name: pageName(c.name, { element }, t),
+          tags: [t("elements", element), c.weapon],
+          badge: elementBadge(element, t),
+          ...(id === LISTED_TRAVELER ? {} : { unlisted: true }),
+        }));
+      })
+      .sort((a, b) => a.name.localeCompare(b.name))
+  );
 }
 
 export function getGenshinBuild(id: string, t: Translate): BuildTarget | null {

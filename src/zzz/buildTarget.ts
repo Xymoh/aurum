@@ -1,6 +1,12 @@
 /** Flattens a Zenless agent's scoring metadata into the target model. */
 
-import type { BuildListing, BuildTarget, TargetSlot, TargetStat, Translate } from "../lib/buildTarget/model";
+import type {
+  BuildListing,
+  BuildTarget,
+  TargetSlot,
+  TargetStat,
+  Translate,
+} from "../lib/buildTarget/model";
 import { rankSubstats } from "../lib/buildTarget/model";
 import agentsData from "./data/agents.json";
 import { agentIcon, agentImage, setIcon } from "./images";
@@ -9,7 +15,14 @@ import { getScoringMeta } from "./weights";
 
 const AGENTS = agentsData as unknown as Record<
   string,
-  { name: string; nameZh?: string; profession: string; element: string; rarity: number; accent: string }
+  {
+    name: string;
+    nameZh?: string;
+    profession: string;
+    element: string;
+    rarity: number;
+    accent: string;
+  }
 >;
 
 /** Whether a build page exists for this agent; see hasGenshinBuild. */
@@ -77,7 +90,10 @@ export function getZzzBuild(id: string, t: Translate): BuildTarget | null {
       target,
     })),
     energyTarget: null,
-    source: { label: meta.source === "guides" ? "Community build guides, combined" : "Role profile", url: null },
+    source: {
+      label: meta.source === "guides" ? "Community build guides, combined" : "Role profile",
+      url: null,
+    },
     setsSource: null,
   };
 }

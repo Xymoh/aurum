@@ -1,5 +1,11 @@
 import { ROLL_FLOOR, ROLL_TIER_BG, rollTier } from "../../lib/rollTier";
 
+/**
+ * One pip's shape, shared by every pip row and legend. A dot, not a thin bar:
+ * a single 3px bar was indistinguishable from a blinking text cursor.
+ */
+export const PIP = "h-1.5 w-1.5 rounded-full";
+
 interface RollPipsProps {
   /** Each roll as a share of the max roll, in order. */
   rolls: number[];
@@ -30,12 +36,15 @@ export function RollPips({
   const total = rolls.length + unknownCount;
   if (total === 0) return null;
   return (
-    <span className={`inline-flex items-center gap-[3px] ${muted ? "opacity-40" : ""} ${className}`} aria-hidden="true">
+    <span
+      className={`inline-flex items-center gap-[3px] ${muted ? "opacity-40" : ""} ${className}`}
+      aria-hidden="true"
+    >
       {rolls.map((share, i) => (
-        <span key={i} className={`h-2.5 w-[3px] rounded-sm ${ROLL_TIER_BG[rollTier(share, floor)]}`} />
+        <span key={i} className={`${PIP} ${ROLL_TIER_BG[rollTier(share, floor)]}`} />
       ))}
       {Array.from({ length: unknownCount }, (_, i) => (
-        <span key={`u${i}`} className="h-2.5 w-[3px] rounded-sm bg-dark-muted/50" />
+        <span key={`u${i}`} className={`${PIP} bg-dark-muted/70`} />
       ))}
     </span>
   );

@@ -99,7 +99,7 @@ const SUBSTAT_WEIGHT_KEYS: ReadonlyArray<keyof ScoringWeights> = [
 
 // ── Potential scale lookup ──
 
-export function computePotentialScale(statKey: string): number {
+function computePotentialScale(statKey: string): number {
   const scale = POTENTIAL_SCALES[statKey];
   if (scale === undefined) {
     console.warn(`Unknown stat key for potential scale: ${statKey}`);
@@ -140,7 +140,7 @@ function getAdjustedWeights(weights: ScoringWeights, mainStatKey: string): Scori
 export function computeWeightedPotential(
   substats: ArtifactSubstat[],
   weights: ScoringWeights,
-  mainStatKey: string
+  mainStatKey: string,
 ): number {
   const adjustedWeights = getAdjustedWeights(weights, mainStatKey);
 
@@ -224,7 +224,7 @@ function resolveWeightKey(statKey: string): keyof ScoringWeights | null {
  * recommended sets. Exported so the build-target pages can show exactly what
  * the scorer grades against, rather than a second opinion that could drift.
  */
-export interface SetPick {
+interface SetPick {
   setId: string;
   pieces: number;
 }
@@ -240,7 +240,9 @@ interface FetchedRecommendation {
   erTarget?: number;
 }
 
-const SET_RECOMMENDATIONS = (setRecommendationsData as { characters: Record<string, FetchedRecommendation> }).characters;
+const SET_RECOMMENDATIONS = (
+  setRecommendationsData as { characters: Record<string, FetchedRecommendation> }
+).characters;
 
 /**
  * A character's fetched guide entry. The Traveler's are per element, one
@@ -253,7 +255,10 @@ function fetchedFor(avatarId: number, element?: GenshinElement): FetchedRecommen
 }
 
 /** The label the guide gives each recommended rank, in step with getSetRecommendations. */
-export function getSetRecommendationLabels(avatarId: number, element?: GenshinElement): Array<string | null> {
+export function getSetRecommendationLabels(
+  avatarId: number,
+  element?: GenshinElement,
+): Array<string | null> {
   const entry = fetchedFor(avatarId, element);
   return entry && entry.sets.length > 0 ? (entry.labels ?? []) : [];
 }
@@ -328,7 +333,9 @@ export function getBuildConfig(
       // Curated and fetched together, for the same reason as the main stats:
       // a player on the guide's current best set should not be told it is
       // not a recommended one.
-      recommended_sets: [...new Set([...(goEntry.recommended_sets ?? []), ...fetchedSetIds(fetched)])],
+      recommended_sets: [
+        ...new Set([...(goEntry.recommended_sets ?? []), ...fetchedSetIds(fetched)]),
+      ],
       er_threshold: erTarget,
     };
   }
@@ -465,17 +472,14 @@ export function computeWSE(substats: ArtifactSubstat[], avatarId: number): numbe
  * - 100% = a solid artifact (~4.5 useful max rolls, average good piece)
  * - 200% = theoretically perfect (all 9 rolls max into best stats, near-impossible)
  */
-export function computeIdealPotential(
-  weights: ScoringWeights,
-  mainStatKey: string
-): number {
+export function computeIdealPotential(weights: ScoringWeights, mainStatKey: string): number {
   const adjustedWeights = getAdjustedWeights(weights, mainStatKey);
 
   // Only stats a substat can roll count towards the ideal. A healer's
   // Healing Bonus weight belongs to the circlet's main stat and would
   // otherwise inflate the ideal, under-scoring every piece they wear.
   const nonZeroWeights = SUBSTAT_WEIGHT_KEYS.map((key) => adjustedWeights[key])
-    .filter(w => w > 0)
+    .filter((w) => w > 0)
     .sort((a, b) => b - a);
 
   if (nonZeroWeights.length === 0) return 0;
@@ -490,7 +494,7 @@ export function computeIdealPotential(
   // 100% = a solid artifact (~4.5 effective max rolls)
   // 200% = theoretically perfect (all 9 rolls max into best stats)
   const sumTop4 = topWeights.reduce((sum, w) => sum + w, 0);
-  const idealPotential = REFERENCE_HIGH_ROLL * (sumTop4 + 5 * maxWeight) / 2;
+  const idealPotential = (REFERENCE_HIGH_ROLL * (sumTop4 + 5 * maxWeight)) / 2;
 
   return idealPotential;
 }
@@ -501,7 +505,11 @@ export function computeIdealPotential(
  * The main stats a character's build wants in a slot, as weight keys. Empty
  * for Flower and Plume (fixed) and for a build that accepts anything.
  */
-export function idealMainStatsFor(slot: string, avatarId: number, element?: GenshinElement): string[] {
+export function idealMainStatsFor(
+  slot: string,
+  avatarId: number,
+  element?: GenshinElement,
+): string[] {
   if (slot === "FLOWER" || slot === "PLUME") return [];
 
   // The Traveler's seven elements want different pieces and share one
@@ -509,7 +517,10 @@ export function idealMainStatsFor(slot: string, avatarId: number, element?: Gens
   // element's guide page is read too, and its picks lead, as for everyone.
   const travelerIdeal = travelerMainStats(avatarId, element);
   if (travelerIdeal) {
-    const merged = withGuideMainStats(travelerIdeal, fetchedFor(avatarId, element)?.mainStats) as Record<string, string[] | undefined>;
+    const merged = withGuideMainStats(
+      travelerIdeal,
+      fetchedFor(avatarId, element)?.mainStats,
+    ) as Record<string, string[] | undefined>;
     return merged[slot] ?? [];
   }
 
@@ -567,10 +578,7 @@ function matchMainStat(
  * - Informational only - does NOT apply any multiplier to Potential Percent
  * - Maximum 3 distinct active set bonuses displayable (from 5 artifact slots)
  */
-export function evaluateSetBonus(
-  artifacts: Artifact[],
-  recommendedSets: string[]
-): SetBonusResult {
+export function evaluateSetBonus(artifacts: Artifact[], recommendedSets: string[]): SetBonusResult {
   // Count artifacts per set
   const setCounts = new Map<string, { count: number; name: string }>();
   for (const art of artifacts) {
@@ -595,8 +603,8 @@ export function evaluateSetBonus(
   }
 
   const recommendedSetIds = new Set(recommendedSets);
-  const has4pcMatch = activeSets.some(s => s.pieces === 4 && recommendedSetIds.has(s.setId));
-  const has2pcMatch = activeSets.some(s => recommendedSetIds.has(s.setId));
+  const has4pcMatch = activeSets.some((s) => s.pieces === 4 && recommendedSetIds.has(s.setId));
+  const has2pcMatch = activeSets.some((s) => recommendedSetIds.has(s.setId));
 
   let matchStatus: SetBonusResult["matchStatus"];
   if (has4pcMatch) matchStatus = "full_match";
@@ -613,10 +621,7 @@ export function evaluateSetBonus(
  * Returns 0 if ideal is 0 (avoids division by zero).
  * Scores can exceed 100% (up to ~200%) since ideal represents half the theoretical max.
  */
-export function computePotentialPercent(
-  weightedPotential: number,
-  idealPotential: number
-): number {
+export function computePotentialPercent(weightedPotential: number, idealPotential: number): number {
   if (idealPotential <= 0) return 0;
   const percent = (weightedPotential / idealPotential) * 100;
   return Math.max(percent, 0);
@@ -651,7 +656,11 @@ export function scoreArtifact(
   const weights = config?.substat_weights ?? DEFAULT_WEIGHTS;
 
   // New Fribbels-style scoring
-  const weightedPotential = computeWeightedPotential(artifact.substats, weights, artifact.mainStat.statKey);
+  const weightedPotential = computeWeightedPotential(
+    artifact.substats,
+    weights,
+    artifact.mainStat.statKey,
+  );
   const idealPotential = computeIdealPotential(weights, artifact.mainStat.statKey);
   const potentialPercent = computePotentialPercent(weightedPotential, idealPotential);
   // Grade the number the reader sees. The display rounds to a whole percent,
@@ -704,7 +713,7 @@ export function scoreArtifact(
       cv,
       cvNormalized,
       wse,
-      total: potentialPercent,  // unified score
+      total: potentialPercent, // unified score
       grade,
       reroll,
     },
@@ -737,25 +746,26 @@ export function scoreBuild(character: CharacterData): BuildScore {
   const cv = character.artifacts.reduce((sum, art) => {
     const main = art.mainStat;
     const mainCv =
-      main.statKey === "FIGHT_PROP_CRITICAL" ? main.value * 2 : main.statKey === "FIGHT_PROP_CRITICAL_HURT" ? main.value : 0;
+      main.statKey === "FIGHT_PROP_CRITICAL"
+        ? main.value * 2
+        : main.statKey === "FIGHT_PROP_CRITICAL_HURT"
+          ? main.value
+          : 0;
     return sum + art.score.cv + mainCv;
   }, 0);
 
   // Average potentialPercent across all equipped artifacts
-  const avgPotentialPercent = character.artifacts.reduce(
-    (sum, art) => sum + art.score.potentialPercent, 0
-  ) / artifactCount;
+  const avgPotentialPercent =
+    character.artifacts.reduce((sum, art) => sum + art.score.potentialPercent, 0) / artifactCount;
   const total = Math.round(avgPotentialPercent * 10) / 10;
 
   // Count correct main stats for selectable slots
   const selectableSlots: string[] = ["SANDS", "GOBLET", "CIRCLET"];
-  const selectableArtifacts = character.artifacts.filter(
-    art => selectableSlots.includes(art.slot)
+  const selectableArtifacts = character.artifacts.filter((art) =>
+    selectableSlots.includes(art.slot),
   );
   const totalSelectableSlots = selectableArtifacts.length;
-  const correctMainStats = selectableArtifacts.filter(
-    art => art.score.mainStatCorrect
-  ).length;
+  const correctMainStats = selectableArtifacts.filter((art) => art.score.mainStatCorrect).length;
 
   // Evaluate set bonus (informational - no multiplier applied)
   const config = getBuildConfig(character.avatarId, character.element);

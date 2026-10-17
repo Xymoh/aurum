@@ -1,5 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { computeRV, computeCV, computeWSE, getGrade, computeIdealPotential } from "../../src/lib/scoring";
+import {
+  computeRV,
+  computeCV,
+  computeWSE,
+  getGrade,
+  computeIdealPotential,
+} from "../../src/lib/scoring";
 import { computeRerollAdvice, chanceWithin, formatChance } from "../../src/lib/reroll";
 import type { ErContext } from "../../src/lib/reroll";
 import { POTENTIAL_SCALES } from "../../src/lib/constants";

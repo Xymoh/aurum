@@ -73,8 +73,16 @@ describe("evaluateSetBonus", () => {
       const result = evaluateSetBonus(artifacts, []);
       // set_a has 2 → 2pc bonus, set_b has 3 → 2pc bonus
       expect(result.activeSets).toHaveLength(2);
-      expect(result.activeSets).toContainEqual({ setId: "set_a", setName: "Gladiator's Finale", pieces: 2 });
-      expect(result.activeSets).toContainEqual({ setId: "set_b", setName: "Wanderer's Troupe", pieces: 2 });
+      expect(result.activeSets).toContainEqual({
+        setId: "set_a",
+        setName: "Gladiator's Finale",
+        pieces: 2,
+      });
+      expect(result.activeSets).toContainEqual({
+        setId: "set_b",
+        setName: "Wanderer's Troupe",
+        pieces: 2,
+      });
     });
 
     it("returns no active sets when all artifacts are from different sets", () => {
@@ -107,7 +115,11 @@ describe("evaluateSetBonus", () => {
       ];
 
       const result = evaluateSetBonus(artifacts, []);
-      expect(result.activeSets).toContainEqual({ setId: "set_a", setName: "Crimson Witch", pieces: 4 });
+      expect(result.activeSets).toContainEqual({
+        setId: "set_a",
+        setName: "Crimson Witch",
+        pieces: 4,
+      });
       // set_b has only 1 piece, no bonus
       expect(result.activeSets).not.toContainEqual(expect.objectContaining({ setId: "set_b" }));
     });
@@ -122,8 +134,16 @@ describe("evaluateSetBonus", () => {
       ];
 
       const result = evaluateSetBonus(artifacts, []);
-      expect(result.activeSets).toContainEqual({ setId: "set_a", setName: "Gladiator's Finale", pieces: 2 });
-      expect(result.activeSets).toContainEqual({ setId: "set_b", setName: "Wanderer's Troupe", pieces: 2 });
+      expect(result.activeSets).toContainEqual({
+        setId: "set_a",
+        setName: "Gladiator's Finale",
+        pieces: 2,
+      });
+      expect(result.activeSets).toContainEqual({
+        setId: "set_b",
+        setName: "Wanderer's Troupe",
+        pieces: 2,
+      });
     });
 
     it("reports 4-piece when exactly 5 artifacts from same set", () => {

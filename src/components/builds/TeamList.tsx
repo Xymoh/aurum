@@ -24,7 +24,15 @@ interface TeamListProps {
  * their own build page, so planning a team is a walk through its members
  * rather than a search.
  */
-export function TeamList({ teams, synergies, roster, selfId, accent, basePath, skin }: TeamListProps) {
+export function TeamList({
+  teams,
+  synergies,
+  roster,
+  selfId,
+  accent,
+  basePath,
+  skin,
+}: TeamListProps) {
   const { t } = useI18n();
   const query = useUidQuery();
 
@@ -33,13 +41,22 @@ export function TeamList({ teams, synergies, roster, selfId, accent, basePath, s
     const name = listing?.name ?? t("guide", "unknownMember");
     const body = (
       <>
-        <CharacterFace listing={listing} size="h-12 w-12 sm:h-14 sm:w-14" ring={id === selfId ? accent : undefined} />
-        <span className={`mt-1 block w-full truncate text-center text-[11px] ${skin.text}`}>{listing?.name ?? "?"}</span>
+        <CharacterFace
+          listing={listing}
+          size="h-12 w-12 sm:h-14 sm:w-14"
+          ring={id === selfId ? accent : undefined}
+        />
+        <span className={`mt-1 block w-full truncate text-center text-[11px] ${skin.text}`}>
+          {listing?.name ?? "?"}
+        </span>
       </>
     );
     if (id === selfId) {
       return (
-        <span className="flex w-full min-w-0 flex-col items-center" aria-label={t("guide", "you", { name })}>
+        <span
+          className="flex w-full min-w-0 flex-col items-center"
+          aria-label={t("guide", "you", { name })}
+        >
           {body}
         </span>
       );
@@ -52,7 +69,11 @@ export function TeamList({ teams, synergies, roster, selfId, accent, basePath, s
       );
     }
     return (
-      <Link to={`${basePath}/${id}${query}`} className="flex w-full min-w-0 flex-col items-center no-underline transition-opacity hover:opacity-80" title={name}>
+      <Link
+        to={`${basePath}/${id}${query}`}
+        className="flex w-full min-w-0 flex-col items-center no-underline transition-opacity hover:opacity-80"
+        title={name}
+      >
         {body}
       </Link>
     );
@@ -73,7 +94,10 @@ export function TeamList({ teams, synergies, roster, selfId, accent, basePath, s
           <div
             className="mt-1 flex items-center justify-center gap-0.5"
             role="group"
-            aria-label={t("guide", "alternatives", { name: pickName, names: known.map((alt) => roster.get(alt)?.name).join(", ") })}
+            aria-label={t("guide", "alternatives", {
+              name: pickName,
+              names: known.map((alt) => roster.get(alt)?.name).join(", "),
+            })}
           >
             <span className={`mr-0.5 text-[10px] ${skin.muted}`} aria-hidden="true">
               {t("guide", "or")}
@@ -101,7 +125,11 @@ export function TeamList({ teams, synergies, roster, selfId, accent, basePath, s
           {teams.map((team, i) => (
             <li key={i} className={`game-panel-sm border p-3 ${skin.card}`}>
               {team.name && (
-                <p className={`mb-2 truncate text-xs font-semibold uppercase tracking-wide ${skin.muted}`}>{team.name}</p>
+                <p
+                  className={`mb-2 truncate text-xs font-semibold uppercase tracking-wide ${skin.muted}`}
+                >
+                  {team.name}
+                </p>
               )}
               <div className="grid grid-cols-4 gap-2">
                 {team.members.map((id, i) => slot(id, team.alternates?.[i] ?? []))}

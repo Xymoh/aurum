@@ -39,6 +39,8 @@ export interface EnkaPlayerInfo {
 export interface EnkaAvatarInfo {
   avatarId: number;
   level: number;
+  /** "1002" is the ascension phase; Enka leaves `val` out when it is 0. */
+  propMap?: Record<string, { val?: string }>;
   talentIdList?: number[];
   constIdList?: number[];
   equipList?: Array<EnkaEquip>;
@@ -64,13 +66,9 @@ export interface EnkaReliquary {
 
 export interface EnkaWeapon {
   level: number;
-  promoteLevel: number;
+  /** Left out at ascension 0. */
+  promoteLevel?: number;
   affixMap?: Record<string, number>;
-}
-
-export interface EnkaProp {
-  propType: string;
-  propValue: number;
 }
 
 export interface EnkaEquipFlat {
@@ -80,7 +78,7 @@ export interface EnkaEquipFlat {
   equipType: string;
   rankLevel: number;
   itemType: string;
-  setId?: string;
+  setId?: number | string;
   reliquaryMainstat?: {
     mainPropId: string;
     statValue: number;
@@ -100,11 +98,11 @@ export interface EnkaSubstat {
 // ── Equip Types (Genshin-specific) ──
 
 export type EquipType =
-  | "EQUIP_BRACER"   // Flower of Life
+  | "EQUIP_BRACER" // Flower of Life
   | "EQUIP_NECKLACE" // Plume of Death
-  | "EQUIP_SHOES"    // Sands of Eon
-  | "EQUIP_RING"     // Goblet of Eonothem
-  | "EQUIP_DRESS";   // Circlet of Logos
+  | "EQUIP_SHOES" // Sands of Eon
+  | "EQUIP_RING" // Goblet of Eonothem
+  | "EQUIP_DRESS"; // Circlet of Logos
 
 export type FightProp =
   | "FIGHT_PROP_HP"

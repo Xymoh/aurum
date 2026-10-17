@@ -23,17 +23,21 @@ export type LanguageCode = (typeof ALL_LANGUAGES)[number]["code"];
  * out of navigator.languages, stranding that visitor in a language they have
  * no control to leave.
  */
-export const MULTI_LANGUAGE = import.meta.env.VITE_I18N === "on";
+const MULTI_LANGUAGE = import.meta.env.VITE_I18N === "on";
 
 /** The languages actually on offer. One entry means the picker hides itself. */
-export const LANGUAGES: readonly { code: LanguageCode; label: string }[] =
-  MULTI_LANGUAGE ? ALL_LANGUAGES : [ALL_LANGUAGES[0]];
+export const LANGUAGES: readonly { code: LanguageCode; label: string }[] = MULTI_LANGUAGE
+  ? ALL_LANGUAGES
+  : [ALL_LANGUAGES[0]];
 
 /** Where an explicit language choice is remembered between visits. */
 export const STORAGE_KEY = "language";
 
 /** English ships in the main bundle; the rest are fetched only when selected. */
-export const LOADERS: Record<Exclude<LanguageCode, "en">, () => Promise<{ default: Dictionary }>> = {
+export const LOADERS: Record<
+  Exclude<LanguageCode, "en">,
+  () => Promise<{ default: Dictionary }>
+> = {
   zh: () => import("./locales/zh"),
 };
 

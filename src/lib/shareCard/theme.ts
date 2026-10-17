@@ -14,7 +14,7 @@
 import { gradeBand } from "../grade";
 import type { ShareGame } from "./model";
 
-export interface CardTheme {
+interface CardTheme {
   bg: string;
   panel: string;
   border: string;

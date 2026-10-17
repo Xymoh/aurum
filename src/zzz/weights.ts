@@ -33,7 +33,10 @@ export interface ZzzScoringMeta {
   source: "guides" | "profession";
 }
 
-const AGENTS = agents as Record<string, { name: string; profession: string; element: string; rarity: number; accent: string }>;
+const AGENTS = agents as Record<
+  string,
+  { name: string; profession: string; element: string; rarity: number; accent: string }
+>;
 
 interface MetadataEntry {
   name: string;
@@ -45,12 +48,20 @@ interface MetadataEntry {
 const GUIDES = (scoringMetadata as { characters: Record<string, MetadataEntry> }).characters ?? {};
 
 const SET_NAMES = setsData as Record<string, { name: string }>;
-const GUIDE_SETS = (setRecommendations as { characters: Record<string, { sets?: { setId: string; pieces: number }[][] }> }).characters;
+const GUIDE_SETS = (
+  setRecommendations as {
+    characters: Record<string, { sets?: { setId: string; pieces: number }[][] }>;
+  }
+).characters;
 
 /** The guides' disc lists, kept apart from the weights. */
 function setsFor(agentId: number): ZzzScoringMeta["sets"] {
   return (GUIDE_SETS[String(agentId)]?.sets ?? []).map((parts) =>
-    parts.map((p) => ({ setId: p.setId, name: SET_NAMES[p.setId]?.name ?? p.setId, pieces: p.pieces })),
+    parts.map((p) => ({
+      setId: p.setId,
+      name: SET_NAMES[p.setId]?.name ?? p.setId,
+      pieces: p.pieces,
+    })),
   );
 }
 
@@ -58,7 +69,7 @@ function setsFor(agentId: number): ZzzScoringMeta["sets"] {
 export const WASTE_THRESHOLD = 0.2;
 
 /** Flat substats are worth 40% of their percent counterpart, as in the other two scorers. */
-export const FLAT_STAT_SCALING = 0.4;
+const FLAT_STAT_SCALING = 0.4;
 
 export const PERCENT_TO_FLAT: Record<number, number> = {
   11102: 11103,
@@ -126,10 +137,15 @@ const DAMAGE_ROLES = new Set(["Attack", "Rupture", "Anomaly"]);
  * element's DMG bonus and PEN Ratio on disc 5 for damage roles, and the
  * role's signature disc 6 stat (Anomaly Mastery, Impact, Energy Regen).
  */
-function professionParts(profession: string, element: string, stats: ZzzWeights): Record<SelectableZzzSlot, ZzzStatId[]> {
+function professionParts(
+  profession: string,
+  element: string,
+  stats: ZzzWeights,
+): Record<SelectableZzzSlot, ZzzStatId[]> {
   const wanted = (ids: ZzzStatId[]) => ids.filter((id) => (stats[id] ?? 0) >= 0.5);
   const dmg = ELEMENT_DMG[element];
-  const damageRole = profession === "Attack" || profession === "Rupture" || profession === "Anomaly";
+  const damageRole =
+    profession === "Attack" || profession === "Rupture" || profession === "Anomaly";
   const disc6: Record<string, ZzzStatId[]> = {
     Anomaly: [31402],
     Stun: [12202],
@@ -163,7 +179,8 @@ export function getScoringMeta(agentId: number): ZzzScoringMeta {
     // leave the element out, which had the scorer calling an on-element
     // disc "wrong main".
     const info = getAgentInfo(agentId);
-    const ownDmg = info && DAMAGE_ROLES.has(info.profession) ? ELEMENT_DMG[info.element] : undefined;
+    const ownDmg =
+      info && DAMAGE_ROLES.has(info.profession) ? ELEMENT_DMG[info.element] : undefined;
     const disc5 = entry.parts["5"] ?? [];
     return {
       stats: withFlatScaling(stats),
@@ -186,7 +203,7 @@ export function getScoringMeta(agentId: number): ZzzScoringMeta {
     thresholds: {},
     priority: null,
     sets: setsFor(agentId),
-      source: "profession",
+    source: "profession",
   };
 }
 

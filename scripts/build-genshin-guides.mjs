@@ -51,7 +51,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { withKitTracking } from "./guide-kit.mjs";
-import { TRAVELER_ELEMENTS, TRAVELER_IDS, parseTravelerId, travelerId, travelerName } from "./genshin-traveler.mjs";
+import {
+  TRAVELER_ELEMENTS,
+  TRAVELER_IDS,
+  parseTravelerId,
+  travelerId,
+  travelerName,
+} from "./genshin-traveler.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -86,9 +92,22 @@ const BASE_STATS = [
   ["FIGHT_PROP_BASE_DEFENSE", "Base DEF"],
 ];
 /** The one stat Genshin shows as a flat number; every other bonus is a percentage. */
-const FLAT_PROPS = new Set(["FIGHT_PROP_ELEMENT_MASTERY", "FIGHT_PROP_BASE_ATTACK", "FIGHT_PROP_BASE_HP", "FIGHT_PROP_BASE_DEFENSE"]);
+const FLAT_PROPS = new Set([
+  "FIGHT_PROP_ELEMENT_MASTERY",
+  "FIGHT_PROP_BASE_ATTACK",
+  "FIGHT_PROP_BASE_HP",
+  "FIGHT_PROP_BASE_DEFENSE",
+]);
 
-const problems = { missingAvatars: [], mismatchedIds: [], missingWeapons: new Set(), missingSets: [], unmergedPassives: [], unknownItems: new Set(), odd: [] };
+const problems = {
+  missingAvatars: [],
+  mismatchedIds: [],
+  missingWeapons: new Set(),
+  missingSets: [],
+  unmergedPassives: [],
+  unknownItems: new Set(),
+  odd: [],
+};
 
 // ── Fetching ──────────────────────────────────────────────────────
 
@@ -96,7 +115,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /** Cached GET of an Amber path. A 404 is cached as null so it is not asked again. */
 async function amber(apiPath) {
-  const file = path.join(CACHE_DIR, apiPath.replace(/^\//, "").replace(/[^a-zA-Z0-9-]+/g, "_") + ".json");
+  const file = path.join(
+    CACHE_DIR,
+    apiPath.replace(/^\//, "").replace(/[^a-zA-Z0-9-]+/g, "_") + ".json",
+  );
   if (!FRESH && fs.existsSync(file) && Date.now() - fs.statSync(file).mtimeMs < CACHE_TTL_MS) {
     const cached = JSON.parse(fs.readFileSync(file, "utf8"));
     return cached ? cached.data : null;
@@ -121,7 +143,9 @@ async function amber(apiPath) {
       }
       // An expired copy beats no build at all when Amber is down.
       if (fs.existsSync(file)) {
-        console.warn(`  ⚠ ${apiPath}: ${err.message}; using the cached copy from ${fs.statSync(file).mtime.toISOString()}`);
+        console.warn(
+          `  ⚠ ${apiPath}: ${err.message}; using the cached copy from ${fs.statSync(file).mtime.toISOString()}`,
+        );
         const cached = JSON.parse(fs.readFileSync(file, "utf8"));
         return cached ? cached.data : null;
       }
@@ -160,7 +184,10 @@ function gameText(raw) {
     // A leading "#" marks a string that carries placeholders; it is not text.
     .replace(/^#/, "")
     // The keyboard wording, which is also the one that reads right on a page.
-    .replace(/(\{LAYOUT_[A-Z]+#[^}]*\})+/g, (run) => run.match(/\{LAYOUT_PC#([^}]*)\}/)?.[1] ?? run.match(/\{LAYOUT_[A-Z]+#([^}]*)\}/)[1])
+    .replace(
+      /(\{LAYOUT_[A-Z]+#[^}]*\})+/g,
+      (run) => run.match(/\{LAYOUT_PC#([^}]*)\}/)?.[1] ?? run.match(/\{LAYOUT_[A-Z]+#([^}]*)\}/)[1],
+    )
     .replace(/\{LINK#[^}]*\}([\s\S]*?)\{\/LINK\}/g, "$1")
     // "resets at 4:00 AM {TIMEZONE}": the server's zone, which a page cannot know.
     .replace(/\s*\{TIMEZONE\}/g, "");
@@ -219,7 +246,8 @@ function formatParam(value, code) {
   const percent = code.endsWith("P");
   const spec = percent ? code.slice(0, -1) : code;
   const digits = /^F\d$/.test(spec) ? Number(spec[1]) : 0;
-  if (spec !== "" && spec !== "I" && !/^F\d$/.test(spec)) problems.odd.push(`unknown format code ${code}`);
+  if (spec !== "" && spec !== "I" && !/^F\d$/.test(spec))
+    problems.odd.push(`unknown format code ${code}`);
   return percent ? `${trimmed(value * 100, digits)}%` : trimmed(value, digits);
 }
 
@@ -227,7 +255,11 @@ function formatParam(value, code) {
 function scalingRow(template, params) {
   const bar = template.indexOf("|");
   const label = template.slice(0, bar);
-  const value = template.slice(bar + 1).replace(/\{param(\d+):([A-Z0-9]+)\}/g, (_, n, code) => formatParam(params[Number(n) - 1] ?? 0, code));
+  const value = template
+    .slice(bar + 1)
+    .replace(/\{param(\d+):([A-Z0-9]+)\}/g, (_, n, code) =>
+      formatParam(params[Number(n) - 1] ?? 0, code),
+    );
   return [gameText(label), gameText(value)];
 }
 
@@ -238,7 +270,10 @@ function scalingTable(promote) {
   if (levels.length === 0) return null;
   const templates = levels[0].description.filter((t) => t && t.includes("|"));
   if (templates.length === 0) return null;
-  const rows = templates.map((template) => ({ label: scalingRow(template, levels[0].params)[0], values: [] }));
+  const rows = templates.map((template) => ({
+    label: scalingRow(template, levels[0].params)[0],
+    values: [],
+  }));
   for (const level of levels) {
     templates.forEach((template, i) => {
       // A row whose wording changes between levels is keyed by its position.
@@ -262,13 +297,17 @@ function statValue(prop, value) {
  */
 function statsAt(upgrade, curves, level) {
   const curve = curves[String(level)]?.curveInfos ?? {};
-  const phase = [...(upgrade.promote ?? [])].sort((a, b) => a.promoteLevel - b.promoteLevel).find((p) => p.unlockMaxLevel >= level) ?? {};
+  const phase =
+    [...(upgrade.promote ?? [])]
+      .sort((a, b) => a.promoteLevel - b.promoteLevel)
+      .find((p) => p.unlockMaxLevel >= level) ?? {};
   const out = {};
   for (const p of upgrade.prop ?? []) {
     if (!(p.type in curve)) problems.odd.push(`curve ${p.type} missing at level ${level}`);
     out[p.propType] = p.initValue * (curve[p.type] ?? 1) + (phase.addProps?.[p.propType] ?? 0);
   }
-  for (const [prop, value] of Object.entries(phase.addProps ?? {})) if (!(prop in out)) out[prop] = value;
+  for (const [prop, value] of Object.entries(phase.addProps ?? {}))
+    if (!(prop in out)) out[prop] = value;
   return out;
 }
 
@@ -302,7 +341,8 @@ function materialGroup(id, costs, items) {
   const totals = new Map();
   for (const { costItems, coinCost } of costs) {
     if (coinCost) totals.set(MORA, (totals.get(MORA) ?? 0) + coinCost);
-    for (const [item, count] of Object.entries(costItems ?? {})) totals.set(item, (totals.get(item) ?? 0) + count);
+    for (const [item, count] of Object.entries(costItems ?? {}))
+      totals.set(item, (totals.get(item) ?? 0) + count);
   }
   const list = [...totals]
     .filter(([, count]) => count > 0)
@@ -310,8 +350,15 @@ function materialGroup(id, costs, items) {
     .map(([item, count]) => {
       const info = items?.[item];
       if (!info) problems.unknownItems.add(item);
-      if (itemRank(item, id) === 9) problems.odd.push(`item ${item} (${info?.name}) has no known place in ${id}`);
-      return { id: item, name: info?.name ?? item, iconUrl: info?.icon ? `${AMBER_UI}/${info.icon}.png` : null, rarity: info?.rank ?? 1, count };
+      if (itemRank(item, id) === 9)
+        problems.odd.push(`item ${item} (${info?.name}) has no known place in ${id}`);
+      return {
+        id: item,
+        name: info?.name ?? item,
+        iconUrl: info?.icon ? `${AMBER_UI}/${info.icon}.png` : null,
+        rarity: info?.rank ?? 1,
+        count,
+      };
     });
   return list.length ? { id, items: list } : null;
 }
@@ -328,7 +375,8 @@ const icon = (name) => (name ? `${ENKA_UI}/${name}.png` : null);
  * names a fight stays a plain "Passive" rather than risk hiding a combat
  * effect under "Utility".
  */
-const UTILITY = /expedition|\bcraft|cook|dish|food|mini-?map|stamina consumption|gliding|swimming|climbing|\bsprint|underwater|movement spd|swift stride|phlogiston|nightsoul transmission|talent material|ascension material|mora expended|daily commission|cosmetic|startle|local specialt|resources unique|not in combat|out of combat|harvestable|seasoning|revive|\bfish|\bwood\b|zoom lens|xenochromatic/i;
+const UTILITY =
+  /expedition|\bcraft|cook|dish|food|mini-?map|stamina consumption|gliding|swimming|climbing|\bsprint|underwater|movement spd|swift stride|phlogiston|nightsoul transmission|talent material|ascension material|mora expended|daily commission|cosmetic|startle|local specialt|resources unique|not in combat|out of combat|harvestable|seasoning|revive|\bfish|\bwood\b|zoom lens|xenochromatic/i;
 const FAMILY = /^(Night Realm's Gift|Moonsign Benediction|Witch's Eve Rite)/;
 
 function passiveKind(index, talent, text) {
@@ -361,13 +409,22 @@ function buildKit(avatar) {
       if (!table) continue;
       kind = text.match(/^\*\*([^*\n]+)\*\*\n/)?.[1] ?? "Special";
     }
-    skills.push({ kind, name: gameText(t.name), text, iconUrl: icon(t.icon), scaling: scalingTable(t.promote) });
+    skills.push({
+      kind,
+      name: gameText(t.name),
+      text,
+      iconUrl: icon(t.icon),
+      scaling: scalingTable(t.promote),
+    });
   }
 
   const passiveTalents = talents.filter((t) => t.type === 2);
   const base = passiveTalents.length ? Math.floor(passiveTalents[0].skillId / 10) : 0;
   passiveTalents.slice(0, 2).forEach((t, i) => {
-    if (t.skillId !== base * 10 + i + 1) problems.odd.push(`${avatar.name}: passive "${t.name}" is not where Ascension ${i ? 4 : 1} usually sits`);
+    if (t.skillId !== base * 10 + i + 1)
+      problems.odd.push(
+        `${avatar.name}: passive "${t.name}" is not where Ascension ${i ? 4 : 1} usually sits`,
+      );
   });
   const passives = passiveTalents.map((t, i) => {
     const text = gameText(t.description);
@@ -376,7 +433,12 @@ function buildKit(avatar) {
 
   const constellations = Object.entries(avatar.constellation ?? {})
     .sort(([a], [b]) => Number(a) - Number(b))
-    .map(([, c], i) => ({ kind: `C${i + 1}`, name: gameText(c.name), text: gameText(c.description), iconUrl: icon(c.icon) }));
+    .map(([, c], i) => ({
+      kind: `C${i + 1}`,
+      name: gameText(c.name),
+      text: gameText(c.description),
+      iconUrl: icon(c.icon),
+    }));
 
   return {
     kit: [
@@ -404,7 +466,10 @@ function align(base, other) {
   const m = other.length;
   const dp = Array.from({ length: n + 1 }, () => new Uint16Array(m + 1));
   for (let i = n - 1; i >= 0; i--)
-    for (let j = m - 1; j >= 0; j--) dp[i][j] = sameToken(base[i], other[j]) ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+    for (let j = m - 1; j >= 0; j--)
+      dp[i][j] = sameToken(base[i], other[j])
+        ? dp[i + 1][j + 1] + 1
+        : Math.max(dp[i + 1][j], dp[i][j + 1]);
   const map = new Map();
   for (let i = 0, j = 0; i < n && j < m; ) {
     if (sameToken(base[i], other[j]) && dp[i][j] === dp[i + 1][j + 1] + 1) map.set(i++, j++);
@@ -439,7 +504,10 @@ function mergeRefinements(texts, label) {
   const tokens = texts.map((t) => t.match(TOKEN));
   const maps = tokens.map((t) => align(baseTokens, t));
   /** Each refinement's figure at base position k, or null when it did not line up. */
-  const figures = (k) => tokens.map((t, r) => (maps[r].has(k) && isNumber(t[maps[r].get(k)]) ? t[maps[r].get(k)] : null));
+  const figures = (k) =>
+    tokens.map((t, r) =>
+      maps[r].has(k) && isNumber(t[maps[r].get(k)]) ? t[maps[r].get(k)] : null,
+    );
 
   let lost = false;
   const out = [];
@@ -489,13 +557,20 @@ function mergeRefinements(texts, label) {
 }
 
 function buildWeapon(id, weapon, curves, propNames) {
-  const promotes = [...(weapon.upgrade?.promote ?? [])].sort((a, b) => a.promoteLevel - b.promoteLevel);
+  const promotes = [...(weapon.upgrade?.promote ?? [])].sort(
+    (a, b) => a.promoteLevel - b.promoteLevel,
+  );
   const maxLevel = promotes.at(-1)?.unlockMaxLevel ?? 90;
   const at = statsAt(weapon.upgrade ?? {}, curves, maxLevel);
   const stats = [];
-  if (at.FIGHT_PROP_BASE_ATTACK != null) stats.push({ label: "Base ATK", value: statValue("FIGHT_PROP_BASE_ATTACK", at.FIGHT_PROP_BASE_ATTACK) });
+  if (at.FIGHT_PROP_BASE_ATTACK != null)
+    stats.push({
+      label: "Base ATK",
+      value: statValue("FIGHT_PROP_BASE_ATTACK", at.FIGHT_PROP_BASE_ATTACK),
+    });
   const sub = weapon.specialProp;
-  if (sub && sub !== "NONE" && at[sub] != null) stats.push({ label: propNames[sub] ?? sub, value: statValue(sub, at[sub]) });
+  if (sub && sub !== "NONE" && at[sub] != null)
+    stats.push({ label: propNames[sub] ?? sub, value: statValue(sub, at[sub]) });
 
   const affix = Object.values(weapon.affix ?? {})[0];
   let passive = null;
@@ -505,7 +580,8 @@ function buildWeapon(id, weapon, curves, propNames) {
       .map(([, t]) => gameText(t));
     passive = { name: gameText(affix.name), text: mergeRefinements(texts, weapon.name) };
   }
-  if (Object.keys(weapon.affix ?? {}).length > 1) problems.odd.push(`${weapon.name} has more than one passive; only the first is kept`);
+  if (Object.keys(weapon.affix ?? {}).length > 1)
+    problems.odd.push(`${weapon.name} has more than one passive; only the first is kept`);
 
   return {
     id,
@@ -531,10 +607,12 @@ function assertClean(label, value, where = "") {
       if (/<\/?[a-zA-Z][^<>]*>/.test(v)) failures.push(`${at}: tag in "${v.slice(0, 80)}"`);
       if (/[{}]/.test(v)) failures.push(`${at}: placeholder in "${v.slice(0, 80)}"`);
       if (v.includes("\\n")) failures.push(`${at}: literal \\n in "${v.slice(0, 80)}"`);
-      if ((v.match(/\*\*/g)?.length ?? 0) % 2) failures.push(`${at}: unbalanced ** in "${v.slice(0, 80)}"`);
+      if ((v.match(/\*\*/g)?.length ?? 0) % 2)
+        failures.push(`${at}: unbalanced ** in "${v.slice(0, 80)}"`);
       if (/\n{3,}/.test(v)) failures.push(`${at}: 3+ newlines`);
     } else if (Array.isArray(v)) v.forEach((x, i) => walk(x, `${at}[${i}]`));
-    else if (v && typeof v === "object") for (const [k, x] of Object.entries(v)) walk(x, `${at}.${k}`);
+    else if (v && typeof v === "object")
+      for (const [k, x] of Object.entries(v)) walk(x, `${at}.${k}`);
   };
   walk(value, where);
   if (failures.length) {
@@ -577,7 +655,9 @@ function amberKey(id, index, mismatches) {
   const entry = index.items[id];
   if (!entry || entry.name === CHARACTERS[id].name) return entry ? id : null;
   const byName = Object.keys(index.items).find((k) => index.items[k].name === CHARACTERS[id].name);
-  mismatches.push(`${id} is ${entry.name} in the game data but ${CHARACTERS[id].name} in characters.json${byName ? ` (kit taken from Amber ${byName})` : ""}`);
+  mismatches.push(
+    `${id} is ${entry.name} in the game data but ${CHARACTERS[id].name} in characters.json${byName ? ` (kit taken from Amber ${byName})` : ""}`,
+  );
   return byName ?? id;
 }
 
@@ -608,7 +688,10 @@ function picksFor(id, picks) {
 async function main() {
   fs.mkdirSync(CACHE_DIR, { recursive: true });
   const picksFile = fs.existsSync(PICKS) ? JSON.parse(fs.readFileSync(PICKS, "utf8")) : null;
-  if (!picksFile) console.warn("  ⚠ no guide-picks.json; guides will carry game data only (run fetch-genshin-sets.mjs first)");
+  if (!picksFile)
+    console.warn(
+      "  ⚠ no guide-picks.json; guides will carry game data only (run fetch-genshin-sets.mjs first)",
+    );
   const picks = picksFile?.characters ?? {};
 
   console.log("Loading Project Amber indexes and curves…");
@@ -626,12 +709,20 @@ async function main() {
   const keys = ids.map((id) => amberKey(id, avatarIndex, problems.mismatchedIds));
   const avatars = await pool(keys, async (key) => (key ? amber(`/en/avatar/${key}`) : null));
 
-  const weaponIds = [...new Set(Object.values(picks).flatMap((p) => p.weapons.map((w) => String(w.id))))];
+  const weaponIds = [
+    ...new Set(Object.values(picks).flatMap((p) => p.weapons.map((w) => String(w.id)))),
+  ];
   console.log(`Reading ${weaponIds.length} recommended weapons…`);
-  const weapons = new Map((await pool(weaponIds, async (wid) => [wid, await amber(`/en/weapon/${wid}`)])).filter(([, w]) => w));
+  const weapons = new Map(
+    (await pool(weaponIds, async (wid) => [wid, await amber(`/en/weapon/${wid}`)])).filter(
+      ([, w]) => w,
+    ),
+  );
   for (const wid of weaponIds) if (!weapons.has(wid)) problems.missingWeapons.add(wid);
   // Built once each: a weapon several characters recommend reads the same on every page.
-  const built = new Map([...weapons].map(([wid, w]) => [wid, buildWeapon(wid, w, weaponCurves, propNames)]));
+  const built = new Map(
+    [...weapons].map(([wid, w]) => [wid, buildWeapon(wid, w, weaponCurves, propNames)]),
+  );
 
   const setIds = Object.keys(SETS);
   console.log(`Reading ${setIds.length} artifact sets…`);
@@ -649,16 +740,27 @@ async function main() {
     const pick = picksFor(id, picks);
     const { kit, combat } = buildKit(avatar);
 
-    const promotes = [...(avatar.upgrade?.promote ?? [])].sort((a, b) => a.promoteLevel - b.promoteLevel);
+    const promotes = [...(avatar.upgrade?.promote ?? [])].sort(
+      (a, b) => a.promoteLevel - b.promoteLevel,
+    );
     const at = statsAt(avatar.upgrade ?? {}, avatarCurves, CHARACTER_MAX_LEVEL);
-    const baseStats = BASE_STATS.filter(([prop]) => at[prop] != null).map(([prop, label]) => ({ label, value: statValue(prop, at[prop]) }));
+    const baseStats = BASE_STATS.filter(([prop]) => at[prop] != null).map(([prop, label]) => ({
+      label,
+      value: statValue(prop, at[prop]),
+    }));
     const special = avatar.specialProp;
-    const bonusStats = special && at[special] != null ? [{ label: propNames[special] ?? special, value: statValue(special, at[special]) }] : [];
+    const bonusStats =
+      special && at[special] != null
+        ? [{ label: propNames[special] ?? special, value: statValue(special, at[special]) }]
+        : [];
 
     const talentCosts = combat.flatMap((t) =>
       Object.values(t.promote ?? {}).filter((p) => p.level >= 2 && p.level <= TALENT_MAX_LEVEL),
     );
-    const materials = [materialGroup("ascension", promotes, avatar.items), materialGroup("talents", talentCosts, avatar.items)].filter(Boolean);
+    const materials = [
+      materialGroup("ascension", promotes, avatar.items),
+      materialGroup("talents", talentCosts, avatar.items),
+    ].filter(Boolean);
 
     const guide = {
       role: pick?.role ?? null,
@@ -697,8 +799,14 @@ async function main() {
       problems.odd.push(`set ${sid} ${set.name} has ${texts.length} bonuses`);
       continue;
     }
-    if (set.name !== SETS[sid].name) problems.odd.push(`set ${sid}: Amber calls it "${set.name}", artifacts.json "${SETS[sid].name}"`);
-    bonuses[sid] = { name: gameText(set.name), bonuses: texts.map((text, j) => ({ pieces: pieces[j], text })) };
+    if (set.name !== SETS[sid].name)
+      problems.odd.push(
+        `set ${sid}: Amber calls it "${set.name}", artifacts.json "${SETS[sid].name}"`,
+      );
+    bonuses[sid] = {
+      name: gameText(set.name),
+      bonuses: texts.map((text, j) => ({ pieces: pieces[j], text })),
+    };
   }
   assertClean("set-bonuses.json", bonuses);
 
@@ -717,17 +825,34 @@ async function main() {
   fs.writeFileSync(SET_BONUSES, JSON.stringify(bonuses) + "\n");
 
   const withPicks = ids.filter((id) => written.has(`${id}.json`) && picksFor(id, picks)).length;
-  console.log(`\n  ✔ wrote ${written.size} guides to ${path.relative(ROOT, GUIDES_DIR)} (${withPicks} with guide picks; largest ${largest.id}, ${(largest.bytes / 1024).toFixed(1)} KB)`);
+  console.log(
+    `\n  ✔ wrote ${written.size} guides to ${path.relative(ROOT, GUIDES_DIR)} (${withPicks} with guide picks; largest ${largest.id}, ${(largest.bytes / 1024).toFixed(1)} KB)`,
+  );
   if (stale.length) console.log(`  ✔ removed ${stale.length} stale file(s): ${stale.join(", ")}`);
-  console.log(`  ✔ wrote ${Object.keys(bonuses).length} of ${setIds.length} sets to ${path.relative(ROOT, SET_BONUSES)}`);
-  const noPicks = [...new Set(ids.filter((id) => written.has(`${id}.json`) && !picksFor(id, picks)).map(nameOf))];
+  console.log(
+    `  ✔ wrote ${Object.keys(bonuses).length} of ${setIds.length} sets to ${path.relative(ROOT, SET_BONUSES)}`,
+  );
+  const noPicks = [
+    ...new Set(ids.filter((id) => written.has(`${id}.json`) && !picksFor(id, picks)).map(nameOf)),
+  ];
   if (noPicks.length) console.log(`  ⚠ guides with no picks: ${noPicks.join(", ")}`);
   for (const line of problems.mismatchedIds) console.log(`  ⚠ ${line}`);
-  if (problems.missingAvatars.length) console.log(`  ⚠ characters Project Amber does not know: ${problems.missingAvatars.join(", ")}`);
-  if (problems.missingWeapons.size) console.log(`  ⚠ picked weapons Project Amber does not know: ${[...problems.missingWeapons].join(", ")}`);
-  if (problems.missingSets.length) console.log(`  ⚠ sets Project Amber does not know: ${problems.missingSets.join(", ")}`);
-  if (problems.unmergedPassives.length) console.log(`  ⚠ weapon passives with a figure that did not line up across refinements (one refinement's value kept): ${problems.unmergedPassives.join(", ")}`);
-  if (problems.unknownItems.size) console.log(`  ⚠ cost items with no name: ${[...problems.unknownItems].join(", ")}`);
+  if (problems.missingAvatars.length)
+    console.log(
+      `  ⚠ characters Project Amber does not know: ${problems.missingAvatars.join(", ")}`,
+    );
+  if (problems.missingWeapons.size)
+    console.log(
+      `  ⚠ picked weapons Project Amber does not know: ${[...problems.missingWeapons].join(", ")}`,
+    );
+  if (problems.missingSets.length)
+    console.log(`  ⚠ sets Project Amber does not know: ${problems.missingSets.join(", ")}`);
+  if (problems.unmergedPassives.length)
+    console.log(
+      `  ⚠ weapon passives with a figure that did not line up across refinements (one refinement's value kept): ${problems.unmergedPassives.join(", ")}`,
+    );
+  if (problems.unknownItems.size)
+    console.log(`  ⚠ cost items with no name: ${[...problems.unknownItems].join(", ")}`);
   for (const line of new Set(problems.odd)) console.log(`  ⚠ ${line}`);
 
   if (CHECK_ICONS) await checkIcons([...guides.values()]);
@@ -738,18 +863,24 @@ async function checkIcons(guides) {
   const urls = new Set();
   const walk = (v) => {
     if (Array.isArray(v)) v.forEach(walk);
-    else if (v && typeof v === "object") for (const [k, x] of Object.entries(v)) k === "iconUrl" ? x && urls.add(x) : walk(x);
+    else if (v && typeof v === "object")
+      for (const [k, x] of Object.entries(v)) k === "iconUrl" ? x && urls.add(x) : walk(x);
   };
   walk(guides);
   console.log(`\nChecking ${urls.size} icons…`);
   const broken = (
     await pool([...urls], async (url) => {
-      const res = await fetch(url, { method: "HEAD", headers: { "User-Agent": USER_AGENT } }).catch(() => null);
+      const res = await fetch(url, { method: "HEAD", headers: { "User-Agent": USER_AGENT } }).catch(
+        () => null,
+      );
       await sleep(50);
-      return res?.ok && res.headers.get("content-type")?.startsWith("image/") ? null : `${res?.status ?? "no answer"} ${url}`;
+      return res?.ok && res.headers.get("content-type")?.startsWith("image/")
+        ? null
+        : `${res?.status ?? "no answer"} ${url}`;
     })
   ).filter(Boolean);
-  if (broken.length) console.log(`  ⚠ ${broken.length} icons do not load:\n    ${broken.join("\n    ")}`);
+  if (broken.length)
+    console.log(`  ⚠ ${broken.length} icons do not load:\n    ${broken.join("\n    ")}`);
   else console.log(`  ✔ all ${urls.size} icons load`);
 }
 

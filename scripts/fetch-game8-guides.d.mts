@@ -56,13 +56,28 @@ export interface SourceEntry {
 }
 
 export function statKeys(game: Game8Game, label: string): string[] | null;
-export function substatTiers(game: Game8Game, lines: string[], unknown: Set<string>): string[][] | null;
-export function mainStatsFrom(game: Game8Game, lines: string[], unknown: Set<string>): Record<string, string[]> | null;
+export function substatTiers(
+  game: Game8Game,
+  lines: string[],
+  unknown: Set<string>,
+): string[][] | null;
+export function mainStatsFrom(
+  game: Game8Game,
+  lines: string[],
+  unknown: Set<string>,
+): Record<string, string[]> | null;
 export function itemsIn(html: string): { name: string; url: string | null; after: string }[];
 export function parseGuidePage(html: string, game: Game8Game): ParsedGuide;
 export function lookups(game: Game8Game): Lookups;
 export function toEntry(
   parsed: ParsedGuide,
-  ctx: { game: Game8Game; id: string; ownIds: string[]; name: string; url: string | null; look: Lookups },
+  ctx: {
+    game: Game8Game;
+    id: string;
+    ownIds: string[];
+    name: string;
+    url: string | null;
+    look: Lookups;
+  },
   report: Report,
 ): SourceEntry;

@@ -27,7 +27,15 @@ interface RecentLookupsProps {
  * list. Someone checking a friend's account may not want it sitting on the
  * home page for the next person at the keyboard.
  */
-export function RecentLookups({ entries, hrefFor, onForget, onForgetAll, classes, centered = false, className = "" }: RecentLookupsProps) {
+export function RecentLookups({
+  entries,
+  hrefFor,
+  onForget,
+  onForgetAll,
+  classes,
+  centered = false,
+  className = "",
+}: RecentLookupsProps) {
   const { t } = useI18n();
   const align = centered ? "justify-center" : "";
   if (entries.length === 0) return null;
@@ -47,7 +55,10 @@ export function RecentLookups({ entries, hrefFor, onForget, onForgetAll, classes
       <ul className={`flex flex-wrap gap-2 ${align}`}>
         {entries.slice(0, 6).map((entry) => (
           <li key={entry.uid} className={`inline-flex items-center ${classes.chip}`}>
-            <Link to={hrefFor(entry.uid)} className="py-1.5 pl-3 pr-1 font-mono text-sm text-inherit no-underline">
+            <Link
+              to={hrefFor(entry.uid)}
+              className="py-1.5 pl-3 pr-1 font-mono text-sm text-inherit no-underline"
+            >
               {entry.uid}
             </Link>
             <button
@@ -58,7 +69,12 @@ export function RecentLookups({ entries, hrefFor, onForget, onForgetAll, classes
               className="flex h-7 w-7 items-center justify-center opacity-50 transition-opacity hover:opacity-100 focus-visible:opacity-100"
             >
               <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
-                <path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <path
+                  d="M1 1l8 8M9 1l-8 8"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
               </svg>
             </button>
           </li>

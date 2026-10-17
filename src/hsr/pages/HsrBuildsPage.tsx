@@ -12,13 +12,15 @@ import { useComparisonUid } from "../../hooks/useComparisonUid";
 import { getHsrBuild, listHsrBuilds, sameHsrBuild } from "../buildTarget";
 import { HSR_GUIDES } from "../guide";
 import { useGuide } from "../../lib/buildTarget/guideSource";
-import { isValidHsrUid, useHsrShowcase } from "../useHsrShowcase";
+import { useHsrShowcase } from "../useHsrShowcase";
+import { isValidHsrUid } from "../../lib/uid";
 import { SELECTABLE_SLOTS } from "../weights";
 
 const SKIN: BuildSkin = {
   panel: "border-hsr-border bg-hsr-panel/50",
   card: "border-hsr-border bg-hsr-card",
-  cardHover: "hover:border-hsr-accent/50 hover:[--panel-corner:color-mix(in_oklab,var(--hsr-accent)_50%,transparent)]",
+  cardHover:
+    "hover:border-hsr-accent/50 hover:[--panel-corner:color-mix(in_oklab,var(--hsr-accent)_50%,transparent)]",
   text: "text-hsr-text",
   muted: "text-hsr-muted",
   accent: "text-hsr-accent",
@@ -40,7 +42,9 @@ export function HsrBuildsPage() {
   useDocumentTitle(
     target
       ? t("builds", "documentTitleCharacter", { name: target.name, game: "Honkai: Star Rail" })
-      : t("builds", "documentTitle", { game: "Honkai: Star Rail" }),
+      : id
+        ? "Page not found - Aurum"
+        : t("builds", "documentTitle", { game: "Honkai: Star Rail" }),
   );
 
   const uid = useComparisonUid(HSR_RECENT_UIDS_KEY, isValidHsrUid);

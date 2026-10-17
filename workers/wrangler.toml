@@ -14,3 +14,8 @@ workers_dev = true
 # ALLOWED_ORIGINS is set in the Cloudflare dashboard, not here, so a deploy
 # never wipes it.
 keep_vars = true
+
+# The privacy policy says the relay keeps no logs; pinned here so a dashboard
+# toggle cannot quietly start storing visitors' IPs and UIDs.
+[observability]
+enabled = false

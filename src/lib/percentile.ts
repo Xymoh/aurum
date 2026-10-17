@@ -18,7 +18,12 @@
 import type { FightProp } from "../types/enka";
 import type { ArtifactSubstat } from "../types/artifact";
 import { MAX_ROLL_VALUES } from "./constants";
-import { computeIdealPotential, computePotentialPercent, computeWeightedPotential, getBuildConfig } from "./scoring";
+import {
+  computeIdealPotential,
+  computePotentialPercent,
+  computeWeightedPotential,
+  getBuildConfig,
+} from "./scoring";
 import type { ScoringWeights } from "../types/scoring";
 
 /** How often each stat is drawn as a substat, from the game's drop tables. */
@@ -137,7 +142,10 @@ export function scoreDistribution(avatarId: number, mainStatKey: string): Float6
   const scores = new Float64Array(SAMPLES);
   for (let i = 0; i < SAMPLES; i++) {
     const subs = sampleSubstats(rand, mainStatKey);
-    scores[i] = ideal > 0 ? computePotentialPercent(computeWeightedPotential(subs, weights, mainStatKey), ideal) : 0;
+    scores[i] =
+      ideal > 0
+        ? computePotentialPercent(computeWeightedPotential(subs, weights, mainStatKey), ideal)
+        : 0;
   }
   scores.sort();
   cache.set(key, scores);

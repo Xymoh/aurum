@@ -42,7 +42,7 @@ export function kitHash(kit) {
 }
 
 /** Today in UTC, as YYYY-MM-DD, the same shape as the guide sites' dates. */
-export function today() {
+function today() {
   return new Date().toISOString().slice(0, 10);
 }
 

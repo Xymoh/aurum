@@ -22,6 +22,10 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      // New in react-hooks 7. Ten effects predate it (resetting state when an
+      // input changes, flagging a deep link as handled); moving them out of
+      // effects is a refactor of its own, not part of a toolchain upgrade.
+      "react-hooks/set-state-in-effect": "off",
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     },
   },

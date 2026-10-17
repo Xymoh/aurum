@@ -5,11 +5,7 @@ import { parseHsrShowcase } from "./parsing";
 import { scoreCharacter } from "./scoring";
 import type { HsrShowcase } from "./types";
 import { freshUntil, showcaseRetry, staleTimeFromTtl } from "../lib/showcaseQuery";
-
-/** Star Rail UIDs are nine digits on every server. */
-export function isValidHsrUid(uid: string): boolean {
-  return /^[1-9]\d{8}$/.test(uid);
-}
+import { isValidHsrUid } from "../lib/uid";
 
 export function useHsrShowcase(uid: string, options: { enabled?: boolean } = {}) {
   const queryClient = useQueryClient();

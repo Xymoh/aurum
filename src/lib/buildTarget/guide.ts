@@ -109,7 +109,14 @@ export interface KitEntry {
  *   eidolons        Star Rail E1-E6
  *   mindscapes      Zenless M1-M6
  */
-export type KitGroupId = "skills" | "passives" | "traces" | "core" | "constellations" | "eidolons" | "mindscapes";
+export type KitGroupId =
+  | "skills"
+  | "passives"
+  | "traces"
+  | "core"
+  | "constellations"
+  | "eidolons"
+  | "mindscapes";
 
 export interface KitGroup {
   id: KitGroupId;

@@ -56,11 +56,27 @@ const ONLY = new Set(
 const MAX_RANKS = 4;
 const MAX_TEAMS = 4;
 /** The scorer's substat keys; anything else in a substat line is a main stat. */
-const SUBSTAT_KEYS = new Set(["CRIT_RATE", "CRIT_DMG", "ATK_PERCENT", "HP_PERCENT", "DEF_PERCENT", "ELEMENTAL_MASTERY", "ENERGY_RECHARGE", "FLAT_ATK", "FLAT_HP", "FLAT_DEF"]);
-const TALENTS = { "normal attack": "Normal Attack", skill: "Elemental Skill", burst: "Elemental Burst" };
+const SUBSTAT_KEYS = new Set([
+  "CRIT_RATE",
+  "CRIT_DMG",
+  "ATK_PERCENT",
+  "HP_PERCENT",
+  "DEF_PERCENT",
+  "ELEMENTAL_MASTERY",
+  "ENERGY_RECHARGE",
+  "FLAT_ATK",
+  "FLAT_HP",
+  "FLAT_DEF",
+]);
+const TALENTS = {
+  "normal attack": "Normal Attack",
+  skill: "Elemental Skill",
+  burst: "Elemental Burst",
+};
 
 /** decode() plus the numeric entities it leaves ("&#8220;The Catch&#8221;"). */
-const text = (html) => inlineText(html.replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n))));
+const text = (html) =>
+  inlineText(html.replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n))));
 
 /**
  * Table-of-contents anchors, which pages name differently: "Artifacts",
@@ -79,7 +95,8 @@ const ANCHOR = {
 
 /** Where the first anchor matching `re` at or after `from` is, or -1. */
 function anchorAt(html, re, from = 0) {
-  for (const m of html.slice(from).matchAll(/<span class="ez-toc-section" id="([^"]+)"/g)) if (re.test(m[1])) return from + m.index;
+  for (const m of html.slice(from).matchAll(/<span class="ez-toc-section" id="([^"]+)"/g))
+    if (re.test(m[1])) return from + m.index;
   return -1;
 }
 
@@ -107,7 +124,9 @@ export function talentOrder(line) {
   if (!line) return null;
   const names = [];
   for (const part of line.split(/\s*(?:>+=?|≥|=)\s*/)) {
-    const key = Object.keys(TALENTS).find((k) => new RegExp(`^(?:elemental )?${k}s?$`, "i").test(part.replace(/\([^)]*\)/g, "").trim()));
+    const key = Object.keys(TALENTS).find((k) =>
+      new RegExp(`^(?:elemental )?${k}s?$`, "i").test(part.replace(/\([^)]*\)/g, "").trim()),
+    );
     if (key && !names.includes(TALENTS[key])) names.push(TALENTS[key]);
   }
   return names.length >= 2 ? names.join(" > ") : null;
@@ -140,10 +159,13 @@ export function substatTiers(line, unmapped = new Set()) {
       .replace(/crit\s*rate\s*\/\s*(?:crit\s*)?dmg/gi, "CRIT")
       // "EM to ~100", "ER until requirements": the qualifier, not a stat.
       .replace(/\s(?:to|until|up to)\s.*$/i, "");
-    for (const part of clean.split(/\s*(?:=|≈|\/|,)\s*/).map((p) => p.trim()).filter(Boolean)) {
+    for (const part of clean
+      .split(/\s*(?:=|≈|\/|,)\s*/)
+      .map((p) => p.trim())
+      .filter(Boolean)) {
       const found = substatKeys(part);
       if (!found || !found.every((k) => SUBSTAT_KEYS.has(k))) unmapped.add(part);
-      else for (const k of found) if (!seen.has(k)) keys.push(k), seen.add(k);
+      else for (const k of found) if (!seen.has(k)) (keys.push(k), seen.add(k));
     }
     if (keys.length) out.push(keys);
   }
@@ -154,13 +176,20 @@ export function substatTiers(line, unmapped = new Set()) {
 function itemNames(cell) {
   return textLines(cell.replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n))))
     .flatMap((l) => l.split(/\s+\/\s+|,\s+/))
-    .map((n) => n.replace(/^\d\s*★\s*/, "").replace(/["“”]/g, "").trim())
+    .map((n) =>
+      n
+        .replace(/^\d\s*★\s*/, "")
+        .replace(/["“”]/g, "")
+        .trim(),
+    )
     .filter(Boolean);
 }
 
 /** The data-gi-id attributes of one kind in a cell, in order (KQM's tooltips carry the game's ids). */
 function giIds(cell, type) {
-  return [...cell.matchAll(new RegExp(`data-gi-type="${type}"[^>]*?data-gi-id="(\\d+)"`, "g"))].map((m) => m[1]);
+  return [...cell.matchAll(new RegExp(`data-gi-type="${type}"[^>]*?data-gi-id="(\\d+)"`, "g"))].map(
+    (m) => m[1],
+  );
 }
 
 /**
@@ -170,23 +199,37 @@ function giIds(cell, type) {
  */
 export function parseKqmGuide(html) {
   const title = html.match(/<h1 class="entry-title"[^>]*>([\s\S]*?)<\/h1>/);
-  const modified = html.match(/<meta property="article:modified_time" content="(\d{4}-\d{2}-\d{2})/);
+  const modified = html.match(
+    /<meta property="article:modified_time" content="(\d{4}-\d{2}-\d{2})/,
+  );
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
 
   const playstyles = sectionOf(html, ANCHOR.playstyles, ANCHOR.talents);
   const role = playstyles.match(/<h[3-5]\b[^>]*>([\s\S]*?)<\/h[3-5]>/);
 
   const artifactsAt = anchorAt(html, ANCHOR.artifacts);
-  const talentLine = (html.slice(0, artifactsAt < 0 ? html.length : artifactsAt).match(/<p class="[^"]*\bsubstats\b[^"]*"[^>]*>([\s\S]*?)<\/p>/) ?? [])[1];
+  const talentLine = (html
+    .slice(0, artifactsAt < 0 ? html.length : artifactsAt)
+    .match(/<p class="[^"]*\bsubstats\b[^"]*"[^>]*>([\s\S]*?)<\/p>/) ?? [])[1];
 
   const artifacts = sectionOf(html, ANCHOR.artifacts, ANCHOR.weapons);
   const tables = tablesIn(artifacts);
-  const statsAt = tables.findIndex((t) => /Sands/.test(text(tableRows(t.html)[0]?.map((c) => c.html).join(" ") ?? "")));
+  const statsAt = tables.findIndex((t) =>
+    /Sands/.test(
+      text(
+        tableRows(t.html)[0]
+          ?.map((c) => c.html)
+          .join(" ") ?? "",
+      ),
+    ),
+  );
   const mainStatLabels = {};
   if (statsAt >= 0) {
     const [head, values] = tableRows(tables[statsAt].html);
     head.forEach((cell, i) => {
-      const slot = text(cell.html).match(/Sands|Goblet|Circlet/)?.[0].toUpperCase();
+      const slot = text(cell.html)
+        .match(/Sands|Goblet|Circlet/)?.[0]
+        .toUpperCase();
       if (slot && values?.[i]) mainStatLabels[slot] = text(values[i].html).replace(/\*/g, "");
     });
   }
@@ -197,22 +240,36 @@ export function parseKqmGuide(html) {
     .flatMap((t) => tableRows(t.html).flat())
     .map((c) => text(c.html))
     .filter((t) => /^\d{2,3}\s*%?\s*(?:[–-]\s*\d{2,3}\s*)?%\+?/.test(t));
-  const substatLine = (artifacts.slice(statsAt >= 0 ? tables[statsAt].at : 0).match(/<p class="[^"]*\bsubstats(?:-2)?\b[^"]*"[^>]*>([\s\S]*?)<\/p>/) ?? [])[1];
+  const substatLine = (artifacts
+    .slice(statsAt >= 0 ? tables[statsAt].at : 0)
+    .match(/<p class="[^"]*\bsubstats(?:-2)?\b[^"]*"[^>]*>([\s\S]*?)<\/p>/) ?? [])[1];
 
-  const setsHtml = artifacts.slice(Math.max(anchorAt(artifacts, ANCHOR.sets), statsAt >= 0 ? tables[statsAt].at : 0));
+  const setsHtml = artifacts.slice(
+    Math.max(anchorAt(artifacts, ANCHOR.sets), statsAt >= 0 ? tables[statsAt].at : 0),
+  );
   const sets = [];
   for (const t of tablesIn(setsHtml)) {
     for (const row of tableRows(t.html)) {
       const label = text(row[0].html);
-      if (/\d\s*pc/i.test(label)) sets.push({ label: itemNames(row[0].html).join(" / "), ids: giIds(row[0].html, "artifact") });
+      if (/\d\s*pc/i.test(label))
+        sets.push({
+          label: itemNames(row[0].html).join(" / "),
+          ids: giIds(row[0].html, "artifact"),
+        });
     }
   }
 
   const weapons = [];
-  for (const t of tablesIn(sectionOf(html, ANCHOR.weapons, new RegExp(`${ANCHOR.teams.source}|${ANCHOR.credits.source}`)))) {
+  for (const t of tablesIn(
+    sectionOf(html, ANCHOR.weapons, new RegExp(`${ANCHOR.teams.source}|${ANCHOR.credits.source}`)),
+  )) {
     for (const row of tableRows(t.html)) {
       const names = itemNames(row[0].html);
-      if (!names.length || /^(weapons?|swords?|claymores?|polearms?|catalysts?|bows?)$/i.test(names[0])) continue;
+      if (
+        !names.length ||
+        /^(weapons?|swords?|claymores?|polearms?|catalysts?|bows?)$/i.test(names[0])
+      )
+        continue;
       weapons.push({ names, ids: giIds(row[0].html, "weapon") });
     }
   }
@@ -224,7 +281,7 @@ export function parseKqmGuide(html) {
     role: role ? text(role[1]) || null : null,
     skillPriority: talentOrder(talentLine ? rankedLine(talentLine) : null),
     mainStatLabels,
-    substatLine: substatLine ? rankedLine(substatLine) ?? text(substatLine) : null,
+    substatLine: substatLine ? (rankedLine(substatLine) ?? text(substatLine)) : null,
     erFigures,
     sets,
     weapons,
@@ -246,7 +303,9 @@ const STOPPER = /example teams?|notable|teammates|sustain|options/i;
 export function parseKqmTeams(html) {
   const stack = [];
   const teams = [];
-  for (const m of html.matchAll(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>|<figcaption[^>]*>([\s\S]*?)<\/figcaption>/g)) {
+  for (const m of html.matchAll(
+    /<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>|<figcaption[^>]*>([\s\S]*?)<\/figcaption>/g,
+  )) {
     if (m[1]) {
       const level = Number(m[1]);
       while (stack.length && stack.at(-1).level >= level) stack.pop();
@@ -320,7 +379,8 @@ function mainStatLabels(labels) {
 /** Character name -> id, the Traveler by element ("Pyro Traveler" -> "10000005-pyro"). */
 export function characterIndex() {
   const byName = new Map();
-  for (const [id, c] of Object.entries(CHARACTERS)) if (!byName.has(normalise(c.name))) byName.set(normalise(c.name), id);
+  for (const [id, c] of Object.entries(CHARACTERS))
+    if (!byName.has(normalise(c.name))) byName.set(normalise(c.name), id);
   return (name) => {
     const element = travelerElementOf(name.replace(/\s*\([^)]*\)\s*$/, ""));
     if (element) return travelerId(element);
@@ -349,7 +409,10 @@ export function kqmEntry(parsed, { id, url, weaponByName, characterId, report })
   for (const row of parsed.weapons) {
     const known = row.ids.filter((w) => WEAPONS[w]);
     const bare = (n) => n.replace(/\([^)]*\)|\bR[1-5]\+?(?=\s|$)/g, " ").trim();
-    const picks = known.length === row.names.length ? known.map((w, i) => [w, row.names[i]]) : row.names.map((n) => [weaponByName.get(normalise(bare(n))), n]);
+    const picks =
+      known.length === row.names.length
+        ? known.map((w, i) => [w, row.names[i]])
+        : row.names.map((n) => [weaponByName.get(normalise(bare(n))), n]);
     for (const [weaponId, name] of picks) {
       if (!weaponId) {
         // Some weapon sections also table teammates or sets; those are not weapons to report.
@@ -358,7 +421,8 @@ export function kqmEntry(parsed, { id, url, weaponByName, characterId, report })
       }
       const r = name.match(/\bR([1-5])\b/);
       const refinement = r ? Number(r[1]) : null;
-      if (!entry.weapons.some((w) => w.id === weaponId && w.refinement === refinement)) entry.weapons.push({ id: weaponId, refinement });
+      if (!entry.weapons.some((w) => w.id === weaponId && w.refinement === refinement))
+        entry.weapons.push({ id: weaponId, refinement });
     }
   }
 
@@ -378,7 +442,12 @@ export function kqmEntry(parsed, { id, url, weaponByName, characterId, report })
         parts.push({ setId, pieces: Number(m[1]) });
       }
       const key = JSON.stringify(parts);
-      if (parts.length && entry.sets.length < MAX_RANKS && !entry.sets.some((s) => JSON.stringify(s) === key)) entry.sets.push(parts);
+      if (
+        parts.length &&
+        entry.sets.length < MAX_RANKS &&
+        !entry.sets.some((s) => JSON.stringify(s) === key)
+      )
+        entry.sets.push(parts);
     }
   }
 
@@ -389,7 +458,10 @@ export function kqmEntry(parsed, { id, url, weaponByName, characterId, report })
     for (const slot of team.members) {
       const ids = [];
       for (const name of slot) {
-        const memberId = name.toLowerCase() === "traveler" && /^\d+-/.test(id) ? id : characterId(memberName(name));
+        const memberId =
+          name.toLowerCase() === "traveler" && /^\d+-/.test(id)
+            ? id
+            : characterId(memberName(name));
         if (!memberId) report.members.add(name);
         else if (!ids.includes(memberId) && !members.includes(memberId)) ids.push(memberId);
       }
@@ -402,7 +474,11 @@ export function kqmEntry(parsed, { id, url, weaponByName, characterId, report })
     const key = [...members].sort().join();
     if (seen.has(key) || entry.teams.length >= MAX_TEAMS) continue;
     seen.add(key);
-    entry.teams.push({ name: team.name, members, ...(alternates.some((a) => a.length) ? { alternates } : {}) });
+    entry.teams.push({
+      name: team.name,
+      members,
+      ...(alternates.some((a) => a.length) ? { alternates } : {}),
+    });
   }
   return entry;
 }
@@ -410,7 +486,8 @@ export function kqmEntry(parsed, { id, url, weaponByName, characterId, report })
 /** The quick guides the home page links: [{ slug, url }]. */
 export function kqmGuideLinks(html) {
   const out = new Map();
-  for (const m of html.matchAll(/href="https:\/\/keqingmains\.com\/q\/([a-z0-9-]+)-quickguide\/"/g)) out.set(m[1], `${KQM}/q/${m[1]}-quickguide/`);
+  for (const m of html.matchAll(/href="https:\/\/keqingmains\.com\/q\/([a-z0-9-]+)-quickguide\/"/g))
+    out.set(m[1], `${KQM}/q/${m[1]}-quickguide/`);
   return [...out].map(([slug, url]) => ({ slug, url }));
 }
 
@@ -420,7 +497,8 @@ async function main() {
   console.log("Loading KQM guide index…");
   const robots = await getText(`${KQM}/robots.txt`);
   // Only one path is disallowed today; stop rather than read past a new rule.
-  if (/^Disallow:\s*\/(q\/)?\s*$/im.test(robots)) throw new Error("robots.txt disallows the quick guides");
+  if (/^Disallow:\s*\/(q\/)?\s*$/im.test(robots))
+    throw new Error("robots.txt disallows the quick guides");
   await sleep(DELAY_MS);
   const links = kqmGuideLinks(await getText(`${KQM}/`));
   console.log(`  ${links.length} quick guides linked`);
@@ -447,21 +525,38 @@ async function main() {
       continue;
     }
     const parsed = parseKqmGuide(html);
-    const entry = kqmEntry(parsed, { id, url: parsed.canonical ?? url, weaponByName, characterId, report });
+    const entry = kqmEntry(parsed, {
+      id,
+      url: parsed.canonical ?? url,
+      weaponByName,
+      characterId,
+      report,
+    });
     characters[id] = entry;
-    const gaps = ["role", "skillPriority", "mainStats", "substats", "erTarget"].filter((k) => entry[k] === null);
+    const gaps = ["role", "skillPriority", "mainStats", "substats", "erTarget"].filter(
+      (k) => entry[k] === null,
+    );
     if (!entry.weapons.length) gaps.push("weapons");
     if (!entry.sets.length) gaps.push("sets");
     if (!entry.teams.length) gaps.push("teams");
-    console.log(`  ${entry.name}: ${entry.weapons.length} weapons, ${entry.sets.length} set ranks, ${entry.teams.length} teams${gaps.length ? ` (none: ${gaps.join(", ")})` : ""}`);
+    console.log(
+      `  ${entry.name}: ${entry.weapons.length} weapons, ${entry.sets.length} set ranks, ${entry.teams.length} teams${gaps.length ? ` (none: ${gaps.join(", ")})` : ""}`,
+    );
   }
 
   const file = writeSource("genshin", "kqm", characters, { merge: ONLY.size > 0 });
   console.log(`✓ ${Object.keys(characters).length} characters -> ${file}`);
-  const missing = Object.keys(CHARACTERS).filter((id) => !TRAVELER_IDS.includes(id) && !NEVER_BUILT.has(id) && !pages.has(id) && !ONLY.size);
-  if (unmatchedPages.length) console.log(`  ⚠ guides not matched to a character: ${unmatchedPages.join(", ")}`);
-  if (missing.length) console.log(`  ⚠ characters with no quick guide: ${missing.map((id) => CHARACTERS[id].name).join(", ")}`);
-  for (const [kind, names] of Object.entries(report)) if (names.size) console.log(`  ⚠ ${kind} not matched: ${[...names].join(", ")}`);
+  const missing = Object.keys(CHARACTERS).filter(
+    (id) => !TRAVELER_IDS.includes(id) && !NEVER_BUILT.has(id) && !pages.has(id) && !ONLY.size,
+  );
+  if (unmatchedPages.length)
+    console.log(`  ⚠ guides not matched to a character: ${unmatchedPages.join(", ")}`);
+  if (missing.length)
+    console.log(
+      `  ⚠ characters with no quick guide: ${missing.map((id) => CHARACTERS[id].name).join(", ")}`,
+    );
+  for (const [kind, names] of Object.entries(report))
+    if (names.size) console.log(`  ⚠ ${kind} not matched: ${[...names].join(", ")}`);
 }
 
 // Only as a script: the tests import the page readers without starting a fetch.

@@ -36,7 +36,6 @@ export type HsrStatKey =
 /** The six relic slots. NECK and OBJECT are the Planar Ornament pair. */
 export type HsrSlot = "HEAD" | "HAND" | "BODY" | "FOOT" | "NECK" | "OBJECT";
 
-
 export interface HsrSubstat {
   key: HsrStatKey;
   /** Displayed value: percentages as percents (12.5), flats as flats (38.1). */

@@ -22,7 +22,7 @@ import type { GenshinElement } from "../types/character";
  * degree rather than a right-or-wrong call, and tuning seven of them well
  * needs per-element damage numbers this tool does not model.
  */
-export type IdealMainStats = Record<"SANDS" | "GOBLET" | "CIRCLET", string[]>;
+type IdealMainStats = Record<"SANDS" | "GOBLET" | "CIRCLET", string[]>;
 
 export const TRAVELER_MAIN_STATS: Record<GenshinElement, IdealMainStats> = {
   // Viridescent shredder. Elemental Mastery for swirl, ER to keep the burst up.
@@ -74,7 +74,15 @@ export function isTravelerId(avatarId: number): boolean {
 }
 
 /** In the order the game added them, which is the order the build index lists them. */
-export const TRAVELER_ELEMENTS: GenshinElement[] = ["Anemo", "Geo", "Electro", "Dendro", "Hydro", "Pyro", "Cryo"];
+export const TRAVELER_ELEMENTS: GenshinElement[] = [
+  "Anemo",
+  "Geo",
+  "Electro",
+  "Dendro",
+  "Hydro",
+  "Pyro",
+  "Cryo",
+];
 
 /**
  * The Traveler's build pages are per element, not per avatar id: each
@@ -88,7 +96,9 @@ export function travelerBuildId(avatarId: number | string, element: GenshinEleme
 }
 
 /** "10000007-cryo" -> Lumine on Cryo; null for any id that is not one of the Traveler's pages. */
-export function parseTravelerBuildId(id: string): { avatarId: number; element: GenshinElement } | null {
+export function parseTravelerBuildId(
+  id: string,
+): { avatarId: number; element: GenshinElement } | null {
   const m = /^(\d+)-([a-z]+)$/.exec(id);
   if (!m || !isTravelerId(Number(m[1]))) return null;
   const element = TRAVELER_ELEMENTS.find((e) => e.toLowerCase() === m[2]);
@@ -100,7 +110,10 @@ export function parseTravelerBuildId(id: string): { avatarId: number; element: G
  * both bodies share one guide. Null for anyone who is not the Traveler, or
  * a Traveler whose element is not known.
  */
-export function travelerGuideKey(avatarId: number, element: GenshinElement | undefined): string | null {
+export function travelerGuideKey(
+  avatarId: number,
+  element: GenshinElement | undefined,
+): string | null {
   return isTravelerId(avatarId) && element ? travelerBuildId(10000005, element) : null;
 }
 

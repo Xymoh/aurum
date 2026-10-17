@@ -6,14 +6,12 @@
 
 import type { ShowcaseData } from "../types/character";
 
-export interface BuildSnapshot {
+interface BuildSnapshot {
   total: number;
   complete: boolean;
-  /** Per-slot potential percent, keyed by slot name. */
-  slots: Record<string, number>;
 }
 
-export interface ShowcaseSnapshot {
+interface ShowcaseSnapshot {
   at: number;
   characters: Record<string, BuildSnapshot>;
 }
@@ -29,13 +27,26 @@ export interface BuildDelta {
 
 const PREFIX = "aurum:history:gi:";
 
+/** Every showcase opened adds one, shared links included, so only the latest are kept. */
+const MAX_SNAPSHOTS = 20;
+
 function isSnapshot(value: unknown): value is ShowcaseSnapshot {
   return (
     typeof value === "object" &&
     value !== null &&
     typeof (value as ShowcaseSnapshot).at === "number" &&
-    typeof (value as ShowcaseSnapshot).characters === "object"
+    typeof (value as ShowcaseSnapshot).characters === "object" &&
+    (value as ShowcaseSnapshot).characters !== null
   );
+}
+
+function snapshotKeys(): string[] {
+  const keys: string[] = [];
+  for (let i = 0; i < window.localStorage.length; i++) {
+    const k = window.localStorage.key(i);
+    if (k?.startsWith(PREFIX)) keys.push(k);
+  }
+  return keys;
 }
 
 export function readSnapshot(uid: string): ShowcaseSnapshot | null {
@@ -52,9 +63,7 @@ export function readSnapshot(uid: string): ShowcaseSnapshot | null {
 export function snapshotOf(data: ShowcaseData): ShowcaseSnapshot {
   const characters: Record<string, BuildSnapshot> = {};
   for (const c of data.characters) {
-    const slots: Record<string, number> = {};
-    for (const a of c.artifacts) slots[a.slot] = a.score.potentialPercent;
-    characters[c.id] = { total: c.buildScore.total, complete: c.buildScore.complete, slots };
+    characters[c.id] = { total: c.buildScore.total, complete: c.buildScore.complete };
   }
   return { at: Date.now(), characters };
 }
@@ -62,6 +71,10 @@ export function snapshotOf(data: ShowcaseData): ShowcaseSnapshot {
 export function saveSnapshot(uid: string, data: ShowcaseData): void {
   try {
     window.localStorage.setItem(PREFIX + uid, JSON.stringify(snapshotOf(data)));
+    const oldestFirst = snapshotKeys()
+      .map((k) => ({ k, at: readSnapshot(k.slice(PREFIX.length))?.at ?? 0 }))
+      .sort((a, b) => a.at - b.at);
+    for (const { k } of oldestFirst.slice(0, -MAX_SNAPSHOTS)) window.localStorage.removeItem(k);
   } catch {
     // Storage unavailable; the comparison is a convenience, not a requirement.
   }
@@ -79,19 +92,17 @@ export function clearSnapshot(uid: string): void {
 /** Drops every stored snapshot, including those of UIDs no longer in the recent list. */
 export function clearAllSnapshots(): void {
   try {
-    const keys: string[] = [];
-    for (let i = 0; i < window.localStorage.length; i++) {
-      const k = window.localStorage.key(i);
-      if (k?.startsWith(PREFIX)) keys.push(k);
-    }
-    for (const k of keys) window.localStorage.removeItem(k);
+    for (const k of snapshotKeys()) window.localStorage.removeItem(k);
   } catch {
     // Storage unavailable; there is nothing stored to clear.
   }
 }
 
 /** What changed for each character since `prev`, or an empty map without one. */
-export function diffShowcase(prev: ShowcaseSnapshot | null, data: ShowcaseData): Map<string, BuildDelta> {
+export function diffShowcase(
+  prev: ShowcaseSnapshot | null,
+  data: ShowcaseData,
+): Map<string, BuildDelta> {
   const out = new Map<string, BuildDelta>();
   if (!prev) return out;
   for (const c of data.characters) {
@@ -100,7 +111,8 @@ export function diffShowcase(prev: ShowcaseSnapshot | null, data: ShowcaseData):
       out.set(c.id, { build: null, isNew: true, since: prev.at });
       continue;
     }
-    const build = before.complete && c.buildScore.complete ? c.buildScore.total - before.total : null;
+    const build =
+      before.complete && c.buildScore.complete ? c.buildScore.total - before.total : null;
     out.set(c.id, { build, isNew: false, since: prev.at });
   }
   return out;

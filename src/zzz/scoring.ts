@@ -20,36 +20,22 @@ import type {
   SelectableZzzSlot,
 } from "./types";
 import type { ParsedAgent, ParsedDiscInput } from "./parsing";
-import { getScoringMeta, PERCENT_TO_FLAT, WASTE_THRESHOLD, weightOf, type ZzzScoringMeta } from "./weights";
+import {
+  getScoringMeta,
+  PERCENT_TO_FLAT,
+  WASTE_THRESHOLD,
+  weightOf,
+  type ZzzScoringMeta,
+} from "./weights";
 import { gradeFor } from "../lib/gradeLadder";
 import { computeZzzStats } from "./stats";
+import { ROLL_VALUE } from "./benchmark";
 
 export { gradeFor, GRADE_LADDER } from "../lib/gradeLadder";
 
-/** Six discs at nine rolls each: the most a build can physically hold. */
-export const MAX_ROLLS = 54;
-/** Rolls in a realistic strong build: six discs that mostly started with four substats. */
-export const BENCHMARK_ROLLS = 48;
+export { BENCHMARK_ROLLS, MAX_ROLLS, ROLL_VALUE } from "./benchmark";
 
 // ── Substats ────────────────────────────────────────────────────────
-
-/**
- * The ten stats a disc can roll as substats, with the fixed value of one roll
- * in display units. Read off live Enka data (PropertyValue is constant for a
- * stat whatever the roll count) and matching the in-game values.
- */
-export const ROLL_VALUE: Record<number, number> = {
-  11102: 3.0, // HP%
-  12102: 3.0, // ATK%
-  13102: 4.8, // DEF%
-  11103: 112, // HP
-  12103: 19, // ATK
-  13103: 15, // DEF
-  20103: 2.4, // CRIT Rate
-  21103: 4.8, // CRIT DMG
-  23203: 9, // PEN
-  31203: 9, // Anomaly Proficiency
-};
 
 export const SUBSTATS: ZzzStatId[] = Object.keys(ROLL_VALUE).map(Number);
 
@@ -101,7 +87,7 @@ export function mainStatWeight(slot: ZzzSlot, mainId: ZzzStatId, meta: ZzzScorin
 
 // ── Contributions and the optimal disc ──────────────────────────────
 
-export function contributionFor(meta: ZzzScoringMeta): (id: ZzzStatId) => number {
+function contributionFor(meta: ZzzScoringMeta): (id: ZzzStatId) => number {
   return (id) => weightOf(meta.stats, id) * substatScale(id);
 }
 
@@ -110,7 +96,9 @@ const SORTED_CACHE = new WeakMap<ZzzScoringMeta, [ZzzStatId, number][]>();
 function sortedSubstats(meta: ZzzScoringMeta): [ZzzStatId, number][] {
   let sorted = SORTED_CACHE.get(meta);
   if (!sorted) {
-    sorted = SUBSTATS.map((id) => [id, weightOf(meta.stats, id)] as [ZzzStatId, number]).sort((a, b) => b[1] - a[1]);
+    sorted = SUBSTATS.map((id) => [id, weightOf(meta.stats, id)] as [ZzzStatId, number]).sort(
+      (a, b) => b[1] - a[1],
+    );
     SORTED_CACHE.set(meta, sorted);
   }
   return sorted;
@@ -128,7 +116,13 @@ function resolveOptimalMain(slot: ZzzSlot, mainId: ZzzStatId, meta: ZzzScoringMe
   if (ideal.includes(mainId) || weightOf(meta.stats, mainId) === 1) return mainId;
 
   const candidates = SLOT_MAIN_STATS[slot]
-    .map((id) => [id, ideal.includes(id) || weightOf(meta.stats, id) === 1 ? 1 : weightOf(meta.stats, id)] as const)
+    .map(
+      (id) =>
+        [
+          id,
+          ideal.includes(id) || weightOf(meta.stats, id) === 1 ? 1 : weightOf(meta.stats, id),
+        ] as const,
+    )
     .sort((a, b) => b[1] - a[1]);
   const topWeight = candidates[0][1];
   let chosen = candidates[0][0];
@@ -190,7 +184,7 @@ export function optimalScore(slot: ZzzSlot, mainId: ZzzStatId, meta: ZzzScoringM
 
 // ── Per-piece score ─────────────────────────────────────────────────
 
-export function scoreDisc(disc: ParsedDiscInput, meta: ZzzScoringMeta): ZzzDiscScore {
+function scoreDisc(disc: ParsedDiscInput, meta: ZzzScoringMeta): ZzzDiscScore {
   const contribution = contributionFor(meta);
   let weighted = 0;
   let effectiveRolls = 0;
@@ -202,14 +196,16 @@ export function scoreDisc(disc: ParsedDiscInput, meta: ZzzScoringMeta): ZzzDiscS
   }
 
   const ideal = optimalScore(disc.slot, disc.mainStat.id, meta);
-  const potentialPercent = Number.isFinite(ideal) && ideal > 0 ? (weighted / ideal) * 200 : 0;
+  const raw = Number.isFinite(ideal) && ideal > 0 ? (weighted / ideal) * 200 : 0;
+  const potentialPercent = Math.round(raw * 10) / 10;
   const mainStatOk = mainStatWeight(disc.slot, disc.mainStat.id, meta) > 0;
   const gradable = mainStatOk && potentialPercent > 0;
 
   return {
-    potentialPercent: Math.round(potentialPercent * 10) / 10,
-    // Graded from the whole percent the card shows, so number and letter
-    // cannot land on opposite sides of a band edge.
+    potentialPercent,
+    // Graded from the whole percent the card shows (the stored value,
+    // rounded), so number and letter cannot land on opposite sides of a band
+    // edge: a raw 119.46 is stored as 119.5 and shown as 120%.
     grade: gradable ? gradeFor(Math.round(potentialPercent)) : null,
     mainStatOk,
     weighted,
@@ -224,7 +220,7 @@ export function scoreDisc(disc: ParsedDiscInput, meta: ZzzScoringMeta): ZzzDiscS
 export const SLOT_COUNT = 6;
 
 /** Set pieces worn, largest set first, ignoring lone pieces. */
-export function countSets(discs: ZzzDisc[]): ZzzBuildDiagnostics["sets"] {
+function countSets(discs: ZzzDisc[]): ZzzBuildDiagnostics["sets"] {
   const setCounts = new Map<number, { name: string; pieces: number }>();
   for (const disc of discs) {
     const set = setCounts.get(disc.setId) ?? { name: disc.setName, pieces: 0 };
@@ -262,7 +258,10 @@ const THRESHOLD_STAT: Record<number, { key: keyof ZzzStats; percent: boolean }> 
   30502: { key: "energyRegen", percent: false },
 };
 
-function thresholdsAgainst(meta: ZzzScoringMeta, stats: ZzzStats): ZzzBuildDiagnostics["thresholds"] {
+function thresholdsAgainst(
+  meta: ZzzScoringMeta,
+  stats: ZzzStats,
+): ZzzBuildDiagnostics["thresholds"] {
   const seen = new Set<keyof ZzzStats>();
   const out: ZzzBuildDiagnostics["thresholds"] = [];
   for (const [id, target] of Object.entries(meta.thresholds)) {
@@ -279,7 +278,11 @@ function thresholdsAgainst(meta: ZzzScoringMeta, stats: ZzzStats): ZzzBuildDiagn
   return out;
 }
 
-function buildDiagnostics(discs: ZzzDisc[], meta: ZzzScoringMeta, stats: ZzzStats): ZzzBuildDiagnostics {
+function buildDiagnostics(
+  discs: ZzzDisc[],
+  meta: ZzzScoringMeta,
+  stats: ZzzStats,
+): ZzzBuildDiagnostics {
   const totals = new Map<ZzzStatId, { rolls: number; value: number }>();
   const waste: ZzzBuildDiagnostics["waste"] = [];
   let totalRolls = 0;
@@ -298,15 +301,16 @@ function buildDiagnostics(discs: ZzzDisc[], meta: ZzzScoringMeta, stats: ZzzStat
       entry.rolls += sub.rolls;
       entry.value += sub.value;
       totals.set(sub.id, entry);
-      if (weightOf(meta.stats, sub.id) < WASTE_THRESHOLD) waste.push({ slot: disc.slot, id: sub.id, rolls: sub.rolls });
+      if (weightOf(meta.stats, sub.id) < WASTE_THRESHOLD)
+        waste.push({ slot: disc.slot, id: sub.id, rolls: sub.rolls });
     }
   }
   waste.sort((a, b) => b.rolls - a.rolls);
 
-  const score = percentSum / SLOT_COUNT;
+  const score = Math.round((percentSum / SLOT_COUNT) * 10) / 10;
 
   return {
-    score: Math.round(score * 10) / 10,
+    score,
     grade: gradeFor(Math.round(score)),
     complete: discs.length === SLOT_COUNT,
     totalRolls,

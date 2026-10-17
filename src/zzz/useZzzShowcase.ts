@@ -6,14 +6,7 @@ import { scoreAgent } from "./scoring";
 import type { ZzzShowcase } from "./types";
 import { useI18n } from "../i18n";
 import { freshUntil, showcaseRetry, staleTimeFromTtl } from "../lib/showcaseQuery";
-
-/**
- * ZZZ UIDs run from 8 digits on the CN servers (Enka serves 10001234) to 10
- * on Asia (1300064261). Anything in that range is worth asking Enka about.
- */
-export function isValidZzzUid(uid: string): boolean {
-  return /^[1-9]\d{7,9}$/.test(uid);
-}
+import { isValidZzzUid } from "../lib/uid";
 
 export function useZzzShowcase(uid: string, options: { enabled?: boolean } = {}) {
   const queryClient = useQueryClient();

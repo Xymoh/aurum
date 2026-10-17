@@ -52,9 +52,9 @@ export interface ArtifactMainStat {
 
 export interface ArtifactScore {
   // New primary score
-  potentialPercent: number;  // 0–200%, Fribbels-style score (100% = solid, 200% = theoretically perfect)
+  potentialPercent: number; // 0–200%, Fribbels-style score (100% = solid, 200% = theoretically perfect)
   weightedPotential: number; // raw weighted potential sum
-  idealPotential: number;    // theoretical max for this slot/mainstat/character
+  idealPotential: number; // theoretical max for this slot/mainstat/character
 
   // Main stat evaluation
   mainStatCorrect: boolean;
@@ -64,13 +64,13 @@ export interface ArtifactScore {
   setBonusMultiplier: number; // kept at 1.0
 
   // Legacy fields (populated for backward compat)
-  rv: number;        // Roll Value (0-100)
-  cv: number;        // Crit Value (absolute)
+  rv: number; // Roll Value (0-100)
+  cv: number; // Crit Value (absolute)
   cvNormalized: number; // CV normalized to 0-1
-  wse: number;       // Weighted Substat Efficiency (0-100)
+  wse: number; // Weighted Substat Efficiency (0-100)
 
   // Output
-  total: number;     // = potentialPercent (unified score)
+  total: number; // = potentialPercent (unified score)
   grade: ScoreGrade;
 
   // Reroll advice via Dust of Enlightenment (5.7+)
@@ -137,15 +137,24 @@ export interface RerollAdvice {
 }
 
 export type ScoreGrade =
-  | "F" | "F+"
-  | "D" | "D+"
-  | "C" | "C+"
-  | "B" | "B+"
-  | "A" | "A+"
-  | "S" | "S+"
-  | "SS" | "SS+"
-  | "SSS" | "SSS+"
-  | "WTF" | "WTF+";
+  | "F"
+  | "F+"
+  | "D"
+  | "D+"
+  | "C"
+  | "C+"
+  | "B"
+  | "B+"
+  | "A"
+  | "A+"
+  | "S"
+  | "S+"
+  | "SS"
+  | "SS+"
+  | "SSS"
+  | "SSS+"
+  | "WTF"
+  | "WTF+";
 
 // Grade colours live in src/lib/grade.ts, backed by CSS variables so the
 // light theme can swap the whole ramp.

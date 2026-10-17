@@ -25,7 +25,17 @@ function MatchStatusIndicator({ matchStatus }: { matchStatus: SetBonusResult["ma
     case "full_match":
       return (
         <span className="inline-flex items-center gap-1.5 text-sm font-medium text-verdict-high">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
             <path d="M20 6 9 17l-5-5" />
           </svg>
           {t("showcase", "fullMatch")}
@@ -34,7 +44,17 @@ function MatchStatusIndicator({ matchStatus }: { matchStatus: SetBonusResult["ma
     case "partial_match":
       return (
         <span className="inline-flex items-center gap-1.5 text-sm font-medium text-verdict-medium">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
             <circle cx="12" cy="12" r="8" />
             <path d="M12 8v4" />
           </svg>

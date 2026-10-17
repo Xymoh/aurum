@@ -15,7 +15,13 @@ function defaultLevelIndex(levels: number[]): number {
   return ten >= 0 ? ten : levels.length - 1;
 }
 
-function ScalingTable({ scaling, skin }: { scaling: NonNullable<KitEntry["scaling"]>; skin: BuildSkin }) {
+function ScalingTable({
+  scaling,
+  skin,
+}: {
+  scaling: NonNullable<KitEntry["scaling"]>;
+  skin: BuildSkin;
+}) {
   const { t } = useI18n();
   const selectId = useId();
   const [index, setIndex] = useState(() => defaultLevelIndex(scaling.levels));
@@ -25,7 +31,10 @@ function ScalingTable({ scaling, skin }: { scaling: NonNullable<KitEntry["scalin
       <summary
         className={`inline-flex cursor-pointer list-none items-center gap-1 text-xs font-semibold [&::-webkit-details-marker]:hidden ${skin.accent}`}
       >
-        <ChevronIcon className="h-3.5 w-3.5 -rotate-90 transition-transform group-open:rotate-0" aria-hidden="true" />
+        <ChevronIcon
+          className="h-3.5 w-3.5 -rotate-90 transition-transform group-open:rotate-0"
+          aria-hidden="true"
+        />
         {t("guide", "scaling")}
       </summary>
       <div className="mt-2 flex items-center gap-2">
@@ -53,7 +62,9 @@ function ScalingTable({ scaling, skin }: { scaling: NonNullable<KitEntry["scalin
               <th scope="row" className={`py-1 pr-3 text-left font-normal ${skin.muted}`}>
                 {row.label}
               </th>
-              <td className={`py-1 text-right font-mono tabular-nums ${skin.text}`}>{row.values[index] ?? "-"}</td>
+              <td className={`py-1 text-right font-mono tabular-nums ${skin.text}`}>
+                {row.values[index] ?? "-"}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -84,7 +95,14 @@ function KitCard({ entry, skin, accent }: { entry: KitEntry; skin: BuildSkin; ac
             className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full"
             style={{ background: `radial-gradient(circle, ${accent}55 0%, #16181d 75%)` }}
           >
-            <RemoteImg src={entry.iconUrl} alt="" loading="lazy" width={40} height={40} className="h-full w-full object-contain" />
+            <RemoteImg
+              src={entry.iconUrl}
+              alt=""
+              loading="lazy"
+              width={40}
+              height={40}
+              className="h-full w-full object-contain"
+            />
           </span>
         )}
         <div className="min-w-0 flex-1">
@@ -96,7 +114,10 @@ function KitCard({ entry, skin, accent }: { entry: KitEntry; skin: BuildSkin; ac
           {entry.tags && entry.tags.length > 0 && (
             <div className="mt-1 flex flex-wrap gap-1">
               {entry.tags.map((tag, i) => (
-                <span key={`${i}-${tag}`} className={`rounded border px-1.5 py-0.5 text-[11px] ${skin.card} ${skin.muted}`}>
+                <span
+                  key={`${i}-${tag}`}
+                  className={`rounded border px-1.5 py-0.5 text-[11px] ${skin.card} ${skin.muted}`}
+                >
                   {tag}
                 </span>
               ))}
@@ -105,7 +126,9 @@ function KitCard({ entry, skin, accent }: { entry: KitEntry; skin: BuildSkin; ac
         </div>
       </div>
       <GuideTextView text={entry.text} skin={skin} className="mt-2" />
-      {entry.scaling && entry.scaling.rows.length > 0 && <ScalingTable scaling={entry.scaling} skin={skin} />}
+      {entry.scaling && entry.scaling.rows.length > 0 && (
+        <ScalingTable scaling={entry.scaling} skin={skin} />
+      )}
     </article>
   );
 }

@@ -69,7 +69,10 @@ const args = Object.fromEntries(
     return [k, v.length ? v.join("=") : true];
   }),
 );
-const PICKS = path.resolve(ROOT, typeof args.picks === "string" ? args.picks : path.join(DATA, "guide-picks.json"));
+const PICKS = path.resolve(
+  ROOT,
+  typeof args.picks === "string" ? args.picks : path.join(DATA, "guide-picks.json"),
+);
 
 /** Anything worth a human's attention, printed at the end instead of guessed around. */
 const gaps = [];
@@ -115,7 +118,8 @@ async function loadTables() {
   console.log(`  StarRailRes version ${info.version ?? "?"}`);
 
   const out = {};
-  for (const t of TABLES) out[t] = JSON.parse(fs.readFileSync(path.join(CACHE, `${t}.json`), "utf8"));
+  for (const t of TABLES)
+    out[t] = JSON.parse(fs.readFileSync(path.join(CACHE, `${t}.json`), "utf8"));
   return out;
 }
 
@@ -170,7 +174,10 @@ function toGuideText(raw) {
   // The game fills these in at runtime; StarRailRes keeps the raw token.
   s = s.replace(/\{NICKNAME\}/g, "Trailblazer");
   s = s.replace(/\{RUBY_B#[^}]*\}|\{RUBY_E#\}/g, "");
-  s = s.replace(/<(color|b)(?:=[^>]*)?>([\s\S]*?)<\/\1>/gi, (_, _tag, inner) => `${OPEN}${inner}${CLOSE}`);
+  s = s.replace(
+    /<(color|b)(?:=[^>]*)?>([\s\S]*?)<\/\1>/gi,
+    (_, _tag, inner) => `${OPEN}${inner}${CLOSE}`,
+  );
   s = s.replace(/<\/?[a-z][^>]*>/gi, "");
   s = s.replace(/<\/?>/g, "");
   // Spaces belong outside a highlight, so "** 12%**" cannot happen. Done on
@@ -206,7 +213,9 @@ function toGuideText(raw) {
 function renderAt(desc, params) {
   const row = params ?? [];
   return toGuideText(
-    resolvePlaceholders(desc ?? "", (i, fmt, pct) => (typeof row[i] === "number" ? formatFigure(row[i], fmt, pct) : null)),
+    resolvePlaceholders(desc ?? "", (i, fmt, pct) =>
+      typeof row[i] === "number" ? formatFigure(row[i], fmt, pct) : null,
+    ),
   );
 }
 
@@ -242,7 +251,7 @@ function atMax(curve) {
 }
 
 /**
- * Labels for the minor trace totals. Mirrors STAT_LABELS in src/hsr/labels.ts
+ * Labels for the minor trace totals. Mirrors hsrStats in src/i18n/locales/en.ts
  * so the guide reads like the rest of the page; the "%" of "ATK%" moves into
  * the value, which already carries it. Anything the UI has no label for yet
  * falls back to the game's own property name.
@@ -281,7 +290,13 @@ function formatStatValue(value, percent) {
  * being the rarest). Within a family, lowest tier first. The same order the
  * game's own cost preview reads in.
  */
-const SUBTYPE_ORDER = ["Virtual", "AvatarRank", "TracePath", "CommonMonsterDrop", "WeeklyMonsterDrop"];
+const SUBTYPE_ORDER = [
+  "Virtual",
+  "AvatarRank",
+  "TracePath",
+  "CommonMonsterDrop",
+  "WeeklyMonsterDrop",
+];
 
 function materialList(totals, items, owner) {
   const list = [];
@@ -298,13 +313,19 @@ function materialList(totals, items, owner) {
       rarity: item.rarity,
       count,
       _order: [
-        id === "2" ? -1 : SUBTYPE_ORDER.indexOf(item.sub_type) === -1 ? 99 : SUBTYPE_ORDER.indexOf(item.sub_type),
+        id === "2"
+          ? -1
+          : SUBTYPE_ORDER.indexOf(item.sub_type) === -1
+            ? 99
+            : SUBTYPE_ORDER.indexOf(item.sub_type),
         item.rarity,
         Number(id),
       ],
     });
   }
-  list.sort((a, b) => a._order[0] - b._order[0] || a._order[1] - b._order[1] || a._order[2] - b._order[2]);
+  list.sort(
+    (a, b) => a._order[0] - b._order[0] || a._order[1] - b._order[1] || a._order[2] - b._order[2],
+  );
   return list.map(({ _order, ...m }) => m);
 }
 
@@ -401,7 +422,8 @@ function selectSkills(ch, tables) {
     }
     if (isBare(c.skill)) continue;
     const earlier = full.slice(0, full.indexOf(c));
-    if (!earlier.some((g) => g.skill.type === c.skill.type && g.skill.effect === c.skill.effect)) kept.push(c);
+    if (!earlier.some((g) => g.skill.type === c.skill.type && g.skill.effect === c.skill.effect))
+      kept.push(c);
   }
 
   return kept.filter((c) => {
@@ -431,7 +453,10 @@ function buildKit(ch, tables) {
   const icon = (p) => (p ? `${CDN}/${p}` : null);
 
   const extra = ch.skill_trees.length - baseTreeIds(ch).length;
-  if (extra) gap(`${ch.id}: enhanced kit (${extra} extra trace nodes, own skills and Eidolons) left out; guide shows the base kit`);
+  if (extra)
+    gap(
+      `${ch.id}: enhanced kit (${extra} extra trace nodes, own skills and Eidolons) left out; guide shows the base kit`,
+    );
 
   const selected = selectSkills(ch, tables);
   const energy = ultimateEnergy(ch, selected);
@@ -466,9 +491,16 @@ function buildKit(ch, tables) {
     if (!node || !node.desc || node.level_up_skills?.length) continue;
     if (suffix[0] !== "1" && suffix[0] !== "5") continue;
     const promotion = node.levels?.[0]?.promotion;
-    const kind = suffix[0] === "1" ? (promotion ? `A${promotion}` : `A${Number(suffix[2]) * 2}`) : "Special";
-    if (suffix[0] === "5") gap(`${ch.id}: node ${nodeId} "${node.name}" listed in traces as kind "Special"`);
-    traces.push({ kind, name: node.name, text: renderAt(node.desc, node.params?.[0]), iconUrl: icon(node.icon) });
+    const kind =
+      suffix[0] === "1" ? (promotion ? `A${promotion}` : `A${Number(suffix[2]) * 2}`) : "Special";
+    if (suffix[0] === "5")
+      gap(`${ch.id}: node ${nodeId} "${node.name}" listed in traces as kind "Special"`);
+    traces.push({
+      kind,
+      name: node.name,
+      text: renderAt(node.desc, node.params?.[0]),
+      iconUrl: icon(node.icon),
+    });
   }
 
   const eidolons = ch.ranks.map((rankId) => {
@@ -514,7 +546,9 @@ function buildWeapon(pick, tables, owner) {
     rarity: lc.rarity,
     refinement: typeof pick.refinement === "number" ? pick.refinement : null,
     stats,
-    passive: rank ? { name: rank.skill, text: renderSuperimposed(rank.desc, rank.params ?? []) } : null,
+    passive: rank
+      ? { name: rank.skill, text: renderSuperimposed(rank.desc, rank.params ?? []) }
+      : null,
   };
 }
 
@@ -552,7 +586,8 @@ function buildGuide(id, tables, picks) {
     .sort((a, b) => b[1].nodes - a[1].nodes || a[1].first - b[1].first)
     .map(([type, b]) => {
       const prop = tables.properties[type];
-      if (!BONUS_LABELS[type]) gap(`${id}: no UI label for trace stat ${type}, used "${prop?.name ?? type}"`);
+      if (!BONUS_LABELS[type])
+        gap(`${id}: no UI label for trace stat ${type}, used "${prop?.name ?? type}"`);
       return {
         label: BONUS_LABELS[type] ?? prop?.name ?? type,
         value: formatStatValue(b.value, prop ? prop.percent : true),
@@ -563,13 +598,17 @@ function buildGuide(id, tables, picks) {
   for (const step of promo?.materials ?? []) addAll(ascension, step);
   const traceCost = new Map();
   for (const nodeId of baseTreeIds(ch)) {
-    for (const lv of tables.character_skill_trees[nodeId]?.levels ?? []) addAll(traceCost, lv.materials);
+    for (const lv of tables.character_skill_trees[nodeId]?.levels ?? [])
+      addAll(traceCost, lv.materials);
   }
 
   return {
     role: pick?.role ?? null,
     weapons: (pick?.weapons ?? []).map((w) => buildWeapon(w, tables, id)).filter(Boolean),
-    teams: (pick?.teams ?? []).map((t) => ({ name: t.name ?? null, members: (t.members ?? []).map(String) })),
+    teams: (pick?.teams ?? []).map((t) => ({
+      name: t.name ?? null,
+      members: (t.members ?? []).map(String),
+    })),
     synergies: (pick?.synergies ?? []).map(String),
     substatLine: pick?.substatLine ?? null,
     endgameStats: (pick?.endgameStats ?? []).map((s) => ({ label: s.label, value: s.value })),
@@ -598,7 +637,9 @@ function buildSetBonuses(setIds, tables) {
     // 2-piece line.
     out[id] = {
       name: set.name,
-      bonuses: (set.desc ?? []).map((d, i) => ({ pieces: [2, 4][i], text: renderAt(d, []) })).filter((b) => b.pieces),
+      bonuses: (set.desc ?? [])
+        .map((d, i) => ({ pieces: [2, 4][i], text: renderAt(d, []) }))
+        .filter((b) => b.pieces),
     };
   }
   return out;
@@ -612,35 +653,69 @@ function buildSetBonuses(setIds, tables) {
  */
 function checkText(where, s, problems) {
   if (typeof s !== "string") return;
-  if (/[<>]/.test(s)) problems.push(`${where}: tag or angle bracket: ${JSON.stringify(s.slice(0, 120))}`);
-  if (/#\d+\[/.test(s)) problems.push(`${where}: unresolved placeholder: ${JSON.stringify(s.match(/.{0,40}#\d+\[.{0,20}/)?.[0])}`);
-  if (/\{[A-Z_]+(#[^}]*)?\}/.test(s)) problems.push(`${where}: unfilled game token: ${s.match(/\{[A-Z_]+(#[^}]*)?\}/)[0]}`);
+  if (/[<>]/.test(s))
+    problems.push(`${where}: tag or angle bracket: ${JSON.stringify(s.slice(0, 120))}`);
+  if (/#\d+\[/.test(s))
+    problems.push(
+      `${where}: unresolved placeholder: ${JSON.stringify(s.match(/.{0,40}#\d+\[.{0,20}/)?.[0])}`,
+    );
+  if (/\{[A-Z_]+(#[^}]*)?\}/.test(s))
+    problems.push(`${where}: unfilled game token: ${s.match(/\{[A-Z_]+(#[^}]*)?\}/)[0]}`);
   if (/[\u0001\u0002]/.test(s)) problems.push(`${where}: leftover highlight marker`);
-  if ((s.match(/\*\*/g) ?? []).length % 2) problems.push(`${where}: unbalanced **: ${JSON.stringify(s.slice(0, 120))}`);
-  if (/\*\*\*/.test(s)) problems.push(`${where}: run of 3+ asterisks: ${JSON.stringify(s.slice(0, 120))}`);
+  if ((s.match(/\*\*/g) ?? []).length % 2)
+    problems.push(`${where}: unbalanced **: ${JSON.stringify(s.slice(0, 120))}`);
+  if (/\*\*\*/.test(s))
+    problems.push(`${where}: run of 3+ asterisks: ${JSON.stringify(s.slice(0, 120))}`);
   if (/\n{3,}/.test(s)) problems.push(`${where}: 3+ line breaks`);
 }
 
 function walk(where, value, problems) {
   if (typeof value === "string") checkText(where, value, problems);
   else if (Array.isArray(value)) value.forEach((v, i) => walk(`${where}[${i}]`, v, problems));
-  else if (value && typeof value === "object") for (const [k, v] of Object.entries(value)) walk(`${where}.${k}`, v, problems);
+  else if (value && typeof value === "object")
+    for (const [k, v] of Object.entries(value)) walk(`${where}.${k}`, v, problems);
 }
 
 const GUIDE_KEYS = [
-  "role", "weapons", "teams", "synergies", "substatLine", "endgameStats", "skillPriority",
-  "tracePriority", "source", "baseStats", "bonusStats", "kit", "materials", "kitChangedAt", "kitHash",
+  "role",
+  "weapons",
+  "teams",
+  "synergies",
+  "substatLine",
+  "endgameStats",
+  "skillPriority",
+  "tracePriority",
+  "source",
+  "baseStats",
+  "bonusStats",
+  "kit",
+  "materials",
+  "kitChangedAt",
+  "kitHash",
 ];
 
 function checkShape(id, g, problems) {
   const keys = Object.keys(g);
-  if (keys.join() !== GUIDE_KEYS.join()) problems.push(`${id}: keys ${keys.join()} do not match GuideFile`);
-  for (const k of ["weapons", "teams", "synergies", "endgameStats", "baseStats", "bonusStats", "kit", "materials"]) {
+  if (keys.join() !== GUIDE_KEYS.join())
+    problems.push(`${id}: keys ${keys.join()} do not match GuideFile`);
+  for (const k of [
+    "weapons",
+    "teams",
+    "synergies",
+    "endgameStats",
+    "baseStats",
+    "bonusStats",
+    "kit",
+    "materials",
+  ]) {
     if (!Array.isArray(g[k])) problems.push(`${id}: ${k} is not an array`);
   }
   for (const group of g.kit) {
     for (const e of group.entries) {
-      if (!e.kind || !e.name || !e.text) problems.push(`${id}: ${group.id} entry missing kind/name/text: ${JSON.stringify(e).slice(0, 100)}`);
+      if (!e.kind || !e.name || !e.text)
+        problems.push(
+          `${id}: ${group.id} entry missing kind/name/text: ${JSON.stringify(e).slice(0, 100)}`,
+        );
     }
   }
 }
@@ -658,7 +733,9 @@ function loadPicks() {
   }
   const file = readJSON(PICKS);
   const count = Object.keys(file.characters ?? {}).length;
-  console.log(`  picks: ${count} characters from ${path.relative(ROOT, PICKS)} (${file.fetchedAt ?? "?"})`);
+  console.log(
+    `  picks: ${count} characters from ${path.relative(ROOT, PICKS)} (${file.fetchedAt ?? "?"})`,
+  );
   return file.characters ?? {};
 }
 
@@ -696,7 +773,8 @@ async function main() {
     checkShape(id, g, problems);
     // Game text only. The picks are the guide's own lines, verbatim, and
     // "Ultimate > Skill" is exactly what a priority line should say.
-    for (const k of ["weapons", "baseStats", "bonusStats", "kit", "materials"]) walk(`${id}.${k}`, g[k], problems);
+    for (const k of ["weapons", "baseStats", "bonusStats", "kit", "materials"])
+      walk(`${id}.${k}`, g[k], problems);
   }
   walk("set-bonuses", setBonuses, problems);
   if (problems.length) {
@@ -723,15 +801,20 @@ async function main() {
     const size = writeCompact(path.join(OUT_DIR, `${id}.json`), g);
     total += size;
     if (size > largest.size) largest = { id, size };
-    if (size > 60 * 1024) gap(`${id}: guide is ${(size / 1024).toFixed(1)} kB, over the 60 kB budget`);
+    if (size > 60 * 1024)
+      gap(`${id}: guide is ${(size / 1024).toFixed(1)} kB, over the 60 kB budget`);
   }
   const setSize = writeCompact(SET_OUT, setBonuses);
 
   const withPicks = Object.keys(guides).filter((id) => guides[id].source).length;
   const skillCount = Object.values(guides).reduce((n, g) => n + g.kit[0].entries.length, 0);
-  console.log(`  guides/        ${Object.keys(guides).length} of ${Object.keys(roster).length} characters, ${(total / 1024).toFixed(0)} kB total, largest ${largest.id} ${(largest.size / 1024).toFixed(1)} kB`);
+  console.log(
+    `  guides/        ${Object.keys(guides).length} of ${Object.keys(roster).length} characters, ${(total / 1024).toFixed(0)} kB total, largest ${largest.id} ${(largest.size / 1024).toFixed(1)} kB`,
+  );
   console.log(`                 ${withPicks} with picks, ${skillCount} skill entries`);
-  console.log(`  set-bonuses    ${Object.keys(setBonuses).length} of ${setIds.length} sets, ${(setSize / 1024).toFixed(1)} kB`);
+  console.log(
+    `  set-bonuses    ${Object.keys(setBonuses).length} of ${setIds.length} sets, ${(setSize / 1024).toFixed(1)} kB`,
+  );
 
   if (gaps.length) {
     console.log(`\ngaps (${gaps.length}):`);

@@ -36,7 +36,11 @@ describe("getWeakestArtifacts", () => {
       character("d", [piece("high", "reroll", "high")]),
     ]);
     expect(ids(ranked)).toEqual(["high", "medium", "replace", "low"]);
-    expect(ranked[0]).toMatchObject({ characterId: "d", characterName: "Name d", characterIcon: "icon-d" });
+    expect(ranked[0]).toMatchObject({
+      characterId: "d",
+      characterName: "Name d",
+      characterIcon: "icon-d",
+    });
   });
 
   it("orders rerolls in the same tier by expected dust, cheapest first", () => {
@@ -60,7 +64,10 @@ describe("getWeakestArtifacts", () => {
 
   it("leaves out pieces there is nothing to do with, however weak", () => {
     const ranked = getWeakestArtifacts([
-      character("a", [piece("done", "none", null, { percent: 5 }), piece("unleveled", "level_up", null, { percent: 1 })]),
+      character("a", [
+        piece("done", "none", null, { percent: 5 }),
+        piece("unleveled", "level_up", null, { percent: 1 }),
+      ]),
       character("b", [piece("replace", "replace", null, { percent: 90 })]),
     ]);
     expect(ids(ranked)).toEqual(["replace"]);
@@ -68,7 +75,10 @@ describe("getWeakestArtifacts", () => {
 
   it("takes at most two pieces from one character, making room for others", () => {
     const ranked = getWeakestArtifacts([
-      character("a", [1, 2, 3, 4, 5].map((n) => piece(`a${n}`, "reroll", "high", { dust: n }))),
+      character(
+        "a",
+        [1, 2, 3, 4, 5].map((n) => piece(`a${n}`, "reroll", "high", { dust: n })),
+      ),
       character("b", [piece("b-replace", "replace")]),
     ]);
     expect(ids(ranked)).toEqual(["a1", "a2", "b-replace"]);

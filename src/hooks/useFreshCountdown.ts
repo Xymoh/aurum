@@ -10,7 +10,12 @@ export function useFreshCountdown(freshUntil: number): number {
   useEffect(() => {
     if (freshUntil <= Date.now()) return;
     setNow(Date.now());
-    const id = window.setInterval(() => setNow(Date.now()), 1000);
+    const id = window.setInterval(() => {
+      const t = Date.now();
+      setNow(t);
+      // Stop at zero: the pages that call this re-render on every tick.
+      if (t >= freshUntil) window.clearInterval(id);
+    }, 1000);
     return () => window.clearInterval(id);
   }, [freshUntil]);
 

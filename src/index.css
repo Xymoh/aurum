@@ -80,32 +80,6 @@
   --color-roll-mid: var(--roll-mid);
   --color-roll-low: var(--roll-low);
 
-  --color-path-warrior: #f87171;
-  --color-path-rogue: #fbbf24;
-  --color-path-mage: #60a5fa;
-  --color-path-knight: #facc15;
-  --color-path-priest: #4ade80;
-  --color-path-shaman: #f472b6;
-  --color-path-warlock: #a78bfa;
-  --color-path-memory: #67e8f9;
-  --color-path-elation: #fb923c;
-
-  --color-hsrel-physical: #d4d4d8;
-  --color-hsrel-fire: #fb7185;
-  --color-hsrel-ice: #7dd3fc;
-  --color-hsrel-thunder: #c084fc;
-  --color-hsrel-wind: #5eead4;
-  --color-hsrel-quantum: #818cf8;
-  --color-hsrel-imaginary: #fde047;
-
-  --color-element-pyro: #ef4444;
-  --color-element-hydro: #3b82f6;
-  --color-element-anemo: #22d3ee;
-  --color-element-electro: #a855f7;
-  --color-element-dendro: #22c55e;
-  --color-element-cryo: #93c5fd;
-  --color-element-geo: #f59e0b;
-
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 }
@@ -154,7 +128,7 @@
     /* Grade ramp. Reads like item rarity, which every gacha player already
        knows: grey, green, blue, purple, gold, then hotter above gold. One
        direction only, so a colour is enough to place a grade at a glance. */
-    --grade-f: #8b95a5;
+    --grade-f: #9aa3b2;
     --grade-d: #b0b9c6;
     --grade-c: #34d399;
     --grade-b: #38bdf8;
@@ -183,14 +157,6 @@
     --roll-high: #a3e635;
     --roll-mid: #fbbf24;
     --roll-low: #fb7185;
-
-    --element-pyro: #ef4444;
-    --element-hydro: #3b82f6;
-    --element-anemo: #22d3ee;
-    --element-electro: #a855f7;
-    --element-dendro: #22c55e;
-    --element-cryo: #93c5fd;
-    --element-geo: #f59e0b;
   }
 
   /* Light mode, parked: applied only with VITE_LIGHT_THEME=on (see
@@ -271,7 +237,9 @@
   }
 
   :root[data-theme="light"] .character-card {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.06),
+      0 1px 2px rgba(0, 0, 0, 0.04);
   }
 
   :root[data-theme="light"] .skeleton {
@@ -302,7 +270,8 @@
   }
 
   html {
-    font-size: 17px;
+    /* 17px at the default 16px, but still scaled by the visitor's font-size setting. */
+    font-size: 106.25%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -445,14 +414,7 @@
   [data-game="hsr"] .game-panel-sm {
     position: relative;
     border-radius: 0;
-    clip-path: polygon(
-      8px 0,
-      100% 0,
-      100% calc(100% - 8px),
-      calc(100% - 8px) 100%,
-      0 100%,
-      0 8px
-    );
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
   }
   [data-game="hsr"] .game-panel-sm::before,
   [data-game="hsr"] .game-panel-sm::after {
@@ -522,26 +484,6 @@
     background-color: var(--surface-card);
     border: 1px solid var(--surface-border);
     overflow: hidden;
-  }
-}
-
-@layer utilities {
-  .scrollbar-thin {
-    scrollbar-width: thin;
-    scrollbar-color: var(--surface-border) transparent;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: var(--surface-border);
-    border-radius: 3px;
   }
 }
 

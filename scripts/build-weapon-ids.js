@@ -44,20 +44,20 @@ const LOCALE_FILE = path.join(ROOT, "src", "data", "locales", "game-en.json");
 // Manual overrides for weapons that can't be resolved automatically.
 // These are weapons whose hashes don't appear in loc.json even with the +512 offset.
 const MANUAL_OVERRIDES = {
-  11411: "One Side",                    // Sword_Blunt (4-star, placeholder icon, quest reward)
-  11508: "Haran Geppaku Futsu",         // Sword_Blunt (5-star, placeholder icon - internal duplicate)
-  11519: "Lightbearing Moonshard",      // Sword_SilverwareSaw
-  12508: "The Unforged",                // Claymore_Aniki (placeholder icon - internal duplicate)
-  12509: "Song of Broken Pines",        // Claymore_Aniki (placeholder icon - internal duplicate)
-  12515: "Gest of the Mighty Wolf",     // Claymore_EnsisAquilonis
-  13503: "Beginner's Protector",        // Pole_Gewalt (starter polearm)
-  13517: "Disaster and Remorse",        // Pole_Carbine
-  14411: "Dodoco Tales",                // Catalyst_Apprentice (event, placeholder icon)
-  14508: "Everlasting Moonglow",        // Catalyst_Apprentice (placeholder icon - internal duplicate)
-  14522: "Nocturne's Curtain Call",     // Catalyst_Brisingamen (Columbina's signature)
-  14523: "Angelos' Heptades",           // Catalyst_FairyGarden (Nicole's signature)
-  15516: "Golden Frostbound Oath",      // Bow_Alkonost
-  20001: "Wilderness Rod",              // FishingRod
+  11411: "One Side", // Sword_Blunt (4-star, placeholder icon, quest reward)
+  11508: "Haran Geppaku Futsu", // Sword_Blunt (5-star, placeholder icon - internal duplicate)
+  11519: "Lightbearing Moonshard", // Sword_SilverwareSaw
+  12508: "The Unforged", // Claymore_Aniki (placeholder icon - internal duplicate)
+  12509: "Song of Broken Pines", // Claymore_Aniki (placeholder icon - internal duplicate)
+  12515: "Gest of the Mighty Wolf", // Claymore_EnsisAquilonis
+  13503: "Beginner's Protector", // Pole_Gewalt (starter polearm)
+  13517: "Disaster and Remorse", // Pole_Carbine
+  14411: "Dodoco Tales", // Catalyst_Apprentice (event, placeholder icon)
+  14508: "Everlasting Moonglow", // Catalyst_Apprentice (placeholder icon - internal duplicate)
+  14522: "Nocturne's Curtain Call", // Catalyst_Brisingamen (Columbina's signature)
+  14523: "Angelos' Heptades", // Catalyst_FairyGarden (Nicole's signature)
+  15516: "Golden Frostbound Oath", // Bow_Alkonost
+  20001: "Wilderness Rod", // FishingRod
 };
 
 function fetchJSON(url, retries = 3) {
@@ -148,7 +148,11 @@ async function main() {
       fromDirect++;
     }
     // Strategy 2: Offset hash (+512) match in locale
-    else if (locale[offsetHash] && locale[offsetHash].trim() !== "" && locale[offsetHash] !== "TBD") {
+    else if (
+      locale[offsetHash] &&
+      locale[offsetHash].trim() !== "" &&
+      locale[offsetHash] !== "TBD"
+    ) {
       name = locale[offsetHash];
       fromOffset++;
     }
@@ -213,7 +217,9 @@ async function main() {
   }
   const idsJson = JSON.stringify(sortedIds, null, 2);
   fs.writeFileSync(OUTPUT_WEAPON_IDS, idsJson, "utf-8");
-  console.log(`  ✔ weapon-ids.json: ${Object.keys(sortedIds).length} entries (${(Buffer.byteLength(idsJson) / 1024).toFixed(1)} KB)`);
+  console.log(
+    `  ✔ weapon-ids.json: ${Object.keys(sortedIds).length} entries (${(Buffer.byteLength(idsJson) / 1024).toFixed(1)} KB)`,
+  );
 
   // Sort weapons.json (icon suffix → name) alphabetically
   const sortedIcons = {};
@@ -222,15 +228,21 @@ async function main() {
   }
   const iconsJson = JSON.stringify(sortedIcons, null, 2);
   fs.writeFileSync(OUTPUT_WEAPONS, iconsJson, "utf-8");
-  console.log(`  ✔ weapons.json: ${Object.keys(sortedIcons).length} entries (${(Buffer.byteLength(iconsJson) / 1024).toFixed(1)} KB)`);
+  console.log(
+    `  ✔ weapons.json: ${Object.keys(sortedIcons).length} entries (${(Buffer.byteLength(iconsJson) / 1024).toFixed(1)} KB)`,
+  );
 
   // ── Summary ─────────────────────────────────────────────────────
   console.log("\n╔══════════════════════════════════════════════════════╗");
   console.log("║  Weapon Data Build Complete                         ║");
   console.log("╠══════════════════════════════════════════════════════╣");
   console.log(`║  Total resolved:   ${String(Object.keys(sortedIds).length).padStart(32)} ║`);
-  console.log(`║  weapon-ids.json:  ${String(Object.keys(sortedIds).length + " entries").padStart(32)} ║`);
-  console.log(`║  weapons.json:     ${String(Object.keys(sortedIcons).length + " entries").padStart(32)} ║`);
+  console.log(
+    `║  weapon-ids.json:  ${String(Object.keys(sortedIds).length + " entries").padStart(32)} ║`,
+  );
+  console.log(
+    `║  weapons.json:     ${String(Object.keys(sortedIcons).length + " entries").padStart(32)} ║`,
+  );
   console.log("╚══════════════════════════════════════════════════════╝");
 }
 

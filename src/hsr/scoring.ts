@@ -38,20 +38,14 @@ import { gradeFor } from "../lib/gradeLadder";
 import { computeStats } from "./stats";
 import affixes from "./data/affixes.json";
 
-/**
- * Upgrades in a realistic strong build: 6 relics that mostly started with 4
- * substats. Fribbels' 100% benchmark uses 48, and its 200% ceiling uses 54,
- * so measuring against 48 puts our efficiency figure on the same footing as
- * the DPS score people are used to seeing.
- */
-export const BENCHMARK_ROLLS = 48;
-/** Six relics at 9 upgrades each: the most a build can physically hold. */
-export const MAX_ROLLS = 54;
+import { BENCHMARK_ROLLS } from "./benchmark";
+
+export { BENCHMARK_ROLLS, MAX_ROLLS } from "./benchmark";
 
 // ── Substat normalisation ───────────────────────────────────────────
 
 /** The twelve stats a relic can roll as substats. */
-export const SUBSTATS: HsrStatKey[] = [
+const SUBSTATS: HsrStatKey[] = [
   "HPDelta",
   "AttackDelta",
   "DefenceDelta",
@@ -66,7 +60,14 @@ export const SUBSTATS: HsrStatKey[] = [
   "BreakDamageAddedRatioBase",
 ];
 
-const SUB_5 = (affixes as { sub: Record<string, Record<string, { Property: string; BaseValue: number; StepValue?: number }>> }).sub["5"];
+const SUB_5 = (
+  affixes as {
+    sub: Record<
+      string,
+      Record<string, { Property: string; BaseValue: number; StepValue?: number }>
+    >;
+  }
+).sub["5"];
 
 /**
  * Best single roll of each substat on a 5-star relic, in display units:
@@ -97,7 +98,7 @@ export function substatScale(key: HsrStatKey): number {
 // ── Main stats ──────────────────────────────────────────────────────
 
 /** What each selectable slot can roll as its main stat. */
-export const PARTS_MAIN_STATS: Record<SelectableSlot, HsrStatKey[]> = {
+const PARTS_MAIN_STATS: Record<SelectableSlot, HsrStatKey[]> = {
   BODY: [
     "HPAddedRatio",
     "AttackAddedRatio",
@@ -120,7 +121,13 @@ export const PARTS_MAIN_STATS: Record<SelectableSlot, HsrStatKey[]> = {
     "QuantumAddedRatio",
     "ImaginaryAddedRatio",
   ],
-  OBJECT: ["HPAddedRatio", "AttackAddedRatio", "DefenceAddedRatio", "BreakDamageAddedRatioBase", "SPRatioBase"],
+  OBJECT: [
+    "HPAddedRatio",
+    "AttackAddedRatio",
+    "DefenceAddedRatio",
+    "BreakDamageAddedRatioBase",
+    "SPRatioBase",
+  ],
 };
 
 function isSelectable(slot: HsrSlot): slot is SelectableSlot {
@@ -152,11 +159,13 @@ export function mainStatWeight(slot: HsrSlot, mainKey: HsrStatKey, meta: Scoring
  * substat borrows its percent stat's weight on a relic whose main stat is that
  * percent stat.
  */
-export function contributionFor(meta: ScoringMeta, mainKey: HsrStatKey): (key: HsrStatKey) => number {
+function contributionFor(meta: ScoringMeta, mainKey: HsrStatKey): (key: HsrStatKey) => number {
   const boosted = PERCENT_TO_FLAT[mainKey];
-  const boostWeight = boosted && meta.flatMainstatBoost === boosted ? weightOf(meta.stats, mainKey) : 0;
+  const boostWeight =
+    boosted && meta.flatMainstatBoost === boosted ? weightOf(meta.stats, mainKey) : 0;
   return (key) => {
-    const weight = boosted && key === boosted && boostWeight > 0 ? boostWeight : weightOf(meta.stats, key);
+    const weight =
+      boosted && key === boosted && boostWeight > 0 ? boostWeight : weightOf(meta.stats, key);
     return weight * substatScale(key);
   };
 }
@@ -190,7 +199,13 @@ function resolveOptimalMainStat(slot: HsrSlot, mainKey: HsrStatKey, meta: Scorin
   if (ideal.includes(mainKey) || weightOf(meta.stats, mainKey) === 1) return mainKey;
 
   const candidates = PARTS_MAIN_STATS[slot]
-    .map((key) => [key, ideal.includes(key) || weightOf(meta.stats, key) === 1 ? 1 : weightOf(meta.stats, key)] as const)
+    .map(
+      (key) =>
+        [
+          key,
+          ideal.includes(key) || weightOf(meta.stats, key) === 1 ? 1 : weightOf(meta.stats, key),
+        ] as const,
+    )
     .sort((a, b) => b[1] - a[1]);
 
   const topWeight = candidates[0][1];
@@ -227,14 +242,17 @@ export function optimalScore(slot: HsrSlot, mainKey: HsrStatKey, meta: ScoringMe
   const sorted = sortedSubstats(meta);
   if (sorted[0][1] === 0) return Infinity;
 
-  const high = (key: HsrStatKey, contribution: (k: HsrStatKey) => number) => contribution(key) * HIGH_ROLL[key];
+  const high = (key: HsrStatKey, contribution: (k: HsrStatKey) => number) =>
+    contribution(key) * HIGH_ROLL[key];
 
   const pair = (a: HsrStatKey, b: HsrStatKey) =>
     (sorted[0][0] === a && sorted[1][0] === b) || (sorted[0][0] === b && sorted[1][0] === a);
   const flatPercentPair =
     sorted[2][1] === 0 &&
     sorted[1][1] > 0 &&
-    (pair("HPDelta", "HPAddedRatio") || pair("AttackDelta", "AttackAddedRatio") || pair("DefenceDelta", "DefenceAddedRatio"));
+    (pair("HPDelta", "HPAddedRatio") ||
+      pair("AttackDelta", "AttackAddedRatio") ||
+      pair("DefenceDelta", "DefenceAddedRatio"));
 
   if (sorted[1][1] === 0) {
     // Single weighted stat.
@@ -287,7 +305,7 @@ export { gradeFor, GRADE_LADDER } from "../lib/gradeLadder";
  * still tells you how the substats rolled, the missing grade tells you the
  * piece is not a candidate.
  */
-export function scoreRelic(relic: ParsedRelic, meta: ScoringMeta): HsrRelicScore {
+function scoreRelic(relic: ParsedRelic, meta: ScoringMeta): HsrRelicScore {
   const contribution = contributionFor(meta, relic.mainStat.key);
 
   let weighted = 0;
@@ -300,14 +318,16 @@ export function scoreRelic(relic: ParsedRelic, meta: ScoringMeta): HsrRelicScore
   }
 
   const ideal = optimalScore(relic.slot, relic.mainStat.key, meta);
-  const potentialPercent = Number.isFinite(ideal) && ideal > 0 ? (weighted / ideal) * 200 : 0;
+  const raw = Number.isFinite(ideal) && ideal > 0 ? (weighted / ideal) * 200 : 0;
+  const potentialPercent = Math.round(raw * 10) / 10;
   const mainStatOk = mainStatWeight(relic.slot, relic.mainStat.key, meta) > 0;
   const gradable = relic.rarity === 5 && mainStatOk && potentialPercent > 0;
 
   return {
-    potentialPercent: Math.round(potentialPercent * 10) / 10,
-    // Graded from the whole percent the card shows, so number and letter
-    // cannot land on opposite sides of a band edge.
+    potentialPercent,
+    // Graded from the whole percent the card shows (the stored value,
+    // rounded), so number and letter cannot land on opposite sides of a band
+    // edge: a raw 119.46 is stored as 119.5 and shown as 120%.
     grade: gradable ? gradeFor(Math.round(potentialPercent)) : null,
     mainStatOk,
     weighted,
@@ -332,7 +352,7 @@ function critRatio(stats: HsrStats): number | null {
 export const SLOT_COUNT = 6;
 
 /** Set pieces worn, largest set first, ignoring lone pieces. */
-export function countSets(relics: HsrRelic[]): BuildDiagnostics["sets"] {
+function countSets(relics: HsrRelic[]): BuildDiagnostics["sets"] {
   const setCounts = new Map<number, { name: string; pieces: number }>();
   for (const relic of relics) {
     const set = setCounts.get(relic.setId) ?? { name: relic.setName, pieces: 0 };
@@ -345,7 +365,11 @@ export function countSets(relics: HsrRelic[]): BuildDiagnostics["sets"] {
     .sort((a, b) => b.pieces - a.pieces);
 }
 
-function buildDiagnostics(relics: HsrRelic[], meta: ScoringMeta, stats: HsrStats): BuildDiagnostics {
+function buildDiagnostics(
+  relics: HsrRelic[],
+  meta: ScoringMeta,
+  stats: HsrStats,
+): BuildDiagnostics {
   const totals = new Map<HsrStatKey, { rolls: number; value: number }>();
   const waste: { slot: HsrSlot; key: HsrStatKey; rolls: number }[] = [];
 
@@ -376,10 +400,10 @@ function buildDiagnostics(relics: HsrRelic[], meta: ScoringMeta, stats: HsrStats
   // The build score is the mean of the six slots, an empty slot counting as
   // zero. That is Fribbels' character score, so a 131% build here is the same
   // kind of number as a 131% relic and as the figure on their showcase.
-  const score = percentSum / SLOT_COUNT;
+  const score = Math.round((percentSum / SLOT_COUNT) * 10) / 10;
 
   return {
-    score: Math.round(score * 10) / 10,
+    score,
     grade: gradeFor(Math.round(score)),
     complete: relics.length === SLOT_COUNT,
     totalRolls,

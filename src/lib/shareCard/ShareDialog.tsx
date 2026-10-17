@@ -232,9 +232,8 @@ export function ShareDialog({ model, onClose }: ShareDialogProps) {
   };
 
   const link = characterLink(model.characterId);
-  const postText =
-    model.score.complete ?
-      t("shareCard", "postText", {
+  const postText = model.score.complete
+    ? t("shareCard", "postText", {
         name: model.name,
         score: `${Math.round(model.score.value)}%`,
         grade: model.score.grade,
@@ -353,7 +352,9 @@ export function ShareDialog({ model, onClose }: ShareDialogProps) {
         {/* Preview. The card is always drawn dark (see theme.ts), so the frame
             behind it is the dark ground too, whatever theme the page is in. */}
         <div className="min-h-0 overflow-y-auto px-5 sm:px-6">
-          <div className={`relative aspect-video w-full overflow-hidden rounded-lg border bg-[#0f1117] ${skin.frame}`}>
+          <div
+            className={`relative aspect-video w-full overflow-hidden rounded-lg border bg-[#0f1117] ${skin.frame}`}
+          >
             {card && (
               <img
                 src={card.url}
@@ -362,14 +363,20 @@ export function ShareDialog({ model, onClose }: ShareDialogProps) {
               />
             )}
             {!card && !failed && (
-              <div className="skeleton absolute inset-0 flex items-center justify-center rounded-none" role="status">
+              <div
+                className="skeleton absolute inset-0 flex items-center justify-center rounded-none"
+                role="status"
+              >
                 <span className="rounded-md bg-black/50 px-3 py-1.5 text-xs font-semibold text-white/90">
                   {t("shareCard", "rendering")}
                 </span>
               </div>
             )}
             {failed && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center" role="alert">
+              <div
+                className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center"
+                role="alert"
+              >
                 <p className="text-sm text-white/80">{t("shareCard", "renderFailed")}</p>
                 <button
                   type="button"
@@ -386,7 +393,12 @@ export function ShareDialog({ model, onClose }: ShareDialogProps) {
         {/* Actions */}
         <div className="px-5 pb-5 pt-4 sm:px-6 sm:pb-6">
           <div className="flex flex-wrap items-start justify-center gap-x-2 gap-y-3 sm:gap-x-4">
-            <Target label={t("shareCard", "actionX")} skin={skin} disabled={!ready} onClick={() => card && onX(card)}>
+            <Target
+              label={t("shareCard", "actionX")}
+              skin={skin}
+              disabled={!ready}
+              onClick={() => card && onX(card)}
+            >
               <XLogo className="h-[18px] w-[18px]" />
             </Target>
             <Target
@@ -417,7 +429,11 @@ export function ShareDialog({ model, onClose }: ShareDialogProps) {
               <LinkIcon className="h-5 w-5" />
             </Target>
             {showMore && (
-              <Target label={t("shareCard", "actionMore")} skin={skin} onClick={() => card && onMore(card)}>
+              <Target
+                label={t("shareCard", "actionMore")}
+                skin={skin}
+                onClick={() => card && onMore(card)}
+              >
                 <MoreIcon className="h-5 w-5" />
               </Target>
             )}

@@ -11,17 +11,20 @@ export function UidInput() {
   const navigate = useNavigate();
   const { t } = useI18n();
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const sanitized = sanitizeUidInput(e.target.value);
-    setRawInput(sanitized);
-    // Complain only once the field is full and still wrong; a UID in
-    // progress is not an error.
-    if (sanitized.length === UID_MAX_LENGTH && !isValidUid(sanitized)) {
-      setError(t("uid", "invalid"));
-    } else {
-      setError("");
-    }
-  }, [t]);
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const sanitized = sanitizeUidInput(e.target.value);
+      setRawInput(sanitized);
+      // Complain only once the field is full and still wrong; a UID in
+      // progress is not an error.
+      if (sanitized.length === UID_MAX_LENGTH && !isValidUid(sanitized)) {
+        setError(t("uid", "invalid"));
+      } else {
+        setError("");
+      }
+    },
+    [t],
+  );
 
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
@@ -50,14 +53,10 @@ export function UidInput() {
             value={rawInput}
             onChange={handleChange}
             maxLength={UID_MAX_LENGTH}
-            className={`game-panel-sm flex-1 h-12 px-4 text-lg font-mono tracking-wider
+            className={`game-panel-sm min-w-0 flex-1 h-12 px-4 text-lg font-mono tracking-wider
               bg-dark-card border outline-none transition-all duration-200
-              text-dark-text placeholder:text-dark-muted/50
-              ${
-                error
-                  ? "border-red-500/50 focus:border-red-500"
-                  : "border-dark-border"
-              }
+              text-dark-text placeholder:text-dark-muted
+              ${error ? "border-red-500/50 focus:border-red-500" : "border-dark-border focus:border-accent"}
               ${isValidUid(rawInput) && !error ? "animate-[pulse_2s_ease-in-out_1]" : ""}
             `}
             aria-label={t("uid", "placeholder")}
@@ -66,6 +65,7 @@ export function UidInput() {
           <button
             type="submit"
             disabled={!isValidUid(rawInput) || isSubmitting}
+            aria-label={t("uid", "lookUp")}
             className="game-panel-sm h-12 px-4 sm:px-6 bg-accent text-dark-bg font-semibold text-sm
               hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed
               transition-all duration-200 flex items-center gap-2 flex-shrink-0"

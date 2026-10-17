@@ -1,7 +1,8 @@
 import { scrollBehavior } from "../../lib/motion";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import { isValidHsrUid, useHsrShowcase } from "../useHsrShowcase";
+import { useHsrShowcase } from "../useHsrShowcase";
+import { isValidHsrUid } from "../../lib/uid";
 import { useFreshCountdown } from "../../hooks/useFreshCountdown";
 import { errorCode } from "../../lib/showcaseError";
 import { CharacterPanel } from "../components/CharacterPanel";
@@ -30,8 +31,10 @@ import { RemoteImg } from "../../components/ui/RemoteImg";
  * does not jump when it does.
  */
 function Skeleton() {
+  const { t } = useI18n();
   return (
-    <div className="animate-pulse space-y-4" aria-hidden="true">
+    <div className="animate-pulse space-y-4" role="status">
+      <span className="sr-only">{t("showcase", "loading")}</span>
       <div className="flex items-center gap-3 game-panel border border-hsr-border bg-hsr-panel/50 px-4 py-3 sm:gap-4 sm:px-5">
         <div className="skeleton h-11 w-11 rounded-full" />
         <div className="flex-1 space-y-2">
@@ -67,7 +70,10 @@ const CONTROL =
 
 type SortKey = "score-desc" | "score-asc" | "level-desc" | "name-asc";
 
-const SORT_OPTIONS: Array<{ value: SortKey; key: "sortScoreDesc" | "sortScoreAsc" | "sortLevelDesc" | "sortNameAsc" }> = [
+const SORT_OPTIONS: Array<{
+  value: SortKey;
+  key: "sortScoreDesc" | "sortScoreAsc" | "sortLevelDesc" | "sortNameAsc";
+}> = [
   { value: "score-desc", key: "sortScoreDesc" },
   { value: "score-asc", key: "sortScoreAsc" },
   { value: "level-desc", key: "sortLevelDesc" },
@@ -112,14 +118,26 @@ interface NextMove {
  * side has had this from the start; here it used to exist only per character,
  * so finding the best die on the account meant opening every panel.
  */
-function BestNextMoves({ moves, onSelect }: { moves: NextMove[]; onSelect: (avatarId: number) => void }) {
+function BestNextMoves({
+  moves,
+  onSelect,
+}: {
+  moves: NextMove[];
+  onSelect: (avatarId: number) => void;
+}) {
   const { t } = useI18n();
   const verdict = useHsrVerdict();
   if (moves.length === 0) return null;
   return (
-    <section className="game-panel border border-hsr-border bg-hsr-panel/50 p-4 sm:p-5" aria-labelledby="hsr-next-moves">
+    <section
+      className="game-panel border border-hsr-border bg-hsr-panel/50 p-4 sm:p-5"
+      aria-labelledby="hsr-next-moves"
+    >
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <h2 id="hsr-next-moves" className="flex items-center gap-2 text-sm font-semibold text-hsr-text">
+        <h2
+          id="hsr-next-moves"
+          className="flex items-center gap-2 text-sm font-semibold text-hsr-text"
+        >
           <TargetIcon className="h-4 w-4 text-hsr-accent" /> {t("hsr", "bestNextMoves")}
         </h2>
         <span className="text-sm text-hsr-muted">{t("hsr", "bestNextMovesSub")}</span>
@@ -133,7 +151,6 @@ function BestNextMoves({ moves, onSelect }: { moves: NextMove[]; onSelect: (avat
               type="button"
               onClick={() => onSelect(character.avatarId)}
               className="flex flex-col gap-2 rounded-lg border border-hsr-border bg-hsr-card/60 px-3 py-2.5 text-left transition-colors hover:border-hsr-accent/50 hover:bg-hsr-card"
-              aria-label={t("showcase", "jumpTo", { name: character.name })}
             >
               <div className="flex items-center gap-2">
                 <RemoteImg
@@ -143,29 +160,41 @@ function BestNextMoves({ moves, onSelect }: { moves: NextMove[]; onSelect: (avat
                   className="h-8 w-8 shrink-0 rounded-full bg-hsr-inset object-cover ring-1 ring-hsr-line"
                 />
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-semibold text-hsr-text">{character.name}</div>
+                  <div className="truncate text-sm font-semibold text-hsr-text">
+                    {character.name}
+                  </div>
                   <div className="text-xs text-hsr-muted">
                     {t("hsrSlots", relic.slot)} · {relic.setName}
                   </div>
                 </div>
                 <div className="flex shrink-0 items-center gap-1.5">
-                  <span className={`font-mono text-sm font-bold tabular-nums ${gradeColor(relic.score.grade)}`}>
+                  <span
+                    className={`font-mono text-sm font-bold tabular-nums ${gradeColor(relic.score.grade)}`}
+                  >
                     {formatScore(relic.score.potentialPercent)}
                   </span>
                   {relic.score.grade && <GradeBadge grade={relic.score.grade} size="xs" />}
                 </div>
               </div>
-              <div className="rounded-md px-2 py-1" style={{ backgroundColor: tint(color, 12), color }}>
+              <div
+                className="rounded-md px-2 py-1"
+                style={{ backgroundColor: tint(color, 12), color }}
+              >
                 <div className="flex items-center justify-between gap-2 text-xs font-semibold">
                   <span className="flex items-center gap-1">
                     <DiceIcon className="h-3 w-3 shrink-0" />
                     {verdict(relic.reroll).label}
                   </span>
-                  <span className="font-mono">{Math.round(relic.reroll.improveChance * 100)}{t("hsr", "perDie")}</span>
+                  <span className="font-mono">
+                    {Math.round(relic.reroll.improveChance * 100)}
+                    {t("hsr", "perDie")}
+                  </span>
                 </div>
                 {relic.reroll.targetStats.length > 0 && (
                   <p className="mt-0.5 truncate text-[11px] opacity-90">
-                    {t("hsr", "hopeFor", { stats: relic.reroll.targetStats.map((k) => t("hsrStats", k)).join(" / ") })}
+                    {t("hsr", "hopeFor", {
+                      stats: relic.reroll.targetStats.map((k) => t("hsrStats", k)).join(" / "),
+                    })}
                   </p>
                 )}
               </div>
@@ -199,7 +228,11 @@ function ShareButton() {
       className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-hsr-border px-3 text-sm text-hsr-muted transition-colors hover:border-hsr-accent/40 hover:text-hsr-text"
       aria-live="polite"
     >
-      {copied ? <CheckIcon className="h-3.5 w-3.5 text-verdict-high" /> : <ClipboardIcon className="h-3.5 w-3.5" />}
+      {copied ? (
+        <CheckIcon className="h-3.5 w-3.5 text-verdict-high" />
+      ) : (
+        <ClipboardIcon className="h-3.5 w-3.5" />
+      )}
       {copied ? t("showcase", "copied") : t("player", "share")}
     </button>
   );
@@ -208,8 +241,13 @@ function ShareButton() {
 export function HsrShowcasePage() {
   const { uid = "" } = useParams();
   const { t } = useI18n();
-  useDocumentTitle(t("hsr", "documentTitle"));
-  const { data, isLoading, isError, isFetching, error, forceRefresh, freshUntil } = useHsrShowcase(uid);
+  const { data, isLoading, isError, isFetching, error, forceRefresh, freshUntil } =
+    useHsrShowcase(uid);
+  useDocumentTitle(
+    data
+      ? `${data.nickname} (${data.uid}) - ${t("hsr", "documentTitle")}`
+      : t("hsr", "documentTitle"),
+  );
   const invalidUid = !isValidHsrUid(uid);
   const secondsFresh = useFreshCountdown(freshUntil);
   const waiting = secondsFresh > 0 && !isFetching;
@@ -221,7 +259,10 @@ export function HsrShowcasePage() {
 
   const characters = useMemo(() => data?.characters ?? [], [data]);
 
-  const paths = useMemo(() => Array.from(new Set(characters.map((c) => c.path))).sort(), [characters]);
+  const paths = useMemo(
+    () => Array.from(new Set(characters.map((c) => c.path))).sort(),
+    [characters],
+  );
 
   const visible = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -262,7 +303,9 @@ export function HsrShowcasePage() {
     setSearch("");
     setPathFilter("ALL");
     window.requestAnimationFrame(() => {
-      document.getElementById(characterPanelId(avatarId))?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+      document
+        .getElementById(characterPanelId(avatarId))
+        ?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
     });
   };
 
@@ -284,7 +327,10 @@ export function HsrShowcasePage() {
   // refused before any request goes out.
   if (!data) {
     return (
-      <div className="mx-auto max-w-md game-panel border border-verdict-replace/30 bg-verdict-replace/10 p-5 text-center">
+      <div
+        role="alert"
+        className="mx-auto max-w-md game-panel border border-verdict-replace/30 bg-verdict-replace/10 p-5 text-center"
+      >
         <p className="text-sm text-hsr-text">
           {invalidUid ? t("errors", "invalidUid") : t("errors", errorCode(error))}
         </p>
@@ -321,7 +367,7 @@ export function HsrShowcasePage() {
     { effective: 0, total: 0, score: 0, scored: 0 },
   );
   const accountScore = totals.scored > 0 ? totals.score / totals.scored : 0;
-  const accountGrade = gradeFor(accountScore);
+  const accountGrade = gradeFor(Math.round(accountScore));
 
   return (
     <div className="space-y-4">
@@ -329,12 +375,18 @@ export function HsrShowcasePage() {
         <div className="min-w-0 flex-1">
           <h1 className="truncate text-lg font-semibold text-hsr-text">{data.nickname}</h1>
           <p className="font-mono text-sm text-hsr-muted">
-            {t("hsr", "accountMeta", { uid: data.uid, level: data.level, count: characters.length })}
+            {t("hsr", "accountMeta", {
+              uid: data.uid,
+              level: data.level,
+              count: characters.length,
+            })}
           </p>
         </div>
         <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end sm:text-right">
           <div>
-            <p className={`font-mono text-2xl font-bold leading-none tabular-nums ${gradeColor(accountGrade)}`}>
+            <p
+              className={`font-mono text-2xl font-bold leading-none tabular-nums ${gradeColor(accountGrade)}`}
+            >
               {formatScore(accountScore)}
             </p>
             <p className="mt-1 font-mono text-xs text-hsr-muted">
@@ -355,14 +407,19 @@ export function HsrShowcasePage() {
           >
             {isFetching ? t("player", "refreshing") : t("player", "refresh")}
             {waiting && (
-              <span className="font-mono tabular-nums">· {String(secondsFresh).padStart(2, "0")}s</span>
+              <span className="font-mono tabular-nums">
+                · {String(secondsFresh).padStart(2, "0")}s
+              </span>
             )}
           </button>
         </div>
       </header>
 
       {isError && (
-        <p role="status" className="rounded-lg border border-verdict-replace/30 bg-verdict-replace/10 px-4 py-2 text-sm text-hsr-text">
+        <p
+          role="status"
+          className="rounded-lg border border-verdict-replace/30 bg-verdict-replace/10 px-4 py-2 text-sm text-hsr-text"
+        >
           {t("errors", "refreshFailed")} {t("errors", errorCode(error))}
         </p>
       )}
@@ -381,7 +438,15 @@ export function HsrShowcasePage() {
           lead={t("hsr", "emptyLead")}
           steps={[t("hsr", "emptyStep1"), t("hsr", "emptyStep2"), t("hsr", "emptyStep3")]}
           footer={t("hsr", "emptyRetry")}
-          guide={SHOWCASE_HELP ? { to: HELP_PATH.hsr, label: t("help", "emptyLink"), className: "text-hsr-accent underline underline-offset-2 hover:text-hsr-text" } : undefined}
+          guide={
+            SHOWCASE_HELP
+              ? {
+                  to: HELP_PATH.hsr,
+                  label: t("help", "emptyLink"),
+                  className: "text-hsr-accent underline underline-offset-2 hover:text-hsr-text",
+                }
+              : undefined
+          }
           panelClass="border-hsr-border bg-hsr-panel/40 text-hsr-text"
           accentClass="bg-hsr-accent/15 text-hsr-accent"
           mutedClass="text-hsr-muted"
@@ -396,7 +461,7 @@ export function HsrShowcasePage() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("hsr", "searchPlaceholder")}
               aria-label={t("hsr", "searchLabel")}
-              className={`${CONTROL} min-w-[140px] flex-1 placeholder:text-hsr-muted/70`}
+              className={`${CONTROL} min-w-[140px] flex-1 placeholder:text-hsr-muted`}
             />
             <select
               value={pathFilter}

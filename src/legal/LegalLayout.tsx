@@ -57,7 +57,12 @@ export function Section({ title, children }: { title: string; children: ReactNod
 /** External link with the safe defaults every outbound link on the site uses. */
 export function Ext({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="text-accent underline hover:opacity-80">
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-accent underline hover:opacity-80"
+    >
       {children}
     </a>
   );

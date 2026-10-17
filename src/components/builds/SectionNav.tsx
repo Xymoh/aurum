@@ -60,11 +60,15 @@ export function SectionNav({ items, skin }: { items: NavItem[]; skin: BuildSkin 
               type="button"
               onClick={() => {
                 setActive(item.id);
-                document.getElementById(item.id)?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+                document
+                  .getElementById(item.id)
+                  ?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
               }}
               aria-current={active === item.id ? "location" : undefined}
               className={`whitespace-nowrap rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${
-                active === item.id ? skin.active : `border-transparent ${skin.muted} hover:opacity-80`
+                active === item.id
+                  ? skin.active
+                  : `border-transparent ${skin.muted} hover:opacity-80`
               }`}
             >
               {item.label}

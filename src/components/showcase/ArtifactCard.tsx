@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import type { Artifact, ArtifactSubstat } from "../../types/artifact";
 import type { GenshinElement } from "../../types/character";
 import { scorePercentile } from "../../lib/percentile";
-import { RollPips } from "../ui/RollPips";
+import { PIP, RollPips } from "../ui/RollPips";
 import { ROLL_TIER_BG, rollTier } from "../../lib/rollTier";
 import { getRerollTier, chanceWithin, formatChance } from "../../lib/reroll";
 import { gradeVar, tint } from "../../lib/grade";
@@ -62,12 +62,13 @@ function RollBreakdown({ sub }: { sub: ArtifactSubstat }) {
           const tier = rollTier(share);
           return (
             <li key={i} className="flex items-center gap-2">
-              <span className={`inline-block h-2.5 w-[3px] rounded-sm ${ROLL_TIER_BG[tier]}`} aria-hidden="true" />
+              <span className={`inline-block ${PIP} ${ROLL_TIER_BG[tier]}`} aria-hidden="true" />
               <span className="w-14 text-dark-text">
                 +{formatStatValue(sub.maxRoll * share, sub.isPercentage)}
               </span>
               <span>
-                {i === 0 ? t("rolls", "initial") : t("rolls", "upgrade")} · {t("rolls", tier)} ({Math.round(share * 100)}%)
+                {i === 0 ? t("rolls", "initial") : t("rolls", "upgrade")} · {t("rolls", tier)} (
+                {Math.round(share * 100)}%)
               </span>
             </li>
           );
@@ -126,7 +127,10 @@ export function ArtifactCard({ artifact, avatarId, element, characterName }: Art
   // the context a bare percent lacks. Simulated once per character and
   // main stat, then cached, so this is a lookup after the first card.
   const percentile = useMemo(
-    () => (avatarId != null ? scorePercentile(avatarId, artifact.mainStat.statKey, artifact.score.potentialPercent) : null),
+    () =>
+      avatarId != null
+        ? scorePercentile(avatarId, artifact.mainStat.statKey, artifact.score.potentialPercent)
+        : null,
     [avatarId, artifact.mainStat.statKey, artifact.score.potentialPercent],
   );
   const topPct = percentile != null ? Math.max(1, Math.round((1 - percentile) * 100)) : null;
@@ -140,11 +144,17 @@ export function ArtifactCard({ artifact, avatarId, element, characterName }: Art
   // What the slot wants, so the warning and the "farm a replacement" verdict
   // can both say it instead of leaving the reader to look it up.
   const idealLabels = uniqueLabels(artifact.mainStat.idealStats, t);
-  const farm = avatarId != null ? farmTargetFor(avatarId, artifact.mainStat.idealStats, t, element) : null;
-  const farmMain = farm && farm.mains.length > 0 ? farm.mains.join(" / ") : artifact.mainStat.displayName;
+  const farm =
+    avatarId != null ? farmTargetFor(avatarId, artifact.mainStat.idealStats, t, element) : null;
+  const farmMain =
+    farm && farm.mains.length > 0 ? farm.mains.join(" / ") : artifact.mainStat.displayName;
   const farmText = farm
     ? farm.setName
-      ? t("verdict", "farmHint", { slot: t("slots", artifact.slot), main: farmMain, set: farm.setName })
+      ? t("verdict", "farmHint", {
+          slot: t("slots", artifact.slot),
+          main: farmMain,
+          set: farm.setName,
+        })
       : t("verdict", "farmHintNoSet", { slot: t("slots", artifact.slot), main: farmMain })
     : undefined;
 
@@ -154,7 +164,13 @@ export function ArtifactCard({ artifact, avatarId, element, characterName }: Art
       <div className="flex items-center justify-between">
         <div className="icon-dark-bg h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border border-dark-border/40 bg-dark-bg">
           {artIconUrl && !iconError ? (
-            <RemoteImg src={artIconUrl} alt={artifact.setName} className="h-full w-full object-cover" loading="lazy" onError={() => setIconError(true)} />
+            <RemoteImg
+              src={artIconUrl}
+              alt={artifact.setName}
+              className="h-full w-full object-cover"
+              loading="lazy"
+              onError={() => setIconError(true)}
+            />
           ) : (
             <div className="flex h-full w-full items-center justify-center font-mono text-xs text-dark-muted">
               {artifact.slot.slice(0, 2)}
@@ -163,7 +179,9 @@ export function ArtifactCard({ artifact, avatarId, element, characterName }: Art
         </div>
         <div className="flex flex-col items-end gap-1">
           <span className="font-mono text-sm font-semibold text-dark-text">+{artifact.level}</span>
-          <span className="text-[11px] uppercase tracking-wider text-dark-muted">{t("slots", artifact.slot)}</span>
+          <span className="text-[11px] uppercase tracking-wider text-dark-muted">
+            {t("slots", artifact.slot)}
+          </span>
         </div>
       </div>
 
@@ -176,7 +194,10 @@ export function ArtifactCard({ artifact, avatarId, element, characterName }: Art
             <InfoTip
               content={
                 idealLabels.length > 0
-                  ? t("verdict", "mainStatWarningIdeal", { ideal: idealLabels.join(" / "), stat: artifact.mainStat.displayName })
+                  ? t("verdict", "mainStatWarningIdeal", {
+                      ideal: idealLabels.join(" / "),
+                      stat: artifact.mainStat.displayName,
+                    })
                   : t("verdict", "mainStatWarning")
               }
               label={t("verdict", "mainStatWarning")}
@@ -229,13 +250,15 @@ export function ArtifactCard({ artifact, avatarId, element, characterName }: Art
       <div className="flex items-center justify-between gap-1">
         <div className="flex min-w-0 items-center gap-1">
           <img src={scoreIconImg} alt="" className="h-3 w-3 flex-shrink-0 opacity-60" />
-          <span className="hidden truncate text-xs text-dark-muted sm:inline">{t("showcase", "score")}</span>
+          <span className="hidden truncate text-xs text-dark-muted sm:inline">
+            {t("showcase", "score")}
+          </span>
         </div>
         <div className="flex items-center gap-1.5">
           {/* Crit Value beside the score: the figure players already know,
               so the 0-200 number has something familiar to sit next to. */}
           {artifact.score.cv > 0 && (
-            <InfoTip content={t("showcase", "cvHint")} label={t("stats", "cv")} align="right">
+            <InfoTip content={t("showcase", "cvHint")} align="right">
               <span className="font-mono text-[11px] tabular-nums text-dark-muted">
                 {t("showcase", "cv")} {artifact.score.cv.toFixed(1)}
               </span>
@@ -244,19 +267,24 @@ export function ArtifactCard({ artifact, avatarId, element, characterName }: Art
           {topPct != null ? (
             <InfoTip
               align="right"
-              label={t("showcase", "percentileTop", { pct: topPct })}
               content={t("showcase", "percentileHint", {
                 pct: Math.round((percentile ?? 0) * 100),
                 slot: t("slots", artifact.slot),
                 name: characterName ?? "",
               })}
             >
-              <span className="font-mono text-sm font-bold tabular-nums underline decoration-dotted underline-offset-4" style={{ color: gradeColor }}>
+              <span
+                className="font-mono text-sm font-bold tabular-nums underline decoration-dotted underline-offset-4"
+                style={{ color: gradeColor }}
+              >
                 {formatScore(artifact.score.potentialPercent)}
               </span>
             </InfoTip>
           ) : (
-            <span className="font-mono text-sm font-bold tabular-nums" style={{ color: gradeColor }}>
+            <span
+              className="font-mono text-sm font-bold tabular-nums"
+              style={{ color: gradeColor }}
+            >
               {formatScore(artifact.score.potentialPercent)}
             </span>
           )}
@@ -264,7 +292,9 @@ export function ArtifactCard({ artifact, avatarId, element, characterName }: Art
         </div>
       </div>
       {topPct != null && (
-        <p className="-mt-1 text-right font-mono text-[11px] text-dark-muted">{t("showcase", "percentileTop", { pct: topPct })}</p>
+        <p className="-mt-1 text-right font-mono text-[11px] text-dark-muted">
+          {t("showcase", "percentileTop", { pct: topPct })}
+        </p>
       )}
 
       {/* Dust of Enlightenment advice - see lib/reroll.ts for the model. The
@@ -277,7 +307,10 @@ export function ArtifactCard({ artifact, avatarId, element, characterName }: Art
             <div className="space-y-1.5">
               <p className="font-medium">{t("verdict", TIER_BLURB[rerollTier.id])}</p>
               <p className="text-dark-muted">
-                {t("verdict", "tipCost", { dust: reroll.dustCost, chance: formatChance(reroll.improveChance) })}
+                {t("verdict", "tipCost", {
+                  dust: reroll.dustCost,
+                  chance: formatChance(reroll.improveChance),
+                })}
               </p>
               <ul className="space-y-0.5 font-mono text-dark-muted">
                 {[2, 4].map((tries) => (
@@ -290,13 +323,20 @@ export function ArtifactCard({ artifact, avatarId, element, characterName }: Art
                   </li>
                 ))}
               </ul>
-              <p className="text-dark-muted">{t("verdict", "tipMedianGain", { gain: reroll.medianGain.toFixed(0) })}</p>
+              <p className="text-dark-muted">
+                {t("verdict", "tipMedianGain", { gain: reroll.medianGain.toFixed(0) })}
+              </p>
               {reroll.nextGrade && (
                 <p className="text-dark-muted">
-                  {t("verdict", "tipNextGrade", { chance: formatChance(reroll.nextGradeChance), grade: reroll.nextGrade })}
+                  {t("verdict", "tipNextGrade", {
+                    chance: formatChance(reroll.nextGradeChance),
+                    grade: reroll.nextGrade,
+                  })}
                 </p>
               )}
-              <p className="text-dark-muted">{t("verdict", "tipCeiling", { ceiling: reroll.realisticCeiling.toFixed(0) })}</p>
+              <p className="text-dark-muted">
+                {t("verdict", "tipCeiling", { ceiling: reroll.realisticCeiling.toFixed(0) })}
+              </p>
             </div>
           }
         >
@@ -351,7 +391,10 @@ export function ArtifactCard({ artifact, avatarId, element, characterName }: Art
       {/* An explicit "nothing to do" verdict - an empty slot here would be
           ambiguous, reading as "not calculated" rather than "already fine". */}
       {reroll.action === "none" && reroll.eligible && (
-        <InfoTip className="-mx-1" content={t("verdict", "tipWellRolled", { chance: formatChance(reroll.improveChance) })}>
+        <InfoTip
+          className="-mx-1"
+          content={t("verdict", "tipWellRolled", { chance: formatChance(reroll.improveChance) })}
+        >
           <VerdictRow
             color="var(--verdict-ok)"
             icon={<CheckIcon className="h-3 w-3 flex-shrink-0" />}

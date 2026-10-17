@@ -7,7 +7,7 @@
  * ramp without any component knowing about themes.
  */
 
-export type GradeBand = "f" | "d" | "c" | "b" | "a" | "s" | "ss" | "sss" | "wtf" | "aeon";
+type GradeBand = "f" | "d" | "c" | "b" | "a" | "s" | "ss" | "sss" | "wtf" | "aeon";
 
 const BANDS: GradeBand[] = ["aeon", "wtf", "sss", "ss", "s", "a", "b", "c", "d", "f"];
 
@@ -22,9 +22,26 @@ export function gradeVar(grade: string): string {
   return `var(--grade-${gradeBand(grade)})`;
 }
 
+/**
+ * Spelled out in full because Tailwind only generates classes it finds whole
+ * in the source: a `text-grade-${band}` template never made it into the CSS.
+ */
+const TEXT_CLASS: Record<GradeBand, string> = {
+  f: "text-grade-f",
+  d: "text-grade-d",
+  c: "text-grade-c",
+  b: "text-grade-b",
+  a: "text-grade-a",
+  s: "text-grade-s",
+  ss: "text-grade-ss",
+  sss: "text-grade-sss",
+  wtf: "text-grade-wtf",
+  aeon: "text-grade-aeon",
+};
+
 /** Tailwind text utility for a grade, for class-based call sites. */
 export function gradeTextClass(grade: string): string {
-  return `text-grade-${gradeBand(grade)}`;
+  return TEXT_CLASS[gradeBand(grade)];
 }
 
 /**
@@ -36,7 +53,10 @@ export function tint(color: string, percent: number): string {
 }
 
 /** Inline style for a coloured badge: tinted background, solid text. */
-export function gradeStyle(grade: string, washPercent = 16): { color: string; backgroundColor: string } {
+export function gradeStyle(
+  grade: string,
+  washPercent = 16,
+): { color: string; backgroundColor: string } {
   const color = gradeVar(grade);
   return { color, backgroundColor: tint(color, washPercent) };
 }

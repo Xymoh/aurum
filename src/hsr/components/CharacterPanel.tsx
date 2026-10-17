@@ -67,6 +67,9 @@ interface CharacterPanelProps {
  * Genshin cards do it. Open state is owned by the page, so the account-wide
  * "best next moves" panel can open a character it points at.
  */
+/** Stats a collapsed panel keeps on phones, where the full row wraps to four lines. */
+const HEADLINE: ReadonlySet<string> = new Set(["rowSpd", "rowCritRate", "rowCritDmg"]);
+
 export function CharacterPanel({ character, index, open, onToggle }: CharacterPanelProps) {
   // Mounted on first expand and then kept, so collapsing has something to
   // animate. Mounting six relic cards for every character up front, purely to
@@ -95,15 +98,15 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
         animationDelay: `${Math.min(index, 8) * 45}ms`,
       }}
     >
-      <button
-        type="button"
-        onClick={onToggle}
-        className="group relative flex w-full items-stretch gap-3 overflow-hidden p-3 text-left sm:gap-4 sm:p-4"
-        aria-expanded={open}
-        aria-controls={bodyId}
-        aria-label={open ? t("showcase", "collapse", { name: character.name }) : t("showcase", "expand", { name: character.name })}
-      >
-        {/* Splash art, masked into the card so it reads as part of the surface
+      <h2>
+        <button
+          type="button"
+          onClick={onToggle}
+          className="focus-visible:outline-offset-[-3px] group relative flex w-full items-stretch gap-3 overflow-hidden p-3 text-left sm:gap-4 sm:p-4"
+          aria-expanded={open}
+          aria-controls={bodyId}
+        >
+          {/* Splash art, masked into the card so it reads as part of the surface
             rather than a picture pasted behind it.
 
             Contained, not cropped. The source images are 376x512 portraits and
@@ -111,136 +114,149 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
             beheads somebody: at 18% from the top Sparxie showed only her hat.
             Fitting the whole portrait cannot cut a face off no matter what the
             composition is. */}
-        <div className="pointer-events-none absolute inset-0 flex justify-end" aria-hidden="true">
-          <div
-            className="relative h-full w-2/3 sm:w-1/2"
-            style={{
-              maskImage: "linear-gradient(to right, transparent, black 55%)",
-              WebkitMaskImage: "linear-gradient(to right, transparent, black 55%)",
-            }}
-          >
-            <RemoteImg
-              src={characterPreview(character.avatarId)}
-              alt=""
-              loading="lazy"
-              className="h-full w-full object-cover object-[center_30%] opacity-60 transition-opacity duration-300 group-hover:opacity-80"
-            />
+          <div className="pointer-events-none absolute inset-0 flex justify-end" aria-hidden="true">
             <div
-              className="absolute inset-0 opacity-25 mix-blend-overlay"
-              style={{ backgroundColor: tint }}
-            />
+              className="relative h-full w-2/3 sm:w-1/2"
+              style={{
+                maskImage: "linear-gradient(to right, transparent, black 55%)",
+                WebkitMaskImage: "linear-gradient(to right, transparent, black 55%)",
+              }}
+            >
+              <RemoteImg
+                src={characterPreview(character.avatarId)}
+                alt=""
+                loading="lazy"
+                className="h-full w-full object-cover object-[center_30%] opacity-60 transition-opacity duration-300 group-hover:opacity-80"
+              />
+              <div
+                className="absolute inset-0 opacity-25 mix-blend-overlay"
+                style={{ backgroundColor: tint }}
+              />
+            </div>
           </div>
-        </div>
-        {/* Left wash, so the text always has a solid ground beneath it. */}
-        <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-hsr-panel via-hsr-panel/95 to-transparent"
-          aria-hidden="true"
-        />
-        {/* And a right wash: the score and the chevron sit over the brightest
+          {/* Left wash, so the text always has a solid ground beneath it. */}
+          <div
+            className="pointer-events-none absolute inset-0 bg-gradient-to-r from-hsr-panel via-hsr-panel/95 to-transparent"
+            aria-hidden="true"
+          />
+          {/* And a right wash: the score and the chevron sit over the brightest
             part of the art, where muted text disappears entirely. */}
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 w-44 bg-gradient-to-l from-hsr-panel via-hsr-panel/85 to-transparent"
-          aria-hidden="true"
-        />
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 w-44 bg-gradient-to-l from-hsr-panel via-hsr-panel/85 to-transparent"
+            aria-hidden="true"
+          />
 
-        <div
-          className="relative w-1 shrink-0 rounded-full"
-          style={{ backgroundColor: tint }}
-          aria-hidden="true"
-        />
+          <div
+            className="relative w-1 shrink-0 rounded-full"
+            style={{ backgroundColor: tint }}
+            aria-hidden="true"
+          />
 
-        <div className="relative min-w-0 flex-1">
-          <div className="flex items-center gap-1.5">
-            {path && <RemoteImg src={path} alt="" width={20} height={20} className="icon-white-glyph h-5 w-5 opacity-80" />}
-            <RemoteImg
-              src={elementIcon(character.element)}
-              alt={character.element}
-              width={20}
-              height={20}
-              /* The element icons are coloured, all but Physical's: a pale
+          <div className="relative min-w-0 flex-1">
+            <div className="flex items-center gap-1.5">
+              {path && (
+                <RemoteImg
+                  src={path}
+                  alt=""
+                  width={20}
+                  height={20}
+                  className="icon-white-glyph h-5 w-5 opacity-80"
+                />
+              )}
+              <RemoteImg
+                src={elementIcon(character.element)}
+                alt={character.element}
+                width={20}
+                height={20}
+                /* The element icons are coloured, all but Physical's: a pale
                  grey glyph that a light panel loses like the Path's. */
-              className={character.element === "Physical" ? "icon-white-glyph h-5 w-5" : "h-5 w-5"}
-            />
-            <h2 className="truncate text-base font-semibold text-hsr-text sm:text-lg">
-              {character.name}
-            </h2>
-            {d.complete && (
-              <GradeBadge grade={d.grade} size="sm" className="hidden sm:inline-flex" />
+                className={
+                  character.element === "Physical" ? "icon-white-glyph h-5 w-5" : "h-5 w-5"
+                }
+              />
+              <span className="truncate text-base font-semibold text-hsr-text sm:text-lg">
+                {character.name}
+              </span>
+              {d.complete && <GradeBadge grade={d.grade} size="sm" className="max-sm:hidden" />}
+            </div>
+
+            <div className="mt-1 flex flex-wrap items-center gap-1.5">
+              <span className="rounded border border-hsr-line bg-hsr-inset px-1.5 py-0.5 font-mono text-xs text-hsr-text">
+                Lv{character.level}
+              </span>
+              <span className="rounded border border-hsr-line bg-hsr-inset px-1.5 py-0.5 font-mono text-xs text-hsr-text">
+                E{character.eidolon}
+              </span>
+              <span className="hidden rounded border border-hsr-line bg-hsr-inset px-1.5 py-0.5 text-xs text-hsr-muted sm:inline">
+                {t("hsrPaths", character.path as "Warrior")}
+              </span>
+            </div>
+
+            {character.traces && (
+              <div className="mt-1.5 hidden sm:block">
+                <Traces t={character.traces} />
+              </div>
+            )}
+
+            {character.lightCone && (
+              <div className="mt-1.5 flex items-center gap-2">
+                <RemoteImg
+                  src={lightConeIcon(character.lightCone.id)}
+                  alt=""
+                  loading="lazy"
+                  width={56}
+                  height={56}
+                  className="h-8 w-8 shrink-0 rounded object-cover ring-1 ring-hsr-line sm:h-11 sm:w-11"
+                />
+                <p className="truncate text-sm text-hsr-muted">
+                  {character.lightCone.name}
+                  <span className="ml-1 font-mono text-hsr-glow">
+                    S{character.lightCone.superimposition}
+                  </span>
+                </p>
+              </div>
             )}
           </div>
 
-          <div className="mt-1 flex flex-wrap items-center gap-1.5">
-            <span className="rounded border border-hsr-line bg-hsr-inset px-1.5 py-0.5 font-mono text-xs text-hsr-text">
-              Lv{character.level}
-            </span>
-            <span className="rounded border border-hsr-line bg-hsr-inset px-1.5 py-0.5 font-mono text-xs text-hsr-text">
-              E{character.eidolon}
-            </span>
-            <span className="hidden rounded border border-hsr-line bg-hsr-inset px-1.5 py-0.5 text-xs text-hsr-muted sm:inline">
-              {t("hsrPaths", character.path as "Warrior")}
-            </span>
+          <div className="relative shrink-0 self-center text-right">
+            {d.complete ? (
+              <>
+                <p
+                  className={`font-mono text-2xl font-bold leading-none tabular-nums sm:text-3xl ${gradeColor(d.grade)}`}
+                >
+                  {formatScore(d.score)}
+                </p>
+                <p className="mt-1 sm:hidden">
+                  <GradeBadge grade={d.grade} size="xs" />
+                </p>
+              </>
+            ) : (
+              <IncompleteScore
+                filled={character.relics.length}
+                total={RELIC_SLOT_COUNT}
+                mutedClass="text-hsr-muted"
+              />
+            )}
+            <p className="mt-1 font-mono text-xs text-hsr-muted">
+              {t("hsr", "rolls", { effective: d.effectiveRolls, total: d.totalRolls })}
+            </p>
           </div>
 
-          {character.traces && (
-            <div className="mt-1.5 hidden sm:block">
-              <Traces t={character.traces} />
-            </div>
-          )}
-
-          {character.lightCone && (
-            <div className="mt-1.5 flex items-center gap-2">
-              <RemoteImg
-                src={lightConeIcon(character.lightCone.id)}
-                alt=""
-                loading="lazy"
-                width={56}
-                height={56}
-                className="h-8 w-8 shrink-0 rounded object-cover ring-1 ring-hsr-line sm:h-11 sm:w-11"
-              />
-              <p className="truncate text-sm text-hsr-muted">
-                {character.lightCone.name}
-                <span className="ml-1 font-mono text-hsr-glow">S{character.lightCone.superimposition}</span>
-              </p>
-            </div>
-          )}
-        </div>
-
-        <div className="relative shrink-0 self-center text-right">
-          {d.complete ? (
-            <>
-              <p className={`font-mono text-2xl font-bold leading-none tabular-nums sm:text-3xl ${gradeColor(d.grade)}`}>
-                {formatScore(d.score)}
-              </p>
-              <p className="mt-1 sm:hidden">
-                <GradeBadge grade={d.grade} size="xs" />
-              </p>
-            </>
-          ) : (
-            <IncompleteScore
-              filled={character.relics.length}
-              total={RELIC_SLOT_COUNT}
-              mutedClass="text-hsr-muted"
-            />
-          )}
-          <p className="mt-1 font-mono text-xs text-hsr-muted">
-            {t("hsr", "rolls", { effective: d.effectiveRolls, total: d.totalRolls })}
-          </p>
-        </div>
-
-        <div className="relative flex h-8 w-8 shrink-0 items-center justify-center self-center rounded-full border border-hsr-line bg-hsr-inset text-hsr-muted transition-colors group-hover:text-hsr-text">
-          <svg
-            className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            aria-hidden="true"
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </div>
-      </button>
+          <div className="relative flex h-8 w-8 shrink-0 items-center justify-center self-center rounded-full border border-hsr-line bg-hsr-inset text-hsr-muted transition-colors group-hover:text-hsr-text">
+            <svg
+              className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </div>
+        </button>
+      </h2>
 
       {/* ── COLLAPSED SUMMARY (always visible) ──
           The character's final stats, the same figures the game's own
@@ -248,8 +264,13 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
           every panel. The Genshin cards carry the same row. */}
       <div className="flex items-center gap-3 border-t border-hsr-border/40 bg-hsr-inset/50 px-3 py-2 sm:px-4">
         <div className="flex min-w-0 flex-1 flex-wrap gap-x-4 gap-y-1">
+          {/* On phones only the headline stats stay collapsed; the full row
+              made each panel about 300px tall. The rest open with the panel. */}
           {statRowFor(character).map((s) => (
-            <span key={s.label} className="flex items-baseline gap-1.5 text-sm">
+            <span
+              key={s.label}
+              className={`${HEADLINE.has(s.label) ? "flex" : "hidden sm:flex"} items-baseline gap-1.5 text-sm`}
+            >
               <span className="text-hsr-muted">{t("hsr", s.label)}</span>
               <span className="font-mono font-semibold tabular-nums text-hsr-text">{s.value}</span>
             </span>
@@ -288,6 +309,18 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
         <div className="overflow-hidden" inert={!open}>
           {everOpened && (
             <div className="space-y-4 border-t p-3 sm:p-4" style={{ borderColor: `${tint}33` }}>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 sm:hidden">
+                {statRowFor(character)
+                  .filter((s) => !HEADLINE.has(s.label))
+                  .map((s) => (
+                    <span key={s.label} className="flex items-baseline gap-1.5 text-sm">
+                      <span className="text-hsr-muted">{t("hsr", s.label)}</span>
+                      <span className="font-mono font-semibold tabular-nums text-hsr-text">
+                        {s.value}
+                      </span>
+                    </span>
+                  ))}
+              </div>
               <DiagnosticsPanel d={d} tint={tint} relics={character.relics} />
               <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
                 {character.relics.map((relic) => (

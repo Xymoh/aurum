@@ -54,7 +54,10 @@ function DeltaBadge({ delta }: { delta: BuildDelta }) {
   const when = new Date(delta.since).toLocaleDateString();
   if (delta.isNew) {
     return (
-      <span className="rounded border border-accent/40 bg-accent/15 px-1.5 py-0.5 text-[11px] font-semibold uppercase text-accent" title={t("showcase", "newSince", { date: when })}>
+      <span
+        className="rounded border border-accent/40 bg-accent/15 px-1.5 py-0.5 text-[11px] font-semibold uppercase text-accent"
+        title={t("showcase", "newSince", { date: when })}
+      >
         {t("showcase", "newLabel")}
       </span>
     );
@@ -113,26 +116,36 @@ function RarityStars({ count }: { count: number }) {
  * One stat as a chip: icon, short label, value. The short label is what
  * fits eight across; the full name is there for screen readers.
  */
-function StatChip({ statKey, value }: { statKey: StatKey; value: number }) {
+function StatChip({
+  statKey,
+  value,
+  className = "flex",
+}: {
+  statKey: StatKey;
+  value: number;
+  className?: string;
+}) {
   const { t } = useI18n();
   const chip = (
-    <div className="flex items-baseline gap-1.5 text-sm">
-      <img src={STAT_ICONS[statKey]} alt="" className="h-3.5 w-3.5 flex-shrink-0 self-center opacity-70" />
+    <div className={`${className} items-baseline gap-1.5 text-sm`}>
+      <img
+        src={STAT_ICONS[statKey]}
+        alt=""
+        className="h-3.5 w-3.5 flex-shrink-0 self-center opacity-70"
+      />
       <span className="text-dark-muted">
         <span className="sr-only">{t("stats", statKey)}</span>
         <span aria-hidden="true">{t("statsShort", statKey)}</span>
       </span>
-      <span className="font-mono font-semibold tabular-nums text-dark-text">{formatStatValue(statKey, value)}</span>
+      <span className="font-mono font-semibold tabular-nums text-dark-text">
+        {formatStatValue(statKey, value)}
+      </span>
     </div>
   );
   // Crit Value is the one figure here that is a convention rather than a
   // stat the game prints, so it carries its definition.
   if (statKey === "cv") {
-    return (
-      <InfoTip content={t("showcase", "cvHint")} label={t("stats", "cv")}>
-        {chip}
-      </InfoTip>
-    );
+    return <InfoTip content={t("showcase", "cvHint")}>{chip}</InfoTip>;
   }
   return chip;
 }
@@ -147,9 +160,9 @@ function SlotPill({ slot, character }: { slot: ArtifactSlot; character: Characte
 
   if (!art) {
     return (
-      <span className="inline-flex items-center gap-1.5 rounded-md border border-dashed border-dark-border/70 px-2 py-0.5 text-xs text-dark-muted/70">
+      <span className="inline-flex items-center gap-1.5 rounded-md border border-dashed border-dark-border/70 px-2 py-0.5 text-xs text-dark-muted">
         {t("slots", slot)}
-        <span className="opacity-70">{t("showcase", "empty")}</span>
+        <span>{t("showcase", "empty")}</span>
       </span>
     );
   }
@@ -166,15 +179,26 @@ function SlotPill({ slot, character }: { slot: ArtifactSlot; character: Characte
           })}
         />
       )}
-      <span className="font-mono font-semibold tabular-nums" style={{ color: gradeVar(art.score.grade) }}>
+      <span
+        className="font-mono font-semibold tabular-nums"
+        style={{ color: gradeVar(art.score.grade) }}
+      >
         {formatScore(art.score.potentialPercent)}
       </span>
-      <GradeBadge grade={art.score.grade} size="xs" />
+      {/* Phones drop the badge so three pills fit a row; the score keeps the grade's colour. */}
+      <GradeBadge grade={art.score.grade} size="xs" className="max-sm:hidden" />
+      <span className="sr-only sm:hidden">{art.score.grade}</span>
     </span>
   );
 }
 
-export function CharacterCard({ character, index, isExpanded, onToggleExpand, delta }: CharacterCardProps) {
+export function CharacterCard({
+  character,
+  index,
+  isExpanded,
+  onToggleExpand,
+  delta,
+}: CharacterCardProps) {
   // Sticky: once opened, the body stays mounted so collapsing can animate.
   const [everExpanded, setEverExpanded] = useState(isExpanded);
   useEffect(() => {
@@ -236,125 +260,152 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
       }}
     >
       {/* ── BANNER HEADER ── */}
-      <button
-        type="button"
-        onClick={onToggleExpand}
-        aria-expanded={isExpanded}
-        aria-controls={bodyId}
-        aria-label={t("showcase", isExpanded ? "collapse" : "expand", { name: character.name })}
-        className="group relative flex min-h-[112px] w-full cursor-pointer items-center overflow-hidden text-left sm:min-h-[128px]"
-      >
-        <div className="absolute inset-0 z-0 bg-dark-bg" />
+      <h3>
+        <button
+          type="button"
+          onClick={onToggleExpand}
+          aria-expanded={isExpanded}
+          aria-controls={bodyId}
+          className="focus-visible:outline-offset-[-3px] group relative flex min-h-[112px] w-full cursor-pointer items-center overflow-hidden text-left sm:min-h-[128px]"
+        >
+          <div className="absolute inset-0 z-0 bg-dark-bg" />
 
-        {/* Banner image on the right */}
-        <div className="absolute inset-0 z-0 flex justify-end">
-          <div
-            className="relative h-full w-full sm:w-2/3"
-            style={{
-              maskImage: "linear-gradient(to right, transparent, black 60%)",
-              WebkitMaskImage: "-webkit-linear-gradient(left, transparent, black 60%)",
-            }}
-          >
-            <div className="absolute inset-0 opacity-40 mix-blend-overlay" style={{ backgroundColor: elementColor }} />
-            {portraitUrl && !imgError && showPortrait && (
-              <RemoteImg
-                src={portraitUrl}
-                fallbacks={fallbackUrl ? [fallbackUrl] : undefined}
-                alt=""
-                width={2048}
-                height={1024}
-                className="h-full w-full object-cover object-[center_22%] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
-                loading="lazy"
-                decoding="async"
-                fetchPriority="low"
-                onError={() => setImgError(true)}
+          {/* Banner image on the right */}
+          <div className="absolute inset-0 z-0 flex justify-end">
+            <div
+              className="relative h-full w-full sm:w-2/3"
+              style={{
+                maskImage: "linear-gradient(to right, transparent, black 60%)",
+                WebkitMaskImage: "-webkit-linear-gradient(left, transparent, black 60%)",
+              }}
+            >
+              <div
+                className="absolute inset-0 opacity-40 mix-blend-overlay"
+                style={{ backgroundColor: elementColor }}
               />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-l from-dark-bg/40 to-transparent" />
-          </div>
-        </div>
-
-        {/* Left Gradient */}
-        <div className="absolute inset-0 z-10 w-full bg-gradient-to-r from-dark-card via-dark-card/95 to-transparent md:w-3/4" />
-
-        {/* Header Content */}
-        <div className="relative z-20 flex w-full items-center justify-between px-4 py-3 sm:px-6">
-          <div className="flex items-center gap-3">
-            <div className="hidden h-10 w-1 rounded-full sm:block" style={{ backgroundColor: elementColor }} />
-            <div className="flex flex-col drop-shadow-lg">
-              <div className="mb-1 flex items-center gap-2">
-                <div
-                  className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold shadow-sm"
-                  style={{ backgroundColor: `${elementColor}EE`, color: "#000" }}
-                  aria-label={t("elements", character.element)}
-                >
-                  {character.element.substring(0, 2).toUpperCase()}
-                </div>
-                <h3 className="max-w-[180px] truncate text-lg font-bold tracking-wide text-dark-text sm:max-w-none sm:text-xl">
-                  {character.name}
-                </h3>
-                {character.buildScore.complete && (
-                  <GradeBadge grade={character.buildScore.grade} size="sm" className="hidden sm:inline-flex" />
-                )}
-                {delta && <DeltaBadge delta={delta} />}
-              </div>
-              <div className="flex flex-wrap items-center gap-1.5 text-sm font-medium text-dark-muted">
-                <span className="rounded border border-dark-border/60 bg-dark-card px-1.5 py-0.5 text-dark-text/90">
-                  {t("weapons", "level", { n: character.level })}
-                </span>
-                <span className={`rounded border px-1.5 py-0.5 ${character.constellation > 0 ? "border-accent/30 bg-accent/15 text-accent" : "border-dark-border/60 bg-dark-bg/80 text-dark-muted"}`}>
-                  C{character.constellation}
-                </span>
-                <span className="hidden rounded border border-dark-border/60 bg-dark-card px-1.5 py-0.5 text-dark-text/90 sm:inline-block">
-                  {t("weapons", character.weaponType as "Sword")}
-                </span>
-                {/* Score on mobile inline */}
-                <span className="inline items-center gap-1 sm:hidden">
-                  {character.buildScore.complete ? (
-                    <>
-                      <span className="font-mono font-bold tabular-nums" style={{ color: gradeColor }}>
-                        {formatScore(character.buildScore.total)}
-                      </span>{" "}
-                      <GradeBadge grade={character.buildScore.grade} size="xs" />
-                    </>
-                  ) : (
-                    <span className="font-mono text-dark-muted">
-                      {character.buildScore.artifactCount}/{ARTIFACT_SLOT_COUNT} pieces
-                    </span>
-                  )}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right side: score on desktop + expand arrow */}
-          <div className="flex items-center gap-3 drop-shadow-md">
-            <div className="hidden flex-col items-end text-right sm:flex">
-              <span className="mb-0.5 text-[11px] font-bold uppercase tracking-wider text-dark-muted">{t("showcase", "buildScore")}</span>
-              {character.buildScore.complete ? (
-                <span className="font-mono text-2xl font-bold leading-none tabular-nums" style={{ color: gradeColor }}>
-                  {formatScore(character.buildScore.total)}
-                </span>
-              ) : (
-                <IncompleteScore
-                  filled={character.buildScore.artifactCount}
-                  total={ARTIFACT_SLOT_COUNT}
+              {portraitUrl && !imgError && showPortrait && (
+                <RemoteImg
+                  src={portraitUrl}
+                  fallbacks={fallbackUrl ? [fallbackUrl] : undefined}
+                  alt=""
+                  width={2048}
+                  height={1024}
+                  className="h-full w-full object-cover object-[center_22%] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
+                  onError={() => setImgError(true)}
                 />
               )}
-            </div>
-
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-dark-border bg-dark-card text-dark-text backdrop-blur-md transition-colors group-hover:bg-dark-card-hover">
-              <svg
-                width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
-                className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
-                aria-hidden="true"
-              >
-                <path d="m6 9 6 6 6-6" />
-              </svg>
+              <div className="absolute inset-0 bg-gradient-to-l from-dark-bg/40 to-transparent" />
             </div>
           </div>
-        </div>
-      </button>
+
+          {/* Left Gradient */}
+          <div className="absolute inset-0 z-10 w-full bg-gradient-to-r from-dark-card via-dark-card/95 to-transparent md:w-3/4" />
+
+          {/* Header Content */}
+          <div className="relative z-20 flex w-full items-center justify-between px-4 py-3 sm:px-6">
+            <div className="flex items-center gap-3">
+              <div
+                className="hidden h-10 w-1 rounded-full sm:block"
+                style={{ backgroundColor: elementColor }}
+              />
+              <div className="flex flex-col drop-shadow-lg">
+                <div className="mb-1 flex items-center gap-2">
+                  <div
+                    className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold shadow-sm"
+                    style={{ backgroundColor: `${elementColor}EE`, color: "#000" }}
+                    aria-label={t("elements", character.element)}
+                  >
+                    {character.element.substring(0, 2).toUpperCase()}
+                  </div>
+                  <span className="max-w-[180px] truncate text-lg font-bold tracking-wide text-dark-text sm:max-w-none sm:text-xl">
+                    {character.name}
+                  </span>
+                  {character.buildScore.complete && (
+                    <GradeBadge
+                      grade={character.buildScore.grade}
+                      size="sm"
+                      className="max-sm:hidden"
+                    />
+                  )}
+                  {delta && <DeltaBadge delta={delta} />}
+                </div>
+                <div className="flex flex-wrap items-center gap-1.5 text-sm font-medium text-dark-muted">
+                  <span className="rounded border border-dark-border/60 bg-dark-card px-1.5 py-0.5 text-dark-text/90">
+                    {t("weapons", "level", { n: character.level })}
+                  </span>
+                  <span
+                    className={`rounded border px-1.5 py-0.5 ${character.constellation > 0 ? "border-accent/30 bg-accent/15 text-accent" : "border-dark-border/60 bg-dark-bg/80 text-dark-muted"}`}
+                  >
+                    C{character.constellation}
+                  </span>
+                  <span className="hidden rounded border border-dark-border/60 bg-dark-card px-1.5 py-0.5 text-dark-text/90 sm:inline-block">
+                    {t("weapons", character.weaponType as "Sword")}
+                  </span>
+                  {/* Score on mobile inline */}
+                  <span className="inline items-center gap-1 sm:hidden">
+                    {character.buildScore.complete ? (
+                      <>
+                        <span
+                          className="font-mono font-bold tabular-nums"
+                          style={{ color: gradeColor }}
+                        >
+                          {formatScore(character.buildScore.total)}
+                        </span>{" "}
+                        <GradeBadge grade={character.buildScore.grade} size="xs" />
+                      </>
+                    ) : (
+                      <span className="font-mono text-dark-muted">
+                        {character.buildScore.artifactCount}/{ARTIFACT_SLOT_COUNT} pieces
+                      </span>
+                    )}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right side: score on desktop + expand arrow */}
+            <div className="flex items-center gap-3 drop-shadow-md">
+              <div className="hidden flex-col items-end text-right sm:flex">
+                <span className="mb-0.5 text-[11px] font-bold uppercase tracking-wider text-dark-muted">
+                  {t("showcase", "buildScore")}
+                </span>
+                {character.buildScore.complete ? (
+                  <span
+                    className="font-mono text-2xl font-bold leading-none tabular-nums"
+                    style={{ color: gradeColor }}
+                  >
+                    {formatScore(character.buildScore.total)}
+                  </span>
+                ) : (
+                  <IncompleteScore
+                    filled={character.buildScore.artifactCount}
+                    total={ARTIFACT_SLOT_COUNT}
+                  />
+                )}
+              </div>
+
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-dark-border bg-dark-card text-dark-text backdrop-blur-md transition-colors group-hover:bg-dark-card-hover">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </button>
+      </h3>
 
       {/* ── COLLAPSED SUMMARY (always visible) ──
           The five slot grades first, because that is the question this tool
@@ -367,8 +418,16 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
         </div>
         <div className="flex items-center gap-3">
           <div className="flex min-w-0 flex-1 flex-wrap gap-x-4 gap-y-1">
+            {/* On phones only Crit Value stays in the collapsed row; nine
+                chips there made each card about 250px tall. The rest open
+                with the card, at the top of the body. */}
             {statEntries.map((stat) => (
-              <StatChip key={stat.key} statKey={stat.key} value={stat.value} />
+              <StatChip
+                key={stat.key}
+                statKey={stat.key}
+                value={stat.value}
+                className={stat.key === "cv" ? "flex" : "hidden sm:flex"}
+              />
             ))}
           </div>
           <div className="flex shrink-0 items-center gap-1.5">
@@ -409,6 +468,14 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
           {everExpanded && (
             <div className="border-t border-dark-border/60 bg-dark-bg/30">
               <div className="flex flex-col gap-3 p-3 sm:gap-4 sm:p-4 lg:p-5">
+                <div className="flex flex-wrap gap-x-4 gap-y-1 sm:hidden">
+                  {statEntries
+                    .filter((stat) => stat.key !== "cv")
+                    .map((stat) => (
+                      <StatChip key={stat.key} statKey={stat.key} value={stat.value} />
+                    ))}
+                </div>
+
                 {/* Traveler notice - same avatarId across all 7 elements, so scoring can't be element-tuned */}
                 {character.usesGenericWeights && (
                   <div className="flex items-center gap-2 rounded-lg border border-sky-500/20 bg-sky-500/10 px-4 py-2.5 text-sm font-medium text-dark-text">
@@ -443,12 +510,23 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
                   >
                     <div
                       className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-full border-[3px] sm:h-16 sm:w-16"
-                      style={{ borderColor: `${elementColor}88`, background: `linear-gradient(rgb(144,105,72) 0%, rgb(191,133,81) 100%)` }}
+                      style={{
+                        borderColor: `${elementColor}88`,
+                        background: `linear-gradient(rgb(144,105,72) 0%, rgb(191,133,81) 100%)`,
+                      }}
                     >
                       {avatarIconUrl ? (
-                        <RemoteImg src={avatarIconUrl} alt="" className="h-full w-full object-cover" loading="lazy" />
+                        <RemoteImg
+                          src={avatarIconUrl}
+                          alt=""
+                          className="h-full w-full object-cover"
+                          loading="lazy"
+                        />
                       ) : (
-                        <div className="flex h-full w-full items-center justify-center text-2xl font-bold" style={{ color: elementColor }}>
+                        <div
+                          className="flex h-full w-full items-center justify-center text-2xl font-bold"
+                          style={{ color: elementColor }}
+                        >
                           {character.name.charAt(0)}
                         </div>
                       )}
@@ -461,16 +539,21 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
                         )}
                       </div>
                       <div className="mt-1 flex flex-wrap gap-1.5">
-                        <span className="rounded border border-dark-border/60 bg-dark-card px-1.5 py-0.5 text-sm text-dark-text/80">{t("weapons", "level", { n: character.level })}</span>
-                        <span className={`rounded border px-1.5 py-0.5 text-sm ${character.constellation > 0 ? "border-accent/30 bg-accent/15 text-accent" : "border-dark-border/60 bg-dark-bg/80 text-dark-muted"}`}>
+                        <span className="rounded border border-dark-border/60 bg-dark-card px-1.5 py-0.5 text-sm text-dark-text/80">
+                          {t("weapons", "level", { n: character.level })}
+                        </span>
+                        <span
+                          className={`rounded border px-1.5 py-0.5 text-sm ${character.constellation > 0 ? "border-accent/30 bg-accent/15 text-accent" : "border-dark-border/60 bg-dark-bg/80 text-dark-muted"}`}
+                        >
                           C{character.constellation}
                         </span>
-                        {character.friendshipLevel !== undefined && character.friendshipLevel > 0 && (
-                          <span className="flex items-center gap-1 rounded border border-dark-border/60 bg-dark-card px-1.5 py-0.5 text-sm text-dark-text/80">
-                            <img src={friendshipIcon} alt="" className="h-3 w-3 opacity-70" />
-                            {character.friendshipLevel}
-                          </span>
-                        )}
+                        {character.friendshipLevel !== undefined &&
+                          character.friendshipLevel > 0 && (
+                            <span className="flex items-center gap-1 rounded border border-dark-border/60 bg-dark-card px-1.5 py-0.5 text-sm text-dark-text/80">
+                              <img src={friendshipIcon} alt="" className="h-3 w-3 opacity-70" />
+                              {character.friendshipLevel}
+                            </span>
+                          )}
                       </div>
                     </div>
                   </div>
@@ -480,9 +563,16 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
                     <div className="flex min-w-0 flex-1 items-center gap-2.5 rounded-xl border border-dark-border bg-dark-card px-3 py-2.5">
                       <div className="icon-dark-bg relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg border border-dark-border/60 bg-dark-bg sm:h-16 sm:w-16">
                         {weaponIconUrl ? (
-                          <RemoteImg src={weaponIconUrl} alt={character.weapon.name} className="h-full w-full object-cover" loading="lazy" />
+                          <RemoteImg
+                            src={weaponIconUrl}
+                            alt={character.weapon.name}
+                            className="h-full w-full object-cover"
+                            loading="lazy"
+                          />
                         ) : (
-                          <div className="flex h-full w-full items-center justify-center text-xs text-dark-muted">W</div>
+                          <div className="flex h-full w-full items-center justify-center text-xs text-dark-muted">
+                            W
+                          </div>
                         )}
                         <div className="absolute bottom-0.5 left-0 right-0 flex justify-center">
                           <RarityStars count={character.weapon.rarity} />
@@ -490,14 +580,30 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-1">
-                          <span className="truncate text-sm font-semibold text-dark-text">{character.weapon.name}</span>
-                          <span className="rounded border border-dark-border/60 bg-dark-bg/80 px-1 py-0.5 text-xs text-dark-muted">R{character.weapon.refinement}</span>
-                          <span className="rounded border border-dark-border/60 bg-dark-bg/80 px-1 py-0.5 text-xs text-dark-muted">Lv.{character.weapon.level}</span>
+                          <span className="truncate text-sm font-semibold text-dark-text">
+                            {character.weapon.name}
+                          </span>
+                          <span className="rounded border border-dark-border/60 bg-dark-bg/80 px-1 py-0.5 text-xs text-dark-muted">
+                            R{character.weapon.refinement}
+                          </span>
+                          <span className="rounded border border-dark-border/60 bg-dark-bg/80 px-1 py-0.5 text-xs text-dark-muted">
+                            Lv.{character.weapon.level}
+                          </span>
                         </div>
                         <div className="mt-0.5 flex flex-wrap gap-x-3 gap-y-0.5 text-sm">
-                          <span className="text-dark-muted">{character.weapon.mainStat.name} <span className="font-mono text-dark-text/90">{character.weapon.mainStat.value}</span></span>
+                          <span className="text-dark-muted">
+                            {character.weapon.mainStat.name}{" "}
+                            <span className="font-mono text-dark-text/90">
+                              {character.weapon.mainStat.value}
+                            </span>
+                          </span>
                           {character.weapon.substat.name !== "-" && (
-                            <span className="text-dark-muted">{character.weapon.substat.name} <span className="font-mono text-dark-text/90">{character.weapon.substat.value}</span></span>
+                            <span className="text-dark-muted">
+                              {character.weapon.substat.name}{" "}
+                              <span className="font-mono text-dark-text/90">
+                                {character.weapon.substat.value}
+                              </span>
+                            </span>
                           )}
                         </div>
                       </div>
@@ -509,20 +615,38 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
                 <div className="flex flex-col gap-3 sm:flex-row">
                   {/* Constellations */}
                   <div className="flex-1 rounded-xl border border-dark-border bg-dark-card p-3">
-                    <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-dark-muted">{t("showcase", "constellation")}</div>
+                    <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-dark-muted">
+                      {t("showcase", "constellation")}
+                    </div>
                     <div className="flex flex-wrap gap-1 sm:gap-1.5">
                       {Array.from({ length: 6 }, (_, i) => {
                         const unlocked = i < character.constellation;
                         const sNum = i < 2 ? i + 1 : i === 2 ? 0 : i === 3 ? 3 : i === 4 ? 0 : 4;
                         const uNum = i === 2 ? 1 : i === 4 ? 2 : 0;
                         const useU = i === 2 || i === 4;
-                        const conFile = useU ? `UI_Talent_U_${character.talentIconSuffix}_0${uNum}` : `UI_Talent_S_${character.talentIconSuffix}_0${sNum}`;
+                        const conFile = useU
+                          ? `UI_Talent_U_${character.talentIconSuffix}_0${uNum}`
+                          : `UI_Talent_S_${character.talentIconSuffix}_0${sNum}`;
                         const conIcon = `${ENKA_UI_BASE}/${conFile}.png`;
-                        const fallbackIcon = useU ? `${ENKA_UI_BASE}/UI_Talent_S_${character.talentIconSuffix}_0${i + 1}.png` : `${ENKA_UI_BASE}/UI_Talent_U_${character.talentIconSuffix}_0${i + 1}.png`;
+                        const fallbackIcon = useU
+                          ? `${ENKA_UI_BASE}/UI_Talent_S_${character.talentIconSuffix}_0${i + 1}.png`
+                          : `${ENKA_UI_BASE}/UI_Talent_U_${character.talentIconSuffix}_0${i + 1}.png`;
                         return (
-                          <div key={i} className={`icon-dark-bg relative h-11 w-11 flex-shrink-0 overflow-hidden rounded-lg border-2 bg-dark-bg sm:h-14 sm:w-14 ${unlocked ? "border-accent/60" : "border-dark-border/50"}`} title={`C${i + 1}${unlocked ? "" : " (locked)"}`}>
-                            <RemoteImg src={conIcon} alternates={[fallbackIcon]} alt={`C${i + 1}`} className="h-full w-full object-cover" loading="lazy"
-                              style={{ filter: unlocked ? "none" : "brightness(0.4) saturate(0.3)" }} />
+                          <div
+                            key={i}
+                            className={`icon-dark-bg relative h-11 w-11 flex-shrink-0 overflow-hidden rounded-lg border-2 bg-dark-bg sm:h-14 sm:w-14 ${unlocked ? "border-accent/60" : "border-dark-border/50"}`}
+                            title={`C${i + 1}${unlocked ? "" : " (locked)"}`}
+                          >
+                            <RemoteImg
+                              src={conIcon}
+                              alternates={[fallbackIcon]}
+                              alt={`C${i + 1}`}
+                              className="h-full w-full object-cover"
+                              loading="lazy"
+                              style={{
+                                filter: unlocked ? "none" : "brightness(0.4) saturate(0.3)",
+                              }}
+                            />
                             {!unlocked && (
                               <div className="absolute inset-0 flex items-center justify-center bg-black/30">
                                 <img src={lockIcon} alt="" className="h-6 w-6" />
@@ -536,7 +660,9 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
 
                   {/* Talents */}
                   <div className="flex-1 rounded-xl border border-dark-border bg-dark-card p-3">
-                    <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-dark-muted">{t("showcase", "talents")}</div>
+                    <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-dark-muted">
+                      {t("showcase", "talents")}
+                    </div>
                     <div className="flex gap-2.5">
                       {[
                         { label: "NA", icon: "Skill_A_01.png" },
@@ -545,7 +671,12 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
                       ].map((talent, idx) => (
                         <div key={idx} className="flex flex-col items-center gap-1">
                           <div className="icon-dark-bg h-10 w-10 overflow-hidden rounded-full border-2 border-dark-border/40 bg-dark-bg sm:h-12 sm:w-12">
-                            <RemoteImg src={`${ENKA_UI_BASE}/${talent.icon}`} alt={talent.label} className="h-full w-full object-cover" loading="lazy" />
+                            <RemoteImg
+                              src={`${ENKA_UI_BASE}/${talent.icon}`}
+                              alt={talent.label}
+                              className="h-full w-full object-cover"
+                              loading="lazy"
+                            />
                           </div>
                           <span className="font-mono text-sm font-semibold text-dark-text">
                             {character.talents[idx] && character.talents[idx] > 0
@@ -560,28 +691,48 @@ export function CharacterCard({ character, index, isExpanded, onToggleExpand, de
 
                 {/* ── ARTIFACTS SECTION (Fribbels-style cards) ── */}
                 <div className="rounded-xl border border-dark-border bg-dark-card/40 p-3 sm:p-4">
-                  <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark-muted">{t("showcase", "artifacts")}</div>
+                  <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark-muted">
+                    {t("showcase", "artifacts")}
+                  </div>
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
                     {SLOT_ORDER.map((slotStr) => {
                       const art = character.artifacts.find((a) => a.slot === slotStr);
                       if (!art) {
                         return (
-                          <div key={slotStr} className="flex flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-dark-border/60 p-4 text-dark-muted">
+                          <div
+                            key={slotStr}
+                            className="flex flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-dark-border/60 p-4 text-dark-muted"
+                          >
                             <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-dark-border bg-dark-bg/50">
-                              <span className="text-sm font-semibold uppercase">{slotStr.slice(0, 2)}</span>
+                              <span className="text-sm font-semibold uppercase">
+                                {slotStr.slice(0, 2)}
+                              </span>
                             </div>
-                            <span className="text-xs">{t("slots", slotStr)} · {t("showcase", "empty")}</span>
+                            <span className="text-xs">
+                              {t("slots", slotStr)} · {t("showcase", "empty")}
+                            </span>
                           </div>
                         );
                       }
-                      return <ArtifactCard key={art.id} artifact={art} avatarId={character.avatarId} element={character.element} characterName={character.name} />;
+                      return (
+                        <ArtifactCard
+                          key={art.id}
+                          artifact={art}
+                          avatarId={character.avatarId}
+                          element={character.element}
+                          characterName={character.name}
+                        />
+                      );
                     })}
                   </div>
                 </div>
 
                 {/* ── SET BONUSES ── */}
                 {character.artifacts.length > 0 && (
-                  <SetBonusRow artifacts={character.artifacts} setBonus={character.buildScore.setBonus} />
+                  <SetBonusRow
+                    artifacts={character.artifacts}
+                    setBonus={character.buildScore.setBonus}
+                  />
                 )}
 
                 {/* The incomplete notice lives in the score bar at the top of

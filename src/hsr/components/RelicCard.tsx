@@ -77,16 +77,15 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
           <GradeBadge grade={score.grade} size="sm" />
         ) : (
           <InfoTip
-            content={
-              score.mainStatOk
-                ? t("hsr", "notGraded")
-                : t("hsr", "notGradedMain")
-            }
+            content={score.mainStatOk ? t("hsr", "notGraded") : t("hsr", "notGradedMain")}
             panelClassName={HSR_PANEL}
             align="right"
             label={t("hsr", "whyNoGrade")}
           >
-            <span className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs font-semibold" style={{ backgroundColor: tint("var(--warn)", 12), color: "var(--warn)" }}>
+            <span
+              className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs font-semibold"
+              style={{ backgroundColor: tint("var(--warn)", 12), color: "var(--warn)" }}
+            >
               <WarningIcon className="h-3 w-3" />
               {score.mainStatOk ? t("hsr", "notApplicable") : t("hsr", "wrongMain")}
             </span>
@@ -107,7 +106,9 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
           const dead = weightOf(weights, sub.key) < WASTE_THRESHOLD;
           return (
             <li key={sub.key} className="flex items-center justify-between gap-2">
-              <span className={`text-sm ${dead ? "text-hsr-muted line-through decoration-hsr-muted/50" : "text-hsr-text/85"}`}>
+              <span
+                className={`text-sm ${dead ? "text-hsr-muted line-through decoration-hsr-muted/50" : "text-hsr-text/85"}`}
+              >
                 {t("hsrStats", sub.key)}
               </span>
               <span className="flex items-center gap-2">
@@ -117,11 +118,17 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
                 <InfoTip
                   align="right"
                   panelClassName={HSR_PANEL}
-                  label={t("hsr", "rollTipLabel", { n: sub.rolls, pct: Math.round(sub.quality * 100) })}
+                  label={t("hsr", "rollTipLabel", {
+                    n: sub.rolls,
+                    pct: Math.round(sub.quality * 100),
+                  })}
                   content={
                     <div className="space-y-1">
                       <p className="font-medium">
-                        {t("hsr", "rollTipHeading", { n: sub.rolls, pct: Math.round(sub.quality * 100) })}
+                        {t("hsr", "rollTipHeading", {
+                          n: sub.rolls,
+                          pct: Math.round(sub.quality * 100),
+                        })}
                       </p>
                       <p className="text-hsr-muted">
                         {t("hsr", "rollTipBody", {
@@ -159,7 +166,9 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
           </span>
           {t("hsr", "usefulSuffix", { total: relic.totalRolls })}
         </span>
-        <span className={`font-bold ${gradeColor(score.grade)}`}>{formatScore(score.potentialPercent)}</span>
+        <span className={`font-bold ${gradeColor(score.grade)}`}>
+          {formatScore(score.potentialPercent)}
+        </span>
       </div>
 
       {/* What to actually do with the piece. A die costs the same whatever the
@@ -182,7 +191,9 @@ export function RelicCard({ relic, weights }: { relic: HsrRelic; weights: HsrWei
             </div>
             {reroll.action === "reroll" && reroll.targetStats.length > 0 && (
               <p className="mt-0.5 truncate text-[11px] opacity-90">
-                {t("hsr", "hopeFor", { stats: reroll.targetStats.map((k) => t("hsrStats", k)).join(" / ") })}
+                {t("hsr", "hopeFor", {
+                  stats: reroll.targetStats.map((k) => t("hsrStats", k)).join(" / "),
+                })}
               </p>
             )}
           </div>

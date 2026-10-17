@@ -16,7 +16,7 @@ import zzzIcon from "../assets/games/zzz.png";
 
 export type GameId = "genshin" | "hsr" | "zzz";
 
-export interface GameDef {
+interface GameDef {
   id: GameId;
   /** Full title, used on the picker tile. */
   name: string;
@@ -78,9 +78,3 @@ export const GAMES: GameDef[] = [
 ];
 
 export const LIVE_GAMES = GAMES.filter((g) => g.status === "live");
-
-export function gameById(id: GameId): GameDef {
-  const game = GAMES.find((g) => g.id === id);
-  if (!game) throw new Error(`Unknown game: ${id}`);
-  return game;
-}

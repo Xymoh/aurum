@@ -30,8 +30,9 @@ const ENKA_BASE = {
   zzz: "https://enka.network/api/zzz/uid",
 };
 
-// The old GitHub Pages origin stays until its visitors have been redirected over.
-const DEFAULT_ORIGINS = ["https://aurumgg.com", "https://www.aurumgg.com", "https://xymoh.github.io"];
+// Not xymoh.github.io: the old address only redirects, and that origin is
+// shared by every GitHub Pages site on the account.
+const DEFAULT_ORIGINS = ["https://aurumgg.com", "https://www.aurumgg.com"];
 
 /** Enka asks every client to identify itself and say where to complain. */
 const USER_AGENT = "Aurum/0.1 (+https://aurumgg.com)";
@@ -76,7 +77,8 @@ function rateLimited(ip) {
     hits.set(ip, { start: now, count: 1 });
     // Keep the map from growing without bound between recycles.
     if (hits.size > 10_000) {
-      for (const [key, value] of hits) if (now - value.start > RATE_LIMIT.windowMs) hits.delete(key);
+      for (const [key, value] of hits)
+        if (now - value.start > RATE_LIMIT.windowMs) hits.delete(key);
     }
     return false;
   }
@@ -124,15 +126,33 @@ export default {
       upstream = await fetch(`${ENKA_BASE[game]}/${uid}`, {
         headers: { "User-Agent": USER_AGENT, Accept: "application/json" },
         signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
-        cf: { cacheTtl: CACHE_SECONDS, cacheEverything: true },
+        // Only successes are cached: a passing 429 or 5xx, or a 404 for a
+        // player who has just made their showcase public, must not be served
+        // to everyone asking for that UID for the next minute.
+        cf: {
+          cacheEverything: true,
+          cacheTtlByStatus: { "200-299": CACHE_SECONDS, "300-599": -1 },
+        },
       });
     } catch (err) {
       const timedOut = err && err.name === "TimeoutError";
-      return json({ error: timedOut ? "Enka.Network did not answer in time." : "Could not reach Enka.Network." }, timedOut ? 504 : 502, origin);
+      return json(
+        {
+          error: timedOut
+            ? "Enka.Network did not answer in time."
+            : "Could not reach Enka.Network.",
+        },
+        timedOut ? 504 : 502,
+        origin,
+      );
     }
 
     if (!upstream.ok) {
-      return json({ error: `Enka.Network returned status ${upstream.status}.` }, upstream.status, origin);
+      return json(
+        { error: `Enka.Network returned status ${upstream.status}.` },
+        upstream.status,
+        origin,
+      );
     }
 
     return new Response(upstream.body, {

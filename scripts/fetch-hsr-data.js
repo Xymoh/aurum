@@ -60,7 +60,9 @@ function write(name, data) {
   const file = path.join(OUT, name);
   fs.writeFileSync(file, JSON.stringify(data, null, 0) + "\n", "utf8");
   const kb = (fs.statSync(file).size / 1024).toFixed(1);
-  console.log(`  ${name.padEnd(20)} ${String(Object.keys(data).length).padStart(5)} entries  ${kb} kB`);
+  console.log(
+    `  ${name.padEnd(20)} ${String(Object.keys(data).length).padStart(5)} entries  ${kb} kB`,
+  );
 }
 
 const main = async () => {
@@ -112,7 +114,9 @@ const main = async () => {
     fromEnka++;
   }
   write("relics.json", relics);
-  console.log(`    (${fromEnka} from Enka, ${Object.keys(relics).length - fromEnka} only in StarRailRes)`);
+  console.log(
+    `    (${fromEnka} from Enka, ${Object.keys(relics).length - fromEnka} only in StarRailRes)`,
+  );
 
   // ── Names ──
   const sets = {};
@@ -127,7 +131,12 @@ const main = async () => {
 
   const chars = {};
   for (const [id, c] of Object.entries(srrChars)) {
-    chars[id] = { name: trailblazer(id, c.name), path: c.path, element: c.element, rarity: c.rarity };
+    chars[id] = {
+      name: trailblazer(id, c.name),
+      path: c.path,
+      element: c.element,
+      rarity: c.rarity,
+    };
   }
   write("characters.json", chars);
 

@@ -49,7 +49,8 @@ interface RawSubAffix {
 interface RawRelic {
   tid: number;
   type: number;
-  level: number;
+  /** Omitted at +0: Enka leaves zero-valued fields out of Star Rail payloads. */
+  level?: number;
   mainAffixId: number;
   subAffixList?: RawSubAffix[];
 }
@@ -141,7 +142,8 @@ function parseRelic(raw: RawRelic): ParsedRelic | null {
   const mainSpec = mainTable[String(raw.mainAffixId)];
   if (!mainSpec) return null;
   const mainKey = normalizeKey(mainSpec.Property);
-  const mainRaw = mainSpec.BaseValue + (mainSpec.LevelAdd ?? 0) * raw.level;
+  const level = raw.level ?? 0;
+  const mainRaw = mainSpec.BaseValue + (mainSpec.LevelAdd ?? 0) * level;
 
   const substats: HsrSubstat[] = [];
   let totalRolls = 0;
@@ -171,7 +173,7 @@ function parseRelic(raw: RawRelic): ParsedRelic | null {
     setId: info.setId,
     setName: SETS[String(info.setId)] ?? `Set ${info.setId}`,
     rarity: info.rarity,
-    level: raw.level,
+    level,
     mainStat: { key: mainKey, value: display(mainKey, mainRaw) },
     substats,
     totalRolls,
@@ -182,7 +184,7 @@ function parseRelic(raw: RawRelic): ParsedRelic | null {
  * Ascension from level, for the rare payload that omits it. The thresholds
  * are the game's: a level 80 character has taken all six ascensions.
  */
-export function ascensionFor(level: number): number {
+function ascensionFor(level: number): number {
   if (level > 70) return 6;
   if (level > 60) return 5;
   if (level > 50) return 4;
@@ -243,7 +245,7 @@ export type ParsedRelic = Omit<HsrRelic, "score" | "reroll">;
 export type ParsedCharacter = Omit<HsrCharacter, "relics" | "diagnostics" | "stats"> & {
   relics: ParsedRelic[];
 };
-export type ParsedShowcase = Omit<HsrShowcase, "characters"> & {
+type ParsedShowcase = Omit<HsrShowcase, "characters"> & {
   characters: ParsedCharacter[];
 };
 

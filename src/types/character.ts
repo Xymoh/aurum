@@ -1,14 +1,7 @@
 import type { Artifact } from "./artifact";
 import type { ScoreGrade } from "./artifact";
 
-export type GenshinElement =
-  | "Pyro"
-  | "Hydro"
-  | "Anemo"
-  | "Electro"
-  | "Dendro"
-  | "Cryo"
-  | "Geo";
+export type GenshinElement = "Pyro" | "Hydro" | "Anemo" | "Electro" | "Dendro" | "Cryo" | "Geo";
 
 export const ELEMENT_COLORS: Record<GenshinElement, string> = {
   Pyro: "#ef4444",
@@ -26,6 +19,8 @@ export interface CharacterWeapon {
   name: string;
   icon: string;
   level: number;
+  /** Ascension phase as Enka states it; a level alone is ambiguous at 20/40/50/60/70/80. */
+  ascension?: number;
   refinement: number;
   rarity: number;
   mainStat: { name: string; value: string };
@@ -52,6 +47,8 @@ export interface CharacterData {
   element: GenshinElement;
   weaponType: string;
   level: number;
+  /** Ascension phase as Enka states it; a level alone is ambiguous at 20/40/50/60/70/80. */
+  ascension?: number;
   constellation: number;
   friendshipLevel?: number;
   talents: number[];

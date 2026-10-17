@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useI18n } from "../i18n";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
-import { CONTACT_URL } from "../legal/site";
+import { CONTACT_URL, SITE_NAME } from "../legal/site";
+import { GAMES } from "../games/registry";
 import { HELP_CONTENT, helpImageUrl, type HelpGame, type HelpSkin, type HelpStep } from "./content";
 
 interface ShowcaseHelpPageProps {
@@ -32,7 +33,9 @@ function StepImage({ game, step, skin }: { game: HelpGame; step: HelpStep; skin:
           {t("help", "placeholderTitle")}
         </span>
         <span className={`text-sm leading-relaxed ${skin.text}`}>{t("help", step.capture)}</span>
-        <code className={`mt-1 rounded px-1.5 py-0.5 font-mono text-[11px] ${skin.muted}`}>{file}</code>
+        <code className={`mt-1 rounded px-1.5 py-0.5 font-mono text-[11px] ${skin.muted}`}>
+          {file}
+        </code>
       </div>
     );
   }
@@ -42,7 +45,13 @@ function StepImage({ game, step, skin }: { game: HelpGame; step: HelpStep; skin:
   // cropping could cut off the very button the step points at.
   const src = helpImageUrl(game, step.image);
   return (
-    <a href={src} target="_blank" rel="noopener noreferrer" className="block" title={t("help", "openFull")}>
+    <a
+      href={src}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block"
+      title={t("help", "openFull")}
+    >
       <img
         src={src}
         alt={t("help", step.capture)}
@@ -66,17 +75,24 @@ export function ShowcaseHelpPage({ game }: ShowcaseHelpPageProps) {
   const { t } = useI18n();
   const content = HELP_CONTENT[game];
   const { skin } = content;
-  useDocumentTitle(`${t("help", "title")} - Aurum`);
+  // Same as scripts/prerender.mjs writes, so the three guides have titles of their own.
+  const gameName = GAMES.find((g) => g.id === game)?.name;
+  useDocumentTitle(`${t("help", "title")} - ${gameName} - ${SITE_NAME}`);
 
   return (
     <div className={`mx-auto max-w-3xl space-y-8 ${skin.text}`}>
       <header>
-        <p className={`text-xs font-semibold uppercase tracking-wider ${skin.accent}`}>{t("help", "navLabel")}</p>
+        <p className={`text-xs font-semibold uppercase tracking-wider ${skin.accent}`}>
+          {t("help", "navLabel")}
+        </p>
         <h1 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">{t("help", "title")}</h1>
         <p className={`mt-3 text-base leading-relaxed ${skin.muted}`}>{t("help", content.intro)}</p>
       </header>
 
-      <section className={`game-panel border p-5 sm:p-6 ${skin.panel}`} aria-labelledby="help-steps">
+      <section
+        className={`game-panel border p-5 sm:p-6 ${skin.panel}`}
+        aria-labelledby="help-steps"
+      >
         <h2 id="help-steps" className="text-lg font-semibold">
           {t("help", "stepsHeading")}
         </h2>
@@ -98,14 +114,20 @@ export function ShowcaseHelpPage({ game }: ShowcaseHelpPageProps) {
         </ol>
       </section>
 
-      <section className={`game-panel border p-5 sm:p-6 ${skin.panel}`} aria-labelledby="help-checks">
+      <section
+        className={`game-panel border p-5 sm:p-6 ${skin.panel}`}
+        aria-labelledby="help-checks"
+      >
         <h2 id="help-checks" className="text-lg font-semibold">
           {t("help", "checksHeading")}
         </h2>
         <ul className="mt-4 space-y-3">
           {content.checks.map((check) => (
             <li key={check} className="flex gap-3">
-              <span className={`mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full ${skin.accentBg}`} aria-hidden="true" />
+              <span
+                className={`mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full ${skin.accentBg}`}
+                aria-hidden="true"
+              />
               <p className="text-sm leading-relaxed">{t("help", check)}</p>
             </li>
           ))}

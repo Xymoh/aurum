@@ -32,6 +32,9 @@ interface AgentPanelProps {
  * (Enka publishes it), so the list reads like the in-game roster rather than
  * one long grey column. Open state is owned by the page.
  */
+/** Stats a collapsed panel keeps on phones, where the full row wraps to four lines. */
+const HEADLINE: ReadonlySet<string> = new Set(["rowAtk", "rowCritRate", "rowCritDmg"]);
+
 export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
   const [everOpened, setEverOpened] = useState(open);
   if (open && !everOpened) setEverOpened(true);
@@ -64,15 +67,15 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
         animationDelay: `${Math.min(index, 8) * 45}ms`,
       }}
     >
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-expanded={open}
-        aria-controls={bodyId}
-        aria-label={open ? t("showcase", "collapse", { name: agent.name }) : t("showcase", "expand", { name: agent.name })}
-        className="group relative flex w-full items-stretch gap-3 overflow-hidden p-3 text-left sm:gap-4 sm:p-4"
-      >
-        {/* Full-body art, faded into the card from the right.
+      <h2>
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={open}
+          aria-controls={bodyId}
+          className="focus-visible:outline-offset-[-3px] group relative flex w-full items-stretch gap-3 overflow-hidden p-3 text-left sm:gap-4 sm:p-4"
+        >
+          {/* Full-body art, faded into the card from the right.
 
             These are full-body renders and the banner shows about a fifth
             of one, so the crop has to find the face. The renders are not
@@ -82,111 +85,154 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
             she leans right and Sigrid leans left. Each render is positioned
             by its measured face (art-focus.json) so every face lands in the
             same place. */}
-        <div className="pointer-events-none absolute inset-0 flex justify-end" aria-hidden="true">
+          <div className="pointer-events-none absolute inset-0 flex justify-end" aria-hidden="true">
+            <div
+              className="relative h-full w-2/3 sm:w-1/2"
+              style={{
+                maskImage: "linear-gradient(to right, transparent, black 55%)",
+                WebkitMaskImage: "linear-gradient(to right, transparent, black 55%)",
+              }}
+            >
+              {art && showArt && (
+                <RemoteImg
+                  src={art}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
+                  className="h-full w-full object-cover opacity-60 transition-opacity duration-300 group-hover:opacity-80"
+                  style={{
+                    objectPosition: `center ${artOffsetY}%`,
+                    transform: artShift ? `translateX(${artShift}%)` : undefined,
+                  }}
+                />
+              )}
+              <div
+                className="absolute inset-0 opacity-20 mix-blend-overlay"
+                style={{ backgroundColor: tint }}
+              />
+            </div>
+          </div>
           <div
-            className="relative h-full w-2/3 sm:w-1/2"
-            style={{ maskImage: "linear-gradient(to right, transparent, black 55%)", WebkitMaskImage: "linear-gradient(to right, transparent, black 55%)" }}
-          >
-            {art && showArt && (
-              <RemoteImg
-                src={art}
-                alt=""
-                loading="lazy"
-                decoding="async"
-                fetchPriority="low"
-                className="h-full w-full object-cover opacity-60 transition-opacity duration-300 group-hover:opacity-80"
-                style={{
-                  objectPosition: `center ${artOffsetY}%`,
-                  transform: artShift ? `translateX(${artShift}%)` : undefined,
-                }}
+            className="pointer-events-none absolute inset-0 bg-gradient-to-r from-zzz-panel via-zzz-panel/95 to-transparent"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 w-44 bg-gradient-to-l from-zzz-panel via-zzz-panel/85 to-transparent"
+            aria-hidden="true"
+          />
+
+          {/* Skewed accent bar, a nod to the game's diagonal UI. */}
+          <div
+            className="relative w-1.5 shrink-0 -skew-x-12 rounded-sm"
+            style={{ backgroundColor: tint }}
+            aria-hidden="true"
+          />
+
+          <div className="relative min-w-0 flex-1">
+            <div className="flex items-center gap-2">
+              <span className="truncate text-base font-black uppercase tracking-wide text-zzz-text sm:text-lg">
+                {agent.name}
+              </span>
+              {d.complete && <GradeBadge grade={d.grade} size="sm" className="max-sm:hidden" />}
+            </div>
+            <div className="mt-1 flex flex-wrap items-center gap-1.5">
+              <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 font-mono text-xs text-zzz-text">
+                Lv{agent.level}
+              </span>
+              <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 font-mono text-xs text-zzz-text">
+                M{agent.mindscape}
+              </span>
+              <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 text-xs text-zzz-muted">
+                {t("zzzRoles", agent.profession as "Attack")}
+              </span>
+              <span className="hidden rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 text-xs text-zzz-muted sm:inline">
+                {t("zzzElements", agent.element as "Fire")}
+              </span>
+            </div>
+            <div className="mt-1.5 hidden flex-wrap items-center gap-1.5 sm:flex">
+              {(
+                [
+                  [t("zzz", "skillBasic"), agent.skills.basic],
+                  [t("zzz", "skillDodge"), agent.skills.dodge],
+                  [t("zzz", "skillAssist"), agent.skills.assist],
+                  [t("zzz", "skillSpecial"), agent.skills.special],
+                  [t("zzz", "skillChain"), agent.skills.chain],
+                ] as const
+              ).map(([label, level]) => (
+                <span
+                  key={label}
+                  className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 text-xs text-zzz-muted"
+                >
+                  {label} <span className="font-mono text-zzz-text">{level}</span>
+                </span>
+              ))}
+              <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 text-xs text-zzz-muted">
+                {t("zzz", "core")}{" "}
+                <span className="font-mono text-zzz-text">
+                  {agent.coreSkill > 0 ? ("ABCDEF"[agent.coreSkill - 1] ?? "F") : "-"}
+                </span>
+              </span>
+            </div>
+            {agent.engine && (
+              <div className="mt-1.5 flex items-center gap-2">
+                {agent.engine.image && (
+                  <RemoteImg
+                    src={agent.engine.image}
+                    alt=""
+                    loading="lazy"
+                    width={44}
+                    height={44}
+                    className="h-8 w-8 shrink-0 rounded object-contain ring-1 ring-zzz-line sm:h-10 sm:w-10"
+                  />
+                )}
+                <p className="truncate text-sm text-zzz-muted">
+                  {agent.engine.name}
+                  <span className="ml-1 font-mono text-zzz-accent">P{agent.engine.rank}</span>
+                </p>
+              </div>
+            )}
+          </div>
+
+          <div className="relative shrink-0 self-center text-right">
+            {d.complete ? (
+              <>
+                <p
+                  className={`font-mono text-2xl font-black leading-none tabular-nums sm:text-3xl ${gradeTextClass(d.grade)}`}
+                >
+                  {formatScore(d.score)}
+                </p>
+                <p className="mt-1 sm:hidden">
+                  <GradeBadge grade={d.grade} size="xs" />
+                </p>
+              </>
+            ) : (
+              <IncompleteScore
+                filled={agent.discs.length}
+                total={DISC_SLOT_COUNT}
+                mutedClass="text-zzz-muted"
               />
             )}
-            <div className="absolute inset-0 opacity-20 mix-blend-overlay" style={{ backgroundColor: tint }} />
+            <p className="mt-1 font-mono text-xs text-zzz-muted">
+              {t("zzz", "rolls", { effective: d.effectiveRolls, total: d.totalRolls })}
+            </p>
           </div>
-        </div>
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-zzz-panel via-zzz-panel/95 to-transparent" aria-hidden="true" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-44 bg-gradient-to-l from-zzz-panel via-zzz-panel/85 to-transparent" aria-hidden="true" />
 
-        {/* Skewed accent bar, a nod to the game's diagonal UI. */}
-        <div className="relative w-1.5 shrink-0 -skew-x-12 rounded-sm" style={{ backgroundColor: tint }} aria-hidden="true" />
-
-        <div className="relative min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <h2 className="truncate text-base font-black uppercase tracking-wide text-zzz-text sm:text-lg">{agent.name}</h2>
-            {d.complete && (
-              <GradeBadge grade={d.grade} size="sm" className="hidden sm:inline-flex" />
-            )}
+          <div className="relative flex h-8 w-8 shrink-0 items-center justify-center self-center rounded-full border border-zzz-line bg-zzz-inset text-zzz-muted transition-colors group-hover:text-zzz-text">
+            <svg
+              className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
           </div>
-          <div className="mt-1 flex flex-wrap items-center gap-1.5">
-            <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 font-mono text-xs text-zzz-text">Lv{agent.level}</span>
-            <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 font-mono text-xs text-zzz-text">M{agent.mindscape}</span>
-            <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 text-xs text-zzz-muted">
-              {t("zzzRoles", agent.profession as "Attack")}
-            </span>
-            <span className="hidden rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 text-xs text-zzz-muted sm:inline">
-              {t("zzzElements", agent.element as "Fire")}
-            </span>
-          </div>
-          <div className="mt-1.5 hidden flex-wrap items-center gap-1.5 sm:flex">
-            {(
-              [
-                [t("zzz", "skillBasic"), agent.skills.basic],
-                [t("zzz", "skillDodge"), agent.skills.dodge],
-                [t("zzz", "skillAssist"), agent.skills.assist],
-                [t("zzz", "skillSpecial"), agent.skills.special],
-                [t("zzz", "skillChain"), agent.skills.chain],
-              ] as const
-            ).map(([label, level]) => (
-              <span key={label} className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 text-xs text-zzz-muted">
-                {label} <span className="font-mono text-zzz-text">{level}</span>
-              </span>
-            ))}
-            <span className="rounded border border-zzz-line bg-zzz-inset px-1.5 py-0.5 text-xs text-zzz-muted">
-              {t("zzz", "core")}{" "}
-              <span className="font-mono text-zzz-text">{agent.coreSkill > 0 ? ("ABCDEF"[agent.coreSkill - 1] ?? "F") : "-"}</span>
-            </span>
-          </div>
-          {agent.engine && (
-            <div className="mt-1.5 flex items-center gap-2">
-              {agent.engine.image && (
-                <RemoteImg src={agent.engine.image} alt="" loading="lazy" width={44} height={44} className="h-8 w-8 shrink-0 rounded object-contain ring-1 ring-zzz-line sm:h-10 sm:w-10" />
-              )}
-              <p className="truncate text-sm text-zzz-muted">
-                {agent.engine.name}
-                <span className="ml-1 font-mono text-zzz-accent">P{agent.engine.rank}</span>
-              </p>
-            </div>
-          )}
-        </div>
-
-        <div className="relative shrink-0 self-center text-right">
-          {d.complete ? (
-            <>
-              <p className={`font-mono text-2xl font-black leading-none tabular-nums sm:text-3xl ${gradeTextClass(d.grade)}`}>
-                {formatScore(d.score)}
-              </p>
-              <p className="mt-1 sm:hidden">
-                <GradeBadge grade={d.grade} size="xs" />
-              </p>
-            </>
-          ) : (
-            <IncompleteScore
-              filled={agent.discs.length}
-              total={DISC_SLOT_COUNT}
-              mutedClass="text-zzz-muted"
-            />
-          )}
-          <p className="mt-1 font-mono text-xs text-zzz-muted">
-            {t("zzz", "rolls", { effective: d.effectiveRolls, total: d.totalRolls })}
-          </p>
-        </div>
-
-        <div className="relative flex h-8 w-8 shrink-0 items-center justify-center self-center rounded-full border border-zzz-line bg-zzz-inset text-zzz-muted transition-colors group-hover:text-zzz-text">
-          <svg className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </div>
-      </button>
+        </button>
+      </h2>
 
       {/* ── COLLAPSED SUMMARY (always visible) ──
           The agent's final stats, the same figures the game's own agent
@@ -194,8 +240,13 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
           panel. The other two games carry the same row. */}
       <div className="flex items-center gap-3 border-t border-zzz-border/40 bg-zzz-inset/60 px-3 py-2 sm:px-4">
         <div className="flex min-w-0 flex-1 flex-wrap gap-x-4 gap-y-1">
+          {/* On phones only the headline stats stay collapsed; the full row
+              made each panel about 300px tall. The rest open with the panel. */}
           {zzzStatRow(agent.stats).map((s) => (
-            <span key={s.label} className="flex items-baseline gap-1.5 text-sm">
+            <span
+              key={s.label}
+              className={`${HEADLINE.has(s.label) ? "flex" : "hidden sm:flex"} items-baseline gap-1.5 text-sm`}
+            >
               <span className="text-zzz-muted">{t("zzz", s.label)}</span>
               <span className="font-mono font-semibold tabular-nums text-zzz-text">{s.value}</span>
             </span>
@@ -223,10 +274,26 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
           meant it appeared already at 1fr, leaving the transition nothing to
           start from, and that first expand snapped open. The discs inside
           still wait for that first expand. */}
-      <div id={bodyId} className="grid transition-[grid-template-rows] duration-300 ease-out" style={{ gridTemplateRows: open ? "1fr" : "0fr" }}>
+      <div
+        id={bodyId}
+        className="grid transition-[grid-template-rows] duration-300 ease-out"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+      >
         <div className="overflow-hidden" inert={!open}>
           {everOpened && (
             <div className="space-y-4 border-t p-3 sm:p-4" style={{ borderColor: `${tint}33` }}>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 sm:hidden">
+                {zzzStatRow(agent.stats)
+                  .filter((s) => !HEADLINE.has(s.label))
+                  .map((s) => (
+                    <span key={s.label} className="flex items-baseline gap-1.5 text-sm">
+                      <span className="text-zzz-muted">{t("zzz", s.label)}</span>
+                      <span className="font-mono font-semibold tabular-nums text-zzz-text">
+                        {s.value}
+                      </span>
+                    </span>
+                  ))}
+              </div>
               <BuildPanel d={d} meta={meta} tint={tint} />
               <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
                 {agent.discs.map((disc) => (

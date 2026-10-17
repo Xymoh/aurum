@@ -1,5 +1,10 @@
 import { beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { forgetAllUids, forgetUid, readRecentUids, rememberUid } from "../../src/hooks/useRecentUids";
+import {
+  forgetAllUids,
+  forgetUid,
+  readRecentUids,
+  rememberUid,
+} from "../../src/hooks/useRecentUids";
 
 const KEY = "test-recent";
 
@@ -31,7 +36,10 @@ describe("recent UIDs", () => {
   });
 
   it("drops entries that are not a UID and a timestamp instead of crashing", () => {
-    window.localStorage.setItem("aurum:" + KEY, JSON.stringify([{ uid: 12 }, null, "x", { uid: "700600838", timestamp: 1 }]));
+    window.localStorage.setItem(
+      "aurum:" + KEY,
+      JSON.stringify([{ uid: 12 }, null, "x", { uid: "700600838", timestamp: 1 }]),
+    );
     expect(readRecentUids(KEY)).toEqual([{ uid: "700600838", timestamp: 1 }]);
     window.localStorage.setItem("aurum:" + KEY, "{not json");
     expect(readRecentUids(KEY)).toEqual([]);

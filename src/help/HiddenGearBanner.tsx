@@ -26,7 +26,10 @@ export function HiddenGearBanner({ game, total, bare }: HiddenGearBannerProps) {
   const { skin, bannerBody, path } = HELP_CONTENT[game];
 
   return (
-    <div role="status" className={`game-panel flex flex-col gap-2 border px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5 ${skin.banner}`}>
+    <div
+      role="status"
+      className={`game-panel flex flex-col gap-2 border px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5 ${skin.banner}`}
+    >
       <div className="min-w-0">
         <p className="text-sm font-semibold">{t("help", "bannerTitle")}</p>
         <p className={`mt-0.5 text-sm ${skin.muted}`}>{t("help", bannerBody)}</p>

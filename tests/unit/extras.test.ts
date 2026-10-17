@@ -7,7 +7,7 @@ import fixture from "../fixtures/genshin-showcase.json";
 import type { EnkaResponse } from "../../src/types/enka";
 import { buildShowcase } from "../../src/lib/showcase";
 import { SAMPLES, scoreDistribution, scorePercentile } from "../../src/lib/percentile";
-import { diffShowcase, snapshotOf } from "../../src/lib/history";
+import { diffShowcase, readSnapshot, saveSnapshot, snapshotOf } from "../../src/lib/history";
 import { exportGood, goodKey } from "../../src/lib/export/good";
 
 const showcase = buildShowcase(fixture as unknown as EnkaResponse);
@@ -36,7 +36,9 @@ describe("score percentile", () => {
   it("rates a real S+ goblet as clearly above average for its slot", () => {
     const arle = showcase.characters.find((c) => c.avatarId === ARLECCHINO)!;
     const goblet = arle.artifacts.find((a) => a.slot === "GOBLET")!;
-    expect(scorePercentile(ARLECCHINO, goblet.mainStat.statKey, goblet.score.potentialPercent)).toBeGreaterThan(0.6);
+    expect(
+      scorePercentile(ARLECCHINO, goblet.mainStat.statKey, goblet.score.potentialPercent),
+    ).toBeGreaterThan(0.6);
   });
 });
 
@@ -54,25 +56,62 @@ describe("visit-to-visit diff", () => {
     expect(deltas.get(first.id)?.build).toBeCloseTo(5, 6);
     expect(deltas.get(showcase.characters[1].id)?.isNew).toBe(true);
   });
+
+  it("keeps only the latest snapshots and ignores a corrupted one", () => {
+    // The test DOM's storage is a stub without the Storage methods.
+    const store = new Map<string, string>();
+    Object.defineProperty(window, "localStorage", {
+      configurable: true,
+      value: {
+        getItem: (k: string) => store.get(k) ?? null,
+        setItem: (k: string, v: string) => void store.set(k, String(v)),
+        removeItem: (k: string) => void store.delete(k),
+        key: (i: number) => [...store.keys()][i] ?? null,
+        get length() {
+          return store.size;
+        },
+      },
+    });
+    for (let i = 0; i < 25; i++) saveSnapshot(String(700000000 + i), showcase);
+    expect(store.size).toBe(20);
+
+    store.set("aurum:history:gi:1", JSON.stringify({ at: 1, characters: null }));
+    expect(readSnapshot("1")).toBeNull();
+  });
 });
 
 describe("GOOD export", () => {
   it("builds keys the way Genshin Optimizer spells them", () => {
     expect(goodKey("Kamisato Ayaka")).toBe("KamisatoAyaka");
     expect(goodKey("Crimson Witch of Flames")).toBe("CrimsonWitchOfFlames");
-    expect(goodKey("Wolf's Gravestone")).toBe("WolfSGravestone");
+    expect(goodKey("Wolf's Gravestone")).toBe("WolfsGravestone");
+    expect(goodKey("Gladiator’s Finale")).toBe("GladiatorsFinale");
+  });
+
+  it("states ascension as Enka does and keys the Traveler by element", () => {
+    const file = exportGood(showcase);
+    // Level 80 is ambiguous: this Traveler has taken the sixth ascension.
+    const traveler = file.characters.find((c) => c.key.startsWith("Traveler"))!;
+    expect(traveler.key).toBe("TravelerCryo");
+    expect(traveler.ascension).toBe(6);
+    expect(file.weapons.find((w) => w.location === "Traveler")).toBeDefined();
   });
 
   it("writes every displayed character, weapon and artifact with valid stat keys", () => {
     const file = exportGood(showcase);
     expect(file.format).toBe("GOOD");
     expect(file.characters).toHaveLength(showcase.characters.length);
-    expect(file.artifacts.length).toBe(showcase.characters.reduce((n, c) => n + c.artifacts.length, 0));
-    const valid = /^(hp|hp_|atk|atk_|def|def_|eleMas|enerRech_|heal_|critRate_|critDMG_|[a-z]+_dmg_)$/;
+    expect(file.artifacts.length).toBe(
+      showcase.characters.reduce((n, c) => n + c.artifacts.length, 0),
+    );
+    const valid =
+      /^(hp|hp_|atk|atk_|def|def_|eleMas|enerRech_|heal_|critRate_|critDMG_|[a-z]+_dmg_)$/;
     for (const a of file.artifacts) {
       expect(a.mainStatKey).toMatch(valid);
       for (const s of a.substats) expect(s.key).toMatch(valid);
-      expect(file.characters.some((c) => c.key === a.location)).toBe(true);
+      // GOOD locates a Traveler's gear on "Traveler", whatever their element.
+      const owner = (key: string) => (key.startsWith("Traveler") ? "Traveler" : key);
+      expect(file.characters.some((c) => owner(c.key) === a.location)).toBe(true);
     }
     const arle = file.characters.find((c) => c.key === "Arlecchino")!;
     expect(arle.level).toBe(90);

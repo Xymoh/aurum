@@ -19,7 +19,10 @@ import { shareCardFilename } from "../../src/lib/shareCard/render";
  * the page.
  */
 const t = ((section: string, key: string, vars?: Record<string, string | number>) =>
-  format((en as unknown as Record<string, Record<string, string>>)[section][key], vars)) as Translate;
+  format(
+    (en as unknown as Record<string, Record<string, string>>)[section][key],
+    vars,
+  )) as Translate;
 
 const ctx: ShareContext = { uid: "700600838", playerName: "Saeki", t };
 

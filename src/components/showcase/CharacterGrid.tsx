@@ -61,13 +61,17 @@ export function CharacterGrid({ characters, focusSignal, deltas }: CharacterGrid
   // scrolls into view once, on arrival.
   const [params] = useSearchParams();
   const linkedId = params.get("c");
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set(linkedId ? [linkedId] : []));
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(
+    () => new Set(linkedId ? [linkedId] : []),
+  );
   const [linkedHandled, setLinkedHandled] = useState(false);
   useEffect(() => {
     if (!linkedId || linkedHandled || characters.length === 0) return;
     setLinkedHandled(true);
     window.requestAnimationFrame(() => {
-      document.getElementById(`character-${linkedId}`)?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+      document
+        .getElementById(`character-${linkedId}`)
+        ?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
     });
   }, [linkedId, linkedHandled, characters.length]);
   const [search, setSearch] = useState("");
@@ -120,7 +124,15 @@ export function CharacterGrid({ characters, focusSignal, deltas }: CharacterGrid
           t("showcase", "showcaseStep3"),
         ]}
         footer={t("showcase", "showcaseRetry")}
-        guide={SHOWCASE_HELP ? { to: HELP_PATH.genshin, label: t("help", "emptyLink"), className: "text-accent underline underline-offset-2 hover:opacity-80" } : undefined}
+        guide={
+          SHOWCASE_HELP
+            ? {
+                to: HELP_PATH.genshin,
+                label: t("help", "emptyLink"),
+                className: "text-accent underline underline-offset-2 hover:opacity-80",
+              }
+            : undefined
+        }
         panelClass="border-dark-border bg-dark-card/40 text-dark-text"
         accentClass="bg-accent/15 text-accent"
         mutedClass="text-dark-muted"
@@ -140,33 +152,43 @@ export function CharacterGrid({ characters, focusSignal, deltas }: CharacterGrid
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={t("showcase", "searchPlaceholder")}
-          className="flex-1 min-w-[140px] rounded-lg bg-dark-bg border border-dark-border px-3 py-1.5 text-sm text-dark-text placeholder:text-dark-muted/60 focus:outline-none focus:border-accent/60"
+          aria-label={t("showcase", "searchLabel")}
+          className="flex-1 min-w-[140px] rounded-lg bg-dark-bg border border-dark-border px-3 py-1.5 text-sm text-dark-text placeholder:text-dark-muted focus:outline-none focus:border-accent/60"
         />
 
         <select
           value={elementFilter}
           onChange={(e) => setElementFilter(e.target.value as GenshinElement | "ALL")}
+          aria-label={t("showcase", "filterByElement")}
           className="rounded-lg bg-dark-bg border border-dark-border px-2.5 py-1.5 text-sm text-dark-text focus:outline-none focus:border-accent/60"
         >
           <option value="ALL">{t("showcase", "allElements")}</option>
           {elements.map((el) => (
-            <option key={el} value={el}>{t("elements", el)}</option>
+            <option key={el} value={el}>
+              {t("elements", el)}
+            </option>
           ))}
         </select>
 
         <select
           value={sortKey}
           onChange={(e) => setSortKey(e.target.value as SortKey)}
+          aria-label={t("showcase", "sortCharacters")}
           className="rounded-lg bg-dark-bg border border-dark-border px-2.5 py-1.5 text-sm text-dark-text focus:outline-none focus:border-accent/60"
         >
           {SORT_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>{t("showcase", opt.key)}</option>
+            <option key={opt.value} value={opt.value}>
+              {t("showcase", opt.key)}
+            </option>
           ))}
         </select>
 
         {(search || elementFilter !== "ALL") && (
           <span className="text-sm text-dark-muted whitespace-nowrap">
-            {t("showcase", "shown", { visible: visibleCharacters.length, total: characters.length })}
+            {t("showcase", "shown", {
+              visible: visibleCharacters.length,
+              total: characters.length,
+            })}
           </span>
         )}
       </div>

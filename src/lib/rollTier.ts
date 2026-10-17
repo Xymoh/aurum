@@ -18,7 +18,7 @@
  * Zenless is absent on purpose. Every roll of a stat there is worth the same
  * fixed amount, so there is no quality to band and its pips are one colour.
  */
-export type RollTier = "max" | "high" | "mid" | "low";
+type RollTier = "max" | "high" | "mid" | "low";
 
 /** The worst single roll each game can give, as a share of its max roll. */
 export const ROLL_FLOOR = {

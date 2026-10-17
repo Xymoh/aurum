@@ -12,7 +12,16 @@ import type { BuildListing, BuildTarget } from "../../src/lib/buildTarget/model"
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
 const SKIN: BuildSkin = {
-  panel: "", card: "", cardHover: "", text: "", muted: "", accent: "", line: "", field: "", active: "active", bar: "",
+  panel: "",
+  card: "",
+  cardHover: "",
+  text: "",
+  muted: "",
+  accent: "",
+  line: "",
+  field: "",
+  active: "active",
+  bar: "",
 };
 
 const TARGET: BuildTarget = {
@@ -27,7 +36,12 @@ const TARGET: BuildTarget = {
   accent: "#f97316",
   slots: [{ slot: "Sands", stats: ["HP%"] }],
   substats: [{ label: "CRIT DMG", weight: 1 }],
-  sets: [{ label: "Best-in-Slot", parts: [{ setId: "15006", name: "Crimson Witch of Flames", pieces: 4, iconUrl: null }] }],
+  sets: [
+    {
+      label: "Best-in-Slot",
+      parts: [{ setId: "15006", name: "Crimson Witch of Flames", pieces: 4, iconUrl: null }],
+    },
+  ],
   priority: null,
   thresholds: [],
   energyTarget: null,
@@ -38,9 +52,19 @@ const TARGET: BuildTarget = {
 const GUIDE: GuideFile = {
   role: "Main DPS",
   weapons: [
-    { id: "13501", name: "Staff of Homa", iconUrl: null, rarity: 5, refinement: null, stats: [{ label: "Base ATK", value: "608" }], passive: { name: "Reckless Cinnabar", text: "HP increased by **20/25/30/35/40%**." } },
+    {
+      id: "13501",
+      name: "Staff of Homa",
+      iconUrl: null,
+      rarity: 5,
+      refinement: null,
+      stats: [{ label: "Base ATK", value: "608" }],
+      passive: { name: "Reckless Cinnabar", text: "HP increased by **20/25/30/35/40%**." },
+    },
   ],
-  teams: [{ name: "Hu Tao Vaporize", members: ["10000046", "10000025"], alternates: [[], ["10000023"]] }],
+  teams: [
+    { name: "Hu Tao Vaporize", members: ["10000046", "10000025"], alternates: [[], ["10000023"]] },
+  ],
   synergies: [],
   substatLine: "CRIT Rate / CRIT DMG > Elemental Mastery > HP%",
   endgameStats: [],
@@ -52,15 +76,43 @@ const GUIDE: GuideFile = {
   baseStats: [{ label: "HP", value: "15,552" }],
   bonusStats: [{ label: "CRIT DMG", value: "38.4%" }],
   kit: [
-    { id: "skills", entries: [{ kind: "Elemental Skill", name: "Guide to Afterlife", text: "Enters **Paramita Papilio**.", iconUrl: null, scaling: { levels: [1, 10], rows: [{ label: "ATK Increase", values: ["3.84%", "6.26%"] }] } }] },
-    { id: "constellations", entries: [{ kind: "C1", name: "Crimson Bouquet", text: "No Stamina cost.", iconUrl: null }] },
+    {
+      id: "skills",
+      entries: [
+        {
+          kind: "Elemental Skill",
+          name: "Guide to Afterlife",
+          text: "Enters **Paramita Papilio**.",
+          iconUrl: null,
+          scaling: {
+            levels: [1, 10],
+            rows: [{ label: "ATK Increase", values: ["3.84%", "6.26%"] }],
+          },
+        },
+      ],
+    },
+    {
+      id: "constellations",
+      entries: [{ kind: "C1", name: "Crimson Bouquet", text: "No Stamina cost.", iconUrl: null }],
+    },
   ],
-  materials: [{ id: "ascension", items: [{ id: "202", name: "Mora", iconUrl: null, rarity: 3, count: 420000 }] }],
+  materials: [
+    {
+      id: "ascension",
+      items: [{ id: "202", name: "Mora", iconUrl: null, rarity: 3, count: 420000 }],
+    },
+  ],
 };
 
 const ROSTER = new Map<string, BuildListing>([
-  ["10000025", { id: "10000025", name: "Xingqiu", iconUrl: null, tags: [], rarity: 4, generic: false }],
-  ["10000023", { id: "10000023", name: "Xiangling", iconUrl: null, tags: [], rarity: 4, generic: false }],
+  [
+    "10000025",
+    { id: "10000025", name: "Xingqiu", iconUrl: null, tags: [], rarity: 4, generic: false },
+  ],
+  [
+    "10000023",
+    { id: "10000023", name: "Xiangling", iconUrl: null, tags: [], rarity: 4, generic: false },
+  ],
   [
     "10000005-cryo",
     {
@@ -86,7 +138,14 @@ function render(guide: GuideState, equippedWeaponId?: string) {
     root!.render(
       <I18nProvider>
         <MemoryRouter>
-          <BuildDetail target={TARGET} basePath="/genshin/builds" skin={SKIN} guide={guide} roster={ROSTER} equippedWeaponId={equippedWeaponId} />
+          <BuildDetail
+            target={TARGET}
+            basePath="/genshin/builds"
+            skin={SKIN}
+            guide={guide}
+            roster={ROSTER}
+            equippedWeaponId={equippedWeaponId}
+          />
         </MemoryRouter>
       </I18nProvider>,
     );
@@ -103,7 +162,15 @@ afterEach(() => {
 
 const loaded: GuideState = {
   guide: GUIDE,
-  setBonuses: { "15006": { name: "Crimson Witch of Flames", bonuses: [{ pieces: 2, text: "Pyro DMG Bonus +15%" }, { pieces: 4, text: "Overloaded DMG +40%" }] } },
+  setBonuses: {
+    "15006": {
+      name: "Crimson Witch of Flames",
+      bonuses: [
+        { pieces: 2, text: "Pyro DMG Bonus +15%" },
+        { pieces: 4, text: "Overloaded DMG +40%" },
+      ],
+    },
+  },
   loading: false,
   failed: false,
 };
@@ -159,7 +226,9 @@ describe("BuildDetail", () => {
 
   it("warns when the game changed the kit after the guide was last updated", () => {
     const page = render({ ...loaded, guide: { ...GUIDE, kitChangedAt: "2026-09-24" } });
-    expect(page.querySelector('[role="note"]')?.textContent).toMatch(/Hu Tao's kit changed .* may not reflect the change yet/);
+    expect(page.querySelector('[role="note"]')?.textContent).toMatch(
+      /Hu Tao's kit changed .* may not reflect the change yet/,
+    );
   });
 
   it("stays quiet when the guide was updated after the kit change", () => {
@@ -179,7 +248,13 @@ describe("BuildDetail", () => {
   });
 
   it("opens the Traveler on the element the team names, and says which on the face", () => {
-    const teams = [{ name: "Stellar-Swirl Team", members: ["10000046", "10000025"], alternates: [[], ["10000005-cryo"]] }];
+    const teams = [
+      {
+        name: "Stellar-Swirl Team",
+        members: ["10000046", "10000025"],
+        alternates: [[], ["10000005-cryo"]],
+      },
+    ];
     const page = render({ ...loaded, guide: { ...GUIDE, teams } });
     const link = page.querySelector('[role="group"] a');
     expect(link?.getAttribute("href")).toBe("/genshin/builds/10000005-cryo");

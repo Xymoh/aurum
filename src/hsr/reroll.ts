@@ -36,7 +36,14 @@ function tiersFor(key: HsrStatKey): number[] {
   return key === "SpeedDelta" ? SPEED_TIERS : DEFAULT_TIERS;
 }
 
-const SUB_5 = (affixes as { sub: Record<string, Record<string, { Property: string; BaseValue: number; StepValue?: number }>> }).sub["5"];
+const SUB_5 = (
+  affixes as {
+    sub: Record<
+      string,
+      Record<string, { Property: string; BaseValue: number; StepValue?: number }>
+    >;
+  }
+).sub["5"];
 
 /** Best single roll per substat in display units, from the affix table. */
 const HIGH_ROLL: Partial<Record<HsrStatKey, number>> = Object.fromEntries(
@@ -59,7 +66,7 @@ const MEANINGFUL_GAIN = 5;
 /** Below this, even a lucky redistribution leaves the piece not worth using. */
 const WORTH_INVESTING_IN = 90;
 
-export interface RerollTierDef {
+interface RerollTierDef {
   id: "high" | "medium" | "low";
   label: string;
   /** Upper bound, inclusive, on expected dice spent to reach a real gain. */
@@ -68,7 +75,7 @@ export interface RerollTierDef {
 }
 
 /** Cheapest-first; the first tier whose budget covers the estimate wins. */
-export const REROLL_TIERS: RerollTierDef[] = [
+const REROLL_TIERS: RerollTierDef[] = [
   {
     id: "high",
     label: "Reroll now",
@@ -89,7 +96,7 @@ export const REROLL_TIERS: RerollTierDef[] = [
   },
 ];
 
-export function getRerollTier(expectedDice: number): RerollTierDef | null {
+function getRerollTier(expectedDice: number): RerollTierDef | null {
   for (const tier of REROLL_TIERS) if (expectedDice <= tier.maxExpectedDice) return tier;
   return null;
 }
@@ -114,7 +121,7 @@ export interface RerollAdvice {
 }
 
 /** How the scorer values this relic: what a point of each stat is worth, and the ceiling. */
-export interface RelicScorer {
+interface RelicScorer {
   contribution: (key: HsrStatKey) => number;
   ideal: number;
 }
@@ -157,7 +164,11 @@ function hashString(str: string): number {
  * Only +15 five-star relics can take a die, and a piece with fewer upgrades
  * than substats has nothing to redistribute.
  */
-export function adviseReroll(relic: HsrRelic, meta: ScoringMeta, scorer: RelicScorer): RerollAdvice {
+export function adviseReroll(
+  relic: HsrRelic,
+  meta: ScoringMeta,
+  scorer: RelicScorer,
+): RerollAdvice {
   const movable = relic.totalRolls - BASE_SUBSTATS;
   if (
     relic.rarity < 5 ||
@@ -175,7 +186,9 @@ export function adviseReroll(relic: HsrRelic, meta: ScoringMeta, scorer: RelicSc
   // What one max roll on each substat is worth, and the value already banked
   // by the four rolls that simply define which substats the piece has: one
   // roll each, at the quality the piece's rolls averaged.
-  const perMaxRoll = relic.substats.map((s) => scorer.contribution(s.key) * (HIGH_ROLL[s.key] ?? 0));
+  const perMaxRoll = relic.substats.map(
+    (s) => scorer.contribution(s.key) * (HIGH_ROLL[s.key] ?? 0),
+  );
   const baseWeighted = relic.substats.reduce(
     (acc, s, i) => acc + perMaxRoll[i] * (s.quality > 0 ? s.quality : 1),
     0,
@@ -184,7 +197,10 @@ export function adviseReroll(relic: HsrRelic, meta: ScoringMeta, scorer: RelicSc
   const ranked = relic.substats
     .map((s) => ({ key: s.key, weight: weightOf(meta.stats, s.key) }))
     .sort((a, b) => b.weight - a.weight);
-  const targetStats = ranked.filter((r) => r.weight >= WASTE_THRESHOLD).slice(0, 2).map((r) => r.key);
+  const targetStats = ranked
+    .filter((r) => r.weight >= WASTE_THRESHOLD)
+    .slice(0, 2)
+    .map((r) => r.key);
 
   // Seeded from the relic's content, never a generated id, so the verdict is
   // stable across page loads instead of flickering on borderline pieces.

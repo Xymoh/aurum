@@ -57,7 +57,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-export const SOURCE_DIR = path.join(ROOT, ".sources");
+const SOURCE_DIR = path.join(ROOT, ".sources");
 
 /**
  * How much each source's vote counts. Prydwen first and Game8 second for
@@ -65,7 +65,7 @@ export const SOURCE_DIR = path.join(ROOT, ".sources");
  */
 export const SOURCE_WEIGHTS = { prydwen: 3, game8: 2, kqm: 1, "genshin-gg": 1, fribbels: 1 };
 
-export function sourcePath(game, source, part = null) {
+function sourcePath(game, source, part = null) {
   return path.join(SOURCE_DIR, game, `${source}${part ? `.${part}` : ""}.json`);
 }
 
@@ -76,9 +76,16 @@ export function sourcePath(game, source, part = null) {
 export function writeSource(game, source, characters, { merge = false, part = null } = {}) {
   const file = sourcePath(game, source, part);
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  const previous = merge && fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf8")).characters ?? {} : {};
+  const previous =
+    merge && fs.existsSync(file)
+      ? (JSON.parse(fs.readFileSync(file, "utf8")).characters ?? {})
+      : {};
   const all = { ...previous, ...characters };
-  fs.writeFileSync(file, JSON.stringify({ source, fetchedAt: new Date().toISOString(), characters: all }, null, 2) + "\n");
+  fs.writeFileSync(
+    file,
+    JSON.stringify({ source, fetchedAt: new Date().toISOString(), characters: all }, null, 2) +
+      "\n",
+  );
   return file;
 }
 
@@ -87,7 +94,10 @@ export function readSources(game) {
   const dir = path.join(SOURCE_DIR, game);
   if (!fs.existsSync(dir)) return {};
   const sources = {};
-  for (const f of fs.readdirSync(dir).filter((name) => name.endsWith(".json")).sort()) {
+  for (const f of fs
+    .readdirSync(dir)
+    .filter((name) => name.endsWith(".json"))
+    .sort()) {
     const source = f.split(".")[0];
     const { characters = {}, fetchedAt } = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
     const merged = (sources[source] ??= { fetchedAt, characters: {} });

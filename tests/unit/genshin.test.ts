@@ -39,6 +39,16 @@ describe("showcase parsing against a live payload", () => {
     expect(showcase.playerInfo.nickname).toBe("Scarakurac");
   });
 
+  it("orders the Traveler's talents Normal Attack, Skill, Burst", () => {
+    // skillLevelMap {"10127":7,"10128":9,"100554":8}: the 1005xx id is the Normal Attack.
+    expect(byId(10000007).talents).toEqual([8, 7, 9]);
+  });
+
+  it("matches worn sets against the recommendations although Enka sends setId as a number", () => {
+    const statuses = showcase.characters.map((c) => c.buildScore.setBonus.matchStatus);
+    expect(statuses).toContain("full_match");
+  });
+
   it("reads the artifact level with Enka's +1 offset removed", () => {
     // Every maxed piece on this account arrives as reliquary.level 21.
     const arle = byId(ARLECCHINO);

@@ -24,15 +24,26 @@ export function BuildDiagnostics({ character }: { character: CharacterData }) {
     <div className="space-y-3">
       <div className="rounded-lg border border-dark-border/70 bg-dark-bg/30 p-3">
         <div className="mb-2 flex items-baseline justify-between gap-3">
-          <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-dark-muted">{t("diag", "usefulRolls")}</h4>
+          <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-dark-muted">
+            {t("diag", "usefulRolls")}
+          </h4>
           <p className="font-mono text-sm">
             <span className="font-bold text-dark-text">{d.effectiveRolls}</span>
-            <span className="text-dark-muted"> {t("diag", "ofTotal", { total: d.totalRolls })}</span>
+            <span className="text-dark-muted">
+              {" "}
+              {t("diag", "ofTotal", { total: d.totalRolls })}
+            </span>
           </p>
         </div>
         <div className="relative h-2.5 w-full overflow-hidden rounded-full bg-dark-border/40">
-          <div className="animate-bar-grow absolute inset-y-0 left-0 rounded-full bg-accent" style={{ width: `${effectivePct}%` }} />
-          <div className="absolute inset-y-0 bg-dark-muted/30" style={{ left: `${effectivePct}%`, width: `${wastedPct}%` }} />
+          <div
+            className="animate-bar-grow absolute inset-y-0 left-0 rounded-full bg-accent"
+            style={{ width: `${effectivePct}%` }}
+          />
+          <div
+            className="absolute inset-y-0 bg-dark-muted/30"
+            style={{ left: `${effectivePct}%`, width: `${wastedPct}%` }}
+          />
           <div
             className="absolute inset-y-0 w-px bg-warn"
             style={{ left: `${(BENCHMARK_ROLLS / MAX_ROLLS) * 100}%` }}
@@ -43,12 +54,22 @@ export function BuildDiagnostics({ character }: { character: CharacterData }) {
           {d.effectiveRolls >= BENCHMARK_ROLLS
             ? t("diag", "atBenchmark", { benchmark: BENCHMARK_ROLLS })
             : d.totalRolls >= BENCHMARK_ROLLS
-              ? t("diag", "pastBenchmark", { total: d.totalRolls, benchmark: BENCHMARK_ROLLS, wasted: d.wastedRolls })
-              : t("diag", "shortOfBenchmark", { wasted: d.wastedRolls, benchmark: BENCHMARK_ROLLS })}
+              ? t("diag", "pastBenchmark", {
+                  total: d.totalRolls,
+                  benchmark: BENCHMARK_ROLLS,
+                  wasted: d.wastedRolls,
+                })
+              : t("diag", "shortOfBenchmark", {
+                  wasted: d.wastedRolls,
+                  benchmark: BENCHMARK_ROLLS,
+                })}
           {d.weakest && (
             <>
               {" "}
-              {t("diag", "weakestLink", { slot: t("slots", d.weakest.slot), score: formatScore(d.weakest.percent) })}
+              {t("diag", "weakestLink", {
+                slot: t("slots", d.weakest.slot),
+                score: formatScore(d.weakest.percent),
+              })}
             </>
           )}
         </p>
@@ -56,14 +77,19 @@ export function BuildDiagnostics({ character }: { character: CharacterData }) {
 
       <div className="grid gap-3 lg:grid-cols-2">
         <div className="rounded-lg border border-dark-border/70 bg-dark-bg/30 p-3">
-          <h4 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-dark-muted">{t("diag", "substatTotals")}</h4>
+          <h4 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-dark-muted">
+            {t("diag", "substatTotals")}
+          </h4>
           <ul className="space-y-1">
             {d.totals.slice(0, 6).map((total) => (
               <li key={total.statKey} className="flex items-baseline justify-between gap-2">
                 <span className="truncate text-sm text-dark-text/85">
-                  <span className="font-mono text-dark-muted">{total.rolls}x</span> {total.displayName}
+                  <span className="font-mono text-dark-muted">{total.rolls}x</span>{" "}
+                  {total.displayName}
                 </span>
-                <span className="shrink-0 font-mono text-sm text-dark-text">+{formatStatValue(total.value, total.isPercentage)}</span>
+                <span className="shrink-0 font-mono text-sm text-dark-text">
+                  +{formatStatValue(total.value, total.isPercentage)}
+                </span>
               </li>
             ))}
           </ul>
@@ -72,7 +98,9 @@ export function BuildDiagnostics({ character }: { character: CharacterData }) {
               <div className="flex items-baseline justify-between gap-2">
                 <span className="text-sm text-dark-muted">{t("diag", "critRatio")}</span>
                 <span className="font-mono text-sm">
-                  <span className={critOk ? "text-verdict-high" : "text-warn"}>1 : {d.critRatio.toFixed(2)}</span>
+                  <span className={critOk ? "text-verdict-high" : "text-warn"}>
+                    1 : {d.critRatio.toFixed(2)}
+                  </span>
                   <span className="ml-1.5 text-dark-muted">{t("diag", "critRatioTarget")}</span>
                 </span>
               </div>
@@ -81,8 +109,12 @@ export function BuildDiagnostics({ character }: { character: CharacterData }) {
               <div className="flex items-baseline justify-between gap-2">
                 <span className="text-sm text-dark-muted">{t("diag", "energyTarget")}</span>
                 <span className="font-mono text-sm">
-                  <span className={energyOk ? "text-verdict-high" : "text-warn"}>{d.energy.current.toFixed(1)}%</span>
-                  <span className="ml-1.5 text-dark-muted">{t("diag", "energyOf", { target: d.energy.target })}</span>
+                  <span className={energyOk ? "text-verdict-high" : "text-warn"}>
+                    {d.energy.current.toFixed(1)}%
+                  </span>
+                  <span className="ml-1.5 text-dark-muted">
+                    {t("diag", "energyOf", { target: d.energy.target })}
+                  </span>
                 </span>
               </div>
             )}
@@ -90,17 +122,24 @@ export function BuildDiagnostics({ character }: { character: CharacterData }) {
         </div>
 
         <div className="rounded-lg border border-dark-border/70 bg-dark-bg/30 p-3">
-          <h4 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-dark-muted">{t("diag", "deadRolls")}</h4>
+          <h4 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-dark-muted">
+            {t("diag", "deadRolls")}
+          </h4>
           {d.waste.length === 0 ? (
             <p className="text-sm text-verdict-high">{t("diag", "nothingWasted")}</p>
           ) : (
             <ul className="space-y-1">
               {d.waste.slice(0, 5).map((w, i) => (
-                <li key={`${w.slot}-${w.statKey}-${i}`} className="flex items-baseline justify-between gap-2 text-sm">
+                <li
+                  key={`${w.slot}-${w.statKey}-${i}`}
+                  className="flex items-baseline justify-between gap-2 text-sm"
+                >
                   <span className="truncate text-dark-muted">
                     <span className="text-dark-text/80">{t("slots", w.slot)}</span> {w.displayName}
                   </span>
-                  <span className="shrink-0 font-mono text-dark-muted">{t("diag", "rollsCount", { n: w.rolls })}</span>
+                  <span className="shrink-0 font-mono text-dark-muted">
+                    {t("diag", "rollsCount", { n: w.rolls })}
+                  </span>
                 </li>
               ))}
             </ul>
