@@ -13,9 +13,18 @@
  * character screen and every other showcase site.
  */
 
-export type HsrRowKey =
-  | "rowHp" | "rowAtk" | "rowDef" | "rowSpd" | "rowCritRate" | "rowCritDmg"
-  | "rowBreak" | "rowEnergy" | "rowEhr" | "rowRes" | "rowDmg";
+type HsrRowKey =
+  | "rowHp"
+  | "rowAtk"
+  | "rowDef"
+  | "rowSpd"
+  | "rowCritRate"
+  | "rowCritDmg"
+  | "rowBreak"
+  | "rowEnergy"
+  | "rowEhr"
+  | "rowRes"
+  | "rowDmg";
 
 import type { HsrCharacter, HsrRelic, HsrStatKey, HsrStats } from "./types";
 import statsData from "./data/stats.json";
@@ -32,7 +41,6 @@ interface StatTables {
   sets: Record<string, { type: string; value: number }[][]>;
 }
 const TABLES = statsData as unknown as StatTables;
-
 
 /** A stat's value at a level: the ascension's base plus one step per level above 1. */
 function atLevel(curve: Curve | undefined, level: number): number {
@@ -94,7 +102,7 @@ function collectBonuses(
   return pool;
 }
 
-export interface StatInput {
+interface StatInput {
   avatarId: number;
   element: string;
   level: number;
@@ -143,7 +151,7 @@ export function computeStats(input: StatInput): HsrStats {
 }
 
 /** The stats worth showing in a summary row, in the order the game lists them. */
-export const STAT_ROW: Array<{ key: keyof HsrStats; label: HsrRowKey; percent: boolean }> = [
+const STAT_ROW: Array<{ key: keyof HsrStats; label: HsrRowKey; percent: boolean }> = [
   { key: "hp", label: "rowHp", percent: false },
   { key: "atk", label: "rowAtk", percent: false },
   { key: "def", label: "rowDef", percent: false },
@@ -157,7 +165,7 @@ export const STAT_ROW: Array<{ key: keyof HsrStats; label: HsrRowKey; percent: b
   { key: "elementalDmg", label: "rowDmg", percent: true },
 ];
 
-export function formatStatValue(stats: HsrStats, key: keyof HsrStats, percent: boolean): string {
+function formatStatValue(stats: HsrStats, key: keyof HsrStats, percent: boolean): string {
   const v = stats[key];
   return percent ? `${v.toFixed(1)}%` : Math.round(v).toLocaleString();
 }
@@ -167,6 +175,8 @@ export function statRowFor(character: HsrCharacter): Array<{ label: HsrRowKey; v
   return STAT_ROW.filter(
     // Effect Hit Rate, Break Effect and healing are noise on a build that has
     // none of them, so they only appear once something actually grants them.
-    (s) => !["breakEffect", "effectHitRate", "effectRes", "elementalDmg"].includes(s.key) || character.stats[s.key] > 0,
+    (s) =>
+      !["breakEffect", "effectHitRate", "effectRes", "elementalDmg"].includes(s.key) ||
+      character.stats[s.key] > 0,
   ).map((s) => ({ label: s.label, value: formatStatValue(character.stats, s.key, s.percent) }));
 }

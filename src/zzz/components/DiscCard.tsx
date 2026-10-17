@@ -6,6 +6,7 @@ import { useI18n } from "../../i18n";
 import { setIcon } from "../images";
 import { GradeBadge } from "../../components/ui/GradeBadge";
 import { InfoTip } from "../../components/ui/InfoTip";
+import { PIP } from "../../components/ui/RollPips";
 import { formatScore } from "../../lib/format";
 import { gradeTextClass } from "../../lib/grade";
 import { RemoteImg } from "../../components/ui/RemoteImg";
@@ -32,7 +33,14 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
     <div className="rounded-lg border border-zzz-border/70 bg-zzz-card/60 p-2.5">
       <div className="mb-2 flex items-center gap-2">
         {icon && (
-          <RemoteImg src={icon} alt="" loading="lazy" width={44} height={44} className="h-11 w-11 shrink-0 rounded bg-zzz-inset object-contain" />
+          <RemoteImg
+            src={icon}
+            alt=""
+            loading="lazy"
+            width={44}
+            height={44}
+            className="h-11 w-11 shrink-0 rounded bg-zzz-inset object-contain"
+          />
         )}
         <div className="min-w-0 flex-1">
           <p className="font-mono text-sm font-bold uppercase tracking-wider text-zzz-accent">
@@ -45,11 +53,7 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
         {score.grade ? (
           <GradeBadge grade={score.grade} size="sm" />
         ) : !score.mainStatOk ? (
-          <InfoTip
-            panelClassName={ZZZ_PANEL}
-            align="right"
-            content={t("zzz", "notGradedMain")}
-          >
+          <InfoTip panelClassName={ZZZ_PANEL} align="right" content={t("zzz", "notGradedMain")}>
             <span className="rounded-md bg-zzz-signal/15 px-1.5 py-0.5 text-xs font-bold uppercase text-zzz-signal">
               {t("zzz", "wrongMain")}
             </span>
@@ -57,11 +61,7 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
         ) : (
           // The main is fine; it is the substats that are all dead. Discs
           // 1 to 3 land here too, and their main can never be wrong.
-          <InfoTip
-            panelClassName={ZZZ_PANEL}
-            align="right"
-            content={t("zzz", "notGradedDead")}
-          >
+          <InfoTip panelClassName={ZZZ_PANEL} align="right" content={t("zzz", "notGradedDead")}>
             <span className="rounded-md bg-zzz-muted/15 px-1.5 py-0.5 text-xs font-bold uppercase text-zzz-muted">
               {t("zzz", "deadRollsBadge")}
             </span>
@@ -70,7 +70,9 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
       </div>
 
       <div className="mb-2 flex items-baseline justify-between rounded bg-zzz-inset px-2 py-1">
-        <span className="text-sm font-medium text-zzz-text">{t("zzzStats", String(disc.mainStat.id) as "11101")}</span>
+        <span className="text-sm font-medium text-zzz-text">
+          {t("zzzStats", String(disc.mainStat.id) as "11101")}
+        </span>
         <span className="flex items-baseline gap-2 font-mono text-sm text-zzz-text">
           {unlevelled && (
             <span
@@ -89,33 +91,44 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
           const dead = weightOf(weights, sub.id) < WASTE_THRESHOLD;
           return (
             <li key={sub.id} className="flex items-center justify-between gap-2">
-              <span className={`text-sm ${dead ? "text-zzz-muted line-through decoration-zzz-muted/50" : "text-zzz-text/85"}`}>
+              <span
+                className={`text-sm ${dead ? "text-zzz-muted line-through decoration-zzz-muted/50" : "text-zzz-text/85"}`}
+              >
                 {t("zzzStats", String(sub.id) as "11101")}
               </span>
               <span className="flex items-center gap-2">
                 <InfoTip
                   align="right"
                   panelClassName={ZZZ_PANEL}
-                  label={t("zzz", "rollTipLabel", { n: sub.rolls, value: formatStat(sub.id, sub.perRoll) })}
+                  label={t("zzz", "rollTipLabel", {
+                    n: sub.rolls,
+                    value: formatStat(sub.id, sub.perRoll),
+                  })}
                   content={
                     <div className="space-y-1">
                       <p className="font-medium">
-                        {t("zzz", "rollTipHeading", { n: sub.rolls, value: formatStat(sub.id, sub.perRoll) })}
+                        {t("zzz", "rollTipHeading", {
+                          n: sub.rolls,
+                          value: formatStat(sub.id, sub.perRoll),
+                        })}
                       </p>
-                      <p className="text-zzz-muted">
-                        {t("zzz", "rollTipFixed")}
-                      </p>
+                      <p className="text-zzz-muted">{t("zzz", "rollTipFixed")}</p>
                       {dead && <p className="text-zzz-muted">{t("zzz", "rollTipDead")}</p>}
                     </div>
                   }
                 >
-                  <span className={`inline-flex items-center gap-[3px] ${dead ? "opacity-40" : ""}`} aria-hidden="true">
+                  <span
+                    className={`inline-flex items-center gap-[3px] ${dead ? "opacity-40" : ""}`}
+                    aria-hidden="true"
+                  >
                     {Array.from({ length: sub.rolls }, (_, i) => (
-                      <span key={i} className="h-2.5 w-[3px] rounded-sm bg-zzz-accent" />
+                      <span key={i} className={`${PIP} bg-zzz-accent`} />
                     ))}
                   </span>
                 </InfoTip>
-                <span className={`w-14 text-right font-mono text-sm tabular-nums ${dead ? "text-zzz-muted" : "text-zzz-text"}`}>
+                <span
+                  className={`w-14 text-right font-mono text-sm tabular-nums ${dead ? "text-zzz-muted" : "text-zzz-text"}`}
+                >
                   {formatStat(sub.id, sub.value)}
                 </span>
               </span>
@@ -126,10 +139,14 @@ export function DiscCard({ disc, weights }: { disc: ZzzDisc; weights: ZzzWeights
 
       <div className="mt-2 flex items-center justify-between border-t border-zzz-line pt-1.5 font-mono text-xs">
         <span className="text-zzz-muted">
-          <span className={score.wastedRolls > 0 ? "text-zzz-text" : "text-zzz-accent"}>{score.effectiveRolls}</span>
+          <span className={score.wastedRolls > 0 ? "text-zzz-text" : "text-zzz-accent"}>
+            {score.effectiveRolls}
+          </span>
           {t("zzz", "usefulSuffix", { total: disc.totalRolls })}
         </span>
-        <span className={`font-bold ${score.grade ? gradeTextClass(score.grade) : "text-zzz-muted"}`}>
+        <span
+          className={`font-bold ${score.grade ? gradeTextClass(score.grade) : "text-zzz-muted"}`}
+        >
           {formatScore(score.potentialPercent)}
         </span>
       </div>

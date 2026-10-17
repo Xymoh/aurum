@@ -3,7 +3,7 @@
  * split into runs a component can render without touching HTML.
  */
 
-export interface TextRun {
+interface TextRun {
   text: string;
   /** Inside "**": a span the game highlights. */
   strong: boolean;

@@ -8,8 +8,7 @@ import { clearAllSnapshots, clearSnapshot } from "../lib/history";
 import { useI18n } from "../i18n";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
-const LINK_CLASS =
-  "text-accent hover:text-accent-strong underline underline-offset-2";
+const LINK_CLASS = "text-accent hover:text-accent-strong underline underline-offset-2";
 
 export function HomePage() {
   const { recent: recentUids, forget, forgetAll } = useRecentUids(GENSHIN_RECENT_UIDS_KEY);
@@ -34,7 +33,7 @@ export function HomePage() {
         <p className="text-dark-muted text-base font-medium tracking-wide uppercase">
           {t("home", "tagline")}
         </p>
-        <p className="text-dark-muted/80 text-lg">{t("home", "intro")}</p>
+        <p className="text-dark-muted text-lg">{t("home", "intro")}</p>
       </div>
 
       {/* UID Input */}
@@ -42,7 +41,10 @@ export function HomePage() {
         <UidInput />
         {SHOWCASE_HELP && (
           <p className="mt-3 text-center text-sm">
-            <Link to={HELP_PATH.genshin} className="text-dark-muted underline decoration-dotted underline-offset-4 hover:text-accent">
+            <Link
+              to={HELP_PATH.genshin}
+              className="text-dark-muted underline decoration-dotted underline-offset-4 hover:text-accent"
+            >
               {t("help", "cantSee")}
             </Link>
           </p>
@@ -85,6 +87,11 @@ export function HomePage() {
               </span>
               <h3 className="text-dark-text text-sm font-semibold">{step.title}</h3>
               <p className="text-sm text-dark-muted leading-relaxed">{step.body}</p>
+              {i === 0 && SHOWCASE_HELP && (
+                <Link to={HELP_PATH.genshin} className={`text-sm ${LINK_CLASS}`}>
+                  {t("help", "emptyLink")}
+                </Link>
+              )}
             </li>
           ))}
         </ol>
@@ -96,11 +103,21 @@ export function HomePage() {
       <details className="group w-full max-w-2xl game-panel border border-dark-border bg-dark-card/40 open:bg-dark-card/60">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-5 sm:p-6 [&::-webkit-details-marker]:hidden">
           <span>
-            <span className="block text-base font-bold text-dark-text">{t("nav", "howScoringWorks")}</span>
-            <span className="mt-0.5 block text-sm text-dark-muted">{t("showcase", "methodologyHint")}</span>
+            <span className="block text-base font-bold text-dark-text">
+              {t("nav", "howScoringWorks")}
+            </span>
+            <span className="mt-0.5 block text-sm text-dark-muted">
+              {t("showcase", "methodologyHint")}
+            </span>
           </span>
           <svg
-            width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
             className="flex-shrink-0 text-dark-muted transition-transform duration-300 group-open:rotate-180"
             aria-hidden="true"
           >
@@ -118,7 +135,12 @@ export function HomePage() {
         <ul className="space-y-2 text-sm text-dark-muted leading-relaxed">
           <li>
             <span className="text-dark-text font-medium">{t("home", "dataShowcase")}</span> -{" "}
-            <a href="https://enka.network/" target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
+            <a
+              href="https://enka.network/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={LINK_CLASS}
+            >
               Enka.Network
             </a>
             {t("home", "dataShowcaseBody")}
@@ -167,7 +189,7 @@ export function HomePage() {
               <span className="font-medium text-dark-text/80">{t("home", "limitTitle")}</span>{" "}
               {t("home", "limitBody")}
             </p>
-            <p className="text-sm text-dark-muted/70 leading-relaxed">
+            <p className="text-sm text-dark-muted leading-relaxed">
               {t("home", "limitFooter")}
               <a
                 href="https://frzyc.github.io/genshin-optimizer/"

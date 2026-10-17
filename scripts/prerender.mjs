@@ -9,9 +9,13 @@
  * URL; the app takes over as usual once it loads.
  *
  * Showcase pages are left out on purpose: they are other players' profiles,
- * not content, and there is one per UID.
+ * not content, and there is one per UID. public/_redirects serves them the
+ * root page instead, because the 404.html written here turns off the host's
+ * fallback: every other path without a file answers 404. So every route the
+ * app serves must have a file here, indexed or not (`noindex`).
  */
 import { createServer } from "vite";
+import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -25,17 +29,20 @@ const vite = await createServer({
 
 let pages;
 let siteUrl;
+let siteName;
 try {
   const load = (file) => vite.ssrLoadModule(file);
-  const [{ en }, { format }, site, genshin, hsr, zzz] = await Promise.all([
+  const [{ en }, { format }, site, genshin, hsr, zzz, help] = await Promise.all([
     load("/src/i18n/locales/en.ts"),
     load("/src/i18n/index.ts"),
     load("/src/legal/site.ts"),
     load("/src/lib/buildTarget/genshin.ts"),
     load("/src/hsr/buildTarget.ts"),
     load("/src/zzz/buildTarget.ts"),
+    load("/src/help/content.ts"),
   ]);
   siteUrl = site.SITE_URL;
+  siteName = site.SITE_NAME;
   const t = (section, key, vars) => format(en[section][key] ?? key, vars);
 
   const games = [
@@ -81,11 +88,20 @@ try {
       description: `${g.name} build guides: best ${g.gear}, main stats and substat priority for every character.`,
     });
     for (const build of g.list(t)) {
-      if (build.unlisted) continue;
       pages.push({
         route: `${g.prefix}/builds/${build.id}`,
         title: t("builds", "documentTitleCharacter", { name: build.name, game: g.name }),
         description: `${build.name} build for ${g.name}: best ${g.gear}, main stats and substat priority.`,
+        // The other Traveler/Trailblazer body: linked from team lists, kept out of search.
+        noindex: Boolean(build.unlisted),
+      });
+    }
+    if (help.SHOWCASE_HELP) {
+      pages.push({
+        route: help.HELP_PATH[g.prefix].slice(1),
+        // Keep in step with src/help/ShowcaseHelpPage.tsx.
+        title: `${t("help", "title")} - ${g.name} - ${site.SITE_NAME}`,
+        description: `How to put your characters on your ${g.name} showcase so a UID lookup can read them, step by step with screenshots.`,
       });
     }
   }
@@ -93,7 +109,8 @@ try {
   await vite.close();
 }
 
-const escape = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const escape = (s) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 /** Swaps one attribute value in the template, failing loudly if index.html changed shape. */
 function replace(html, pattern, value) {
@@ -102,6 +119,24 @@ function replace(html, pattern, value) {
 }
 
 const template = await readFile(path.join(DIST, "index.html"), "utf8");
+
+// public/_headers pins index.html's inline script by hash and names the Enka
+// relay in connect-src. Fail the build rather than ship a page the policy blocks.
+const headersFile = await readFile(path.join(DIST, "_headers"), "utf8");
+for (const [, body] of template.matchAll(/<script>([\s\S]*?)<\/script>/g)) {
+  const hash = `'sha256-${createHash("sha256").update(body).digest("base64")}'`;
+  if (!headersFile.includes(hash)) {
+    throw new Error(
+      `prerender: index.html's inline script changed; put ${hash} in script-src in public/_headers`,
+    );
+  }
+}
+if (process.env.VITE_ENKA_PROXY) {
+  const relay = new URL(process.env.VITE_ENKA_PROXY.replace(/\{(uid|url)\}/g, "")).origin;
+  if (!headersFile.includes(relay)) {
+    throw new Error(`prerender: add ${relay} (VITE_ENKA_PROXY) to connect-src in public/_headers`);
+  }
+}
 
 function render(page, url) {
   let html = template;
@@ -112,12 +147,18 @@ function render(page, url) {
     html = replace(html, /(<meta name="description" content=")[^"]*(")/, page.description);
     html = replace(html, /(<meta property="og:description" content=")[^"]*(")/, page.description);
   }
-  return html.replace("</head>", `  <link rel="canonical" href="${escape(url)}" />\n  </head>`);
+  const tail = page.noindex
+    ? `  <meta name="robots" content="noindex" />\n  </head>`
+    : `  <link rel="canonical" href="${escape(url)}" />\n  </head>`;
+  return html.replace("</head>", tail);
 }
 
 // The root keeps its own title; it only gains a canonical link. Showcase
 // pages are served this same file, so they all count as the home page.
-await writeFile(path.join(DIST, "index.html"), template.replace("</head>", `  <link rel="canonical" href="${siteUrl}" />\n  </head>`));
+await writeFile(
+  path.join(DIST, "index.html"),
+  template.replace("</head>", `  <link rel="canonical" href="${siteUrl}" />\n  </head>`),
+);
 
 const urls = [siteUrl];
 for (const page of pages) {
@@ -126,8 +167,15 @@ for (const page of pages) {
   const dir = path.join(DIST, page.route);
   await mkdir(dir, { recursive: true });
   await writeFile(path.join(dir, "index.html"), render(page, url));
-  urls.push(url);
+  if (!page.noindex) urls.push(url);
 }
+
+// Its presence makes the host answer 404 for any path without a file. The app
+// still loads in it and shows its own not-found page.
+await writeFile(
+  path.join(DIST, "404.html"),
+  render({ title: `Page not found - ${siteName}`, noindex: true }, `${siteUrl}404`),
+);
 
 await writeFile(
   path.join(DIST, "sitemap.xml"),
@@ -135,8 +183,10 @@ await writeFile(
     .map((u) => `  <url><loc>${escape(u)}</loc></url>`)
     .join("\n")}\n</urlset>\n`,
 );
-// Crawlers only read robots.txt at a domain's root, so this one takes effect
-// once the site has its own domain; until then, submit sitemap.xml in Search Console.
-await writeFile(path.join(DIST, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}sitemap.xml\n`);
+// Crawlers only read robots.txt at a domain's root, which this is now that the site has its own domain.
+await writeFile(
+  path.join(DIST, "robots.txt"),
+  `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}sitemap.xml\n`,
+);
 
-console.log(`prerender: ${pages.length} pages, sitemap with ${urls.length} URLs`);
+console.log(`prerender: ${pages.length} pages and 404.html, sitemap with ${urls.length} URLs`);

@@ -13,7 +13,7 @@ export interface OwnedSlot {
   ok: boolean;
 }
 
-export interface OwnedBuild {
+interface OwnedBuild {
   score: number;
   grade: string;
   complete: boolean;
@@ -44,7 +44,15 @@ interface OwnedStripProps {
  * the target next to your own goblet is not. It reuses the last UID the
  * visitor looked up, so nothing has to be typed twice.
  */
-export function OwnedStrip({ skin, name, uid, loading, failed = false, owned, homeHref }: OwnedStripProps) {
+export function OwnedStrip({
+  skin,
+  name,
+  uid,
+  loading,
+  failed = false,
+  owned,
+  homeHref,
+}: OwnedStripProps) {
   const { t } = useI18n();
 
   if (!uid) {
@@ -72,7 +80,9 @@ export function OwnedStrip({ skin, name, uid, loading, failed = false, owned, ho
     return (
       <section className={`game-panel border p-4 ${skin.panel}`}>
         <p className={`text-sm ${skin.muted}`}>
-          {failed ? t("builds", "yoursUnavailable", { uid }) : t("builds", "yoursMissing", { name, uid })}
+          {failed
+            ? t("builds", "yoursUnavailable", { uid })
+            : t("builds", "yoursMissing", { name, uid })}
         </p>
       </section>
     );

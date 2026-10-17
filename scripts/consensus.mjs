@@ -40,7 +40,8 @@ import { readSources, SOURCE_WEIGHTS } from "./sources.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), "utf8"));
-const write = (rel, data) => fs.writeFileSync(path.join(ROOT, rel), JSON.stringify(data, null, 2) + "\n");
+const write = (rel, data) =>
+  fs.writeFileSync(path.join(ROOT, rel), JSON.stringify(data, null, 2) + "\n");
 
 /** How many of each list a page shows. */
 const CAPS = { weapons: 8, sets: 3, teams: 4, synergies: 6, endgameStats: 6 };
@@ -73,14 +74,17 @@ export function rankedVote(ballots, key = (x) => x) {
       tally.set(k, t);
     });
   }
-  return [...tally.values()].sort((a, b) => b.score - a.score || b.best - a.best || a.bestRank - b.bestRank || a.first - b.first);
+  return [...tally.values()].sort(
+    (a, b) => b.score - a.score || b.best - a.best || a.bestRank - b.bestRank || a.first - b.first,
+  );
 }
 
 /** The heaviest source's non-empty answer. */
 export function heaviest(entries, pick) {
   for (const { entry } of entries) {
     const value = pick(entry);
-    if (value !== null && value !== undefined && !(Array.isArray(value) && value.length === 0)) return value;
+    if (value !== null && value !== undefined && !(Array.isArray(value) && value.length === 0))
+      return value;
   }
   return null;
 }
@@ -95,7 +99,11 @@ export function voteMainStats(entries, field = "mainStats") {
   if (slots.size === 0) return null;
   const out = {};
   for (const slot of slots) {
-    const ranked = rankedVote(entries.filter(({ entry }) => entry[field]?.[slot]?.length).map(({ weight, entry }) => ({ weight, items: entry[field][slot] })));
+    const ranked = rankedVote(
+      entries
+        .filter(({ entry }) => entry[field]?.[slot]?.length)
+        .map(({ weight, entry }) => ({ weight, items: entry[field][slot] })),
+    );
     const top = ranked[0]?.score ?? 0;
     out[slot] = ranked.filter((r) => r.score >= top * 0.4).map((r) => r.item);
   }
@@ -138,7 +146,8 @@ export function voteSubstats(entries) {
     // A stat a site names twice counts once, at its best tier.
     const own = new Map();
     entry.substats.forEach((tier, i) => {
-      for (const stat of tier) if (!own.has(stat)) own.set(stat, TIER_WEIGHTS[Math.min(i, TIER_WEIGHTS.length - 1)]);
+      for (const stat of tier)
+        if (!own.has(stat)) own.set(stat, TIER_WEIGHTS[Math.min(i, TIER_WEIGHTS.length - 1)]);
     });
     for (const [stat, w] of own) sums.set(stat, (sums.get(stat) ?? 0) + weight * w);
   }
@@ -147,7 +156,9 @@ export function voteSubstats(entries) {
     const avg = sum / total;
     // Halfway to the lowest step: one light source naming it near the bottom is not enough.
     if (avg <= 0.125) continue;
-    weights[stat] = TIER_WEIGHTS.reduce((best, w) => (Math.abs(w - avg) < Math.abs(best - avg) ? w : best));
+    weights[stat] = TIER_WEIGHTS.reduce((best, w) =>
+      Math.abs(w - avg) < Math.abs(best - avg) ? w : best,
+    );
   }
   return weights;
 }
@@ -162,7 +173,9 @@ const setKey = (parts) =>
 
 const voteSets = (entries, field) =>
   rankedVote(
-    entries.filter(({ entry }) => entry[field]?.length).map(({ weight, entry }) => ({ weight, items: entry[field] })),
+    entries
+      .filter(({ entry }) => entry[field]?.length)
+      .map(({ weight, entry }) => ({ weight, items: entry[field] })),
     setKey,
   )
     .slice(0, CAPS.sets)
@@ -172,14 +185,24 @@ const voteSets = (entries, field) =>
 function entriesFor(sources, id) {
   return Object.entries(sources)
     .filter(([, file]) => file.characters?.[id])
-    .map(([source, file]) => ({ source, weight: SOURCE_WEIGHTS[source] ?? 1, entry: file.characters[id] }))
+    .map(([source, file]) => ({
+      source,
+      weight: SOURCE_WEIGHTS[source] ?? 1,
+      entry: file.characters[id],
+    }))
     .sort((a, b) => b.weight - a.weight);
 }
 
 /** The published picks for one character, in GuidePicks' shape (src/lib/buildTarget/guide.ts). */
 export function consensusPicks(entries, { name, mainStats = false } = {}) {
-  const lists = (field) => entries.filter(({ entry }) => entry[field]?.length).map(({ weight, entry }) => ({ weight, items: entry[field] }));
-  const dates = entries.map(({ entry }) => entry.updated).filter(Boolean).sort();
+  const lists = (field) =>
+    entries
+      .filter(({ entry }) => entry[field]?.length)
+      .map(({ weight, entry }) => ({ weight, items: entry[field] }));
+  const dates = entries
+    .map(({ entry }) => entry.updated)
+    .filter(Boolean)
+    .sort();
   return {
     name: name ?? entries[0].entry.name,
     sources: entries.length,
@@ -194,7 +217,11 @@ export function consensusPicks(entries, { name, mainStats = false } = {}) {
     teams: rankedVote(lists("teams"), (t) => [...t.members].sort().join(","))
       .slice(0, CAPS.teams)
       // Team names are the sites' own labels; the members say what the team is.
-      .map(({ item }) => ({ name: null, members: item.members, ...(item.alternates ? { alternates: item.alternates } : {}) })),
+      .map(({ item }) => ({
+        name: null,
+        members: item.members,
+        ...(item.alternates ? { alternates: item.alternates } : {}),
+      })),
     synergies: rankedVote(lists("synergies"))
       .slice(0, CAPS.synergies)
       .map((r) => r.item),
@@ -208,8 +235,13 @@ export function consensusPicks(entries, { name, mainStats = false } = {}) {
 
 // ── Games ────────────────────────────────────────────────────────────
 
-const byId = (obj) => Object.fromEntries(Object.entries(obj).sort(([a], [b]) => parseInt(a) - parseInt(b) || a.localeCompare(b)));
-const allIds = (sources) => [...new Set(Object.values(sources).flatMap((file) => Object.keys(file.characters ?? {})))];
+const byId = (obj) =>
+  Object.fromEntries(
+    Object.entries(obj).sort(([a], [b]) => parseInt(a) - parseInt(b) || a.localeCompare(b)),
+  );
+const allIds = (sources) => [
+  ...new Set(Object.values(sources).flatMap((file) => Object.keys(file.characters ?? {}))),
+];
 
 function genshin(sources) {
   const picks = {};
@@ -221,27 +253,44 @@ function genshin(sources) {
     const ranked = voteSets(entries, "sets");
     const erTarget = medianTarget(entries.map(({ entry }) => entry.erTarget));
     if (ranked.length) {
-      sets[id] = { name: p.name, sets: ranked, ...(p.mainStats ? { mainStats: p.mainStats } : {}), ...(erTarget ? { erTarget } : {}) };
+      sets[id] = {
+        name: p.name,
+        sets: ranked,
+        ...(p.mainStats ? { mainStats: p.mainStats } : {}),
+        ...(erTarget ? { erTarget } : {}),
+      };
     }
   }
   return {
     "src/data/guide-picks.json": { fetchedAt: new Date().toISOString(), characters: byId(picks) },
-    "src/data/set-recommendations.json": { fetchedAt: new Date().toISOString(), characters: byId(sets) },
+    "src/data/set-recommendations.json": {
+      fetchedAt: new Date().toISOString(),
+      characters: byId(sets),
+    },
   };
 }
 
 /** Fribbels' set lists as a source: names mapped to Star Rail set ids. */
 function fribbelsSource() {
   const meta = read("src/hsr/data/scoring-metadata.json").characters;
-  const setIds = new Map(Object.entries(read("src/hsr/data/sets.json")).map(([id, name]) => [name.toLowerCase(), id]));
+  const setIds = new Map(
+    Object.entries(read("src/hsr/data/sets.json")).map(([id, name]) => [name.toLowerCase(), id]),
+  );
   const characters = {};
   for (const [id, c] of Object.entries(meta)) {
     // A pair of names is a 2 + 2; the same name twice is a 4-piece.
     const relicSets = (c.relicSets ?? [])
-      .map((pair) => (pair[0] === pair[1] ? [{ setId: setIds.get(pair[0].toLowerCase()), pieces: 4 }] : pair.map((n) => ({ setId: setIds.get(n.toLowerCase()), pieces: 2 }))))
+      .map((pair) =>
+        pair[0] === pair[1]
+          ? [{ setId: setIds.get(pair[0].toLowerCase()), pieces: 4 }]
+          : pair.map((n) => ({ setId: setIds.get(n.toLowerCase()), pieces: 2 })),
+      )
       .filter((parts) => parts.every((p) => p.setId));
-    const ornamentSets = (c.ornamentSets ?? []).map((n) => [{ setId: setIds.get(n.toLowerCase()), pieces: 2 }]).filter((parts) => parts[0].setId);
-    if (relicSets.length || ornamentSets.length) characters[id] = { name: c.name, updated: null, relicSets, ornamentSets };
+    const ornamentSets = (c.ornamentSets ?? [])
+      .map((n) => [{ setId: setIds.get(n.toLowerCase()), pieces: 2 }])
+      .filter((parts) => parts[0].setId);
+    if (relicSets.length || ornamentSets.length)
+      characters[id] = { name: c.name, updated: null, relicSets, ornamentSets };
   }
   return { characters };
 }
@@ -257,25 +306,44 @@ function hsr(sources) {
     picks[id] = consensusPicks(guideEntries);
     const relicSets = voteSets(entries, "relicSets");
     const ornamentSets = voteSets(entries, "ornamentSets");
-    if (relicSets.length || ornamentSets.length) sets[id] = { name: picks[id].name, relicSets, ornamentSets };
+    if (relicSets.length || ornamentSets.length)
+      sets[id] = { name: picks[id].name, relicSets, ornamentSets };
   }
   return {
-    "src/hsr/data/guide-picks.json": { fetchedAt: new Date().toISOString(), characters: byId(picks) },
-    "src/hsr/data/set-recommendations.json": { fetchedAt: new Date().toISOString(), characters: byId(sets) },
+    "src/hsr/data/guide-picks.json": {
+      fetchedAt: new Date().toISOString(),
+      characters: byId(picks),
+    },
+    "src/hsr/data/set-recommendations.json": {
+      fetchedAt: new Date().toISOString(),
+      characters: byId(sets),
+    },
   };
 }
 
 /** Zenless stat ids to the short labels the generated priority line uses. */
 const ZZZ_LABELS = {
-  11102: "HP%", 11103: "HP", 12102: "ATK%", 12103: "ATK", 13102: "DEF%", 13103: "DEF", 12202: "Impact",
-  20103: "CRIT Rate", 21103: "CRIT DMG", 23103: "PEN Ratio", 23203: "PEN", 30502: "Energy Regen",
-  31203: "Anomaly Proficiency", 31402: "Anomaly Mastery",
+  11102: "HP%",
+  11103: "HP",
+  12102: "ATK%",
+  12103: "ATK",
+  13102: "DEF%",
+  13103: "DEF",
+  12202: "Impact",
+  20103: "CRIT Rate",
+  21103: "CRIT DMG",
+  23103: "PEN Ratio",
+  23203: "PEN",
+  30502: "Energy Regen",
+  31203: "Anomaly Proficiency",
+  31402: "Anomaly Mastery",
 };
 
 /** "CRIT Rate = CRIT DMG > ATK%", from the consensus weights. */
 export function priorityLine(weights, labels = ZZZ_LABELS) {
   const tiers = new Map();
-  for (const [stat, w] of Object.entries(weights)) tiers.set(w, [...(tiers.get(w) ?? []), labels[stat] ?? stat]);
+  for (const [stat, w] of Object.entries(weights))
+    tiers.set(w, [...(tiers.get(w) ?? []), labels[stat] ?? stat]);
   return [...tiers.entries()]
     .sort(([a], [b]) => b - a)
     .map(([, names]) => names.join(" = "))
@@ -287,7 +355,9 @@ function zzz(sources) {
   const sets = {};
   const previous = read("src/zzz/data/scoring-metadata.json");
   // Agents no source covers this run keep their weights, minus the page they were once read from.
-  const scoring = Object.fromEntries(Object.entries(previous.characters).map(([id, { source, ...rest }]) => [id, rest]));
+  const scoring = Object.fromEntries(
+    Object.entries(previous.characters).map(([id, { source, ...rest }]) => [id, rest]),
+  );
   for (const id of allIds(sources)) {
     const entries = entriesFor(sources, id);
     picks[id] = consensusPicks(entries);
@@ -298,21 +368,32 @@ function zzz(sources) {
     if (stats && Object.keys(stats).length) {
       // Disc 4-6 main stats arrive as slot -> ids; the scorer keys them by number.
       const parts = voteMainStats(entries) ?? scoring[id]?.parts ?? { 4: [], 5: [], 6: [] };
-      const thresholds = heaviest(entries, (e) => (e.thresholds && Object.keys(e.thresholds).length ? e.thresholds : null));
+      const thresholds = heaviest(entries, (e) =>
+        e.thresholds && Object.keys(e.thresholds).length ? e.thresholds : null,
+      );
       scoring[id] = {
         name: picks[id].name,
         stats,
-        parts: Object.fromEntries(Object.entries(parts).map(([slot, ids]) => [slot, ids.map(Number)])),
+        parts: Object.fromEntries(
+          Object.entries(parts).map(([slot, ids]) => [slot, ids.map(Number)]),
+        ),
         ...(thresholds ? { thresholds } : {}),
         priority: priorityLine(stats),
       };
     }
   }
   return {
-    "src/zzz/data/guide-picks.json": { fetchedAt: new Date().toISOString(), characters: byId(picks) },
-    "src/zzz/data/set-recommendations.json": { fetchedAt: new Date().toISOString(), characters: byId(sets) },
+    "src/zzz/data/guide-picks.json": {
+      fetchedAt: new Date().toISOString(),
+      characters: byId(picks),
+    },
+    "src/zzz/data/set-recommendations.json": {
+      fetchedAt: new Date().toISOString(),
+      characters: byId(sets),
+    },
     "src/zzz/data/scoring-metadata.json": {
-      method: "Consensus of community guides' substat priorities on a 1 / 0.75 / 0.5 / 0.25 scale; see scripts/consensus.mjs",
+      method:
+        "Consensus of community guides' substat priorities on a 1 / 0.75 / 0.5 / 0.25 scale; see scripts/consensus.mjs",
       fetchedAt: new Date().toISOString(),
       characters: byId(scoring),
     },
@@ -322,7 +403,11 @@ function zzz(sources) {
 const GAMES = { genshin, hsr, zzz };
 
 /** The sites each game's vote expects; one missing would quietly shift every pick. */
-const EXPECTED = { genshin: ["game8", "genshin-gg", "kqm"], hsr: ["prydwen", "game8"], zzz: ["prydwen", "game8"] };
+const EXPECTED = {
+  genshin: ["game8", "genshin-gg", "kqm"],
+  hsr: ["prydwen", "game8"],
+  zzz: ["prydwen", "game8"],
+};
 const STALE_DAYS = 30;
 
 function main() {
@@ -338,13 +423,16 @@ function main() {
     // The cache is per machine: a fresh clone, or a site that failed, leaves a gap.
     const missing = EXPECTED[game].filter((s) => !sources[s]);
     if (missing.length && !allowMissing) {
-      console.log(`  ✖ ${game}: no ${missing.join(", ")} data in .sources/${game}/ - left as published. Run its importer, or pass --allow-missing.`);
+      console.log(
+        `  ✖ ${game}: no ${missing.join(", ")} data in .sources/${game}/ - left as published. Run its importer, or pass --allow-missing.`,
+      );
       process.exitCode = 1;
       continue;
     }
     for (const [source, file] of Object.entries(sources)) {
       const age = (Date.now() - Date.parse(file.fetchedAt ?? 0)) / 86_400_000;
-      if (age > STALE_DAYS) console.log(`  ⚠ ${game}: ${source} was last read ${Math.floor(age)} days ago`);
+      if (age > STALE_DAYS)
+        console.log(`  ⚠ ${game}: ${source} was last read ${Math.floor(age)} days ago`);
     }
     const files = GAMES[game](sources);
     for (const [rel, data] of Object.entries(files)) write(rel, data);
@@ -352,7 +440,9 @@ function main() {
     const single = picks.filter((p) => p.sources === 1).map((p) => p.name);
     console.log(
       `  ${game}: ${picks.length} characters from ${Object.keys(sources).join(", ")}` +
-        (single.length ? `\n    ⚠ one source only (that site's picks until another covers them): ${single.join(", ")}` : ""),
+        (single.length
+          ? `\n    ⚠ one source only (that site's picks until another covers them): ${single.join(", ")}`
+          : ""),
     );
   }
 }

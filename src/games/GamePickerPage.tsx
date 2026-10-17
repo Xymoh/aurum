@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { GAMES } from "./registry";
 import { ThemeToggle } from "../components/ui/ThemeToggle";
 import { LegalLinks } from "../legal/LegalLinks";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 /**
  * The root landing page: pick a game, then that game's scorer takes over with
@@ -9,6 +10,8 @@ import { LegalLinks } from "../legal/LegalLinks";
  * coming back here.
  */
 export function GamePickerPage() {
+  // Same as index.html's; without it, arriving here from another page kept that page's title.
+  useDocumentTitle("Aurum - Gear scoring for gacha games");
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-dark-bg px-4 py-16 text-dark-text">
       {/* Two soft washes, one per game's accent, so the empty page has some
@@ -62,7 +65,9 @@ export function GamePickerPage() {
                   className={`relative rounded-full transition-transform duration-300 ${
                     planned ? "opacity-40 grayscale" : "group-hover:scale-105"
                   }`}
-                  style={{ boxShadow: `0 0 0 3px ${game.accent}44, 0 12px 32px -12px ${game.accent}66` }}
+                  style={{
+                    boxShadow: `0 0 0 3px ${game.accent}44, 0 12px 32px -12px ${game.accent}66`,
+                  }}
                 />
                 <div className="relative mt-4 text-center">
                   <h2 className="text-lg font-semibold text-dark-text">{game.name}</h2>
@@ -77,7 +82,17 @@ export function GamePickerPage() {
                       style={{ color: game.accentToken }}
                     >
                       Open scorer
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
                         <path d="M5 12h14M13 6l6 6-6 6" />
                       </svg>
                     </span>

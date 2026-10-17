@@ -82,7 +82,9 @@ export function BuildIndex({ listings: all, basePath, skin }: BuildIndexProps) {
               title={listing.name}
               className={`game-panel-sm flex items-center gap-2.5 border px-2.5 py-2 no-underline transition-colors ${skin.card} ${skin.cardHover}`}
             >
-              {listing.iconUrl && <CharacterFace listing={listing} size="h-9 w-9" className={`ring-1 ${skin.line}`} />}
+              {listing.iconUrl && (
+                <CharacterFace listing={listing} size="h-9 w-9" className={`ring-1 ${skin.line}`} />
+              )}
               <span className="min-w-0 flex-1">
                 <span className={`block truncate text-sm font-semibold ${skin.text}`}>
                   {listing.name}

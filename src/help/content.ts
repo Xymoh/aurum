@@ -26,7 +26,7 @@ export interface HelpSkin {
   banner: string;
 }
 
-export interface HelpContent {
+interface HelpContent {
   game: HelpGame;
   home: string;
   path: string;

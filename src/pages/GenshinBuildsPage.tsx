@@ -46,7 +46,9 @@ export function GenshinBuildsPage() {
   useDocumentTitle(
     target
       ? t("builds", "documentTitleCharacter", { name: target.name, game: "Genshin Impact" })
-      : t("builds", "documentTitle", { game: "Genshin Impact" }),
+      : id
+        ? "Page not found - Aurum"
+        : t("builds", "documentTitle", { game: "Genshin Impact" }),
   );
 
   const uid = useComparisonUid(GENSHIN_RECENT_UIDS_KEY, isValidUid);
@@ -58,7 +60,9 @@ export function GenshinBuildsPage() {
     // whichever body they play.
     const traveler = parseTravelerBuildId(id);
     const character = data.characters.find((c) =>
-      traveler ? isTravelerId(c.avatarId) && c.element === traveler.element : String(c.avatarId) === id,
+      traveler
+        ? isTravelerId(c.avatarId) && c.element === traveler.element
+        : String(c.avatarId) === id,
     );
     if (!character) return null;
 

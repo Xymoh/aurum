@@ -19,6 +19,7 @@ import {
   substatScale,
 } from "../../src/hsr/scoring";
 import { gradeColor } from "../../src/hsr/labels";
+import { isValidHsrUid } from "../../src/lib/uid";
 import {
   getWeights,
   getScoringMeta,
@@ -32,12 +33,30 @@ const parsed = parseHsrShowcase(fixture as RawHsrResponse);
 const saber = scoreCharacter(parsed.characters.find((c) => c.avatarId === 1014)!);
 
 describe("HSR parsing", () => {
+  it("accepts nine-digit UIDs only", () => {
+    expect(isValidHsrUid("700600838")).toBe(true);
+    expect(isValidHsrUid("70060083")).toBe(false);
+    expect(isValidHsrUid("070060083")).toBe(false);
+    expect(isValidHsrUid("7006008381")).toBe(false);
+  });
+
   it("resolves the player and characters", () => {
     expect(parsed.uid).toBe("700600838");
     expect(saber.name).toBe("Saber");
     expect(saber.path).toBe("Warrior");
     expect(saber.element).toBe("Wind");
     expect(saber.lightCone?.name).toBe("A Thankless Coronation");
+  });
+
+  it("reads a +0 relic, whose level Enka leaves out, as level 0 rather than NaN", () => {
+    const raw = structuredClone(fixture) as unknown as {
+      detailInfo: { avatarDetailList: { avatarId: number; relicList: { level?: number }[] }[] };
+    };
+    delete raw.detailInfo.avatarDetailList.find((a) => a.avatarId === 1014)!.relicList[0].level;
+    const fresh = parseHsrShowcase(raw as unknown as RawHsrResponse);
+    const relic = fresh.characters.find((c) => c.avatarId === 1014)!.relics[0];
+    expect(relic.level).toBe(0);
+    expect(Number.isFinite(relic.mainStat.value)).toBe(true);
   });
 
   it("parses six relics with real set names", () => {
@@ -117,7 +136,10 @@ describe("Fribbels parity", () => {
 
   it("weights flat stats at 40% of their percent stat, whatever the table says", () => {
     const meta = getScoringMeta(1014);
-    expect(weightOf(meta.stats, "AttackDelta")).toBeCloseTo(0.4 * weightOf(meta.stats, "AttackAddedRatio"), 5);
+    expect(weightOf(meta.stats, "AttackDelta")).toBeCloseTo(
+      0.4 * weightOf(meta.stats, "AttackAddedRatio"),
+      5,
+    );
   });
 
   it("lets the even Trailblazer id borrow the odd one's weights", () => {

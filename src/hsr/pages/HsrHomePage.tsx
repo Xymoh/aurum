@@ -1,9 +1,9 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BENCHMARK_ROLLS, MAX_ROLLS, GRADE_LADDER } from "../scoring";
+import { BENCHMARK_ROLLS, MAX_ROLLS } from "../benchmark";
+import { GRADE_LADDER } from "../../lib/gradeLadder";
 import { GradeBadge } from "../../components/ui/GradeBadge";
-import { isValidHsrUid } from "../useHsrShowcase";
-import { sanitizeUidInput } from "../../lib/uid";
+import { isValidHsrUid, sanitizeUidInput } from "../../lib/uid";
 import { HSR_RECENT_UIDS_KEY, useRecentUids } from "../../hooks/useRecentUids";
 import { RecentLookups } from "../../components/ui/RecentLookups";
 import { useI18n } from "../../i18n";
@@ -60,7 +60,7 @@ export function HsrHomePage() {
               placeholder={t("hsr", "uidPlaceholder")}
               inputMode="numeric"
               aria-label={t("hsr", "uidLabel")}
-              className="w-full bg-transparent px-3 py-2 font-mono text-sm text-hsr-text placeholder:text-hsr-muted/70 focus:outline-none"
+              className="w-full bg-transparent px-3 py-2 font-mono text-sm text-hsr-text placeholder:text-hsr-muted focus:outline-none"
             />
           </div>
           <button
@@ -70,10 +70,17 @@ export function HsrHomePage() {
             {t("hsr", "analyse")}
           </button>
         </form>
-        {error && <p className="mt-2 text-sm text-verdict-replace" role="alert">{error}</p>}
+        {error && (
+          <p className="mt-2 text-sm text-verdict-replace" role="alert">
+            {error}
+          </p>
+        )}
         {SHOWCASE_HELP && (
           <p className="mt-3 text-sm">
-            <Link to={HELP_PATH.hsr} className="text-hsr-muted underline decoration-dotted underline-offset-4 hover:text-hsr-accent">
+            <Link
+              to={HELP_PATH.hsr}
+              className="text-hsr-muted underline decoration-dotted underline-offset-4 hover:text-hsr-accent"
+            >
               {t("help", "cantSee")}
             </Link>
           </p>
@@ -118,6 +125,14 @@ export function HsrHomePage() {
             </span>
             <h3 className="mt-2 text-base font-semibold text-hsr-text">{c.t}</h3>
             <p className="mt-1.5 text-sm leading-relaxed text-hsr-muted">{c.b}</p>
+            {c.n === "1" && SHOWCASE_HELP && (
+              <Link
+                to={HELP_PATH.hsr}
+                className="mt-1.5 inline-block text-sm text-hsr-accent underline underline-offset-2 hover:text-hsr-text"
+              >
+                {t("help", "emptyLink")}
+              </Link>
+            )}
           </div>
         ))}
       </div>
@@ -129,7 +144,10 @@ export function HsrHomePage() {
           <p>{t("hsr", "gradedP2")}</p>
           <div className="flex flex-wrap items-center gap-1.5">
             {GRADE_LADDER.filter((_, i) => i % 2 === 1).map((band) => (
-              <span key={band.grade} className="inline-flex items-center gap-1 rounded-md border border-hsr-line bg-hsr-inset px-2 py-0.5 font-mono text-xs">
+              <span
+                key={band.grade}
+                className="inline-flex items-center gap-1 rounded-md border border-hsr-line bg-hsr-inset px-2 py-0.5 font-mono text-xs"
+              >
                 <GradeBadge grade={band.grade} size="xs" /> {band.min}%+
               </span>
             ))}

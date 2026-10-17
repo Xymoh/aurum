@@ -80,7 +80,7 @@ function enkaProxyPlugin(): Plugin {
               const status = enkaRes.statusCode ?? 502;
 
               if (status !== 200) {
-                if (status === 400) {
+                if (status === 400 || status === 404) {
                   res.statusCode = 404;
                   res.end(
                     JSON.stringify({
@@ -109,8 +109,7 @@ function enkaProxyPlugin(): Plugin {
                   res.end(
                     JSON.stringify({
                       success: false,
-                      error:
-                        "Rate limited by Enka.Network. Please wait a moment and try again.",
+                      error: "Rate limited by Enka.Network. Please wait a moment and try again.",
                     }),
                   );
                   return;
@@ -173,7 +172,7 @@ export default defineConfig({
   plugins: [react(), enkaProxyPlugin()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(import.meta.dirname, "./src"),
     },
   },
   server: {
@@ -181,19 +180,23 @@ export default defineConfig({
     open: true,
   },
   build: {
-    target: "ES2022",
+    target: "es2022",
     sourcemap: false,
-    rollupOptions: {
+    rolldownOptions: {
       output: {
         // Long-lived libraries in their own chunks, so a deploy that only
-        // touches app code leaves the React runtime cached. The function form
-        // catches react-dom/client and scheduler, which the package-name list
+        // touches app code leaves the React runtime cached. Matching on paths
+        // catches react-dom/client and scheduler, which a package-name list
         // used to miss, leaving 177 KB of React inside the app chunk.
-        manualChunks(id) {
-          if (!id.includes("node_modules")) return undefined;
-          if (/[\\/]node_modules[\\/](react|react-dom|scheduler|react-router|react-router-dom)[\\/]/.test(id)) return "vendor";
-          if (id.includes("@tanstack")) return "query";
-          return undefined;
+        codeSplitting: {
+          groups: [
+            {
+              name: "vendor",
+              test: /[\\/]node_modules[\\/](react|react-dom|scheduler|react-router|react-router-dom)[\\/]/,
+              priority: 20,
+            },
+            { name: "query", test: /[\\/]node_modules[\\/]@tanstack[\\/]/, priority: 10 },
+          ],
         },
       },
     },

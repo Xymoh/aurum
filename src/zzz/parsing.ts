@@ -8,14 +8,7 @@
  * simply rolls x perRoll, and there is no roll quality to reason about.
  */
 
-import type {
-  ZzzAgent,
-  ZzzDisc,
-  ZzzEngine,
-  ZzzShowcase,
-  ZzzSlot,
-  ZzzSubstat,
-} from "./types";
+import type { ZzzAgent, ZzzDisc, ZzzEngine, ZzzShowcase, ZzzSlot, ZzzSubstat } from "./types";
 import { displayValue } from "./labels";
 import { getAgentInfo } from "./weights";
 import sets from "./data/sets.json";
@@ -25,7 +18,10 @@ import { engineImage, profilePicture } from "./images";
 
 const SETS = sets as Record<string, { name: string; nameZh?: string; icon: string }>;
 const SET_ITEMS = setItems as Record<string, { suit: number; rarity: number }>;
-const WEAPONS = weapons as Record<string, { name: string; nameZh?: string; rarity: number; image: string }>;
+const WEAPONS = weapons as Record<
+  string,
+  { name: string; nameZh?: string; rarity: number; image: string }
+>;
 
 /** Raw Enka shapes, only the fields we read. */
 interface RawProperty {
@@ -104,7 +100,10 @@ function parseDisc(slot: number, raw: RawEquipment, lang: ZzzLang): Omit<ZzzDisc
     setName: pickName(SETS[String(setId)], lang, `Set ${setId}`),
     rarity,
     level: raw.Level,
-    mainStat: { id: main.PropertyId, value: displayValue(main.PropertyId, mainStatAtLevel(main.PropertyValue, raw.Level, rarity)) },
+    mainStat: {
+      id: main.PropertyId,
+      value: displayValue(main.PropertyId, mainStatAtLevel(main.PropertyValue, raw.Level, rarity)),
+    },
     substats,
     totalRolls,
   };
@@ -140,7 +139,7 @@ export type ParsedDiscInput = Omit<ZzzDisc, "score">;
 export type ParsedAgent = Omit<ZzzAgent, "discs" | "diagnostics" | "stats"> & {
   discs: ParsedDiscInput[];
 };
-export type ParsedZzzShowcase = Omit<ZzzShowcase, "agents"> & { agents: ParsedAgent[] };
+type ParsedZzzShowcase = Omit<ZzzShowcase, "agents"> & { agents: ParsedAgent[] };
 
 /**
  * Enka publishes each name in every language it ships, and the fetch script
@@ -149,7 +148,11 @@ export type ParsedZzzShowcase = Omit<ZzzShowcase, "agents"> & { agents: ParsedAg
  */
 type ZzzLang = "en" | "zh";
 
-function pickName(entry: { name: string; nameZh?: string } | undefined, lang: ZzzLang, fallback: string): string {
+function pickName(
+  entry: { name: string; nameZh?: string } | undefined,
+  lang: ZzzLang,
+  fallback: string,
+): string {
   if (!entry) return fallback;
   return (lang === "zh" ? entry.nameZh : undefined) ?? entry.name;
 }

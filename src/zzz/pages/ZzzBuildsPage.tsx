@@ -13,12 +13,14 @@ import { getZzzBuild, listZzzBuilds } from "../buildTarget";
 import { ZZZ_GUIDES } from "../guide";
 import { useGuide } from "../../lib/buildTarget/guideSource";
 import { SELECTABLE_ZZZ_SLOTS } from "../types";
-import { isValidZzzUid, useZzzShowcase } from "../useZzzShowcase";
+import { useZzzShowcase } from "../useZzzShowcase";
+import { isValidZzzUid } from "../../lib/uid";
 
 const SKIN: BuildSkin = {
   panel: "border-zzz-border bg-zzz-panel/50",
   card: "border-zzz-border bg-zzz-card",
-  cardHover: "hover:border-zzz-accent/50 hover:[--panel-corner:color-mix(in_oklab,var(--zzz-accent)_50%,transparent)]",
+  cardHover:
+    "hover:border-zzz-accent/50 hover:[--panel-corner:color-mix(in_oklab,var(--zzz-accent)_50%,transparent)]",
   text: "text-zzz-text",
   muted: "text-zzz-muted",
   accent: "text-zzz-accent",
@@ -40,7 +42,9 @@ export function ZzzBuildsPage() {
   useDocumentTitle(
     target
       ? t("builds", "documentTitleCharacter", { name: target.name, game: "Zenless Zone Zero" })
-      : t("builds", "documentTitle", { game: "Zenless Zone Zero" }),
+      : id
+        ? "Page not found - Aurum"
+        : t("builds", "documentTitle", { game: "Zenless Zone Zero" }),
   );
 
   const uid = useComparisonUid(ZZZ_RECENT_UIDS_KEY, isValidZzzUid);

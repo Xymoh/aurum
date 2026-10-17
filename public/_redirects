@@ -1,0 +1,13 @@
+# Cloudflare Pages rules: https://developers.cloudflare.com/pages/configuration/redirects/
+#
+# dist/404.html (written by scripts/prerender.mjs) turns off Pages' SPA
+# fallback, so every path without a file of its own now answers 404. Showcase
+# pages have no file (one per UID), so they are rewritten to the root page,
+# which is what the fallback served them before; the app routes them as usual.
+# functions/[game]/showcase/[uid].js now answers the three game routes (Pages
+# skips these rules for Function routes); the rules stay as the fallback.
+/genshin/showcase/* / 200
+/hsr/showcase/* / 200
+/zzz/showcase/* / 200
+# Links from before the site covered three games; the app redirects them.
+/showcase/* / 200

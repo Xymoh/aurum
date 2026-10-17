@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-light-theme="%VITE_LIGHT_THEME%">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -14,19 +14,23 @@
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <!-- Every showcase pulls its art from these two hosts; opening the
-         connections early takes a round trip off the first image. -->
-    <link rel="preconnect" href="https://enka.network" crossorigin />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+         connections early takes a round trip off the first image. No
+         crossorigin: plain <img> requests use the credentialed connection
+         pool, so an anonymous preconnect would go unused. -->
+    <link rel="preconnect" href="https://enka.network" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     <!-- Fonts are self-hosted (see src/main.tsx): a remote Google Fonts
          stylesheet would send every visitor's IP to Google before consent. -->
     <title>Aurum - Gear scoring for gacha games</title>
+    <!-- public/_headers allows this script by its hash, so its text must not
+         change with the build: the flag arrives on <html> instead. -->
     <script>
       // Apply the saved theme before first paint so light-mode visitors never
       // see a dark flash. src/lib/theme.ts owns every change after this.
-      // Parked: unless VITE_LIGHT_THEME is "on" (Vite fills it in) the page
-      // stays dark, whatever was saved or the OS prefers.
+      // Parked: unless VITE_LIGHT_THEME is "on" (Vite fills it in on <html>)
+      // the page stays dark, whatever was saved or the OS prefers.
       (function() {
-        if ('%VITE_LIGHT_THEME%' !== 'on') return;
+        if (document.documentElement.getAttribute('data-light-theme') !== 'on') return;
         try {
           var t = localStorage.getItem('theme');
           if (t !== 'light' && t !== 'dark') {

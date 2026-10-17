@@ -55,6 +55,12 @@ export function memberName(name: string): string;
 export function characterIndex(): (name: string) => string | null;
 export function kqmEntry(
   parsed: KqmGuide,
-  context: { id: string; url: string; weaponByName: Map<string, string>; characterId: (name: string) => string | null; report: KqmReport },
+  context: {
+    id: string;
+    url: string;
+    weaponByName: Map<string, string>;
+    characterId: (name: string) => string | null;
+    report: KqmReport;
+  },
 ): SourceEntry;
 export function kqmGuideLinks(html: string): { slug: string; url: string }[];

@@ -16,9 +16,14 @@ import artifactsData from "../../data/artifacts.json";
 const CHARACTERS = charactersData as Record<string, { name: string }>;
 const SETS = artifactsData as Record<string, { name: string }>;
 
-/** "Kamisato Ayaka" -> "KamisatoAyaka", "Crimson Witch of Flames" -> "CrimsonWitchOfFlames". */
+/**
+ * "Kamisato Ayaka" -> "KamisatoAyaka", "Crimson Witch of Flames" ->
+ * "CrimsonWitchOfFlames", "Wolf's Gravestone" -> "WolfsGravestone": an
+ * apostrophe joins rather than splits, as in Genshin Optimizer's own keys.
+ */
 export function goodKey(name: string): string {
   return name
+    .replace(/['’]/g, "")
     .split(/[^A-Za-z0-9]+/)
     .filter(Boolean)
     .map((w) => w[0].toUpperCase() + w.slice(1))
@@ -55,7 +60,7 @@ const SLOT_KEY: Record<string, string> = {
   CIRCLET: "circlet",
 };
 
-/** Ascension phase from level, the way the game gates it. */
+/** Ascension phase from level, for when Enka did not state it. */
 function ascensionFor(level: number): number {
   if (level > 80) return 6;
   if (level > 70) return 5;
@@ -66,7 +71,7 @@ function ascensionFor(level: number): number {
   return 0;
 }
 
-export interface GoodArtifact {
+interface GoodArtifact {
   setKey: string;
   slotKey: string;
   level: number;
@@ -77,7 +82,7 @@ export interface GoodArtifact {
   substats: Array<{ key: string; value: number }>;
 }
 
-export interface GoodFile {
+interface GoodFile {
   format: "GOOD";
   version: 2;
   source: string;
@@ -99,7 +104,11 @@ export interface GoodFile {
   artifacts: GoodArtifact[];
 }
 
+const isTraveler = (c: CharacterData) => c.avatarId === 10000005 || c.avatarId === 10000007;
+
 function characterKey(c: CharacterData): string {
+  // Genshin Optimizer keys each Traveler element separately ("TravelerAnemo").
+  if (isTraveler(c)) return `Traveler${c.element}`;
   // The bundled table holds English names; the character's own `name`
   // may be localized.
   return goodKey(CHARACTERS[String(c.avatarId)]?.name ?? c.name);
@@ -129,25 +138,27 @@ export function exportGood(data: ShowcaseData): GoodFile {
 
   for (const c of data.characters) {
     const key = characterKey(c);
+    // Equipment is located on "Traveler" whichever element they are on.
+    const location = isTraveler(c) ? "Traveler" : key;
     characters.push({
       key,
       level: c.level,
       constellation: c.constellation,
-      ascension: ascensionFor(c.level),
+      ascension: c.ascension ?? ascensionFor(c.level),
       talent: { auto: c.talents[0] ?? 1, skill: c.talents[1] ?? 1, burst: c.talents[2] ?? 1 },
     });
     if (c.weapon) {
       weapons.push({
         key: goodKey(c.weapon.name),
         level: c.weapon.level,
-        ascension: ascensionFor(c.weapon.level),
+        ascension: c.weapon.ascension ?? ascensionFor(c.weapon.level),
         refinement: c.weapon.refinement,
-        location: key,
+        location,
         lock: false,
       });
     }
     for (const a of c.artifacts) {
-      const converted = artifactOf(a, key);
+      const converted = artifactOf(a, location);
       if (converted) artifacts.push(converted);
     }
   }

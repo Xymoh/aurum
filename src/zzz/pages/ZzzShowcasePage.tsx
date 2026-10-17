@@ -1,7 +1,8 @@
 import { scrollBehavior } from "../../lib/motion";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import { isValidZzzUid, useZzzShowcase } from "../useZzzShowcase";
+import { useZzzShowcase } from "../useZzzShowcase";
+import { isValidZzzUid } from "../../lib/uid";
 import { useFreshCountdown } from "../../hooks/useFreshCountdown";
 import { errorCode } from "../../lib/showcaseError";
 import { discMaxLevel } from "../parsing";
@@ -28,8 +29,10 @@ import { RemoteImg } from "../../components/ui/RemoteImg";
  * does not jump when it does.
  */
 function Skeleton() {
+  const { t } = useI18n();
   return (
-    <div className="animate-pulse space-y-4" aria-hidden="true">
+    <div className="animate-pulse space-y-4" role="status">
+      <span className="sr-only">{t("showcase", "loading")}</span>
       <div className="flex items-center gap-3 game-panel border border-zzz-border bg-zzz-panel/50 px-4 py-3 sm:gap-4 sm:px-5">
         <div className="skeleton h-11 w-11 rounded-full" />
         <div className="flex-1 space-y-2">
@@ -60,10 +63,14 @@ function Skeleton() {
   );
 }
 
-const CONTROL = "rounded-lg border border-zzz-border bg-zzz-card px-2.5 py-1.5 text-sm text-zzz-text focus:border-zzz-accent focus:outline-none";
+const CONTROL =
+  "rounded-lg border border-zzz-border bg-zzz-card px-2.5 py-1.5 text-sm text-zzz-text focus:border-zzz-accent focus:outline-none";
 
 type SortKey = "score-desc" | "score-asc" | "level-desc" | "name-asc";
-const SORT_OPTIONS: Array<{ value: SortKey; key: "sortScoreDesc" | "sortScoreAsc" | "sortLevelDesc" | "sortNameAsc" }> = [
+const SORT_OPTIONS: Array<{
+  value: SortKey;
+  key: "sortScoreDesc" | "sortScoreAsc" | "sortLevelDesc" | "sortNameAsc";
+}> = [
   { value: "score-desc", key: "sortScoreDesc" },
   { value: "score-asc", key: "sortScoreAsc" },
   { value: "level-desc", key: "sortLevelDesc" },
@@ -106,9 +113,15 @@ function WeakestDiscs({ items, onSelect }: { items: WeakDisc[]; onSelect: (id: n
   const { t } = useI18n();
   if (items.length === 0) return null;
   return (
-    <section className="game-panel border border-zzz-border bg-zzz-panel/50 p-4 sm:p-5" aria-labelledby="zzz-weakest">
+    <section
+      className="game-panel border border-zzz-border bg-zzz-panel/50 p-4 sm:p-5"
+      aria-labelledby="zzz-weakest"
+    >
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <h2 id="zzz-weakest" className="flex items-center gap-2 text-sm font-black uppercase tracking-wide text-zzz-text">
+        <h2
+          id="zzz-weakest"
+          className="flex items-center gap-2 text-sm font-black uppercase tracking-wide text-zzz-text"
+        >
           <TargetIcon className="h-4 w-4 text-zzz-accent" /> {t("zzz", "replaceFirst")}
         </h2>
         <span className="text-sm text-zzz-muted">{t("zzz", "replaceFirstSub")}</span>
@@ -122,26 +135,38 @@ function WeakestDiscs({ items, onSelect }: { items: WeakDisc[]; onSelect: (id: n
               type="button"
               onClick={() => onSelect(agent.id)}
               className="flex items-center gap-2 rounded-lg border border-zzz-border bg-zzz-card/60 px-3 py-2.5 text-left transition-colors hover:border-zzz-accent/60 hover:bg-zzz-card"
-              aria-label={t("showcase", "jumpTo", { name: agent.name })}
             >
-              {icon && <RemoteImg src={icon} alt="" loading="lazy" className="h-8 w-8 shrink-0 rounded-full bg-zzz-inset object-cover ring-1 ring-zzz-line" />}
+              {icon && (
+                <RemoteImg
+                  src={icon}
+                  alt=""
+                  loading="lazy"
+                  className="h-8 w-8 shrink-0 rounded-full bg-zzz-inset object-cover ring-1 ring-zzz-line"
+                />
+              )}
               <div className="min-w-0 flex-1">
                 <div className="truncate text-sm font-semibold text-zzz-text">{agent.name}</div>
                 <div className="truncate text-xs text-zzz-muted">
                   {t("zzzSlots", String(disc.slot) as "1")} ·{" "}
                   {disc.score.mainStatOk
                     ? disc.setName
-                    : t("zzz", "mainSuffix", { stat: t("zzzStats", String(disc.mainStat.id) as "11101") })}
+                    : t("zzz", "mainSuffix", {
+                        stat: t("zzzStats", String(disc.mainStat.id) as "11101"),
+                      })}
                 </div>
               </div>
               <div className="flex shrink-0 items-center gap-1.5">
-                <span className={`font-mono text-sm font-bold tabular-nums ${disc.score.grade ? gradeTextClass(disc.score.grade) : "text-zzz-signal"}`}>
+                <span
+                  className={`font-mono text-sm font-bold tabular-nums ${disc.score.grade ? gradeTextClass(disc.score.grade) : "text-zzz-signal"}`}
+                >
                   {formatScore(disc.score.potentialPercent)}
                 </span>
                 {disc.score.grade ? (
                   <GradeBadge grade={disc.score.grade} size="xs" />
                 ) : !disc.score.mainStatOk ? (
-                  <span className="rounded bg-zzz-signal/15 px-1 py-px text-[11px] font-bold uppercase text-zzz-signal">{t("zzz", "mainShort")}</span>
+                  <span className="rounded bg-zzz-signal/15 px-1 py-px text-[11px] font-bold uppercase text-zzz-signal">
+                    {t("zzz", "mainShort")}
+                  </span>
                 ) : null}
               </div>
             </button>
@@ -174,7 +199,11 @@ function ShareButton() {
       className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-zzz-border px-3 text-sm text-zzz-muted transition-colors hover:border-zzz-accent/60 hover:text-zzz-text"
       aria-live="polite"
     >
-      {copied ? <CheckIcon className="h-3.5 w-3.5 text-zzz-accent" /> : <ClipboardIcon className="h-3.5 w-3.5" />}
+      {copied ? (
+        <CheckIcon className="h-3.5 w-3.5 text-zzz-accent" />
+      ) : (
+        <ClipboardIcon className="h-3.5 w-3.5" />
+      )}
       {copied ? t("showcase", "copied") : t("player", "share")}
     </button>
   );
@@ -183,8 +212,13 @@ function ShareButton() {
 export function ZzzShowcasePage() {
   const { uid = "" } = useParams();
   const { t } = useI18n();
-  useDocumentTitle(t("zzz", "documentTitle"));
-  const { data, isLoading, isError, isFetching, error, forceRefresh, freshUntil } = useZzzShowcase(uid);
+  const { data, isLoading, isError, isFetching, error, forceRefresh, freshUntil } =
+    useZzzShowcase(uid);
+  useDocumentTitle(
+    data
+      ? `${data.nickname} (${data.uid}) - ${t("zzz", "documentTitle")}`
+      : t("zzz", "documentTitle"),
+  );
   const invalidUid = !isValidZzzUid(uid);
   const secondsFresh = useFreshCountdown(freshUntil);
   const waiting = secondsFresh > 0 && !isFetching;
@@ -195,12 +229,19 @@ export function ZzzShowcasePage() {
   const [sortKey, setSortKey] = useState<SortKey>("score-desc");
 
   const agents = useMemo(() => data?.agents ?? [], [data]);
-  const roles = useMemo(() => Array.from(new Set(agents.map((a) => a.profession))).sort(), [agents]);
+  const roles = useMemo(
+    () => Array.from(new Set(agents.map((a) => a.profession))).sort(),
+    [agents],
+  );
 
   const visible = useMemo(() => {
     const q = search.trim().toLowerCase();
     return sortAgents(
-      agents.filter((a) => (roleFilter === "ALL" || a.profession === roleFilter) && (!q || a.name.toLowerCase().includes(q))),
+      agents.filter(
+        (a) =>
+          (roleFilter === "ALL" || a.profession === roleFilter) &&
+          (!q || a.name.toLowerCase().includes(q)),
+      ),
       sortKey,
     );
   }, [agents, search, roleFilter, sortKey]);
@@ -215,7 +256,11 @@ export function ZzzShowcasePage() {
     return agents
       .flatMap((agent) => agent.discs.map((disc) => ({ agent, disc })))
       .filter(({ disc }) => disc.level >= discMaxLevel(disc.rarity))
-      .sort((a, b) => Number(a.disc.score.mainStatOk) - Number(b.disc.score.mainStatOk) || a.disc.score.potentialPercent - b.disc.score.potentialPercent)
+      .sort(
+        (a, b) =>
+          Number(a.disc.score.mainStatOk) - Number(b.disc.score.mainStatOk) ||
+          a.disc.score.potentialPercent - b.disc.score.potentialPercent,
+      )
       .filter(({ agent }) => {
         const n = perAgent.get(agent.id) ?? 0;
         perAgent.set(agent.id, n + 1);
@@ -237,7 +282,9 @@ export function ZzzShowcasePage() {
     setSearch("");
     setRoleFilter("ALL");
     window.requestAnimationFrame(() => {
-      document.getElementById(agentPanelId(id))?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+      document
+        .getElementById(agentPanelId(id))
+        ?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
     });
   };
 
@@ -259,7 +306,10 @@ export function ZzzShowcasePage() {
   // refused before any request goes out.
   if (!data) {
     return (
-      <div className="mx-auto max-w-md game-panel border border-zzz-signal/30 bg-zzz-signal/10 p-5 text-center">
+      <div
+        role="alert"
+        className="mx-auto max-w-md game-panel border border-zzz-signal/30 bg-zzz-signal/10 p-5 text-center"
+      >
         <p className="text-sm text-zzz-text">
           {invalidUid ? t("errors", "invalidUid") : t("errors", errorCode(error))}
         </p>
@@ -291,23 +341,33 @@ export function ZzzShowcasePage() {
     { effective: 0, total: 0, score: 0, scored: 0 },
   );
   const accountScore = totals.scored > 0 ? totals.score / totals.scored : 0;
-  const accountGrade = gradeFor(accountScore);
+  const accountGrade = gradeFor(Math.round(accountScore));
 
   return (
     <div className="space-y-4">
       <header className="flex flex-wrap items-center gap-3 game-panel border border-zzz-border bg-zzz-panel/60 px-4 py-3 sm:gap-4 sm:px-5">
         {data.profilePicture && (
-          <RemoteImg src={data.profilePicture} alt="" className="h-12 w-12 shrink-0 rounded-full bg-zzz-inset object-cover ring-2 ring-zzz-accent/40" />
+          <RemoteImg
+            src={data.profilePicture}
+            alt=""
+            className="h-12 w-12 shrink-0 rounded-full bg-zzz-inset object-cover ring-2 ring-zzz-accent/40"
+          />
         )}
         <div className="min-w-0 flex-1">
-          <h1 className="truncate text-lg font-black uppercase tracking-wide text-zzz-text">{data.nickname}</h1>
+          <h1 className="truncate text-lg font-black uppercase tracking-wide text-zzz-text">
+            {data.nickname}
+          </h1>
           <p className="font-mono text-sm text-zzz-muted">
             {t("zzz", "accountMeta", { uid: data.uid, level: data.level, count: agents.length })}
           </p>
         </div>
         <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end sm:text-right">
           <div>
-            <p className={`font-mono text-2xl font-black leading-none tabular-nums ${gradeTextClass(accountGrade)}`}>{formatScore(accountScore)}</p>
+            <p
+              className={`font-mono text-2xl font-black leading-none tabular-nums ${gradeTextClass(accountGrade)}`}
+            >
+              {formatScore(accountScore)}
+            </p>
             <p className="mt-1 font-mono text-xs text-zzz-muted">
               {t("zzz", "rollsUseful", { effective: totals.effective, total: totals.total })}
             </p>
@@ -326,14 +386,19 @@ export function ZzzShowcasePage() {
           >
             {isFetching ? t("player", "refreshing") : t("player", "refresh")}
             {waiting && (
-              <span className="font-mono tabular-nums">· {String(secondsFresh).padStart(2, "0")}s</span>
+              <span className="font-mono tabular-nums">
+                · {String(secondsFresh).padStart(2, "0")}s
+              </span>
             )}
           </button>
         </div>
       </header>
 
       {isError && (
-        <p role="status" className="rounded-lg border border-zzz-signal/30 bg-zzz-signal/10 px-4 py-2 text-sm text-zzz-text">
+        <p
+          role="status"
+          className="rounded-lg border border-zzz-signal/30 bg-zzz-signal/10 px-4 py-2 text-sm text-zzz-text"
+        >
           {t("errors", "refreshFailed")} {t("errors", errorCode(error))}
         </p>
       )}
@@ -352,7 +417,15 @@ export function ZzzShowcasePage() {
           lead={t("zzz", "emptyLead")}
           steps={[t("zzz", "emptyStep1"), t("zzz", "emptyStep2"), t("zzz", "emptyStep3")]}
           footer={t("zzz", "emptyRetry")}
-          guide={SHOWCASE_HELP ? { to: HELP_PATH.zzz, label: t("help", "emptyLink"), className: "text-zzz-accent underline underline-offset-2 hover:text-zzz-text" } : undefined}
+          guide={
+            SHOWCASE_HELP
+              ? {
+                  to: HELP_PATH.zzz,
+                  label: t("help", "emptyLink"),
+                  className: "text-zzz-accent underline underline-offset-2 hover:text-zzz-text",
+                }
+              : undefined
+          }
           slots={6}
           panelClass="border-zzz-border bg-zzz-panel/40 text-zzz-text"
           accentClass="bg-zzz-accent/20 text-zzz-accent"
@@ -362,8 +435,20 @@ export function ZzzShowcasePage() {
       ) : (
         <div className="space-y-2">
           <div className="z-20 flex flex-col gap-2 rounded-lg border border-zzz-border bg-zzz-panel/90 p-3 backdrop-blur-md sm:sticky sm:top-16 sm:flex-row sm:items-center">
-            <input type="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t("zzz", "searchPlaceholder")} aria-label={t("zzz", "searchLabel")} className={`${CONTROL} min-w-[140px] flex-1 placeholder:text-zzz-muted/70`} />
-            <select value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)} aria-label={t("zzz", "filterByRole")} className={CONTROL}>
+            <input
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder={t("zzz", "searchPlaceholder")}
+              aria-label={t("zzz", "searchLabel")}
+              className={`${CONTROL} min-w-[140px] flex-1 placeholder:text-zzz-muted`}
+            />
+            <select
+              value={roleFilter}
+              onChange={(e) => setRoleFilter(e.target.value)}
+              aria-label={t("zzz", "filterByRole")}
+              className={CONTROL}
+            >
               <option value="ALL">{t("zzz", "allRoles")}</option>
               {roles.map((r) => (
                 <option key={r} value={r}>
@@ -371,7 +456,12 @@ export function ZzzShowcasePage() {
                 </option>
               ))}
             </select>
-            <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} aria-label={t("zzz", "sortAgents")} className={CONTROL}>
+            <select
+              value={sortKey}
+              onChange={(e) => setSortKey(e.target.value as SortKey)}
+              aria-label={t("zzz", "sortAgents")}
+              className={CONTROL}
+            >
               {SORT_OPTIONS.map((o) => (
                 <option key={o.value} value={o.value}>
                   {t("showcase", o.key)}
@@ -388,7 +478,15 @@ export function ZzzShowcasePage() {
             <p className="py-12 text-center text-sm text-zzz-muted">{t("zzz", "noMatch")}</p>
           ) : (
             <ShareCardProvider uid={data.uid} playerName={data.nickname}>
-              {visible.map((a, i) => <AgentPanel key={a.id} agent={a} index={i} open={expanded.has(a.id)} onToggle={() => toggle(a.id)} />)}
+              {visible.map((a, i) => (
+                <AgentPanel
+                  key={a.id}
+                  agent={a}
+                  index={i}
+                  open={expanded.has(a.id)}
+                  onToggle={() => toggle(a.id)}
+                />
+              ))}
             </ShareCardProvider>
           )}
         </div>

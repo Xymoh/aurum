@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+// prettier-ignore
 // @ts-expect-error - plain ESM script, no type declarations
 import { consensusPicks, medianTarget, priorityLine, rankedVote, voteMainStats, voteSubstats } from "../../scripts/consensus.mjs";
 
@@ -34,7 +35,14 @@ describe("rankedVote", () => {
   });
 
   it("breaks a tie for the heavier source", () => {
-    expect(items(rankedVote([{ weight: 1, items: ["X"] }, { weight: 2, items: ["Y", "X"] }]))).toEqual(["Y", "X"]);
+    expect(
+      items(
+        rankedVote([
+          { weight: 1, items: ["X"] },
+          { weight: 2, items: ["Y", "X"] },
+        ]),
+      ),
+    ).toEqual(["Y", "X"]);
   });
 
   it("counts the same pick from two sites once, keeping the heavier site's copy", () => {
@@ -52,8 +60,18 @@ describe("rankedVote", () => {
 describe("voteMainStats", () => {
   it("keeps an alternative only when other sources back it", () => {
     const stats = voteMainStats([
-      { weight: 3, entry: entry({ mainStats: { SANDS: ["ATK_PERCENT", "ELEMENTAL_MASTERY"], GOBLET: ["PYRO_DMG"] } }) },
-      { weight: 2, entry: entry({ mainStats: { SANDS: ["ATK_PERCENT"], GOBLET: ["PYRO_DMG", "ATK_PERCENT"] } }) },
+      {
+        weight: 3,
+        entry: entry({
+          mainStats: { SANDS: ["ATK_PERCENT", "ELEMENTAL_MASTERY"], GOBLET: ["PYRO_DMG"] },
+        }),
+      },
+      {
+        weight: 2,
+        entry: entry({
+          mainStats: { SANDS: ["ATK_PERCENT"], GOBLET: ["PYRO_DMG", "ATK_PERCENT"] },
+        }),
+      },
       { weight: 1, entry: entry({ mainStats: { SANDS: ["ELEMENTAL_MASTERY"] } }) },
     ]);
     // Sands: ATK% 5, EM 1.5 + 1 = 2.5 (half the top): kept. Goblet: ATK% 1 of 5: dropped.
@@ -84,11 +102,15 @@ describe("voteSubstats", () => {
   });
 
   it("counts a stat a site names twice once", () => {
-    expect(voteSubstats([{ weight: 3, entry: entry({ substats: [["20103"], ["12103", "12103"]] }) }])).toEqual({ 20103: 1, 12103: 0.75 });
+    expect(
+      voteSubstats([{ weight: 3, entry: entry({ substats: [["20103"], ["12103", "12103"]] }) }]),
+    ).toEqual({ 20103: 1, 12103: 0.75 });
   });
 
   it("writes the weights back as a priority line", () => {
-    expect(priorityLine({ 20103: 1, 21103: 1, 12102: 0.75, 23203: 0.5 })).toBe("CRIT Rate = CRIT DMG > ATK% > PEN");
+    expect(priorityLine({ 20103: 1, 21103: 1, 12102: 0.75, 23203: 0.5 })).toBe(
+      "CRIT Rate = CRIT DMG > ATK% > PEN",
+    );
   });
 });
 

@@ -1,6 +1,6 @@
-/** Display names and formatting for Zenless Zone Zero stats and slots. */
+/** Display names and formatting for Zenless Zone Zero stats. */
 
-import type { ZzzSlot, ZzzStatId } from "./types";
+import type { ZzzStatId } from "./types";
 import properties from "./data/properties.json";
 
 const PROPERTIES = properties as Record<string, { name: string; format: string }>;
@@ -34,26 +34,8 @@ const STAT_LABELS: Record<number, string> = {
   32303: "Wind DMG",
 };
 
-/** Chip-sized labels for the substat pool. */
-export const STAT_SHORT: Record<number, string> = {
-  11102: "HP%",
-  12102: "ATK%",
-  13102: "DEF%",
-  11103: "HP",
-  12103: "ATK",
-  13103: "DEF",
-  20103: "CR",
-  21103: "CD",
-  23203: "PEN",
-  31203: "AP",
-};
-
 export function statLabel(id: ZzzStatId): string {
   return STAT_LABELS[id] ?? PROPERTIES[String(id)]?.name ?? String(id);
-}
-
-export function statShort(id: ZzzStatId): string {
-  return STAT_SHORT[id] ?? statLabel(id);
 }
 
 export function isPercentStat(id: ZzzStatId): boolean {
@@ -68,34 +50,3 @@ export function displayValue(id: ZzzStatId, raw: number): number {
 export function formatStat(id: ZzzStatId, value: number): string {
   return isPercentStat(id) ? `${value.toFixed(1)}%` : String(Math.round(value));
 }
-
-export const SLOT_LABELS: Record<ZzzSlot, string> = {
-  1: "Disc 1",
-  2: "Disc 2",
-  3: "Disc 3",
-  4: "Disc 4",
-  5: "Disc 5",
-  6: "Disc 6",
-};
-
-export const PROFESSION_LABELS: Record<string, string> = {
-  Attack: "Attack",
-  Stun: "Stun",
-  Anomaly: "Anomaly",
-  Support: "Support",
-  Defense: "Defense",
-  Rupture: "Rupture",
-};
-
-export const ELEMENT_LABELS: Record<string, string> = {
-  Physics: "Physical",
-  Fire: "Fire",
-  Ice: "Ice",
-  Elec: "Electric",
-  Ether: "Ether",
-  Wind: "Wind",
-  AuricEther: "Auric Ether",
-  FireFrost: "Frost",
-  Lumen: "Lumen",
-  ZhenZhenAssault: "Assault",
-};

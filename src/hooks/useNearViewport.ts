@@ -6,7 +6,10 @@ import { useEffect, useState, type RefObject } from "react";
  * stack of short cards means every card's banner downloads at once; this
  * waits until a card is close to being seen.
  */
-export function useNearViewport<T extends Element>(ref: RefObject<T | null>, margin = "240px"): boolean {
+export function useNearViewport<T extends Element>(
+  ref: RefObject<T | null>,
+  margin = "240px",
+): boolean {
   const [near, setNear] = useState(false);
 
   useEffect(() => {

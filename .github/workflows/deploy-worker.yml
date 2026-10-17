@@ -21,8 +21,12 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Same environment as the site's deploy (see deploy.yml).
+    environment: production
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Check the worker parses
         run: node --check workers/enka-proxy.js
@@ -38,4 +42,6 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: workers
+          # An exact release, bumped on purpose: this step holds the API token.
+          wranglerVersion: "4.146.0"
           command: deploy

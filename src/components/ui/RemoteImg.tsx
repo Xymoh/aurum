@@ -43,7 +43,8 @@ export function RemoteImg({ src, alternates, fallbacks, onError, ...rest }: Remo
       onError?.(e);
       return;
     }
-    const advance = () => setAttempt((a) => (a.src === src && a.index === index ? { src, index: index + 1 } : a));
+    const advance = () =>
+      setAttempt((a) => (a.src === src && a.index === index ? { src, index: index + 1 } : a));
     window.clearTimeout(timer.current);
     if (next.wait) timer.current = window.setTimeout(advance, RETRY_DELAY_MS);
     else advance();

@@ -11,7 +11,8 @@
     "test": "vitest",
     "test:run": "vitest run",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "fetch-locale": "node scripts/fetch-enka-locale.js",
     "fetch-weapons": "node scripts/build-weapon-ids.js",
     "fetch-pfps": "node scripts/fetch-profile-pictures.js",
@@ -42,30 +43,30 @@
     "react-router-dom": "^7.1.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.17.0",
+    "@eslint/js": "^10.0.1",
     "@testing-library/jest-dom": "^6.6.0",
     "@types/node": "^22.20.4",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^4.3.0",
-    "eslint": "^9.17.0",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "eslint-plugin-react-refresh": "^0.4.16",
+    "@vitejs/plugin-react": "^6.1.2",
+    "eslint": "^10.13.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
     "fast-check": "^4.8.0",
-    "globals": "^15.14.0",
-    "jsdom": "^25.0.0",
+    "globals": "^17.13.0",
+    "jsdom": "^29.1.1",
     "playwright": "^1.63.0",
     "pngjs": "^7.0.0",
     "postcss": "^8.4.49",
     "prettier": "^3.4.0",
     "sharp": "^0.35.4",
     "tailwindcss": "^4.0.0",
-    "typescript": "~5.7.0",
-    "typescript-eslint": "^8.18.0",
-    "vite": "^6.0.0",
-    "vitest": "^2.1.0"
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.71.2",
+    "vite": "^8.3.4",
+    "vitest": "^4.1.12"
   },
   "engines": {
-    "node": ">=20"
+    "node": "^20.19.0 || ^22.13.0 || >=24"
   }
 }

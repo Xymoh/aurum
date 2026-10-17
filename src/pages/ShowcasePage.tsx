@@ -7,6 +7,7 @@ import { ShareCardProvider } from "../lib/shareCard/ShareCardProvider";
 import { PlayerHeader } from "../components/showcase/PlayerHeader";
 import { CharacterGrid, type FocusSignal } from "../components/showcase/CharacterGrid";
 import { WeakestArtifacts } from "../components/showcase/WeakestArtifacts";
+import { FarmPlan } from "../components/showcase/FarmPlan";
 import { LoadingSkeleton } from "../components/ui/LoadingSkeleton";
 import { WarningIcon } from "../components/ui/icons";
 import { useI18n } from "../i18n";
@@ -19,11 +20,24 @@ import { HELP_PATH, SHOWCASE_HELP } from "../help/content";
 
 export function ShowcasePage() {
   const { uid } = useParams<{ uid: string }>();
-  const { data, isLoading, isError, isFetching, error, refetch, forceRefresh, dataUpdatedAt, freshUntil } =
-    useShowcase(uid ?? "");
+  const {
+    data,
+    isLoading,
+    isError,
+    isFetching,
+    error,
+    refetch,
+    forceRefresh,
+    dataUpdatedAt,
+    freshUntil,
+  } = useShowcase(uid ?? "");
   const [focusSignal, setFocusSignal] = useState<FocusSignal | null>(null);
   const { t } = useI18n();
-  useDocumentTitle("Artifact Aurum - Genshin Impact artifact scorer");
+  useDocumentTitle(
+    data
+      ? `${data.playerInfo.nickname} (${uid}) - Artifact Aurum`
+      : "Artifact Aurum - Genshin Impact artifact scorer",
+  );
 
   const characters = data?.characters ?? [];
 
@@ -58,7 +72,7 @@ export function ShowcasePage() {
     const message = invalid ? t("errors", "invalidUid") : t("errors", errorCode(error));
 
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-20">
+      <div role="alert" className="flex flex-col items-center justify-center gap-4 py-20">
         <div className="rounded-full bg-red-500/10 p-4">
           <WarningIcon className="w-8 h-8 text-red-400" />
         </div>
@@ -81,7 +95,10 @@ export function ShowcasePage() {
               {t("errors", "tryAgain")}
             </button>
             {SHOWCASE_HELP && (
-              <Link to={HELP_PATH.genshin} className="text-sm text-accent underline underline-offset-2 hover:opacity-80">
+              <Link
+                to={HELP_PATH.genshin}
+                className="text-sm text-accent underline underline-offset-2 hover:opacity-80"
+              >
                 {t("help", "errorLink")}
               </Link>
             )}
@@ -95,7 +112,8 @@ export function ShowcasePage() {
   // other two games: a half-built one would drag it down for gear the
   // player has not finished rather than gear that rolled badly.
   const scored = characters.filter((c) => c.buildScore.complete);
-  const accountScore = scored.length > 0 ? scored.reduce((sum, c) => sum + c.buildScore.total, 0) / scored.length : 0;
+  const accountScore =
+    scored.length > 0 ? scored.reduce((sum, c) => sum + c.buildScore.total, 0) / scored.length : 0;
   const account = {
     score: accountScore,
     grade: getGrade(Math.round(accountScore)),
@@ -133,6 +151,11 @@ export function ShowcasePage() {
       />
 
       <WeakestArtifacts
+        characters={characters}
+        onSelectCharacter={(characterId) => setFocusSignal({ characterId, token: Date.now() })}
+      />
+
+      <FarmPlan
         characters={characters}
         onSelectCharacter={(characterId) => setFocusSignal({ characterId, token: Date.now() })}
       />

@@ -23,7 +23,9 @@ describe("Traveler element", () => {
       [508, "Dendro"],
     ];
     for (const [depot, element] of cases) {
-      expect(getCharacterElement(TRAVELER_A, NO_ELEMENTAL_DMG, depot), `depot ${depot}`).toBe(element);
+      expect(getCharacterElement(TRAVELER_A, NO_ELEMENTAL_DMG, depot), `depot ${depot}`).toBe(
+        element,
+      );
     }
   });
 
@@ -51,30 +53,50 @@ describe("Traveler ideal main stats, per element", () => {
   // Each element wants different pieces, which one shared profile could not
   // express. These are the calls that used to accuse a correct build.
   it("wants ATK% in the Cryo Traveler's goblet, not a Cryo one only", () => {
-    expect(checkMainStat("GOBLET", "FIGHT_PROP_ATTACK_PERCENT", TRAVELER_A, "Cryo").isCorrect).toBe(true);
-    expect(checkMainStat("GOBLET", "FIGHT_PROP_ICE_ADD_HURT", TRAVELER_A, "Cryo").isCorrect).toBe(true);
+    expect(checkMainStat("GOBLET", "FIGHT_PROP_ATTACK_PERCENT", TRAVELER_A, "Cryo").isCorrect).toBe(
+      true,
+    );
+    expect(checkMainStat("GOBLET", "FIGHT_PROP_ICE_ADD_HURT", TRAVELER_A, "Cryo").isCorrect).toBe(
+      true,
+    );
   });
 
   it("wants Elemental Mastery on Dendro Traveler, in every slot", () => {
-    expect(checkMainStat("SANDS", "FIGHT_PROP_ELEMENT_MASTERY", TRAVELER_A, "Dendro").isCorrect).toBe(true);
-    expect(checkMainStat("GOBLET", "FIGHT_PROP_ELEMENT_MASTERY", TRAVELER_A, "Dendro").isCorrect).toBe(true);
-    expect(checkMainStat("CIRCLET", "FIGHT_PROP_ELEMENT_MASTERY", TRAVELER_A, "Dendro").isCorrect).toBe(true);
+    expect(
+      checkMainStat("SANDS", "FIGHT_PROP_ELEMENT_MASTERY", TRAVELER_A, "Dendro").isCorrect,
+    ).toBe(true);
+    expect(
+      checkMainStat("GOBLET", "FIGHT_PROP_ELEMENT_MASTERY", TRAVELER_A, "Dendro").isCorrect,
+    ).toBe(true);
+    expect(
+      checkMainStat("CIRCLET", "FIGHT_PROP_ELEMENT_MASTERY", TRAVELER_A, "Dendro").isCorrect,
+    ).toBe(true);
   });
 
   it("wants Energy Recharge on Electro Traveler, which is built as a battery", () => {
-    expect(checkMainStat("SANDS", "FIGHT_PROP_CHARGE_EFFICIENCY", TRAVELER_A, "Electro").isCorrect).toBe(true);
+    expect(
+      checkMainStat("SANDS", "FIGHT_PROP_CHARGE_EFFICIENCY", TRAVELER_A, "Electro").isCorrect,
+    ).toBe(true);
   });
 
   it("accepts the HP% sands guides give Hydro Traveler", () => {
-    expect(checkMainStat("SANDS", "FIGHT_PROP_HP_PERCENT", TRAVELER_A, "Hydro").isCorrect).toBe(true);
+    expect(checkMainStat("SANDS", "FIGHT_PROP_HP_PERCENT", TRAVELER_A, "Hydro").isCorrect).toBe(
+      true,
+    );
     // and still rejects it where no guide asks for it
-    expect(checkMainStat("SANDS", "FIGHT_PROP_HP_PERCENT", TRAVELER_A, "Cryo").isCorrect).toBe(false);
+    expect(checkMainStat("SANDS", "FIGHT_PROP_HP_PERCENT", TRAVELER_A, "Cryo").isCorrect).toBe(
+      false,
+    );
   });
 
   it("flags an off-element goblet, which the shared profile let through", () => {
     // A Pyro goblet on the Anemo Traveler is simply the wrong piece.
-    expect(checkMainStat("GOBLET", "FIGHT_PROP_FIRE_ADD_HURT", TRAVELER_A, "Anemo").isCorrect).toBe(false);
-    expect(checkMainStat("GOBLET", "FIGHT_PROP_WIND_ADD_HURT", TRAVELER_A, "Anemo").isCorrect).toBe(true);
+    expect(checkMainStat("GOBLET", "FIGHT_PROP_FIRE_ADD_HURT", TRAVELER_A, "Anemo").isCorrect).toBe(
+      false,
+    );
+    expect(checkMainStat("GOBLET", "FIGHT_PROP_WIND_ADD_HURT", TRAVELER_A, "Anemo").isCorrect).toBe(
+      true,
+    );
   });
 
   it("covers every element, so no Traveler falls back to the shared profile", () => {
@@ -86,14 +108,20 @@ describe("Traveler ideal main stats, per element", () => {
         expect(stats[slot].length, `${element} ${slot}`).toBeGreaterThan(0);
       }
       // A crit circlet is right for every one of them.
-      expect(checkMainStat("CIRCLET", "FIGHT_PROP_CRITICAL", TRAVELER_A, element).isCorrect).toBe(true);
+      expect(checkMainStat("CIRCLET", "FIGHT_PROP_CRITICAL", TRAVELER_A, element).isCorrect).toBe(
+        true,
+      );
       // None of them wants a healing goblet.
-      expect(checkMainStat("GOBLET", "FIGHT_PROP_HEAL_ADD", TRAVELER_A, element).isCorrect).toBe(false);
+      expect(checkMainStat("GOBLET", "FIGHT_PROP_HEAL_ADD", TRAVELER_A, element).isCorrect).toBe(
+        false,
+      );
     }
   });
 
   it("applies to both Traveler avatarIds", () => {
-    expect(checkMainStat("SANDS", "FIGHT_PROP_ELEMENT_MASTERY", TRAVELER_B, "Dendro").isCorrect).toBe(true);
+    expect(
+      checkMainStat("SANDS", "FIGHT_PROP_ELEMENT_MASTERY", TRAVELER_B, "Dendro").isCorrect,
+    ).toBe(true);
   });
 });
 
@@ -145,7 +173,9 @@ describe("Traveler guide data, per element", () => {
   });
 
   it("judges a Traveler's sets against their own element's guide", () => {
-    const cryoSets = getSetRecommendations(TRAVELER_A, "Cryo").flat().map((p) => p.setId);
+    const cryoSets = getSetRecommendations(TRAVELER_A, "Cryo")
+      .flat()
+      .map((p) => p.setId);
     const config = getBuildConfig(TRAVELER_A, "Cryo")!;
     for (const setId of cryoSets) expect(config.recommended_sets).toContain(setId);
   });

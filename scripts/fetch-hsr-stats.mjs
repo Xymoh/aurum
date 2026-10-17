@@ -29,7 +29,9 @@ const OUT = path.join(ROOT, "src", "hsr", "data", "stats.json");
 const BASE = "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_min/en";
 
 async function getJSON(name) {
-  const res = await fetch(`${BASE}/${name}.json`, { headers: { "User-Agent": "aurum-fetcher/1.0" } });
+  const res = await fetch(`${BASE}/${name}.json`, {
+    headers: { "User-Agent": "aurum-fetcher/1.0" },
+  });
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${name}.json`);
   return res.json();
 }
@@ -59,10 +61,12 @@ async function main() {
 
   const characters = {};
   const CHAR_KEYS = ["hp", "atk", "def", "spd", "crit_rate", "crit_dmg"];
-  for (const [id, entry] of Object.entries(charPromo)) characters[id] = promotions(entry, CHAR_KEYS);
+  for (const [id, entry] of Object.entries(charPromo))
+    characters[id] = promotions(entry, CHAR_KEYS);
 
   const lightCones = {};
-  for (const [id, entry] of Object.entries(lcPromo)) lightCones[id] = promotions(entry, ["hp", "atk", "def"]);
+  for (const [id, entry] of Object.entries(lcPromo))
+    lightCones[id] = promotions(entry, ["hp", "atk", "def"]);
 
   // A trace node's stat bonus is binary: it is either taken or not, so only
   // the properties of its highest level matter.
@@ -70,7 +74,10 @@ async function main() {
   for (const [id, node] of Object.entries(trees)) {
     const withProps = (node.levels ?? []).filter((l) => l.properties?.length);
     if (!withProps.length) continue;
-    traces[id] = withProps[withProps.length - 1].properties.map((p) => ({ type: p.type, value: r(p.value) }));
+    traces[id] = withProps[withProps.length - 1].properties.map((p) => ({
+      type: p.type,
+      value: r(p.value),
+    }));
   }
 
   // A light cone's passive carries an unconditional stat bonus per
@@ -79,13 +86,17 @@ async function main() {
   // applied verbatim.
   const coneRanks = {};
   for (const [id, cone] of Object.entries(lcRanks)) {
-    const ranks = (cone.properties ?? []).map((rank) => (rank ?? []).map((p) => ({ type: p.type, value: r(p.value) })));
+    const ranks = (cone.properties ?? []).map((rank) =>
+      (rank ?? []).map((p) => ({ type: p.type, value: r(p.value) })),
+    );
     if (ranks.some((t) => t.length)) coneRanks[id] = ranks;
   }
 
   const setBonuses = {};
   for (const [id, set] of Object.entries(sets)) {
-    const props = (set.properties ?? []).map((tier) => (tier ?? []).map((p) => ({ type: p.type, value: r(p.value) })));
+    const props = (set.properties ?? []).map((tier) =>
+      (tier ?? []).map((p) => ({ type: p.type, value: r(p.value) })),
+    );
     if (props.some((t) => t.length)) setBonuses[id] = props;
   }
 

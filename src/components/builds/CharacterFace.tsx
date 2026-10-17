@@ -26,14 +26,26 @@ export function CharacterFace({ listing, size, ring, className = "" }: Character
         style={ring ? { boxShadow: `0 0 0 2px ${ring}` } : undefined}
       >
         {listing?.iconUrl ? (
-          <RemoteImg src={listing.iconUrl} alt="" loading="lazy" className="h-full w-full object-cover" />
+          <RemoteImg
+            src={listing.iconUrl}
+            alt=""
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
         ) : (
-          <span className="flex h-full w-full items-center justify-center text-xs opacity-60">?</span>
+          <span className="flex h-full w-full items-center justify-center text-xs opacity-60">
+            ?
+          </span>
         )}
       </span>
       {listing?.badge && (
         <span className="absolute -bottom-[4%] -right-[4%] block h-[42%] min-h-2.5 w-[42%] min-w-2.5 rounded-full bg-black/75 p-[6%] ring-1 ring-black/30">
-          <RemoteImg src={listing.badge.iconUrl} alt="" loading="lazy" className="h-full w-full object-contain" />
+          <RemoteImg
+            src={listing.badge.iconUrl}
+            alt=""
+            loading="lazy"
+            className="h-full w-full object-contain"
+          />
         </span>
       )}
     </span>

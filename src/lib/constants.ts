@@ -39,8 +39,13 @@ export const REFERENCE_HIGH_ROLL = 7.77;
 /** Score grade thresholds following the Fribbels 18-grade scale (0–200% range).
  *  Since ideal is now half the theoretical max, scores are doubled compared to 0–100% scale.
  *  100% = solid artifact (~4.5 useful max rolls), 200% = theoretically perfect. */
-export const GRADE_THRESHOLDS: Array<{ grade: import("../types/artifact").ScoreGrade; min: number }> =
-  GRADE_LADDER.map((band) => ({ grade: band.grade as import("../types/artifact").ScoreGrade, min: band.min }));
+export const GRADE_THRESHOLDS: Array<{
+  grade: import("../types/artifact").ScoreGrade;
+  min: number;
+}> = GRADE_LADDER.map((band) => ({
+  grade: band.grade as import("../types/artifact").ScoreGrade,
+  min: band.min,
+}));
 
 /**
  * Potential scales: normalizing factor that converts substat values into comparable units.
@@ -48,16 +53,16 @@ export const GRADE_THRESHOLDS: Array<{ grade: import("../types/artifact").ScoreG
  * This ensures all stats are converted to CRIT DMG-equivalent units.
  */
 export const POTENTIAL_SCALES: Record<string, number> = {
-  FIGHT_PROP_CRITICAL:          REFERENCE_HIGH_ROLL / 3.89,   // ≈ 1.997
-  FIGHT_PROP_CRITICAL_HURT:     REFERENCE_HIGH_ROLL / 7.77,   // = 1.0
-  FIGHT_PROP_ATTACK_PERCENT:    REFERENCE_HIGH_ROLL / 5.83,   // ≈ 1.333
-  FIGHT_PROP_HP_PERCENT:        REFERENCE_HIGH_ROLL / 5.83,   // ≈ 1.333
-  FIGHT_PROP_DEFENSE_PERCENT:   REFERENCE_HIGH_ROLL / 7.29,   // ≈ 1.066
-  FIGHT_PROP_ELEMENT_MASTERY:   REFERENCE_HIGH_ROLL / 23.31,  // ≈ 0.333
-  FIGHT_PROP_CHARGE_EFFICIENCY: REFERENCE_HIGH_ROLL / 6.48,   // ≈ 1.199
-  FIGHT_PROP_ATTACK:            REFERENCE_HIGH_ROLL / 19.45,  // ≈ 0.400
-  FIGHT_PROP_HP:                REFERENCE_HIGH_ROLL / 298.75, // ≈ 0.026
-  FIGHT_PROP_DEFENSE:           REFERENCE_HIGH_ROLL / 23.15,  // ≈ 0.336
+  FIGHT_PROP_CRITICAL: REFERENCE_HIGH_ROLL / 3.89, // ≈ 1.997
+  FIGHT_PROP_CRITICAL_HURT: REFERENCE_HIGH_ROLL / 7.77, // = 1.0
+  FIGHT_PROP_ATTACK_PERCENT: REFERENCE_HIGH_ROLL / 5.83, // ≈ 1.333
+  FIGHT_PROP_HP_PERCENT: REFERENCE_HIGH_ROLL / 5.83, // ≈ 1.333
+  FIGHT_PROP_DEFENSE_PERCENT: REFERENCE_HIGH_ROLL / 7.29, // ≈ 1.066
+  FIGHT_PROP_ELEMENT_MASTERY: REFERENCE_HIGH_ROLL / 23.31, // ≈ 0.333
+  FIGHT_PROP_CHARGE_EFFICIENCY: REFERENCE_HIGH_ROLL / 6.48, // ≈ 1.199
+  FIGHT_PROP_ATTACK: REFERENCE_HIGH_ROLL / 19.45, // ≈ 0.400
+  FIGHT_PROP_HP: REFERENCE_HIGH_ROLL / 298.75, // ≈ 0.026
+  FIGHT_PROP_DEFENSE: REFERENCE_HIGH_ROLL / 23.15, // ≈ 0.336
 };
 
 /** Map Enka equipType to our slot name */

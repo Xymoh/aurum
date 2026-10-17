@@ -83,25 +83,46 @@ const GUIDE_SETS = (setRecommendations as { characters: Record<string, FetchedSe
 
 /** Fribbels states names; the same name twice is a 4-piece, two names a 2+2. */
 function fromFribbelsPair(pair: string[]): SetPick[] {
-  const pick = (name: string, pieces: number): SetPick => ({ setId: SET_ID_BY_NAME.get(name) ?? null, name, pieces });
-  return pair.length === 2 && pair[0] === pair[1] ? [pick(pair[0], 4)] : pair.map((name) => pick(name, 2));
+  const pick = (name: string, pieces: number): SetPick => ({
+    setId: SET_ID_BY_NAME.get(name) ?? null,
+    name,
+    pieces,
+  });
+  return pair.length === 2 && pair[0] === pair[1]
+    ? [pick(pair[0], 4)]
+    : pair.map((name) => pick(name, 2));
 }
 
 function fromFetched(picks: { setId: string; pieces: number }[][] | undefined): SetPick[][] {
-  return (picks ?? []).map((parts) => parts.map((p) => ({ setId: p.setId, name: SET_NAMES[p.setId] ?? p.setId, pieces: p.pieces })));
+  return (picks ?? []).map((parts) =>
+    parts.map((p) => ({ setId: p.setId, name: SET_NAMES[p.setId] ?? p.setId, pieces: p.pieces })),
+  );
 }
 
 /**
  * The guides' consensus first, which already weighs Fribbels' lists in;
  * Fribbels alone for a character no guide covers yet.
  */
-function setsFor(avatarId: number, entry: MetadataEntry | undefined): Pick<ScoringMeta, "relicSets" | "ornamentSets" | "setsSource"> {
+function setsFor(
+  avatarId: number,
+  entry: MetadataEntry | undefined,
+): Pick<ScoringMeta, "relicSets" | "ornamentSets" | "setsSource"> {
   const fetched = GUIDE_SETS[String(avatarId)];
-  const fromGuides = { relicSets: fromFetched(fetched?.relicSets), ornamentSets: fromFetched(fetched?.ornamentSets) };
-  if (fromGuides.relicSets.length || fromGuides.ornamentSets.length) return { ...fromGuides, setsSource: "guides" };
+  const fromGuides = {
+    relicSets: fromFetched(fetched?.relicSets),
+    ornamentSets: fromFetched(fetched?.ornamentSets),
+  };
+  if (fromGuides.relicSets.length || fromGuides.ornamentSets.length)
+    return { ...fromGuides, setsSource: "guides" };
   const relicSets = (entry?.relicSets ?? []).map(fromFribbelsPair);
-  const ornamentSets = (entry?.ornamentSets ?? []).map((name) => [{ setId: SET_ID_BY_NAME.get(name) ?? null, name, pieces: 2 }]);
-  return { relicSets, ornamentSets, setsSource: relicSets.length || ornamentSets.length ? "fribbels" : null };
+  const ornamentSets = (entry?.ornamentSets ?? []).map((name) => [
+    { setId: SET_ID_BY_NAME.get(name) ?? null, name, pieces: 2 },
+  ]);
+  return {
+    relicSets,
+    ornamentSets,
+    setsSource: relicSets.length || ornamentSets.length ? "fribbels" : null,
+  };
 }
 
 /** Below this, a roll is doing nothing useful and counts as waste. */
@@ -112,7 +133,7 @@ export const WASTE_THRESHOLD = 0.2;
  * the table gives them. Same rule as Fribbels (FLAT_STAT_SCALING) and as the
  * Genshin scorer, so a flat ATK roll means the same thing on both tabs.
  */
-export const FLAT_STAT_SCALING = 0.4;
+const FLAT_STAT_SCALING = 0.4;
 
 export const PERCENT_TO_FLAT: Partial<Record<HsrStatKey, HsrStatKey>> = {
   AttackAddedRatio: "AttackDelta",
@@ -200,7 +221,10 @@ const PATH_WEIGHTS: Record<string, HsrWeights> = {
  * should say which guide it follows and why it beats the Fribbels value, so
  * the next person can re-check it when either source moves.
  */
-export const CHARACTER_OVERRIDES: Record<string, Partial<Pick<ScoringMeta, "stats" | "parts">>> = {};
+export const CHARACTER_OVERRIDES: Record<
+  string,
+  Partial<Pick<ScoringMeta, "stats" | "parts">>
+> = {};
 
 export function getCharacterInfo(avatarId: number) {
   return CHARS[String(avatarId)] ?? null;
@@ -216,7 +240,12 @@ function metadataId(avatarId: number): string {
   return String(avatarId);
 }
 
-const EMPTY_PARTS: Record<SelectableSlot, HsrStatKey[]> = { BODY: [], FOOT: [], NECK: [], OBJECT: [] };
+const EMPTY_PARTS: Record<SelectableSlot, HsrStatKey[]> = {
+  BODY: [],
+  FOOT: [],
+  NECK: [],
+  OBJECT: [],
+};
 
 /**
  * Everything the scorer needs to know about a character. Falls through
@@ -232,7 +261,9 @@ export function getScoringMeta(avatarId: number): ScoringMeta {
     meta = {
       stats: withFlatScaling(entry.stats as HsrWeights),
       parts: { ...EMPTY_PARTS, ...(entry.parts as Record<SelectableSlot, HsrStatKey[]>) },
-      ...(entry.flatMainstatBoost ? { flatMainstatBoost: entry.flatMainstatBoost as HsrStatKey } : {}),
+      ...(entry.flatMainstatBoost
+        ? { flatMainstatBoost: entry.flatMainstatBoost as HsrStatKey }
+        : {}),
       ...setsFor(avatarId, entry),
       source: "fribbels",
     };

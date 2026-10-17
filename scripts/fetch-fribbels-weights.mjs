@@ -39,7 +39,9 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const OUTPUT = path.join(ROOT, "src", "hsr", "data", "scoring-metadata.json");
-const CHARACTERS = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "hsr", "data", "characters.json"), "utf8"));
+const CHARACTERS = JSON.parse(
+  fs.readFileSync(path.join(ROOT, "src", "hsr", "data", "characters.json"), "utf8"),
+);
 
 const REPO = "fribbels/hsr-optimizer";
 const BRANCH = "main";
@@ -135,7 +137,9 @@ function parseParts(block) {
   while ((m = re.exec(block))) {
     const slot = PART_TO_SLOT[m[1]];
     if (!slot) continue;
-    const stats = [...m[2].matchAll(/Stats\.(\w+)/g)].map((s) => STAT_TO_ENKA[s[1]]).filter(Boolean);
+    const stats = [...m[2].matchAll(/Stats\.(\w+)/g)]
+      .map((s) => STAT_TO_ENKA[s[1]])
+      .filter(Boolean);
     parts[slot] = stats;
   }
   return parts;
@@ -187,7 +191,9 @@ function parseOrnamentSets(block, setNames) {
 
 /** Fribbels' `Sets` map, key to display name, from constants.ts. */
 async function fetchSetNames(sha) {
-  const source = await getText(`https://raw.githubusercontent.com/${REPO}/${sha}/src/lib/constants/constants.ts`);
+  const source = await getText(
+    `https://raw.githubusercontent.com/${REPO}/${sha}/src/lib/constants/constants.ts`,
+  );
   const block = braceBlock(source, "export const Sets");
   if (!block) throw new Error("Could not find the Sets map in constants.ts");
   const names = {};
@@ -230,7 +236,9 @@ function parseCharacterFile(source, file, setNames) {
 async function main() {
   console.log(`Fetching ${REPO}@${BRANCH} character metadata…`);
   const head = await getJSON(`https://api.github.com/repos/${REPO}/commits/${BRANCH}`);
-  const tree = await getJSON(`https://api.github.com/repos/${REPO}/git/trees/${head.sha}?recursive=1`);
+  const tree = await getJSON(
+    `https://api.github.com/repos/${REPO}/git/trees/${head.sha}?recursive=1`,
+  );
   const files = tree.tree
     .map((t) => t.path)
     .filter((p) => p.startsWith(CHARACTER_DIR) && p.endsWith(".ts") && !p.endsWith(".test.ts"));
@@ -277,12 +285,18 @@ async function main() {
     license: "MIT",
     commit: head.sha,
     fetchedAt: new Date().toISOString(),
-    characters: Object.fromEntries(Object.entries(characters).sort(([a], [b]) => Number(a) - Number(b))),
+    characters: Object.fromEntries(
+      Object.entries(characters).sort(([a], [b]) => Number(a) - Number(b)),
+    ),
   };
   fs.writeFileSync(OUTPUT, JSON.stringify(output, null, 2) + "\n");
-  console.log(`  ✔ wrote ${Object.keys(characters).length} characters to ${path.relative(ROOT, OUTPUT)}`);
+  console.log(
+    `  ✔ wrote ${Object.keys(characters).length} characters to ${path.relative(ROOT, OUTPUT)}`,
+  );
   if (missing.length) {
-    console.log(`  ⚠ ${missing.length} characters in characters.json have no Fribbels entry (Path fallback applies):`);
+    console.log(
+      `  ⚠ ${missing.length} characters in characters.json have no Fribbels entry (Path fallback applies):`,
+    );
     console.log("    " + missing.map((id) => `${id} ${CHARACTERS[id].name}`).join(", "));
   }
 }

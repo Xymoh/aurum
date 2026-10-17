@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import fixture from "../fixtures/zzz-showcase.json";
-import { parseZzzShowcase, mainStatAtLevel, discMaxLevel, type RawZzzResponse } from "../../src/zzz/parsing";
+import {
+  parseZzzShowcase,
+  mainStatAtLevel,
+  discMaxLevel,
+  type RawZzzResponse,
+} from "../../src/zzz/parsing";
 import {
   BENCHMARK_ROLLS,
   MAX_ROLLS,
@@ -15,7 +20,7 @@ import {
 } from "../../src/zzz/scoring";
 import { getScoringMeta, WASTE_THRESHOLD, weightOf } from "../../src/zzz/weights";
 import { computeZzzStats, engineStats } from "../../src/zzz/stats";
-import { isValidZzzUid } from "../../src/zzz/useZzzShowcase";
+import { isValidZzzUid } from "../../src/lib/uid";
 import { displayValue, isPercentStat, statLabel } from "../../src/zzz/labels";
 
 const parsed = parseZzzShowcase(fixture as RawZzzResponse);
@@ -150,7 +155,11 @@ describe("main stats", () => {
     expect(useless).toBeDefined();
     const agent = parsed.agents[0];
     const disc4 = agent.discs.find((d) => d.slot === 4)!;
-    const scored = scoreAgent({ ...agent, id: 1091, discs: [{ ...disc4, mainStat: { id: useless!, value: 30 } }] });
+    const scored = scoreAgent({
+      ...agent,
+      id: 1091,
+      discs: [{ ...disc4, mainStat: { id: useless!, value: 30 } }],
+    });
     expect(scored.discs[0].score.mainStatOk).toBe(false);
     expect(scored.discs[0].score.grade).toBeNull();
     // The substats are still measured, so the number stays informative.
@@ -199,7 +208,15 @@ describe("score ceiling", () => {
     const agent = {
       ...parsed.agents[0],
       id: 1091,
-      discs: [{ ...parsed.agents[0].discs[0], slot: 1 as const, mainStat: { id: 11103, value: 2200 }, substats, totalRolls: 9 }],
+      discs: [
+        {
+          ...parsed.agents[0].discs[0],
+          slot: 1 as const,
+          mainStat: { id: 11103, value: 2200 },
+          substats,
+          totalRolls: 9,
+        },
+      ],
     };
     const scored = scoreAgent(agent);
     expect(scored.discs[0].score.potentialPercent).toBeCloseTo(200, 1);
@@ -283,9 +300,17 @@ describe("ZZZ render framing", () => {
   });
 
   it("has a measurement for every agent that has a render", async () => {
-    const agents = (await import("../../src/zzz/data/agents.json")).default as Record<string, { name: string; image?: string }>;
-    const focus = (await import("../../src/zzz/data/art-focus.json")).default.agents as Record<string, { x: number; y: number }>;
-    const missing = Object.entries(agents).filter(([id, a]) => a.image && !(id in focus)).map(([, a]) => a.name);
+    const agents = (await import("../../src/zzz/data/agents.json")).default as Record<
+      string,
+      { name: string; image?: string }
+    >;
+    const focus = (await import("../../src/zzz/data/art-focus.json")).default.agents as Record<
+      string,
+      { x: number; y: number }
+    >;
+    const missing = Object.entries(agents)
+      .filter(([id, a]) => a.image && !(id in focus))
+      .map(([, a]) => a.name);
     // A new patch adds agents; `npm run measure-zzz-art` adds their framing.
     expect(missing).toEqual([]);
   });
@@ -306,22 +331,69 @@ describe("engine corrections checked against Enka's tables", () => {
     // Row 0 carries no bonus, so a fresh agent (promotion 1) gains nothing
     // and promotion 2 gets the first real row.
     const at = (promotion: number) =>
-      computeZzzStats({ agentId: 1171, element: "Fire", level: 10, promotion, coreSkill: 0, engine: null, discs: [], sets: [] }).hp;
+      computeZzzStats({
+        agentId: 1171,
+        element: "Fire",
+        level: 10,
+        promotion,
+        coreSkill: 0,
+        engine: null,
+        discs: [],
+        sets: [],
+      }).hp;
     expect(at(2)).toBeGreaterThan(at(1));
-    expect(at(1)).toBe(computeZzzStats({ agentId: 1171, element: "Fire", level: 10, promotion: 0, coreSkill: 0, engine: null, discs: [], sets: [] }).hp);
+    expect(at(1)).toBe(
+      computeZzzStats({
+        agentId: 1171,
+        element: "Fire",
+        level: 10,
+        promotion: 0,
+        coreSkill: 0,
+        engine: null,
+        discs: [],
+        sets: [],
+      }).hp,
+    );
   });
 
   it("applies a core skill's percentage bonus instead of burying it in the base map", () => {
     // Zhao's core F grants HP +18% over an unenhanced core.
     const zhao = (coreSkill: number) =>
-      computeZzzStats({ agentId: 1341, element: "Ice", level: 60, promotion: 6, coreSkill, engine: null, discs: [], sets: [] });
+      computeZzzStats({
+        agentId: 1341,
+        element: "Ice",
+        level: 60,
+        promotion: 6,
+        coreSkill,
+        engine: null,
+        discs: [],
+        sets: [],
+      });
     expect(zhao(6).hp / zhao(0).hp).toBeCloseTo(1.18, 2);
   });
 
   it("reads PEN Ratio from the 231xx ids, not Adrenaline recovery", () => {
-    const rina = computeZzzStats({ agentId: 1211, element: "Elec", level: 60, promotion: 6, coreSkill: 6, engine: null, discs: [], sets: [] });
+    const rina = computeZzzStats({
+      agentId: 1211,
+      element: "Elec",
+      level: 60,
+      promotion: 6,
+      coreSkill: 6,
+      engine: null,
+      discs: [],
+      sets: [],
+    });
     expect(rina.penRatio).toBeCloseTo(14.4, 1);
-    const yixuan = computeZzzStats({ agentId: 1371, element: "AuricEther", level: 60, promotion: 6, coreSkill: 6, engine: null, discs: [], sets: [] });
+    const yixuan = computeZzzStats({
+      agentId: 1371,
+      element: "AuricEther",
+      level: 60,
+      promotion: 6,
+      coreSkill: 6,
+      engine: null,
+      discs: [],
+      sets: [],
+    });
     expect(yixuan.penRatio).toBe(0);
   });
 
@@ -351,7 +423,10 @@ describe("engine corrections checked against Enka's tables", () => {
     const yuzuha = getScoringMeta(1421);
     if (yuzuha.thresholds[12103]) {
       const agent = parsed.agents.find((a) => a.id === 1421);
-      if (agent) expect(scoreAgent(agent).diagnostics.thresholds.find((t) => t.id === 12103)?.percent).toBe(false);
+      if (agent)
+        expect(scoreAgent(agent).diagnostics.thresholds.find((t) => t.id === 12103)?.percent).toBe(
+          false,
+        );
     }
   });
 });

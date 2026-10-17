@@ -30,7 +30,9 @@ import { launchBrowser, writeSource } from "./sources.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
-const AGENTS = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "zzz", "data", "agents.json"), "utf8"));
+const AGENTS = JSON.parse(
+  fs.readFileSync(path.join(ROOT, "src", "zzz", "data", "agents.json"), "utf8"),
+);
 
 const BASE = "https://www.prydwen.gg";
 const ONLY = new Set(
@@ -126,7 +128,11 @@ async function settle(page) {
 }
 
 function normalise(name) {
-  return name.toLowerCase().replace(/[^a-z0-9& ]+/g, " ").replace(/\s+/g, " ").trim();
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9& ]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /** Enka's English name to Prydwen's URL slug, with the handful that differ. */
@@ -155,8 +161,14 @@ async function main() {
   // browser fails ("Just a moment..."). A visible window passes it, so this
   // runs headed unless ZZZ_HEADLESS=1 is set; expect an Edge window to open
   // and close on its own.
-  const browser = await launchBrowser({ prefer: process.env.ZZZ_BROWSER, headless: process.env.ZZZ_HEADLESS === "1" });
-  const context = await browser.newContext({ locale: "en-US", viewport: { width: 1280, height: 900 } });
+  const browser = await launchBrowser({
+    prefer: process.env.ZZZ_BROWSER,
+    headless: process.env.ZZZ_HEADLESS === "1",
+  });
+  const context = await browser.newContext({
+    locale: "en-US",
+    viewport: { width: 1280, height: 900 },
+  });
   const page = await context.newPage();
   page.setDefaultTimeout(25_000);
 
@@ -164,16 +176,24 @@ async function main() {
   await page.goto(`${BASE}/zenless/characters/`, { waitUntil: "domcontentloaded" });
   await settle(page);
   const consent = page.getByRole("button", { name: /do not consent/i });
-  if (await consent.count()) await consent.first().click().catch(() => {});
+  if (await consent.count())
+    await consent
+      .first()
+      .click()
+      .catch(() => {});
   // Gatsby renders the agent grid after hydration; wait for it rather than a fixed delay.
-  await page.waitForSelector('a[href^="/zenless/characters/"]', { timeout: 30_000 }).catch(() => {});
+  await page
+    .waitForSelector('a[href^="/zenless/characters/"]', { timeout: 30_000 })
+    .catch(() => {});
   await page.waitForTimeout(1000);
 
   let links = await page.evaluate(() => {
     const m = new Map();
     document.querySelectorAll('a[href^="/zenless/characters/"]').forEach((a) => {
       const slug = a.getAttribute("href").replace(/\/$/, "").split("/").pop();
-      const name = (a.querySelector("h4, h5, [class*=name]")?.textContent || a.textContent).trim().split("\n")[0];
+      const name = (a.querySelector("h4, h5, [class*=name]")?.textContent || a.textContent)
+        .trim()
+        .split("\n")[0];
       if (slug && name && !m.has(slug)) m.set(slug, name);
     });
     return [...m.entries()];
@@ -182,7 +202,9 @@ async function main() {
     // The index grid sometimes never renders in a headless session. Fall back
     // to the agents Enka knows, slugged the way Prydwen slugs them, so the run
     // still covers everyone rather than nobody.
-    console.warn(`  ⚠ index gave no agents (title: "${await page.title()}"); using slugs derived from Enka's agent list`);
+    console.warn(
+      `  ⚠ index gave no agents (title: "${await page.title()}"); using slugs derived from Enka's agent list`,
+    );
     links = Object.values(AGENTS).map((a) => [slugFor(a.name), a.name]);
   }
   console.log(`  ${links.length} agents to read`);
@@ -204,7 +226,9 @@ async function main() {
     await settle(page);
     await page.waitForTimeout(DELAY_MS);
     const text = await page.evaluate(async () => {
-      const tab = [...document.querySelectorAll(".tabs .single-tab")].find((e) => /build/i.test(e.textContent));
+      const tab = [...document.querySelectorAll(".tabs .single-tab")].find((e) =>
+        /build/i.test(e.textContent),
+      );
       if (tab) tab.click();
       await new Promise((r) => setTimeout(r, 700));
       return document.body.innerText;
@@ -227,20 +251,30 @@ async function main() {
     // Only this importer's part of Prydwen's entry; the picks are fetch-prydwen-sets.mjs's.
     characters[id] = {
       substats: tiers.map((tier) => tier.map(String)),
-      mainStats: Object.fromEntries(Object.entries(parts).map(([slot, ids]) => [slot, ids.map(String)])),
+      mainStats: Object.fromEntries(
+        Object.entries(parts).map(([slot, ids]) => [slot, ids.map(String)]),
+      ),
       thresholds,
     };
-    console.log(`${stats.length} stats, mains ${[4, 5, 6].map((s) => parts[s].length).join("/")}${unknown.length ? `  ? ${unknown.join(", ")}` : ""}`);
+    console.log(
+      `${stats.length} stats, mains ${[4, 5, 6].map((s) => parts[s].length).join("/")}${unknown.length ? `  ? ${unknown.join(", ")}` : ""}`,
+    );
   }
 
   await browser.close();
 
-  const missing = Object.keys(AGENTS).filter((id) => !characters[id]).map((id) => `${AGENTS[id].name} (${id})`);
+  const missing = Object.keys(AGENTS)
+    .filter((id) => !characters[id])
+    .map((id) => `${AGENTS[id].name} (${id})`);
   const file = writeSource("zzz", "prydwen", characters, { merge: ONLY.size > 0, part: "weights" });
   console.log(`
   ✔ wrote ${Object.keys(characters).length} agents to ${path.relative(ROOT, file)}`);
-  if (unmatched.length) console.log(`  ⚠ on Prydwen but not in Enka's tables yet: ${unmatched.join(", ")}`);
-  if (missing.length) console.log(`  ⚠ in Enka's tables with no guide (profession fallback applies): ${missing.join(", ")}`);
+  if (unmatched.length)
+    console.log(`  ⚠ on Prydwen but not in Enka's tables yet: ${unmatched.join(", ")}`);
+  if (missing.length)
+    console.log(
+      `  ⚠ in Enka's tables with no guide (profession fallback applies): ${missing.join(", ")}`,
+    );
 }
 
 main().catch((err) => {

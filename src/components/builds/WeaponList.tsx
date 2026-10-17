@@ -32,7 +32,9 @@ export function WeaponList({ weapons, game, skin, name, equippedId }: WeaponList
     <ol className="space-y-2">
       {weapons.map((weapon, i) => {
         const equipped = equippedId != null && equippedId === weapon.id;
-        const refinement = weapon.refinement ? `${REFINEMENT_PREFIX[game]}${weapon.refinement}` : null;
+        const refinement = weapon.refinement
+          ? `${REFINEMENT_PREFIX[game]}${weapon.refinement}`
+          : null;
         return (
           <li
             // Not the id alone: a guide can rank one weapon twice, at S1 and at S5.
@@ -52,13 +54,22 @@ export function WeaponList({ weapons, game, skin, name, equippedId }: WeaponList
             }
           >
             <div className="flex items-start gap-3">
-              <span className={`w-4 shrink-0 pt-1 text-right font-mono text-xs ${skin.muted}`}>{i + 1}</span>
+              <span className={`w-4 shrink-0 pt-1 text-right font-mono text-xs ${skin.muted}`}>
+                {i + 1}
+              </span>
               <span
                 className="h-12 w-12 shrink-0 overflow-hidden rounded-md sm:h-14 sm:w-14"
                 style={{ background: rarityTone(game, weapon.rarity) }}
               >
                 {weapon.iconUrl && (
-                  <RemoteImg src={weapon.iconUrl} alt="" loading="lazy" width={56} height={56} className="h-full w-full object-contain" />
+                  <RemoteImg
+                    src={weapon.iconUrl}
+                    alt=""
+                    loading="lazy"
+                    width={56}
+                    height={56}
+                    className="h-full w-full object-contain"
+                  />
                 )}
               </span>
               <div className="min-w-0 flex-1">
@@ -96,7 +107,10 @@ export function WeaponList({ weapons, game, skin, name, equippedId }: WeaponList
                     <summary
                       className={`inline-flex cursor-pointer list-none items-center gap-1 text-xs font-semibold [&::-webkit-details-marker]:hidden ${skin.accent}`}
                     >
-                      <ChevronIcon className="h-3.5 w-3.5 -rotate-90 transition-transform group-open:rotate-0" aria-hidden="true" />
+                      <ChevronIcon
+                        className="h-3.5 w-3.5 -rotate-90 transition-transform group-open:rotate-0"
+                        aria-hidden="true"
+                      />
                       {weapon.passive.name || t("guide", "passive")}
                     </summary>
                     <GuideTextView text={weapon.passive.text} skin={skin} className="mt-1" />

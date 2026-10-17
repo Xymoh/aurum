@@ -83,7 +83,7 @@ export function DiagnosticsPanel({
                   wasted: d.wastedRolls,
                   benchmark: BENCHMARK_ROLLS,
                 })}
-</p>
+        </p>
       </div>
 
       {(nextMoves.length > 0 || toReplace.length > 0) && (
@@ -99,7 +99,8 @@ export function DiagnosticsPanel({
                   <span className="text-hsr-muted">{verdict(r.reroll).label}</span>
                 </span>
                 <span className="shrink-0 font-mono text-xs text-hsr-muted">
-                  {Math.round(r.reroll.improveChance * 100)}{t("hsr", "perDie")}
+                  {Math.round(r.reroll.improveChance * 100)}
+                  {t("hsr", "perDie")}
                 </span>
               </li>
             ))}
@@ -157,9 +158,7 @@ export function DiagnosticsPanel({
             {t("hsr", "deadRolls")}
           </h3>
           {d.waste.length === 0 ? (
-            <p className="text-sm text-hsr-accent">
-              {t("hsr", "nothingWasted")}
-            </p>
+            <p className="text-sm text-hsr-accent">{t("hsr", "nothingWasted")}</p>
           ) : (
             <ul className="space-y-1">
               {d.waste.slice(0, 5).map((w, i) => (
@@ -171,7 +170,9 @@ export function DiagnosticsPanel({
                     <span className="text-hsr-text/80">{t("hsrSlots", w.slot)}</span>{" "}
                     {t("hsrStats", w.key)}
                   </span>
-                  <span className="shrink-0 font-mono text-hsr-muted">{t("hsr", "rollsCount", { n: w.rolls })}</span>
+                  <span className="shrink-0 font-mono text-hsr-muted">
+                    {t("hsr", "rollsCount", { n: w.rolls })}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -180,7 +181,10 @@ export function DiagnosticsPanel({
           <div className="mt-2 space-y-1 border-t border-hsr-line pt-2">
             {d.sets.map((s) => (
               <p key={s.setId} className="truncate text-sm text-hsr-text/80">
-                <span className="font-mono text-hsr-glow">{t("hsr", "pieces", { n: s.pieces })}</span> {s.name}
+                <span className="font-mono text-hsr-glow">
+                  {t("hsr", "pieces", { n: s.pieces })}
+                </span>{" "}
+                {s.name}
               </p>
             ))}
           </div>

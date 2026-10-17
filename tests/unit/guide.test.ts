@@ -4,7 +4,12 @@ import { describe, expect, it } from "vitest";
 import { splitEmphasis } from "../../src/lib/buildTarget/guideText";
 import { guideSource } from "../../src/lib/buildTarget/guideSource";
 import { parseTravelerBuildId } from "../../src/lib/travelerBuilds";
-import type { GuideFile, GuidePicksFile, GuideText, SetBonusFile } from "../../src/lib/buildTarget/guide";
+import type {
+  GuideFile,
+  GuidePicksFile,
+  GuideText,
+  SetBonusFile,
+} from "../../src/lib/buildTarget/guide";
 import genshinCharacters from "../../src/data/characters.json";
 import genshinWeapons from "../../src/data/weapon-ids.json";
 import genshinSets from "../../src/data/artifacts.json";
@@ -58,7 +63,15 @@ describe("guideSource", () => {
     const item = (id: string, iconUrl: string) => ({ id, name: id, iconUrl, rarity: 3, count: 1 });
     const shipped = {
       role: null,
-      materials: [{ id: "skills", items: [item("10", "zzz/items/IconCoin.webp"), item("202", "https://gi.yatta.moe/assets/UI/UI_ItemIcon_202.png")] }],
+      materials: [
+        {
+          id: "skills",
+          items: [
+            item("10", "zzz/items/IconCoin.webp"),
+            item("202", "https://gi.yatta.moe/assets/UI/UI_ItemIcon_202.png"),
+          ],
+        },
+      ],
     } as unknown as GuideFile;
     const zzz = guideSource("zzz", { "./data/guides/1191.json": async () => shipped }, {});
     const loaded = await zzz.load("1191");
@@ -85,27 +98,54 @@ describe("guideSource", () => {
 const GAMES = [
   {
     game: "genshin",
-    guides: import.meta.glob<GuideFile>("../../src/data/guides/*.json", { eager: true, import: "default" }),
-    bonuses: import.meta.glob<SetBonusFile>("../../src/data/set-bonuses.json", { eager: true, import: "default" }),
-    picks: import.meta.glob<GuidePicksFile>("../../src/data/guide-picks.json", { eager: true, import: "default" }),
+    guides: import.meta.glob<GuideFile>("../../src/data/guides/*.json", {
+      eager: true,
+      import: "default",
+    }),
+    bonuses: import.meta.glob<SetBonusFile>("../../src/data/set-bonuses.json", {
+      eager: true,
+      import: "default",
+    }),
+    picks: import.meta.glob<GuidePicksFile>("../../src/data/guide-picks.json", {
+      eager: true,
+      import: "default",
+    }),
     characters: genshinCharacters as Record<string, unknown>,
     weapons: genshinWeapons as Record<string, unknown>,
     sets: genshinSets as Record<string, unknown>,
   },
   {
     game: "hsr",
-    guides: import.meta.glob<GuideFile>("../../src/hsr/data/guides/*.json", { eager: true, import: "default" }),
-    bonuses: import.meta.glob<SetBonusFile>("../../src/hsr/data/set-bonuses.json", { eager: true, import: "default" }),
-    picks: import.meta.glob<GuidePicksFile>("../../src/hsr/data/guide-picks.json", { eager: true, import: "default" }),
+    guides: import.meta.glob<GuideFile>("../../src/hsr/data/guides/*.json", {
+      eager: true,
+      import: "default",
+    }),
+    bonuses: import.meta.glob<SetBonusFile>("../../src/hsr/data/set-bonuses.json", {
+      eager: true,
+      import: "default",
+    }),
+    picks: import.meta.glob<GuidePicksFile>("../../src/hsr/data/guide-picks.json", {
+      eager: true,
+      import: "default",
+    }),
     characters: hsrCharacters as Record<string, unknown>,
     weapons: hsrLightCones as Record<string, unknown>,
     sets: hsrSets as Record<string, unknown>,
   },
   {
     game: "zzz",
-    guides: import.meta.glob<GuideFile>("../../src/zzz/data/guides/*.json", { eager: true, import: "default" }),
-    bonuses: import.meta.glob<SetBonusFile>("../../src/zzz/data/set-bonuses.json", { eager: true, import: "default" }),
-    picks: import.meta.glob<GuidePicksFile>("../../src/zzz/data/guide-picks.json", { eager: true, import: "default" }),
+    guides: import.meta.glob<GuideFile>("../../src/zzz/data/guides/*.json", {
+      eager: true,
+      import: "default",
+    }),
+    bonuses: import.meta.glob<SetBonusFile>("../../src/zzz/data/set-bonuses.json", {
+      eager: true,
+      import: "default",
+    }),
+    picks: import.meta.glob<GuidePicksFile>("../../src/zzz/data/guide-picks.json", {
+      eager: true,
+      import: "default",
+    }),
     characters: zzzAgents as Record<string, unknown>,
     weapons: zzzWeapons as Record<string, unknown>,
     sets: zzzSets as Record<string, unknown>,
@@ -131,80 +171,116 @@ function allTexts(guide: GuideFile): GuideText[] {
 const idOf = (path: string) => path.slice(path.lastIndexOf("/") + 1).replace(/\.json$/, "");
 
 /** Whether the game's table knows an id, reading one of the Traveler's per-element pages as their avatar id. */
-const knows = (table: Record<string, unknown>, id: string) => id in table || String(parseTravelerBuildId(id)?.avatarId) in table;
+const knows = (table: Record<string, unknown>, id: string) =>
+  id in table || String(parseTravelerBuildId(id)?.avatarId) in table;
 
-describe.each(GAMES)("$game guide files", ({ guides, bonuses, picks, characters, weapons, sets }) => {
-  const entries = Object.entries(guides);
+describe.each(GAMES)(
+  "$game guide files",
+  ({ guides, bonuses, picks, characters, weapons, sets }) => {
+    const entries = Object.entries(guides);
 
-  it.skipIf(entries.length === 0)("are keyed by ids the game's own tables know", () => {
-    for (const [path] of entries) expect(knows(characters, idOf(path)), path).toBe(true);
-  });
+    it.skipIf(entries.length === 0)("are keyed by ids the game's own tables know", () => {
+      for (const [path] of entries) expect(knows(characters, idOf(path)), path).toBe(true);
+    });
 
-  it.skipIf(entries.length === 0)("carry every field the contract names", () => {
-    const keys = ["role", "weapons", "teams", "synergies", "substatLine", "endgameStats", "skillPriority", "tracePriority", "source", "baseStats", "bonusStats", "kit", "materials", "kitChangedAt", "kitHash"];
-    for (const [path, guide] of entries) {
-      for (const key of keys) expect(guide, `${path} ${key}`).toHaveProperty([key]);
-    }
-  });
-
-  it.skipIf(entries.length === 0)("hold display-ready text only", () => {
-    const problems: string[] = [];
-    for (const [path, guide] of entries) {
-      for (const text of allTexts(guide)) {
-        const problem = textProblem(text);
-        if (problem) problems.push(`${idOf(path)}: ${problem} in "${text.slice(0, 60)}"`);
+    it.skipIf(entries.length === 0)("carry every field the contract names", () => {
+      const keys = [
+        "role",
+        "weapons",
+        "teams",
+        "synergies",
+        "substatLine",
+        "endgameStats",
+        "skillPriority",
+        "tracePriority",
+        "source",
+        "baseStats",
+        "bonusStats",
+        "kit",
+        "materials",
+        "kitChangedAt",
+        "kitHash",
+      ];
+      for (const [path, guide] of entries) {
+        for (const key of keys) expect(guide, `${path} ${key}`).toHaveProperty([key]);
       }
-    }
-    expect(problems).toEqual([]);
-  });
+    });
 
-  it.skipIf(entries.length === 0)("recommend weapons and teammates the game's tables know", () => {
-    for (const [path, guide] of entries) {
-      for (const weapon of guide.weapons) expect(weapons, `${path} weapon`).toHaveProperty([weapon.id]);
-      for (const team of guide.teams) {
-        for (const member of team.members) expect(knows(characters, member), `${path} team ${member}`).toBe(true);
-        if (team.alternates) {
-          // One list per slot, never repeating someone already in the team.
-          expect(team.alternates, `${path} alternates`).toHaveLength(team.members.length);
-          for (const alt of team.alternates.flat()) {
-            expect(knows(characters, alt), `${path} alternate ${alt}`).toBe(true);
-            expect(team.members, `${path} alternate ${alt}`).not.toContain(alt);
-          }
+    it.skipIf(entries.length === 0)("hold display-ready text only", () => {
+      const problems: string[] = [];
+      for (const [path, guide] of entries) {
+        for (const text of allTexts(guide)) {
+          const problem = textProblem(text);
+          if (problem) problems.push(`${idOf(path)}: ${problem} in "${text.slice(0, 60)}"`);
         }
       }
-      for (const id of guide.synergies) expect(knows(characters, id), `${path} synergy ${id}`).toBe(true);
-    }
-  });
+      expect(problems).toEqual([]);
+    });
 
-  it.skipIf(Object.keys(bonuses).length === 0)("describe sets the sets table knows, in display-ready text", () => {
-    const table = Object.values(bonuses)[0];
-    for (const [id, entry] of Object.entries(table)) {
-      expect(sets, id).toHaveProperty([id]);
-      for (const bonus of entry.bonuses) expect(textProblem(bonus.text), `${id} ${bonus.pieces}pc`).toBeNull();
-    }
-  });
+    it.skipIf(entries.length === 0)(
+      "recommend weapons and teammates the game's tables know",
+      () => {
+        for (const [path, guide] of entries) {
+          for (const weapon of guide.weapons)
+            expect(weapons, `${path} weapon`).toHaveProperty([weapon.id]);
+          for (const team of guide.teams) {
+            for (const member of team.members)
+              expect(knows(characters, member), `${path} team ${member}`).toBe(true);
+            if (team.alternates) {
+              // One list per slot, never repeating someone already in the team.
+              expect(team.alternates, `${path} alternates`).toHaveLength(team.members.length);
+              for (const alt of team.alternates.flat()) {
+                expect(knows(characters, alt), `${path} alternate ${alt}`).toBe(true);
+                expect(team.members, `${path} alternate ${alt}`).not.toContain(alt);
+              }
+            }
+          }
+          for (const id of guide.synergies)
+            expect(knows(characters, id), `${path} synergy ${id}`).toBe(true);
+        }
+      },
+    );
 
-  it.skipIf(Object.keys(picks).length === 0)("have picks keyed by character id", () => {
-    const file = Object.values(picks)[0];
-    for (const id of Object.keys(file.characters)) expect(knows(characters, id), id).toBe(true);
-  });
+    it.skipIf(Object.keys(bonuses).length === 0)(
+      "describe sets the sets table knows, in display-ready text",
+      () => {
+        const table = Object.values(bonuses)[0];
+        for (const [id, entry] of Object.entries(table)) {
+          expect(sets, id).toHaveProperty([id]);
+          for (const bonus of entry.bonuses)
+            expect(textProblem(bonus.text), `${id} ${bonus.pieces}pc`).toBeNull();
+        }
+      },
+    );
 
-  it.skipIf(entries.length === 0)("give each material icon as a full URL or a file the site ships", () => {
-    for (const [file, guide] of entries) {
-      for (const item of guide.materials.flatMap((group) => group.items)) {
-        if (item.iconUrl === null || item.iconUrl.startsWith("https://")) continue;
-        // A path under public/, which the loader resolves against the deployed base.
-        expect(item.iconUrl, `${file} ${item.name}`).toMatch(/^[a-z]+\/[a-z]+\/[\w-]+\.webp$/);
-        expect(existsSync(path.join(process.cwd(), "public", item.iconUrl)), `${file} ${item.iconUrl}`).toBe(true);
+    it.skipIf(Object.keys(picks).length === 0)("have picks keyed by character id", () => {
+      const file = Object.values(picks)[0];
+      for (const id of Object.keys(file.characters)) expect(knows(characters, id), id).toBe(true);
+    });
+
+    it.skipIf(entries.length === 0)(
+      "give each material icon as a full URL or a file the site ships",
+      () => {
+        for (const [file, guide] of entries) {
+          for (const item of guide.materials.flatMap((group) => group.items)) {
+            if (item.iconUrl === null || item.iconUrl.startsWith("https://")) continue;
+            // A path under public/, which the loader resolves against the deployed base.
+            expect(item.iconUrl, `${file} ${item.name}`).toMatch(/^[a-z]+\/[a-z]+\/[\w-]+\.webp$/);
+            expect(
+              existsSync(path.join(process.cwd(), "public", item.iconUrl)),
+              `${file} ${item.iconUrl}`,
+            ).toBe(true);
+          }
+        }
+      },
+    );
+
+    it.skipIf(entries.length === 0)("date a guide only with a real calendar day", () => {
+      for (const [path, guide] of entries) {
+        for (const day of [guide.source?.updated, guide.kitChangedAt]) {
+          if (day != null) expect(day, path).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+        }
       }
-    }
-  });
-
-  it.skipIf(entries.length === 0)("date a guide only with a real calendar day", () => {
-    for (const [path, guide] of entries) {
-      for (const day of [guide.source?.updated, guide.kitChangedAt]) {
-        if (day != null) expect(day, path).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      }
-    }
-  });
-});
+    });
+  },
+);

@@ -1,0 +1,19 @@
+# Response headers for Cloudflare Pages:
+# https://developers.cloudflare.com/pages/configuration/headers/
+#
+# script-src allows index.html's one inline script by its hash, and connect-src
+# names the Enka relay (VITE_ENKA_PROXY). scripts/prerender.mjs fails the build
+# when either stops matching, so a change there cannot ship blocked.
+# img-src lists every host the app pulls art from (src/lib/remoteImage.ts,
+# the guide data). Ads will need a different, nonce-based policy.
+/*
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-gD6siXoJpD8byTRX7oj4gZG8qaUOIM7x9ttXr6qVGWA='; style-src 'self'; img-src 'self' data: blob: https://enka.network https://cdn.jsdelivr.net https://fastly.jsdelivr.net https://gi.yatta.moe; font-src 'self' data:; connect-src 'self' https://enka-proxy.xymoh.workers.dev; base-uri 'none'; form-action 'self'; frame-ancestors 'none'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+
+# Vite fingerprints every file under /assets, so none of them ever changes.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

@@ -9,7 +9,13 @@ import type {
   EnkaPlayerInfo,
 } from "../types/enka";
 import type { Artifact, ArtifactSlot, ArtifactMainStat, ArtifactSubstat } from "../types/artifact";
-import type { CharacterData, CharacterWeapon, CharacterStats, ShowcaseData, GenshinElement } from "../types/character";
+import type {
+  CharacterData,
+  CharacterWeapon,
+  CharacterStats,
+  ShowcaseData,
+  GenshinElement,
+} from "../types/character";
 import { SLOT_MAP, SLOT_ORDER } from "./constants";
 import statKeysData from "../data/stat-keys.json";
 import charactersData from "../data/characters.json";
@@ -22,8 +28,14 @@ import { computeRollQuality, getMaxRoll } from "./scoring";
 
 // ── Lookup tables ──
 
-const STAT_KEYS = statKeysData as Record<string, { displayName: string; shortName: string; isPercentage: boolean }>;
-const CHARACTERS = charactersData as Record<string, { name: string; element: string; weapon: string; icon: string }>;
+const STAT_KEYS = statKeysData as Record<
+  string,
+  { displayName: string; shortName: string; isPercentage: boolean }
+>;
+const CHARACTERS = charactersData as Record<
+  string,
+  { name: string; element: string; weapon: string; icon: string }
+>;
 const ARTIFACTS = artifactsData as Record<string, { name: string; pieces: number }>;
 const WEAPONS = weaponsData as Record<string, string>;
 const WEAPON_IDS = weaponIdsData as Record<string, string>;
@@ -93,7 +105,11 @@ function getSlotIndex(slot: ArtifactSlot): number {
 /**
  * Resolve a FIGHT_PROP_… string to its display metadata.
  */
-function resolveStatName(propId: string): { displayName: string; shortName: string; isPercentage: boolean } {
+function resolveStatName(propId: string): {
+  displayName: string;
+  shortName: string;
+  isPercentage: boolean;
+} {
   return STAT_KEYS[propId] ?? { displayName: propId, shortName: propId, isPercentage: false };
 }
 
@@ -130,7 +146,10 @@ const ELEMENT_DMG_KEY: Record<GenshinElement, string> = {
 };
 const PHYSICAL_DMG_KEY = "30";
 
-function detectElement(fightPropMap: Record<string, number> | undefined, fallback: GenshinElement = "Pyro"): GenshinElement {
+function detectElement(
+  fightPropMap: Record<string, number> | undefined,
+  fallback: GenshinElement = "Pyro",
+): GenshinElement {
   if (!fightPropMap) return fallback;
   for (const [propId, element] of Object.entries(DMG_BONUS_PROP_IDS)) {
     if ((fightPropMap[propId] ?? 0) > 0) return element;
@@ -213,7 +232,10 @@ const APPEND_PROP_STAT_MAP: Record<number, string> = {
  * Exception: if the artifact started with 3 substats, the 4th stat that appeared
  * at +4 has ALL its occurrences as enhancements (first appearance IS an enhancement).
  */
-function countEnhancementsFromAppendList(appendPropIdList: number[], level: number = 20): Map<string, number> {
+function countEnhancementsFromAppendList(
+  appendPropIdList: number[],
+  level: number = 20,
+): Map<string, number> {
   // Count total occurrences of each stat
   const statCounts = new Map<string, number>();
 
@@ -304,12 +326,14 @@ function buildSubstats(
   if (!raw || raw.length === 0) return [];
 
   // If appendPropIdList is available, use exact roll counting
-  const enhancementCounts = appendPropIdList && appendPropIdList.length > 0
-    ? countEnhancementsFromAppendList(appendPropIdList, level)
-    : null;
-  const rollTiers = appendPropIdList && appendPropIdList.length > 0
-    ? rollTiersFromAppendList(appendPropIdList)
-    : null;
+  const enhancementCounts =
+    appendPropIdList && appendPropIdList.length > 0
+      ? countEnhancementsFromAppendList(appendPropIdList, level)
+      : null;
+  const rollTiers =
+    appendPropIdList && appendPropIdList.length > 0
+      ? rollTiersFromAppendList(appendPropIdList)
+      : null;
 
   return raw.map((s) => {
     const statKey = s.appendPropId as FightProp;
@@ -368,7 +392,8 @@ function buildMainStat(flat: EnkaEquip["flat"]): ArtifactMainStat | null {
 // (this is also the ID used as the key in src/data/artifacts.json).
 
 function extractSetId(flat: EnkaEquip["flat"]): string {
-  if (flat.setId) return flat.setId;
+  // Enka sends a number; the tables and recommendations key sets by string.
+  if (flat.setId) return String(flat.setId);
   const match = flat.icon.match(/UI_RelicIcon_(\d+)_/);
   return match ? match[1] : "0";
 }
@@ -418,6 +443,32 @@ export function getCharacterElement(
 
 function isTraveler(avatarId: number): boolean {
   return TRAVELER_AVATAR_IDS.has(avatarId);
+}
+
+/**
+ * skillLevelMap is keyed by skill id, and for nearly every character
+ * ascending id order is Normal Attack, Skill, Burst. Enka's SkillOrder
+ * (store/characters.json) says otherwise for Ayaka and Amber, and for every
+ * Traveler, whose Normal Attack is the one id in the 1005xx range.
+ */
+const SKILL_ORDER: Record<number, number[]> = {
+  10000002: [10024, 10018, 10019],
+  10000021: [10041, 10032, 10017],
+};
+
+function talentLevels(avatarId: number, map: Record<string, number>): number[] {
+  const ids = Object.keys(map)
+    .map(Number)
+    .sort((a, b) => a - b);
+  const order =
+    SKILL_ORDER[avatarId] ??
+    (isTraveler(avatarId)
+      ? [...ids.filter((id) => id > 100000), ...ids.filter((id) => id <= 100000)]
+      : ids);
+  return order
+    .filter((id) => String(id) in map)
+    .slice(0, 3)
+    .map((id) => Math.round(map[id]));
 }
 
 /**
@@ -506,8 +557,8 @@ export function computeStats(
   const flatHp = fpVal(fp, "2", "FIGHT_PROP_HP");
   // HP% may be split across multiple keys (base HP% + set bonus HP%).
   // Try: key 3 (standard HP%), key 10 (alternate HP% source), key 0 (total HP%).
-  const hpPercent = fpVal(fp, "3", "FIGHT_PROP_HP_PERCENT")
-    || fpVal(fp, "10", "FIGHT_PROP_HP_PERCENT");
+  const hpPercent =
+    fpVal(fp, "3", "FIGHT_PROP_HP_PERCENT") || fpVal(fp, "10", "FIGHT_PROP_HP_PERCENT");
   const maxHp = Math.round(baseHp * (1 + hpPercent) + flatHp);
 
   // ── ATK: component formula ──
@@ -568,7 +619,17 @@ export function computeStats(
   }
   elementalDmg = parseFloat((elementalDmg * 100).toFixed(1));
 
-  return { maxHp, atk, def, elementalMastery: em, critRate, critDmg, energyRecharge: er, elementalDmg, raw: fp };
+  return {
+    maxHp,
+    atk,
+    def,
+    elementalMastery: em,
+    critRate,
+    critDmg,
+    energyRecharge: er,
+    elementalDmg,
+    raw: fp,
+  };
 }
 
 // ── Weapon extraction ──
@@ -591,7 +652,7 @@ function extractWeapon(equips: EnkaEquip[]): CharacterWeapon | null {
     const substats = flat.weaponStats ?? [];
     const substat = substats.find((s) => s.appendPropId !== "FIGHT_PROP_BASE_ATTACK");
     const substatMeta = substat ? STAT_KEYS[substat.appendPropId] : null;
-    const substatName = substatMeta?.displayName ?? (substat?.appendPropId ?? "-");
+    const substatName = substatMeta?.displayName ?? substat?.appendPropId ?? "-";
     const substatDisplay = substat
       ? substatMeta?.isPercentage
         ? `${substat.statValue.toFixed(1)}%`
@@ -599,15 +660,14 @@ function extractWeapon(equips: EnkaEquip[]): CharacterWeapon | null {
       : "-";
 
     // affixMap values are 0-indexed (0 = R1, 4 = R5)
-    const refinement = weapon?.affixMap
-      ? (Object.values(weapon.affixMap)[0] ?? 0) + 1
-      : 1;
+    const refinement = weapon?.affixMap ? (Object.values(weapon.affixMap)[0] ?? 0) + 1 : 1;
 
     return {
       id: equip.itemId,
       name: resolveWeaponName(flat, equip.itemId),
       icon,
       level: weapon?.level ?? 1,
+      ascension: weapon ? (weapon.promoteLevel ?? 0) : undefined,
       refinement,
       rarity: flat.rankLevel,
       mainStat: { name: mainStatName, value: mainStatDisplay },
@@ -698,13 +758,9 @@ function parseCharacter(
 
   // Talents: prefer skillLevelMap (gives actual combat talent levels 1-15),
   // fallback to inherentProudSkillList, then talentIdList
-  // skillLevelMap keys are skill depot derived IDs; the 3 combat talents
-  // are typically the first 3 sorted entries
   let talents: number[] = [];
   if (avatar.skillLevelMap) {
-    const levels = Object.values(avatar.skillLevelMap)
-      .slice(0, 3)
-      .map((v) => Math.round(v));
+    const levels = talentLevels(avatarId, avatar.skillLevelMap);
     if (levels.length > 0) {
       talents = levels;
     }
@@ -745,6 +801,7 @@ function parseCharacter(
     element,
     weaponType: getCharacterWeaponType(avatarId),
     level: charLevel,
+    ascension: avatar.propMap?.["1002"] ? Number(avatar.propMap["1002"].val ?? 0) : undefined,
     constellation,
     talents,
     talentIconSuffix: getTalentIconSuffix(avatarId),
@@ -752,7 +809,16 @@ function parseCharacter(
     weapon,
     artifacts,
     stats: computeStats(avatar.fightPropMap, artifacts, element),
-    buildScore: { total: 0, grade: "F", complete: false, artifactCount: artifacts.length, correctMainStats: 0, totalSelectableSlots: 0, setBonus: { activeSets: [], matchStatus: "no_recommendation" }, cv: 0 },
+    buildScore: {
+      total: 0,
+      grade: "F",
+      complete: false,
+      artifactCount: artifacts.length,
+      correctMainStats: 0,
+      totalSelectableSlots: 0,
+      setBonus: { activeSets: [], matchStatus: "no_recommendation" },
+      cv: 0,
+    },
     activeSetBonuses,
     usesGenericWeights: isTraveler(avatarId),
   };
@@ -779,7 +845,12 @@ function parseArtifact(equip: EnkaEquip): Artifact | null {
 
   // Use flat.reliquarySubstats directly (string appendPropId values)
   // Pass appendPropIdList for exact roll counting
-  const substats = buildSubstats(flat.reliquarySubstats, reliquary?.appendPropIdList, rarity, clampedLevel);
+  const substats = buildSubstats(
+    flat.reliquarySubstats,
+    reliquary?.appendPropIdList,
+    rarity,
+    clampedLevel,
+  );
 
   return {
     id: `${equip.itemId}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,

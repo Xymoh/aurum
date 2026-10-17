@@ -17,7 +17,10 @@ interface InfoTipProps {
   className?: string;
   /** Which edge the panel lines up with. Defaults to the trigger's left. */
   align?: "left" | "right";
-  /** Accessible name for the trigger when the visible text is not enough. */
+  /**
+   * Accessible name for a trigger with no visible text (an icon, roll pips).
+   * It replaces the visible text, so never pass it over a number.
+   */
   label?: string;
   /** Surface classes for the panel, so each game can use its own palette. */
   panelClassName?: string;
@@ -89,6 +92,19 @@ export function InfoTip({
 
   useEffect(() => cancelClose, [cancelClose]);
 
+  // Escape closes the panel however it opened (WCAG 1.4.13), not only once pinned.
+  useEffect(() => {
+    if (!show) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setPinned(false);
+        setOpen(false);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [show]);
+
   useEffect(() => {
     if (!pinned) return;
     const onDown = (e: PointerEvent) => {
@@ -99,18 +115,8 @@ export function InfoTip({
         setOpen(false);
       }
     };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setPinned(false);
-        setOpen(false);
-      }
-    };
     document.addEventListener("pointerdown", onDown);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("pointerdown", onDown);
-      document.removeEventListener("keydown", onKey);
-    };
+    return () => document.removeEventListener("pointerdown", onDown);
   }, [pinned]);
 
   useLayoutEffect(() => {
@@ -173,6 +179,7 @@ export function InfoTip({
         type="button"
         aria-expanded={show}
         aria-controls={id}
+        aria-describedby={show ? id : undefined}
         aria-label={label}
         onClick={() => {
           setPinned((p) => !p);

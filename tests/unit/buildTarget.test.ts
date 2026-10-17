@@ -2,16 +2,25 @@ import { describe, expect, it } from "vitest";
 import { en } from "../../src/i18n/locales/en";
 import { format } from "../../src/i18n";
 import type { Translate } from "../../src/lib/buildTarget/model";
-import { genshinBuildId, getGenshinBuild, listGenshinBuilds, movedGenshinBuild } from "../../src/lib/buildTarget/genshin";
+import {
+  genshinBuildId,
+  getGenshinBuild,
+  listGenshinBuilds,
+  movedGenshinBuild,
+} from "../../src/lib/buildTarget/genshin";
 import { checkMainStat } from "../../src/lib/scoring";
 import { getHsrBuild, listHsrBuilds, sameHsrBuild } from "../../src/hsr/buildTarget";
 import { getZzzBuild, listZzzBuilds } from "../../src/zzz/buildTarget";
 
 const t = ((section: string, key: string, vars?: Record<string, string | number>) =>
-  format((en as unknown as Record<string, Record<string, string>>)[section][key], vars)) as Translate;
+  format(
+    (en as unknown as Record<string, Record<string, string>>)[section][key],
+    vars,
+  )) as Translate;
 
 /** A dictionary key that leaked instead of a label looks exactly like this. */
-const RAW_KEY = /^(FIGHT_PROP_|CRIT_|ATK_|HP_|DEF_|FLAT_|ELEMENTAL_|ENERGY_|HEALING_|PHYSICAL_|\d{5}$|[A-Z][a-z]+AddedRatio$)/;
+const RAW_KEY =
+  /^(FIGHT_PROP_|CRIT_|ATK_|HP_|DEF_|FLAT_|ELEMENTAL_|ENERGY_|HEALING_|PHYSICAL_|\d{5}$|[A-Z][a-z]+AddedRatio$)/;
 
 describe("Genshin build targets", () => {
   it("lists every character, sorted by name", () => {
@@ -28,7 +37,9 @@ describe("Genshin build targets", () => {
     // HP% sands and a Pyro goblet are the whole point of the character.
     expect(target.slots.find((s) => s.slot === "Sands")?.stats).toContain("HP%");
     expect(target.slots.find((s) => s.slot === "Goblet")?.stats).toContain("Pyro DMG");
-    expect(target.sets.flatMap((r) => r.parts.map((p) => p.name))).toContain("Crimson Witch of Flames");
+    expect(target.sets.flatMap((r) => r.parts.map((p) => p.name))).toContain(
+      "Crimson Witch of Flames",
+    );
     // Game8 states no Energy Recharge figure for her, so there is no target.
     expect(target.energyTarget).toBeNull();
     // Crit leads the priority for a crit-scaling DPS.
@@ -77,7 +88,13 @@ describe("Genshin build targets", () => {
     expect(travelers).toHaveLength(14);
     const listed = travelers.filter((l) => !l.unlisted);
     expect(listed.map((l) => l.name).sort()).toEqual([
-      "Traveler (Anemo)", "Traveler (Cryo)", "Traveler (Dendro)", "Traveler (Electro)", "Traveler (Geo)", "Traveler (Hydro)", "Traveler (Pyro)",
+      "Traveler (Anemo)",
+      "Traveler (Cryo)",
+      "Traveler (Dendro)",
+      "Traveler (Electro)",
+      "Traveler (Geo)",
+      "Traveler (Hydro)",
+      "Traveler (Pyro)",
     ]);
     // The element is the build, so it is drawn on the face every team shows.
     for (const l of travelers) expect(l.badge?.label, l.id).toBe(l.tags[0]);
@@ -116,8 +133,12 @@ describe("Star Rail build targets", () => {
 
   it("reads relic and ornament sets out of the Fribbels simulation block", () => {
     const parts = (id: string) => getHsrBuild(id, t)!.sets.flatMap((r) => r.parts);
-    expect(parts("1310")).toContainEqual(expect.objectContaining({ name: "Iron Cavalry Against the Scourge", pieces: 4 }));
-    expect(parts("1310")).toContainEqual(expect.objectContaining({ name: "Forge of the Kalpagni Lantern", pieces: 2 }));
+    expect(parts("1310")).toContainEqual(
+      expect.objectContaining({ name: "Iron Cavalry Against the Scourge", pieces: 4 }),
+    );
+    expect(parts("1310")).toContainEqual(
+      expect.objectContaining({ name: "Forge of the Kalpagni Lantern", pieces: 2 }),
+    );
     // An escaped apostrophe in the upstream source must survive the parse.
     expect(parts("1407").map((p) => p.name)).toContain("Bone Collection's Serene Demesne");
   });

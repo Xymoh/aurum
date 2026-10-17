@@ -46,12 +46,19 @@ const MAX_RANKS = 3;
 /** Team rows past this are variations on the same few cores. */
 const MAX_TEAMS = 4;
 
-const ONLY = new Set((process.argv.find((a) => a.startsWith("--only=")) ?? "").slice(7).split(",").filter(Boolean));
+const ONLY = new Set(
+  (process.argv.find((a) => a.startsWith("--only=")) ?? "").slice(7).split(",").filter(Boolean),
+);
 const GAMES = process.argv.filter((a) => a === "hsr" || a === "zzz");
 if (GAMES.length === 0) GAMES.push("hsr", "zzz");
 
 function normalise(name) {
-  return name.toLowerCase().replace(/[’']/g, "").replace(/[^a-z0-9& ]+/g, " ").replace(/\s+/g, " ").trim();
+  return name
+    .toLowerCase()
+    .replace(/[’']/g, "")
+    .replace(/[^a-z0-9& ]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /**
@@ -67,8 +74,12 @@ function demojibake(s) {
 
 const HSR = {
   section: "star-rail",
-  characters: JSON.parse(fs.readFileSync(path.join(ROOT, "src", "hsr", "data", "characters.json"), "utf8")),
-  weapons: JSON.parse(fs.readFileSync(path.join(ROOT, "src", "hsr", "data", "light-cones.json"), "utf8")),
+  characters: JSON.parse(
+    fs.readFileSync(path.join(ROOT, "src", "hsr", "data", "characters.json"), "utf8"),
+  ),
+  weapons: JSON.parse(
+    fs.readFileSync(path.join(ROOT, "src", "hsr", "data", "light-cones.json"), "utf8"),
+  ),
   /** Guide headings, matched against each `.content-header`'s text. */
   headings: {
     weapons: /^best light cones?$/i,
@@ -80,7 +91,9 @@ const HSR = {
     teams: /^teams$/i,
   },
   sets: Object.fromEntries(
-    Object.entries(JSON.parse(fs.readFileSync(path.join(ROOT, "src", "hsr", "data", "sets.json"), "utf8"))).map(([id, name]) => [id, { name }]),
+    Object.entries(
+      JSON.parse(fs.readFileSync(path.join(ROOT, "src", "hsr", "data", "sets.json"), "utf8")),
+    ).map(([id, name]) => [id, { name }]),
   ),
   /**
    * Prydwen's names where they differ from StarRailRes', both sides already
@@ -99,8 +112,16 @@ const HSR = {
     "trailblazer elation": "trailblazer caelus|Elation",
   },
   parse(text) {
-    const relicBlock = block(text, /BEST RELIC SETS/i, /Best Planetary Sets|BEST PLANAR|BEST STATS|RELIC STATS/i);
-    const planarBlock = block(text, /Best Planetary Sets|BEST PLANAR SETS/i, /Best Specialist|BEST STATS|RELIC STATS|MAIN STATS/i);
+    const relicBlock = block(
+      text,
+      /BEST RELIC SETS/i,
+      /Best Planetary Sets|BEST PLANAR|BEST STATS|RELIC STATS/i,
+    );
+    const planarBlock = block(
+      text,
+      /Best Planetary Sets|BEST PLANAR SETS/i,
+      /Best Specialist|BEST STATS|RELIC STATS|MAIN STATS/i,
+    );
     return {
       relicSets: rankedPicks(relicBlock).slice(0, MAX_RANKS),
       ornamentSets: rankedPicks(planarBlock).slice(0, MAX_RANKS),
@@ -110,9 +131,13 @@ const HSR = {
 
 const ZZZ = {
   section: "zenless",
-  characters: JSON.parse(fs.readFileSync(path.join(ROOT, "src", "zzz", "data", "agents.json"), "utf8")),
+  characters: JSON.parse(
+    fs.readFileSync(path.join(ROOT, "src", "zzz", "data", "agents.json"), "utf8"),
+  ),
   sets: JSON.parse(fs.readFileSync(path.join(ROOT, "src", "zzz", "data", "sets.json"), "utf8")),
-  weapons: JSON.parse(fs.readFileSync(path.join(ROOT, "src", "zzz", "data", "weapons.json"), "utf8")),
+  weapons: JSON.parse(
+    fs.readFileSync(path.join(ROOT, "src", "zzz", "data", "weapons.json"), "utf8"),
+  ),
   headings: {
     // The block also names the team the figures were calculated with
     // ("Dialyn + Yesterday Calls"); only the ranked accordions are picks.
@@ -204,7 +229,11 @@ function extractGuide(wanted) {
   const FOLLOWING = Node.DOCUMENT_POSITION_FOLLOWING;
   const headers = [...document.querySelectorAll(".content-header")];
   const linkOf = (a) => ({
-    slug: (a.getAttribute("href") ?? "").replace(/[?#].*$/, "").replace(/\/$/, "").split("/").pop(),
+    slug: (a.getAttribute("href") ?? "")
+      .replace(/[?#].*$/, "")
+      .replace(/\/$/, "")
+      .split("/")
+      .pop(),
     name:
       clean(a.querySelector(".inline-name")?.textContent) ||
       a.querySelector("img.character-icon-responsive, img")?.getAttribute("alt")?.trim() ||
@@ -224,19 +253,26 @@ function extractGuide(wanted) {
     if (at < 0) continue;
     const head = headers[at];
     const next = headers[at + 1];
-    const inside = (el) => head.compareDocumentPosition(el) & FOLLOWING && (!next || el.compareDocumentPosition(next) & FOLLOWING);
+    const inside = (el) =>
+      head.compareDocumentPosition(el) & FOLLOWING &&
+      (!next || el.compareDocumentPosition(next) & FOLLOWING);
     const all = (sel) => [...document.querySelectorAll(sel)].filter(inside);
 
-    const weapons = all(".hsr-light-cone .pw-accordion-button, .zzz-engine .pw-accordion-button").map((b) => ({
-      name: clean(b.querySelector("[class*=set-name]")?.textContent) || b.querySelector("img")?.getAttribute("alt")?.trim() || "",
+    const weapons = all(
+      ".hsr-light-cone .pw-accordion-button, .zzz-engine .pw-accordion-button",
+    ).map((b) => ({
+      name:
+        clean(b.querySelector("[class*=set-name]")?.textContent) ||
+        b.querySelector("img")?.getAttribute("alt")?.trim() ||
+        "",
       refinement: clean(b.querySelector(".cone-super")?.textContent),
     }));
     const links = all('a[href*="/characters/"]')
       .filter((a) => !a.closest(".team-row"))
       .map(linkOf);
     const container = all("[class*=team-container]")[0];
-    const teams = (container ? [...container.querySelectorAll(".team-row")] : all(".team-row")).map((row) =>
-      [...row.querySelectorAll('a[href*="/characters/"]')].map(linkOf),
+    const teams = (container ? [...container.querySelectorAll(".team-row")] : all(".team-row")).map(
+      (row) => [...row.querySelectorAll('a[href*="/characters/"]')].map(linkOf),
     );
     // "Substats:" / "Skills priority:" boxes: a label span and the line.
     const boxes = all(".sub-stats").map((box) => {
@@ -250,14 +286,23 @@ function extractGuide(wanted) {
     const lists = all("ul, ol").filter((l) => !l.parentElement?.closest("li"));
     const items = [...(lists[0]?.children ?? [])]
       .filter((li) => li.tagName === "LI")
-      .map((li) => ({ text: ownText(li), sub: [...li.querySelectorAll(":scope > ul > li, :scope > ol > li")].map(ownText) }));
+      .map((li) => ({
+        text: ownText(li),
+        sub: [...li.querySelectorAll(":scope > ul > li, :scope > ol > li")].map(ownText),
+      }));
     // Zenless draws its skill order as cards with an icon between each pair.
     const skills = [];
     const priority = all(".skill-priority")[0];
     for (const el of priority ? priority.children : []) {
-      if (el.classList.contains("skill")) skills.push({ skill: clean(el.textContent) || el.querySelector("img")?.getAttribute("alt")?.trim() || "" });
+      if (el.classList.contains("skill"))
+        skills.push({
+          skill:
+            clean(el.textContent) || el.querySelector("img")?.getAttribute("alt")?.trim() || "",
+        });
       else if (el.classList.contains("order") && !el.classList.contains("mobile")) {
-        skills.push({ order: el.querySelector("svg")?.getAttribute("data-icon") || clean(el.textContent) });
+        skills.push({
+          order: el.querySelector("svg")?.getAttribute("data-icon") || clean(el.textContent),
+        });
       }
     }
     out.sections[key] = { weapons, links, teams, boxes, items, lists: lists.length, skills };
@@ -273,7 +318,16 @@ function extractGuide(wanted) {
 }
 
 /** Zenless's skill-order icons. Anything else is reported, not guessed. */
-const ORDER_ICONS = { "angles-right": ">", "angle-right": ">", "chevron-right": ">", "arrow-right": ">", equals: "=", ">": ">", "=": "=", ">=": ">=" };
+const ORDER_ICONS = {
+  "angles-right": ">",
+  "angle-right": ">",
+  "chevron-right": ">",
+  "arrow-right": ">",
+  equals: "=",
+  ">": ">",
+  "=": "=",
+  ">=": ">=",
+};
 
 /**
  * The page's raw blocks -> GuidePicks. Names are resolved by the caller's
@@ -286,7 +340,8 @@ function buildPicks(guide, { who, weaponId, memberId, ownIds }, report) {
   // Guides that print more than the contract holds: the first is kept.
   const substatBoxes = sec("stats").boxes.filter((b) => /^substats/i.test(b.label)).length;
   if (substatBoxes > 1) report.shapes.push(`${who}: ${substatBoxes} substat lines, kept the first`);
-  if (sec("endgame").lists > 1) report.shapes.push(`${who}: ${sec("endgame").lists} endgame stat lists, kept the first`);
+  if (sec("endgame").lists > 1)
+    report.shapes.push(`${who}: ${sec("endgame").lists} endgame stat lists, kept the first`);
   const boxValue = (key, re) => {
     const value = sec(key).boxes.find((b) => re.test(b.label))?.value;
     return value ? demojibake(value) : null;
@@ -301,7 +356,8 @@ function buildPicks(guide, { who, weaponId, memberId, ownIds }, report) {
     }
     const refinement = Number(w.refinement.match(/S\s*(\d)/i)?.[1]) || null;
     // The same weapon can be ranked twice at different refinements (S5 and S1).
-    if (!weapons.some((x) => x.id === id && x.refinement === refinement)) weapons.push({ id, refinement });
+    if (!weapons.some((x) => x.id === id && x.refinement === refinement))
+      weapons.push({ id, refinement });
   }
 
   const synergies = [];
@@ -338,7 +394,8 @@ function buildPicks(guide, { who, weaponId, memberId, ownIds }, report) {
     const m = item.text.match(/^([^:]{1,40}?)\s*:\s*(.*)$/);
     if (!m) continue;
     let value = m[2];
-    if (!value && item.sub.length && item.sub.every((s) => s.length <= 60 && /\d/.test(s))) value = item.sub.join(" / ");
+    if (!value && item.sub.length && item.sub.every((s) => s.length <= 60 && /\d/.test(s)))
+      value = item.sub.join(" / ");
     if (!value || value.length > 120) continue;
     const figure = endgameFigure(demojibake(value));
     if (figure) endgameStats.push({ label: demojibake(m[1]), value: figure });
@@ -408,11 +465,20 @@ async function readBuildTab(page, url, headings) {
   await settle(page);
   await page.waitForTimeout(DELAY_MS);
   const { text, updated } = await page.evaluate(async () => {
-    const tab = [...document.querySelectorAll(".tabs .single-tab")].find((e) => /build/i.test(e.textContent));
+    const tab = [...document.querySelectorAll(".tabs .single-tab")].find((e) =>
+      /build/i.test(e.textContent),
+    );
     if (tab) tab.click();
     await new Promise((r) => setTimeout(r, 700));
-    const line = [...document.querySelectorAll(".character-top p")].find((p) => /^\s*last updated/i.test(p.textContent));
-    const updated = line ? (line.querySelector("span")?.textContent ?? line.textContent.replace(/^\s*last updated\s*:?/i, "")).trim() : null;
+    const line = [...document.querySelectorAll(".character-top p")].find((p) =>
+      /^\s*last updated/i.test(p.textContent),
+    );
+    const updated = line
+      ? (
+          line.querySelector("span")?.textContent ??
+          line.textContent.replace(/^\s*last updated\s*:?/i, "")
+        ).trim()
+      : null;
     return { text: document.body.innerText, updated };
   });
   const wanted = Object.fromEntries(Object.entries(headings).map(([k, re]) => [k, re.source]));
@@ -434,22 +500,31 @@ async function run(game, page) {
   for (const [id, c] of Object.entries(game.characters)) {
     const key = normalise(c.name);
     idsByName.set(key, [...(idsByName.get(key) ?? []), id]);
-    if (c.path) idsByName.set(`${key}|${c.path}`, [...(idsByName.get(`${key}|${c.path}`) ?? []), id]);
+    if (c.path)
+      idsByName.set(`${key}|${c.path}`, [...(idsByName.get(`${key}|${c.path}`) ?? []), id]);
   }
 
   console.log(`\nLoading Prydwen ${game.section} index…`);
   await page.goto(`${BASE}/${game.section}/characters/`, { waitUntil: "domcontentloaded" });
   await settle(page);
   const consent = page.getByRole("button", { name: /do not consent/i });
-  if (await consent.count()) await consent.first().click().catch(() => {});
-  await page.waitForSelector(`a[href^="/${game.section}/characters/"]`, { timeout: 30_000 }).catch(() => {});
+  if (await consent.count())
+    await consent
+      .first()
+      .click()
+      .catch(() => {});
+  await page
+    .waitForSelector(`a[href^="/${game.section}/characters/"]`, { timeout: 30_000 })
+    .catch(() => {});
   await page.waitForTimeout(1000);
 
   const links = await page.evaluate((section) => {
     const m = new Map();
     document.querySelectorAll(`a[href^="/${section}/characters/"]`).forEach((a) => {
       const slug = a.getAttribute("href").replace(/\/$/, "").split("/").pop();
-      const name = (a.querySelector("h4, h5, [class*=name]")?.textContent || a.textContent).trim().split("\n")[0];
+      const name = (a.querySelector("h4, h5, [class*=name]")?.textContent || a.textContent)
+        .trim()
+        .split("\n")[0];
       if (slug && name && !m.has(slug)) m.set(slug, name);
     });
     return [...m.entries()];
@@ -462,11 +537,15 @@ async function run(game, page) {
     const [aliasName, aliasPath] = (game.aliases[raw] ?? raw).split("|");
     const key = aliasPath ? `${normalise(aliasName)}|${aliasPath}` : normalise(aliasName);
     // Trailblazer aliases carry "|Path"; the Stelle ids share the guide.
-    return [...(idsByName.get(key) ?? []), ...(key.includes("|") ? idsByName.get(key.replace("caelus", "stelle")) ?? [] : [])];
+    return [
+      ...(idsByName.get(key) ?? []),
+      ...(key.includes("|") ? (idsByName.get(key.replace("caelus", "stelle")) ?? []) : []),
+    ];
   };
 
   const weaponByName = new Map();
-  for (const [id, w] of Object.entries(game.weapons)) if (!weaponByName.has(normalise(w.name))) weaponByName.set(normalise(w.name), id);
+  for (const [id, w] of Object.entries(game.weapons))
+    if (!weaponByName.has(normalise(w.name))) weaponByName.set(normalise(w.name), id);
 
   // Team and synergy links are read by slug, through the index's own name
   // for it, so they resolve exactly as the guide pages do. A person is one
@@ -483,7 +562,17 @@ async function run(game, page) {
   const undated = [];
   const badDates = [];
   const report = { weapons: new Set(), members: new Set(), orders: new Set(), shapes: [] };
-  const coverage = { read: 0, weapons: 0, teams: 0, synergies: 0, substatLine: 0, endgameStats: 0, skillPriority: 0, tracePriority: 0, role: 0 };
+  const coverage = {
+    read: 0,
+    weapons: 0,
+    teams: 0,
+    synergies: 0,
+    substatLine: 0,
+    endgameStats: 0,
+    skillPriority: 0,
+    tracePriority: 0,
+    role: 0,
+  };
   const lacking = { weapons: [], teams: [], skillPriority: [] };
 
   for (const [slug, prydwenName] of links) {
@@ -504,7 +593,12 @@ async function run(game, page) {
 
     const picks = buildPicks(
       guide,
-      { who: prydwenName, weaponId: (name) => weaponByName.get(normalise(name)) ?? null, memberId, ownIds: ids },
+      {
+        who: prydwenName,
+        weaponId: (name) => weaponByName.get(normalise(name)) ?? null,
+        memberId,
+        ownIds: ids,
+      },
       report,
     );
     const found = [
@@ -520,8 +614,10 @@ async function run(game, page) {
     const picksLine = found.length ? found.join(", ") : "no picks";
     if (found.length) {
       coverage.read++;
-      for (const k of Object.keys(coverage)) if (k !== "read" && (Array.isArray(picks[k]) ? picks[k].length : picks[k])) coverage[k]++;
-      for (const k of Object.keys(lacking)) if (Array.isArray(picks[k]) ? !picks[k].length : !picks[k]) lacking[k].push(prydwenName);
+      for (const k of Object.keys(coverage))
+        if (k !== "read" && (Array.isArray(picks[k]) ? picks[k].length : picks[k])) coverage[k]++;
+      for (const k of Object.keys(lacking))
+        if (Array.isArray(picks[k]) ? !picks[k].length : !picks[k]) lacking[k].push(prydwenName);
       for (const id of ids) {
         picksById[id] = {
           name: game.characters[id].name,
@@ -531,7 +627,10 @@ async function run(game, page) {
           // Only Genshin's guides are read for main stats.
           mainStats: null,
           ...picks,
-          teams: picks.teams.map((t) => ({ ...t, members: t.members.map((m) => (ids.includes(m) ? id : m)) })),
+          teams: picks.teams.map((t) => ({
+            ...t,
+            members: t.members.map((m) => (ids.includes(m) ? id : m)),
+          })),
         };
       }
     } else {
@@ -563,7 +662,9 @@ async function run(game, page) {
     console.log(`${counts.join("/")} | ${picksLine}`);
   }
 
-  const missing = Object.keys(game.characters).filter((id) => !characters[id] && !picksById[id]).map((id) => `${game.characters[id].name} (${id})`);
+  const missing = Object.keys(game.characters)
+    .filter((id) => !characters[id] && !picksById[id])
+    .map((id) => `${game.characters[id].name} (${id})`);
   // One entry per character in the local cache; scripts/consensus.mjs
   // publishes the vote across every site, never this file as it is.
   const entries = {};
@@ -592,10 +693,13 @@ async function run(game, page) {
       delete entries[id].mainStats;
     }
   }
-  const file = writeSource(game === HSR ? "hsr" : "zzz", "prydwen", entries, { merge: ONLY.size > 0 });
+  const file = writeSource(game === HSR ? "hsr" : "zzz", "prydwen", entries, {
+    merge: ONLY.size > 0,
+  });
   console.log(`
   ✔ wrote ${Object.keys(entries).length} characters to ${path.relative(ROOT, file)}`);
-  if (unknownSets.size) console.log(`  ⚠ set names not in the sets table: ${[...unknownSets].join(", ")}`);
+  if (unknownSets.size)
+    console.log(`  ⚠ set names not in the sets table: ${[...unknownSets].join(", ")}`);
   if (unmatched.length) console.log(`  ⚠ on Prydwen but not matched: ${unmatched.join(", ")}`);
   if (missing.length) console.log(`  ⚠ no guide found for: ${missing.join(", ")}`);
 
@@ -610,17 +714,29 @@ async function run(game, page) {
   console.log(`    last-updated dates: ${dated} of ${Object.keys(picksById).length} entries`);
   if (undated.length) console.log(`  ⚠ no "Last updated" line: ${undated.join(", ")}`);
   if (badDates.length) console.log(`  ⚠ "Last updated" not read as a date: ${badDates.join(", ")}`);
-  for (const [k, names] of Object.entries(lacking)) if (names.length) console.log(`  ⚠ no ${k}: ${names.join(", ")}`);
+  for (const [k, names] of Object.entries(lacking))
+    if (names.length) console.log(`  ⚠ no ${k}: ${names.join(", ")}`);
   if (noPicks.length) console.log(`  ⚠ guide pages with no picks: ${noPicks.join(", ")}`);
-  if (report.weapons.size) console.log(`  ⚠ weapon names not in the weapons table: ${[...report.weapons].join(", ")}`);
-  if (report.members.size) console.log(`  ⚠ team / synergy names not matched: ${[...report.members].join(", ")}`);
-  if (report.orders.size) console.log(`  ⚠ skill order icons not recognised (priority left empty): ${[...report.orders].join(", ")}`);
+  if (report.weapons.size)
+    console.log(`  ⚠ weapon names not in the weapons table: ${[...report.weapons].join(", ")}`);
+  if (report.members.size)
+    console.log(`  ⚠ team / synergy names not matched: ${[...report.members].join(", ")}`);
+  if (report.orders.size)
+    console.log(
+      `  ⚠ skill order icons not recognised (priority left empty): ${[...report.orders].join(", ")}`,
+    );
   for (const note of report.shapes) console.log(`  ⚠ ${note}`);
 }
 
 async function main() {
-  const browser = await launchBrowser({ prefer: process.env.PRYDWEN_BROWSER, headless: process.env.PRYDWEN_HEADLESS === "1" });
-  const context = await browser.newContext({ locale: "en-US", viewport: { width: 1280, height: 900 } });
+  const browser = await launchBrowser({
+    prefer: process.env.PRYDWEN_BROWSER,
+    headless: process.env.PRYDWEN_HEADLESS === "1",
+  });
+  const context = await browser.newContext({
+    locale: "en-US",
+    viewport: { width: 1280, height: 900 },
+  });
   const page = await context.newPage();
   page.setDefaultTimeout(25_000);
   try {

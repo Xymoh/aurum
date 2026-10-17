@@ -44,10 +44,19 @@ const AMBER = "https://gi.yatta.moe/api/v2/en";
 const CHARACTERS_FILE = path.join(ROOT, "src", "data", "characters.json");
 const SETS_FILE = path.join(ROOT, "src", "data", "artifacts.json");
 const CHECK = process.argv.includes("--check");
-const REPORT = process.argv.find((a) => a.startsWith("--report="))?.slice("--report=".length) ?? null;
+const REPORT =
+  process.argv.find((a) => a.startsWith("--report="))?.slice("--report=".length) ?? null;
 
 /** Amber uses the game's internal element and weapon names. */
-const ELEMENTS = { Fire: "Pyro", Water: "Hydro", Wind: "Anemo", Electric: "Electro", Grass: "Dendro", Ice: "Cryo", Rock: "Geo" };
+const ELEMENTS = {
+  Fire: "Pyro",
+  Water: "Hydro",
+  Wind: "Anemo",
+  Electric: "Electro",
+  Grass: "Dendro",
+  Ice: "Cryo",
+  Rock: "Geo",
+};
 const WEAPONS = {
   WEAPON_SWORD_ONE_HAND: "Sword",
   WEAPON_CLAYMORE: "Claymore",
@@ -76,7 +85,11 @@ function readJSON(file) {
 
 /** The shape the files already have, so an addition is the only thing a diff shows. */
 function writeJSON(file, data) {
-  fs.writeFileSync(file, JSON.stringify(data, null, 2) + (trailingNewline.get(file) ? "\n" : ""), "utf8");
+  fs.writeFileSync(
+    file,
+    JSON.stringify(data, null, 2) + (trailingNewline.get(file) ? "\n" : ""),
+    "utf8",
+  );
 }
 
 function syncCharacters(avatars, table, problems) {
@@ -100,7 +113,9 @@ function syncCharacters(avatars, table, problems) {
     const ours = table[id];
     if (!ours) {
       if (!entry.element || !entry.weapon) {
-        problems.push(`character ${id} ${avatar.name}: element "${avatar.element}" or weapon "${avatar.weaponType}" is new to this script, not added`);
+        problems.push(
+          `character ${id} ${avatar.name}: element "${avatar.element}" or weapon "${avatar.weaponType}" is new to this script, not added`,
+        );
         continue;
       }
       table[id] = entry;
@@ -147,12 +162,20 @@ async function main() {
   if (!CHECK && newSets.length) writeJSON(SETS_FILE, artifacts);
 
   const verb = CHECK ? "would add" : "added";
-  console.log(`  characters.json  ${Object.keys(characters).length} entries, ${verb} ${newCharacters.length}${newCharacters.length ? `: ${newCharacters.join(", ")}` : ""}`);
-  console.log(`  artifacts.json   ${Object.keys(artifacts).length} entries, ${verb} ${newSets.length}${newSets.length ? `: ${newSets.join(", ")}` : ""}`);
+  console.log(
+    `  characters.json  ${Object.keys(characters).length} entries, ${verb} ${newCharacters.length}${newCharacters.length ? `: ${newCharacters.join(", ")}` : ""}`,
+  );
+  console.log(
+    `  artifacts.json   ${Object.keys(artifacts).length} entries, ${verb} ${newSets.length}${newSets.length ? `: ${newSets.join(", ")}` : ""}`,
+  );
   for (const problem of problems) console.log(`  ⚠ ${problem}`);
 
   if (REPORT) {
-    fs.writeFileSync(REPORT, JSON.stringify({ characters: newCharacters, sets: newSets, problems }), "utf8");
+    fs.writeFileSync(
+      REPORT,
+      JSON.stringify({ characters: newCharacters, sets: newSets, problems }),
+      "utf8",
+    );
   }
 }
 

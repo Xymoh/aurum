@@ -36,5 +36,9 @@ export function Section({
 
 /** A heading inside a section, for its sub-blocks (Skills / Passives, Ascension / Talents). */
 export function SubHeading({ skin, children }: { skin: BuildSkin; children: ReactNode }) {
-  return <h3 className={`mb-2 text-xs font-semibold uppercase tracking-wider ${skin.muted}`}>{children}</h3>;
+  return (
+    <h3 className={`mb-2 text-xs font-semibold uppercase tracking-wider ${skin.muted}`}>
+      {children}
+    </h3>
+  );
 }

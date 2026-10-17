@@ -32,7 +32,9 @@ import { PNG } from "pngjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
-const AGENTS = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "zzz", "data", "agents.json"), "utf8"));
+const AGENTS = JSON.parse(
+  fs.readFileSync(path.join(ROOT, "src", "zzz", "data", "agents.json"), "utf8"),
+);
 const OUTPUT = path.join(ROOT, "src", "zzz", "data", "art-focus.json");
 const CDN = "https://enka.network";
 const ALL = process.argv.includes("--all");
@@ -91,10 +93,14 @@ function facePosition(png) {
 }
 
 async function main() {
-  const existing = fs.existsSync(OUTPUT) ? JSON.parse(fs.readFileSync(OUTPUT, "utf8")).agents ?? {} : {};
+  const existing = fs.existsSync(OUTPUT)
+    ? (JSON.parse(fs.readFileSync(OUTPUT, "utf8")).agents ?? {})
+    : {};
   const focus = ALL ? {} : { ...existing };
   const todo = Object.entries(AGENTS).filter(([id, a]) => a.image && !(id in focus));
-  console.log(`${todo.length} render${todo.length === 1 ? "" : "s"} to measure${ALL ? "" : " (pass --all to redo everyone)"}`);
+  console.log(
+    `${todo.length} render${todo.length === 1 ? "" : "s"} to measure${ALL ? "" : " (pass --all to redo everyone)"}`,
+  );
 
   for (const [id, a] of todo) {
     process.stdout.write(`  ${a.name.padEnd(20)} `);
@@ -104,7 +110,9 @@ async function main() {
       const notes = [];
       if (Math.abs(x - 0.5) > 0.12) notes.push("off-centre");
       if (y > 0.19) notes.push("low face");
-      console.log(`x ${(x * 100).toFixed(0)}%  y ${(y * 100).toFixed(0)}%${notes.length ? "  (" + notes.join(", ") + ")" : ""}`);
+      console.log(
+        `x ${(x * 100).toFixed(0)}%  y ${(y * 100).toFixed(0)}%${notes.length ? "  (" + notes.join(", ") + ")" : ""}`,
+      );
     } catch (err) {
       console.log(`skipped: ${err.message}`);
     }

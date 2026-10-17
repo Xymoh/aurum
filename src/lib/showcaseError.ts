@@ -7,7 +7,7 @@
  * `message` is for logs and tests; readers see the dictionary text.
  */
 
-export type ShowcaseErrorCode =
+type ShowcaseErrorCode =
   /** Enka answered 400 or 404: no such player, or nothing on display. */
   | "notFound"
   /** Enka answered 424: the game's API is down for maintenance. */
@@ -24,7 +24,8 @@ export type ShowcaseErrorCode =
   | "invalidUid";
 
 const MESSAGES: Record<ShowcaseErrorCode, string> = {
-  notFound: "This UID could not be found. The player may not exist or their showcase is not public.",
+  notFound:
+    "This UID could not be found. The player may not exist or their showcase is not public.",
   maintenance: "Enka.Network is currently undergoing maintenance. Please try again later.",
   rateLimited: "Too many requests. Please wait a moment and try again.",
   unavailable: "Could not reach Enka.Network right now. Please try again in a moment.",
@@ -52,7 +53,7 @@ export class ShowcaseError extends Error {
 }
 
 /** Whether a second attempt could plausibly succeed. Unknown errors count as network trouble. */
-export function isRetryableError(err: unknown): boolean {
+function isRetryableError(err: unknown): boolean {
   return err instanceof ShowcaseError ? err.retryable : true;
 }
 

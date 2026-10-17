@@ -22,36 +22,41 @@ export function TermsPage() {
   return (
     <LegalLayout title="Terms of Use">
       <p className="leading-relaxed">
-        {SITE_NAME} ({SITE_URL}) is a free, fan-made gear scoring tool for Genshin Impact, Honkai: Star
-        Rail and Zenless Zone Zero, run by {OPERATOR}. By using the site you agree to these terms. If
-        you do not agree, please do not use it.
+        {SITE_NAME} ({SITE_URL}) is a free, fan-made gear scoring tool for Genshin Impact, Honkai:
+        Star Rail and Zenless Zone Zero, run by {OPERATOR}. By using the site you agree to these
+        terms. If you do not agree, please do not use it.
       </p>
 
       <Section title="1. What the site is">
         <p>
           The site reads a player's public in-game showcase and rates the artifacts, relics or drive
-          discs on display. It is provided free of charge, for personal and non-commercial use, as an
-          informational tool. It is not a product or service of HoYoverse and requires no account.
+          discs on display. It is provided free of charge, for personal and non-commercial use, as
+          an informational tool. It is not a product or service of HoYoverse and requires no
+          account.
+        </p>
+        <p>
+          Using it needs a current web browser with JavaScript and local storage enabled. These
+          terms apply from when you open the site until you leave it; there is no account to close.
         </p>
       </Section>
 
       <Section title="2. Not affiliated with HoYoverse">
         <p>
-          {SITE_NAME} is an independent fan project. It is not affiliated with, endorsed by, sponsored
-          by or otherwise connected to HoYoverse, COGNOSPHERE PTE. LTD., miHoYo or any of their
-          affiliates.
+          {SITE_NAME} is an independent fan project. It is not affiliated with, endorsed by,
+          sponsored by or otherwise connected to HoYoverse, COGNOSPHERE PTE. LTD., miHoYo or any of
+          their affiliates.
         </p>
         <p>
           Genshin Impact, Honkai: Star Rail, Zenless Zone Zero, and all related names, characters,
           artwork, icons and other game assets are trademarks and copyright of COGNOSPHERE PTE. LTD.
-          and miHoYo Co., Ltd. They appear on this site for the purpose of identifying and describing
-          in-game items, in a non-commercial fan work, in accordance with HoYoverse's fan-created
-          content guidelines. No ownership of those assets is claimed.
+          and miHoYo Co., Ltd. They appear on this site for the purpose of identifying and
+          describing in-game items, in a non-commercial fan work, in accordance with HoYoverse's
+          fan-created content guidelines. No ownership of those assets is claimed.
         </p>
         <p>
           If you are a rights holder and believe any material on this site infringes your rights,
-          contact us via <Ext href={CONTACT_URL}>{CONTACT_LABEL}</Ext> and it will be reviewed and, if
-          appropriate, removed promptly.
+          contact us via <Ext href={CONTACT_URL}>{CONTACT_LABEL}</Ext> and it will be reviewed and,
+          if appropriate, removed promptly.
         </p>
       </Section>
 
@@ -67,24 +72,27 @@ export function TermsPage() {
             Genshin Impact character stat data.
           </li>
           <li>
-            <Ext href="https://github.com/fribbels/hsr-optimizer">Fribbels HSR Optimizer</Ext> provides
-            the scoring methodology and Honkai: Star Rail character weights.
+            <Ext href="https://github.com/fribbels/hsr-optimizer">Fribbels HSR Optimizer</Ext>{" "}
+            provides the scoring methodology and Honkai: Star Rail character weights.
           </li>
           <li>
-            <Ext href="https://github.com/Mar-7th/StarRailRes">StarRailRes</Ext> provides Honkai: Star
-            Rail artwork.
+            <Ext href="https://github.com/Mar-7th/StarRailRes">StarRailRes</Ext> provides Honkai:
+            Star Rail artwork.
           </li>
           <li>
-            Build and set recommendations are combined from several public community build guides,
-            weighed against one another; no single guide's picks are reproduced.
+            Build and set recommendations are a weighted vote across several public community build
+            guides: where they disagree, the vote decides. A few short items, such as skill order,
+            follow the most-weighted guide. Only the picks are used, never a guide's own text. If
+            you run one of these guides and would rather it was not counted, contact us and it will
+            be taken out of the vote.
           </li>
           <li>
-            <Ext href="https://gi.yatta.moe/">Project Amber</Ext> and community mirrors of the games'
-            data files supply localised names and item ids.
+            <Ext href="https://gi.yatta.moe/">Project Amber</Ext> and community mirrors of the
+            games' data files supply localised names and item ids.
           </li>
           <li>
-            <Ext href="https://zzz.nanoka.cc/">nanoka.cc</Ext> supplies the Zenless Zone Zero material
-            icons.
+            <Ext href="https://zzz.nanoka.cc/">nanoka.cc</Ext> supplies the Zenless Zone Zero
+            material icons.
           </li>
         </ul>
         <p>
@@ -102,22 +110,25 @@ export function TermsPage() {
           A score is the output of a formula that weighs each stat by how useful it is generally
           considered to be for a given character. It is a quick evaluation, not a definitive build
           guide. It does not account for your team, weapon, constellations, rotation or playstyle,
-          and it may be wrong for your situation. Decisions about what to level, reroll, farm or spend
-          in-game currency on are yours alone. We accept no responsibility for in-game resources spent
-          on the strength of a score.
+          and it may be wrong for your situation. Decisions about what to level, reroll, farm or
+          spend in-game currency on are yours alone. We accept no responsibility for in-game
+          resources spent on the strength of a score.
         </p>
       </Section>
 
       <Section title="5. Acceptable use">
         <p>You agree not to:</p>
         <ul>
-          <li>Use the site to harass, stalk or target any player, or to build profiles of players.</li>
           <li>
-            Send automated or bulk requests to the site or its relay, scrape it, or otherwise place an
-            unreasonable load on it or on Enka.Network.
+            Use the site to harass, stalk or target any player, or to build profiles of players.
+          </li>
+          <li>
+            Send automated or bulk requests to the site or its relay, scrape it, or otherwise place
+            an unreasonable load on it or on Enka.Network.
           </li>
           <li>Attempt to interfere with, circumvent or reverse-engineer the relay.</li>
           <li>Present the site or its output as endorsed by HoYoverse.</li>
+          <li>Send unlawful content through the site.</li>
           <li>Use the site in any way that breaks applicable law.</li>
         </ul>
         <p>
@@ -129,9 +140,9 @@ export function TermsPage() {
 
       <Section title="6. Availability and changes">
         <p>
-          The site is a hobby project. It may be changed, interrupted, rate-limited or shut down at any
-          time without notice, and it depends on third-party services that may do the same. There is no
-          guarantee of availability, accuracy or continued support.
+          The site is a hobby project. It may be changed, interrupted, rate-limited or shut down at
+          any time without notice, and it depends on third-party services that may do the same.
+          There is no guarantee of availability, accuracy or continued support.
         </p>
       </Section>
 
@@ -139,14 +150,14 @@ export function TermsPage() {
         <p>
           The site is provided "as is" and "as available", without warranty of any kind, express or
           implied, including fitness for a particular purpose, accuracy or non-infringement. To the
-          fullest extent permitted by law, {OPERATOR} is not liable for any loss or damage arising from
-          use of, or inability to use, the site or anything it displays.
+          fullest extent permitted by law, {OPERATOR} is not liable for any loss or damage arising
+          from use of, or inability to use, the site or anything it displays.
         </p>
         <p>
-          Nothing in these terms excludes or limits liability that cannot be excluded by law, including
-          liability for intent, gross negligence, or death or personal injury caused by negligence. If
-          you are a consumer, the mandatory consumer protection rules of the country you live in still
-          apply, and nothing here takes those rights away.
+          Nothing in these terms excludes or limits liability that cannot be excluded by law,
+          including liability for intent, gross negligence, or death or personal injury caused by
+          negligence. If you are a consumer, the mandatory consumer protection rules of the country
+          you live in still apply, and nothing here takes those rights away.
         </p>
       </Section>
 
@@ -172,14 +183,16 @@ export function TermsPage() {
 
       <Section title="10. Changes to these terms">
         <p>
-          These terms may be updated from time to time. The effective date at the top shows the current
-          version. Continued use of the site after a change means you accept the updated terms.
+          These terms may be updated from time to time. The effective date at the top shows the
+          current version. Continued use of the site after a change means you accept the updated
+          terms.
         </p>
       </Section>
 
       <Section title="11. Contact">
         <p>
-          Questions, complaints and takedown requests: <Ext href={CONTACT_URL}>{CONTACT_LABEL}</Ext>.
+          Questions, complaints and takedown requests: <Ext href={CONTACT_URL}>{CONTACT_LABEL}</Ext>
+          . Complaints are answered within 14 days.
         </p>
       </Section>
     </LegalLayout>

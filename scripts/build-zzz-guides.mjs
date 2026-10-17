@@ -86,7 +86,10 @@ const args = Object.fromEntries(
     return [k, v.length ? v.join("=") : true];
   }),
 );
-const PICKS_FILE = path.resolve(ROOT, typeof args.picks === "string" ? args.picks : path.join(DATA, "guide-picks.json"));
+const PICKS_FILE = path.resolve(
+  ROOT,
+  typeof args.picks === "string" ? args.picks : path.join(DATA, "guide-picks.json"),
+);
 
 /** Everything worth telling the person running the script, printed at the end. */
 const gaps = [];
@@ -125,10 +128,14 @@ async function headCommit() {
 async function syncCache() {
   fs.mkdirSync(CACHE, { recursive: true });
   const metaFile = path.join(CACHE, "meta.json");
-  const meta = fs.existsSync(metaFile) ? JSON.parse(fs.readFileSync(metaFile, "utf8")) : { files: {} };
+  const meta = fs.existsSync(metaFile)
+    ? JSON.parse(fs.readFileSync(metaFile, "utf8"))
+    : { files: {} };
   const wanted = [...TABLES.map((t) => `FileCfg/${t}`), ...TEXTMAPS.map((t) => `TextMap/${t}`)];
   if (args.offline) {
-    const missing = wanted.filter((w) => !fs.existsSync(path.join(CACHE, `${path.basename(w)}.json`)));
+    const missing = wanted.filter(
+      (w) => !fs.existsSync(path.join(CACHE, `${path.basename(w)}.json`)),
+    );
     if (missing.length) throw new Error(`--offline, but the cache lacks: ${missing.join(", ")}`);
     console.log(`  offline: using the cache from ${meta.sha?.slice(0, 8) ?? "an unknown commit"}`);
     return meta;
@@ -160,7 +167,8 @@ async function syncCache() {
 function loadTable(name) {
   const json = JSON.parse(fs.readFileSync(path.join(CACHE, `${name}.json`), "utf8"));
   const keys = Object.keys(json);
-  if (keys.length !== 1 || !Array.isArray(json[keys[0]])) throw new Error(`${name}: expected { "<key>": [rows] }, got keys ${keys.join(", ")}`);
+  if (keys.length !== 1 || !Array.isArray(json[keys[0]]))
+    throw new Error(`${name}: expected { "<key>": [rows] }, got keys ${keys.join(", ")}`);
   return json[keys[0]];
 }
 
@@ -184,9 +192,16 @@ function fieldNames(rows) {
 }
 
 function detect(table, what, rows, test) {
-  const hits = fieldNames(rows).filter((f) => test(rows.map((r) => r[f]), f));
+  const hits = fieldNames(rows).filter((f) =>
+    test(
+      rows.map((r) => r[f]),
+      f,
+    ),
+  );
   if (hits.length !== 1) {
-    throw new Error(`${table}: cannot tell which field is ${what} (${hits.length ? `candidates: ${hits.join(", ")}` : "no field matches"})`);
+    throw new Error(
+      `${table}: cannot tell which field is ${what} (${hits.length ? `candidates: ${hits.join(", ")}` : "no field matches"})`,
+    );
   }
   return hits[0];
 }
@@ -237,19 +252,35 @@ function levelField(table, what, rows, agentKey, [min, max], groupKey = null) {
  * Guides show the base kit, which every copy of the agent has.
  */
 function awakenField(table, rows) {
-  return detect(table, "the awakening condition", rows, (vals) =>
-    vals.every((v) => Array.isArray(v) && v.every(isNum)) && vals.some((v) => v.some((x) => x !== 0)) && share(vals, (v) => v.every((x) => x === 0)) >= 0.8);
+  return detect(
+    table,
+    "the awakening condition",
+    rows,
+    (vals) =>
+      vals.every((v) => Array.isArray(v) && v.every(isNum)) &&
+      vals.some((v) => v.some((x) => x !== 0)) &&
+      share(vals, (v) => v.every((x) => x === 0)) >= 0.8,
+  );
 }
 
 /** A string field whose non-empty values match `re` (share of non-empty values at least `min`). */
 function stringField(table, what, rows, re, { min = 1, count = 1 } = {}) {
   return detect(table, what, rows, (vals) => {
     const ne = nonEmpty(vals);
-    return vals.every((v) => v === undefined || isStr(v)) && ne.length >= count && share(ne, (v) => re.test(v)) >= min;
+    return (
+      vals.every((v) => v === undefined || isStr(v)) &&
+      ne.length >= count &&
+      share(ne, (v) => re.test(v)) >= min
+    );
   });
 }
 
-const isPair = (o) => o && typeof o === "object" && !Array.isArray(o) && Object.keys(o).length === 2 && Object.values(o).every(isNum);
+const isPair = (o) =>
+  o &&
+  typeof o === "object" &&
+  !Array.isArray(o) &&
+  Object.keys(o).length === 2 &&
+  Object.values(o).every(isNum);
 const isPairArray = (v) => Array.isArray(v) && v.every(isPair);
 
 /**
@@ -277,7 +308,10 @@ function pairKeys(table, lists, itemIds) {
   if (!pairs.length) throw new Error(`${table}: no cost pairs to read`);
   const keys = Object.keys(pairs[0]);
   const allItems = keys.filter((k) => pairs.every((p) => itemIds.has(p[k])));
-  if (allItems.length !== 1) throw new Error(`${table}: cannot tell item from count in cost pairs (keys ${keys.join(", ")})`);
+  if (allItems.length !== 1)
+    throw new Error(
+      `${table}: cannot tell item from count in cost pairs (keys ${keys.join(", ")})`,
+    );
   return { item: allItems[0], count: keys.find((k) => k !== allItems[0]) };
 }
 
@@ -329,7 +363,8 @@ function calFigure(expr, scale, decimals, level, ctx) {
     usesLevel = true;
     return `(${level})`;
   });
-  if (!/^[\d\s.+\-*/()]+$/.test(arith)) throw new Error(`${ctx.where}: unexpected {CAL:} expression "${expr}"`);
+  if (!/^[\d\s.+\-*/()]+$/.test(arith))
+    throw new Error(`${ctx.where}: unexpected {CAL:} expression "${expr}"`);
   if (usesLevel) ctx.levelDependent = true;
   const value = Function(`"use strict"; return (${arith});`)() * Number(scale);
   const dp = Math.max(0, Math.min(6, Number(decimals) || 0));
@@ -348,13 +383,24 @@ function cleanText(raw, ctx) {
   // A run of adjacent {LAYOUT_*#} variants is one phrase in several input
   // schemes. The site has no input device, so it takes the generic one.
   s = s.replace(/(?:\{LAYOUT_[A-Z]+#[^{}]*\})+/g, (run) => {
-    const variants = [...run.matchAll(/\{LAYOUT_([A-Z]+)#([^{}]*)\}/g)].map((m) => ({ kind: m[1], text: m[2] }));
-    return (variants.find((v) => v.kind === "FALLBACK") ?? variants.find((v) => v.kind === "KEYBOARD") ?? variants[0]).text;
+    const variants = [...run.matchAll(/\{LAYOUT_([A-Z]+)#([^{}]*)\}/g)].map((m) => ({
+      kind: m[1],
+      text: m[2],
+    }));
+    return (
+      variants.find((v) => v.kind === "FALLBACK") ??
+      variants.find((v) => v.kind === "KEYBOARD") ??
+      variants[0]
+    ).text;
   });
-  s = s.replace(/\{M#([^{}]*)\}\{F#([^{}]*)\}/g, "$1/$2").replace(/\{F#([^{}]*)\}\{M#([^{}]*)\}/g, "$2/$1");
+  s = s
+    .replace(/\{M#([^{}]*)\}\{F#([^{}]*)\}/g, "$1/$2")
+    .replace(/\{F#([^{}]*)\}\{M#([^{}]*)\}/g, "$2/$1");
   s = s.replace(/\{[MF]#([^{}]*)\}/g, "$1");
   s = s.replace(/\{AWAKEN_\d+#[^{}]*\}/g, "").replace(/\{NOAWAKEN_\d+#([^{}]*)\}/g, "$1");
-  s = s.replace(/\{CAL:([^{},]+),([^{},]+),([^{},]+)\}/g, (_, expr, scale, dp) => calFigure(expr, scale, dp, ctx.level ?? TEXT_SKILL_LEVEL, ctx));
+  s = s.replace(/\{CAL:([^{},]+),([^{},]+),([^{},]+)\}/g, (_, expr, scale, dp) =>
+    calFigure(expr, scale, dp, ctx.level ?? TEXT_SKILL_LEVEL, ctx),
+  );
 
   s = s.replace(/<IconMap:([A-Za-z0-9_]+)>/g, (_, icon) => {
     if (icon in ICON_NAMES) return ICON_NAMES[icon];
@@ -475,7 +521,9 @@ async function firstFrame(sharp, buf) {
   };
   const x = second(cols);
   const y = second(rows);
-  return x > 0 && y > 0 ? sharp(buf).extract({ left: 0, top: 0, width: x, height: y }).toBuffer() : buf;
+  return x > 0 && y > 0
+    ? sharp(buf).extract({ left: 0, top: 0, width: x, height: y }).toBuffer()
+    : buf;
 }
 
 /**
@@ -487,7 +535,8 @@ async function firstFrame(sharp, buf) {
 async function fetchIcons(names) {
   fs.mkdirSync(ICON_DIR, { recursive: true });
   for (const f of fs.readdirSync(ICON_DIR)) {
-    if (f.endsWith(".webp") && !names.has(f.slice(0, -".webp".length))) fs.unlinkSync(path.join(ICON_DIR, f));
+    if (f.endsWith(".webp") && !names.has(f.slice(0, -".webp".length)))
+      fs.unlinkSync(path.join(ICON_DIR, f));
   }
   const have = new Set();
   let sharp = null;
@@ -509,7 +558,10 @@ async function fetchIcons(names) {
       // does not need the native module at all.
       sharp ??= (await import("sharp")).default;
       await sharp(await firstFrame(sharp, Buffer.from(await res.arrayBuffer())))
-        .resize(ICON_SIZE, ICON_SIZE, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+        .resize(ICON_SIZE, ICON_SIZE, {
+          fit: "contain",
+          background: { r: 0, g: 0, b: 0, alpha: 0 },
+        })
         .webp({ quality: 85 })
         .toFile(file);
       have.add(name);
@@ -518,7 +570,9 @@ async function fetchIcons(names) {
       gap(`material icon ${name}: ${err.message}`);
     }
   }
-  console.log(`  items/             ${String(have.size).padStart(4)} icons${fetched ? `, ${fetched} fetched` : ""}`);
+  console.log(
+    `  items/             ${String(have.size).padStart(4)} icons${fetched ? `, ${fetched} fetched` : ""}`,
+  );
   return have;
 }
 
@@ -560,7 +614,15 @@ async function main() {
       if (m[2].trim()) anchors.push([Number(m[1]), m[2].trim().toLowerCase()]);
     }
   }
-  const nounId = detect("NounPromptsTemplateTb", "the term id", nouns, (vals) => vals.every(isNum) && new Set(vals).size === vals.length && share([...linked], (id) => vals.includes(id)) >= 0.9);
+  const nounId = detect(
+    "NounPromptsTemplateTb",
+    "the term id",
+    nouns,
+    (vals) =>
+      vals.every(isNum) &&
+      new Set(vals).size === vals.length &&
+      share([...linked], (id) => vals.includes(id)) >= 0.9,
+  );
   const nounById = new Map(nouns.map((r) => [r[nounId], r]));
   const known = anchors.filter(([id]) => nounById.has(id));
   const nameCandidates = fieldNames(nouns)
@@ -571,13 +633,25 @@ async function main() {
         const n = tx(nounById.get(id)[f])?.toLowerCase();
         return n !== undefined && (inner.startsWith(n) || n.startsWith(inner));
       });
-      return { f, matched, resolved: names.filter((n) => n !== undefined).length, short: share(names, (n) => n !== undefined && !n.includes("\n") && n.length <= 60) };
+      return {
+        f,
+        matched,
+        resolved: names.filter((n) => n !== undefined).length,
+        short: share(names, (n) => n !== undefined && !n.includes("\n") && n.length <= 60),
+      };
     })
     .filter((c) => c.short >= 0.9 && c.matched >= 0.5)
     .sort((a, b) => b.matched - a.matched || b.resolved - a.resolved);
   const [bestNoun, nextNoun] = nameCandidates;
-  const tie = nextNoun && nextNoun.matched === bestNoun.matched && nextNoun.resolved === bestNoun.resolved && nouns.some((r) => tx(r[nextNoun.f]) !== tx(r[bestNoun.f]));
-  if (!bestNoun || tie) throw new Error(`NounPromptsTemplateTb: cannot tell which field is the term name (candidates: ${nameCandidates.map((c) => c.f).join(", ") || "none"})`);
+  const tie =
+    nextNoun &&
+    nextNoun.matched === bestNoun.matched &&
+    nextNoun.resolved === bestNoun.resolved &&
+    nouns.some((r) => tx(r[nextNoun.f]) !== tx(r[bestNoun.f]));
+  if (!bestNoun || tie)
+    throw new Error(
+      `NounPromptsTemplateTb: cannot tell which field is the term name (candidates: ${nameCandidates.map((c) => c.f).join(", ") || "none"})`,
+    );
   for (const r of nouns) {
     const name = tx(r[bestNoun.f]);
     if (name !== undefined) TERMS.set(r[nounId], cleanText(name, { where: `term ${r[nounId]}` }));
@@ -585,16 +659,38 @@ async function main() {
 
   // ── Items ──
   const itemRows = T.ItemTemplateTb;
-  const itemId = detect("ItemTemplateTb", "the item id", itemRows, (vals) => vals.every(isNum) && new Set(vals).size === vals.length && vals.includes(DENNY));
+  const itemId = detect(
+    "ItemTemplateTb",
+    "the item id",
+    itemRows,
+    (vals) => vals.every(isNum) && new Set(vals).size === vals.length && vals.includes(DENNY),
+  );
   const itemById = new Map(itemRows.map((r) => [r[itemId], r]));
-  const weaponRows = Object.keys(weapons).map((id) => itemById.get(Number(id))).filter(Boolean);
-  if (weaponRows.length < Object.keys(weapons).length * 0.9) throw new Error("ItemTemplateTb: most W-Engines in weapons.json are missing from the item table");
+  const weaponRows = Object.keys(weapons)
+    .map((id) => itemById.get(Number(id)))
+    .filter(Boolean);
+  if (weaponRows.length < Object.keys(weapons).length * 0.9)
+    throw new Error(
+      "ItemTemplateTb: most W-Engines in weapons.json are missing from the item table",
+    );
   // The name key is the field whose text, for W-Engines, is the name Enka
   // publishes; the rarity is the field that matches Enka's W-Engine rarity.
-  const itemName = detect("ItemTemplateTb", "the item name", itemRows, (vals, f) =>
-    vals.every((v) => v === undefined || isStr(v)) && share(weaponRows, (r) => tx(r[f]) === weapons[r[itemId]].name) >= 0.9);
-  const itemRarity = detect("ItemTemplateTb", "the item rarity", itemRows, (vals, f) =>
-    vals.every((v) => isNum(v) && v >= 0 && v <= 5) && share(weaponRows, (r) => r[f] === weapons[r[itemId]].rarity) >= 0.95);
+  const itemName = detect(
+    "ItemTemplateTb",
+    "the item name",
+    itemRows,
+    (vals, f) =>
+      vals.every((v) => v === undefined || isStr(v)) &&
+      share(weaponRows, (r) => tx(r[f]) === weapons[r[itemId]].name) >= 0.9,
+  );
+  const itemRarity = detect(
+    "ItemTemplateTb",
+    "the item rarity",
+    itemRows,
+    (vals, f) =>
+      vals.every((v) => isNum(v) && v >= 0 && v <= 5) &&
+      share(weaponRows, (r) => r[f] === weapons[r[itemId]].rarity) >= 0.95,
+  );
   const itemIds = new Set(itemById.keys());
   // The sprite each item shows is a path in the item table, and its file
   // name is what the icon host files it under. Boss drops have no path
@@ -604,8 +700,14 @@ async function main() {
   let itemIcon = null;
   try {
     const denny = itemById.get(DENNY);
-    itemIcon = detect("ItemTemplateTb", "the item icon", itemRows, (vals, f) =>
-      vals.every((v) => v === undefined || isStr(v)) && /\/ItemIcon\/UnPacker\/[^/]+\.png$/.test(denny[f] ?? ""));
+    itemIcon = detect(
+      "ItemTemplateTb",
+      "the item icon",
+      itemRows,
+      (vals, f) =>
+        vals.every((v) => v === undefined || isStr(v)) &&
+        /\/ItemIcon\/UnPacker\/[^/]+\.png$/.test(denny[f] ?? ""),
+    );
   } catch (err) {
     gap(`material icons left out: ${err.message}`);
   }
@@ -625,12 +727,23 @@ async function main() {
     const icon = iconName(row);
     if (icon) materialIcons.set(String(id), icon);
     else if (itemIcon) gap(`item ${id} (${name ?? "unnamed"}) names no icon`);
-    return { id: String(id), name: name ? cleanText(name, { where: `item ${id}` }) : `Item ${id}`, iconUrl: null, rarity: row ? row[itemRarity] : 0, count };
+    return {
+      id: String(id),
+      name: name ? cleanText(name, { where: `item ${id}` }) : `Item ${id}`,
+      iconUrl: null,
+      rarity: row ? row[itemRarity] : 0,
+      count,
+    };
   };
 
   // ── Stat names and formats ──
   const propRows = T.PropertyTemplateTb;
-  const propId = detect("PropertyTemplateTb", "the property id", propRows, (vals) => vals.every(isNum) && [11101, 12101, 20103].every((id) => vals.includes(id)));
+  const propId = detect(
+    "PropertyTemplateTb",
+    "the property id",
+    propRows,
+    (vals) => vals.every(isNum) && [11101, 12101, 20103].every((id) => vals.includes(id)),
+  );
   const propById = new Map(propRows.map((r) => [r[propId], r]));
   const need = (id) => {
     const r = propById.get(id);
@@ -640,18 +753,44 @@ async function main() {
   // Display name: a TextMap key, and the same name for the flat and percent
   // versions of a stat (both HP rows read "HP"; the internal name field
   // tells them apart and is not what the game shows).
-  const propName = detect("PropertyTemplateTb", "the stat display name", propRows, (vals, f) =>
-    vals.every((v) => v === undefined || isStr(v)) && tx(need(11102)[f]) !== undefined && tx(need(11102)[f]) === tx(need(11103)[f]) && tx(need(20103)[f]) !== undefined);
-  const propFormat = stringField("PropertyTemplateTb", "the display format", propRows, /^\{0:[0#.%]+\}$/);
-  const propDivisor = detect("PropertyTemplateTb", "the display divisor", propRows, (vals, f) =>
-    vals.every(isNum) && need(20103)[f] === 10000 && need(11101)[f] === 1 && need(30501)[f] === 100);
+  const propName = detect(
+    "PropertyTemplateTb",
+    "the stat display name",
+    propRows,
+    (vals, f) =>
+      vals.every((v) => v === undefined || isStr(v)) &&
+      tx(need(11102)[f]) !== undefined &&
+      tx(need(11102)[f]) === tx(need(11103)[f]) &&
+      tx(need(20103)[f]) !== undefined,
+  );
+  const propFormat = stringField(
+    "PropertyTemplateTb",
+    "the display format",
+    propRows,
+    /^\{0:[0#.%]+\}$/,
+  );
+  const propDivisor = detect(
+    "PropertyTemplateTb",
+    "the display divisor",
+    propRows,
+    (vals, f) =>
+      vals.every(isNum) &&
+      need(20103)[f] === 10000 &&
+      need(11101)[f] === 1 &&
+      need(30501)[f] === 100,
+  );
   /** Name and format for a stat id; the name falls back to the aggregate stat (11101 -> 111). */
   const prop = (id) => {
     const row = need(id);
     const agg = propById.get(Math.floor(id / 100));
     const name = tx(row[propName]) ?? (agg ? tx(agg[propName]) : undefined);
     if (!name) throw new Error(`PropertyTemplateTb: property ${id} has no display name`);
-    return { name, aggName: agg ? tx(agg[propName]) ?? name : name, divisor: row[propDivisor], format: row[propFormat] };
+    return {
+      name,
+      aggName: agg ? (tx(agg[propName]) ?? name) : name,
+      divisor: row[propDivisor],
+      format: row[propFormat],
+    };
   };
 
   // ── Skills ──
@@ -660,22 +799,54 @@ async function main() {
   const baseKit = (r, f) => r[f].every((x) => x === 0);
   const des = desAll.filter((r) => baseKit(r, desAwaken));
   const desAgent = agentField("AvatarSkillDesTemplateTb", des, agentIds);
-  const awakened = [...new Set(desAll.filter((r) => !baseKit(r, desAwaken)).map((r) => r[desAgent]))];
+  const awakened = [
+    ...new Set(desAll.filter((r) => !baseKit(r, desAwaken)).map((r) => r[desAgent])),
+  ];
   // A handful of titles break the pattern ("..._Title_01", one "..._Attack"),
   // so the rule asks for most, not all.
-  const desTitle = stringField("AvatarSkillDesTemplateTb", "the skill title", des, /_Title(_\w+)?$/, { min: 0.95, count: 100 });
-  const desParam = detect("AvatarSkillDesTemplateTb", "the multiplier formula", des, (vals) =>
-    vals.every((v) => v === undefined || isStr(v)) && share(nonEmpty(vals), (v) => /\{Skill:\s*\d+,\s*Prop:\s*\d+\}/.test(v)) >= 0.5);
-  const desText = detect("AvatarSkillDesTemplateTb", "the skill description", des, (vals, f) =>
-    f !== desTitle && vals.every((v) => v === undefined || isStr(v)) && share(des.filter((r) => r[desTitle]), (r) => /_Desc$/.test(r[f] ?? "")) >= 0.9);
+  const desTitle = stringField(
+    "AvatarSkillDesTemplateTb",
+    "the skill title",
+    des,
+    /_Title(_\w+)?$/,
+    { min: 0.95, count: 100 },
+  );
+  const desParam = detect(
+    "AvatarSkillDesTemplateTb",
+    "the multiplier formula",
+    des,
+    (vals) =>
+      vals.every((v) => v === undefined || isStr(v)) &&
+      share(nonEmpty(vals), (v) => /\{Skill:\s*\d+,\s*Prop:\s*\d+\}/.test(v)) >= 0.5,
+  );
+  const desText = detect(
+    "AvatarSkillDesTemplateTb",
+    "the skill description",
+    des,
+    (vals, f) =>
+      f !== desTitle &&
+      vals.every((v) => v === undefined || isStr(v)) &&
+      share(
+        des.filter((r) => r[desTitle]),
+        (r) => /_Desc$/.test(r[f] ?? ""),
+      ) >= 0.9,
+  );
   // Skill slot: 0 Basic, 1 Special, 2 Dodge, 3 Chain, 5 Core, 6 Assist. A
   // small integer with at least five distinct values; checked against the
   // move names below before anything is written.
-  const desSlot = detect("AvatarSkillDesTemplateTb", "the skill slot", des, (vals) => vals.every((v) => isNum(v) && v >= 0 && v <= 9) && new Set(vals).size >= 5);
+  const desSlot = detect(
+    "AvatarSkillDesTemplateTb",
+    "the skill slot",
+    des,
+    (vals) => vals.every((v) => isNum(v) && v >= 0 && v <= 9) && new Set(vals).size >= 5,
+  );
   // Row kind: 0 for a move's description, 1 for a multiplier table row.
   const desKind = detect("AvatarSkillDesTemplateTb", "the row kind", des, (vals, f) => {
     if (f === desSlot || !vals.every((v) => v === 0 || v === 1)) return false;
-    return des.every((r) => (r[desTitle] ? r[f] === 0 : true) && (r[desParam] ? r[f] === 1 : true)) && vals.includes(1);
+    return (
+      des.every((r) => (r[desTitle] ? r[f] === 0 : true) && (r[desParam] ? r[f] === 1 : true)) &&
+      vals.includes(1)
+    );
   });
 
   /** The five slots the skill screen shows, in its order, and their game names. */
@@ -692,8 +863,13 @@ async function main() {
     // The slot numbers are the one thing taken on trust from the old
     // schema, so they are proven here: most moves filed under a slot must
     // carry that slot's move-type prefix ("Dash Attack: ..." under Dodge).
-    const titles = des.filter((r) => r[desSlot] === s.slot && r[desKind] === 0 && r[desTitle]).map((r) => tx(r[desTitle]) ?? "");
-    if (share(titles, (t) => s.re.test(t)) < 0.8) throw new Error(`AvatarSkillDesTemplateTb: slot ${s.slot} does not read as ${s.name} (${titles.slice(0, 3).join(" | ")})`);
+    const titles = des
+      .filter((r) => r[desSlot] === s.slot && r[desKind] === 0 && r[desTitle])
+      .map((r) => tx(r[desTitle]) ?? "");
+    if (share(titles, (t) => s.re.test(t)) < 0.8)
+      throw new Error(
+        `AvatarSkillDesTemplateTb: slot ${s.slot} does not read as ${s.name} (${titles.slice(0, 3).join(" | ")})`,
+      );
   }
 
   // Multipliers: {Skill:id, Prop:1001} is the DMG multiplier of that hit,
@@ -702,26 +878,48 @@ async function main() {
   // adjacent numeric fields where the second is set on a fair share of rows
   // and is always smaller than the first; exactly two may match.
   const skillRows = T.AvatarSkillTemplateTb;
-  const refs = new Map([[1001, new Set()], [1002, new Set()]]);
-  for (const r of des) for (const m of String(r[desParam] ?? "").matchAll(/\{Skill:\s*(\d+),\s*Prop:\s*(\d+)\}/g)) {
-    if (!refs.has(Number(m[2]))) throw new Error(`AvatarSkillDesTemplateTb: unknown multiplier Prop:${m[2]}`);
-    refs.get(Number(m[2])).add(Number(m[1]));
-  }
+  const refs = new Map([
+    [1001, new Set()],
+    [1002, new Set()],
+  ]);
+  for (const r of des)
+    for (const m of String(r[desParam] ?? "").matchAll(/\{Skill:\s*(\d+),\s*Prop:\s*(\d+)\}/g)) {
+      if (!refs.has(Number(m[2])))
+        throw new Error(`AvatarSkillDesTemplateTb: unknown multiplier Prop:${m[2]}`);
+      refs.get(Number(m[2])).add(Number(m[1]));
+    }
   const allRefs = new Set([...refs.get(1001), ...refs.get(1002)]);
-  const skillId = detect("AvatarSkillTemplateTb", "the hit id", skillRows, (vals) => vals.every(isNum) && new Set(vals).size === vals.length && share([...allRefs], (id) => vals.includes(id)) >= 0.99);
-  const numericFields = fieldNames(skillRows).filter((f) => f !== skillId && skillRows.every((r) => r[f] === undefined || isNum(r[f])));
+  const skillId = detect(
+    "AvatarSkillTemplateTb",
+    "the hit id",
+    skillRows,
+    (vals) =>
+      vals.every(isNum) &&
+      new Set(vals).size === vals.length &&
+      share([...allRefs], (id) => vals.includes(id)) >= 0.99,
+  );
+  const numericFields = fieldNames(skillRows).filter(
+    (f) => f !== skillId && skillRows.every((r) => r[f] === undefined || isNum(r[f])),
+  );
   const pairs = [];
   for (let i = 0; i + 1 < numericFields.length; i++) {
     const [a, b] = [numericFields[i], numericFields[i + 1]];
     const withGrowth = skillRows.filter((r) => (r[b] ?? 0) > 0);
-    if (withGrowth.length >= skillRows.length * 0.2 && withGrowth.every((r) => (r[a] ?? 0) > r[b])) pairs.push({ base: a, growth: b });
+    if (withGrowth.length >= skillRows.length * 0.2 && withGrowth.every((r) => (r[a] ?? 0) > r[b]))
+      pairs.push({ base: a, growth: b });
   }
-  if (pairs.length !== 2) throw new Error(`AvatarSkillTemplateTb: expected 2 (base, growth) multiplier pairs, found ${pairs.length}`);
+  if (pairs.length !== 2)
+    throw new Error(
+      `AvatarSkillTemplateTb: expected 2 (base, growth) multiplier pairs, found ${pairs.length}`,
+    );
   const skillById = new Map(skillRows.map((r) => [r[skillId], r]));
   const MULT = { 1001: pairs[0], 1002: pairs[1] };
   for (const [prop, pair] of Object.entries(MULT)) {
     const set = [...refs.get(Number(prop))].map((id) => skillById.get(id)).filter(Boolean);
-    if (share(set, (r) => (r[pair.base] ?? 0) > 0) < 0.9) throw new Error(`AvatarSkillTemplateTb: hits quoted as Prop:${prop} mostly lack a value in ${pair.base}`);
+    if (share(set, (r) => (r[pair.base] ?? 0) > 0) < 0.9)
+      throw new Error(
+        `AvatarSkillTemplateTb: hits quoted as Prop:${prop} mostly lack a value in ${pair.base}`,
+      );
   }
   /** A multiplier in hundredths of a percent at a skill level. */
   const multiplier = (hit, prop, level, where) => {
@@ -760,36 +958,75 @@ async function main() {
         else if (param[j] === "}" && --depth === 0) break;
       }
       const group = param.slice(i, j + 1);
-      const arith = group.replace(/\{Skill:\s*(\d+),\s*Prop:\s*(\d+)\}/g, (_, h, p) => `(${multiplier(Number(h), Number(p), level, where)})`).replace(/^\{|\}$/g, "");
-      if (!/^[\d\s.+\-*/()]+$/.test(arith)) throw new Error(`${where}: cannot read multiplier formula "${param}"`);
+      const arith = group
+        .replace(
+          /\{Skill:\s*(\d+),\s*Prop:\s*(\d+)\}/g,
+          (_, h, p) => `(${multiplier(Number(h), Number(p), level, where)})`,
+        )
+        .replace(/^\{|\}$/g, "");
+      if (!/^[\d\s.+\-*/()]+$/.test(arith))
+        throw new Error(`${where}: cannot read multiplier formula "${param}"`);
       out += pct(Function(`"use strict"; return (${arith});`)());
       i = j + 1;
     }
-    return out.replace(/\s+/g, " ").replace(/\s*×\s*/g, "×").trim();
+    return out
+      .replace(/\s+/g, " ")
+      .replace(/\s*×\s*/g, "×")
+      .trim();
   };
 
   // ── Upgrade costs ──
   const skillLv = T.AvatarSkillLevelTemplateTb;
   const skillLvAgent = agentField("AvatarSkillLevelTemplateTb", skillLv, agentIds);
-  const skillLvSlot = detect("AvatarSkillLevelTemplateTb", "the skill slot", skillLv, (vals, f) => f !== skillLvAgent && vals.every((v) => isNum(v) && v >= 0 && v <= 9) && new Set(vals).size >= 5);
-  levelField("AvatarSkillLevelTemplateTb", "the skill level", skillLv, skillLvAgent, [7, 16], skillLvSlot);
+  const skillLvSlot = detect(
+    "AvatarSkillLevelTemplateTb",
+    "the skill slot",
+    skillLv,
+    (vals, f) =>
+      f !== skillLvAgent &&
+      vals.every((v) => isNum(v) && v >= 0 && v <= 9) &&
+      new Set(vals).size >= 5,
+  );
+  levelField(
+    "AvatarSkillLevelTemplateTb",
+    "the skill level",
+    skillLv,
+    skillLvAgent,
+    [7, 16],
+    skillLvSlot,
+  );
   const skillLvCost = costField("AvatarSkillLevelTemplateTb", skillLv);
 
   const advance = T.AvatarLevelAdvanceTemplateTb;
   const advanceAgent = agentField("AvatarLevelAdvanceTemplateTb", advance, agentIds);
-  levelField("AvatarLevelAdvanceTemplateTb", "the promotion stage", advance, advanceAgent, [MAX_PROMOTION, MAX_PROMOTION]);
+  levelField("AvatarLevelAdvanceTemplateTb", "the promotion stage", advance, advanceAgent, [
+    MAX_PROMOTION,
+    MAX_PROMOTION,
+  ]);
   const advanceCost = costField("AvatarLevelAdvanceTemplateTb", advance);
 
   const passive = T.AvatarPassiveSkillTemplateTb;
   const passiveAgent = agentField("AvatarPassiveSkillTemplateTb", passive, agentIds);
-  levelField("AvatarPassiveSkillTemplateTb", "the core upgrade step", passive, passiveAgent, [CORE_MAX_LEVEL - 1, CORE_MAX_LEVEL - 1]);
+  levelField("AvatarPassiveSkillTemplateTb", "the core upgrade step", passive, passiveAgent, [
+    CORE_MAX_LEVEL - 1,
+    CORE_MAX_LEVEL - 1,
+  ]);
   const passiveCost = costField("AvatarPassiveSkillTemplateTb", passive);
 
-  const { item: pairItem, count: pairCount } = pairKeys("cost lists", [...skillLv.map((r) => r[skillLvCost]), ...advance.map((r) => r[advanceCost]), ...passive.map((r) => r[passiveCost])], itemIds);
+  const { item: pairItem, count: pairCount } = pairKeys(
+    "cost lists",
+    [
+      ...skillLv.map((r) => r[skillLvCost]),
+      ...advance.map((r) => r[advanceCost]),
+      ...passive.map((r) => r[passiveCost]),
+    ],
+    itemIds,
+  );
   /** Totals a set of cost lists, Denny first, then in order of first appearance. */
   const totals = (lists) => {
     const sum = new Map();
-    for (const list of lists) for (const p of list) sum.set(p[pairItem], (sum.get(p[pairItem]) ?? 0) + p[pairCount]);
+    for (const list of lists)
+      for (const p of list) sum.set(p[pairItem], (sum.get(p[pairItem]) ?? 0) + p[pairCount]);
     const ids = [...sum.keys()].sort((a, b) => (a === DENNY ? -1 : b === DENNY ? 1 : 0));
     return ids.map((id) => material(id, sum.get(id)));
   };
@@ -799,41 +1036,116 @@ async function main() {
   const coreAwaken = awakenField("AvatarPassiveSkillDesTemplateTb", coreDesAll);
   const coreDes = coreDesAll.filter((r) => baseKit(r, coreAwaken));
   const coreAgent = agentField("AvatarPassiveSkillDesTemplateTb", coreDes, agentIds);
-  const arrayOf = (re) => (vals) => vals.every((v) => Array.isArray(v) && v.every(isStr)) && share(vals.filter((v) => v.length), (v) => v.every((k) => re.test(k))) >= 0.95 && vals.some((v) => v.length);
-  const coreTitles = detect("AvatarPassiveSkillDesTemplateTb", "the core title keys", coreDes, arrayOf(/_Title$/));
-  const coreTexts = detect("AvatarPassiveSkillDesTemplateTb", "the core description keys", coreDes, arrayOf(/_Desc$/));
-  const coreLevel = detect("AvatarPassiveSkillDesTemplateTb", "the core level", coreDes, (vals, f) =>
-    f !== coreAgent && vals.every(isNum) && Math.min(...vals) === 1 && Math.max(...vals) === CORE_MAX_LEVEL);
+  const arrayOf = (re) => (vals) =>
+    vals.every((v) => Array.isArray(v) && v.every(isStr)) &&
+    share(
+      vals.filter((v) => v.length),
+      (v) => v.every((k) => re.test(k)),
+    ) >= 0.95 &&
+    vals.some((v) => v.length);
+  const coreTitles = detect(
+    "AvatarPassiveSkillDesTemplateTb",
+    "the core title keys",
+    coreDes,
+    arrayOf(/_Title$/),
+  );
+  const coreTexts = detect(
+    "AvatarPassiveSkillDesTemplateTb",
+    "the core description keys",
+    coreDes,
+    arrayOf(/_Desc$/),
+  );
+  const coreLevel = detect(
+    "AvatarPassiveSkillDesTemplateTb",
+    "the core level",
+    coreDes,
+    (vals, f) =>
+      f !== coreAgent &&
+      vals.every(isNum) &&
+      Math.min(...vals) === 1 &&
+      Math.max(...vals) === CORE_MAX_LEVEL,
+  );
 
   const talent = T.AvatarTalentTemplateTb;
   const talentAgent = agentField("AvatarTalentTemplateTb", talent, agentIds);
-  const talentLevel = levelField("AvatarTalentTemplateTb", "the Mindscape number", talent, talentAgent, [6, 6]);
+  const talentLevel = levelField(
+    "AvatarTalentTemplateTb",
+    "the Mindscape number",
+    talent,
+    talentAgent,
+    [6, 6],
+  );
   // Each Mindscape has a plain and a "_Realign" title and description. The
   // Realign text is the same wording re-broken into lines, which is how the
   // game shows it now, so it is preferred.
-  const talentTitle = stringField("AvatarTalentTemplateTb", "the Mindscape title", talent, /_Title$/, { min: 0.95 });
-  const talentTitleR = stringField("AvatarTalentTemplateTb", "the realigned Mindscape title", talent, /_Title_Realign$/, { min: 0.95 });
+  const talentTitle = stringField(
+    "AvatarTalentTemplateTb",
+    "the Mindscape title",
+    talent,
+    /_Title$/,
+    { min: 0.95 },
+  );
+  const talentTitleR = stringField(
+    "AvatarTalentTemplateTb",
+    "the realigned Mindscape title",
+    talent,
+    /_Title_Realign$/,
+    { min: 0.95 },
+  );
   // Mindscapes 3 and 5 share "Common_Talent_Desc" (all skills Lv. +2) in
   // both fields; "_Desc_02" is the flavour quote, which is left out.
-  const talentText = stringField("AvatarTalentTemplateTb", "the Mindscape description", talent, /_Desc(_01)?$/, { min: 0.95 });
-  const talentTextR = stringField("AvatarTalentTemplateTb", "the realigned Mindscape description", talent, /_Desc(_01_Realign)?$/, { min: 0.95 });
+  const talentText = stringField(
+    "AvatarTalentTemplateTb",
+    "the Mindscape description",
+    talent,
+    /_Desc(_01)?$/,
+    { min: 0.95 },
+  );
+  const talentTextR = stringField(
+    "AvatarTalentTemplateTb",
+    "the realigned Mindscape description",
+    talent,
+    /_Desc(_01_Realign)?$/,
+    { min: 0.95 },
+  );
 
   // ── W-Engine passives ──
   const wt = T.WeaponTalentTemplateTb;
   const weaponIdSet = new Set(Object.keys(weapons).map(Number));
-  const wtWeapon = detect("WeaponTalentTemplateTb", "the W-Engine id", wt, (vals) => vals.every(isNum) && share(vals, (v) => weaponIdSet.has(v)) >= 0.9);
+  const wtWeapon = detect(
+    "WeaponTalentTemplateTb",
+    "the W-Engine id",
+    wt,
+    (vals) => vals.every(isNum) && share(vals, (v) => weaponIdSet.has(v)) >= 0.9,
+  );
   const wtRefine = levelField("WeaponTalentTemplateTb", "the refinement", wt, wtWeapon, [5, 5]);
-  const wtTitle = stringField("WeaponTalentTemplateTb", "the passive title", wt, /Title/, { min: 0.95 });
-  const wtText = stringField("WeaponTalentTemplateTb", "the passive description", wt, /Des/, { min: 0.95 });
+  const wtTitle = stringField("WeaponTalentTemplateTb", "the passive title", wt, /Title/, {
+    min: 0.95,
+  });
+  const wtText = stringField("WeaponTalentTemplateTb", "the passive description", wt, /Des/, {
+    min: 0.95,
+  });
 
   // ── Disc sets ──
   const suits = T.EquipmentSuitTemplateTb;
   const setIdSet = new Set(Object.keys(sets).map(Number));
-  const suitId = detect("EquipmentSuitTemplateTb", "the set id", suits, (vals) => vals.every(isNum) && share(vals, (v) => setIdSet.has(v)) >= 0.9);
-  const suitName = stringField("EquipmentSuitTemplateTb", "the set name", suits, /_name$/i, { min: 0.95 });
+  const suitId = detect(
+    "EquipmentSuitTemplateTb",
+    "the set id",
+    suits,
+    (vals) => vals.every(isNum) && share(vals, (v) => setIdSet.has(v)) >= 0.9,
+  );
+  const suitName = stringField("EquipmentSuitTemplateTb", "the set name", suits, /_name$/i, {
+    min: 0.95,
+  });
   // Bonus descriptions carry their piece count in the key: "_2_des", "_4_des".
-  const suitBonusFields = fieldNames(suits).filter((f) => suits.every((r) => isStr(r[f]) && /_\d+_des$/i.test(r[f])));
-  if (suitBonusFields.length !== 2) throw new Error(`EquipmentSuitTemplateTb: expected two bonus description fields, found ${suitBonusFields.join(", ") || "none"}`);
+  const suitBonusFields = fieldNames(suits).filter((f) =>
+    suits.every((r) => isStr(r[f]) && /_\d+_des$/i.test(r[f])),
+  );
+  if (suitBonusFields.length !== 2)
+    throw new Error(
+      `EquipmentSuitTemplateTb: expected two bonus description fields, found ${suitBonusFields.join(", ") || "none"}`,
+    );
 
   // ── Build: set bonuses ──
   const setBonuses = {};
@@ -850,11 +1162,14 @@ async function main() {
       .map(({ pieces, key }) => {
         const raw = tx(key);
         if (raw === undefined) gap(`set ${id} (${s.name}) has no ${pieces}pc text`);
-        return raw === undefined ? null : { pieces, text: cleanText(raw, { where: `set ${id} ${pieces}pc` }) };
+        return raw === undefined
+          ? null
+          : { pieces, text: cleanText(raw, { where: `set ${id} ${pieces}pc` }) };
       })
       .filter(Boolean);
     const gameName = tx(row[suitName]);
-    if (gameName && gameName !== s.name) gap(`set ${id}: sets.json says "${s.name}", the game says "${gameName}" (kept sets.json)`);
+    if (gameName && gameName !== s.name)
+      gap(`set ${id}: sets.json says "${s.name}", the game says "${gameName}" (kept sets.json)`);
     setBonuses[id] = { name: s.name, bonuses };
   }
 
@@ -872,8 +1187,13 @@ async function main() {
     if (!w) return null;
     const stats = [];
     const { main, secondary } = engineStats(w, curves);
-    if (main) stats.push({ label: prop(main.id).name, value: formatProperty(main.value, prop(main.id)) });
-    if (secondary) stats.push({ label: prop(secondary.id).name, value: formatProperty(secondary.value, prop(secondary.id)) });
+    if (main)
+      stats.push({ label: prop(main.id).name, value: formatProperty(main.value, prop(main.id)) });
+    if (secondary)
+      stats.push({
+        label: prop(secondary.id).name,
+        value: formatProperty(secondary.value, prop(secondary.id)),
+      });
     let passiveText = null;
     const rows = (wtByWeapon.get(Number(id)) ?? []).sort((a, b) => a[wtRefine] - b[wtRefine]);
     if (rows.length === 5) {
@@ -882,12 +1202,28 @@ async function main() {
       if (name && texts.every((t) => t !== undefined)) {
         const cleaned = texts.map((t, i) => cleanText(t, { where: `W-Engine ${id} R${i + 1}` }));
         const merged = mergeRefinements(cleaned);
-        if (!merged) gap(`W-Engine ${id} (${w.name}): refinement texts differ beyond their figures, showing R1`);
-        else if (!merged.exact) gap(`W-Engine ${id} (${w.name}): refinements differ in wording as well as figures; merged on the wording most of them share`);
-        passiveText = { name: cleanText(name, { where: `W-Engine ${id} name` }), text: merged?.text ?? cleaned[0] };
+        if (!merged)
+          gap(
+            `W-Engine ${id} (${w.name}): refinement texts differ beyond their figures, showing R1`,
+          );
+        else if (!merged.exact)
+          gap(
+            `W-Engine ${id} (${w.name}): refinements differ in wording as well as figures; merged on the wording most of them share`,
+          );
+        passiveText = {
+          name: cleanText(name, { where: `W-Engine ${id} name` }),
+          text: merged?.text ?? cleaned[0],
+        };
       } else gap(`W-Engine ${id} (${w.name}): passive text missing`);
     } else gap(`W-Engine ${id} (${w.name}): ${rows.length} refinement rows, expected 5`);
-    const out = { id: String(id), name: w.name, iconUrl: w.image ? `${ENKA}${w.image}` : null, rarity: w.rarity, stats, passive: passiveText };
+    const out = {
+      id: String(id),
+      name: w.name,
+      iconUrl: w.image ? `${ENKA}${w.image}` : null,
+      rarity: w.rarity,
+      stats,
+      passive: passiveText,
+    };
     engineCache.set(id, out);
     return out;
   };
@@ -896,11 +1232,14 @@ async function main() {
   let picks = { characters: {} };
   if (fs.existsSync(PICKS_FILE)) {
     picks = readJSON(PICKS_FILE);
-    console.log(`  picks: ${Object.keys(picks.characters ?? {}).length} agents from ${path.relative(ROOT, PICKS_FILE)}`);
+    console.log(
+      `  picks: ${Object.keys(picks.characters ?? {}).length} agents from ${path.relative(ROOT, PICKS_FILE)}`,
+    );
   } else {
     gap(`no picks file at ${path.relative(ROOT, PICKS_FILE)}: every guide has empty picks`);
   }
-  for (const id of Object.keys(picks.characters ?? {})) if (!agents[id]) gap(`picks name agent ${id}, which is not in agents.json`);
+  for (const id of Object.keys(picks.characters ?? {}))
+    if (!agents[id]) gap(`picks name agent ${id}, which is not in agents.json`);
 
   // ── Build: one guide per agent ──
   const byAgent = (rows, key) => {
@@ -939,7 +1278,12 @@ async function main() {
         continue;
       }
       const ctx = { where: `${who} ${r[desTitle]}`, level: TEXT_SKILL_LEVEL };
-      const entry = { kind: slot.name, name: cleanText(name, ctx), text: cleanText(body, ctx), iconUrl: null };
+      const entry = {
+        kind: slot.name,
+        name: cleanText(name, ctx),
+        text: cleanText(body, ctx),
+        iconUrl: null,
+      };
       if (ctx.levelDependent) entry.level = TEXT_SKILL_LEVEL;
       moves.push({ slot: slot.slot, entry, rows: [] });
       moveByTitle.set(r[desTitle], moves[moves.length - 1]);
@@ -957,11 +1301,15 @@ async function main() {
           current = match;
           prefix = "";
         } else {
-          const sameSlot = current && current.slot === r[desSlot] ? current : moves.find((m) => m.slot === r[desSlot]);
+          const sameSlot =
+            current && current.slot === r[desSlot]
+              ? current
+              : moves.find((m) => m.slot === r[desSlot]);
           current = sameSlot ?? null;
           const label = tx(r[desText]);
           prefix = label ? `${cleanText(label, { where: `${who} header` })} - ` : "";
-          if (!current) gap(`${who}: multiplier header ${r[desText] || "(blank)"} has no move to join`);
+          if (!current)
+            gap(`${who}: multiplier header ${r[desText] || "(blank)"} has no move to join`);
         }
         continue;
       }
@@ -980,27 +1328,36 @@ async function main() {
       current.rows.push({ label: prefix + cleanText(label, { where }), values });
     }
     const skills = [];
-    for (const s of SLOTS) for (const m of moves.filter((x) => x.slot === s.slot)) {
-      if (m.rows.length) m.entry.scaling = { levels: SCALING_LEVELS, rows: m.rows };
-      skills.push(m.entry);
-    }
+    for (const s of SLOTS)
+      for (const m of moves.filter((x) => x.slot === s.slot)) {
+        if (m.rows.length) m.entry.scaling = { levels: SCALING_LEVELS, rows: m.rows };
+        skills.push(m.entry);
+      }
     if (!skills.length) gap(`${who}: no skills`);
 
     // Core passive and Additional Ability, at core level 7 (F).
     const core = [];
     const coreRows = (coreBy.get(id) ?? []).filter((r) => r[coreLevel] === CORE_MAX_LEVEL);
     const firstCore = (coreBy.get(id) ?? []).find((r) => r[coreLevel] === 1);
-    if (coreRows.length !== 1) gap(`${who}: ${coreRows.length} core descriptions at level ${CORE_MAX_LEVEL}, expected 1`);
+    if (coreRows.length !== 1)
+      gap(`${who}: ${coreRows.length} core descriptions at level ${CORE_MAX_LEVEL}, expected 1`);
     const coreRow = coreRows[0];
     if (coreRow) {
       coreRow[coreTitles].forEach((titleKey, i) => {
         const title = tx(titleKey);
         const body = tx(coreRow[coreTexts][i]);
-        if (title === undefined || body === undefined) return gap(`${who}: core entry ${titleKey} has no English text`);
+        if (title === undefined || body === undefined)
+          return gap(`${who}: core entry ${titleKey} has no English text`);
         const kind = i === 0 ? "Core Passive" : "Additional Ability";
-        if (!title.startsWith(kind)) gap(`${who}: core entry ${i} reads "${title}", filed as ${kind}`);
+        if (!title.startsWith(kind))
+          gap(`${who}: core entry ${i} reads "${title}", filed as ${kind}`);
         const ctx = { where: `${who} ${titleKey}`, level: TEXT_SKILL_LEVEL };
-        const entry = { kind, name: cleanText(title, ctx), text: cleanText(body, ctx), iconUrl: null };
+        const entry = {
+          kind,
+          name: cleanText(title, ctx),
+          text: cleanText(body, ctx),
+          iconUrl: null,
+        };
         // The Core Passive's figures grow with the core level; say which one
         // the text quotes when they do.
         if (firstCore && tx(firstCore[coreTexts][i]) !== body) entry.level = CORE_MAX_LEVEL;
@@ -1019,7 +1376,12 @@ async function main() {
           return null;
         }
         const ctx = { where: `${who} M${r[talentLevel]}`, level: TEXT_SKILL_LEVEL };
-        const entry = { kind: `M${r[talentLevel]}`, name: cleanText(title, ctx), text: cleanText(body, ctx), iconUrl: null };
+        const entry = {
+          kind: `M${r[talentLevel]}`,
+          name: cleanText(title, ctx),
+          text: cleanText(body, ctx),
+          iconUrl: null,
+        };
         if (ctx.levelDependent) entry.level = TEXT_SKILL_LEVEL;
         return entry;
       })
@@ -1030,8 +1392,13 @@ async function main() {
     // row holds the cost of the step up from it); core A to F.
     const fiveSlots = new Set(SLOTS.map((s) => s.slot));
     const skillCostRows = (skillLvBy.get(id) ?? []).filter((r) => fiveSlots.has(r[skillLvSlot]));
-    const otherCosts = (skillLvBy.get(id) ?? []).filter((r) => !fiveSlots.has(r[skillLvSlot]) && r[skillLvCost].length);
-    if (otherCosts.length) gap(`${who}: skill slot(s) ${[...new Set(otherCosts.map((r) => r[skillLvSlot]))].join(", ")} carry costs but are not one of the five`);
+    const otherCosts = (skillLvBy.get(id) ?? []).filter(
+      (r) => !fiveSlots.has(r[skillLvSlot]) && r[skillLvCost].length,
+    );
+    if (otherCosts.length)
+      gap(
+        `${who}: skill slot(s) ${[...new Set(otherCosts.map((r) => r[skillLvSlot]))].join(", ")} carry costs but are not one of the five`,
+      );
     const materials = [
       { id: "ascension", items: totals((advanceBy.get(id) ?? []).map((r) => r[advanceCost])) },
       { id: "skills", items: totals(skillCostRows.map((r) => r[skillLvCost])) },
@@ -1043,8 +1410,14 @@ async function main() {
     const baseStats = agentBaseStats(agent, prop);
     const bonusStats = Object.entries(agent.core?.[agent.core.length - 1] ?? {})
       .filter(([, v]) => v)
-      .map(([pid, v]) => ({ label: prop(Number(pid)).name, value: formatProperty(v, prop(Number(pid))) }));
-    if (agent.core?.length !== CORE_MAX_LEVEL) gap(`${who}: agents.json has ${agent.core?.length ?? 0} core rows, expected ${CORE_MAX_LEVEL}`);
+      .map(([pid, v]) => ({
+        label: prop(Number(pid)).name,
+        value: formatProperty(v, prop(Number(pid))),
+      }));
+    if (agent.core?.length !== CORE_MAX_LEVEL)
+      gap(
+        `${who}: agents.json has ${agent.core?.length ?? 0} core rows, expected ${CORE_MAX_LEVEL}`,
+      );
 
     // Picks.
     const p = picks.characters?.[idStr];
@@ -1055,15 +1428,29 @@ async function main() {
         gap(`${who}: picked W-Engine ${w.id} is not in weapons.json`);
         continue;
       }
-      pickedWeapons.push({ id: e.id, name: e.name, iconUrl: e.iconUrl, rarity: e.rarity, refinement: w.refinement ?? null, stats: e.stats, passive: e.passive });
+      pickedWeapons.push({
+        id: e.id,
+        name: e.name,
+        iconUrl: e.iconUrl,
+        rarity: e.rarity,
+        refinement: w.refinement ?? null,
+        stats: e.stats,
+        passive: e.passive,
+      });
     }
-    for (const t of p?.teams ?? []) for (const m of t.members ?? []) if (!agents[m]) gap(`${who}: team member ${m} is not in agents.json`);
-    for (const s of p?.synergies ?? []) if (!agents[s]) gap(`${who}: synergy ${s} is not in agents.json`);
+    for (const t of p?.teams ?? [])
+      for (const m of t.members ?? [])
+        if (!agents[m]) gap(`${who}: team member ${m} is not in agents.json`);
+    for (const s of p?.synergies ?? [])
+      if (!agents[s]) gap(`${who}: synergy ${s} is not in agents.json`);
 
     guides[idStr] = {
       role: p?.role ?? null,
       weapons: pickedWeapons,
-      teams: (p?.teams ?? []).map((t) => ({ name: t.name ?? null, members: (t.members ?? []).map(String) })),
+      teams: (p?.teams ?? []).map((t) => ({
+        name: t.name ?? null,
+        members: (t.members ?? []).map(String),
+      })),
       synergies: (p?.synergies ?? []).map(String),
       substatLine: p?.substatLine ?? null,
       endgameStats: (p?.endgameStats ?? []).map((s) => ({ label: s.label, value: s.value })),
@@ -1087,7 +1474,9 @@ async function main() {
   // ── Material icons ──
   // None named means the icon field went unread (reported above); the files
   // already fetched stay for the next run rather than being pruned as unused.
-  const haveIcons = materialIcons.size ? await fetchIcons(new Set(materialIcons.values())) : new Set();
+  const haveIcons = materialIcons.size
+    ? await fetchIcons(new Set(materialIcons.values()))
+    : new Set();
   for (const g of Object.values(guides)) {
     for (const group of g.materials) {
       for (const item of group.items) {
@@ -1105,7 +1494,8 @@ async function main() {
   const keep = new Set(Object.keys(guides).map((id) => `${id}.json`));
   for (const f of fs.readdirSync(GUIDES)) {
     if (keep.has(f)) continue;
-    if (!/^\d+\.json$/.test(f)) throw new Error(`${path.relative(ROOT, GUIDES)} holds ${f}, which this script did not write`);
+    if (!/^\d+\.json$/.test(f))
+      throw new Error(`${path.relative(ROOT, GUIDES)} holds ${f}, which this script did not write`);
     fs.unlinkSync(path.join(GUIDES, f));
     console.log(`  removed stale ${f}`);
   }
@@ -1117,16 +1507,23 @@ async function main() {
     const size = fs.statSync(file).size;
     total += size;
     if (size > biggest.size) biggest = { id, size };
-    if (size > 60 * 1024) gap(`${agents[id].name} (${id}): guide is ${(size / 1024).toFixed(1)} kB, over the 60 kB aim`);
+    if (size > 60 * 1024)
+      gap(
+        `${agents[id].name} (${id}): guide is ${(size / 1024).toFixed(1)} kB, over the 60 kB aim`,
+      );
   }
   fs.writeFileSync(path.join(DATA, "set-bonuses.json"), JSON.stringify(setBonuses) + "\n", "utf8");
 
   if (awakened.length) {
     const names = awakened.filter((id) => agents[id]).map((id) => agents[id].name);
-    gap(`awakened (Potential) kit variants left out for ${names.length} agents: ${names.join(", ")}; the contract has no slot for them`);
+    gap(
+      `awakened (Potential) kit variants left out for ${names.length} agents: ${names.join(", ")}; the contract has no slot for them`,
+    );
   }
   const withPicks = Object.values(guides).filter((g) => g.source).length;
-  console.log(`  guides/            ${String(Object.keys(guides).length).padStart(4)} agents  ${(total / 1024).toFixed(1)} kB total, largest ${agents[biggest.id].name} ${(biggest.size / 1024).toFixed(1)} kB, ${withPicks} with picks`);
+  console.log(
+    `  guides/            ${String(Object.keys(guides).length).padStart(4)} agents  ${(total / 1024).toFixed(1)} kB total, largest ${agents[biggest.id].name} ${(biggest.size / 1024).toFixed(1)} kB, ${withPicks} with picks`,
+  );
   console.log(`  set-bonuses.json   ${String(Object.keys(setBonuses).length).padStart(4)} sets`);
   console.log(`  game data: ZenlessData ${meta.sha?.slice(0, 8) ?? "?"} ${meta.message ?? ""}`);
   if (gaps.length) {
@@ -1153,24 +1550,31 @@ async function main() {
  */
 function agentBaseStats(agent, prop) {
   const base = new Map(Object.entries(agent.base ?? {}).map(([k, v]) => [Number(k), v]));
-  for (const [k, g] of Object.entries(agent.growth ?? {})) base.set(Number(k), (base.get(Number(k)) ?? 0) + (g * (MAX_LEVEL - 1)) / 10000);
+  for (const [k, g] of Object.entries(agent.growth ?? {}))
+    base.set(Number(k), (base.get(Number(k)) ?? 0) + (g * (MAX_LEVEL - 1)) / 10000);
   const promo = agent.promotion ?? [];
   const row = promo[Math.min(Math.max(MAX_PROMOTION - 1, 0), promo.length - 1)] ?? {};
   for (const [k, v] of Object.entries(row)) {
     // Promotion rows only ever carry base stats (ids ending in 01); a
     // percentage there would belong in the bonus pool, which is empty here.
-    if (Number(k) % 100 !== 1) throw new Error(`${agent.name}: promotion carries non-base stat ${k}`);
+    if (Number(k) % 100 !== 1)
+      throw new Error(`${agent.name}: promotion carries non-base stat ${k}`);
     base.set(Number(k), (base.get(Number(k)) ?? 0) + v);
   }
   const floored = new Set([11101, 12101, 13101]);
-  const ORDER = [11101, 12101, 13101, 12201, 20101, 21101, 31401, 31201, 23101, 30501, 32001, 32401, 21301];
+  const ORDER = [
+    11101, 12101, 13101, 12201, 20101, 21101, 31401, 31201, 23101, 30501, 32001, 32401, 21301,
+  ];
   const always = new Set([11101, 12101, 13101, 12201, 20101, 21101, 31401, 31201, 23101]);
   const out = [];
   for (const id of ORDER) {
     const raw = base.get(id) ?? 0;
     if (!always.has(id) && !raw) continue;
     const p = prop(id);
-    out.push({ label: p.aggName, value: formatProperty(floored.has(id) ? Math.floor(raw) : raw, p) });
+    out.push({
+      label: p.aggName,
+      value: formatProperty(floored.has(id) ? Math.floor(raw) : raw, p),
+    });
   }
   return out;
 }
@@ -1179,10 +1583,23 @@ function agentBaseStats(agent, prop) {
 function engineStats(w, curves) {
   const levelRate = curves.level[`${w.rarity}-${MAX_LEVEL}`] ?? 0;
   const star = curves.star[`${w.rarity}-${ENGINE_MAX_STAR}`] ?? { star: 0, rand: 0 };
-  if (!levelRate || !star.star) gap(`W-Engine ${w.name}: no level ${MAX_LEVEL} / star ${ENGINE_MAX_STAR} curve for rarity ${w.rarity}`);
+  if (!levelRate || !star.star)
+    gap(
+      `W-Engine ${w.name}: no level ${MAX_LEVEL} / star ${ENGINE_MAX_STAR} curve for rarity ${w.rarity}`,
+    );
   return {
-    main: w.mainStat ? { id: w.mainStat.PropertyId, value: Math.floor(w.mainStat.PropertyValue * (1 + levelRate / 10000 + star.star / 10000)) } : null,
-    secondary: w.secondaryStat ? { id: w.secondaryStat.PropertyId, value: w.secondaryStat.PropertyValue * (1 + star.rand / 10000) } : null,
+    main: w.mainStat
+      ? {
+          id: w.mainStat.PropertyId,
+          value: Math.floor(w.mainStat.PropertyValue * (1 + levelRate / 10000 + star.star / 10000)),
+        }
+      : null,
+    secondary: w.secondaryStat
+      ? {
+          id: w.secondaryStat.PropertyId,
+          value: w.secondaryStat.PropertyValue * (1 + star.rand / 10000),
+        }
+      : null,
   };
 }
 
@@ -1200,7 +1617,9 @@ function mergeRefinements(texts) {
   if (!exact && !parts.every((p) => p.length === parts[0].length)) return null;
   const votes = new Map();
   for (const p of parts) votes.set(skeleton(p), (votes.get(skeleton(p)) ?? 0) + 1);
-  const best = [...parts].reverse().sort((a, b) => votes.get(skeleton(b)) - votes.get(skeleton(a)))[0];
+  const best = [...parts]
+    .reverse()
+    .sort((a, b) => votes.get(skeleton(b)) - votes.get(skeleton(a)))[0];
   let out = "";
   const segs = [...best];
   for (let i = 0; i < segs.length; i++) {
@@ -1238,8 +1657,10 @@ function assertClean(guides, setBonuses) {
     if (/[{}]/.test(s)) bad.push(`${where}: placeholder left in "${s.slice(0, 120)}"`);
     if (/\n{3,}/.test(s)) bad.push(`${where}: three or more line breaks`);
     const stars = (s.match(/\*\*/g) ?? []).length;
-    if (isText ? stars % 2 : stars) bad.push(`${where}: ${isText ? "unbalanced" : "stray"} "**" in "${s.slice(0, 120)}"`);
-    if (isText && s.split("\n").some((line) => (line.match(/\*\*/g) ?? []).length % 2)) bad.push(`${where}: a "**" span crosses a line break`);
+    if (isText ? stars % 2 : stars)
+      bad.push(`${where}: ${isText ? "unbalanced" : "stray"} "**" in "${s.slice(0, 120)}"`);
+    if (isText && s.split("\n").some((line) => (line.match(/\*\*/g) ?? []).length % 2))
+      bad.push(`${where}: a "**" span crosses a line break`);
   };
   for (const [id, g] of Object.entries(guides)) {
     for (const w of g.weapons) {
@@ -1250,18 +1671,24 @@ function assertClean(guides, setBonuses) {
         check(`${id} weapon ${w.id} passive`, w.passive.text, true);
       }
     }
-    for (const s of [...g.baseStats, ...g.bonusStats]) check(`${id} stat ${s.label}`, s.label + s.value, false);
-    for (const group of g.kit) for (const e of group.entries) {
-      check(`${id} ${group.id} ${e.kind} name`, e.name, false);
-      check(`${id} ${group.id} ${e.name}`, e.text, true);
-      if (!e.text) bad.push(`${id} ${group.id} ${e.name}: empty text`);
-      for (const r of e.scaling?.rows ?? []) {
-        check(`${id} ${e.name} scaling label`, r.label, false);
-        for (const v of r.values) check(`${id} ${e.name} ${r.label}`, v, false);
-        if (r.values.length !== e.scaling.levels.length) bad.push(`${id} ${e.name} ${r.label}: ${r.values.length} values for ${e.scaling.levels.length} levels`);
+    for (const s of [...g.baseStats, ...g.bonusStats])
+      check(`${id} stat ${s.label}`, s.label + s.value, false);
+    for (const group of g.kit)
+      for (const e of group.entries) {
+        check(`${id} ${group.id} ${e.kind} name`, e.name, false);
+        check(`${id} ${group.id} ${e.name}`, e.text, true);
+        if (!e.text) bad.push(`${id} ${group.id} ${e.name}: empty text`);
+        for (const r of e.scaling?.rows ?? []) {
+          check(`${id} ${e.name} scaling label`, r.label, false);
+          for (const v of r.values) check(`${id} ${e.name} ${r.label}`, v, false);
+          if (r.values.length !== e.scaling.levels.length)
+            bad.push(
+              `${id} ${e.name} ${r.label}: ${r.values.length} values for ${e.scaling.levels.length} levels`,
+            );
+        }
       }
-    }
-    for (const group of g.materials) for (const m of group.items) check(`${id} material ${m.id}`, m.name, false);
+    for (const group of g.materials)
+      for (const m of group.items) check(`${id} material ${m.id}`, m.name, false);
   }
   for (const [id, s] of Object.entries(setBonuses)) {
     check(`set ${id} name`, s.name, false);
@@ -1269,7 +1696,9 @@ function assertClean(guides, setBonuses) {
   }
   if (bad.length) {
     for (const b of bad.slice(0, 50)) console.error(`  ✗ ${b}`);
-    throw new Error(`${bad.length} output string(s) break the GuideText rules; nothing was written`);
+    throw new Error(
+      `${bad.length} output string(s) break the GuideText rules; nothing was written`,
+    );
   }
 }
 

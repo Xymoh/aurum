@@ -9,14 +9,22 @@ import { retryUrls } from "../../src/lib/remoteImage";
 
 describe("retryUrls", () => {
   it("moves a jsDelivr file to jsDelivr's other network", () => {
-    expect(retryUrls("https://cdn.jsdelivr.net/gh/Mar-7th/StarRailRes@master/image/character_preview/1507.png")).toEqual([
+    expect(
+      retryUrls(
+        "https://cdn.jsdelivr.net/gh/Mar-7th/StarRailRes@master/image/character_preview/1507.png",
+      ),
+    ).toEqual([
       "https://fastly.jsdelivr.net/gh/Mar-7th/StarRailRes@master/image/character_preview/1507.png",
     ]);
   });
 
   it("asks any other host again, with a query so the browser makes a real request", () => {
-    expect(retryUrls("https://enka.network/ui/UI_AvatarIcon_Hutao.png")).toEqual(["https://enka.network/ui/UI_AvatarIcon_Hutao.png?retry=1"]);
-    expect(retryUrls("/zzz/items/IconCoin.webp?v=2")).toEqual(["/zzz/items/IconCoin.webp?v=2&retry=1"]);
+    expect(retryUrls("https://enka.network/ui/UI_AvatarIcon_Hutao.png")).toEqual([
+      "https://enka.network/ui/UI_AvatarIcon_Hutao.png?retry=1",
+    ]);
+    expect(retryUrls("/zzz/items/IconCoin.webp?v=2")).toEqual([
+      "/zzz/items/IconCoin.webp?v=2&retry=1",
+    ]);
   });
 
   it("does not retry a picture that is already in memory", () => {
@@ -48,7 +56,16 @@ describe("RemoteImg", () => {
 
   it("asks again after a pause, then settles for a fallback, and only then gives up", () => {
     const onError = vi.fn();
-    act(() => root.render(<RemoteImg src="https://enka.network/ui/a.png" fallbacks={["https://enka.network/ui/b.png"]} alt="" onError={onError} />));
+    act(() =>
+      root.render(
+        <RemoteImg
+          src="https://enka.network/ui/a.png"
+          fallbacks={["https://enka.network/ui/b.png"]}
+          alt=""
+          onError={onError}
+        />,
+      ),
+    );
     expect(src()).toBe("https://enka.network/ui/a.png");
 
     fail();
@@ -65,7 +82,15 @@ describe("RemoteImg", () => {
   });
 
   it("tries an alternate name at once, before any retry", () => {
-    act(() => root.render(<RemoteImg src="https://enka.network/ui/UI_Talent_U_Hutao_01.png" alternates={["https://enka.network/ui/UI_Talent_S_Hutao_03.png"]} alt="" />));
+    act(() =>
+      root.render(
+        <RemoteImg
+          src="https://enka.network/ui/UI_Talent_U_Hutao_01.png"
+          alternates={["https://enka.network/ui/UI_Talent_S_Hutao_03.png"]}
+          alt=""
+        />,
+      ),
+    );
     fail();
     expect(src()).toBe("https://enka.network/ui/UI_Talent_S_Hutao_03.png");
   });

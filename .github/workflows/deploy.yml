@@ -9,8 +9,10 @@ on:
 permissions:
   contents: read
 
+# One group per branch or pull request, so a pull request's checks can never
+# cancel a deploy of main that is already running.
 concurrency:
-  group: "deploy"
+  group: deploy-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -19,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - uses: actions/setup-node@v4
         with:
@@ -27,6 +31,7 @@ jobs:
 
       - run: npm ci
       - run: npm run lint
+      - run: npm run format:check
       - run: npm run typecheck
       - run: npm run test:run
       - run: npm run build
@@ -53,7 +58,17 @@ jobs:
     if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
+    # Holds the Cloudflare secrets once they are moved out of the repository
+    # secrets (Settings -> Environments -> production, deployments from main
+    # only), so a workflow on any other branch cannot read the token.
+    environment: production
     steps:
+      # wrangler bundles functions/ (showcase link previews) from the checkout;
+      # those files import data and helpers from src/.
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
       - uses: actions/download-artifact@v4
         with:
           name: site
@@ -65,7 +80,9 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=aurum --branch=main --commit-dirty=true
+          # An exact release, bumped on purpose: this step holds the API token.
+          wranglerVersion: "4.146.0"
+          command: pages deploy dist --project-name=aurum --branch=main --commit-hash=${{ github.sha }} --commit-dirty=true
 
   # The old xymoh.github.io/aurum/ address: one page that forwards every
   # path to the same path on aurumgg.com.
@@ -82,6 +99,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - run: mkdir out && cp legacy-redirect/index.html out/index.html && cp legacy-redirect/index.html out/404.html
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -13,12 +13,6 @@
 /** Short enough to read in a post, and stays clear of X's own counter. */
 const X_INTENT = "https://x.com/intent/post";
 
-/** The current page, without any in-page anchor. */
-export function currentPageLink(): string {
-  const { origin, pathname, search } = window.location;
-  return `${origin}${pathname}${search}`;
-}
-
 /**
  * The current page opened straight to one character: `?c=<id>` is what the
  * showcase pages read on load to expand and scroll to them. Without an id
@@ -86,7 +80,7 @@ function copyTextLegacy(text: string): boolean {
   area.style.opacity = "0";
   document.body.appendChild(area);
   area.select();
-  let ok = false;
+  let ok: boolean;
   try {
     ok = document.execCommand("copy");
   } catch {
@@ -121,9 +115,13 @@ export function canShareFile(file: File): boolean {
   return typeof navigator.canShare === "function" && navigator.canShare({ files: [file] });
 }
 
-export type NativeShareResult = "shared" | "cancelled" | "failed";
+type NativeShareResult = "shared" | "cancelled" | "failed";
 
-export async function shareFile(file: File, title: string, text: string): Promise<NativeShareResult> {
+export async function shareFile(
+  file: File,
+  title: string,
+  text: string,
+): Promise<NativeShareResult> {
   try {
     await navigator.share({ files: [file], title, text });
     return "shared";

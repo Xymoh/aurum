@@ -11,21 +11,27 @@ import type { CharacterData } from "../types/character";
 import { getBuildConfig, substatWeightFor } from "./scoring";
 
 /** Below this weight a roll is doing nothing useful and counts as waste. */
-export const WASTE_THRESHOLD = 0.2;
+const WASTE_THRESHOLD = 0.2;
 
 /** Five pieces at nine rolls each: the most a build can physically hold. */
 export const MAX_ROLLS = 45;
 /** Rolls in a realistic strong build: five pieces that mostly started with four substats. */
 export const BENCHMARK_ROLLS = 40;
 
-export interface GenshinBuildDiagnostics {
+interface GenshinBuildDiagnostics {
   totalRolls: number;
   effectiveRolls: number;
   wastedRolls: number;
   /** Where the wasted rolls sit, worst first. */
   waste: { slot: ArtifactSlot; statKey: string; displayName: string; rolls: number }[];
   /** Substat totals, most rolls first. */
-  totals: { statKey: string; displayName: string; isPercentage: boolean; rolls: number; value: number }[];
+  totals: {
+    statKey: string;
+    displayName: string;
+    isPercentage: boolean;
+    rolls: number;
+    value: number;
+  }[];
   /** CRIT DMG per point of CRIT Rate on the character screen; roughly 2 is balanced. */
   critRatio: number | null;
   /** The character's Energy Recharge against the rotation requirement, when one is curated. */
@@ -74,7 +80,9 @@ export function buildDiagnostics(character: CharacterData): GenshinBuildDiagnost
   const { critRate, critDmg, energyRecharge } = character.stats;
   const target = getBuildConfig(character.avatarId, character.element)?.er_threshold;
 
-  const weakestArt = [...character.artifacts].sort((a, b) => a.score.potentialPercent - b.score.potentialPercent)[0];
+  const weakestArt = [...character.artifacts].sort(
+    (a, b) => a.score.potentialPercent - b.score.potentialPercent,
+  )[0];
 
   return {
     totalRolls,
@@ -86,6 +94,8 @@ export function buildDiagnostics(character: CharacterData): GenshinBuildDiagnost
       .sort((a, b) => b.rolls - a.rolls),
     critRatio: critRate > 0 ? critDmg / critRate : null,
     energy: target ? { current: energyRecharge, target } : null,
-    weakest: weakestArt ? { slot: weakestArt.slot, percent: weakestArt.score.potentialPercent } : null,
+    weakest: weakestArt
+      ? { slot: weakestArt.slot, percent: weakestArt.score.potentialPercent }
+      : null,
   };
 }

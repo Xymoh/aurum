@@ -23,22 +23,25 @@ export function ZzzLayout() {
       <header className="sticky top-0 z-30 border-b border-zzz-border bg-zzz-panel/80 backdrop-blur-md">
         <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link to="/zzz" className="group flex items-center gap-2 no-underline">
-            <span className="font-mono text-lg font-bold text-zzz-accent transition-transform group-hover:-skew-x-12">
+            <span
+              aria-hidden="true"
+              className="font-mono text-lg font-bold text-zzz-accent transition-transform group-hover:-skew-x-12"
+            >
               //
             </span>
-            <span className="hidden text-sm font-black uppercase tracking-[0.22em] text-zzz-text sm:inline">
+            <span className="sr-only text-sm font-black uppercase tracking-[0.22em] text-zzz-text sm:not-sr-only">
               {t("zzz", "title")}
             </span>
           </Link>
           <nav className="flex items-center gap-1.5" aria-label="Site">
             <GameSwitcherCompact current="zzz" />
             <Link
-            to="/zzz/builds"
-            className="rounded-lg px-2 py-1.5 text-sm font-semibold uppercase tracking-wide text-zzz-muted no-underline transition-colors hover:bg-zzz-fill hover:text-zzz-text"
-          >
-            {t("builds", "navLabel")}
-          </Link>
-                      <LanguageSwitcher />
+              to="/zzz/builds"
+              className="rounded-lg px-2 py-1.5 text-sm font-semibold uppercase tracking-wide text-zzz-muted no-underline transition-colors hover:bg-zzz-fill hover:text-zzz-text"
+            >
+              {t("builds", "navLabel")}
+            </Link>
+            <LanguageSwitcher />
             <ThemeToggle className="text-zzz-muted hover:bg-zzz-fill hover:text-zzz-text" />
           </nav>
         </div>
@@ -63,11 +66,13 @@ export function ZzzLayout() {
             >
               Enka.Network
             </a>
-            {t("zzz", "footerDataMiddle")}
-            .
+            {t("zzz", "footerDataMiddle")}.
           </p>
           <p className="mt-2">
-            <LegalLinks className="text-zzz-accent underline underline-offset-2 hover:text-zzz-text" helpTo={HELP_PATH.zzz} />
+            <LegalLinks
+              className="text-zzz-accent underline underline-offset-2 hover:text-zzz-text"
+              helpTo={HELP_PATH.zzz}
+            />
           </p>
         </div>
       </footer>

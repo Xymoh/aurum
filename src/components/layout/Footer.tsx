@@ -24,11 +24,15 @@ export function Footer() {
         .
         <br />
         {t("home", "footerBuildsPrefix")}
-        <a href="https://github.com/frzyc/genshin-optimizer" target="_blank" rel="noopener noreferrer" className={LINK}>
+        <a
+          href="https://github.com/frzyc/genshin-optimizer"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={LINK}
+        >
           Genshin Optimizer
         </a>
-        {t("home", "footerBuildsMiddle")}
-        .
+        {t("home", "footerBuildsMiddle")}.
       </p>
       <p className="mt-2 text-dark-muted text-sm">
         <LegalLinks className={LINK} helpTo={HELP_PATH.genshin} />

@@ -41,9 +41,15 @@ import { TRAVELER_ELEMENTS, TRAVELER_IDS, travelerId, travelerName } from "./gen
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.resolve(__dirname, "..");
-export const CHARACTERS = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "data", "characters.json"), "utf8"));
-export const SETS = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "data", "artifacts.json"), "utf8"));
-export const WEAPONS = JSON.parse(fs.readFileSync(path.join(ROOT, "src", "data", "weapon-ids.json"), "utf8"));
+export const CHARACTERS = JSON.parse(
+  fs.readFileSync(path.join(ROOT, "src", "data", "characters.json"), "utf8"),
+);
+export const SETS = JSON.parse(
+  fs.readFileSync(path.join(ROOT, "src", "data", "artifacts.json"), "utf8"),
+);
+export const WEAPONS = JSON.parse(
+  fs.readFileSync(path.join(ROOT, "src", "data", "weapon-ids.json"), "utf8"),
+);
 
 const GAME8 = "https://game8.co";
 /**
@@ -52,7 +58,10 @@ const GAME8 = "https://game8.co";
  * the "All Character Builds" page also has a table that still lists the few
  * characters the menu has dropped (Lan Yan). Both are read.
  */
-export const GAME8_INDEXES = [`${GAME8}/games/Genshin-Impact/archives/296707`, `${GAME8}/games/Genshin-Impact/archives/530535`];
+export const GAME8_INDEXES = [
+  `${GAME8}/games/Genshin-Impact/archives/296707`,
+  `${GAME8}/games/Genshin-Impact/archives/530535`,
+];
 export const GG = "https://genshin.gg";
 // Only used to tell a real weapon from the game's internal duplicates that
 // share its name (see buildWeaponIndex).
@@ -137,16 +146,18 @@ export function toText(html) {
 }
 
 export function decode(s) {
-  return s
-    .replace(/&gt;/g, ">")
-    .replace(/&lt;/g, "<")
-    .replace(/&quot;/g, '"')
-    .replace(/&#8217;|&#x27;|&#39;|&rsquo;/g, "'")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    // Soft hyphens and zero-width marks the page adds for line breaking
-    // ("Foot­print of the Rain­bow") would split a name in two.
-    .replace(/[­​-‍⁠﻿]/g, "");
+  return (
+    s
+      .replace(/&gt;/g, ">")
+      .replace(/&lt;/g, "<")
+      .replace(/&quot;/g, '"')
+      .replace(/&#8217;|&#x27;|&#39;|&rsquo;/g, "'")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&amp;/g, "&")
+      // Soft hyphens and zero-width marks the page adds for line breaking
+      // ("Foot­print of the Rain­bow") would split a name in two.
+      .replace(/[­​-‍⁠﻿]/g, "")
+  );
 }
 
 /** One element's inner HTML as a single line of text. */
@@ -158,7 +169,9 @@ export function inlineText(html) {
 
 /** One element's inner HTML as its visible lines ("<br>", "<hr>" and blocks break). */
 export function textLines(html) {
-  return decode(html.replace(/<br\s*\/?>|<hr\b[^>]*>|<\/(div|p|li)>/g, "\n").replace(/<[^>]+>/g, " "))
+  return decode(
+    html.replace(/<br\s*\/?>|<hr\b[^>]*>|<\/(div|p|li)>/g, "\n").replace(/<[^>]+>/g, " "),
+  )
     .split("\n")
     .map((l) => l.replace(/\s+/g, " ").trim())
     .filter(Boolean);
@@ -213,7 +226,9 @@ export function parseGgPicks(html) {
 
   // "Best Weapons" runs from its section title to the next section.
   const weapons = [];
-  const weaponsAt = html.search(/<h2 class="character-build-section-title">[^<]*Best Weapons<\/h2>/);
+  const weaponsAt = html.search(
+    /<h2 class="character-build-section-title">[^<]*Best Weapons<\/h2>/,
+  );
   if (weaponsAt >= 0) {
     const rest = html.slice(weaponsAt);
     const end = rest.search(/<div class="character-build-section">|<div class="character-stats">/);
@@ -239,7 +254,9 @@ export function parseGgPicks(html) {
     const block = end > 0 ? rest.slice(0, end) : rest;
     for (const chunk of block.split('<div class="character-team">').slice(1)) {
       const name = chunk.match(/<div class="character-team-name">([\s\S]*?)<\/div>/);
-      const members = [...chunk.matchAll(/<a class="character-portrait"[^>]*>\s*<img alt="([^"]*)"/g)].map((m) => [inlineText(m[1])]);
+      const members = [
+        ...chunk.matchAll(/<a class="character-portrait"[^>]*>\s*<img alt="([^"]*)"/g),
+      ].map((m) => [inlineText(m[1])]);
       teams.push({ name: name ? inlineText(name[1]) || null : null, members });
     }
   }
@@ -255,7 +272,13 @@ export function parseGgPicks(html) {
     if (/^Substats\s*:/i.test(line)) substatLine = line.replace(/^Substats\s*:\s*/i, "") || null;
   }
 
-  return { role: role ? inlineText(role[1]) || null : null, weapons, teams, substatLine, mainStatLabels };
+  return {
+    role: role ? inlineText(role[1]) || null : null,
+    weapons,
+    teams,
+    substatLine,
+    mainStatLabels,
+  };
 }
 
 // ── Game8 ───────────────────────────────────────────────────────────
@@ -282,7 +305,13 @@ export function tableRows(table) {
   return table
     .split(/<tr\b[^>]*>/)
     .slice(1)
-    .map((tr) => [...tr.matchAll(/<(th|td)\b([^>]*)>([\s\S]*?)<\/\1>/g)].map((m) => ({ tag: m[1], attrs: m[2], html: m[3] })))
+    .map((tr) =>
+      [...tr.matchAll(/<(th|td)\b([^>]*)>([\s\S]*?)<\/\1>/g)].map((m) => ({
+        tag: m[1],
+        attrs: m[2],
+        html: m[3],
+      })),
+    )
     .filter((row) => row.length > 0);
 }
 
@@ -293,7 +322,10 @@ export function tablesIn(html) {
 
 /** The last h3/h4 before a point in a section: the title the table sits under. */
 export function headingsBefore(html, at) {
-  return [...html.slice(0, at).matchAll(/<h([34])\b[^>]*>([\s\S]*?)<\/h\1>/g)].map((m) => ({ level: Number(m[1]), text: inlineText(m[2]) }));
+  return [...html.slice(0, at).matchAll(/<h([34])\b[^>]*>([\s\S]*?)<\/h\1>/g)].map((m) => ({
+    level: Number(m[1]),
+    text: inlineText(m[2]),
+  }));
 }
 
 /**
@@ -308,7 +340,11 @@ export function linksIn(html) {
   );
   return found.map((m, i) => ({
     name: inlineText(m[2]),
-    after: inlineText(html.slice(m.index + m[0].length, found[i + 1]?.index ?? html.length).split(/<\/div>|<br\s*\/?>/)[0]),
+    after: inlineText(
+      html
+        .slice(m.index + m[0].length, found[i + 1]?.index ?? html.length)
+        .split(/<\/div>|<br\s*\/?>/)[0],
+    ),
   }));
 }
 
@@ -448,13 +484,18 @@ export function parseStatPriority(html) {
     if (cells.length === 3 && !Object.keys(mainStatLabels).length) {
       cells.forEach((c, i) => {
         const alt = c.html.match(/alt=['"][^'"]*\b(Hourglass|Sands|Goblet|Circlet)\b/i);
-        mainStatLabels[alt ? SLOT_OF[alt[1].toLowerCase()] : ["SANDS", "GOBLET", "CIRCLET"][i]] = inlineText(c.html);
+        mainStatLabels[alt ? SLOT_OF[alt[1].toLowerCase()] : ["SANDS", "GOBLET", "CIRCLET"][i]] =
+          inlineText(c.html);
       });
     }
     for (const c of cells) {
       const line = inlineText(c.html);
       if (/^Substats\s*:/i.test(line)) {
-        substatLine = line.replace(/^Substats\s*:\s*/i, "").replace(/\s*(>=|>|=)\s*/g, " $1 ").trim() || null;
+        substatLine =
+          line
+            .replace(/^Substats\s*:\s*/i, "")
+            .replace(/\s*(>=|>|=)\s*/g, " $1 ")
+            .trim() || null;
       }
     }
   }
@@ -504,8 +545,16 @@ export function parseGame8Ranks(section, report) {
       if (first.tag === "th" && !firstLinks.length && inlineText(first.html)) {
         const cell = row.slice(1).find((c) => linksIn(c.html).length);
         if (!cell) continue;
-        ranks.push({ label: inlineText(first.html), links: linksIn(cell.html), text: inlineText(cell.html) });
-      } else if (firstLinks.length && ranks.length && (first.tag === "th" || (row.length > 1 && !/colspan/.test(first.attrs)))) {
+        ranks.push({
+          label: inlineText(first.html),
+          links: linksIn(cell.html),
+          text: inlineText(cell.html),
+        });
+      } else if (
+        firstLinks.length &&
+        ranks.length &&
+        (first.tag === "th" || (row.length > 1 && !/colspan/.test(first.attrs)))
+      ) {
         // The second set of a 2+2 rank, in the row the label spans into.
         ranks.at(-1).links.push(...firstLinks);
         ranks.at(-1).text += ` ${inlineText(first.html)}`;
@@ -518,14 +567,16 @@ export function parseGame8Ranks(section, report) {
     if (ranks.every((r) => ordinal(r.label) !== null)) {
       const before = ranks.map((r) => r.label).join(",");
       ranks.sort((a, b) => ordinal(a.label) - ordinal(b.label));
-      if (ranks.map((r) => r.label).join(",") !== before) report.push(`ranks reordered by label (${before})`);
+      if (ranks.map((r) => r.label).join(",") !== before)
+        report.push(`ranks reordered by label (${before})`);
     }
 
     const out = { sets: [], labels: [] };
     for (const rank of ranks) {
       if (rank.links.length === 1) {
         // A single set the page marks as a 2-piece ("2-Pc. Alternative", "x2").
-        const two = /\b2\s*-?\s*p(c|iece)/i.test(rank.label) || /^x\s*2\b/i.test(rank.links[0].after);
+        const two =
+          /\b2\s*-?\s*p(c|iece)/i.test(rank.label) || /^x\s*2\b/i.test(rank.links[0].after);
         out.sets.push([{ name: rank.links[0].name, pieces: two ? 2 : 4 }]);
       } else if (rank.links.length === 2) {
         out.sets.push(rank.links.map((l) => ({ name: l.name, pieces: 2 })));
@@ -562,7 +613,11 @@ export function parseGame8Teams(section) {
   const tables = [];
   for (const table of tablesIn(section.html)) {
     const rows = tableRows(table.html);
-    if (!rows.length || rows[0].some((c) => c.tag === "th" && /^Explanation$/i.test(inlineText(c.html)))) continue;
+    if (
+      !rows.length ||
+      rows[0].some((c) => c.tag === "th" && /^Explanation$/i.test(inlineText(c.html)))
+    )
+      continue;
     const teams = rows
       .map((row) => row.filter((c) => c.tag === "td" && !/colspan/.test(c.attrs)))
       .filter((slots) => slots.length >= 3)
@@ -576,14 +631,20 @@ export function parseGame8Teams(section) {
       );
     if (!teams.length) continue;
     tables.push({
-      title: rows[0].length === 1 && rows[0][0].tag === "th" ? inlineText(rows[0][0].html) || null : null,
+      title:
+        rows[0].length === 1 && rows[0][0].tag === "th"
+          ? inlineText(rows[0][0].html) || null
+          : null,
       heading: headingsBefore(section.html, table.at).at(-1)?.text ?? null,
       teams,
     });
   }
   return tables.flatMap((table) => {
     const underHeading = tables.filter((t) => t.heading === table.heading);
-    const titlesTellApart = underHeading.length > 1 && underHeading.every((t) => t.title) && new Set(underHeading.map((t) => t.title)).size === underHeading.length;
+    const titlesTellApart =
+      underHeading.length > 1 &&
+      underHeading.every((t) => t.title) &&
+      new Set(underHeading.map((t) => t.title)).size === underHeading.length;
     const name = table.heading && !titlesTellApart ? table.heading : (table.title ?? table.heading);
     return table.teams.map((members) => ({ name, members }));
   });
@@ -594,16 +655,30 @@ export function parseGame8Teams(section) {
  * column per role with a row per rank, where the first role is read.
  */
 export function parseTalentPriority(html) {
-  const heading = html.match(/<h[234]\b[^>]*>(?:(?!<\/h[234]>)[\s\S])*Talent Priority(?:(?!<\/h[234]>)[\s\S])*<\/h[234]>/);
+  const heading = html.match(
+    /<h[234]\b[^>]*>(?:(?!<\/h[234]>)[\s\S])*Talent Priority(?:(?!<\/h[234]>)[\s\S])*<\/h[234]>/,
+  );
   if (!heading) return null;
   const table = tablesIn(html.slice(heading.index + heading[0].length))[0];
   if (!table) return null;
   const rows = tableRows(table.html);
   let order;
-  if (rows.some((r) => r[0].tag === "th" && ordinal(inlineText(r[0].html)) !== null && r.length > 1 && r[1].tag === "td")) {
-    order = rows.filter((r) => r[0].tag === "th" && ordinal(inlineText(r[0].html)) !== null).map((r) => r.find((c) => c.tag === "td")?.html ?? "");
+  if (
+    rows.some(
+      (r) =>
+        r[0].tag === "th" &&
+        ordinal(inlineText(r[0].html)) !== null &&
+        r.length > 1 &&
+        r[1].tag === "td",
+    )
+  ) {
+    order = rows
+      .filter((r) => r[0].tag === "th" && ordinal(inlineText(r[0].html)) !== null)
+      .map((r) => r.find((c) => c.tag === "td")?.html ?? "");
   } else {
-    order = (rows.find((r) => r.some((c) => c.tag === "td")) ?? []).filter((c) => c.tag === "td").map((c) => c.html);
+    order = (rows.find((r) => r.some((c) => c.tag === "td")) ?? [])
+      .filter((c) => c.tag === "td")
+      .map((c) => c.html);
   }
   const names = order.map(inlineText).filter(Boolean);
   return names.length ? names.join(" > ") : null;
@@ -630,7 +705,9 @@ export function parseGoalStats(html) {
   if (!goals.some((g) => /^energy recharge$/i.test(g.label))) {
     for (const table of tablesIn(html)) {
       // "Energy Recharge%" rows are base-stat tables, not goals; the label must be exact.
-      const row = tableRows(table.html).find((r) => r.length >= 2 && /^(recommended )?energy recharge$/i.test(inlineText(r[0].html)));
+      const row = tableRows(table.html).find(
+        (r) => r.length >= 2 && /^(recommended )?energy recharge$/i.test(inlineText(r[0].html)),
+      );
       if (!row) continue;
       const value = textLines(row[1].html)
         .join(" / ")
@@ -660,7 +737,8 @@ export function teamLabel(name, stripNames) {
   for (const strip of [...stripNames].sort((a, b) => b.length - a.length)) {
     const rest = name.replace(new RegExp(`^${escapeRegExp(strip)}(?:'s)?\\s+`, "i"), "");
     if (rest === name) continue;
-    if (/^[A-Z0-9]/.test(rest) && !/^(best\s+)?team(\s+comps?)?s?$/i.test(rest)) return singular(rest);
+    if (/^[A-Z0-9]/.test(rest) && !/^(best\s+)?team(\s+comps?)?s?$/i.test(rest))
+      return singular(rest);
     break;
   }
   return singular(name);
@@ -674,7 +752,9 @@ export function teamLabel(name, stripNames) {
 export function game8TitleName(html) {
   const title = html.match(/<title>([\s\S]*?)<\/title>/);
   if (!title) return null;
-  const m = inlineText(title[1]).match(/^(.+?)\s+(?:How to (?:Unlock|Get)(?: and)?\s+)?(?:Ratings?|Best Builds?|Builds?)\b/);
+  const m = inlineText(title[1]).match(
+    /^(.+?)\s+(?:How to (?:Unlock|Get)(?: and)?\s+)?(?:Ratings?|Best Builds?|Builds?)\b/,
+  );
   return m ? m[1] : null;
 }
 
@@ -685,8 +765,12 @@ export function parseGame8Page(html) {
   const artifacts = sections.find((s) => /Artifacts/.test(s.title));
   const teams = sections.find((s) => s !== builds && /Team/.test(s.title));
   const shape = [];
-  const date = html.match(/<time\b[^>]*datetime="(\d{4}-\d{2}-\d{2})[^"]*"[^>]*itemprop="dateModified"/);
-  const canonical = html.match(/<link\b[^>]*href="([^"]+)"[^>]*rel="canonical"/) ?? html.match(/<link\b[^>]*rel="canonical"[^>]*href="([^"]+)"/);
+  const date = html.match(
+    /<time\b[^>]*datetime="(\d{4}-\d{2}-\d{2})[^"]*"[^>]*itemprop="dateModified"/,
+  );
+  const canonical =
+    html.match(/<link\b[^>]*href="([^"]+)"[^>]*rel="canonical"/) ??
+    html.match(/<link\b[^>]*rel="canonical"[^>]*href="([^"]+)"/);
   return {
     titleName: game8TitleName(html),
     canonical: canonical ? canonical[1] : null,
@@ -705,12 +789,18 @@ export function parseGame8Page(html) {
 /** The Game8 menu and build-table links: [{ label, url, fromTable }]. */
 export function game8IndexLinks(html) {
   const links = [];
-  for (const m of html.matchAll(/<a class="menuItem-link[^"]*"[^>]*data-track-nier-value="([^"]*)"[^>]*href="([^"]*)"/g)) {
-    if (/\/archives\//.test(m[2])) links.push({ label: decode(m[1]), url: new URL(m[2], GAME8).href, fromTable: false });
+  for (const m of html.matchAll(
+    /<a class="menuItem-link[^"]*"[^>]*data-track-nier-value="([^"]*)"[^>]*href="([^"]*)"/g,
+  )) {
+    if (/\/archives\//.test(m[2]))
+      links.push({ label: decode(m[1]), url: new URL(m[2], GAME8).href, fromTable: false });
   }
   // "All Character Builds": one row per character, portrait link first.
-  for (const m of html.matchAll(/<td class="center">\s*<a class='a-link' href=([^>\s]+)>(?:<img[^>]*>)?([^<]*)<\/a>/g)) {
-    if (/\/archives\//.test(m[1]) && m[2].trim()) links.push({ label: decode(m[2].trim()), url: new URL(m[1], GAME8).href, fromTable: true });
+  for (const m of html.matchAll(
+    /<td class="center">\s*<a class='a-link' href=([^>\s]+)>(?:<img[^>]*>)?([^<]*)<\/a>/g,
+  )) {
+    if (/\/archives\//.test(m[1]) && m[2].trim())
+      links.push({ label: decode(m[2].trim()), url: new URL(m[1], GAME8).href, fromTable: true });
   }
   return links;
 }
@@ -749,7 +839,9 @@ export async function buildWeaponIndex() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       known = new Set(Object.keys((await res.json()).data.items));
     } catch (err) {
-      console.warn(`  ⚠ Project Amber weapon list unavailable (${err.message}); duplicate weapon names will be reported`);
+      console.warn(
+        `  ⚠ Project Amber weapon list unavailable (${err.message}); duplicate weapon names will be reported`,
+      );
     }
   }
   const resolved = new Map();
@@ -802,7 +894,8 @@ export function subjects() {
     out.set(id, { name: c.name, element: null });
   }
   if (TRAVELER_IDS.some((id) => CHARACTERS[id])) {
-    for (const element of TRAVELER_ELEMENTS) out.set(travelerId(element), { name: travelerName(element), element });
+    for (const element of TRAVELER_ELEMENTS)
+      out.set(travelerId(element), { name: travelerName(element), element });
   }
   return out;
 }
@@ -810,7 +903,12 @@ export function subjects() {
 export function wanted(id, subject) {
   if (!ONLY.size) return true;
   const name = normalise(subject.name);
-  return ONLY.has(id) || ONLY.has(name) || ONLY.has(name.replace(/ /g, "")) || name.split(" ").some((w) => ONLY.has(w));
+  return (
+    ONLY.has(id) ||
+    ONLY.has(name) ||
+    ONLY.has(name.replace(/ /g, "")) ||
+    name.split(" ").some((w) => ONLY.has(w))
+  );
 }
 
 // ── Stats and roles ─────────────────────────────────────────────────
@@ -850,8 +948,13 @@ export function mainStatsFrom(labels, unmapped) {
     const label = labels?.[slot];
     if (!label) continue;
     const keys = [];
-    const text = label.replace(/\([^)]*\)/g, " ").replace(/crit\s*rate\s*\/\s*(?:crit\s*)?dmg/gi, "CRIT");
-    for (const part of text.split(/\s*(?:>=|=|>|\/|,|\bor\b)\s*/i).map((p) => p.trim()).filter(Boolean)) {
+    const text = label
+      .replace(/\([^)]*\)/g, " ")
+      .replace(/crit\s*rate\s*\/\s*(?:crit\s*)?dmg/gi, "CRIT");
+    for (const part of text
+      .split(/\s*(?:>=|=|>|\/|,|\bor\b)\s*/i)
+      .map((p) => p.trim())
+      .filter(Boolean)) {
       const found = mainStatKeys(part);
       if (!found) unmapped.add(`${part} (${slot.toLowerCase()})`);
       else for (const k of found) if (!keys.includes(k)) keys.push(k);
@@ -862,7 +965,9 @@ export function mainStatsFrom(labels, unmapped) {
 }
 
 /** First two words of every set name, lowercased: a build titled by its set starts with one. */
-const SET_PREFIXES = Object.values(SETS).map((s) => normalise(s.name).split(" ").slice(0, 2).join(" "));
+const SET_PREFIXES = Object.values(SETS).map((s) =>
+  normalise(s.name).split(" ").slice(0, 2).join(" "),
+);
 
 export function escapeRegExp(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -928,7 +1033,11 @@ async function main() {
       }
       if (!id || NEVER_BUILT.has(id)) continue;
       const seen = game8.get(id);
-      if (!seen || (exact && !seen.exact) || (exact === seen.exact && link.fromTable && !seen.fromTable)) {
+      if (
+        !seen ||
+        (exact && !seen.exact) ||
+        (exact === seen.exact && link.fromTable && !seen.fromTable)
+      ) {
         game8.set(id, { url: link.url, label: link.label, exact, fromTable: link.fromTable });
       }
     }
@@ -953,7 +1062,8 @@ async function main() {
     for (const { name, refinement } of list) {
       const weaponId = weaponByName.get(normalise(name));
       if (!weaponId) unknownWeapons.add(name);
-      else if (!out.some((w) => w.id === weaponId && w.refinement === refinement)) out.push({ id: weaponId, refinement });
+      else if (!out.some((w) => w.id === weaponId && w.refinement === refinement))
+        out.push({ id: weaponId, refinement });
     }
     return out;
   };
@@ -994,7 +1104,9 @@ async function main() {
         options.push(ids.filter((memberId) => memberId !== pick));
       }
       // An alternate that is already in the team is not an alternative to anyone.
-      const alternates = options.map((ids) => ids.filter((memberId) => !members.includes(memberId)));
+      const alternates = options.map((ids) =>
+        ids.filter((memberId) => !members.includes(memberId)),
+      );
       // Same four in another order is the same team.
       const key = [...members].sort().join(",");
       if (members.length < 2 || seen.has(key)) continue;
@@ -1003,7 +1115,11 @@ async function main() {
       // team they are in.
       if (selfId && ![...members, ...alternates.flat()].includes(selfId)) continue;
       seen.add(key);
-      teams.push({ name: teamLabel(team.name, stripNames), members, ...(alternates.some((ids) => ids.length) ? { alternates } : {}) });
+      teams.push({
+        name: teamLabel(team.name, stripNames),
+        members,
+        ...(alternates.some((ids) => ids.length) ? { alternates } : {}),
+      });
       if (teams.length === MAX_TEAMS) break;
     }
     return teams;
@@ -1043,7 +1159,11 @@ async function main() {
     const parsed = parseGame8Page(page.html);
     // The title confirms the menu label pointed at the right character.
     const titleElement = parsed.titleName ? travelerElementOf(parsed.titleName) : null;
-    const titleId = titleElement ? travelerId(titleElement) : parsed.titleName ? matchCharacter(parsed.titleName, charByName) : null;
+    const titleId = titleElement
+      ? travelerId(titleElement)
+      : parsed.titleName
+        ? matchCharacter(parsed.titleName, charByName)
+        : null;
     if (titleId !== id) return { why: `page title "${parsed.titleName}" is not ${subject.name}` };
     if (!parsed.build) return { why: "no build table" };
     const weapons = resolveWeapons(parsed.build.weapons);
@@ -1059,7 +1179,13 @@ async function main() {
     if (!sets.length) return { why: "no ranked sets" };
     for (const s of parsed.shape) shapes.push(`${subject.name}: ${s}`);
 
-    const names = [subject.name, ...subject.name.split(" "), entry.label, parsed.titleName, parsed.titleName?.replace(/\s*\([^)]*\)$/, "")]
+    const names = [
+      subject.name,
+      ...subject.name.split(" "),
+      entry.label,
+      parsed.titleName,
+      parsed.titleName?.replace(/\s*\([^)]*\)$/, ""),
+    ]
       .concat(subject.element ? ["Traveler", `${subject.element} Traveler`] : [])
       .filter(Boolean);
     const role = roleFrom(parsed.build, names);
@@ -1080,7 +1206,12 @@ async function main() {
       source: parsed.canonical ?? page.url,
       sourceLabel: "Game8",
       sourceUpdated: parsed.updated,
-      mainStats: mainStatsFrom(stats && Object.keys(stats.mainStatLabels).length ? stats.mainStatLabels : parsed.build.mainStatLabels, unmappedStats),
+      mainStats: mainStatsFrom(
+        stats && Object.keys(stats.mainStatLabels).length
+          ? stats.mainStatLabels
+          : parsed.build.mainStatLabels,
+        unmappedStats,
+      ),
       role,
       weapons,
       teams: resolveTeams(parsed.teams, names, id),
@@ -1099,22 +1230,25 @@ async function main() {
       await polite();
       const index = await getText(`${GG}/characters/`);
       // Parentheses too: the Traveler's pages are "traveler(anemo)" and so on.
-      ggSlugs = [...new Set([...index.matchAll(/href="\/characters\/([a-z0-9()-]+)\/"/g)].map((m) => m[1]))];
+      ggSlugs = [
+        ...new Set([...index.matchAll(/href="\/characters\/([a-z0-9()-]+)\/"/g)].map((m) => m[1])),
+      ];
     }
     const subject = who.get(id);
     const name = normalise(subject.name);
     const slug = subject.element
       ? ggSlugs.find((s) => travelerSlugElement(s) === subject.element)
-      : ggSlugs.find((s) => s === name.replace(/ /g, "")) ??
+      : (ggSlugs.find((s) => s === name.replace(/ /g, "")) ??
         ggSlugs.find((s) => NAME_ALIASES[s] === name) ??
-        ggSlugs.find((s) => !travelerSlugElement(s) && name.split(" ").includes(s));
+        ggSlugs.find((s) => !travelerSlugElement(s) && name.split(" ").includes(s)));
     if (!slug) return { why: "no genshin.gg page" };
     await polite();
     const html = await getText(`${GG}/characters/${slug}/`);
     const title = toText(html).match(/## H1: Genshin Impact (.+?) Build/);
     if (!title) return { why: `genshin.gg ${slug} has no build page` };
     const pageId = matchCharacter(title[1].trim(), charByName);
-    if (subject.element ? !TRAVELER_IDS.includes(pageId) : pageId !== id) return { why: `genshin.gg ${slug} is "${title[1].trim()}"` };
+    if (subject.element ? !TRAVELER_IDS.includes(pageId) : pageId !== id)
+      return { why: `genshin.gg ${slug} is "${title[1].trim()}"` };
 
     const page = parseGgPicks(html);
     const ranks = parseArtifacts(toText(html));
@@ -1164,25 +1298,38 @@ async function main() {
         erTarget: result.erTarget,
         sets: result.sets,
       };
-      line.push(`${result.sourceLabel} ${result.sets.length} sets, ${result.weapons.length} weapons, ${result.teams.length} teams`);
+      line.push(
+        `${result.sourceLabel} ${result.sets.length} sets, ${result.weapons.length} weapons, ${result.teams.length} teams`,
+      );
     }
     console.log(`  ${subject.name.padEnd(22)} ${line.join(" | ") || "no page"}`);
   }
 
   for (const [site, entries] of Object.entries(bySite)) {
     const file = writeSource("genshin", site, entries, { merge: ONLY.size > 0 });
-    console.log(`  ✔ wrote ${Object.keys(entries).length} characters to ${path.relative(ROOT, file)}`);
+    console.log(
+      `  ✔ wrote ${Object.keys(entries).length} characters to ${path.relative(ROOT, file)}`,
+    );
   }
-  const missing = [...who].filter(([id]) => !bySite.game8[id] && !bySite["genshin-gg"][id]).map(([, subject]) => subject.name);
+  const missing = [...who]
+    .filter(([id]) => !bySite.game8[id] && !bySite["genshin-gg"][id])
+    .map(([, subject]) => subject.name);
   console.log(`  Game8: ${bySource.Game8.length}, genshin.gg: ${bySource["genshin.gg"].length}`);
 
   if (fallbackWhy.length) console.log(`  ⚠ no Game8 picks: ${fallbackWhy.join(", ")}`);
-  if (unknownSets.size) console.log(`  ⚠ set names not in artifacts.json: ${[...unknownSets].join(", ")}`);
-  if (unknownWeapons.size) console.log(`  ⚠ weapon names not matched in weapon-ids.json: ${[...unknownWeapons].join(", ")}`);
-  if (unknownMembers.size) console.log(`  ⚠ team members not matched to a character: ${[...unknownMembers].join(", ")}`);
-  if (unmappedStats.size) console.log(`  ⚠ main stat labels with no scorer key: ${[...unmappedStats].join(", ")}`);
+  if (unknownSets.size)
+    console.log(`  ⚠ set names not in artifacts.json: ${[...unknownSets].join(", ")}`);
+  if (unknownWeapons.size)
+    console.log(
+      `  ⚠ weapon names not matched in weapon-ids.json: ${[...unknownWeapons].join(", ")}`,
+    );
+  if (unknownMembers.size)
+    console.log(`  ⚠ team members not matched to a character: ${[...unknownMembers].join(", ")}`);
+  if (unmappedStats.size)
+    console.log(`  ⚠ main stat labels with no scorer key: ${[...unmappedStats].join(", ")}`);
   if (shapes.length) console.log(`  ⚠ page shapes to check:\n      ${shapes.join("\n      ")}`);
-  if (unmatched.length) console.log(`  ⚠ characters not matched to a page: ${unmatched.join(", ")}`);
+  if (unmatched.length)
+    console.log(`  ⚠ characters not matched to a page: ${unmatched.join(", ")}`);
   if (missing.length) console.log(`  ⚠ characters with no picks: ${missing.join(", ")}`);
   if (process.env.SHOW_ROLES) console.log(`  roles:\n      ${roles.join("\n      ")}`);
 }

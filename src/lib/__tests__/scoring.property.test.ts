@@ -72,29 +72,40 @@ const arbSubstat: fc.Arbitrary<ArtifactSubstat> = fc
   });
 
 /** Generate an array of 1–4 unique substats */
-const arbSubstats: fc.Arbitrary<ArtifactSubstat[]> = fc
-  .uniqueArray(arbSubstat, { minLength: 1, maxLength: 4, comparator: (a, b) => a.statKey === b.statKey })
+const arbSubstats: fc.Arbitrary<ArtifactSubstat[]> = fc.uniqueArray(arbSubstat, {
+  minLength: 1,
+  maxLength: 4,
+  comparator: (a, b) => a.statKey === b.statKey,
+});
 
-/** Generate ScoringWeights with values between 0.0 and 1.5 */
+/**
+ * One weight: zero, or between 0.001 and 1.5. Not any double in [0, 1.5]:
+ * fast-check favours edge values such as 5e-324, and with every weight that
+ * small the arithmetic underflows (a perfect piece scored 197.14%), which
+ * failed the 200% property now and then. Curated weights are 0 or at least 0.05.
+ */
+const arbWeight = fc.oneof(fc.constant(0), fc.double({ min: 0.001, max: 1.5, noNaN: true }));
+
+/** Generate ScoringWeights with values of 0 or between 0.001 and 1.5 */
 const arbScoringWeights: fc.Arbitrary<ScoringWeights> = fc.record({
-  CRIT_RATE: fc.double({ min: 0, max: 1.5, noNaN: true }),
-  CRIT_DMG: fc.double({ min: 0, max: 1.5, noNaN: true }),
-  ATK_PERCENT: fc.double({ min: 0, max: 1.5, noNaN: true }),
-  HP_PERCENT: fc.double({ min: 0, max: 1.5, noNaN: true }),
-  DEF_PERCENT: fc.double({ min: 0, max: 1.5, noNaN: true }),
-  ELEMENTAL_MASTERY: fc.double({ min: 0, max: 1.5, noNaN: true }),
-  ENERGY_RECHARGE: fc.double({ min: 0, max: 1.5, noNaN: true }),
-  HEALING_BONUS: fc.double({ min: 0, max: 1.5, noNaN: true }),
-  PHYSICAL_DMG: fc.double({ min: 0, max: 1.5, noNaN: true }),
-  ELEMENTAL_DMG: fc.double({ min: 0, max: 1.5, noNaN: true }),
-  FLAT_ATK: fc.double({ min: 0, max: 1.5, noNaN: true }),
-  FLAT_HP: fc.double({ min: 0, max: 1.5, noNaN: true }),
-  FLAT_DEF: fc.double({ min: 0, max: 1.5, noNaN: true }),
+  CRIT_RATE: arbWeight,
+  CRIT_DMG: arbWeight,
+  ATK_PERCENT: arbWeight,
+  HP_PERCENT: arbWeight,
+  DEF_PERCENT: arbWeight,
+  ELEMENTAL_MASTERY: arbWeight,
+  ENERGY_RECHARGE: arbWeight,
+  HEALING_BONUS: arbWeight,
+  PHYSICAL_DMG: arbWeight,
+  ELEMENTAL_DMG: arbWeight,
+  FLAT_ATK: arbWeight,
+  FLAT_HP: arbWeight,
+  FLAT_DEF: arbWeight,
 });
 
 /** Generate ScoringWeights with at least one non-zero weight */
-const arbNonZeroWeights: fc.Arbitrary<ScoringWeights> = arbScoringWeights.filter(
-  (w) => Object.values(w).some((v) => v > 0)
+const arbNonZeroWeights: fc.Arbitrary<ScoringWeights> = arbScoringWeights.filter((w) =>
+  Object.values(w).some((v) => v > 0),
 );
 
 /** Generate a main stat key */
@@ -320,6 +331,49 @@ describe("scoring invariants", () => {
     );
   });
 
+  it("keeps the perfect piece at 200% down to the smallest weight the generator draws", () => {
+    // The flaky case was every weight near 5e-324 (197.14%); 0.001 is far
+    // below any curated weight and still exact.
+    const tiny: ScoringWeights = {
+      CRIT_RATE: 0.001,
+      CRIT_DMG: 0.0009,
+      ATK_PERCENT: 0,
+      HP_PERCENT: 0,
+      DEF_PERCENT: 0,
+      ELEMENTAL_MASTERY: 0.0008,
+      ENERGY_RECHARGE: 0.0007,
+      HEALING_BONUS: 0,
+      PHYSICAL_DMG: 0,
+      ELEMENTAL_DMG: 0,
+      FLAT_ATK: 0,
+      FLAT_HP: 0,
+      FLAT_DEF: 0,
+    };
+    const keys: FightProp[] = [
+      "FIGHT_PROP_CRITICAL",
+      "FIGHT_PROP_CRITICAL_HURT",
+      "FIGHT_PROP_ELEMENT_MASTERY",
+      "FIGHT_PROP_CHARGE_EFFICIENCY",
+    ];
+    const perfect: ArtifactSubstat[] = keys.map((statKey, i) => ({
+      statKey,
+      displayName: statKey,
+      shortName: statKey,
+      value: MAX_ROLL_VALUES[statKey] * (i === 0 ? 6 : 1),
+      isPercentage: true,
+      maxRoll: MAX_ROLL_VALUES[statKey],
+      rollCount: i === 0 ? 5 : 0,
+      rollQuality: "high",
+      rolls: [],
+    }));
+    const main = "FIGHT_PROP_FIRE_ADD_HURT";
+    const score = computePotentialPercent(
+      computeWeightedPotential(perfect, tiny, main),
+      computeIdealPotential(tiny, main),
+    );
+    expect(score).toBeCloseTo(200, 6);
+  });
+
   it("never exceeds 200% for any artifact the game can produce", () => {
     // Four distinct substats, nine rolls between them, every roll at most a
     // max roll: the ceiling is the perfect piece above, nothing beats it.
@@ -328,30 +382,42 @@ describe("scoring invariants", () => {
       .chain((keys) =>
         fc
           .tuple(
-            ...keys.map(() => fc.array(fc.constantFrom(0.7, 0.8, 0.9, 1.0), { minLength: 1, maxLength: 6 })),
+            ...keys.map(() =>
+              fc.array(fc.constantFrom(0.7, 0.8, 0.9, 1.0), { minLength: 1, maxLength: 6 }),
+            ),
           )
           .filter((rolls) => rolls.reduce((n, r) => n + r.length, 0) <= 9)
           .map((rolls) =>
-            keys.map((statKey, i): ArtifactSubstat => ({
-              statKey,
-              displayName: statKey,
-              shortName: statKey,
-              value: MAX_ROLL_VALUES[statKey] * rolls[i].reduce((a, b) => a + b, 0),
-              isPercentage: true,
-              maxRoll: MAX_ROLL_VALUES[statKey],
-              rollCount: rolls[i].length - 1,
-              rollQuality: "high",
-              rolls: rolls[i],
-            })),
+            keys.map(
+              (statKey, i): ArtifactSubstat => ({
+                statKey,
+                displayName: statKey,
+                shortName: statKey,
+                value: MAX_ROLL_VALUES[statKey] * rolls[i].reduce((a, b) => a + b, 0),
+                isPercentage: true,
+                maxRoll: MAX_ROLL_VALUES[statKey],
+                rollCount: rolls[i].length - 1,
+                rollQuality: "high",
+                rolls: rolls[i],
+              }),
+            ),
           ),
       );
     fc.assert(
-      fc.property(arbRealSubstats, arbNonZeroWeights, arbMainStatKey, (substats, weights, mainStat) => {
-        const ideal = computeIdealPotential(weights, mainStat);
-        fc.pre(ideal > 0);
-        const percent = computePotentialPercent(computeWeightedPotential(substats, weights, mainStat), ideal);
-        expect(percent).toBeLessThanOrEqual(200 + 1e-6);
-      }),
+      fc.property(
+        arbRealSubstats,
+        arbNonZeroWeights,
+        arbMainStatKey,
+        (substats, weights, mainStat) => {
+          const ideal = computeIdealPotential(weights, mainStat);
+          fc.pre(ideal > 0);
+          const percent = computePotentialPercent(
+            computeWeightedPotential(substats, weights, mainStat),
+            ideal,
+          );
+          expect(percent).toBeLessThanOrEqual(200 + 1e-6);
+        },
+      ),
     );
   });
 });

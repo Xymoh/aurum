@@ -55,10 +55,12 @@ export function BuildScoreBar({
         <div className="min-w-0 flex-1">
           <div className="text-sm font-medium text-dark-muted">
             {t("showcase", "buildScore")}
-            <span className="mx-1.5 opacity-50" aria-hidden="true">·</span>
+            <span className="mx-1.5 opacity-50" aria-hidden="true">
+              ·
+            </span>
             {t("showcase", "mainStats", { correct: correctMainStats, total: totalSelectableSlots })}
           </div>
-          <p className="mt-1 text-sm text-dark-muted/80">
+          <p className="mt-1 text-sm text-dark-muted">
             {t("showcase", "incompleteScore", { count: artifactCount })}
           </p>
         </div>
@@ -80,13 +82,24 @@ export function BuildScoreBar({
           <span className="text-sm font-medium text-dark-muted">
             {/* The first place a reader can ask what the number means; the
                 home page explains it too, but not everyone arrives there. */}
-            <InfoTip content={t("showcase", "buildScoreHint")} label={t("showcase", "buildScore")} className="inline-block align-baseline">
+            <InfoTip
+              content={t("showcase", "buildScoreHint")}
+              label={t("showcase", "buildScore")}
+              className="inline-block align-baseline"
+            >
               <span className="inline-flex items-center gap-1 underline decoration-dotted underline-offset-4">
                 {t("showcase", "buildScore")}
-                <span aria-hidden="true" className="inline-flex h-3.5 w-3.5 items-center justify-center rounded-full border border-dark-muted/50 text-[9px] leading-none">?</span>
+                <span
+                  aria-hidden="true"
+                  className="inline-flex h-3.5 w-3.5 items-center justify-center rounded-full border border-dark-muted/50 text-[9px] leading-none"
+                >
+                  ?
+                </span>
               </span>
             </InfoTip>
-            <span className="mx-1.5 opacity-50" aria-hidden="true">·</span>
+            <span className="mx-1.5 opacity-50" aria-hidden="true">
+              ·
+            </span>
             {t("showcase", "mainStats", { correct: correctMainStats, total: totalSelectableSlots })}
           </span>
           <span className="font-mono text-xl font-bold tabular-nums" style={{ color }}>

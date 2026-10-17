@@ -118,7 +118,11 @@ function ShareButton() {
       className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-dark-border px-3 text-sm font-medium text-dark-muted transition-colors hover:border-accent/50 hover:text-dark-text sm:flex-none"
       aria-live="polite"
     >
-      {copied ? <CheckIcon className="h-3.5 w-3.5 text-verdict-high" /> : <ClipboardIcon className="h-3.5 w-3.5" />}
+      {copied ? (
+        <CheckIcon className="h-3.5 w-3.5 text-verdict-high" />
+      ) : (
+        <ClipboardIcon className="h-3.5 w-3.5" />
+      )}
       {copied ? t("showcase", "copied") : t("player", "share")}
     </button>
   );
@@ -173,7 +177,10 @@ export function PlayerHeader({
       {account && account.scored > 0 && (
         <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end sm:text-right">
           <div>
-            <p className="font-mono text-2xl font-bold leading-none tabular-nums" style={{ color: gradeVar(account.grade) }}>
+            <p
+              className="font-mono text-2xl font-bold leading-none tabular-nums"
+              style={{ color: gradeVar(account.grade) }}
+            >
               {formatScore(account.score)}
             </p>
             <p className="mt-1 font-mono text-xs text-dark-muted">
@@ -222,7 +229,9 @@ export function PlayerHeader({
           </svg>
           {isFetching ? t("player", "refreshing") : t("player", "refresh")}
           {waiting && (
-            <span className="font-mono tabular-nums">· {String(secondsFresh).padStart(2, "0")}s</span>
+            <span className="font-mono tabular-nums">
+              · {String(secondsFresh).padStart(2, "0")}s
+            </span>
           )}
         </button>
       </div>

@@ -30,10 +30,10 @@ describing in-game items.
   each response carries by not re-requesting a UID before it expires, and never
   to enumerate UIDs or run bulk query jobs. It applies dynamic rate limits.
 - How Aurum complies: the relay in `workers/enka-proxy.js` identifies itself
-  as `Aurum/0.1 (+https://github.com/Xymoh/aurum)`, caches each answer for
-  the ttl at the edge, the client refuses to refetch before the ttl runs out,
-  and the relay serves only this site's origin with a per-address cap, so it
-  cannot be used for bulk queries by anyone else.
+  as `Aurum/0.1 (+https://aurumgg.com)`, caches each successful answer for 60
+  seconds at the edge (Enka's usual profile ttl), the client refuses to refetch
+  before the ttl runs out, and the relay serves only this site's origin with a
+  per-address cap, so it cannot be used for bulk queries by anyone else.
 
 ## Fribbels HSR Optimizer
 

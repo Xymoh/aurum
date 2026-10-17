@@ -34,7 +34,8 @@ const args = process.argv.slice(2);
 const SKIP_PRYDWEN = args.includes("--skip-prydwen");
 const ONLY = (args.find((a) => a.startsWith("--only=")) ?? "").slice(7).split(",").filter(Boolean);
 
-const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128 Safari/537.36";
+const UA =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128 Safari/537.36";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // ── Our table ─────────────────────────────────────────────────────
@@ -77,19 +78,18 @@ function parsePriority(text) {
   // "ER (until requirement)" is a threshold, not a rank: the guide is saying
   // "get enough, then stop", which our ER caution models separately. Noted
   // so the comparison does not treat it as "ER beats CRIT".
-  const erThreshold = /\bER%?\s*\((?:until|to|up to)[^)]*\)|\bER%?\s*(?:until|to) (?:requirement|req)/i.test(text);
+  const erThreshold =
+    /\bER%?\s*\((?:until|to|up to)[^)]*\)|\bER%?\s*(?:until|to) (?:requirement|req)/i.test(text);
   const tiers = text
     .split(/\s*(?:>|>>|→|＞)\s*/)
     .map((tier) =>
-      tier
-        .split(/\s*(?:=|≈|≥|>=|\/|~)\s*/)
-        .flatMap((tok) => {
-          // Bare "CRIT" means both crit stats.
-          if (/^crit(\s*stats?)?(\s*\(.*\))?$/i.test(tok.trim())) return ["CRIT_RATE", "CRIT_DMG"];
-          const key = normaliseStat(tok);
-          if (!key && tok.trim()) unknown.push(tok.trim());
-          return key ? [key] : [];
-        }),
+      tier.split(/\s*(?:=|≈|≥|>=|\/|~)\s*/).flatMap((tok) => {
+        // Bare "CRIT" means both crit stats.
+        if (/^crit(\s*stats?)?(\s*\(.*\))?$/i.test(tok.trim())) return ["CRIT_RATE", "CRIT_DMG"];
+        const key = normaliseStat(tok);
+        if (!key && tok.trim()) unknown.push(tok.trim());
+        return key ? [key] : [];
+      }),
     )
     .filter((tier) => tier.length > 0);
   return { tiers, unknown, erThreshold };
@@ -98,7 +98,10 @@ function parsePriority(text) {
 /** Our weights as tiers: stats grouped when within 0.05 of each other, best first. */
 function ourTiers(weights) {
   const ranked = Object.entries(weights)
-    .filter(([key, w]) => w >= 0.2 && !key.startsWith("FLAT_") && key !== "PHYSICAL_DMG" && key !== "ELEMENTAL_DMG")
+    .filter(
+      ([key, w]) =>
+        w >= 0.2 && !key.startsWith("FLAT_") && key !== "PHYSICAL_DMG" && key !== "ELEMENTAL_DMG",
+    )
     .sort((a, b) => b[1] - a[1]);
   const tiers = [];
   for (const [key, w] of ranked) {
@@ -146,10 +149,18 @@ function compare(weights, guideTiers, erThreshold = false) {
   const skipRank = new Set(erThreshold || erFirst ? ["ENERGY_RECHARGE"] : []);
 
   for (const [k] of rank) {
-    if ((weights[k] ?? 0) < 0.2) flags.push(`guide lists ${SHORT[k]}, we weight it ${(weights[k] ?? 0).toFixed(2)}`);
+    if ((weights[k] ?? 0) < 0.2)
+      flags.push(`guide lists ${SHORT[k]}, we weight it ${(weights[k] ?? 0).toFixed(2)}`);
   }
   for (const [k, w] of Object.entries(weights)) {
-    if (w >= 0.6 && !k.startsWith("FLAT_") && SHORT[k] && !rank.has(k) && k !== "PHYSICAL_DMG" && k !== "ELEMENTAL_DMG") {
+    if (
+      w >= 0.6 &&
+      !k.startsWith("FLAT_") &&
+      SHORT[k] &&
+      !rank.has(k) &&
+      k !== "PHYSICAL_DMG" &&
+      k !== "ELEMENTAL_DMG"
+    ) {
       flags.push(`we weight ${SHORT[k]} ${w.toFixed(2)}, guide does not list it`);
     }
   }
@@ -159,7 +170,9 @@ function compare(weights, guideTiers, erThreshold = false) {
       const a = listed[i];
       const b = listed[j];
       if (rank.get(a) < rank.get(b) && (weights[a] ?? 0) + 0.1 < (weights[b] ?? 0)) {
-        flags.push(`guide ranks ${SHORT[a]} above ${SHORT[b]}, we weight ${(weights[a] ?? 0).toFixed(2)} vs ${(weights[b] ?? 0).toFixed(2)}`);
+        flags.push(
+          `guide ranks ${SHORT[a]} above ${SHORT[b]}, we weight ${(weights[a] ?? 0).toFixed(2)} vs ${(weights[b] ?? 0).toFixed(2)}`,
+        );
       }
     }
   }
@@ -192,7 +205,10 @@ function htmlToText(html) {
 }
 
 function slugCandidates(name) {
-  const base = name.toLowerCase().replace(/[^a-z0-9 ]/g, "").trim();
+  const base = name
+    .toLowerCase()
+    .replace(/[^a-z0-9 ]/g, "")
+    .trim();
   const words = base.split(/\s+/);
   const out = [base.replace(/\s+/g, "-")];
   if (words.length > 1) out.push(words[words.length - 1], words[0]);
@@ -209,7 +225,9 @@ async function kqm(name) {
     // Take the first line after a "Substat Priority" heading that contains a ">" or "=".
     const m = text.match(/Substats?\s*Priorit(?:y|ies)[^\n]*\n((?:[^\n]*\n){0,6})/i);
     if (!m) return { url: `https://keqingmains.com/${slug}/`, priority: null };
-    const line = m[1].split("\n").find((l) => /[>=]/.test(l) && /crit|atk|hp|em|er|def|heal/i.test(l));
+    const line = m[1]
+      .split("\n")
+      .find((l) => /[>=]/.test(l) && /crit|atk|hp|em|er|def|heal/i.test(l));
     return { url: `https://keqingmains.com/${slug}/`, priority: line?.trim() ?? null };
   }
   return { url: null, priority: null };
@@ -222,10 +240,13 @@ async function game8Index() {
   game8Links = new Map();
   const html = await fetchText("https://game8.co/games/Genshin-Impact/archives/297465");
   if (!html) return game8Links;
-  for (const m of html.matchAll(/<a[^>]+href="([^"]*\/games\/Genshin-Impact\/archives\/[^"]+)"[^>]*>([^<]{2,40})<\/a>/g)) {
+  for (const m of html.matchAll(
+    /<a[^>]+href="([^"]*\/games\/Genshin-Impact\/archives\/[^"]+)"[^>]*>([^<]{2,40})<\/a>/g,
+  )) {
     const text = m[2].trim();
     const href = m[1].startsWith("http") ? m[1] : `https://game8.co${m[1]}`;
-    if (/^[A-Z][A-Za-z' .-]+$/.test(text) && !game8Links.has(text.toLowerCase())) game8Links.set(text.toLowerCase(), href);
+    if (/^[A-Z][A-Za-z' .-]+$/.test(text) && !game8Links.has(text.toLowerCase()))
+      game8Links.set(text.toLowerCase(), href);
   }
   return game8Links;
 }
@@ -241,7 +262,12 @@ async function game8(name) {
   const text = htmlToText(html);
   const at = text.search(/Artifact Sub[- ]?Stats?/i);
   if (at < 0) return { url, priority: null };
-  const after = text.slice(at, at + 600).split("\n").slice(1).map((l) => l.trim()).filter(Boolean);
+  const after = text
+    .slice(at, at + 600)
+    .split("\n")
+    .slice(1)
+    .map((l) => l.trim())
+    .filter(Boolean);
   // Two layouts: a numbered list ("1. Energy Recharge", "2. HP%") or one
   // comma-separated line ("CRIT Rate, CRIT DMG, HP%").
   const numbered = [];
@@ -264,16 +290,25 @@ async function game8(name) {
 async function makePrydwen() {
   const { chromium } = await import("playwright");
   const browser = await chromium.launch({ channel: "msedge", headless: true });
-  const context = await browser.newContext({ userAgent: UA, viewport: { width: 1280, height: 900 } });
+  const context = await browser.newContext({
+    userAgent: UA,
+    viewport: { width: 1280, height: 900 },
+  });
   const page = await context.newPage();
 
-  await page.goto("https://www.prydwen.gg/genshin-impact/characters/", { waitUntil: "domcontentloaded" });
-  await page.locator('button:has-text("Do not consent")').click({ timeout: 5000 }).catch(() => {});
+  await page.goto("https://www.prydwen.gg/genshin-impact/characters/", {
+    waitUntil: "domcontentloaded",
+  });
+  await page
+    .locator('button:has-text("Do not consent")')
+    .click({ timeout: 5000 })
+    .catch(() => {});
   const index = await page.evaluate(() => {
     const m = {};
     document.querySelectorAll('a[href^="/genshin-impact/characters/"]').forEach((a) => {
       const href = a.getAttribute("href");
-      if (href.split("/").filter(Boolean).length === 3) m[a.textContent.trim().replace(/New$/, "").toLowerCase()] = href;
+      if (href.split("/").filter(Boolean).length === 3)
+        m[a.textContent.trim().replace(/New$/, "").toLowerCase()] = href;
     });
     return m;
   });
@@ -287,7 +322,9 @@ async function makePrydwen() {
     const title = await page.title();
     if (!/build/i.test(title)) return { url, priority: null, mainStats: null, guide: false };
     await page.evaluate(() => {
-      [...document.querySelectorAll("a")].filter((a) => /^build$/i.test(a.textContent.trim())).forEach((a) => a.click());
+      [...document.querySelectorAll("a")]
+        .filter((a) => /^build$/i.test(a.textContent.trim()))
+        .forEach((a) => a.click());
     });
     await sleep(900);
     const text = await page.evaluate(() => document.body.innerText);
@@ -304,8 +341,12 @@ async function makePrydwen() {
       }
       priority = tokens.join(" ");
     }
-    const ms = text.match(/Artifact main stats\s*\nSands\s*\n([^\n]+)\s*\nGoblet\s*\n([^\n]+)\s*\nCirclet\s*\n([^\n]+)/i);
-    const mainStats = ms ? { SANDS: ms[1].trim(), GOBLET: ms[2].trim(), CIRCLET: ms[3].trim() } : null;
+    const ms = text.match(
+      /Artifact main stats\s*\nSands\s*\n([^\n]+)\s*\nGoblet\s*\n([^\n]+)\s*\nCirclet\s*\n([^\n]+)/i,
+    );
+    const mainStats = ms
+      ? { SANDS: ms[1].trim(), GOBLET: ms[2].trim(), CIRCLET: ms[3].trim() }
+      : null;
     await sleep(700);
     return { url, priority, mainStats, guide: true };
   }
@@ -327,7 +368,14 @@ async function main() {
   for (const c of entries) {
     const name = c.display_name;
     process.stdout.write(`${name} … `);
-    const row = { name, avatarId: c.avatar_id, ours: ourTiers(c.substat_weights), weights: c.substat_weights, sources: {}, flags: {} };
+    const row = {
+      name,
+      avatarId: c.avatar_id,
+      ours: ourTiers(c.substat_weights),
+      weights: c.substat_weights,
+      sources: {},
+      flags: {},
+    };
     const sources = {
       prydwen: prydwen ? await prydwen.lookup(name) : { url: null, priority: null },
       kqm: await kqm(name),
@@ -335,8 +383,16 @@ async function main() {
     };
     for (const [src, info] of Object.entries(sources)) {
       const parsed = info.priority ? parsePriority(info.priority) : null;
-      row.sources[src] = { ...info, tiers: parsed?.tiers ?? null, unknown: parsed?.unknown ?? [], erThreshold: parsed?.erThreshold ?? false };
-      row.flags[src] = parsed && parsed.tiers.length > 0 ? compare(c.substat_weights, parsed.tiers, parsed.erThreshold) : [];
+      row.sources[src] = {
+        ...info,
+        tiers: parsed?.tiers ?? null,
+        unknown: parsed?.unknown ?? [],
+        erThreshold: parsed?.erThreshold ?? false,
+      };
+      row.flags[src] =
+        parsed && parsed.tiers.length > 0
+          ? compare(c.substat_weights, parsed.tiers, parsed.erThreshold)
+          : [];
     }
     results.push(row);
     const total = Object.values(row.flags).reduce((n, f) => n + f.length, 0);
@@ -345,7 +401,10 @@ async function main() {
 
   await prydwen?.close();
 
-  fs.writeFileSync(OUT_JSON, JSON.stringify({ generatedAt: new Date().toISOString(), results }, null, 2));
+  fs.writeFileSync(
+    OUT_JSON,
+    JSON.stringify({ generatedAt: new Date().toISOString(), results }, null, 2),
+  );
 
   const lines = [
     "# Genshin substat weight audit",
@@ -358,21 +417,34 @@ async function main() {
   for (const r of results) {
     const any = Object.values(r.flags).some((f) => f.length);
     lines.push(`## ${r.name}${any ? "" : " (agrees)"}`, "");
-    lines.push(`- Ours: ${r.ours.map((t) => `${t.keys.map((k) => SHORT[k]).join(" = ")} (${t.weight})`).join(" > ")}`);
+    lines.push(
+      `- Ours: ${r.ours.map((t) => `${t.keys.map((k) => SHORT[k]).join(" = ")} (${t.weight})`).join(" > ")}`,
+    );
     for (const [src, info] of Object.entries(r.sources)) {
       if (!info.url) {
         lines.push(`- ${src}: not found`);
         continue;
       }
-      const pr = info.priority ? `"${info.priority}"` : info.guide === false ? "no build guide" : "no priority found";
-      lines.push(`- ${src}: ${pr}${info.tiers ? ` -> ${fmtTiers(info.tiers)}` : ""}${info.unknown?.length ? ` (unparsed: ${info.unknown.join(", ")})` : ""} <${info.url}>`);
-      if (info.mainStats) lines.push(`  - main stats: ${info.mainStats.SANDS} / ${info.mainStats.GOBLET} / ${info.mainStats.CIRCLET}`);
+      const pr = info.priority
+        ? `"${info.priority}"`
+        : info.guide === false
+          ? "no build guide"
+          : "no priority found";
+      lines.push(
+        `- ${src}: ${pr}${info.tiers ? ` -> ${fmtTiers(info.tiers)}` : ""}${info.unknown?.length ? ` (unparsed: ${info.unknown.join(", ")})` : ""} <${info.url}>`,
+      );
+      if (info.mainStats)
+        lines.push(
+          `  - main stats: ${info.mainStats.SANDS} / ${info.mainStats.GOBLET} / ${info.mainStats.CIRCLET}`,
+        );
       for (const f of r.flags[src]) lines.push(`  - ⚠ ${f}`);
     }
     lines.push("");
   }
   fs.writeFileSync(OUT_MD, lines.join("\n"));
-  console.log(`\nWrote ${path.relative(ROOT, OUT_MD)} (${flagged.length} flagged) and ${path.relative(ROOT, OUT_JSON)}`);
+  console.log(
+    `\nWrote ${path.relative(ROOT, OUT_MD)} (${flagged.length} flagged) and ${path.relative(ROOT, OUT_JSON)}`,
+  );
 }
 
 main().catch((err) => {

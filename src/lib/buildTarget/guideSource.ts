@@ -13,7 +13,7 @@ import type { GuideFile, SetBonusFile } from "./guide";
 
 type Glob<T> = Record<string, () => Promise<T>>;
 
-export interface GuideSource {
+interface GuideSource {
   game: ShareGame;
   /** Resolves to null for an id with no guide file, which is a real state (a brand-new character). */
   load: (id: string) => Promise<GuideFile | null>;
@@ -26,7 +26,8 @@ function basename(path: string): string {
 }
 
 /** A path under the site root, as opposed to a full URL or an absolute path. */
-const siteRelative = (url: string | null): url is string => url !== null && !/^[a-z][a-z0-9+.-]*:|^\//i.test(url);
+const siteRelative = (url: string | null): url is string =>
+  url !== null && !/^[a-z][a-z0-9+.-]*:|^\//i.test(url);
 
 /**
  * The guide with its site-relative material icons ("zzz/items/IconCoin.webp",
@@ -35,8 +36,10 @@ const siteRelative = (url: string | null): url is string => url !== null && !/^[
  * was.
  */
 function withSiteIcons(guide: GuideFile): GuideFile {
-  if (!guide.materials.some((group) => group.items.some((item) => siteRelative(item.iconUrl)))) return guide;
-  const resolve = (url: string | null) => (siteRelative(url) ? `${import.meta.env.BASE_URL}${url}` : url);
+  if (!guide.materials.some((group) => group.items.some((item) => siteRelative(item.iconUrl))))
+    return guide;
+  const resolve = (url: string | null) =>
+    siteRelative(url) ? `${import.meta.env.BASE_URL}${url}` : url;
   return {
     ...guide,
     materials: guide.materials.map((group) => ({

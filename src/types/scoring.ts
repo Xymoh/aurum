@@ -1,5 +1,3 @@
-import type { ScoreGrade } from "./artifact";
-
 export interface ScoringWeights {
   CRIT_RATE: number;
   CRIT_DMG: number;
@@ -26,14 +24,4 @@ export interface CharacterBuildConfig {
   };
   recommended_sets: string[];
   er_threshold?: number;
-}
-
-export interface ScoringResult {
-  rv: number;
-  cv: number;
-  wse: number;
-  mainStatMultiplier: number;
-  setBonusMultiplier: number;
-  total: number;
-  grade: ScoreGrade;
 }

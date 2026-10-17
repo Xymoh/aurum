@@ -2,7 +2,6 @@
 import type { GuideFile, KitGroup } from "../src/lib/buildTarget/guide";
 
 export function kitHash(kit: KitGroup[]): string;
-export function today(): string;
 export function withKitTracking<T extends { kit: KitGroup[] }>(
   guide: T,
   previousFile: string,

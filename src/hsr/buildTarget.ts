@@ -1,6 +1,12 @@
 /** Flattens a Star Rail character's scoring metadata into the target model. */
 
-import type { BuildListing, BuildTarget, TargetSlot, TargetStat, Translate } from "../lib/buildTarget/model";
+import type {
+  BuildListing,
+  BuildTarget,
+  TargetSlot,
+  TargetStat,
+  Translate,
+} from "../lib/buildTarget/model";
 import { rankSubstats } from "../lib/buildTarget/model";
 import charactersData from "./data/characters.json";
 import { characterIcon, characterPreview, pathIcon, relicSetIcon } from "./images";
@@ -36,12 +42,18 @@ function isTrailblazer(avatarId: number): boolean {
 export function sameHsrBuild(showcaseId: number | string, pageId: number | string): boolean {
   if (String(showcaseId) === String(pageId)) return true;
   const [a, b] = [Number(showcaseId), Number(pageId)];
-  return isTrailblazer(a) && isTrailblazer(b) && CHARACTERS[String(a)]?.path === CHARACTERS[String(b)]?.path;
+  return (
+    isTrailblazer(a) &&
+    isTrailblazer(b) &&
+    CHARACTERS[String(a)]?.path === CHARACTERS[String(b)]?.path
+  );
 }
 
 /** "Trailblazer (Harmony)" for the Trailblazer, the plain name for everyone else. */
 function pageName(avatarId: number, c: { name: string; path: string }, t: Translate): string {
-  return isTrailblazer(avatarId) ? `${c.name.replace(/\s*\(.*\)$/, "")} (${t("hsrPaths", c.path as "Warrior")})` : c.name;
+  return isTrailblazer(avatarId)
+    ? `${c.name.replace(/\s*\(.*\)$/, "")} (${t("hsrPaths", c.path as "Warrior")})`
+    : c.name;
 }
 
 /** The Path's icon on the Trailblazer's face, which is the same face on every Path. */
@@ -100,7 +112,10 @@ export function getHsrBuild(id: string, t: Translate): BuildTarget | null {
     ...(badge ? { badge } : {}),
     iconUrl: characterIcon(avatarId),
     portraitUrl: characterPreview(avatarId),
-    tags: [t("hsrPaths", character.path as "Warrior"), t("hsrElements", character.element as "Thunder")],
+    tags: [
+      t("hsrPaths", character.path as "Warrior"),
+      t("hsrElements", character.element as "Thunder"),
+    ],
     rarity: character.rarity,
     accent: elementTint(character.element),
     generic: meta.source !== "fribbels",
@@ -119,6 +134,9 @@ export function getHsrBuild(id: string, t: Translate): BuildTarget | null {
     energyTarget: null,
     source: { label: "Fribbels HSR Optimizer", url: "https://github.com/fribbels/hsr-optimizer" },
     // Consensus sets are credited with the rest of the picks; Fribbels' own get a line.
-    setsSource: meta.setsSource === "fribbels" ? { label: "Fribbels HSR Optimizer", url: "https://github.com/fribbels/hsr-optimizer" } : null,
+    setsSource:
+      meta.setsSource === "fribbels"
+        ? { label: "Fribbels HSR Optimizer", url: "https://github.com/fribbels/hsr-optimizer" }
+        : null,
   };
 }

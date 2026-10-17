@@ -39,14 +39,18 @@ function fetchJSON(url, retries = 3) {
         .get(url, { headers: { "User-Agent": "aurum-fetcher/1.0" } }, (res) => {
           // Follow redirects
           if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-            return fetchJSON(res.headers.location, retries - attemptNumber + 1).then(resolve).catch(reject);
+            return fetchJSON(res.headers.location, retries - attemptNumber + 1)
+              .then(resolve)
+              .catch(reject);
           }
 
           if (res.statusCode !== 200) {
             const err = new Error(`HTTP ${res.statusCode} for ${url}`);
             if (attemptNumber < retries) {
               const delay = Math.pow(2, attemptNumber) * 1000; // exponential backoff: 2s, 4s, 8s
-              console.warn(`  ⚠ Attempt ${attemptNumber}/${retries} failed: ${err.message}. Retrying in ${delay / 1000}s…`);
+              console.warn(
+                `  ⚠ Attempt ${attemptNumber}/${retries} failed: ${err.message}. Retrying in ${delay / 1000}s…`,
+              );
               setTimeout(() => attempt(attemptNumber + 1), delay);
               return;
             }
@@ -67,10 +71,14 @@ function fetchJSON(url, retries = 3) {
         .on("error", (e) => {
           if (attemptNumber < retries) {
             const delay = Math.pow(2, attemptNumber) * 1000;
-            console.warn(`  ⚠ Attempt ${attemptNumber}/${retries} network error: ${e.message}. Retrying in ${delay / 1000}s…`);
+            console.warn(
+              `  ⚠ Attempt ${attemptNumber}/${retries} network error: ${e.message}. Retrying in ${delay / 1000}s…`,
+            );
             setTimeout(() => attempt(attemptNumber + 1), delay);
           } else {
-            reject(new Error(`Network error fetching ${url} after ${retries} attempts: ${e.message}`));
+            reject(
+              new Error(`Network error fetching ${url} after ${retries} attempts: ${e.message}`),
+            );
           }
         });
     };
@@ -191,7 +199,9 @@ async function main() {
   let allStats;
   try {
     allStats = await fetchJSON(GO_STATS_URL);
-    console.log(`  ✔ Downloaded (${(JSON.stringify(allStats).length / 1024 / 1024).toFixed(1)} MB)\n`);
+    console.log(
+      `  ✔ Downloaded (${(JSON.stringify(allStats).length / 1024 / 1024).toFixed(1)} MB)\n`,
+    );
   } catch (e) {
     console.error(`  ✖ Fatal: ${e.message}`);
     console.error("    Pipeline failed after 3 retry attempts. Existing output preserved.");
@@ -355,7 +365,7 @@ async function main() {
     const reReadKeys = Object.keys(reReadParsed);
     if (reReadKeys.length !== processedCount) {
       throw new Error(
-        `Integrity mismatch: wrote ${processedCount} characters but re-read ${reReadKeys.length}`
+        `Integrity mismatch: wrote ${processedCount} characters but re-read ${reReadKeys.length}`,
       );
     }
     console.log(`  ✔ Validation passed - ${reReadKeys.length} entries verified\n`);
@@ -383,7 +393,9 @@ async function main() {
     console.log("├─────────────────────────────────────────────────────────────────┤");
     for (const char of derivedWeightChars) {
       const idStr = char.avatar_id ? `ID: ${char.avatar_id}` : "ID: unknown";
-      console.log(`│  • ${char.name.padEnd(25)} ${idStr.padEnd(15)} scaling: ${char.ascension_stat}`);
+      console.log(
+        `│  • ${char.name.padEnd(25)} ${idStr.padEnd(15)} scaling: ${char.ascension_stat}`,
+      );
     }
     console.log("└─────────────────────────────────────────────────────────────────┘\n");
   } else {

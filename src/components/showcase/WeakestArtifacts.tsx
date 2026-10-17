@@ -38,7 +38,10 @@ function ActionLine({ artifact }: { artifact: Artifact }) {
     const tier = getRerollTier(reroll.expectedDust);
     if (tier) {
       return (
-        <div className="rounded-md px-2 py-1" style={{ backgroundColor: tint(tier.color, 12), color: tier.color }}>
+        <div
+          className="rounded-md px-2 py-1"
+          style={{ backgroundColor: tint(tier.color, 12), color: tier.color }}
+        >
           <div className="flex items-center justify-between gap-2 text-xs font-semibold">
             <span className="flex items-center gap-1">
               <DiceIcon className="h-3 w-3 flex-shrink-0" />
@@ -58,7 +61,13 @@ function ActionLine({ artifact }: { artifact: Artifact }) {
 
   if (reroll.action === "replace") {
     return (
-      <div className="flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold" style={{ backgroundColor: tint("var(--verdict-replace)", 12), color: "var(--verdict-replace)" }}>
+      <div
+        className="flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold"
+        style={{
+          backgroundColor: tint("var(--verdict-replace)", 12),
+          color: "var(--verdict-replace)",
+        }}
+      >
         <RecycleIcon className="h-3 w-3" /> {t("verdict", "farmReplacement")}
       </div>
     );
@@ -82,9 +91,15 @@ export function WeakestArtifacts({ characters, onSelectCharacter }: WeakestArtif
   if (items.length === 0) return null;
 
   return (
-    <section className="game-panel border border-dark-border bg-dark-card/40 p-4 sm:p-5" aria-labelledby="room-to-improve">
+    <section
+      className="game-panel border border-dark-border bg-dark-card/40 p-4 sm:p-5"
+      aria-labelledby="room-to-improve"
+    >
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <h2 id="room-to-improve" className="flex items-center gap-2 text-sm font-semibold text-dark-text">
+        <h2
+          id="room-to-improve"
+          className="flex items-center gap-2 text-sm font-semibold text-dark-text"
+        >
           <TargetIcon className="h-4 w-4 text-accent" /> {t("showcase", "roomToImprove")}
         </h2>
         <span className="text-sm text-dark-muted">{t("showcase", "roomToImproveSub")}</span>
@@ -101,12 +116,16 @@ export function WeakestArtifacts({ characters, onSelectCharacter }: WeakestArtif
               type="button"
               onClick={() => onSelectCharacter(characterId)}
               className="flex flex-col gap-2 rounded-lg border border-dark-border bg-dark-card px-3 py-2.5 text-left transition-colors hover:border-accent/50 hover:bg-dark-card-hover"
-              aria-label={t("showcase", "jumpTo", { name: characterName })}
             >
               <div className="flex items-center gap-2">
                 <div className="icon-dark-bg h-8 w-8 flex-shrink-0 overflow-hidden rounded-full border border-dark-border/60 bg-dark-bg">
                   {avatarUrl ? (
-                    <RemoteImg src={avatarUrl} alt="" className="h-full w-full object-cover" loading="lazy" />
+                    <RemoteImg
+                      src={avatarUrl}
+                      alt=""
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-xs text-dark-muted">
                       {characterName.charAt(0)}
@@ -115,7 +134,9 @@ export function WeakestArtifacts({ characters, onSelectCharacter }: WeakestArtif
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-semibold text-dark-text">{characterName}</div>
+                  <div className="truncate text-sm font-semibold text-dark-text">
+                    {characterName}
+                  </div>
                   <div className="text-xs text-dark-muted">
                     {t("slots", artifact.slot)} · +{artifact.level}
                   </div>

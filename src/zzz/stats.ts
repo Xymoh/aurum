@@ -14,9 +14,18 @@
 import type { ZzzDisc, ZzzStatId, ZzzStats } from "./types";
 
 /** Dictionary keys for the summary row, so the labels can be translated. */
-export type ZzzRowKey =
-  | "rowHp" | "rowAtk" | "rowDef" | "rowImpact" | "rowCritRate" | "rowCritDmg"
-  | "rowAp" | "rowAm" | "rowPenRatio" | "rowPen" | "rowDmg";
+type ZzzRowKey =
+  | "rowHp"
+  | "rowAtk"
+  | "rowDef"
+  | "rowImpact"
+  | "rowCritRate"
+  | "rowCritDmg"
+  | "rowAp"
+  | "rowAm"
+  | "rowPenRatio"
+  | "rowPen"
+  | "rowDmg";
 import agents from "./data/agents.json";
 import weapons from "./data/weapons.json";
 import curves from "./data/weapon-curves.json";
@@ -36,24 +45,41 @@ interface EngineDef {
 }
 const AGENTS = agents as unknown as Record<string, AgentCurve>;
 const ENGINES = weapons as unknown as Record<string, EngineDef>;
-const CURVES = curves as { level: Record<string, number>; star: Record<string, { star: number; rand: number }> };
+const CURVES = curves as {
+  level: Record<string, number>;
+  star: Record<string, { star: number; rand: number }>;
+};
 const SETS = sets as Record<string, { name: string; setBonus?: Record<string, number> }>;
 
 // ── Property ids ────────────────────────────────────────────────────
 // Base stats end in 101, percentage bonuses in 102, flat bonuses in 103.
-const HP = 11101, HP_P = 11102, HP_F = 11103;
-const ATK = 12101, ATK_P = 12102, ATK_F = 12103;
-const DEF = 13101, DEF_P = 13102, DEF_F = 13103;
-const IMPACT = 12201, IMPACT_P = 12202;
-const CR = 20101, CR_B = 20103;
-const CD = 21101, CD_B = 21103;
-const AM = 31401, AM_P = 31402;
-const AP = 31201, AP_F = 31203;
-const ER = 30501, ER_P = 30502;
+const HP = 11101,
+  HP_P = 11102,
+  HP_F = 11103;
+const ATK = 12101,
+  ATK_P = 12102,
+  ATK_F = 12103;
+const DEF = 13101,
+  DEF_P = 13102,
+  DEF_F = 13103;
+const IMPACT = 12201,
+  IMPACT_P = 12202;
+const CR = 20101,
+  CR_B = 20103;
+const CD = 21101,
+  CD_B = 21103;
+const AM = 31401,
+  AM_P = 31402;
+const AP = 31201,
+  AP_F = 31203;
+const ER = 30501,
+  ER_P = 30502;
 // PEN Ratio lives at 231xx (23101 base, as Rina's core grants it); 320xx is
 // Adrenaline recovery, which Rupture agents carry as a base stat and which
 // must never be read as PEN.
-const PEN_RATIO = 23101, PEN_RATIO_B = 23103, PEN_F = 23203;
+const PEN_RATIO = 23101,
+  PEN_RATIO_B = 23103,
+  PEN_F = 23203;
 
 /**
  * Elemental damage bonus ids, one per element. Auric Ether and Lumen are
@@ -75,7 +101,7 @@ const ELEMENT_DMG: Record<string, number> = {
 /** Ids ending in 01 are base values; everything else is a bonus on top. */
 const isBaseId = (id: number) => id % 100 === 1;
 
-export interface ZzzStatInput {
+interface ZzzStatInput {
   agentId: number;
   element: string;
   level: number;
@@ -103,7 +129,9 @@ export function engineStats(id: number, level: number, rank: number) {
     main: def.mainStat
       ? {
           id: def.mainStat.PropertyId,
-          value: Math.floor(def.mainStat.PropertyValue * (1 + levelRate / 10000 + star.star / 10000)),
+          value: Math.floor(
+            def.mainStat.PropertyValue * (1 + levelRate / 10000 + star.star / 10000),
+          ),
         }
       : null,
     secondary: def.secondaryStat
@@ -149,7 +177,9 @@ export function computeZzzStats(input: ZzzStatInput): ZzzStats {
     absorb(row(agent.core, input.coreSkill));
   }
 
-  const engine = input.engine ? engineStats(input.engine.id, input.engine.level, input.engine.rank) : null;
+  const engine = input.engine
+    ? engineStats(input.engine.id, input.engine.level, input.engine.rank)
+    : null;
   if (engine?.secondary) add(engine.secondary.id, engine.secondary.value);
 
   for (const disc of input.discs) {
@@ -160,7 +190,8 @@ export function computeZzzStats(input: ZzzStatInput): ZzzStats {
 
   for (const set of input.sets) {
     if (set.pieces < 2) continue;
-    for (const [id, v] of Object.entries(SETS[String(set.setId)]?.setBonus ?? {})) add(Number(id), v);
+    for (const [id, v] of Object.entries(SETS[String(set.setId)]?.setBonus ?? {}))
+      add(Number(id), v);
   }
 
   const b = (id: number) => bonus.get(id) ?? 0;
@@ -202,12 +233,30 @@ function rawOf(id: ZzzStatId, value: number): number {
  * properties.json so the conversion cannot drift from displayValue's.
  */
 const PERCENT_IDS = new Set<number>([
-  HP_P, ATK_P, DEF_P, IMPACT_P, CR_B, CD_B, AM_P, ER_P, PEN_RATIO_B,
-  31503, 31603, 31703, 31803, 31903, 32303,
+  HP_P,
+  ATK_P,
+  DEF_P,
+  IMPACT_P,
+  CR_B,
+  CD_B,
+  AM_P,
+  ER_P,
+  PEN_RATIO_B,
+  31503,
+  31603,
+  31703,
+  31803,
+  31903,
+  32303,
 ]);
 
 /** The stats worth showing in a summary row, in the order the game lists them. */
-export const ZZZ_STAT_ROW: Array<{ key: keyof ZzzStats; label: ZzzRowKey; percent: boolean; hideWhenZero?: boolean }> = [
+const ZZZ_STAT_ROW: Array<{
+  key: keyof ZzzStats;
+  label: ZzzRowKey;
+  percent: boolean;
+  hideWhenZero?: boolean;
+}> = [
   { key: "hp", label: "rowHp", percent: false },
   { key: "atk", label: "rowAtk", percent: false },
   { key: "def", label: "rowDef", percent: false },

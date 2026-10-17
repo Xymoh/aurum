@@ -37,7 +37,7 @@ import { GRADE_LADDER } from "./gradeLadder";
 const ROLL_TIERS = [0.7, 0.8, 0.9, 1.0];
 
 /** Mean roll tier - used to estimate how much of a stat's value came from upgrades. */
-export const AVG_ROLL_TIER = 0.85;
+const AVG_ROLL_TIER = 0.85;
 
 /** A +20 5★ artifact always has 5 upgrade rolls (at +4/+8/+12/+16/+20). */
 const UPGRADE_ROLLS = 5;
@@ -93,7 +93,7 @@ export interface ErContext {
   threshold: number;
 }
 
-export interface RerollTierDef {
+interface RerollTierDef {
   id: "high" | "medium" | "low";
   label: string;
   /** Upper bound (inclusive) on expected dust spent to reach a meaningful gain. */
@@ -206,9 +206,7 @@ export function baseValueOf(s: ArtifactSubstat): number {
  * every load, which is what keeps the simulated advice from drifting.
  */
 function artifactFingerprint(artifact: Artifact): string {
-  const subs = artifact.substats
-    .map((s) => `${s.statKey}:${s.value}:${s.rollCount}`)
-    .join("|");
+  const subs = artifact.substats.map((s) => `${s.statKey}:${s.value}:${s.rollCount}`).join("|");
   return `${artifact.setId}/${artifact.slot}/${artifact.level}/${artifact.mainStat.statKey}/${subs}`;
 }
 
@@ -239,7 +237,8 @@ export function computeRerollAdvice(
   erContext?: ErContext,
 ): RerollAdvice {
   const subs = artifact.substats;
-  const currentPercent = idealPotential > 0 ? Math.max(0, (currentWeighted / idealPotential) * 100) : 0;
+  const currentPercent =
+    idealPotential > 0 ? Math.max(0, (currentWeighted / idealPotential) * 100) : 0;
 
   // Reshaping requires a fully-levelled 5★ with a full set of 4 substats.
   if (artifact.rarity !== 5 || subs.length !== 4 || idealPotential <= 0) {
@@ -293,9 +292,9 @@ export function computeRerollAdvice(
   const erIndex = subs.findIndex((s) => s.statKey === ER_STAT_KEY);
   const erSub = erIndex >= 0 ? subs[erIndex] : null;
   const erFloor = erContext
-    // Already short of the requirement? Then the floor is where they are now:
-    // don't hand back advice that digs the hole deeper.
-    ? Math.min(erContext.currentTotalER, erContext.threshold)
+    ? // Already short of the requirement? Then the floor is where they are now:
+      // don't hand back advice that digs the hole deeper.
+      Math.min(erContext.currentTotalER, erContext.threshold)
     : -Infinity;
   const erFromOthers = erContext && erSub ? erContext.currentTotalER - erSub.value : 0;
   const erBase = erSub ? baseValueOf(erSub) : 0;
@@ -352,7 +351,8 @@ export function computeRerollAdvice(
 
   outcomes.sort((a, b) => a - b);
   improvedOutcomes.sort((a, b) => a - b);
-  const realisticCeiling = outcomes[Math.min(outcomes.length - 1, Math.floor(outcomes.length * 0.9))];
+  const realisticCeiling =
+    outcomes[Math.min(outcomes.length - 1, Math.floor(outcomes.length * 0.9))];
 
   // Median across the *successful* reshapes only: "if this works, how much do I
   // gain?". Taking the median over all outcomes would report 0 whenever most
@@ -373,7 +373,9 @@ export function computeRerollAdvice(
   const shownPercent = Math.round(currentPercent);
   const nextBand = [...GRADE_LADDER].reverse().find((band) => band.min > shownPercent) ?? null;
   const nextGrade = nextBand ? (nextBand.grade as ScoreGrade) : null;
-  const nextGradeChance = nextBand ? outcomes.filter((p) => Math.round(p) >= nextBand.min).length / TRIALS : 0;
+  const nextGradeChance = nextBand
+    ? outcomes.filter((p) => Math.round(p) >= nextBand.min).length / TRIALS
+    : 0;
 
   // Surfaced alongside the odds so the player can weigh it themselves: this is
   // the one substat with a hard breakpoint, and only they know their team.

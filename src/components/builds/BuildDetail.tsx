@@ -2,7 +2,12 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { useI18n } from "../../i18n";
 import { useUidQuery } from "../../hooks/useComparisonUid";
-import { guideBehindKit, type GuideFile, type KitGroupId, type SetBonusFile } from "../../lib/buildTarget/guide";
+import {
+  guideBehindKit,
+  type GuideFile,
+  type KitGroupId,
+  type SetBonusFile,
+} from "../../lib/buildTarget/guide";
 import type { BuildListing, BuildTarget, SetPart } from "../../lib/buildTarget/model";
 import type { ShareGame } from "../../lib/shareCard/model";
 import { ChevronIcon, WarningIcon } from "../ui/icons";
@@ -53,7 +58,11 @@ const SECTION = {
 } as const;
 
 const WEAPONS_TITLE = { genshin: "weaponsGenshin", hsr: "weaponsHsr", zzz: "weaponsZzz" } as const;
-const BONUS_TITLE = { genshin: "bonusStatsGenshin", hsr: "bonusStatsHsr", zzz: "bonusStatsZzz" } as const;
+const BONUS_TITLE = {
+  genshin: "bonusStatsGenshin",
+  hsr: "bonusStatsHsr",
+  zzz: "bonusStatsZzz",
+} as const;
 const MAX_LEVEL: Record<ShareGame, number> = { genshin: 90, hsr: 80, zzz: 60 };
 
 /** The six upgrades each game sells as duplicates, under their own names. */
@@ -66,9 +75,20 @@ const GAME_DATA: Record<ShareGame, { label: string; url: string }> = {
   zzz: { label: "Dimbreath ZenlessData", url: "https://git.mero.moe/dimbreath/ZenlessData" },
 };
 
-function SourceLink({ source, skin }: { source: { label: string; url: string | null }; skin: BuildSkin }) {
+function SourceLink({
+  source,
+  skin,
+}: {
+  source: { label: string; url: string | null };
+  skin: BuildSkin;
+}) {
   return source.url ? (
-    <a href={source.url} target="_blank" rel="noopener noreferrer" className={`no-underline hover:underline ${skin.accent}`}>
+    <a
+      href={source.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`no-underline hover:underline ${skin.accent}`}
+    >
       {source.label}
     </a>
   ) : (
@@ -102,14 +122,20 @@ function withLink(sentence: string, link: ReactNode): ReactNode {
 function formatDay(day: string, lang: string): string {
   const date = new Date(`${day}T00:00:00Z`);
   if (Number.isNaN(date.getTime())) return day;
-  return date.toLocaleDateString(lang, { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+  return date.toLocaleDateString(lang, {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 }
 
 /** A label and a figure, as one chip. */
 function StatChip({ label, value, skin }: { label: string; value: string; skin: BuildSkin }) {
   return (
     <span className={`game-panel-sm border px-2.5 py-1 text-sm ${skin.card} ${skin.text}`}>
-      <span className={skin.muted}>{label}</span> <span className={`font-mono ${skin.accent}`}>{value}</span>
+      <span className={skin.muted}>{label}</span>{" "}
+      <span className={`font-mono ${skin.accent}`}>{value}</span>
     </span>
   );
 }
@@ -125,16 +151,28 @@ function StatChip({ label, value, skin }: { label: string; value: string; skin: 
  * them. Where no source lists something for a character, its section is
  * left out rather than shown empty.
  */
-export function BuildDetail({ target, basePath, skin, owned, guide: state, roster, equippedWeaponId }: BuildDetailProps) {
+export function BuildDetail({
+  target,
+  basePath,
+  skin,
+  owned,
+  guide: state,
+  roster,
+  equippedWeaponId,
+}: BuildDetailProps) {
   const { t, lang } = useI18n();
   const query = useUidQuery();
   const top = target.substats[0]?.weight ?? 1;
   const guide = state.guide;
   const game = target.game;
 
-  const kitGroups = guide?.kit.filter((g) => !DUPLICATE_GROUPS.includes(g.id) && g.entries.length > 0) ?? [];
-  const duplicates = guide?.kit.find((g) => DUPLICATE_GROUPS.includes(g.id) && g.entries.length > 0) ?? null;
-  const hasTeams = Boolean(guide && (guide.teams.length > 0 || guide.synergies.some((id) => roster.has(id))));
+  const kitGroups =
+    guide?.kit.filter((g) => !DUPLICATE_GROUPS.includes(g.id) && g.entries.length > 0) ?? [];
+  const duplicates =
+    guide?.kit.find((g) => DUPLICATE_GROUPS.includes(g.id) && g.entries.length > 0) ?? null;
+  const hasTeams = Boolean(
+    guide && (guide.teams.length > 0 || guide.synergies.some((id) => roster.has(id))),
+  );
   const hasPriorities = Boolean(guide?.skillPriority || guide?.tracePriority);
 
   const kitTitle = (id: KitGroupId): string => {
@@ -153,32 +191,45 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
   };
 
   const nav: NavItem[] = [{ id: SECTION.build, label: t("guide", "build") }];
-  if (guide?.weapons.length) nav.push({ id: SECTION.weapons, label: t("guide", WEAPONS_TITLE[game]) });
+  if (guide?.weapons.length)
+    nav.push({ id: SECTION.weapons, label: t("guide", WEAPONS_TITLE[game]) });
   if (hasTeams) nav.push({ id: SECTION.teams, label: t("guide", "teams") });
-  if (kitGroups.length > 0 || hasPriorities) nav.push({ id: SECTION.kit, label: t("guide", "kit") });
+  if (kitGroups.length > 0 || hasPriorities)
+    nav.push({ id: SECTION.kit, label: t("guide", "kit") });
   if (duplicates) nav.push({ id: SECTION.constellations, label: kitTitle(duplicates.id) });
   if (guide?.materials.length) nav.push({ id: SECTION.materials, label: t("guide", "materials") });
 
   // ZZZ's line is written from its consensus weights, so it is the weights in
   // words; a guide's own line (none is published now) would be a second opinion.
   const priorityLine = target.priority ?? guide?.substatLine ?? null;
-  const priorityNote = target.priority ? t("builds", "priorityNote") : t("guide", "substatLineNote");
+  const priorityNote = target.priority
+    ? t("builds", "priorityNote")
+    : t("guide", "substatLineNote");
 
   // Genshin's ER target is read from the guide's own endgame line, so where
   // that line is shown the target is not repeated as a chip of its own.
-  const energyInEndgame = Boolean(guide?.endgameStats.some((s) => /^energy recharge$/i.test(s.label)));
+  const energyInEndgame = Boolean(
+    guide?.endgameStats.some((s) => /^energy recharge$/i.test(s.label)),
+  );
   const targets = [
     ...target.thresholds.map((th) => ({ label: th.label, value: String(th.target) })),
-    ...(target.energyTarget !== null && !energyInEndgame ? [{ label: t("builds", "energy"), value: `${target.energyTarget}%` }] : []),
+    ...(target.energyTarget !== null && !energyInEndgame
+      ? [{ label: t("builds", "energy"), value: `${target.energyTarget}%` }]
+      : []),
   ];
 
   /** The effects a part actually turns on: a 2-piece gets the 2-piece line only. */
   const effectsOf = (part: SetPart) =>
-    (part.setId ? state.setBonuses[part.setId]?.bonuses ?? [] : []).filter((b) => b.pieces <= part.pieces);
+    (part.setId ? (state.setBonuses[part.setId]?.bonuses ?? []) : []).filter(
+      (b) => b.pieces <= part.pieces,
+    );
 
   return (
     <div className="space-y-4">
-      <Link to={`${basePath}${query}`} className={`inline-block text-sm no-underline ${skin.muted} hover:underline`}>
+      <Link
+        to={`${basePath}${query}`}
+        className={`inline-block text-sm no-underline ${skin.muted} hover:underline`}
+      >
         ← {t("builds", "back")}
       </Link>
 
@@ -209,7 +260,9 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
           )}
           <div className="min-w-0">
             <h1 className={`truncate text-xl font-bold sm:text-2xl ${skin.text}`}>{target.name}</h1>
-            <p className={`mt-0.5 text-sm ${skin.muted}`}>{[...target.tags, ...(guide?.role ? [guide.role] : [])].join(" · ")}</p>
+            <p className={`mt-0.5 text-sm ${skin.muted}`}>
+              {[...target.tags, ...(guide?.role ? [guide.role] : [])].join(" · ")}
+            </p>
           </div>
         </div>
         <div
@@ -261,7 +314,10 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
                   changed: formatDay(guide.kitChangedAt, lang),
                   updated: formatDay(guide.source.updated, lang),
                 })
-              : t("guide", "behindKitUndated", { name: target.name, changed: formatDay(guide.kitChangedAt, lang) })}
+              : t("guide", "behindKitUndated", {
+                  name: target.name,
+                  changed: formatDay(guide.kitChangedAt, lang),
+                })}
           </span>
         </p>
       )}
@@ -291,7 +347,9 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
             <ul className="space-y-1.5">
               {target.substats.map((stat) => (
                 <li key={stat.label} className="flex items-center gap-3">
-                  <span className={`w-32 shrink-0 truncate text-sm ${skin.text}`}>{stat.label}</span>
+                  <span className={`w-32 shrink-0 truncate text-sm ${skin.text}`}>
+                    {stat.label}
+                  </span>
                   <span className={`h-2 flex-1 overflow-hidden rounded-full ${skin.card}`}>
                     <span
                       className="block h-full rounded-full"
@@ -338,12 +396,19 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
             <SubHeading skin={skin}>{t("guide", "endgameStats")}</SubHeading>
             <div className="flex flex-wrap gap-2">
               {guide.endgameStats.map((stat, i) => (
-                <StatChip key={`${i}-${stat.label}`} label={stat.label} value={stat.value} skin={skin} />
+                <StatChip
+                  key={`${i}-${stat.label}`}
+                  label={stat.label}
+                  value={stat.value}
+                  skin={skin}
+                />
               ))}
             </div>
             <p className={`mt-1 text-xs ${skin.muted}`}>{t("guide", "endgameStatsNote")}</p>
             {energyInEndgame && target.energyTarget !== null && (
-              <p className={`mt-1 text-xs ${skin.muted}`}>{t("guide", "endgameEnergyNote", { target: target.energyTarget })}</p>
+              <p className={`mt-1 text-xs ${skin.muted}`}>
+                {t("guide", "endgameEnergyNote", { target: target.energyTarget })}
+              </p>
             )}
           </div>
         )}
@@ -357,13 +422,17 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
         {target.sets.length > 0 ? (
           <ol className="space-y-3">
             {target.sets.map((rec, i) => {
-              const effects = rec.parts.flatMap((part) => effectsOf(part).map((effect) => ({ part, effect })));
+              const effects = rec.parts.flatMap((part) =>
+                effectsOf(part).map((effect) => ({ part, effect })),
+              );
               return (
                 <li key={i}>
                   <div className="flex flex-wrap items-center gap-2">
                     <span className={`w-4 shrink-0 font-mono text-xs ${skin.muted}`}>{i + 1}</span>
                     {rec.label && (
-                      <span className={`rounded border px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${skin.card} ${skin.accent}`}>
+                      <span
+                        className={`rounded border px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${skin.card} ${skin.accent}`}
+                      >
                         {rec.label}
                       </span>
                     )}
@@ -373,10 +442,19 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
                         className={`game-panel-sm inline-flex items-center gap-2 border py-1 pl-1 pr-2.5 text-sm ${skin.card} ${skin.text}`}
                       >
                         {part.iconUrl && (
-                          <RemoteImg src={part.iconUrl} alt="" loading="lazy" width={28} height={28} className="h-7 w-7 shrink-0 object-contain" />
+                          <RemoteImg
+                            src={part.iconUrl}
+                            alt=""
+                            loading="lazy"
+                            width={28}
+                            height={28}
+                            className="h-7 w-7 shrink-0 object-contain"
+                          />
                         )}
                         {part.name}
-                        <span className={`font-mono text-xs ${skin.accent}`}>{t("builds", "pc", { n: part.pieces })}</span>
+                        <span className={`font-mono text-xs ${skin.accent}`}>
+                          {t("builds", "pc", { n: part.pieces })}
+                        </span>
                       </span>
                     ))}
                   </div>
@@ -385,7 +463,10 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
                       <summary
                         className={`inline-flex cursor-pointer list-none items-center gap-1 text-xs font-semibold [&::-webkit-details-marker]:hidden ${skin.accent}`}
                       >
-                        <ChevronIcon className="h-3.5 w-3.5 -rotate-90 transition-transform group-open:rotate-0" aria-hidden="true" />
+                        <ChevronIcon
+                          className="h-3.5 w-3.5 -rotate-90 transition-transform group-open:rotate-0"
+                          aria-hidden="true"
+                        />
                         {t("guide", "setEffects")}
                       </summary>
                       <dl className="mt-1.5 space-y-1.5">
@@ -427,12 +508,23 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
 
       {guide && guide.weapons.length > 0 && (
         <Section id={SECTION.weapons} title={t("guide", WEAPONS_TITLE[game])} skin={skin}>
-          <WeaponList weapons={guide.weapons} game={game} skin={skin} name={target.name} equippedId={equippedWeaponId} />
+          <WeaponList
+            weapons={guide.weapons}
+            game={game}
+            skin={skin}
+            name={target.name}
+            equippedId={equippedWeaponId}
+          />
         </Section>
       )}
 
       {guide && hasTeams && (
-        <Section id={SECTION.teams} title={t("guide", "teams")} skin={skin} note={guide.teams.length > 0 ? t("guide", "teamsLead") : undefined}>
+        <Section
+          id={SECTION.teams}
+          title={t("guide", "teams")}
+          skin={skin}
+          note={guide.teams.length > 0 ? t("guide", "teamsLead") : undefined}
+        >
           <TeamList
             teams={guide.teams}
             synergies={guide.synergies}
@@ -451,14 +543,22 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
             <div className="mb-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
               {guide.skillPriority && (
                 <div className={`game-panel-sm border px-3 py-2 ${skin.card}`}>
-                  <div className={`text-xs uppercase tracking-wide ${skin.muted}`}>{t("guide", "skillPriority")}</div>
-                  <div className={`mt-1 text-sm font-semibold ${skin.text}`}>{guide.skillPriority}</div>
+                  <div className={`text-xs uppercase tracking-wide ${skin.muted}`}>
+                    {t("guide", "skillPriority")}
+                  </div>
+                  <div className={`mt-1 text-sm font-semibold ${skin.text}`}>
+                    {guide.skillPriority}
+                  </div>
                 </div>
               )}
               {guide.tracePriority && (
                 <div className={`game-panel-sm border px-3 py-2 ${skin.card}`}>
-                  <div className={`text-xs uppercase tracking-wide ${skin.muted}`}>{t("guide", "tracePriority")}</div>
-                  <div className={`mt-1 text-sm font-semibold ${skin.text}`}>{guide.tracePriority}</div>
+                  <div className={`text-xs uppercase tracking-wide ${skin.muted}`}>
+                    {t("guide", "tracePriority")}
+                  </div>
+                  <div className={`mt-1 text-sm font-semibold ${skin.text}`}>
+                    {guide.tracePriority}
+                  </div>
                 </div>
               )}
             </div>
@@ -467,7 +567,12 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
             {kitGroups.map((group) => (
               <div key={group.id}>
                 <SubHeading skin={skin}>{kitTitle(group.id)}</SubHeading>
-                <KitList entries={group.entries} skin={skin} accent={target.accent} columns={group.id === "skills" ? 1 : 2} />
+                <KitList
+                  entries={group.entries}
+                  skin={skin}
+                  accent={target.accent}
+                  columns={group.id === "skills" ? 1 : 2}
+                />
               </div>
             ))}
           </div>
@@ -507,7 +612,8 @@ export function BuildDetail({ target, basePath, skin, owned, guide: state, roste
               <dt>{t("guide", target.setsSource ? "sourcePicks" : "sourcePicksWithSets")}</dt>
               <dd>
                 {t("guide", "guidesLabel")}
-                {guide.source.updated && `, ${t("guide", "updatedOn", { date: formatDay(guide.source.updated, lang) })}`}
+                {guide.source.updated &&
+                  `, ${t("guide", "updatedOn", { date: formatDay(guide.source.updated, lang) })}`}
               </dd>
             </>
           )}

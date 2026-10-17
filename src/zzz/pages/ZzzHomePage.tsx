@@ -1,7 +1,8 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BENCHMARK_ROLLS, MAX_ROLLS, GRADE_LADDER, ROLL_VALUE } from "../scoring";
-import { isValidZzzUid } from "../useZzzShowcase";
+import { BENCHMARK_ROLLS, MAX_ROLLS, ROLL_VALUE } from "../benchmark";
+import { GRADE_LADDER } from "../../lib/gradeLadder";
+import { isValidZzzUid } from "../../lib/uid";
 import { ZZZ_RECENT_UIDS_KEY, useRecentUids } from "../../hooks/useRecentUids";
 import { RecentLookups } from "../../components/ui/RecentLookups";
 import { GradeBadge } from "../../components/ui/GradeBadge";
@@ -65,7 +66,7 @@ export function ZzzHomePage() {
               placeholder={t("zzz", "uidPlaceholder")}
               inputMode="numeric"
               aria-label={t("zzz", "uidLabel")}
-              className="w-full bg-transparent px-3 py-2 font-mono text-sm text-zzz-text placeholder:text-zzz-muted/70 focus:outline-none"
+              className="w-full bg-transparent px-3 py-2 font-mono text-sm text-zzz-text placeholder:text-zzz-muted focus:outline-none"
             />
           </div>
           <button
@@ -76,10 +77,17 @@ export function ZzzHomePage() {
             {t("zzz", "scan")}
           </button>
         </form>
-        {error && <p className="mt-2 text-sm text-zzz-signal" role="alert">{error}</p>}
+        {error && (
+          <p className="mt-2 text-sm text-zzz-signal" role="alert">
+            {error}
+          </p>
+        )}
         {SHOWCASE_HELP && (
           <p className="mt-3 text-sm">
-            <Link to={HELP_PATH.zzz} className="text-zzz-muted underline decoration-dotted underline-offset-4 hover:text-zzz-accent">
+            <Link
+              to={HELP_PATH.zzz}
+              className="text-zzz-muted underline decoration-dotted underline-offset-4 hover:text-zzz-accent"
+            >
               {t("help", "cantSee")}
             </Link>
           </p>
@@ -120,20 +128,35 @@ export function ZzzHomePage() {
         ].map((c) => (
           <div key={c.n} className="game-panel border border-zzz-border bg-zzz-panel/50 p-4">
             <span className="font-mono text-sm font-bold text-zzz-accent">{c.n}</span>
-            <h3 className="mt-2 text-base font-bold uppercase tracking-wide text-zzz-text">{c.t}</h3>
+            <h3 className="mt-2 text-base font-bold uppercase tracking-wide text-zzz-text">
+              {c.t}
+            </h3>
             <p className="mt-1.5 text-sm leading-relaxed text-zzz-muted">{c.b}</p>
+            {c.n === "1" && SHOWCASE_HELP && (
+              <Link
+                to={HELP_PATH.zzz}
+                className="mt-1.5 inline-block text-sm text-zzz-accent underline underline-offset-2 hover:text-zzz-text"
+              >
+                {t("help", "emptyLink")}
+              </Link>
+            )}
           </div>
         ))}
       </div>
 
       <div className="w-full max-w-4xl game-panel border border-zzz-border bg-zzz-panel/50 p-5">
-        <h2 className="text-base font-bold uppercase tracking-wide text-zzz-text">{t("zzz", "gradedTitle")}</h2>
+        <h2 className="text-base font-bold uppercase tracking-wide text-zzz-text">
+          {t("zzz", "gradedTitle")}
+        </h2>
         <div className="mt-2 space-y-3 text-[15px] leading-relaxed text-zzz-muted">
           <p>{t("zzz", "gradedP1")}</p>
           <p>{t("zzz", "gradedP2")}</p>
           <div className="flex flex-wrap items-center gap-1.5">
             {GRADE_LADDER.filter((_, i) => i % 2 === 1).map((band) => (
-              <span key={band.grade} className="inline-flex items-center gap-1 rounded-md border border-zzz-line bg-zzz-inset px-2 py-0.5 font-mono text-xs">
+              <span
+                key={band.grade}
+                className="inline-flex items-center gap-1 rounded-md border border-zzz-line bg-zzz-inset px-2 py-0.5 font-mono text-xs"
+              >
                 <GradeBadge grade={band.grade} size="xs" /> {band.min}%+
               </span>
             ))}
@@ -141,8 +164,19 @@ export function ZzzHomePage() {
           <p>{t("zzz", "gradedP3")}</p>
           <div className="flex flex-wrap gap-1.5">
             {Object.entries(ROLL_VALUE).map(([id, value]) => (
-              <span key={id} className="rounded-md border border-zzz-line bg-zzz-inset px-2 py-0.5 font-mono text-xs text-zzz-text">
-                {t("zzzStats", String(id) as "11101")} <span className="text-zzz-accent">+{value}{Number(id) < 20000 && Number(id) % 100 === 2 ? "%" : Number(id) === 20103 || Number(id) === 21103 ? "%" : ""}</span>
+              <span
+                key={id}
+                className="rounded-md border border-zzz-line bg-zzz-inset px-2 py-0.5 font-mono text-xs text-zzz-text"
+              >
+                {t("zzzStats", String(id) as "11101")}{" "}
+                <span className="text-zzz-accent">
+                  +{value}
+                  {Number(id) < 20000 && Number(id) % 100 === 2
+                    ? "%"
+                    : Number(id) === 20103 || Number(id) === 21103
+                      ? "%"
+                      : ""}
+                </span>
               </span>
             ))}
           </div>

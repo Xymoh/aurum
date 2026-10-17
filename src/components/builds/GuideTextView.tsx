@@ -7,7 +7,15 @@ import type { BuildSkin } from "./skin";
  * in the accent colour. Rendered as text nodes only, so nothing in the data
  * can become markup.
  */
-export function GuideTextView({ text, skin, className = "" }: { text: GuideText; skin: BuildSkin; className?: string }) {
+export function GuideTextView({
+  text,
+  skin,
+  className = "",
+}: {
+  text: GuideText;
+  skin: BuildSkin;
+  className?: string;
+}) {
   return (
     <p className={`whitespace-pre-line text-sm leading-relaxed ${skin.muted} ${className}`}>
       {splitEmphasis(text).map((run, i) =>

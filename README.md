@@ -19,7 +19,7 @@ Three scorers live under one roof, each with its own layout and palette:
 - **UID Lookup** - Enter any Genshin Impact UID to fetch the player's showcase via Enka.Network
 - **Fribbels-Style Scoring** - Artifact scoring adapted from the [Fribbels HSR Optimizer](https://fribbels.github.io/hsr-optimizer) methodology
 - **Potential Percent (0–200%)** - Each artifact scored as a percentage of its realistic potential, where 100% = solid artifact, 200% = theoretically perfect
-- **18-Grade Scale** - F through WTF+ in 5% intervals with color-coded badges
+- **18-Grade Scale** - F through WTF+ in 10% steps with color-coded badges
 - **Character-Specific Weights** - Scoring tailored per character (e.g., DEF% valued for Albedo, HP% for Hu Tao)
 - **Build Diagnostics** - Useful vs dead rolls across the whole build, substat totals, crit ratio and the Energy Recharge target, next to the score
 - **Percentile Context** - Every piece says where it sits among what the game would drop for that slot ("top 12%"), simulated from the substat odds
@@ -29,7 +29,7 @@ Three scorers live under one roof, each with its own layout and palette:
 - **Deep Links** - A shared card link opens straight to that character
 - **Main Stat & Set Evaluation** - Tracks correct main stats and recommended set bonuses (informational, no score penalty)
 - **Automated Data Pipeline** - Character stats auto-fetched from Genshin Optimizer repo with manual weight curation
-- **English + 简体中文** - Auto-detected from the browser and switchable in the header; character, weapon and artifact-set names use the game's own official translations. More languages can be added later — see `src/i18n/`
+- **English + 简体中文** - Chinese is built but ships only with `VITE_I18N=on`; when on, the language is auto-detected from the browser and switchable in the header, and character, weapon and artifact-set names use the game's own official translations. More languages can be added later - see `src/i18n/`
 - **Dark Theme** - A light theme is built but parked behind `VITE_LIGHT_THEME` (off in production)
 - **Responsive** - Mobile-friendly expandable character cards
 
@@ -56,7 +56,7 @@ Based on the Fribbels HSR Optimizer, adapted for Genshin:
 ## Tech Stack
 
 - **React 19** + TypeScript
-- **Vite 6** (build)
+- **Vite 8** (build, Rolldown)
 - **TailwindCSS 4** (styling)
 - **React Router v7** (routing)
 - **TanStack Query v5** (data fetching)
@@ -346,12 +346,19 @@ Actions (`.github/workflows/deploy.yml`). Every push and pull request is
 linted, type-checked, tested and built; a push to `main` then:
 
 1. Builds with Vite, then `scripts/prerender.mjs` writes an HTML file per
-   game page, build guide and legal page (own title, description and
-   canonical URL) plus `sitemap.xml` and `robots.txt`, so crawlers and link
-   previews see each page's own title rather than the home page's.
+   game page, build guide, showcase help page and legal page (own title,
+   description and canonical URL; the second Traveler/Trailblazer body is
+   `noindex`) plus `404.html`, `sitemap.xml` and `robots.txt`, so crawlers
+   and link previews see each page's own title rather than the home page's.
 2. Uploads `dist/` to the Cloudflare Pages project `aurum` with wrangler.
-   There is no `404.html`, so Pages serves `index.html` for every other
-   path (showcases) and the app routes it.
+   Because `404.html` exists, any path without a file answers 404, so a new
+   route needs a prerendered file or a rule in `public/_redirects`. Showcase
+   pages (one per UID) are rewritten there to the root page, and the app
+   routes them. `public/_headers` sets the CSP and other security headers.
+   `functions/[game]/showcase/[uid].js` is a Pages Function that gives link
+   previews (Discord, X) the player's nickname, characters and splash art;
+   browsers get the same app shell as before. It counts against the same
+   Workers Free allowance (100k requests a day) as the relay.
 3. Republishes the old GitHub Pages address (`xymoh.github.io/aurum/`) as
    `legacy-redirect/index.html`, which forwards every path to the same path
    on aurumgg.com.

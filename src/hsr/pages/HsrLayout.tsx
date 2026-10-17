@@ -25,22 +25,25 @@ export function HsrLayout() {
       <header className="sticky top-0 z-30 border-b border-hsr-border bg-hsr-panel/70 backdrop-blur-md">
         <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link to="/hsr" className="group flex items-center gap-2">
-            <span className="text-lg text-hsr-accent transition-transform group-hover:rotate-90">
+            <span
+              aria-hidden="true"
+              className="text-lg text-hsr-accent transition-transform group-hover:rotate-90"
+            >
               ✧
             </span>
-            <span className="hidden text-sm font-semibold uppercase tracking-[0.2em] text-hsr-text sm:inline">
+            <span className="sr-only text-sm font-semibold uppercase tracking-[0.2em] text-hsr-text sm:not-sr-only">
               {t("hsr", "title")}
             </span>
           </Link>
           <nav className="flex items-center gap-1.5" aria-label="Site">
             <GameSwitcherCompact current="hsr" />
             <Link
-            to="/hsr/builds"
-            className="rounded-lg px-2 py-1.5 text-sm text-hsr-muted no-underline transition-colors hover:bg-hsr-fill hover:text-hsr-text"
-          >
-            {t("builds", "navLabel")}
-          </Link>
-                      <LanguageSwitcher />
+              to="/hsr/builds"
+              className="rounded-lg px-2 py-1.5 text-sm text-hsr-muted no-underline transition-colors hover:bg-hsr-fill hover:text-hsr-text"
+            >
+              {t("builds", "navLabel")}
+            </Link>
+            <LanguageSwitcher />
             <ThemeToggle className="text-hsr-muted hover:bg-hsr-fill hover:text-hsr-text" />
           </nav>
         </div>
@@ -86,11 +89,13 @@ export function HsrLayout() {
             >
               Fribbels HSR Optimizer
             </a>
-            {t("hsr", "footerBuildsMiddle")}
-            .
+            {t("hsr", "footerBuildsMiddle")}.
           </p>
           <p className="mt-2">
-            <LegalLinks className="text-hsr-accent underline underline-offset-2 hover:text-hsr-text" helpTo={HELP_PATH.hsr} />
+            <LegalLinks
+              className="text-hsr-accent underline underline-offset-2 hover:text-hsr-text"
+              helpTo={HELP_PATH.hsr}
+            />
           </p>
         </div>
       </footer>

@@ -2,6 +2,7 @@ import { GRADE_THRESHOLDS } from "../../lib/constants";
 import { REROLL_TIERS } from "../../lib/reroll";
 import { gradeStyle, tint } from "../../lib/grade";
 import { ROLL_TIER_BG } from "../../lib/rollTier";
+import { PIP } from "./RollPips";
 import { WarningIcon, DiceIcon, RecycleIcon, CheckIcon } from "./icons";
 import { useI18n } from "../../i18n";
 
@@ -53,7 +54,7 @@ export function ScoringExplainer() {
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
           {(["max", "high", "mid", "low"] as const).map((tier) => (
             <span key={tier} className="inline-flex items-center gap-1.5">
-              <span className={`inline-block h-2.5 w-[3px] rounded-sm ${ROLL_TIER_BG[tier]}`} aria-hidden="true" />
+              <span className={`inline-block ${PIP} ${ROLL_TIER_BG[tier]}`} aria-hidden="true" />
               {t("rolls", tier)}
             </span>
           ))}

@@ -14,7 +14,7 @@
 
 import { ShowcaseError } from "./showcaseError";
 
-export type EnkaGame = "gi" | "hsr" | "zzz";
+type EnkaGame = "gi" | "hsr" | "zzz";
 
 const ENKA_BASE: Record<EnkaGame, string> = {
   gi: "https://enka.network/api/uid",
@@ -40,7 +40,9 @@ function proxyUrl(uid: string, game: EnkaGame): string | null {
   const target = enkaUrl(game, uid);
   const base =
     template.includes("{uid}") || template.includes("{url}")
-      ? template.replace("{uid}", encodeURIComponent(uid)).replace("{url}", encodeURIComponent(target))
+      ? template
+          .replace("{uid}", encodeURIComponent(uid))
+          .replace("{url}", encodeURIComponent(target))
       : `${template}${template.includes("?") ? "&" : "?"}uid=${encodeURIComponent(uid)}`;
   // Genshin stays on the bare URL so an older deployed worker, which
   // predates the game parameter, keeps working unchanged.
@@ -48,12 +50,11 @@ function proxyUrl(uid: string, game: EnkaGame): string | null {
 }
 
 /**
- * The worker occasionally times out on the Enka leg or answers 5xx, so a
- * retryable failure gets a second attempt before we give up. Two attempts
- * at eight seconds each keeps the worst case under twenty seconds; the old
- * budget could leave a reader staring at a skeleton for forty.
+ * The worker occasionally times out on the Enka leg or answers 5xx. The query
+ * layer (showcaseRetry) gives a retryable failure one second attempt, so two
+ * attempts at eight seconds each keep the worst case under twenty seconds.
+ * Retrying here as well used to double that to four requests.
  */
-const PASSES = 2;
 const PER_ATTEMPT_TIMEOUT = 8_000;
 
 /** Enka's status codes, mapped to what a reader can act on. */
@@ -121,9 +122,9 @@ async function viaWorker<T>(url: string, isValid: (data: unknown) => boolean): P
  * knows a field its payload must carry, and anything without it is treated as
  * a failed attempt rather than a successful empty result.
  *
- * Final answers (not found, maintenance, rate limited) are thrown at once.
- * A rate limit in particular is never retried here: Enka asks clients to
- * back off, and the query layer honours the same flag.
+ * Every failure is thrown as a ShowcaseError whose `retryable` flag tells the
+ * query layer whether one more attempt could help. A rate limit never is:
+ * Enka asks clients to back off.
  */
 export async function fetchFromEnka<T>(
   uid: string,
@@ -141,14 +142,9 @@ export async function fetchFromEnka<T>(
   const url = proxyUrl(uid, game);
   if (!url) throw new ShowcaseError("misconfigured");
 
-  let last: ShowcaseError | null = null;
-  for (let pass = 0; pass < PASSES; pass++) {
-    try {
-      return await viaWorker<T>(url, isValid);
-    } catch (err) {
-      last = toShowcaseError(err);
-      if (!last.retryable) throw last;
-    }
+  try {
+    return await viaWorker<T>(url, isValid);
+  } catch (err) {
+    throw toShowcaseError(err);
   }
-  throw last ?? new ShowcaseError("unavailable");
 }

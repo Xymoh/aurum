@@ -31,10 +31,13 @@ const STORE = "https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/sto
  * grow with its level and breakthrough. Those two tables are game config,
  * mirrored here because no first-party source publishes them.
  */
-const WEAPON_CURVES = "https://raw.githubusercontent.com/yidhari-zs/Yidhari-ZS/master/assets/Filecfg";
+const WEAPON_CURVES =
+  "https://raw.githubusercontent.com/yidhari-zs/Yidhari-ZS/master/assets/Filecfg";
 
 async function getJSON(name, base = STORE) {
-  const res = await fetch(`${base}/${name}.json`, { headers: { "User-Agent": "aurum-fetcher/1.0" } });
+  const res = await fetch(`${base}/${name}.json`, {
+    headers: { "User-Agent": "aurum-fetcher/1.0" },
+  });
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${name}.json`);
   return res.json();
 }
@@ -42,7 +45,9 @@ async function getJSON(name, base = STORE) {
 function write(name, data) {
   const file = path.join(OUT, name);
   fs.writeFileSync(file, JSON.stringify(data) + "\n", "utf8");
-  console.log(`  ${name.padEnd(18)} ${String(Object.keys(data).length).padStart(4)} entries  ${(fs.statSync(file).size / 1024).toFixed(1)} kB`);
+  console.log(
+    `  ${name.padEnd(18)} ${String(Object.keys(data).length).padStart(4)} entries  ${(fs.statSync(file).size / 1024).toFixed(1)} kB`,
+  );
 }
 
 async function main() {
@@ -124,16 +129,24 @@ async function main() {
   // both scaled by 10000.
   const curves = { level: {}, star: {} };
   for (const row of wLevel.data ?? []) curves.level[`${row.rarity}-${row.level}`] = row.rate;
-  for (const row of wStar.data ?? []) curves.star[`${row.rarity}-${row.star}`] = { star: row.star_rate, rand: row.rand_rate };
+  for (const row of wStar.data ?? [])
+    curves.star[`${row.rarity}-${row.star}`] = { star: row.star_rate, rand: row.rand_rate };
 
   write("agents.json", agents);
   // A render nobody has measured falls back to a centred crop, which buries
   // an off-centre agent under the panel's score block. Say so, rather than
   // letting the next Claret ship with her face cut off.
   const focusFile = path.join(OUT, "art-focus.json");
-  const measured = fs.existsSync(focusFile) ? JSON.parse(fs.readFileSync(focusFile, "utf8")).agents ?? {} : {};
-  const unmeasured = Object.entries(agents).filter(([id, a]) => a.image && !(id in measured)).map(([, a]) => a.name);
-  if (unmeasured.length) console.log(`  ⚠ ${unmeasured.length} render(s) not measured, run: npm run measure-zzz-art  (${unmeasured.join(", ")})`);
+  const measured = fs.existsSync(focusFile)
+    ? (JSON.parse(fs.readFileSync(focusFile, "utf8")).agents ?? {})
+    : {};
+  const unmeasured = Object.entries(agents)
+    .filter(([id, a]) => a.image && !(id in measured))
+    .map(([, a]) => a.name);
+  if (unmeasured.length)
+    console.log(
+      `  ⚠ ${unmeasured.length} render(s) not measured, run: npm run measure-zzz-art  (${unmeasured.join(", ")})`,
+    );
   write("weapon-curves.json", curves);
   write("sets.json", sets.suits);
   write("set-items.json", sets.items);

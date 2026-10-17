@@ -13,7 +13,7 @@ import { useCallback, useSyncExternalStore } from "react";
  * not shown. A saved "light" is left alone, for when the theme comes back.
  */
 
-export type Theme = "dark" | "light";
+type Theme = "dark" | "light";
 
 export const THEME_STORAGE_KEY = "theme";
 
@@ -33,12 +33,15 @@ export function currentTheme(): Theme {
   if (typeof document === "undefined" || !LIGHT_THEME) return "dark";
   const attr = document.documentElement.getAttribute("data-theme");
   if (attr === "light" || attr === "dark") return attr;
-  return readStored() ?? (window.matchMedia?.("(prefers-color-scheme: light)").matches ? "light" : "dark");
+  return (
+    readStored() ??
+    (window.matchMedia?.("(prefers-color-scheme: light)").matches ? "light" : "dark")
+  );
 }
 
 const listeners = new Set<() => void>();
 
-export function applyTheme(theme: Theme, persist = true) {
+function applyTheme(theme: Theme, persist = true) {
   document.documentElement.setAttribute("data-theme", theme);
   if (persist) {
     try {
