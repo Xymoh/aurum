@@ -1,8 +1,8 @@
 {
   "source": "https://github.com/fribbels/hsr-optimizer",
   "license": "MIT",
-  "commit": "76cff12930b6fe541c5bde871a46a104e8d23c51",
-  "fetchedAt": "2026-10-05T18:22:18.145Z",
+  "commit": "a44c5d3ae2f1ed5907055a16c264bdc2392cf131",
+  "fetchedAt": "2026-10-21T22:12:33.074Z",
   "characters": {
     "1001": {
       "name": "March 7th",
@@ -3759,6 +3759,48 @@
         "Fallen Star Anchorage"
       ],
       "file": "src/lib/conditionals/character/1500/HimekoNova.ts",
+      "variant": "base"
+    },
+    "1511": {
+      "name": "AeonAha",
+      "stats": {
+        "SpeedDelta": 1,
+        "CriticalChanceBase": 1,
+        "CriticalDamageBase": 1
+      },
+      "parts": {
+        "BODY": [
+          "CriticalChanceBase",
+          "CriticalDamageBase"
+        ],
+        "FOOT": [
+          "SpeedDelta"
+        ],
+        "NECK": [],
+        "OBJECT": []
+      },
+      "relicSets": [
+        [
+          "Ever-Glorious Magical Girl",
+          "Ever-Glorious Magical Girl"
+        ],
+        [
+          "Dreamlit Actor",
+          "Dreamlit Actor"
+        ],
+        [
+          "Diviner of Distant Reach",
+          "Diviner of Distant Reach"
+        ],
+        [
+          "Sacerdos' Relived Ordeal",
+          "Sacerdos' Relived Ordeal"
+        ]
+      ],
+      "ornamentSets": [
+        "God's Moment of Joy"
+      ],
+      "file": "src/lib/conditionals/character/1500/AeonAha.ts",
       "variant": "base"
     },
     "1512": {

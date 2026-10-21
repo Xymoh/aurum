@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-12T19:01:50.004Z",
+  "fetchedAt": "2026-10-21T22:30:40.680Z",
   "characters": {
     "1011": {
       "name": "Anby",
@@ -1913,6 +1913,76 @@
           {
             "setId": "32800",
             "pieces": 4
+          }
+        ]
+      ]
+    },
+    "1631": {
+      "name": "Severian",
+      "sets": [
+        [
+          {
+            "setId": "33300",
+            "pieces": 4
+          },
+          {
+            "setId": "31000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "33300",
+            "pieces": 4
+          },
+          {
+            "setId": "31100",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "33300",
+            "pieces": 4
+          },
+          {
+            "setId": "33900",
+            "pieces": 2
+          }
+        ]
+      ]
+    },
+    "1641": {
+      "name": "Phoenix",
+      "sets": [
+        [
+          {
+            "setId": "31300",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "31800",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
+          }
+        ],
+        [
+          {
+            "setId": "34100",
+            "pieces": 4
+          },
+          {
+            "setId": "33000",
+            "pieces": 2
           }
         ]
       ]

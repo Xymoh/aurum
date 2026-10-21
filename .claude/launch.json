@@ -21,6 +21,17 @@
         "4173"
       ],
       "port": 4173
+    },
+    {
+      "name": "aurum-dev-quiet",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--",
+        "--no-open"
+      ],
+      "port": 3000
     }
   ]
 }

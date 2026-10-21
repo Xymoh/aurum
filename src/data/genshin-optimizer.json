@@ -6949,6 +6949,70 @@
     "source": "genshin-optimizer/frzyc",
     "data_version": "allStat_gen.json - master branch"
   },
+  "Vodyanitsa": {
+    "name": "Vodyanitsa",
+    "display_name": "Vodyanitsa",
+    "element": "Hydro",
+    "weapon_type": "Catalyst",
+    "rarity": 5,
+    "avatar_id": "10000140",
+    "scaling_attribute": "HP_",
+    "scaling_stat": "HP_",
+    "ascension_stat": "hp_",
+    "ascension_bonus_curve": [
+      0,
+      0,
+      0.072,
+      0.144,
+      0.144,
+      0.216,
+      0.288
+    ],
+    "substat_weights": null,
+    "main_stats_ideal": null,
+    "recommended_sets": [],
+    "er_threshold": null,
+    "base_stats": {
+      "hp_base": 1153.5172,
+      "atk_base": 8.379,
+      "def_base": 37.6929
+    },
+    "region": null,
+    "source": "genshin-optimizer/frzyc",
+    "data_version": "allStat_gen.json - master branch"
+  },
+  "Vesna": {
+    "name": "Vesna",
+    "display_name": "Vesna",
+    "element": "Anemo",
+    "weapon_type": "Sword",
+    "rarity": 5,
+    "avatar_id": "10000143",
+    "scaling_attribute": "Crit Rate%",
+    "scaling_stat": "CRIT_RATE",
+    "ascension_stat": "critRate_",
+    "ascension_bonus_curve": [
+      0,
+      0,
+      0.048,
+      0.096,
+      0.096,
+      0.144,
+      0.192
+    ],
+    "substat_weights": null,
+    "main_stats_ideal": null,
+    "recommended_sets": [],
+    "er_threshold": null,
+    "base_stats": {
+      "hp_base": 1032.4456,
+      "atk_base": 27.5576,
+      "def_base": 56.8385
+    },
+    "region": null,
+    "source": "genshin-optimizer/frzyc",
+    "data_version": "allStat_gen.json - master branch"
+  },
   "Alyosha": {
     "name": "Alyosha",
     "display_name": "Alyosha",

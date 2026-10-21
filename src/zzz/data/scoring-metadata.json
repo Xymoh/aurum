@@ -1,6 +1,6 @@
 {
   "method": "Consensus of community guides' substat priorities on a 1 / 0.75 / 0.5 / 0.25 scale; see scripts/consensus.mjs",
-  "fetchedAt": "2026-10-12T19:01:50.004Z",
+  "fetchedAt": "2026-10-21T22:30:40.680Z",
   "characters": {
     "1011": {
       "name": "Anby",
@@ -1300,9 +1300,9 @@
     "1561": {
       "name": "Velina",
       "stats": {
-        "12102": 1,
+        "12102": 0.75,
         "12103": 0.25,
-        "23203": 0.5,
+        "23203": 0.25,
         "31203": 1
       },
       "parts": {
@@ -1310,13 +1310,14 @@
           31203
         ],
         "5": [
-          32303
+          32303,
+          23103
         ],
         "6": [
           30502
         ]
       },
-      "priority": "ATK% = Anomaly Proficiency > PEN > ATK"
+      "priority": "Anomaly Proficiency > ATK% > ATK = PEN"
     },
     "1571": {
       "name": "Norma",
@@ -1440,6 +1441,49 @@
         ]
       },
       "priority": "CRIT Rate > CRIT DMG > ATK% > ATK = PEN"
+    },
+    "1631": {
+      "name": "Severian",
+      "stats": {
+        "12102": 0.5,
+        "20103": 1,
+        "21103": 0.75
+      },
+      "parts": {
+        "4": [
+          20103
+        ],
+        "5": [
+          23103,
+          32303
+        ],
+        "6": [
+          12102
+        ]
+      },
+      "priority": "CRIT Rate > CRIT DMG > ATK%"
+    },
+    "1641": {
+      "name": "Phoenix",
+      "stats": {
+        "12102": 0.75,
+        "12103": 0.25,
+        "23203": 0.5,
+        "31203": 1
+      },
+      "parts": {
+        "4": [
+          31203
+        ],
+        "5": [
+          31603,
+          23103
+        ],
+        "6": [
+          31402
+        ]
+      },
+      "priority": "Anomaly Proficiency > ATK% > PEN > ATK"
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-12T19:01:49.984Z",
+  "fetchedAt": "2026-10-21T22:30:40.608Z",
   "characters": {
     "10000002": {
       "name": "Kamisato Ayaka",
@@ -1539,7 +1539,7 @@
     "10000030": {
       "name": "Zhongli",
       "sources": 3,
-      "updated": "2026-10-11",
+      "updated": "2026-10-13",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT"
@@ -1890,7 +1890,7 @@
     "10000033": {
       "name": "Tartaglia",
       "sources": 3,
-      "updated": "2026-10-11",
+      "updated": "2026-10-13",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -2256,7 +2256,7 @@
     "10000036": {
       "name": "Chongyun",
       "sources": 3,
-      "updated": "2026-09-25",
+      "updated": "2026-10-13",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -2557,7 +2557,7 @@
     "10000039": {
       "name": "Diona",
       "sources": 3,
-      "updated": "2026-10-11",
+      "updated": "2026-10-13",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT",
@@ -5663,7 +5663,7 @@
     "10000071": {
       "name": "Cyno",
       "sources": 3,
-      "updated": "2026-09-25",
+      "updated": "2026-10-13",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY",
@@ -6237,7 +6237,7 @@
     "10000076": {
       "name": "Faruzan",
       "sources": 3,
-      "updated": "2026-10-05",
+      "updated": "2026-10-13",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE"
@@ -6641,7 +6641,7 @@
     "10000080": {
       "name": "Mika",
       "sources": 3,
-      "updated": "2026-10-08",
+      "updated": "2026-10-13",
       "mainStats": {
         "SANDS": [
           "ENERGY_RECHARGE",
@@ -7344,7 +7344,7 @@
     "10000086": {
       "name": "Wriothesley",
       "sources": 3,
-      "updated": "2026-09-25",
+      "updated": "2026-10-13",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -8246,13 +8246,14 @@
     "10000094": {
       "name": "Chiori",
       "sources": 3,
-      "updated": "2026-09-28",
+      "updated": "2026-10-12",
       "mainStats": {
         "SANDS": [
           "DEF_PERCENT"
         ],
         "GOBLET": [
-          "GEO_DMG"
+          "GEO_DMG",
+          "DEF_PERCENT"
         ],
         "CIRCLET": [
           "CRIT_RATE",
@@ -8266,6 +8267,10 @@
           "refinement": null
         },
         {
+          "id": "11516",
+          "refinement": null
+        },
+        {
           "id": "11505",
           "refinement": null
         },
@@ -8274,15 +8279,7 @@
           "refinement": null
         },
         {
-          "id": "11516",
-          "refinement": null
-        },
-        {
           "id": "11302",
-          "refinement": null
-        },
-        {
-          "id": "11424",
           "refinement": null
         },
         {
@@ -8290,7 +8287,11 @@
           "refinement": null
         },
         {
-          "id": "11512",
+          "id": "11424",
+          "refinement": null
+        },
+        {
+          "id": "11519",
           "refinement": null
         }
       ],
@@ -10213,7 +10214,7 @@
     "10000111": {
       "name": "Varesa",
       "sources": 3,
-      "updated": "2026-10-10",
+      "updated": "2026-10-13",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -10363,7 +10364,7 @@
     "10000112": {
       "name": "Escoffier",
       "sources": 3,
-      "updated": "2026-10-09",
+      "updated": "2026-10-13",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT",
@@ -10603,7 +10604,7 @@
     "10000114": {
       "name": "Skirk",
       "sources": 3,
-      "updated": "2026-10-08",
+      "updated": "2026-10-13",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -11446,7 +11447,7 @@
     "10000123": {
       "name": "Durin",
       "sources": 3,
-      "updated": "2026-10-06",
+      "updated": "2026-10-20",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -11929,7 +11930,7 @@
     "10000127": {
       "name": "Illuga",
       "sources": 3,
-      "updated": "2026-09-25",
+      "updated": "2026-10-12",
       "mainStats": {
         "SANDS": [
           "ELEMENTAL_MASTERY"
@@ -12178,7 +12179,7 @@
     "10000129": {
       "name": "Lohen",
       "sources": 3,
-      "updated": "2026-09-28",
+      "updated": "2026-10-20",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -12239,7 +12240,7 @@
             [],
             [
               "10000043",
-              "10000063",
+              "10000041",
               "10000099"
             ],
             [
@@ -12248,7 +12249,7 @@
             ],
             [
               "10000023",
-              "10000089"
+              "10000140"
             ]
           ]
         },
@@ -12319,7 +12320,7 @@
     "10000130": {
       "name": "Linnea",
       "sources": 3,
-      "updated": "2026-09-25",
+      "updated": "2026-10-20",
       "mainStats": {
         "SANDS": [
           "DEF_PERCENT"
@@ -12840,7 +12841,7 @@
     "10000140": {
       "name": "Vodyanitsa",
       "sources": 3,
-      "updated": "2026-10-02",
+      "updated": "2026-10-13",
       "mainStats": {
         "SANDS": [
           "HP_PERCENT"
@@ -12947,7 +12948,7 @@
     "10000143": {
       "name": "Vesna",
       "sources": 2,
-      "updated": "2026-10-02",
+      "updated": "2026-10-13",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
@@ -13174,7 +13175,7 @@
     "10000150": {
       "name": "Odette",
       "sources": 3,
-      "updated": "2026-10-06",
+      "updated": "2026-10-20",
       "mainStats": {
         "SANDS": [
           "ATK_PERCENT"
