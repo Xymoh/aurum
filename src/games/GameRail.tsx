@@ -69,7 +69,7 @@ function GameLink({
 
   return (
     <Link
-      to={game.path}
+      to={`${game.path}/`}
       aria-label={game.name}
       aria-current={current ? "page" : undefined}
       className="group relative flex h-9 w-9 items-center justify-center rounded-full"

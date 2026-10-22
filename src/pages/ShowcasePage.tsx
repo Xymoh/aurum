@@ -80,7 +80,7 @@ export function ShowcasePage() {
         <p className="text-dark-muted text-center max-w-md">{message}</p>
         {invalid ? (
           <Link
-            to="/genshin"
+            to="/genshin/"
             className="rounded-lg bg-accent px-6 py-2 text-dark-bg font-medium no-underline hover:opacity-90 transition-opacity"
           >
             {t("errors", "tryAnotherUid")}

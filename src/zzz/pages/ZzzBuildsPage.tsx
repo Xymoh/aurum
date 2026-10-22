@@ -108,7 +108,7 @@ export function ZzzBuildsPage() {
             loading={isLoading}
             failed={isError}
             owned={owned}
-            homeHref="/zzz"
+            homeHref="/zzz/"
           />
         }
       />

@@ -100,7 +100,7 @@ export function GenshinBuildsPage() {
   // The Traveler had one page per body before each element had its own;
   // an old link opens the element the tables give them.
   const moved = movedGenshinBuild(id);
-  if (moved) return <Navigate replace to={`/genshin/builds/${moved}${search}`} />;
+  if (moved) return <Navigate replace to={`/genshin/builds/${moved}/${search}`} />;
 
   if (!target) return <NotFoundPage />;
 
@@ -121,7 +121,7 @@ export function GenshinBuildsPage() {
             loading={isLoading}
             failed={isError}
             owned={owned}
-            homeHref="/genshin"
+            homeHref="/genshin/"
           />
         }
       />

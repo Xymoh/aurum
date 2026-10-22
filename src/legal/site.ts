@@ -29,5 +29,5 @@ export const CONTACT_LABEL = "the project's GitHub issues";
 /** Shown on both pages. Bump it whenever either page changes in substance. */
 export const EFFECTIVE_DATE = "16 October 2026";
 
-export const PRIVACY_PATH = "/privacy";
-export const TERMS_PATH = "/terms";
+export const PRIVACY_PATH = "/privacy/";
+export const TERMS_PATH = "/terms/";

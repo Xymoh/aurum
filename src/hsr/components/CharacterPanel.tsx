@@ -279,7 +279,7 @@ export function CharacterPanel({ character, index, open, onToggle }: CharacterPa
         <div className="flex shrink-0 items-center gap-1.5">
           {hasHsrBuild(character.avatarId) && (
             <GuideLink
-              to={`/hsr/builds/${character.avatarId}`}
+              to={`/hsr/builds/${character.avatarId}/`}
               name={character.name}
               className="border border-hsr-line bg-hsr-fill text-hsr-muted hover:text-hsr-text"
             />

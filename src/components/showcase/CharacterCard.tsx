@@ -433,7 +433,7 @@ export function CharacterCard({
           <div className="flex shrink-0 items-center gap-1.5">
             {hasGenshinBuild(character.avatarId) && (
               <GuideLink
-                to={`/genshin/builds/${genshinBuildId(character.avatarId, character.element)}`}
+                to={`/genshin/builds/${genshinBuildId(character.avatarId, character.element)}/`}
                 name={character.name}
                 className="border border-dark-border bg-dark-card text-dark-muted hover:text-dark-text"
               />

@@ -115,7 +115,7 @@ export function GamePickerPage() {
             ) : (
               <Link
                 key={game.id}
-                to={game.path}
+                to={`${game.path}/`}
                 className={`${shell} border-dark-border no-underline hover:-translate-y-0.5 hover:bg-dark-card`}
                 style={{ borderColor: `${game.accent}44` }}
               >

@@ -200,8 +200,8 @@ describe("BuildDetail", () => {
   it("links teammates to their own build pages but not the page's own character", () => {
     const page = render(loaded);
     const links = [...page.querySelectorAll("a")].map((a) => a.getAttribute("href"));
-    expect(links).toContain("/genshin/builds/10000025");
-    expect(links).not.toContain("/genshin/builds/10000046");
+    expect(links).toContain("/genshin/builds/10000025/");
+    expect(links).not.toContain("/genshin/builds/10000046/");
   });
 
   it("gives a 4-piece both of its set effects", () => {
@@ -244,7 +244,7 @@ describe("BuildDetail", () => {
     const page = render(loaded);
     const group = page.querySelector('[role="group"]');
     expect(group?.getAttribute("aria-label")).toBe("Alternatives to Xingqiu: Xiangling");
-    expect(group?.querySelector("a")?.getAttribute("href")).toBe("/genshin/builds/10000023");
+    expect(group?.querySelector("a")?.getAttribute("href")).toBe("/genshin/builds/10000023/");
   });
 
   it("opens the Traveler on the element the team names, and says which on the face", () => {
@@ -257,7 +257,7 @@ describe("BuildDetail", () => {
     ];
     const page = render({ ...loaded, guide: { ...GUIDE, teams } });
     const link = page.querySelector('[role="group"] a');
-    expect(link?.getAttribute("href")).toBe("/genshin/builds/10000005-cryo");
+    expect(link?.getAttribute("href")).toBe("/genshin/builds/10000005-cryo/");
     expect(link?.getAttribute("title")).toBe("Traveler (Cryo)");
     // The element's badge sits on the face, the only thing that tells the Travelers apart at this size.
     const icons = [...(link?.querySelectorAll("img") ?? [])].map((img) => img.getAttribute("src"));

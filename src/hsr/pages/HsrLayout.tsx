@@ -24,7 +24,7 @@ export function HsrLayout() {
       <GameRail current="hsr" />
       <header className="sticky top-0 z-30 border-b border-hsr-border bg-hsr-panel/70 backdrop-blur-md">
         <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link to="/hsr" className="group flex items-center gap-2">
+          <Link to="/hsr/" className="group flex items-center gap-2">
             <span
               aria-hidden="true"
               className="text-lg text-hsr-accent transition-transform group-hover:rotate-90"
@@ -38,7 +38,7 @@ export function HsrLayout() {
           <nav className="flex items-center gap-1.5" aria-label="Site">
             <GameSwitcherCompact current="hsr" />
             <Link
-              to="/hsr/builds"
+              to="/hsr/builds/"
               className="rounded-lg px-2 py-1.5 text-sm text-hsr-muted no-underline transition-colors hover:bg-hsr-fill hover:text-hsr-text"
             >
               {t("builds", "navLabel")}

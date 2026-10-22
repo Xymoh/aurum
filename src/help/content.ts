@@ -47,9 +47,9 @@ interface HelpContent {
 export const SHOWCASE_HELP = import.meta.env.VITE_SHOWCASE_HELP === "on";
 
 export const HELP_PATH: Record<HelpGame, string> = {
-  genshin: "/genshin/help/showcase",
-  hsr: "/hsr/help/showcase",
-  zzz: "/zzz/help/showcase",
+  genshin: "/genshin/help/showcase/",
+  hsr: "/hsr/help/showcase/",
+  zzz: "/zzz/help/showcase/",
 };
 
 /**
@@ -60,7 +60,7 @@ export const HELP_PATH: Record<HelpGame, string> = {
 export const HELP_CONTENT: Record<HelpGame, HelpContent> = {
   genshin: {
     game: "genshin",
-    home: "/genshin",
+    home: "/genshin/",
     path: HELP_PATH.genshin,
     intro: "giIntro",
     steps: [
@@ -84,7 +84,7 @@ export const HELP_CONTENT: Record<HelpGame, HelpContent> = {
   },
   hsr: {
     game: "hsr",
-    home: "/hsr",
+    home: "/hsr/",
     path: HELP_PATH.hsr,
     intro: "hsrIntro",
     steps: [
@@ -108,7 +108,7 @@ export const HELP_CONTENT: Record<HelpGame, HelpContent> = {
   },
   zzz: {
     game: "zzz",
-    home: "/zzz",
+    home: "/zzz/",
     path: HELP_PATH.zzz,
     intro: "zzzIntro",
     steps: [

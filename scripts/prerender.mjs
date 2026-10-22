@@ -77,8 +77,8 @@ try {
   ];
 
   pages = [
-    { route: site.PRIVACY_PATH.slice(1), title: `Privacy Policy - ${site.SITE_NAME}` },
-    { route: site.TERMS_PATH.slice(1), title: `Terms of Use - ${site.SITE_NAME}` },
+    { route: site.PRIVACY_PATH.slice(1, -1), title: `Privacy Policy - ${site.SITE_NAME}` },
+    { route: site.TERMS_PATH.slice(1, -1), title: `Terms of Use - ${site.SITE_NAME}` },
   ];
   for (const g of games) {
     pages.push({ route: g.prefix, title: g.title, description: g.description });
@@ -98,7 +98,7 @@ try {
     }
     if (help.SHOWCASE_HELP) {
       pages.push({
-        route: help.HELP_PATH[g.prefix].slice(1),
+        route: help.HELP_PATH[g.prefix].slice(1, -1),
         // Keep in step with src/help/ShowcaseHelpPage.tsx.
         title: `${t("help", "title")} - ${g.name} - ${site.SITE_NAME}`,
         description: `How to put your characters on your ${g.name} showcase so a UID lookup can read them, step by step with screenshots.`,

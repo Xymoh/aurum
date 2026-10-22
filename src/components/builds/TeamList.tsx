@@ -70,7 +70,7 @@ export function TeamList({
     }
     return (
       <Link
-        to={`${basePath}/${id}${query}`}
+        to={`${basePath}/${id}/${query}`}
         className="flex w-full min-w-0 flex-col items-center no-underline transition-opacity hover:opacity-80"
         title={name}
       >
@@ -105,7 +105,7 @@ export function TeamList({
             {known.slice(0, 3).map((alt) => (
               <Link
                 key={alt}
-                to={`${basePath}/${alt}${query}`}
+                to={`${basePath}/${alt}/${query}`}
                 title={roster.get(alt)?.name}
                 className="rounded-full no-underline transition-opacity hover:opacity-80"
               >
@@ -149,7 +149,7 @@ export function TeamList({
               return (
                 <Link
                   key={id}
-                  to={`${basePath}/${id}${query}`}
+                  to={`${basePath}/${id}/${query}`}
                   className={`game-panel-sm inline-flex items-center gap-2 border py-1 pl-1 pr-2.5 text-sm no-underline transition-colors ${skin.card} ${skin.cardHover} ${skin.text}`}
                 >
                   <CharacterFace listing={listing} size="h-7 w-7" />

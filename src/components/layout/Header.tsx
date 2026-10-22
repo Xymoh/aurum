@@ -18,7 +18,7 @@ export function Header() {
     <header className="sticky top-0 z-30 border-b border-dark-border bg-dark-card/80 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
-          to="/genshin"
+          to="/genshin/"
           className="group flex items-center gap-2.5 text-lg font-bold tracking-tight text-dark-text no-underline"
         >
           <span
@@ -34,7 +34,7 @@ export function Header() {
         <nav className="flex items-center gap-1.5" aria-label="Site">
           <GameSwitcherCompact current="genshin" />
           <Link
-            to="/genshin/builds"
+            to="/genshin/builds/"
             className="rounded-lg px-2 py-1.5 text-sm text-dark-muted no-underline transition-colors hover:bg-dark-border/40 hover:text-dark-text"
           >
             {t("builds", "navLabel")}

@@ -314,7 +314,7 @@ export function ZzzShowcasePage() {
           {invalidUid ? t("errors", "invalidUid") : t("errors", errorCode(error))}
         </p>
         <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
-          <Link to="/zzz" className="text-zzz-accent underline underline-offset-2">
+          <Link to="/zzz/" className="text-zzz-accent underline underline-offset-2">
             {t("errors", "tryAnotherUid")}
           </Link>
           {!invalidUid && SHOWCASE_HELP && (

@@ -255,7 +255,7 @@ export function AgentPanel({ agent, index, open, onToggle }: AgentPanelProps) {
         <div className="flex shrink-0 items-center gap-1.5">
           {hasZzzBuild(agent.id) && (
             <GuideLink
-              to={`/zzz/builds/${agent.id}`}
+              to={`/zzz/builds/${agent.id}/`}
               name={agent.name}
               className="border border-zzz-line bg-zzz-fill text-zzz-muted hover:text-zzz-text"
             />

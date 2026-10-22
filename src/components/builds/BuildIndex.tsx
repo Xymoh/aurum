@@ -78,7 +78,7 @@ export function BuildIndex({ listings: all, basePath, skin }: BuildIndexProps) {
           {visible.map((listing) => (
             <Link
               key={listing.id}
-              to={`${basePath}/${listing.id}${query}`}
+              to={`${basePath}/${listing.id}/${query}`}
               title={listing.name}
               className={`game-panel-sm flex items-center gap-2.5 border px-2.5 py-2 no-underline transition-colors ${skin.card} ${skin.cardHover}`}
             >

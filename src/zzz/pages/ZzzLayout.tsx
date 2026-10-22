@@ -22,7 +22,7 @@ export function ZzzLayout() {
       <GameRail current="zzz" />
       <header className="sticky top-0 z-30 border-b border-zzz-border bg-zzz-panel/80 backdrop-blur-md">
         <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link to="/zzz" className="group flex items-center gap-2 no-underline">
+          <Link to="/zzz/" className="group flex items-center gap-2 no-underline">
             <span
               aria-hidden="true"
               className="font-mono text-lg font-bold text-zzz-accent transition-transform group-hover:-skew-x-12"
@@ -36,7 +36,7 @@ export function ZzzLayout() {
           <nav className="flex items-center gap-1.5" aria-label="Site">
             <GameSwitcherCompact current="zzz" />
             <Link
-              to="/zzz/builds"
+              to="/zzz/builds/"
               className="rounded-lg px-2 py-1.5 text-sm font-semibold uppercase tracking-wide text-zzz-muted no-underline transition-colors hover:bg-zzz-fill hover:text-zzz-text"
             >
               {t("builds", "navLabel")}

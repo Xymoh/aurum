@@ -227,7 +227,7 @@ export function BuildDetail({
   return (
     <div className="space-y-4">
       <Link
-        to={`${basePath}${query}`}
+        to={`${basePath}/${query}`}
         className={`inline-block text-sm no-underline ${skin.muted} hover:underline`}
       >
         ← {t("builds", "back")}

@@ -108,7 +108,7 @@ export function HsrBuildsPage() {
             loading={isLoading}
             failed={isError}
             owned={owned}
-            homeHref="/hsr"
+            homeHref="/hsr/"
           />
         }
       />
