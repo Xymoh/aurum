@@ -339,6 +339,15 @@ const ZZZ_LABELS = {
   31402: "Anomaly Mastery",
 };
 
+/**
+ * Weights a kit fixes, laid over the vote. Claret's crits use Laceration DMG
+ * instead of CRIT DMG, and each 1% CRIT DMG becomes 0.35% CRIT Rate, so a
+ * CRIT DMG roll (4.8%) is 1.68% CRIT Rate: 0.7 of a CRIT Rate roll.
+ */
+export const ZZZ_KIT_WEIGHTS = {
+  1611: { 21103: 0.7 },
+};
+
 /** "CRIT Rate = CRIT DMG > ATK%", from the consensus weights. */
 export function priorityLine(weights, labels = ZZZ_LABELS) {
   const tiers = new Map();
@@ -364,7 +373,8 @@ function zzz(sources) {
     const ranked = voteSets(entries, "sets");
     if (ranked.length) sets[id] = { name: picks[id].name, sets: ranked };
 
-    const stats = voteSubstats(entries);
+    const voted = voteSubstats(entries);
+    const stats = voted && { ...voted, ...ZZZ_KIT_WEIGHTS[id] };
     if (stats && Object.keys(stats).length) {
       // Disc 4-6 main stats arrive as slot -> ids; the scorer keys them by number.
       const parts = voteMainStats(entries) ?? scoring[id]?.parts ?? { 4: [], 5: [], 6: [] };

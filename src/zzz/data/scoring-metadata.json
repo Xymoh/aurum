@@ -1402,7 +1402,7 @@
         "13102": 0.75,
         "13103": 0.25,
         "20103": 1,
-        "21103": 0.25,
+        "21103": 0.7,
         "23203": 0.25
       },
       "parts": {
@@ -1417,7 +1417,7 @@
           13102
         ]
       },
-      "priority": "CRIT Rate > DEF% > DEF = CRIT DMG = PEN"
+      "priority": "CRIT Rate > DEF% > CRIT DMG > DEF = PEN"
     },
     "1621": {
       "name": "Roxy",

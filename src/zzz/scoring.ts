@@ -278,7 +278,11 @@ function thresholdsAgainst(
   return out;
 }
 
+/** Agents whose crits ignore CRIT DMG (Claret uses Laceration DMG), so a 1:2 ratio means nothing. */
+const NO_CRIT_RATIO = new Set([1611]);
+
 function buildDiagnostics(
+  agentId: number,
   discs: ZzzDisc[],
   meta: ZzzScoringMeta,
   stats: ZzzStats,
@@ -323,7 +327,8 @@ function buildDiagnostics(
     // The build's real ratio, from the stat screen rather than the rolls
     // alone: a CRIT Rate disc 4 or a crit W-Engine is exactly what a player
     // balances their substats against.
-    critRatio: stats.critRate > 0 ? stats.critDmg / stats.critRate : null,
+    critRatio:
+      stats.critRate > 0 && !NO_CRIT_RATIO.has(agentId) ? stats.critDmg / stats.critRate : null,
     sets: countSets(discs),
     thresholds: thresholdsAgainst(meta, stats),
   };
@@ -349,6 +354,6 @@ export function scoreAgent(parsed: ParsedAgent): ZzzAgent {
     ...parsed,
     discs,
     stats,
-    diagnostics: buildDiagnostics(discs, meta, stats),
+    diagnostics: buildDiagnostics(parsed.id, discs, meta, stats),
   };
 }
